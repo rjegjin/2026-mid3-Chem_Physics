@@ -8,26 +8,32 @@
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/presentation_mode.css">
     <style>
-        .experiment-box {
-            border: 1px solid #e5e7eb;
-            background: #ffffff;
-            padding: 2.5rem;
-            text-align: center;
-        }
-        .mass-display {
-            font-family: 'Courier New', monospace;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: #111827;
-            background: #f3f4f6;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
+        .digital-display {
+            font-family: 'Fira Code', monospace;
+            background: #000;
+            color: #4ade80; /* Neon Green */
+            padding: 1rem 2rem;
+            border: 2px solid #333;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px rgba(74, 222, 128, 0.2);
+            font-size: 2rem;
+            text-shadow: 0 0 5px #4ade80;
             display: inline-block;
             margin-top: 1rem;
         }
-        .arrow-right {
-            font-size: 2rem;
-            color: #9ca3af;
+        .mass-label {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .chem-arrow {
+            font-size: 3rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
         }
     </style>
 </head>
@@ -35,21 +41,22 @@
 
 <main>
     
-    <!-- Slide 1: Intro (Thesis Cover) -->
+    <!-- Slide 1: Intro (Sci-Fi Cover) -->
     <section id="title">
-        <div class="slide-content text-center" style="border: none; box-shadow: none;">
-            <p class="text-sm font-bold tracking-widest text-gray-500 uppercase mb-4">
-                Middle School Science Grade 3 &bull; Chemistry Unit 2
-            </p>
-            <h1 class="text-6xl font-black mb-6 text-gray-900 leading-tight">
-                반응 전후의 질량은<br>어떻게 될까?
+        <div class="slide-content" style="border: 1px solid var(--neon-cyan); box-shadow: 0 0 30px rgba(34, 211, 238, 0.1);">
+            <div class="text-sm font-mono tracking-widest text-cyan-400 mb-4 border border-cyan-500/30 px-4 py-1 rounded inline-block">
+                PROTOCOL: CHEMISTRY_UNIT_02
+            </div>
+            <h1 class="text-6xl font-black mb-8 text-white leading-tight" style="text-shadow: 0 0 20px rgba(255,255,255,0.5);">
+                LAW OF MASS CONSERVATION<br>
+                <span class="text-cyan-400" style="text-shadow: 0 0 20px var(--neon-cyan);">LAVOISIER'S CODE</span>
             </h1>
-            <div class="w-24 h-1 bg-gray-800 mx-auto my-8"></div>
-            <p class="text-2xl text-gray-600 font-light">
-                Law of Conservation of Mass
-            </p>
-            <div class="mt-12 opacity-80 grayscale hover:grayscale-0 transition-all duration-500">
-                <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Rocket Launch" class="h-48 object-cover border border-gray-200 mx-auto">
+            <div class="mt-8 border border-blue-500/50 rounded-lg overflow-hidden relative shadow-[0_0_20px_rgba(59,130,246,0.3)] w-full max-w-2xl">
+                <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Rocket" class="w-full h-48 object-cover opacity-70">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-cyan-300 font-mono text-xs">
+                    >> FUEL_RATIO_CALCULATION: COMPLETE
+                </div>
             </div>
         </div>
     </section>
@@ -57,74 +64,71 @@
     <!-- Slide 2: Objectives -->
     <section id="objectives">
         <div class="slide-content">
-            <h2>학습 목표</h2>
-            <div class="w-full max-w-4xl">
+            <h2 class="text-cyan-300 border-cyan-500">MISSION OBJECTIVES</h2>
+            <div class="w-full max-w-4xl bg-slate-900/50 p-8 rounded-xl border border-slate-700/50">
                 <ul class="space-y-8 text-left text-xl">
-                    <li class="pl-8 border-l-4 border-gray-800 reveal-item">
-                        <span class="block font-bold text-gray-900 mb-2">Objective 1</span>
-                        화학 반응이 일어날 때 <strong>질량 변화</strong>를 측정하고 설명할 수 있다.
+                    <li class="pl-6 border-l-2 border-cyan-500 reveal-item">
+                        <span class="block font-mono text-sm text-cyan-500 mb-1">TARGET 01</span>
+                        <span class="text-gray-200">Measure and explain <strong class="text-cyan-400">Mass Changes</strong> in chemical reactions.</span>
                     </li>
-                    <li class="pl-8 border-l-4 border-gray-300 reveal-item">
-                        <span class="block font-bold text-gray-900 mb-2">Objective 2</span>
-                        <strong>질량 보존 법칙</strong>을 입자 모형으로 설명할 수 있다.
+                    <li class="pl-6 border-l-2 border-green-500 reveal-item">
+                        <span class="block font-mono text-sm text-green-500 mb-1">TARGET 02</span>
+                        <span class="text-gray-200">Verify the <strong class="text-green-400">Conservation Law</strong> using particle models.</span>
                     </li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <!-- Slide 3: Inquiry 1 (Precipitation) -->
+    <!-- Slide 3: Experiment 1 (Digital Scales) -->
     <section id="exp-1">
         <div class="slide-content">
-            <h2>Experiment 1: 앙금 생성 반응</h2>
-            <p class="text-gray-500 mb-8 italic">Reaction: NaCl + AgNO₃ → AgCl↓ + NaNO₃</p>
+            <h2>EXPERIMENT: PRECIPITATION</h2>
+            <p class="text-cyan-600 mb-8 font-mono text-sm border border-cyan-900 bg-cyan-900/10 px-4 py-1 rounded inline-block">Reaction: NaCl + AgNO₃ → AgCl↓ + NaNO₃</p>
             
-            <div class="grid grid-cols-3 gap-8 items-center w-full max-w-5xl">
-                <div class="experiment-box reveal-item">
-                    <h3 class="text-lg font-bold mb-4 text-gray-800">반응 전</h3>
+            <div class="grid grid-cols-3 gap-8 items-center w-full max-w-6xl">
+                <!-- Reactants -->
+                <div class="p-6 bg-slate-800/50 rounded-xl border border-slate-600 reveal-item">
+                    <span class="mass-label">INPUT MASS</span>
                     <div class="text-4xl mb-4">🧪 + 🧪</div>
-                    <p class="text-gray-600">두 수용액 혼합 전</p>
-                    <div class="mass-display">100.0 g</div>
+                    <div class="digital-display">100.0 g</div>
                 </div>
                 
-                <div class="text-center arrow-right reveal-item">→</div>
+                <div class="chem-arrow reveal-item">→</div>
                 
-                <div class="experiment-box reveal-item bg-gray-50 border-gray-300">
-                    <h3 class="text-lg font-bold mb-4 text-gray-900">반응 후</h3>
+                <!-- Products -->
+                <div class="p-6 bg-slate-800/50 rounded-xl border border-slate-600 reveal-item shadow-[0_0_20px_rgba(74,222,128,0.1)]">
+                    <span class="mass-label">OUTPUT MASS</span>
                     <div class="text-4xl mb-4 text-gray-400">☁️</div>
-                    <p class="text-gray-900 font-medium">흰색 앙금 생성</p>
-                    <div class="mass-display border border-gray-400">100.0 g</div>
+                    <div class="digital-display text-green-400 border-green-900">100.0 g</div>
                 </div>
             </div>
             
-            <p class="mt-12 text-xl font-medium text-gray-800 border-b-2 border-gray-200 pb-2 inline-block">
-                Conclusion: 질량은 변하지 않는다.
-            </p>
+            <div class="mt-12 text-2xl font-mono text-green-400 border border-green-500/30 px-8 py-4 rounded bg-green-900/10">
+                >> RESULT: MASS CONSERVED
+            </div>
         </div>
     </section>
 
-    <!-- Slide 4: Inquiry 2 (Gas) -->
+    <!-- Slide 4: Experiment 2 (System Status) -->
     <section id="exp-2">
         <div class="slide-content">
-            <h2>Experiment 2: 기체 발생 반응</h2>
-            <p class="text-gray-500 mb-8 italic">Reaction: CaCO₃ + 2HCl → CaCl₂ + H₂O + CO₂↑</p>
-            
+            <h2>EXPERIMENT: GAS EVOLUTION</h2>
             <div class="grid grid-cols-2 gap-12 w-full max-w-5xl">
                 <!-- Closed System -->
-                <div class="experiment-box reveal-item">
-                    <h3 class="text-xl font-bold mb-6 text-gray-900 border-b border-gray-200 pb-2 inline-block">Case A: 뚜껑 닫음</h3>
+                <div class="p-8 border border-green-500/30 bg-green-900/10 rounded-xl text-center reveal-item">
+                    <h3 class="text-xl font-bold mb-6 text-green-400 font-mono border-b border-green-800 pb-2 inline-block">SYSTEM: CLOSED 🔒</h3>
                     <div class="text-5xl mb-6">🏺</div>
-                    <p class="text-gray-600 mb-4">기체가 밖으로 나가지 못함</p>
-                    <p class="text-2xl font-bold text-gray-900">질량 변화 없음</p>
+                    <p class="text-gray-400 mb-4 text-sm font-mono">GAS CONTAINMENT: SECURE</p>
+                    <div class="digital-display text-green-400">NO CHANGE</div>
                 </div>
                 
                 <!-- Open System -->
-                <div class="experiment-box reveal-item bg-gray-50">
-                    <h3 class="text-xl font-bold mb-6 text-gray-500 border-b border-gray-200 pb-2 inline-block">Case B: 뚜껑 열음</h3>
-                    <div class="text-5xl mb-6">💨</div>
-                    <p class="text-gray-600 mb-4">기체(CO₂)가 날아감</p>
-                    <p class="text-2xl font-bold text-gray-400 line-through decoration-red-500 decoration-2">질량 변화 없음</p>
-                    <p class="text-red-600 font-bold mt-2">측정 질량 감소</p>
+                <div class="p-8 border border-red-500/30 bg-red-900/10 rounded-xl text-center reveal-item">
+                    <h3 class="text-xl font-bold mb-6 text-red-400 font-mono border-b border-red-800 pb-2 inline-block">SYSTEM: OPEN 🔓</h3>
+                    <div class="text-5xl mb-6 opacity-50">💨</div>
+                    <p class="text-gray-400 mb-4 text-sm font-mono">GAS LEAKAGE DETECTED</p>
+                    <div class="digital-display text-red-500 border-red-900">MASS LOSS</div>
                 </div>
             </div>
         </div>
@@ -132,14 +136,19 @@
 
     <!-- Slide 5: Concept Definition -->
     <section id="law">
-        <div class="slide-content text-center">
-            <h2 class="mb-12">질량 보존 법칙</h2>
-            <div class="border-y-2 border-gray-900 py-12 px-8 max-w-4xl">
-                <p class="text-sm font-bold text-gray-400 tracking-widest uppercase mb-4">Law of Conservation of Mass</p>
-                <p class="text-4xl font-serif font-bold text-gray-900 leading-normal">
-                    "화학 반응이 일어날 때,<br>반응물의 총질량은 생성물의 총질량과 같다."
+        <div class="slide-content">
+            <h2>CORE LAW</h2>
+            <div class="border-y border-cyan-500/50 py-12 px-8 max-w-4xl bg-slate-900/80 backdrop-blur-xl">
+                <p class="text-xs font-mono text-cyan-600 tracking-[0.3em] uppercase mb-4">Universal Constant</p>
+                <p class="text-4xl font-sans font-light text-white leading-normal">
+                    "Total Mass of <strong class="text-cyan-400">Reactants</strong><br>
+                    == Total Mass of <strong class="text-green-400">Products</strong>"
                 </p>
-                <p class="mt-8 text-gray-500 italic">- Antoine Lavoisier, 1774 -</p>
+                <div class="mt-8 flex items-center justify-center gap-2 text-gray-500 text-sm font-mono">
+                    <span>AUTH: A. Lavoisier</span>
+                    <span>|</span>
+                    <span>YEAR: 1774</span>
+                </div>
             </div>
         </div>
     </section>
@@ -147,21 +156,21 @@
     <!-- Slide 6: Particle Reasoning -->
     <section id="reason">
         <div class="slide-content">
-            <h2>Why? (입자적 설명)</h2>
+            <h2>ATOMIC VERIFICATION</h2>
             <div class="grid grid-cols-2 gap-16 w-full max-w-4xl mt-8">
-                <div class="text-right border-r border-gray-200 pr-16 reveal-item">
-                    <p class="text-2xl font-bold text-gray-400 mb-4">Changes</p>
-                    <p class="text-xl text-gray-900">원자의 <strong>배열</strong></p>
-                    <p class="text-xl text-gray-900">분자의 <strong>종류</strong></p>
+                <div class="text-right border-r border-slate-700 pr-16 reveal-item">
+                    <p class="text-2xl font-bold text-gray-500 mb-4 font-mono">VARIABLE</p>
+                    <p class="text-xl text-cyan-300">Atomic <strong>Arrangement</strong></p>
+                    <p class="text-xl text-cyan-300">Molecular <strong>Type</strong></p>
                 </div>
                 <div class="text-left reveal-item">
-                    <p class="text-2xl font-bold text-gray-900 mb-4">Remains Constant</p>
-                    <p class="text-xl text-gray-600">원자의 <strong>종류</strong></p>
-                    <p class="text-xl text-gray-600">원자의 <strong>개수</strong></p>
+                    <p class="text-2xl font-bold text-green-500 mb-4 font-mono">CONSTANT</p>
+                    <p class="text-xl text-white">Atomic <strong>Type</strong></p>
+                    <p class="text-xl text-white">Atomic <strong>Count</strong></p>
                 </div>
             </div>
-            <div class="mt-16 bg-gray-100 px-8 py-4 rounded-full text-gray-600 font-medium reveal-item">
-                "원자는 없어지거나 새로 생겨나지 않기 때문입니다."
+            <div class="mt-16 bg-slate-800/80 border border-slate-600 px-8 py-4 rounded font-mono text-gray-300 text-sm reveal-item">
+                >> ERROR: MATTER CANNOT BE CREATED OR DESTROYED.
             </div>
         </div>
     </section>
@@ -169,17 +178,17 @@
     <!-- Slide 7: Quiz 1 -->
     <section id="quiz-1">
         <div class="slide-content">
-            <h2>Quiz 01</h2>
+            <h2>CHECKPOINT: ALPHA</h2>
             <div class="quiz-container">
-                <p class="text-xl font-medium mb-8 text-gray-800">
-                    화학 반응 시 질량이 보존되는 <strong>근본적인 이유</strong>는?
+                <p class="text-xl font-medium mb-8 text-gray-200">
+                    Why is mass conserved?
                 </p>
                 <div class="quiz-options">
-                    <button class="quiz-btn" data-correct="false">분자 개수 불변</button>
-                    <button class="quiz-btn" data-correct="true">원자 종류와 개수 불변</button>
-                    <button class="quiz-btn" data-correct="false">물질 상태 불변</button>
+                    <button class="quiz-btn" data-correct="false">Molecules stay same</button>
+                    <button class="quiz-btn" data-correct="true">Atoms stay same</button>
+                    <button class="quiz-btn" data-correct="false">State stays same</button>
                 </div>
-                <div class="quiz-feedback"></div>
+                <div class="quiz-feedback font-mono text-lg mt-4"></div>
             </div>
         </div>
     </section>
@@ -187,34 +196,34 @@
     <!-- Slide 8: Quiz 2 -->
     <section id="quiz-2">
         <div class="slide-content">
-            <h2>Quiz 02</h2>
+            <h2>CHECKPOINT: BETA</h2>
             <div class="quiz-container">
-                <p class="text-xl font-medium mb-8 text-gray-800">
-                    강철솜을 공기 중에서 연소시키면 질량은 어떻게 될까요?
+                <p class="text-xl font-medium mb-8 text-gray-200">
+                    Burning Steel Wool (Open Air): Mass will...
                 </p>
                 <div class="quiz-options">
-                    <button class="quiz-btn" data-correct="true">산소와 결합하여 증가한다</button>
-                    <button class="quiz-btn" data-correct="false">연소되어 감소한다</button>
-                    <button class="quiz-btn" data-correct="false">변화 없다</button>
+                    <button class="quiz-btn" data-correct="true">INCREASE (+Oxygen)</button>
+                    <button class="quiz-btn" data-correct="false">DECREASE (Burned)</button>
+                    <button class="quiz-btn" data-correct="false">REMAIN CONSTANT</button>
                 </div>
-                <div class="quiz-feedback"></div>
+                <div class="quiz-feedback font-mono text-lg mt-4"></div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 9: Quiz 3 (Critical Thinking) -->
+    <!-- Slide 9: Quiz 3 -->
     <section id="quiz-3">
         <div class="slide-content">
-            <h2>Quiz 03 (Critical Thinking)</h2>
+            <h2>CHECKPOINT: GAMMA</h2>
             <div class="quiz-container">
-                <p class="text-xl font-medium mb-8 text-gray-800">
-                    나무가 타고 남은 재의 질량이 줄어든 것은<br>질량 보존 법칙에 어긋나는 현상인가요?
+                <p class="text-xl font-medium mb-8 text-gray-200">
+                    Burning Wood: Mass decreases. Why?
                 </p>
                 <div class="quiz-options">
-                    <button class="quiz-btn" data-correct="false">Yes (법칙의 예외)</button>
-                    <button class="quiz-btn" data-correct="true">No (기체로 날아감)</button>
+                    <button class="quiz-btn" data-correct="false">Mass Destruction</button>
+                    <button class="quiz-btn" data-correct="true">Gas Escaped</button>
                 </div>
-                <div class="quiz-feedback"></div>
+                <div class="quiz-feedback font-mono text-lg mt-4"></div>
             </div>
         </div>
     </section>
