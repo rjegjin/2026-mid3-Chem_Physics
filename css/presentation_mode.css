@@ -1,11 +1,11 @@
-/* presentation_mode.css - Borcelle Science Lab Theme */
+/* presentation_mode.css - Borcelle Theme with Enhanced Molecular Models */
 
 body.presentation-mode {
     background-color: var(--bg-secondary);
     overflow: hidden;
 }
 
-/* 슬라이드 레이아웃: Professional & Organized */
+/* --- Layout Essentials --- */
 body.presentation-mode section {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -13,7 +13,6 @@ body.presentation-mode section {
     transition: opacity 0.5s ease, transform 0.5s ease;
     transform: translateY(10px);
     z-index: 0;
-    
     display: flex !important;
     flex-direction: column;
     justify-content: center;
@@ -28,16 +27,16 @@ body.presentation-mode section.active-slide {
     z-index: 10;
 }
 
-/* 콘텐츠 박스: Clean White Card */
+/* --- Content Styling --- */
 .slide-content {
     background: var(--bg-main);
-    max-width: 1200px;
+    max-width: 1300px; /* 넓어진 화면 활용 */
     width: 100%;
-    max-height: 90vh;
-    padding: 3rem 4rem;
+    max-height: 92vh;
+    padding: 2rem 4rem;
     border: 1px solid var(--border-light);
-    border-radius: 4px; /* Slightly rounded corners */
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05); /* Soft shadow */
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,169 +44,105 @@ body.presentation-mode section.active-slide {
     text-align: center;
 }
 
-/* 제목 스타일: Borcelle Header */
 body.presentation-mode h2 {
-    font-size: 2.5rem !important;
+    font-size: 2.4rem !important;
     font-weight: 800;
-    margin-bottom: 2rem !important;
+    margin-bottom: 1.5rem !important;
     color: var(--primary-blue);
     text-align: center;
-    border-bottom: 3px solid var(--accent-cyan); /* Cyan Underline */
-    padding-bottom: 0.8rem;
+    border-bottom: 3px solid var(--accent-cyan);
+    padding-bottom: 0.5rem;
     display: inline-block;
 }
 
-/* 본문 스타일 */
 body.presentation-mode p, 
 body.presentation-mode li {
-    font-size: 1.5rem !important;
-    line-height: 1.8 !important;
-    color: #475569; /* Slate Gray Text */
-    margin-bottom: 1.2rem;
+    font-size: 1.4rem !important;
+    line-height: 1.6 !important;
+    color: #475569;
+    margin-bottom: 1rem;
 }
 
-/* 리스트 스타일: Numbered Circles or Icons */
-body.presentation-mode ul {
-    list-style: none;
-    padding-left: 0;
-    text-align: left;
-    max-width: 900px;
-}
-
-body.presentation-mode li {
+/* --- Molecular Models (Ball & Stick Style) --- */
+.molecule-container {
     display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-}
-
-body.presentation-mode li::before {
-    content: "✓";
-    font-weight: bold;
-    color: var(--bg-main);
-    background-color: var(--accent-teal);
-    width: 24px; height: 24px;
-    border-radius: 50%;
-    display: flex; justify-content: center; align-items: center;
-    font-size: 0.9rem;
-    flex-shrink: 0;
-    margin-top: 0.4rem;
-}
-
-/* 퀴즈 스타일: Lab Report Style */
-.quiz-container {
-    padding: 2.5rem;
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    background: #f8fafc; /* Very Light Gray */
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.02);
-}
-
-.quiz-options {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-    margin-top: 2rem;
-}
-
-@media (min-width: 768px) {
-    .quiz-options {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-.quiz-btn {
-    padding: 1.5rem;
-    font-size: 1.2rem;
-    font-weight: 600;
-    font-family: var(--font-heading);
-    color: var(--primary-blue);
-    background: var(--bg-main);
-    border: 2px solid var(--border-light);
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.quiz-btn:hover {
-    border-color: var(--accent-cyan);
-    background: #ecfeff; /* Light Cyan Tint */
-    color: var(--accent-cyan);
-    transform: translateY(-2px);
-}
-
-.quiz-btn.correct {
-    border-color: var(--accent-teal);
-    background: #ccfbf1; /* Light Teal Tint */
-    color: #0d9488;
-}
-
-.quiz-btn.wrong {
-    border-color: var(--accent-orange);
-    background: #ffedd5; /* Light Orange Tint */
-    color: #ea580c;
-    animation: shake 0.4s;
-}
-
-/* 컨트롤 바 (Clean & Simple) */
-#slide-controls {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background: var(--bg-main);
-    border: 1px solid var(--border-light);
-    padding: 8px 16px;
-    border-radius: 50px; /* Pill Shape */
-    display: flex;
-    gap: 12px;
     align-items: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    z-index: 100;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
 }
 
-#slide-controls button {
-    background: none;
-    border: none;
-    cursor: pointer;
+.molecule {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.atom {
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+    box-shadow: inset -2px -2px 5px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 2;
+}
+
+/* Specific Atoms */
+.atom-h { width: 30px; height: 30px; background: #94a3b8; border: 1px solid #64748b; } /* 수소 (흰색/회색) */
+.atom-o { width: 45px; height: 45px; background: #ef4444; border: 1px solid #b91c1c; } /* 산소 (빨강) */
+.atom-c { width: 40px; height: 40px; background: #334155; border: 1px solid #0f172a; } /* 탄소 (검정) */
+.atom-mg { width: 42px; height: 42px; background: #cbd5e1; border: 1px solid #94a3b8; } /* 마그네슘 (은색) */
+
+/* Bonds */
+.bond {
+    position: absolute;
+    background: #cbd5e1;
+    z-index: 1;
+}
+
+/* Water Molecule (H2O) */
+.mol-water { width: 60px; height: 50px; }
+.mol-water .atom-o { position: absolute; top: 0; left: 10px; }
+.mol-water .atom-h:nth-child(2) { position: absolute; bottom: 0; left: 0; }
+.mol-water .atom-h:nth-child(3) { position: absolute; bottom: 0; right: 0; }
+
+/* Oxygen Molecule (O2) */
+.mol-o2 { width: 80px; height: 45px; }
+.mol-o2 .atom-o:nth-child(1) { position: absolute; left: 0; }
+.mol-o2 .atom-o:nth-child(2) { position: absolute; right: 0; }
+
+/* Hydrogen Molecule (H2) */
+.mol-h2 { width: 55px; height: 30px; }
+.mol-h2 .atom-h:nth-child(1) { position: absolute; left: 0; }
+.mol-h2 .atom-h:nth-child(2) { position: absolute; right: 0; }
+
+/* --- UI Elements --- */
+.quiz-btn {
+    padding: 1rem 2rem;
     font-size: 1.2rem;
-    color: #94a3b8;
-    padding: 4px;
-    transition: color 0.2s;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    text-align: left;
 }
+.quiz-btn:hover { background: #f0f9ff; border-color: var(--accent-cyan); }
+.quiz-btn.correct { background: #ecfdf5; border-color: #10b981; color: #047857; }
+.quiz-btn.wrong { background: #fef2f2; border-color: #ef4444; color: #b91c1c; }
 
-#slide-controls button:hover {
-    color: var(--accent-cyan);
-}
-
-#slide-controls span {
-    font-family: var(--font-heading);
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--primary-blue);
-    border-left: 1px solid var(--border-light);
-    padding-left: 12px;
-}
-
-/* 상단 진행률 표시줄 */
-.progress-bar-container {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 4px;
-    background: var(--bg-secondary);
-    z-index: 1000;
-}
-
-#progress-bar {
-    height: 100%;
-    background: var(--accent-cyan);
-    width: 0%;
-    transition: width 0.3s ease;
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
+#slide-controls {
+    position: fixed; bottom: 20px; right: 20px;
+    background: white; padding: 10px 20px;
+    border-radius: 30px; border: 1px solid #e2e8f0;
+    display: flex; gap: 15px; z-index: 100;
 }
