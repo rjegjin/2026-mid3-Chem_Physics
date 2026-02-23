@@ -1,0 +1,188 @@
+/* presentation_mode.css - Enhanced Typography & Layout */
+
+/* 1. 프레젠테이션 모드 기본 설정 */
+body.presentation-mode {
+    overflow: hidden; /* 스크롤 방지 */
+    background-color: #f8fafc; /* 눈이 편안한 배경색 */
+}
+
+body.presentation-mode main {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+}
+
+/* 2. 슬라이드 레이아웃 (중앙 정렬 강화) */
+body.presentation-mode section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateX(30px); /* 등장 효과 강화 */
+    z-index: 0;
+    
+    /* Flexbox로 완벽한 중앙 정렬 */
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    /* 여백 확보 */
+    padding: 4rem 2rem;
+    box-sizing: border-box;
+}
+
+body.presentation-mode section.active-slide {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    z-index: 10;
+}
+
+/* 3. 타이포그래피 & 가독성 개선 (핵심 수정) */
+body.presentation-mode section > * {
+    max-width: 1100px; /* 한 줄이 너무 길어지지 않게 제한 */
+    width: 100%;
+    text-align: center; /* 기본 중앙 정렬 */
+}
+
+/* 제목 스타일 */
+body.presentation-mode h2 {
+    font-size: 3.5rem !important; /* 더 크게 */
+    font-weight: 800;
+    margin-bottom: 3rem !important; /* 제목과 내용 사이 여백 */
+    line-height: 1.2;
+    color: #1e293b;
+    word-break: keep-all; /* 단어 단위 줄바꿈 */
+}
+
+/* 본문 텍스트 스타일 */
+body.presentation-mode p, 
+body.presentation-mode li {
+    font-size: 1.8rem !important; /* 본문 크기 확대 */
+    line-height: 1.8 !important; /* 줄 간격 넉넉하게 (1.8배) */
+    color: #334155;
+    margin-bottom: 1.5rem;
+    word-break: keep-all;
+}
+
+/* 리스트 스타일 조정 */
+body.presentation-mode ul, 
+body.presentation-mode ol {
+    display: inline-block; /* 리스트도 중앙에 오게 */
+    text-align: left; /* 리스트 내용은 왼쪽 정렬이 읽기 편함 */
+    max-width: 900px;
+    margin: 0 auto;
+    padding-left: 2rem;
+}
+
+body.presentation-mode li {
+    margin-bottom: 1.2rem;
+    padding-left: 0.5rem;
+}
+
+/* 박스형 콘텐츠 (예: 학습 목표) */
+body.presentation-mode .bg-white {
+    padding: 3rem !important; /* 내부 여백 확대 */
+    border-radius: 2rem !important;
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1) !important;
+}
+
+/* 4. 퀴즈 스타일 (이전과 동일하되 크기 조정) */
+.quiz-container {
+    background: white;
+    padding: 3rem;
+    border-radius: 2rem;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    max-width: 900px;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.quiz-options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+@media (min-width: 768px) {
+    .quiz-options {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.quiz-btn {
+    padding: 2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border: 3px solid #e2e8f0;
+    border-radius: 1.5rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.quiz-btn:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    transform: translateY(-5px);
+}
+
+.quiz-btn.correct {
+    background: #dcfce7;
+    border-color: #22c55e;
+    color: #15803d;
+}
+
+.quiz-btn.wrong {
+    background: #fee2e2;
+    border-color: #ef4444;
+    color: #b91c1c;
+}
+
+/* 5. 컨트롤 바 */
+#slide-controls {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 12px 30px;
+    border-radius: 50px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    z-index: 100;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+#slide-controls button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #64748b;
+    padding: 5px 10px;
+    transition: color 0.2s;
+}
+
+#slide-controls button:hover {
+    color: #3b82f6;
+}
+
+#slide-controls span {
+    font-family: 'Outfit', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #334155;
+    min-width: 60px;
+    text-align: center;
+}
