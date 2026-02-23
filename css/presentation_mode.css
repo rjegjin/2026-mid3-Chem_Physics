@@ -1,17 +1,17 @@
-/* presentation_mode.css - Science Lab Style */
+/* presentation_mode.css - Borcelle Science Lab Theme */
 
 body.presentation-mode {
-    background-color: var(--bg-deep);
+    background-color: var(--bg-secondary);
     overflow: hidden;
 }
 
-/* 슬라이드 레이아웃: 몰입감 */
+/* 슬라이드 레이아웃: Professional & Organized */
 body.presentation-mode section {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
     opacity: 0; visibility: hidden;
     transition: opacity 0.5s ease, transform 0.5s ease;
-    transform: scale(0.98); /* 살짝 작게 등장 */
+    transform: translateY(10px);
     z-index: 0;
     
     display: flex !important;
@@ -24,22 +24,20 @@ body.presentation-mode section {
 
 body.presentation-mode section.active-slide {
     opacity: 1; visibility: visible;
-    transform: scale(1);
+    transform: translateY(0);
     z-index: 10;
 }
 
-/* 콘텐츠 박스: 유리 패널 (Glassmorphism) */
+/* 콘텐츠 박스: Clean White Card */
 .slide-content {
-    background: rgba(15, 23, 42, 0.4);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: var(--bg-main);
     max-width: 1200px;
     width: 100%;
     max-height: 90vh;
     padding: 3rem 4rem;
-    border: 1px solid var(--glass-border);
-    border-radius: 1.5rem;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 0 40px rgba(34, 211, 238, 0.05);
+    border: 1px solid var(--border-light);
+    border-radius: 4px; /* Slightly rounded corners */
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05); /* Soft shadow */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -47,34 +45,28 @@ body.presentation-mode section.active-slide {
     text-align: center;
 }
 
-/* 제목 스타일: 네온 글로우 */
+/* 제목 스타일: Borcelle Header */
 body.presentation-mode h2 {
-    font-size: 2.8rem !important;
+    font-size: 2.5rem !important;
     font-weight: 800;
-    margin-bottom: 2.5rem !important;
-    color: var(--text-main);
-    text-shadow: 0 0 15px var(--neon-cyan);
-    border-bottom: 2px solid var(--neon-cyan);
-    padding-bottom: 1rem;
+    margin-bottom: 2rem !important;
+    color: var(--primary-blue);
+    text-align: center;
+    border-bottom: 3px solid var(--accent-cyan); /* Cyan Underline */
+    padding-bottom: 0.8rem;
     display: inline-block;
 }
 
-/* 본문 텍스트: 선명한 흰색/회색 */
+/* 본문 스타일 */
 body.presentation-mode p, 
 body.presentation-mode li {
-    font-size: 1.6rem !important;
+    font-size: 1.5rem !important;
     line-height: 1.8 !important;
-    color: var(--text-muted);
+    color: #475569; /* Slate Gray Text */
     margin-bottom: 1.2rem;
 }
 
-body.presentation-mode p strong,
-body.presentation-mode li strong {
-    color: var(--neon-blue);
-    font-weight: 700;
-}
-
-/* 리스트 스타일: 디지털 불렛 */
+/* 리스트 스타일: Numbered Circles or Icons */
 body.presentation-mode ul {
     list-style: none;
     padding-left: 0;
@@ -82,27 +74,36 @@ body.presentation-mode ul {
     max-width: 900px;
 }
 
-body.presentation-mode li::before {
-    content: "❯"; /* HUD Arrow */
-    color: var(--neon-green);
-    font-weight: bold;
-    display: inline-block;
-    width: 1.5em;
-    margin-left: -1.5em;
-    text-shadow: 0 0 10px var(--neon-green);
+body.presentation-mode li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
 }
 
-/* 퀴즈 스타일: HUD 인터페이스 */
+body.presentation-mode li::before {
+    content: "✓";
+    font-weight: bold;
+    color: var(--bg-main);
+    background-color: var(--accent-teal);
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    margin-top: 0.4rem;
+}
+
+/* 퀴즈 스타일: Lab Report Style */
 .quiz-container {
     padding: 2.5rem;
-    border: 1px solid var(--glass-border);
-    border-radius: 1rem;
-    background: rgba(2, 6, 23, 0.6);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    background: #f8fafc; /* Very Light Gray */
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
-    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.02);
 }
 
 .quiz-options {
@@ -120,55 +121,50 @@ body.presentation-mode li::before {
 
 .quiz-btn {
     padding: 1.5rem;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 600;
-    font-family: 'Exo 2', sans-serif;
-    color: var(--text-muted);
-    background: rgba(15, 23, 42, 0.5);
-    border: 1px solid rgba(148, 163, 184, 0.2);
-    border-radius: 0.5rem;
+    font-family: var(--font-heading);
+    color: var(--primary-blue);
+    background: var(--bg-main);
+    border: 2px solid var(--border-light);
+    border-radius: 4px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
 }
 
 .quiz-btn:hover {
-    border-color: var(--neon-cyan);
-    background: rgba(14, 165, 233, 0.1);
-    color: var(--neon-cyan);
-    box-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
+    border-color: var(--accent-cyan);
+    background: #ecfeff; /* Light Cyan Tint */
+    color: var(--accent-cyan);
+    transform: translateY(-2px);
 }
 
 .quiz-btn.correct {
-    border-color: var(--neon-green);
-    background: rgba(74, 222, 128, 0.1);
-    color: var(--neon-green);
-    box-shadow: 0 0 20px rgba(74, 222, 128, 0.4);
+    border-color: var(--accent-teal);
+    background: #ccfbf1; /* Light Teal Tint */
+    color: #0d9488;
 }
 
 .quiz-btn.wrong {
-    border-color: var(--neon-red);
-    background: rgba(244, 63, 94, 0.1);
-    color: var(--neon-red);
-    box-shadow: 0 0 20px rgba(244, 63, 94, 0.4);
+    border-color: var(--accent-orange);
+    background: #ffedd5; /* Light Orange Tint */
+    color: #ea580c;
     animation: shake 0.4s;
 }
 
-/* 컨트롤 바 (Minimal Tech) */
+/* 컨트롤 바 (Clean & Simple) */
 #slide-controls {
     position: fixed;
     bottom: 25px;
     right: 25px;
-    background: rgba(2, 6, 23, 0.8);
-    backdrop-filter: blur(8px);
-    border: 1px solid var(--glass-border);
+    background: var(--bg-main);
+    border: 1px solid var(--border-light);
     padding: 8px 16px;
-    border-radius: 0.5rem;
+    border-radius: 50px; /* Pill Shape */
     display: flex;
     gap: 12px;
     align-items: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     z-index: 100;
 }
 
@@ -177,37 +173,36 @@ body.presentation-mode li::before {
     border: none;
     cursor: pointer;
     font-size: 1.2rem;
-    color: var(--text-muted);
+    color: #94a3b8;
     padding: 4px;
-    transition: color 0.2s, transform 0.2s;
+    transition: color 0.2s;
 }
 
 #slide-controls button:hover {
-    color: var(--neon-cyan);
-    transform: scale(1.1);
+    color: var(--accent-cyan);
 }
 
 #slide-controls span {
-    font-family: 'Fira Code', monospace;
+    font-family: var(--font-heading);
     font-size: 0.9rem;
-    color: var(--neon-cyan);
-    border-left: 1px solid var(--glass-border);
+    font-weight: 700;
+    color: var(--primary-blue);
+    border-left: 1px solid var(--border-light);
     padding-left: 12px;
 }
 
-/* 상단 진행률 표시줄 (Glowing Line) */
+/* 상단 진행률 표시줄 */
 .progress-bar-container {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 2px;
-    background: rgba(255, 255, 255, 0.05);
+    top: 0; left: 0; width: 100%; height: 4px;
+    background: var(--bg-secondary);
     z-index: 1000;
 }
 
 #progress-bar {
     height: 100%;
-    background: linear-gradient(90deg, var(--neon-blue), var(--neon-cyan));
+    background: var(--accent-cyan);
     width: 0%;
-    box-shadow: 0 0 10px var(--neon-cyan);
     transition: width 0.3s ease;
 }
 
