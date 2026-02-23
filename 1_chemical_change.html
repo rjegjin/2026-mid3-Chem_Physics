@@ -3,234 +3,454 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1차시: 물질의 변화 - 물리 변화와 화학 변화</title>
+    <title>1차시: 물질의 변화 (물리/화학)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/presentation_mode.css">
     <style>
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            width: 100%;
-            max-width: 800px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        .video-container iframe {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        }
-        .particle-box {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 2rem;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-        }
-        .atom {
-            display: inline-block;
-            width: 32px; height: 32px;
-            border-radius: 50%; margin: 4px;
-        }
-        .atom-a { background: #f87171; border: 2px solid #ef4444; } /* Red Oxygen */
-        .atom-b { background: #60a5fa; border: 2px solid #3b82f6; } /* Blue Hydrogen */
-        
-        .divider {
-            height: 2px; width: 80px; 
-            background: var(--accent-cyan);
-            margin: 1.5rem auto;
-        }
+        /* 추가 애니메이션 */
+        .float-anim { animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
     </style>
 </head>
 <body class="presentation-mode">
 
 <main>
     
-    <!-- Slide 1: Title (Borcelle Style) -->
-    <section id="title">
-        <div class="slide-content" style="border: none; background: transparent; box-shadow: none;">
-            <p class="text-sm font-bold tracking-widest text-slate-500 uppercase mb-4">
-                Borcelle School of Science • Chemistry Unit 01
-            </p>
-            <h1 class="text-5xl font-black mb-6 text-slate-900 leading-tight">
-                MATTER TRANSFORMATION<br>
-                <span style="color: var(--accent-cyan);">PHYSICAL vs CHEMICAL</span>
+    <!-- Slide 1: Cover -->
+    <section id="s1">
+        <div class="slide-content" style="border:none; box-shadow:none;">
+            <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">중학교 3학년 과학 • 화학 1단원</p>
+            <h1 class="text-6xl font-black mb-6 text-slate-900 leading-tight">
+                우리 주변의<br><span style="color:var(--accent-cyan)">물질 변화</span>
             </h1>
-            <div class="divider"></div>
-            <p class="text-xl text-slate-600 font-medium max-w-2xl mx-auto">
-                Understanding the fundamental difference between changes in state and changes in identity.
-            </p>
-            
-            <div class="flex justify-center gap-8 mt-12">
-                <div class="text-center group">
-                    <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-lg relative mx-auto mb-4">
-                        <img src="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover">
-                    </div>
-                    <p class="text-sm font-bold text-slate-700 uppercase">Combustion</p>
+            <div class="w-20 h-1 bg-slate-800 mx-auto my-8"></div>
+            <p class="text-2xl text-slate-600">제 1강: 물리 변화와 화학 변화</p>
+        </div>
+    </section>
+
+    <!-- Slide 2: Safety & Rules -->
+    <section id="s2">
+        <div class="slide-content">
+            <h2>📢 수업 전 안내</h2>
+            <div class="grid grid-cols-2 gap-8 w-full max-w-4xl mt-8">
+                <div class="p-8 bg-orange-50 border border-orange-200 rounded-lg text-left">
+                    <h3 class="text-xl font-bold text-orange-700 mb-4">🚫 안전 수칙</h3>
+                    <ul class="text-lg space-y-2">
+                        <li>실험 영상 시청 중 딴짓 금지</li>
+                        <li>화학 약품은 눈으로만 관찰</li>
+                        <li>궁금한 점은 손들고 질문</li>
+                    </ul>
                 </div>
-                <div class="text-center group">
-                    <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-lg relative mx-auto mb-4">
-                        <img src="https://images.unsplash.com/photo-1615486511484-92e172cc416d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover">
-                    </div>
-                    <p class="text-sm font-bold text-slate-700 uppercase">Melting</p>
+                <div class="p-8 bg-blue-50 border border-blue-200 rounded-lg text-left">
+                    <h3 class="text-xl font-bold text-blue-700 mb-4">📝 준비물</h3>
+                    <ul class="text-lg space-y-2">
+                        <li>과학 교과서 (p.12 ~ 15)</li>
+                        <li>학습지 및 필기구</li>
+                        <li>호기심 가득한 눈 👀</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 2: Objectives (Clean List) -->
-    <section id="objectives">
+    <!-- Slide 3: Objectives -->
+    <section id="s3">
         <div class="slide-content">
-            <h2>LEARNING OBJECTIVES</h2>
-            <div class="w-full max-w-4xl bg-white p-8 rounded-lg border border-slate-100">
-                <ul class="space-y-6 text-left text-xl">
-                    <li class="reveal-item" style="border-bottom: 1px dashed #e2e8f0; padding-bottom: 1rem;">
-                        <span class="font-bold text-slate-800">01. Distinction</span>
-                        <span class="text-slate-600">Differentiate between physical and chemical changes based on property alterations.</span>
+            <h2>학습 목표</h2>
+            <div class="w-full max-w-4xl bg-white p-8 border-l-4 border-slate-800 shadow-sm">
+                <ul class="space-y-6 text-xl text-left">
+                    <li class="reveal-item">
+                        <span class="font-bold text-slate-900">1. 구분하기</span>
+                        <br><span class="text-slate-600 text-lg">물리 변화와 화학 변화의 차이점을 설명할 수 있다.</span>
                     </li>
-                    <li class="reveal-item" style="padding-bottom: 1rem;">
-                        <span class="font-bold text-slate-800">02. Atomic Model</span>
-                        <span class="text-slate-600">Explain the cause of change at the atomic level using particle diagrams.</span>
+                    <li class="reveal-item">
+                        <span class="font-bold text-slate-900">2. 설명하기</span>
+                        <br><span class="text-slate-600 text-lg">입자 모형을 사용하여 변화의 원인을 원자 수준에서 설명할 수 있다.</span>
                     </li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <!-- Slide 3: Case Study (Cards) -->
-    <section id="sugar-exp">
+    <!-- Slide 4: Motivation -->
+    <section id="s4">
         <div class="slide-content">
-            <h2>CASE STUDY: SUGAR</h2>
-            <div class="grid grid-cols-2 gap-8 w-full max-w-5xl">
-                <!-- Melting Card -->
-                <div class="p-8 bg-blue-50 rounded-lg text-center reveal-item border border-blue-100">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">🧊</div>
-                    <h3 class="text-xl font-bold mb-2 text-blue-900">MELTING</h3>
-                    <p class="text-slate-600 mb-4">Phase Change (Solid → Liquid)</p>
-                    <span class="inline-block bg-white text-blue-600 px-3 py-1 text-sm font-bold rounded shadow-sm">Identity Preserved</span>
+            <h2>생각 열기: 종이의 운명</h2>
+            <div class="grid grid-cols-2 gap-12 w-full max-w-5xl mt-8">
+                <div class="text-center reveal-item">
+                    <div class="text-6xl mb-4">✂️</div>
+                    <h3 class="text-2xl font-bold text-slate-800">종이를 찢으면?</h3>
+                    <p class="text-slate-500 mt-2">모양은 변하지만,<br>여전히 '종이'입니다.</p>
                 </div>
-                <!-- Burning Card -->
-                <div class="p-8 bg-orange-50 rounded-lg text-center reveal-item border border-orange-100">
-                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">🔥</div>
-                    <h3 class="text-xl font-bold mb-2 text-orange-900">BURNING</h3>
-                    <p class="text-slate-600 mb-4">Chemical Decomposition</p>
-                    <span class="inline-block bg-white text-orange-600 px-3 py-1 text-sm font-bold rounded shadow-sm">Identity Altered</span>
+                <div class="text-center reveal-item">
+                    <div class="text-6xl mb-4">🔥</div>
+                    <h3 class="text-2xl font-bold text-red-600">종이를 태우면?</h3>
+                    <p class="text-slate-500 mt-2">검은 재로 변하고,<br>더 이상 '종이'가 아닙니다.</p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Slide 4: Experiment Video -->
-    <section id="magnesium-video">
-        <div class="slide-content">
-            <h2>LAB OBSERVATION: MAGNESIUM</h2>
-            <div class="video-container mb-8">
-                <iframe src="https://www.youtube.com/embed/m2i9jLPXprQ" title="Magnesium burning" allowfullscreen></iframe>
-            </div>
-            <p class="text-lg text-center text-slate-600 italic border-l-4 border-teal-500 pl-4 bg-teal-50 py-2 pr-4 inline-block rounded-r">
-                "The silvery metal transforms into a white powder.<br>A completely new substance is formed."
+            <p class="mt-12 text-xl font-bold text-slate-700 bg-slate-100 px-6 py-2 rounded-full">
+                "변화에도 종류가 있습니다!"
             </p>
         </div>
     </section>
 
-    <!-- Slide 5: Definitions (Clean Text) -->
-    <section id="definitions">
+    <!-- Slide 5: Concept 1 -->
+    <section id="s5">
         <div class="slide-content">
-            <h2>CORE CONCEPTS</h2>
-            <div class="grid grid-cols-1 gap-6 w-full max-w-4xl text-left">
-                <div class="p-6 bg-white border-l-4 border-teal-500 shadow-sm reveal-item">
-                    <h3 class="text-xl font-bold text-teal-700 mb-2 uppercase">Physical Change</h3>
-                    <p class="text-slate-600 text-lg">
-                        A change in which the substance's identity remains the same.<br>Only <strong class="text-teal-600">state</strong> or <strong class="text-teal-600">shape</strong> is altered.
-                    </p>
+            <h2 class="text-blue-700" style="border-color: var(--accent-cyan);">1. 물리 변화 (Physical Change)</h2>
+            <div class="p-8 text-left max-w-3xl">
+                <p class="text-2xl font-bold text-slate-800 mb-6">
+                    물질의 <span class="bg-blue-100 text-blue-800 px-2">고유한 성질</span>은 변하지 않고,<br>
+                    상태나 모양만 변하는 현상
+                </p>
+                <div class="h-px bg-slate-200 my-6"></div>
+                <ul class="text-lg space-y-3">
+                    <li>✓ 분자의 <strong>배열</strong>만 바뀝니다.</li>
+                    <li>✓ 분자의 <strong>종류</strong>는 그대로입니다.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Ex 1 (State) -->
+    <section id="s6">
+        <div class="slide-content">
+            <h2>예시 1: 상태 변화</h2>
+            <div class="flex items-center gap-8 mt-8">
+                <div class="text-center">
+                    <span class="text-5xl block mb-2">🧊</span>
+                    <span class="font-bold text-slate-700">얼음 (고체)</span>
+                </div>
+                <div class="text-2xl text-slate-400">➡</div>
+                <div class="text-center">
+                    <span class="text-5xl block mb-2">💧</span>
+                    <span class="font-bold text-slate-700">물 (액체)</span>
+                </div>
+                <div class="text-2xl text-slate-400">➡</div>
+                <div class="text-center">
+                    <span class="text-5xl block mb-2">☁️</span>
+                    <span class="font-bold text-slate-700">수증기 (기체)</span>
+                </div>
+            </div>
+            <p class="mt-10 text-lg text-slate-600">
+                모습은 달라도 모두 <strong class="text-blue-600">물 분자($H_2O$)</strong>로 이루어져 있습니다.<br>
+                성질(맛, 끓는점 등)도 같습니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Slide 7: Ex 2 (Shape) -->
+    <section id="s7">
+        <div class="slide-content">
+            <h2>예시 2: 모양 변화</h2>
+            <div class="grid grid-cols-2 gap-8 w-full max-w-4xl mt-8">
+                <div class="p-6 border border-slate-200 rounded-lg reveal-item">
+                    <h3 class="text-xl font-bold mb-2">깨진 컵</h3>
+                    <p>유리 조각도 여전히 유리입니다.</p>
+                </div>
+                <div class="p-6 border border-slate-200 rounded-lg reveal-item">
+                    <h3 class="text-xl font-bold mb-2">찌그러진 캔</h3>
+                    <p>알루미늄 캔의 성분은 그대로입니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: Ex 3 (Dissolving) -->
+    <section id="s8">
+        <div class="slide-content">
+            <h2>예시 3: 확산과 용해</h2>
+            <div class="w-full max-w-4xl text-left space-y-6">
+                <div class="flex items-center gap-4 reveal-item">
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-2xl">🌸</div>
+                    <div>
+                        <strong class="text-purple-700">확산:</strong> 향수 냄새가 방 안에 퍼진다.<br>
+                        <span class="text-sm text-slate-500">향수 분자가 공기 중으로 이동할 뿐입니다.</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 reveal-item">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center text-2xl">🧂</div>
+                    <div>
+                        <strong class="text-yellow-700">용해:</strong> 설탕이 물에 녹는다.<br>
+                        <span class="text-sm text-slate-500">설탕물이 달다는 것은 설탕의 성질이 남아있다는 증거!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Concept 2 -->
+    <section id="s9">
+        <div class="slide-content">
+            <h2 class="text-red-700" style="border-color: var(--accent-orange);">2. 화학 변화 (Chemical Change)</h2>
+            <div class="p-8 text-left max-w-3xl">
+                <p class="text-2xl font-bold text-slate-800 mb-6">
+                    어떤 물질이 성질이 전혀 다른<br>
+                    <span class="bg-red-100 text-red-800 px-2">새로운 물질</span>로 변하는 현상
+                </p>
+                <div class="h-px bg-slate-200 my-6"></div>
+                <ul class="text-lg space-y-3">
+                    <li>✓ <strong>원자의 배열</strong>이 바뀝니다. (분자가 쪼개지고 다시 결합)</li>
+                    <li>✓ <strong>분자의 종류</strong>가 바뀝니다.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: Ex 4 (Combustion) -->
+    <section id="s10">
+        <div class="slide-content">
+            <h2>예시 1: 연소 (Combustion)</h2>
+            <div class="mt-8 relative w-64 h-64 mx-auto">
+                <img src="https://images.unsplash.com/photo-1602152779362-756da246c448?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="rounded-full shadow-lg border-4 border-white w-full h-full object-cover">
+                <div class="absolute bottom-4 right-0 bg-red-600 text-white px-4 py-1 rounded-full text-sm font-bold">Heat & Light</div>
+            </div>
+            <p class="mt-8 text-lg">
+                양초나 나무가 타면 <strong>빛과 열</strong>을 내며,<br>
+                이산화 탄소와 물이라는 새로운 물질이 됩니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Slide 11: Ex 5 (Oxidation) -->
+    <section id="s11">
+        <div class="slide-content">
+            <h2>예시 2: 산화 (Oxidation)</h2>
+            <div class="grid grid-cols-2 gap-8 w-full max-w-4xl mt-8">
+                <div class="text-center reveal-item">
+                    <span class="text-6xl block mb-4">⛓️</span>
+                    <h3 class="text-xl font-bold">철이 녹슨다</h3>
+                    <p class="text-sm text-slate-500">단단한 철 ➡ 부서지기 쉬운 녹</p>
+                </div>
+                <div class="text-center reveal-item">
+                    <span class="text-6xl block mb-4">🍎</span>
+                    <h3 class="text-xl font-bold">사과가 갈변한다</h3>
+                    <p class="text-sm text-slate-500">산소와 반응하여 색이 변함</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 12: Ex 6 (Others) -->
+    <section id="s12">
+        <div class="slide-content">
+            <h2>예시 3: 앙금 생성과 기체 발생</h2>
+            <div class="w-full max-w-4xl space-y-6 text-left">
+                <div class="p-6 bg-slate-50 rounded-lg reveal-item border-l-4 border-green-500">
+                    <h3 class="font-bold text-lg">🧪 앙금 생성</h3>
+                    <p>투명한 두 용액을 섞었더니 노란색 앙금이 생겼다. (아이오딘화 납)</p>
+                </div>
+                <div class="p-6 bg-slate-50 rounded-lg reveal-item border-l-4 border-purple-500">
+                    <h3 class="font-bold text-lg">🥐 발효와 부패</h3>
+                    <p>밀가루 반죽이 부풀어 오르거나(이산화탄소), 음식이 상해서 냄새가 난다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 13: Particle Model (Physical) - Enhanced -->
+    <section id="sim-phys">
+        <div class="slide-content">
+            <h2 class="text-blue-600" style="border-bottom-color: var(--accent-cyan);">모형: 물의 증발 (물리 변화)</h2>
+            <p class="mb-8 text-slate-500">분자 사이의 거리가 멀어질 뿐, 분자는 그대로입니다.</p>
+            
+            <div class="molecule-container">
+                <!-- Liquid Water: Packed close -->
+                <div class="text-center">
+                    <p class="mb-4 font-bold text-blue-800">물 (액체)</p>
+                    <div class="grid grid-cols-2 gap-1 p-4 bg-blue-100 rounded-lg">
+                        <div class="molecule mol-water"><div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div>
+                        <div class="molecule mol-water"><div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div>
+                        <div class="molecule mol-water"><div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div>
+                        <div class="molecule mol-water"><div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div>
+                    </div>
                 </div>
                 
-                <div class="p-6 bg-white border-l-4 border-orange-500 shadow-sm reveal-item">
-                    <h3 class="text-xl font-bold text-orange-700 mb-2 uppercase">Chemical Change</h3>
-                    <p class="text-slate-600 text-lg">
-                        A process where one or more substances are converted into <strong class="text-orange-600">new substances</strong> with different properties.
-                    </p>
+                <div class="text-2xl text-slate-400">➡ 가열 ➡</div>
+                
+                <!-- Water Vapor: Spaced out -->
+                <div class="text-center">
+                    <p class="mb-4 font-bold text-slate-600">수증기 (기체)</p>
+                    <div class="relative w-48 h-48 border border-dashed border-slate-300 rounded-lg">
+                        <div class="molecule mol-water absolute top-2 left-2 float-anim"><div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div>
+                        <div class="molecule mol-water absolute bottom-4 right-4 float-anim" style="animation-delay: 1s;"><div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div>
+                    </div>
                 </div>
+            </div>
+            <p class="mt-6 font-mono text-sm bg-slate-800 text-white px-4 py-1 rounded">성질 불변: $H_2O$ 유지</p>
+        </div>
+    </section>
+
+    <!-- Slide 14: Particle Model (Chemical) - Enhanced -->
+    <section id="sim-chem">
+        <div class="slide-content">
+            <h2 class="text-red-600" style="border-bottom-color: var(--accent-orange);">모형: 물의 합성 (화학 변화)</h2>
+            <p class="mb-8 text-slate-500">원자가 재배열되어 완전히 새로운 분자가 됩니다.</p>
+            
+            <div class="molecule-container" style="border-color: var(--accent-orange);">
+                <!-- Reactants: H2 + O2 -->
+                <div class="text-center">
+                    <p class="mb-4 font-bold text-slate-600">반응물 (수소+산소)</p>
+                    <div class="flex gap-4 items-center p-4 bg-orange-50 rounded-lg">
+                        <div class="molecule mol-h2"><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div>
+                        <div class="molecule mol-h2"><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div>
+                        <span class="text-xl">+</span>
+                        <div class="molecule mol-o2"><div class="atom atom-o">O</div><div class="atom atom-o">O</div></div>
+                    </div>
+                </div>
+                
+                <div class="text-2xl text-slate-400">➡ 펑! ➡</div>
+                
+                <!-- Product: H2O -->
+                <div class="text-center">
+                    <p class="mb-4 font-bold text-red-700">생성물 (물)</p>
+                    <div class="flex gap-4 items-center p-4 bg-red-100 rounded-lg border border-red-200">
+                        <div class="molecule mol-water"><div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div>
+                        <div class="molecule mol-water"><div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div>
+                    </div>
+                </div>
+            </div>
+            <p class="mt-6 font-mono text-sm bg-red-600 text-white px-4 py-1 rounded">성질 변화: $H_2, O_2 \to H_2O$</p>
+        </div>
+    </section>
+
+    <!-- Slide 15: Comparison Table -->
+    <section id="s15">
+        <div class="slide-content">
+            <h2>핵심 정리: 물리 vs 화학</h2>
+            <div class="w-full max-w-5xl overflow-hidden rounded-lg border border-slate-200 shadow-md">
+                <table class="w-full text-center text-lg">
+                    <thead class="bg-slate-800 text-white">
+                        <tr>
+                            <th class="p-4">구분</th>
+                            <th class="p-4 w-1/3 bg-blue-700">물리 변화</th>
+                            <th class="p-4 w-1/3 bg-red-700">화학 변화</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        <tr class="border-b">
+                            <td class="p-4 font-bold">성질의 변화</td>
+                            <td class="p-4 text-blue-600">없음</td>
+                            <td class="p-4 text-red-600 font-bold">있음 (새 물질)</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="p-4 font-bold">변하는 것</td>
+                            <td class="p-4">분자의 <strong class="text-blue-600">배열</strong></td>
+                            <td class="p-4">원자의 <strong class="text-red-600">배열</strong> (분자 종류)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold">변하지 않는 것</td>
+                            <td class="p-4 text-sm">원자 배열, 원자 개수/종류, 분자 종류</td>
+                            <td class="p-4 text-sm">원자의 <strong class="text-green-600">종류와 개수</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
 
-    <!-- Slide 6: Particle Model (Diagrams) -->
-    <section id="particle-model">
+    <!-- Slide 16: Lab Video -->
+    <section id="s16">
         <div class="slide-content">
-            <h2>ATOMIC VISUALIZATION</h2>
-            <div class="grid grid-cols-2 gap-12 w-full mt-8">
-                <!-- Physical -->
-                <div class="particle-box reveal-item">
-                    <h3 class="text-sm font-bold mb-6 text-slate-400 uppercase tracking-widest">Physical Change</h3>
-                    <div class="mb-6 flex justify-center gap-2">
-                        <div class="atom atom-a"></div><div class="atom atom-b"></div>
-                        <span class="text-slate-300 mx-4 font-bold">→</span>
-                        <div class="atom atom-b"></div><div class="atom atom-a"></div>
-                    </div>
-                    <p class="text-sm font-bold text-slate-700">Arrangement Changes ONLY</p>
-                </div>
-                <!-- Chemical -->
-                <div class="particle-box reveal-item" style="border-color: var(--accent-orange);">
-                    <h3 class="text-sm font-bold mb-6 text-orange-400 uppercase tracking-widest">Chemical Change</h3>
-                    <div class="mb-6 flex justify-center gap-2">
-                        <div class="atom atom-a"></div><div class="atom atom-a"></div>
-                        <span class="text-2xl text-orange-500 mx-2">+</span>
-                        <div class="atom atom-b"></div><div class="atom atom-b"></div>
-                    </div>
-                    <p class="text-sm font-bold text-orange-700">New Molecular Structure</p>
-                </div>
+            <h2>실험 관찰: 마그네슘의 연소</h2>
+            <div class="video-container mb-4">
+                <iframe src="https://www.youtube.com/embed/m2i9jLPXprQ" title="Magnesium burning" allowfullscreen></iframe>
             </div>
+            <p class="text-slate-500 italic">은백색 금속(마그네슘)이 빛을 내며 타서 흰색 가루(산화 마그네슘)가 됩니다.</p>
         </div>
     </section>
 
-    <!-- Slide 7: Quiz 1 -->
-    <section id="quiz-1">
+    <!-- Slide 17: Lab Analysis -->
+    <section id="s17">
         <div class="slide-content">
-            <h2>CHECKPOINT 01</h2>
+            <h2>실험 결과 분석</h2>
+            <div class="grid grid-cols-2 gap-8 w-full max-w-4xl mt-8">
+                <div class="p-6 bg-slate-100 rounded-lg text-left">
+                    <h3 class="font-bold text-slate-700 mb-2">1. 묽은 염산 반응</h3>
+                    <ul class="text-sm space-y-2">
+                        <li><strong>반응 전 (Mg):</strong> 수소 기체 발생 (보글보글)</li>
+                        <li><strong>반응 후 (MgO):</strong> <span class="text-red-600">반응 없음</span></li>
+                    </ul>
+                </div>
+                <div class="p-6 bg-slate-100 rounded-lg text-left">
+                    <h3 class="font-bold text-slate-700 mb-2">2. 전류 전도성</h3>
+                    <ul class="text-sm space-y-2">
+                        <li><strong>반응 전 (Mg):</strong> 전류가 흐름 (금속)</li>
+                        <li><strong>반응 후 (MgO):</strong> <span class="text-red-600">흐르지 않음</span></li>
+                    </ul>
+                </div>
+            </div>
+            <p class="mt-8 text-xl font-bold text-slate-800">결론: 성질이 완전히 바뀌었으므로 <span class="text-red-600">화학 변화</span>이다.</p>
+        </div>
+    </section>
+
+    <!-- Slide 18: Quiz 1 -->
+    <section id="q1">
+        <div class="slide-content">
+            <h2>형성 평가 01</h2>
             <div class="quiz-container">
-                <p class="text-xl font-medium mb-8 text-slate-800">
-                    Which process alters the <strong class="text-teal-600">Type of Molecules</strong>?
+                <p class="text-xl font-bold mb-6 text-slate-800">
+                    다음 중 <strong class="text-blue-600">물리 변화</strong>가 아닌 것은?
                 </p>
                 <div class="quiz-options">
-                    <button class="quiz-btn" data-correct="false">PHYSICAL CHANGE</button>
-                    <button class="quiz-btn" data-correct="true">CHEMICAL CHANGE</button>
+                    <button class="quiz-btn" data-correct="false">아이스크림이 녹는다</button>
+                    <button class="quiz-btn" data-correct="false">유리컵이 깨진다</button>
+                    <button class="quiz-btn" data-correct="true">김치가 시어진다</button>
+                    <button class="quiz-btn" data-correct="false">설탕이 물에 녹는다</button>
                 </div>
                 <div class="quiz-feedback font-bold text-lg mt-4"></div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 8: Quiz 2 -->
-    <section id="quiz-2">
+    <!-- Slide 19: Quiz 2 -->
+    <section id="q2">
         <div class="slide-content">
-            <h2>CHECKPOINT 02</h2>
+            <h2>형성 평가 02</h2>
             <div class="quiz-container">
-                <p class="text-xl font-medium mb-8 text-slate-800">
-                    Identify the <strong class="text-teal-600">Physical Change</strong>:
+                <p class="text-xl font-bold mb-6 text-slate-800">
+                    화학 변화가 일어날 때 <strong class="text-red-600">변하는 것</strong>을 모두 고르면?
                 </p>
                 <div class="quiz-options">
-                    <button class="quiz-btn" data-correct="false">Souring Milk</button>
-                    <button class="quiz-btn" data-correct="true">Perfume Diffusing</button>
-                    <button class="quiz-btn" data-correct="false">Rusting Nail</button>
-                    <button class="quiz-btn" data-correct="false">Burning Paper</button>
+                    <button class="quiz-btn" data-correct="false">원자의 개수</button>
+                    <button class="quiz-btn" data-correct="false">원자의 종류</button>
+                    <button class="quiz-btn" data-correct="true">원자의 배열</button>
+                    <button class="quiz-btn" data-correct="false">총 질량</button>
                 </div>
                 <div class="quiz-feedback font-bold text-lg mt-4"></div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 9: Next Lesson -->
-    <section id="next">
-        <div class="slide-content text-center" style="border: none; background: transparent; box-shadow: none;">
-            <p class="text-slate-400 font-bold mb-4 uppercase tracking-widest">Next on Agenda</p>
-            <h2 class="border-none mb-8 text-5xl">CHEMICAL EQUATIONS</h2>
-            <div class="inline-block bg-white border border-slate-200 px-8 py-4 text-slate-700 font-mono text-2xl rounded shadow-md">
-                2H₂ + O₂ → 2H₂O
+    <!-- Slide 20: Quiz 3 (Simhwa) -->
+    <section id="q3">
+        <div class="slide-content">
+            <h2>심화 퀴즈</h2>
+            <div class="quiz-container">
+                <p class="text-xl font-bold mb-6 text-slate-800">
+                    "익은 달걀을 다시 날달걀로 되돌릴 수 없다."<br>
+                    이 사실은 무엇을 의미하나요?
+                </p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" data-correct="false">물리 변화는 되돌릴 수 없다.</button>
+                    <button class="quiz-btn" data-correct="true">화학 변화는 성질이 변해 되돌리기 어렵다.</button>
+                    <button class="quiz-btn" data-correct="false">가열하면 질량이 증가한다.</button>
+                </div>
+                <div class="quiz-feedback font-bold text-lg mt-4"></div>
             </div>
+        </div>
+    </section>
+
+    <!-- Slide 21: Next -->
+    <section id="end">
+        <div class="slide-content" style="border:none; box-shadow:none;">
+            <p class="text-slate-400 font-bold mb-4 uppercase tracking-widest">Next Lesson</p>
+            <h2 class="text-5xl mb-8 border-none">화학 반응식 만들기</h2>
+            <div class="bg-white border border-slate-200 px-10 py-6 rounded-lg shadow-lg">
+                <p class="text-3xl font-mono text-slate-700">2H₂ + O₂ → 2H₂O</p>
+            </div>
+            <p class="mt-8 text-slate-500">화학 반응을 기호로 표현하는 방법을 배워봅시다.</p>
         </div>
     </section>
 
