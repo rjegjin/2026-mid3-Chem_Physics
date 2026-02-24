@@ -12,6 +12,13 @@ window.SlideEngine = {
         if (this.initialized) return;
         this.sections = Array.from(document.querySelectorAll('main > section'));
         
+        // Parse Markdown Bold and fix specific typos in content
+        this.sections.forEach(sec => {
+            sec.innerHTML = sec.innerHTML
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/ightarrow/g, '\\rightarrow');
+        });
+
         // Setup initial view
         document.body.classList.add('presentation-mode');
         this.sections.forEach((sec, idx) => {
@@ -20,7 +27,10 @@ window.SlideEngine = {
             
             // Hide all reveal items
             const reveals = sec.querySelectorAll('.reveal-item');
-            reveals.forEach(r => r.style.opacity = '0');
+            reveals.forEach(r => {
+                r.style.opacity = '0';
+                r.style.transform = 'translateY(10px)';
+            });
         });
 
         this.createUI();
@@ -46,6 +56,8 @@ window.SlideEngine = {
             const controls = document.createElement('div');
             controls.id = 'slide-controls';
             controls.innerHTML = `
+                <a href="index.html" id="home-btn" title="메인 화면으로">🏠 Home</a>
+                <div class="control-sep"></div>
                 <button id="prev-btn" title="이전 (Left Arrow)">←</button>
                 <button id="next-btn" title="다음 (Right Arrow / Space)">→</button>
                 <span id="slide-indicator">1 / ${this.sections.length}</span>
