@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>4차시: 기체 반응 법칙</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/presentation_mode.css">
     <style>
@@ -98,6 +100,21 @@
                         <br><span class="text-slate-600">아보가드로 법칙을 통해 기체 반응 법칙을 해석할 수 있다.</span>
                     </li>
                 </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3-1: Think Before Class -->
+    <section id="s3-1">
+        <div class="slide-content">
+            <h2>💡 수업 전 생각하기</h2>
+            <div class="p-8 bg-amber-50 rounded-xl border-2 border-amber-200 text-left max-w-4xl">
+                <p class="text-2xl font-bold text-amber-900 mb-6">"기체들의 공간 경쟁?"</p>
+                <div class="space-y-4 text-xl">
+                    <p>1. 풍선 안에 수소 분자 100개가 있을 때와 산소 분자 100개가 있을 때, 풍선의 크기는 다를까요?</p>
+                    <p>2. 왜 기체는 질량이 아니라 '부피'를 기준으로 이야기할 때 더 단순해지는지 상상해 봅시다.</p>
+                    <p class="mt-8 text-slate-600 italic font-medium">기체 분자들이 차지하는 '빈 공간'의 비밀을 파헤쳐 봅시다.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -240,7 +257,7 @@
     <section id="s10">
         <div class="slide-content">
             <h2>돌턴의 원자설 vs 기체 반응 법칙</h2>
-            <p class="mb-8">수소 2칸 + 산소 1칸 $ightarrow$ 수증기 2칸</p>
+            <p class="mb-8">수소 2칸 + 산소 1칸 $\rightarrow$ 수증기 2칸</p>
             <div class="flex gap-4 justify-center items-center">
                 <div class="gas-box"><div class="atom atom-h" style="position:absolute; left:20%"></div><div class="atom atom-h" style="position:absolute; right:20%"></div></div>
                 <div class="plus">+</div>
@@ -424,10 +441,11 @@
         <div class="slide-content">
             <h2>Quiz 03. 계수의 의미</h2>
             <div class="quiz-container w-full max-w-2xl">
-                <p class="text-xl font-bold mb-6 text-slate-800">
-                    $N_2(g) + 3H_2(g) ightarrow 2NH_3(g)$ 반응에서<br>
-                    기체들의 부피비(질소:수소:암모니아)는?
-                </p>
+                                <p class="text-xl font-bold mb-6 text-slate-800">
+                                    \(N_2(g) + 3H_2(g) \rightarrow 2NH_3(g)\) 반응에서<br>
+                                    기체들의 부피비(질소:수소:암모니아)는?
+                                </p>
+                
                 <div class="quiz-options space-y-3">
                     <button class="quiz-btn" data-correct="false">1 : 1 : 1</button>
                     <button class="quiz-btn" data-correct="false">1 : 2 : 3</button>
@@ -435,6 +453,26 @@
                     <button class="quiz-btn" data-correct="false">3 : 1 : 2</button>
                 </div>
                 <div class="quiz-feedback font-bold text-lg mt-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 19-1: Advanced Thinking & Discussion -->
+    <section id="s19-1">
+        <div class="slide-content">
+            <h2>🤔 심화 탐구 및 토론</h2>
+            <div class="grid grid-cols-2 gap-8 w-full max-w-5xl">
+                <div class="p-6 bg-slate-50 border-t-4 border-cyan-500 rounded-lg text-left">
+                    <h3 class="text-xl font-bold mb-4 text-cyan-700">심화 질문</h3>
+                    <p class="text-lg">"아보가드로는 왜 당시에 자신의 가설을 인정받지 못했을까요? 돌턴의 원자설과 충돌했던 지점을 중심으로 토론해 봅시다."</p>
+                </div>
+                <div class="p-6 bg-slate-50 border-t-4 border-purple-500 rounded-lg text-left">
+                    <h3 class="text-xl font-bold mb-4 text-purple-700">발표 및 토론</h3>
+                    <p class="text-lg">기체 반응 법칙을 이용해 대기 오염 물질(예: \(NO_x\))의 생성 부피를 예측하는 시나리오를 만들어 발표해 봅시다.</p>
+                </div>
+            </div>
+            <div class="mt-8 p-4 bg-blue-50 rounded-lg text-sm text-slate-600">
+                Tip: '가설'이 '법칙'으로 인정받기까지의 과학적 과정을 추적해 보세요!
             </div>
         </div>
     </section>
