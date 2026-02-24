@@ -69,6 +69,21 @@ window.SlideEngine = {
         document.getElementById('prev-btn').addEventListener('click', () => this.prevSlide());
         document.getElementById('next-btn').addEventListener('click', () => this.nextSlide());
         
+        // Direct Slide Navigation
+        const indicator = document.getElementById('slide-indicator');
+        if (indicator) {
+            indicator.style.cursor = 'pointer';
+            indicator.title = '클릭하여 페이지 이동';
+            indicator.addEventListener('click', () => {
+                const input = prompt(`이동할 페이지 번호를 입력하세요 (1 ~ ${this.sections.length})`);
+                const pageNum = parseInt(input, 10);
+                if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= this.sections.length) {
+                    this.currentSlide = pageNum - 1;
+                    this.updateView();
+                }
+            });
+        }
+
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
                 this.nextSlide();
