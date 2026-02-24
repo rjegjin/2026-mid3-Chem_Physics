@@ -37,10 +37,10 @@
         }
         .theory-card {
             background: white;
-            padding: 2.5rem;
+            padding: 2rem;
             border-radius: 1.5rem;
             border-top: 8px solid var(--accent-orange);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
     </style>
 </head>
@@ -68,11 +68,13 @@
                     <img src="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="rounded-2xl shadow-2xl" alt="Balloons">
                 </div>
                 <div class="w-1/2 text-left space-y-8">
-                    <p class="text-2xl font-bold text-slate-800">질량은 원자마다 제각각인데,<br>왜 기체들은 '부피'를 따지면 똑같아질까요?</p>
+                    <p class="text-2xl font-bold text-slate-800 leading-tight">
+                        질량은 원자마다 제각각인데,<br>왜 기체들은 '부피'를 따지면 똑같아질까요?
+                    </p>
                     <div class="p-8 bg-orange-50 border-l-4 border-orange-500 rounded-r-lg">
                         <p class="text-xl leading-relaxed text-slate-700">
                             수소 2리터와 산소 1리터가 만나면 수증기 2리터가 됩니다. (2+1=3이 아니라고요?)<br><br>
-                            기체들만의 아주 특별한 **'공간 규칙'**을 알아봅시다.
+                            기체들만의 아주 특별한 **'공간 규칙'**을 파헤쳐 봅시다.
                         </p>
                     </div>
                 </div>
@@ -88,46 +90,46 @@
                 <ul class="space-y-8 text-2xl">
                     <li class="reveal-item flex items-start gap-4">
                         <span class="bg-orange-500 text-white w-10 h-10 rounded-full flex items-center justify-center shrink-0">1</span>
-                        <span>**기체 반응 법칙**이 무엇인지 설명하고, 부피비를 계산할 수 있다.</span>
+                        <span>**기체 반응 법칙**이 무엇인지 설명하고, 반응 전후 부피비를 도출할 수 있다.</span>
                     </li>
                     <li class="reveal-item flex items-start gap-4">
                         <span class="bg-orange-500 text-white w-10 h-10 rounded-full flex items-center justify-center shrink-0">2</span>
-                        <span>**아보가드로 법칙**을 통해 기체 부피와 분자 수의 관계를 이해한다.</span>
+                        <span>**아보가드로 법칙**을 통해 기체 부피와 분자 수의 비례 관계를 이해한다.</span>
                     </li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <!-- Slide 3-1: Think Before Class -->
-    <section id="s3-1">
+    <!-- Slide 4: Think Before Class -->
+    <section id="s4">
         <div class="slide-content">
             <h2>💡 수업 전 생각하기</h2>
             <div class="p-10 bg-amber-50 rounded-2xl border-2 border-amber-200 text-left max-w-4xl shadow-lg">
                 <p class="text-3xl font-bold text-amber-900 mb-8 italic">"기체는 왜 가벼운데 공간을 많이 차지할까요?"</p>
                 <div class="space-y-6 text-xl leading-relaxed">
                     <p>1. 코끼리 100마리가 있는 운동장과 생쥐 100마리가 있는 운동장은 크기가 같아야 할까요?</p>
-                    <p>2. 하지만 기체의 세계에서는 '알갱이의 크기'보다 더 중요한 것이 있습니다. 그것은 무엇일까요?</p>
+                    <p>2. 하지만 기체의 세계에서는 '입자 자체의 크기'는 무시할 정도로 작습니다. 대신 **이것**이 중요하죠.</p>
                     <div class="mt-10 p-6 bg-white/80 rounded-xl border border-amber-100 text-center">
-                        <p class="text-slate-700 font-bold">기체 입자 사이의 **'빈 공간'**에 대해 상상해 봅시다.</p>
+                        <p class="text-slate-700 font-bold text-center">기체 입자 사이의 **'빈 공간'**에 대해 상상해 봅시다.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 4: Gay-Lussac Discovery -->
-    <section id="s4">
+    <!-- Slide 5: Gay-Lussac Discovery -->
+    <section id="s5">
         <div class="slide-content">
             <h2>게이뤼삭의 발견 (1808년)</h2>
             <div class="flex gap-12 items-center max-w-6xl mt-8">
                 <div class="w-1/3 text-center">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" class="rounded-xl shadow-xl border-4 border-white mb-4">
-                    <p class="font-bold text-slate-500">조제프 게이뤼삭</p>
+                    <p class="font-bold text-slate-500 italic">조제프 게이뤼삭</p>
                 </div>
                 <div class="w-2/3 text-left">
                     <div class="p-10 bg-slate-900 text-white rounded-3xl shadow-2xl relative">
-                        <span class="absolute -top-4 -left-4 text-6xl text-orange-500">“</span>
+                        <span class="absolute -top-4 -left-4 text-6xl text-orange-500 font-serif">“</span>
                         <p class="text-3xl font-light leading-relaxed mb-6">
                             기체들이 반응하여 새로운 기체를 만들 때,<br>
                             각 기체의 **부피** 사이에는 항상<br>
@@ -140,43 +142,44 @@
         </div>
     </section>
 
-    <!-- Slide 5: Rule Details -->
-    <section id="s5">
+    <!-- Slide 6: Rule Details -->
+    <section id="s6">
         <div class="slide-content">
-            <h2>기체 반응 법칙의 3대 요건</h2>
+            <h2>기체 반응 법칙의 3대 핵심</h2>
             <div class="grid grid-cols-3 gap-8 w-full max-w-6xl mt-12">
                 <div class="theory-card text-center reveal-item">
                     <div class="text-5xl mb-6">☁️</div>
                     <h3 class="text-2xl font-bold mb-4">오직 기체만!</h3>
-                    <p class="text-slate-600">고체나 액체에는 적용되지 않습니다. 오직 '기체 상태'에서만 성립합니다.</p>
+                    <p class="text-slate-600">액체나 고체에는 적용되지 않아요. 오직 **기체 상태**일 때만 마법이 일어납니다.</p>
                 </div>
                 <div class="theory-card text-center reveal-item">
                     <div class="text-5xl mb-6">📏</div>
                     <h3 class="text-2xl font-bold mb-4">정수비 (1:2:3)</h3>
-                    <p class="text-slate-600">부피비가 1.23 : 4.56 처럼 복잡하지 않고 항상 딱 떨어집니다.</p>
+                    <p class="text-slate-600">부피의 비율이 항상 1:1, 2:1 처럼 **간단한 정수**로 나타납니다.</p>
                 </div>
                 <div class="theory-card text-center reveal-item">
                     <div class="text-5xl mb-6">🌡️</div>
-                    <h3 class="text-2xl font-bold mb-4">온도와 압력</h3>
-                    <p class="text-slate-600">기체는 외부 환경에 예민하므로 반드시 조건을 통일해야 합니다.</p>
+                    <h3 class="text-2xl font-bold mb-4">조건의 통일</h3>
+                    <p class="text-slate-600">기체는 온도와 압력에 따라 부피가 쉽게 변하므로 **반드시** 조건을 맞춰야 합니다.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 6: Example - Water Vapor -->
-    <section id="s6">
+    <!-- Slide 7: Example - Water Vapor -->
+    <section id="s7">
         <div class="slide-content">
             <h2>실전 예시: 수증기 생성 반응</h2>
-            <div class="flex items-center gap-6 mt-12">
+            <p class="text-xl mb-10">수소와 산소가 만나 수증기가 되는 드라마틱한 과정</p>
+            <div class="flex items-center gap-6 mt-4">
                 <div class="flex flex-col gap-4">
                     <div class="flex gap-2"><div class="gas-volume-box"></div><div class="gas-volume-box"></div></div>
-                    <p class="font-black text-xl">수소 (2부피)</p>
+                    <p class="font-black text-xl text-blue-600">수소 (2부피)</p>
                 </div>
                 <div class="text-4xl font-black text-slate-300 mx-4">+</div>
                 <div class="flex flex-col gap-4">
                     <div class="gas-volume-box"></div>
-                    <p class="font-black text-xl">산소 (1부피)</p>
+                    <p class="font-black text-xl text-red-600">산소 (1부피)</p>
                 </div>
                 <div class="text-4xl font-black text-slate-300 mx-4">→</div>
                 <div class="flex flex-col gap-4">
@@ -184,75 +187,106 @@
                     <p class="font-black text-xl text-cyan-600">수증기 (2부피)</p>
                 </div>
             </div>
-            <p class="mt-16 text-5xl font-black text-slate-800 tracking-widest">2 : 1 : 2</p>
+            <p class="mt-16 text-5xl font-black text-slate-800 tracking-widest bg-slate-100 px-10 py-4 rounded-full">2 : 1 : 2</p>
         </div>
     </section>
 
-    <!-- Slide 7: Dalton's Dilemma -->
-    <section id="s7">
+    <!-- Slide 8: The Question (Why?) -->
+    <section id="s8">
         <div class="slide-content">
-            <h2>위기: 돌턴의 원자설과 충돌하다</h2>
-            <p class="text-xl mb-10">당시 과학자들은 큰 고민에 빠졌습니다.</p>
-            <div class="p-10 bg-red-50 rounded-3xl border-2 border-red-200 max-w-5xl">
-                <p class="text-2xl font-bold text-red-800 mb-6 text-left">"산소 원자가 쪼개져야 한다고?"</p>
-                <div class="flex gap-8 justify-center items-center bg-white p-8 rounded-2xl">
-                    <div class="gas-volume-box"><div class="atom atom-h"></div><div class="atom atom-h"></div></div>
-                    <span class="text-2xl">+</span>
-                    <div class="gas-volume-box"><div class="atom atom-o"></div></div>
-                    <span class="text-2xl">→</span>
-                    <div class="gas-volume-box"><div class="atom atom-o" style="clip-path: inset(0 50% 0 0)"></div>?</div>
+            <h2>질문: 왜 부피비가 성립할까요?</h2>
+            <div class="flex gap-12 items-center max-w-5xl mt-8">
+                <div class="w-1/2">
+                    <img src="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="rounded-xl shadow-lg">
                 </div>
-                <p class="mt-8 text-xl leading-relaxed text-left">
-                    수증기 2칸을 채우려면 산소 원자 1개를 반으로 쪼개야 했습니다. 하지만 돌턴은 **"원자는 절대 쪼개질 수 없다"**고 했죠.
+                <div class="w-1/2 text-left space-y-8">
+                    <div class="p-8 bg-blue-50 border-l-8 border-blue-500 rounded-r-2xl">
+                        <h3 class="text-2xl font-bold text-blue-800 mb-4">공간의 주권</h3>
+                        <p class="text-xl leading-relaxed text-slate-700">
+                            기체는 종류에 상관없이 **일정한 부피(한 칸)** 속에 들어가는 **'알갱이의 수'**가 똑같기 때문입니다!
+                        </p>
+                    </div>
+                    <p class="text-lg text-slate-500 font-medium">이것이 바로 질량비보다 부피비가 훨씬 단순한 근본적인 이유입니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Dalton's Dilemma -->
+    <section id="s9">
+        <div class="slide-content">
+            <h2>위기: 원자를 쪼개야 한다고?</h2>
+            <div class="p-10 bg-red-50 rounded-3xl border-2 border-red-200 max-w-5xl shadow-xl">
+                <p class="text-2xl font-black text-red-800 mb-8 text-left">"돌턴의 원자설이 무너질 위기!"</p>
+                <div class="flex gap-8 justify-center items-center bg-white p-10 rounded-2xl border border-red-100">
+                    <div class="text-center">
+                        <div class="gas-volume-box"><div class="atom atom-h"></div><div class="atom atom-h"></div></div>
+                        <p class="text-xs mt-2 font-bold">수소 2칸</p>
+                    </div>
+                    <span class="text-3xl font-black text-slate-300">+</span>
+                    <div class="text-center">
+                        <div class="gas-volume-box"><div class="atom atom-o"></div></div>
+                        <p class="text-xs mt-2 font-bold">산소 1칸</p>
+                    </div>
+                    <span class="text-3xl font-black text-slate-300">→</span>
+                    <div class="text-center">
+                        <div class="gas-volume-box"><div class="atom atom-o" style="clip-path: inset(0 50% 0 0)"></div><span class="text-red-600 font-black">?</span></div>
+                        <p class="text-xs mt-2 font-bold text-red-600">수증기 2칸</p>
+                    </div>
+                </div>
+                <p class="mt-8 text-xl leading-relaxed text-left text-slate-700">
+                    수증기 2칸을 채우려면 산소 원자 하나를 **반으로 쪼개서** 나눠 넣어야 했습니다. 하지만 돌턴은 "원자는 쪼개질 수 없다"고 선언했죠.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Slide 8: Avogadro's Solution -->
-    <section id="s8">
+    <!-- Slide 10: Avogadro's Solution -->
+    <section id="s10">
         <div class="slide-content">
             <h2>구원자: 아보가드로의 '분자설'</h2>
             <div class="flex gap-12 items-center max-w-6xl mt-8">
-                <div class="w-1/2 text-left space-y-6">
-                    <h3 class="text-3xl font-black text-blue-700">"알갱이가 묶음으로 있다면?"</h3>
-                    <p class="text-xl leading-relaxed">
-                        1811년, 이탈리아의 **아보가드로**는 원자가 2개씩 묶여 다니는 **'분자(Molecule)'**라는 개념을 도입했습니다.<br><br>
-                        분자 상태라면 원자를 쪼개지 않고도 부피비를 완벽하게 설명할 수 있었죠!
-                    </p>
+                <div class="w-1/2 text-left space-y-8">
+                    <div class="p-8 bg-cyan-50 border-l-8 border-cyan-500 rounded-r-2xl shadow-sm">
+                        <h3 class="text-3xl font-black text-cyan-800 mb-4">"묶음으로 다닌다면?"</h3>
+                        <p class="text-xl leading-relaxed text-slate-700">
+                            원자가 혼자 다니는 게 아니라, 여러 개가 묶인 **'분자(Molecule)'** 상태로 존재한다면 쪼개지 않고도 2칸을 채울 수 있습니다!
+                        </p>
+                    </div>
+                    <p class="text-lg text-slate-500 italic">이 가설로 기체 반응 법칙과 원자설 사이의 모순이 해결되었습니다.</p>
                 </div>
                 <div class="w-1/2">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" class="rounded-2xl shadow-2xl border-8 border-white">
-                    <p class="mt-4 font-bold text-slate-500">아메데오 아보가드로</p>
+                    <p class="mt-4 font-bold text-slate-500 italic">아메데오 아보가드로 (1811)</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 9: Avogadro's Hypothesis -->
-    <section id="s9">
+    <!-- Slide 11: Avogadro's Hypothesis -->
+    <section id="s11">
         <div class="slide-content">
-            <h2>아보가드로 법칙 (최종 요약)</h2>
-            <div class="p-12 bg-slate-900 text-white rounded-3xl w-full max-w-5xl text-center shadow-2xl">
+            <h2>아보가드로 법칙</h2>
+            <div class="p-12 bg-slate-900 text-white rounded-3xl w-full max-w-5xl text-center shadow-2xl border-b-8 border-orange-500">
                 <p class="text-3xl font-light leading-relaxed">
                     "모든 기체는 <span class="text-orange-400 font-bold">같은 온도와 압력</span>에서,<br>
                     <span class="text-cyan-400 font-bold">같은 부피</span> 속에 <span class="text-yellow-400 font-bold">같은 수의 분자</span>가 들어 있다."
                 </p>
                 <div class="h-px bg-slate-700 w-full my-8"></div>
                 <p class="text-2xl text-slate-400">
-                    기체의 종류(수소, 산소, 암모니아 등)가 무엇이든<br>
-                    **차지하는 공간의 크기는 분자의 개수에만** 달려 있습니다.
+                    기체의 크기나 종류는 상관없습니다.<br>
+                    **차지하는 부피는 오직 분자의 개수에 비례합니다.**
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Slide 10: Visual simulation - H2 + Cl2 -->
-    <section id="s10">
+    <!-- Slide 12: Sim 1 - H2 + Cl2 -->
+    <section id="s12">
         <div class="slide-content">
             <h2>모형 1: 염화 수소 생성 (1 : 1 : 2)</h2>
-            <p class="text-xl mb-10 text-slate-500">분자 묶음으로 생각하면 쪼갤 필요가 없습니다.</p>
-            <div class="flex gap-6 items-center bg-slate-50 p-10 rounded-3xl border border-slate-200">
+            <p class="text-xl mb-10 text-slate-500 italic">분자라는 '팀'으로 움직이면 원자를 쪼갤 필요가 없습니다.</p>
+            <div class="flex gap-6 items-center bg-slate-50 p-10 rounded-3xl border-2 border-slate-200">
                 <div class="gas-volume-box"><div class="molecule mol-h2"><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div></div>
                 <span class="text-3xl font-black text-slate-300">+</span>
                 <div class="gas-volume-box"><div class="molecule mol-o2" style="transform:scale(0.8)"><div class="atom atom-o" style="background:#10b981; border-color:#059669">Cl</div><div class="atom atom-o" style="background:#10b981; border-color:#059669">Cl</div></div></div>
@@ -262,35 +296,54 @@
                     <div class="gas-volume-box" style="border-color:#10b981"><div class="molecule" style="gap:2px"><div class="atom atom-h">H</div><div class="atom atom-o" style="background:#10b981; border-color:#059669; width:35px; height:35px">Cl</div></div></div>
                 </div>
             </div>
-            <p class="mt-10 text-2xl font-bold text-emerald-700">한 칸(부피)에 분자 1개씩! 아주 공평하죠?</p>
+            <p class="mt-10 text-2xl font-bold text-emerald-700">부피비 1 : 1 : 2 ＝ 분자 수 비 1 : 1 : 2</p>
         </div>
     </section>
 
-    <!-- Slide 11: Visual simulation - 2H2 + O2 -->
-    <section id="s12">
+    <!-- Slide 13: Sim 2 - Ammonia Synthesis -->
+    <section id="s13">
         <div class="slide-content">
-            <h2>모형 2: 수증기 생성 (2 : 1 : 2)</h2>
-            <div class="flex gap-6 items-center bg-blue-50/50 p-10 rounded-3xl border border-blue-100">
+            <h2>모형 2: 암모니아 생성 (1 : 3 : 2)</h2>
+            <div class="flex gap-6 items-center bg-blue-50/50 p-10 rounded-3xl border-2 border-blue-100 mt-4">
+                <div class="gas-volume-box"><div class="molecule mol-n2"><div class="atom atom-n">N</div><div class="atom atom-n">N</div></div></div>
+                <span class="text-3xl font-black text-slate-300">+</span>
                 <div class="flex gap-2">
                     <div class="gas-volume-box"><div class="molecule mol-h2"><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div></div>
                     <div class="gas-volume-box"><div class="molecule mol-h2"><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div></div>
+                    <div class="gas-volume-box"><div class="molecule mol-h2"><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div></div>
                 </div>
-                <span class="text-3xl font-black text-slate-300">+</span>
-                <div class="gas-volume-box"><div class="molecule mol-o2"><div class="atom atom-o">O</div><div class="atom atom-o">O</div></div></div>
                 <span class="text-3xl font-black text-slate-300">→</span>
                 <div class="flex gap-2">
-                    <div class="gas-volume-box" style="border-color:var(--accent-cyan)"><div class="molecule mol-water"><div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div></div>
-                    <div class="gas-volume-box" style="border-color:var(--accent-cyan)"><div class="molecule mol-water"><div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div></div>
+                    <div class="gas-volume-box" style="border-color:#3b82f6"><div class="molecule mol-nh3"><div class="atom atom-n">N</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div></div>
+                    <div class="gas-volume-box" style="border-color:#3b82f6"><div class="molecule mol-nh3"><div class="atom atom-n">N</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div></div>
                 </div>
             </div>
-            <p class="mt-12 text-2xl font-black text-slate-800 leading-relaxed">
-                계수비(2 : 1 : 2) = 분자 수 비(2 : 1 : 2) = **부피비(2 : 1 : 2)**
+            <p class="mt-12 text-2xl font-black text-slate-800 leading-relaxed bg-white px-8 py-3 rounded-full shadow-sm">
+                \(N_2 + 3H_2 \rightarrow 2NH_3\) (계수비 1 : 3 : 2)
             </p>
         </div>
     </section>
 
-    <!-- Slide 12: Comparison Table -->
-    <section id="s13">
+    <!-- Slide 14: Calculation Practice -->
+    <section id="s14">
+        <div class="slide-content">
+            <h2>실전 계산: 남는 기체 찾기</h2>
+            <div class="p-8 bg-slate-800 text-white rounded-3xl max-w-4xl text-left shadow-2xl">
+                <p class="text-2xl font-bold text-orange-400 mb-6 italic">"질소 10mL와 수소 40mL를 반응시키면?"</p>
+                <div class="space-y-6 text-xl">
+                    <p>1. 부피비는 **질소 : 수소 = 1 : 3** 입니다.</p>
+                    <p>2. 질소 10mL는 수소 **30mL**와 딱 맞게 반응합니다.</p>
+                    <p>3. 수소가 40mL 있었으므로, **10mL**가 남게 됩니다.</p>
+                    <div class="mt-8 p-4 bg-white/10 rounded-lg border border-white/20">
+                        <p class="text-cyan-300 font-bold">생성되는 암모니아의 부피는? **20mL** (질소의 2배)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 15: Comparison Table -->
+    <section id="s15">
         <div class="slide-content">
             <h2>질량비 vs 부피비 완벽 비교</h2>
             <div class="w-full max-w-5xl overflow-hidden rounded-2xl border-2 border-slate-200 shadow-xl mt-8">
@@ -305,7 +358,7 @@
                     <tbody class="bg-white text-lg leading-relaxed">
                         <tr class="border-b">
                             <td class="p-6 font-bold bg-slate-50">핵심 지표</td>
-                            <td class="p-6 text-teal-600">**질량** 사이의 비</td>
+                            <td class="p-6 text-teal-600 font-bold">**질량** 사이의 비</td>
                             <td class="p-6 text-orange-600 font-bold">**부피** 사이의 비</td>
                         </tr>
                         <tr class="border-b">
@@ -324,48 +377,67 @@
         </div>
     </section>
 
-    <!-- Slide 13: Quiz 1 -->
+    <!-- Slide 16: Quiz 1 -->
     <section id="q1">
         <div class="slide-content">
             <h2>형성 평가 01</h2>
             <div class="quiz-container w-full max-w-3xl">
                 <p class="text-2xl font-bold mb-8 text-slate-800">
-                    기체 반응 법칙이 성립하기 위한 **가장 중요한** 전제 조건은?
+                    기체 반응 법칙이 성립하기 위한 **필수 조건**이 아닌 것은?
                 </p>
                 <div class="quiz-options grid grid-cols-1 gap-4">
-                    <button class="quiz-btn" data-correct="false">1. 반응물과 생성물의 질량이 같아야 한다.</button>
-                    <button class="quiz-btn" data-correct="true">2. 온도와 압력이 일정하게 유지되어야 한다.</button>
-                    <button class="quiz-btn" data-correct="false">3. 항상 촉매를 사용해야 한다.</button>
-                    <button class="quiz-btn" data-correct="false">4. 고체 상태의 물질이 섞여 있어야 한다.</button>
+                    <button class="quiz-btn" data-correct="false">1. 반응물과 생성물 모두 기체 상태여야 한다.</button>
+                    <button class="quiz-btn" data-correct="false">2. 온도와 압력이 일정해야 한다.</button>
+                    <button class="quiz-btn" data-correct="true">3. 반응하는 기체들의 질량이 항상 같아야 한다.</button>
+                    <button class="quiz-btn" data-correct="false">4. 부피 사이에 간단한 정수비가 성립해야 한다.</button>
                 </div>
                 <div class="quiz-feedback font-bold text-2xl mt-6 text-center"></div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 14: Quiz 2 -->
+    <!-- Slide 17: Quiz 2 -->
     <section id="q2">
         <div class="slide-content">
             <h2>형성 평가 02</h2>
             <div class="quiz-container w-full max-w-3xl">
                 <p class="text-2xl font-bold mb-8 text-slate-800">
-                    수소 20mL와 산소 20mL를 반응시키면<br>생성되는 수증기의 부피와 남는 기체는?
+                    수소 20mL와 산소 20mL를 반응시키면<br>생성되는 수증기의 부피는? (2 : 1 : 2)
                 </p>
-                <div class="quiz-options grid grid-cols-2 gap-4">
-                    <button class="quiz-btn" data-correct="false">수증기 40mL (남는 것 없음)</button>
-                    <button class="quiz-btn" data-correct="false">수증기 20mL, 산소 10mL 남음</button>
-                    <button class="quiz-btn" data-correct="true">수증기 20mL, 산소 10mL 남음</button>
-                    <button class="quiz-btn" data-correct="false">수증기 30mL, 수소 10mL 남음</button>
+                <div class="quiz-options grid grid-cols-4 gap-4">
+                    <button class="quiz-btn text-center" data-correct="false">10mL</button>
+                    <button class="quiz-btn text-center" data-correct="true">20mL</button>
+                    <button class="quiz-btn text-center" data-correct="false">30mL</button>
+                    <button class="quiz-btn text-center" data-correct="false">40mL</button>
                 </div>
                 <div class="quiz-feedback font-bold text-lg mt-6 text-slate-500">
-                    힌트: 부피비는 수소 : 산소 : 수증기 = **2 : 1 : 2** 입니다.
+                    계산: 수소 20mL는 산소 10mL와 반응하여 수증기 20mL를 만듭니다.
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 15: Advanced Thinking -->
-    <section id="s15">
+    <!-- Slide 18: Quiz 3 (Advanced) -->
+    <section id="q3">
+        <div class="slide-content">
+            <h2>형성 평가 03</h2>
+            <div class="quiz-container w-full max-w-3xl">
+                <p class="text-2xl font-bold mb-8 text-slate-800">
+                    아보가드로 법칙에 따르면, 같은 부피 속에는<br>**'이것'**의 개수가 항상 같습니다. 무엇인가요?
+                </p>
+                <div class="quiz-options grid grid-cols-2 gap-4">
+                    <button class="quiz-btn" data-correct="false">원자</button>
+                    <button class="quiz-btn" data-correct="true">분자</button>
+                    <button class="quiz-btn" data-correct="false">전수</button>
+                    <button class="quiz-btn" data-correct="false">질량</button>
+                </div>
+                <div class="quiz-feedback font-bold text-2xl mt-6 text-center text-emerald-600"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 19: Advanced Thinking -->
+    <section id="s19">
         <div class="slide-content">
             <h2>🤔 심화 탐구 및 토론</h2>
             <div class="grid grid-cols-2 gap-12 w-full max-w-6xl mt-8 text-left">
@@ -378,17 +450,17 @@
                 <div class="p-10 bg-purple-50 border-t-8 border-purple-500 rounded-xl shadow-lg">
                     <h3 class="text-2xl font-bold mb-6 text-purple-700">발표 및 토론</h3>
                     <p class="text-xl leading-relaxed">
-                        기체 반응 법칙을 이용해 대기 오염 물질(예: \(NO_x\))의 생성 부피를 예측하는 시나리오를 만들어 발표해 봅시다.
+                        기체 반응 법칙을 이용해 자동차 배기가스(\(NO_x\))의 생성 부피를 예측하고, 대기 오염을 줄이는 시나리오를 발표해 봅시다.
                     </p>
                 </div>
             </div>
             <div class="mt-12 p-6 bg-slate-800 text-slate-300 rounded-xl text-lg text-center">
-                **Tip:** '가설'이 '법칙'으로 승격되기까지의 과학적 고증 과정을 추적해 보세요!
+                **Tip:** '가설'이 50년 만에 '법칙'으로 인정받게 된 역사적 배경을 찾아보세요!
             </div>
         </div>
     </section>
 
-    <!-- Slide 16: Outro -->
+    <!-- Slide 20: Outro -->
     <section id="end">
         <div class="slide-content" style="border:none; box-shadow:none;">
             <p class="text-slate-400 font-bold mb-4 uppercase tracking-widest">Next Lesson</p>
@@ -403,6 +475,5 @@
 </main>
 
 <script src="js/slide_engine.js"></script>
-
 </body>
 </html>
