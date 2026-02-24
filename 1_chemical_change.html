@@ -492,86 +492,34 @@
         물 (액체)
        </p>
        <div class="grid grid-cols-2 gap-4 p-6 bg-blue-50/50 rounded-2xl border-2 border-blue-100">
-        <div class="molecule mol-water">
-         <div class="atom atom-o">
-          O
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
+        <div class="molecule mol-water animate-vibrate">
+         <div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div>
         </div>
-        <div class="molecule mol-water">
-         <div class="atom atom-o">
-          O
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
+        <div class="molecule mol-water animate-vibrate" style="animation-delay: 0.1s;">
+         <div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div>
         </div>
-        <div class="molecule mol-water">
-         <div class="atom atom-o">
-          O
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
+        <div class="molecule mol-water animate-vibrate" style="animation-delay: 0.2s;">
+         <div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div>
         </div>
-        <div class="molecule mol-water">
-         <div class="atom atom-o">
-          O
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
+        <div class="molecule mol-water animate-vibrate" style="animation-delay: 0.3s;">
+         <div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div>
         </div>
        </div>
       </div>
       <div class="flex flex-col items-center">
-       <span class="text-4xl text-blue-400 animate-pulse">
-        ➡
-       </span>
-       <span class="text-sm font-bold text-slate-400 mt-2">
-        Heating
-       </span>
+       <span class="text-6xl animate-heating">➡</span>
+       <span class="text-sm font-bold text-red-500 mt-2">Heating...</span>
       </div>
       <div class="text-center">
        <p class="mb-6 font-bold text-slate-600 bg-slate-100 px-4 py-1 rounded-full inline-block">
         수증기 (기체)
        </p>
        <div class="relative w-64 h-64 border-2 border-dashed border-slate-200 rounded-2xl overflow-hidden">
-        <div class="molecule mol-water absolute top-4 left-4 float-anim">
-         <div class="atom atom-o">
-          O
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
+        <div class="molecule mol-water absolute top-12 left-12 animate-fly-erratic">
+         <div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div>
         </div>
-        <div class="molecule mol-water absolute bottom-8 right-8 float-anim" style="animation-delay: 1.5s;">
-         <div class="atom atom-o">
-          O
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
+        <div class="molecule mol-water absolute bottom-12 right-12 animate-fly-erratic" style="animation-delay: -2s;">
+         <div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div>
         </div>
        </div>
       </div>
@@ -595,87 +543,44 @@
      <p class="mb-10 text-xl">
       **원자가 재배열**되어 완전히 새로운 종류의 분자가 탄생합니다.
      </p>
-     <div class="molecule-container bg-white shadow-inner p-10 border-red-100">
-      <div class="text-center">
-       <p class="mb-6 font-bold text-slate-600 bg-slate-100 px-4 py-1 rounded-full inline-block">
-        반응물 (수소 + 산소)
-       </p>
-       <div class="flex gap-6 items-center p-8 bg-orange-50/50 rounded-2xl border-2 border-orange-100">
-        <div class="flex flex-col gap-4">
-         <div class="molecule mol-h2">
-          <div class="atom atom-h">
-           H
-          </div>
-          <div class="atom atom-h">
-           H
-          </div>
-         </div>
-         <div class="molecule mol-h2">
-          <div class="atom atom-h">
-           H
-          </div>
-          <div class="atom atom-h">
-           H
-          </div>
-         </div>
-        </div>
-        <span class="text-3xl text-orange-300 font-black">
-         +
-        </span>
-        <div class="molecule mol-o2">
-         <div class="atom atom-o">
-          O
-         </div>
-         <div class="atom atom-o">
-          O
-         </div>
-        </div>
+     <div class="reaction-stage mx-auto shadow-2xl flex items-center justify-center mt-8">
+      <!-- Reactants -->
+      <div class="absolute flex gap-20 items-center animate-[react-h2-1_6s_infinite] left-20">
+       <div class="molecule mol-h2">
+        <div class="atom atom-h">H</div><div class="atom atom-h">H</div>
+       </div>
+       <div class="molecule mol-h2">
+        <div class="atom atom-h">H</div><div class="atom atom-h">H</div>
        </div>
       </div>
-      <div class="flex flex-col items-center">
-       <span class="text-4xl text-red-500 animate-bounce">
-        ⚡
-       </span>
-       <span class="text-sm font-bold text-red-400 mt-2">
-        Reaction
-       </span>
-      </div>
-      <div class="text-center">
-       <p class="mb-6 font-bold text-red-700 bg-red-100 px-4 py-1 rounded-full inline-block">
-        생성물 (물)
-       </p>
-       <div class="flex gap-8 items-center p-8 bg-red-50 rounded-2xl border-2 border-red-200">
-        <div class="molecule mol-water">
-         <div class="atom atom-o">
-          O
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
-        </div>
-        <div class="molecule mol-water">
-         <div class="atom atom-o">
-          O
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
-        </div>
+      <div class="absolute animate-[react-o2_6s_infinite] right-20">
+       <div class="molecule mol-o2">
+        <div class="atom atom-o">O</div><div class="atom atom-o">O</div>
        </div>
+      </div>
+      <!-- Products -->
+      <div class="flex gap-20 animate-[form-water_6s_infinite]">
+       <div class="molecule mol-water">
+        <div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div>
+       </div>
+       <div class="molecule mol-water">
+        <div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div>
+       </div>
+      </div>
+      <!-- Overlays -->
+      <div class="absolute top-4 left-10 text-sm font-bold text-slate-400">
+       반응 전: 2H₂ + O₂
+      </div>
+      <div class="absolute top-4 right-10 text-sm font-bold text-red-400">
+       반응 후: 2H₂O
       </div>
      </div>
-     <div class="mt-8 flex gap-4">
-      <p class="font-mono text-lg bg-green-700 text-white px-6 py-2 rounded-lg">
-       변함없음: 원자의 종류와 개수
-      </p>
+     <div class="mt-12 flex gap-4">
       <p class="font-mono text-lg bg-red-600 text-white px-6 py-2 rounded-lg">
        변화함: 원자의 배열, 분자의 종류
+      </p>
+      <p class="font-mono text-lg bg-slate-800 text-white px-6 py-2 rounded-lg">
+       변함없음: 원자의 종류와 개수
       </p>
      </div>
     </div>
