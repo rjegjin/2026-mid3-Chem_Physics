@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>이미지 리소스 대시보드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .asset-card { transition: all 0.2s; }
+        .asset-card:hover { transform: translateY(-5px); border-color: #06b6d4; }
+        .img-container { height: 120px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; overflow: hidden; }
+        .img-container img { max-height: 100%; object-fit: contain; }
+    </style>
+</head>
+<body class="bg-slate-50 p-10 font-[Pretendard]">
+    <div class="max-w-7xl mx-auto">
+        <header class="flex justify-between items-end mb-12">
+            <div>
+                <h1 class="text-4xl font-black text-slate-900">Asset Dashboard</h1>
+                <p class="text-slate-500 mt-2">수업 자료에 사용된 모든 이미지를 확인하고 관리합니다.</p>
+            </div>
+            <a href="index.html" class="bg-slate-900 text-white px-6 py-2 rounded-full font-bold hover:bg-slate-700 transition-colors">Home</a>
+        </header>
+        <div class="space-y-16">
+
+<section>
+    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+        <span class="w-2 h-8 bg-cyan-500 rounded-full"></span>
+        1_chemical_change.html
+    </h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1581646741691-6ce169c27dec?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1581646741691-6ce169c27dec?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80">https://images.unsplash.com/photo-1581646741691-6ce169c27dec?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 1_chemical_change.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 1_chemical_change.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1603484477859-abe6a73f9366?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1603484477859-abe6a73f9366?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80">https://images.unsplash.com/photo-1603484477859-abe6a73f9366?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 1_chemical_change.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1551727041-5b347d65b633?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1551727041-5b347d65b633?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80">https://images.unsplash.com/photo-1551727041-5b347d65b633?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 1_chemical_change.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80">https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 1_chemical_change.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80">https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 1_chemical_change.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80">https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 1_chemical_change.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80">https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 1_chemical_change.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80">https://images.unsplash.com/photo-1591195853828-11db59a44f6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 1_chemical_change.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80">https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 1_chemical_change.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80">https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 1_chemical_change.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1548813796-981d34a6dc3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1548813796-981d34a6dc3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80">https://images.unsplash.com/photo-1548813796-981d34a6dc3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 1_chemical_change.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80">https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 1_chemical_change.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1578319439584-104c94d37305?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1578319439584-104c94d37305?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80">https://images.unsplash.com/photo-1578319439584-104c94d37305?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 1_chemical_change.html</div>
+            </div>
+        </div>
+    </div></section>
+<section>
+    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+        <span class="w-2 h-8 bg-cyan-500 rounded-full"></span>
+        2_chemical_equation.html
+    </h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80">https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 2_chemical_equation.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/J%C3%B6ns_Jacob_Berzelius.jpg/440px-J%C3%B6ns_Jacob_Berzelius.jpg" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/J%C3%B6ns_Jacob_Berzelius.jpg/440px-J%C3%B6ns_Jacob_Berzelius.jpg">https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/J%C3%B6ns_Jacob_Berzelius.jpg/440px-J%C3%B6ns_Jacob_Berzelius.jpg</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 2_chemical_equation.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1532634922-8fe0b757fb13?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1532634922-8fe0b757fb13?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">https://images.unsplash.com/photo-1532634922-8fe0b757fb13?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 2_chemical_equation.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80">https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 2_chemical_equation.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1521449253812-73282b3b03bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1521449253812-73282b3b03bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">https://images.unsplash.com/photo-1521449253812-73282b3b03bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 2_chemical_equation.html</div>
+            </div>
+        </div>
+    </div></section>
+<section>
+    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+        <span class="w-2 h-8 bg-cyan-500 rounded-full"></span>
+        3_mass_conservation.html
+    </h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Antoine_lavoisier.jpg/440px-Antoine_lavoisier.jpg" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Antoine_lavoisier.jpg/440px-Antoine_lavoisier.jpg">https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Antoine_lavoisier.jpg/440px-Antoine_lavoisier.jpg</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 3_mass_conservation.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1536633132051-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1536633132051-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80">https://images.unsplash.com/photo-1536633132051-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 3_mass_conservation.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 3_mass_conservation.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 3_mass_conservation.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80">https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 3_mass_conservation.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 3_mass_conservation.html</div>
+            </div>
+        </div>
+    </div></section>
+<section>
+    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+        <span class="w-2 h-8 bg-cyan-500 rounded-full"></span>
+        4_definite_proportions.html
+    </h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80">https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 4_definite_proportions.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 4_definite_proportions.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80">https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 4_definite_proportions.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Joseph_Louis_Proust.jpg/440px-Joseph_Louis_Proust.jpg" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Joseph_Louis_Proust.jpg/440px-Joseph_Louis_Proust.jpg">https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Joseph_Louis_Proust.jpg/440px-Joseph_Louis_Proust.jpg</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 4_definite_proportions.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1554224155-1696413565d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1554224155-1696413565d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">https://images.unsplash.com/photo-1554224155-1696413565d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 4_definite_proportions.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 4_definite_proportions.html</div>
+            </div>
+        </div>
+    </div></section>
+<section>
+    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+        <span class="w-2 h-8 bg-cyan-500 rounded-full"></span>
+        5_gas_reaction.html
+    </h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg">https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 5_gas_reaction.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 5_gas_reaction.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png">https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 5_gas_reaction.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 5_gas_reaction.html</div>
+            </div>
+        </div>
+    </div></section>
+<section>
+    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+        <span class="w-2 h-8 bg-cyan-500 rounded-full"></span>
+        6_energy_change.html
+    </h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 6_energy_change.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 6_energy_change.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 6_energy_change.html</div>
+            </div>
+        </div>
+
+        <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Resource">
+            </div>
+            <div class="p-3">
+                <p class="text-[10px] text-slate-400 truncate mb-2" title="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80</p>
+                <div class="text-[9px] font-mono text-slate-300 break-all">Used in 6_energy_change.html</div>
+            </div>
+        </div>
+    </div></section>
+        </div>
+        <div class="mt-24 p-12 bg-white rounded-3xl border-2 border-dashed border-slate-200 text-center">
+            <h3 class="text-xl font-bold text-slate-400">관리 팁</h3>
+            <p class="text-slate-400 mt-2 leading-relaxed">
+                1. <code>pictures/</code> 폴더에 로컬 이미지 파일을 넣으세요.<br>
+                2. HTML 파일의 <code>src="..."</code> 부분을 <code>pictures/파일명.jpg</code>로 수정하면 적용됩니다.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
