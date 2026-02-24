@@ -8,7 +8,7 @@
     <!-- MathJax for LaTeX -->
     <script>
         window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+            tex: { inlineMath: [['\(', '\)'], ['\\(', '\\)']], displayMath: [['$\(', '\)$']] },
             svg: { fontCache: 'global' }
         };
     </script>
@@ -79,7 +79,7 @@
             <div class="w-full max-w-4xl bg-white p-10 border border-slate-200">
                 <p class="text-left text-lg mb-6">본 강의의 모든 수식은 <strong>MathJax</strong>를 통해 렌더링됩니다.</p>
                 <div class="p-6 bg-slate-50 rounded font-serif text-2xl mb-8">
-                    $$ \hat{H}\psi = E\psi $$
+                    $\( \hat{H}\psi = E\psi \)$
                     <p class="text-sm text-center text-slate-400 mt-2">(위 수식이 아름답게 보인다면 준비 완료!)</p>
                 </div>
                 <p class="text-left text-slate-600 italic">"Symmetry is the key to simplifying the Schrödinger equation."</p>
@@ -111,8 +111,8 @@
     <!-- Slide 4: Proper Rotation (Interactive) -->
     <section id="s4">
         <div class="slide-content">
-            <h2>고유 회전 축 ($C_n$)</h2>
-            <p class="mb-8">$360^\circ / n$ 만큼 회전시키는 조작</p>
+            <h2>고유 회전 축 (\(C_n\))</h2>
+            <p class="mb-8">\(360^\circ / n\) 만큼 회전시키는 조작</p>
             
             <div class="flex gap-12 items-center justify-center w-full">
                 <div class="stage-3d" id="rotation-stage">
@@ -127,10 +127,10 @@
                 <div class="text-left space-y-6">
                     <div class="p-6 bg-blue-50 border border-blue-200 rounded-xl">
                         <h3 class="font-bold text-blue-800 mb-2">물 분자 (\(H_2O\)) 시뮬레이션</h3>
-                        <p class="text-sm text-slate-600">주축인 $C_2$ 축을 따라 $180^\circ$ 회전합니다.</p>
+                        <p class="text-sm text-slate-600">주축인 \(C_2\) 축을 따라 \(180^\circ\) 회전합니다.</p>
                     </div>
                     <button onclick="simulateRotation()" class="w-full py-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-all shadow-lg">
-                        $C_2$ 조작 실행 (180°)
+                        \(C_2\) 조작 실행 (180°)
                     </button>
                     <p id="rotation-log" class="font-mono text-xs text-slate-400 text-center">Ready...</p>
                 </div>
@@ -141,7 +141,7 @@
     <!-- Slide 5: Reflection (Interactive) -->
     <section id="s5">
         <div class="slide-content">
-            <h2>반사 면 ($\sigma$)</h2>
+            <h2>반사 면 (\(\sigma\))</h2>
             <p class="mb-8">거울면(Mirror Plane)에 의한 조작</p>
             
             <div class="flex gap-12 items-center justify-center w-full">
@@ -156,11 +156,11 @@
                 
                 <div class="text-left space-y-6">
                     <div class="p-6 bg-cyan-50 border border-cyan-200 rounded-xl">
-                        <h3 class="font-bold text-cyan-800 mb-2">$\sigma_v$ (수직 거울면)</h3>
+                        <h3 class="font-bold text-cyan-800 mb-2">\(\sigma_v\) (수직 거울면)</h3>
                         <p class="text-sm text-slate-600">분자의 면을 이등분하거나 포함합니다.</p>
                     </div>
                     <button onclick="simulateReflection()" class="w-full py-4 bg-cyan-600 text-white font-bold rounded-lg hover:bg-cyan-700 transition-all shadow-lg">
-                        $\sigma$ 반사 실행
+                        \(\sigma\) 반사 실행
                     </button>
                 </div>
             </div>
@@ -170,8 +170,8 @@
     <!-- Slide 6: Inversion (Interactive) -->
     <section id="s6">
         <div class="slide-content">
-            <h2>반전 중심 ($i$)</h2>
-            <p class="mb-8">$(x, y, z) \to (-x, -y, -z)$</p>
+            <h2>반전 중심 (\(i\))</h2>
+            <p class="mb-8">\((x, y, z) \to (-x, -y, -z)\)</p>
             
             <div class="flex gap-12 items-center justify-center w-full">
                 <div class="stage-3d">
@@ -184,7 +184,7 @@
                 
                 <div class="text-left space-y-6">
                     <button onclick="simulateInversion()" class="w-full py-4 bg-slate-800 text-white font-bold rounded-lg hover:bg-slate-900 transition-all shadow-lg">
-                        반전 ($i$) 조작 실행
+                        반전 (\(i\)) 조작 실행
                     </button>
                     <p class="text-sm text-slate-500 italic">"반대편으로 점대칭 이동합니다."</p>
                 </div>
@@ -195,15 +195,15 @@
     <!-- Slide 7: Sn Definition -->
     <section id="s7">
         <div class="slide-content">
-            <h2>회전-반사 ($S_n$)</h2>
+            <h2>회전-반사 (\(S_n\))</h2>
             <div class="bg-slate-900 text-white p-10 rounded-xl w-full max-w-4xl text-center">
                 <p class="text-4xl font-serif mb-8">
-                    $\hat{S}_n = \hat{\sigma}_h \hat{C}_n$
+                    \(\hat{S}_n = \hat{\sigma}_h \hat{C}_n\)
                 </p>
                 <div class="grid grid-cols-3 items-center gap-4 text-lg">
-                    <div class="p-4 border border-slate-700 rounded">1단계: $C_n$ 회전</div>
+                    <div class="p-4 border border-slate-700 rounded">1단계: \(C_n\) 회전</div>
                     <div class="text-2xl">➔</div>
-                    <div class="p-4 border border-slate-700 rounded">2단계: 수직면 $\sigma_h$ 반사</div>
+                    <div class="p-4 border border-slate-700 rounded">2단계: 수직면 \(\sigma_h\) 반사</div>
                 </div>
             </div>
             <p class="mt-8 text-slate-500">※ 각각의 조작은 대칭 조작이 아닐 수 있지만, 그 조합은 대칭 조작이어야 합니다.</p>
@@ -218,13 +218,13 @@
             <div class="w-full max-w-2xl overflow-hidden border border-slate-200 rounded">
                 <table class="w-full text-center text-sm font-mono">
                     <thead class="bg-slate-100">
-                        <tr><th>$C_{2v}$</th><th>$E$</th><th>$C_2$</th><th>$\sigma_v(xz)$</th><th>$\sigma_v'(yz)$</th></tr>
+                        <tr><th>\(C_{2v}\)</th><th>\(E\)</th><th>\(C_2\)</th><th>\(\sigma_v(xz)\)</th><th>\(\sigma_v'(yz)\)</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td>$A_1$</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
-                        <tr><td>$A_2$</td><td>1</td><td>1</td><td>-1</td><td>-1</td></tr>
-                        <tr><td>$B_1$</td><td>1</td><td>-1</td><td>1</td><td>-1</td></tr>
-                        <tr><td>$B_2$</td><td>1</td><td>-1</td><td>-1</td><td>1</td></tr>
+                        <tr><td>\(A_1\)</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+                        <tr><td>\(A_2\)</td><td>1</td><td>1</td><td>-1</td><td>-1</td></tr>
+                        <tr><td>\(B_1\)</td><td>1</td><td>-1</td><td>1</td><td>-1</td></tr>
+                        <tr><td>\(B_2\)</td><td>1</td><td>-1</td><td>-1</td><td>1</td></tr>
                     </tbody>
                 </table>
             </div>
