@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4차시: 일정 성분비 법칙</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/presentation_mode.css">
-    <style>
-        .hero-bg-definite {
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   4차시: 일정 성분비 법칙
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6">
+  </script>
+  <script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <link href="css/common.css" rel="stylesheet"/>
+  <link href="css/presentation_mode.css" rel="stylesheet"/>
+  <style>
+   .hero-bg-definite {
             background-image: url('https://images.unsplash.com/photo-1554224155-1696413565d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
             background-size: cover;
             background-position: center;
@@ -33,453 +38,731 @@
         .nut { width: 40px; height: 40px; background: #cbd5e1; border-radius: 50%; border: 4px solid #64748b; display: flex; align-items: center; justify-content: center; }
         .nut::after { content: ''; width: 15px; height: 15px; background: white; border-radius: 50%; border: 2px solid #64748b; }
         .vs-tag { background: #f8fafc; padding: 0.5rem 1rem; border-radius: 9999px; font-weight: bold; border: 1px solid #e2e8f0; }
-    </style>
-</head>
-<body class="presentation-mode">
-
-<main>
-    <!-- Slide 1: Cover -->
-    <section id="s1" class="hero-bg-definite" style="background-image: url('https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-        <div class="slide-content bg-overlay">
-            <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">중학교 3학년 과학 • 화학 1단원</p>
-            <h1 class="text-6xl font-black mb-6 text-slate-900 leading-tight">
-                자연의 레시피<br><span style="color:var(--accent-teal)">일정 성분비 법칙</span>
-            </h1>
-            <div class="w-20 h-1 bg-slate-800 mx-auto my-8"></div>
-            <p class="text-2xl text-slate-600 font-medium">제 4강: 화합물을 구성하는 질량비</p>
+  </style>
+ </head>
+ <body class="presentation-mode">
+  <main>
+   <!-- Slide 1: Cover -->
+   <section class="hero-bg-definite" data-slide-index="0" data-slide-num="1" data-title="Cover" id="slide-1" style="background-image: url('https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80');">
+    <div class="slide-content bg-overlay">
+     <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">
+      중학교 3학년 과학 &bull; 화학 1단원
+     </p>
+     <h1 class="text-6xl font-black mb-6 text-slate-900 leading-tight">
+      자연의 레시피
+      <br/>
+      <span style="color:var(--accent-teal)">
+       일정 성분비 법칙
+      </span>
+     </h1>
+     <div class="w-20 h-1 bg-slate-800 mx-auto my-8">
+     </div>
+     <p class="text-2xl text-slate-600 font-medium">
+      제 4강: 화합물을 구성하는 질량비
+     </p>
+    </div>
+   </section>
+   <!-- Slide 2: Intro (Recipe) -->
+   <section data-slide-index="1" data-slide-num="2" data-title="도입: 샌드위치 만들기" id="slide-2">
+    <div class="slide-content">
+     <h2>
+      도입: 샌드위치 만들기
+     </h2>
+     <div class="flex gap-12 items-center max-w-6xl mt-8">
+      <div class="w-1/2">
+       <img alt="Sandwich" class="rounded-2xl shadow-2xl" src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"/>
+      </div>
+      <div class="w-1/2 text-left space-y-8">
+       <div class="recipe-card">
+        <h3 class="text-2xl font-bold text-slate-800 mb-4">
+         📜 완벽한 레시피
+        </h3>
+        <ul class="text-xl space-y-3">
+         <li>
+          🍞 식빵 2개 + 🥓 햄 1개 = 🥪 샌드위치 1개
+         </li>
+        </ul>
+       </div>
+       <p class="text-2xl font-bold text-red-600 leading-tight">
+        질문: 식빵이 100개 있어도 햄이 1개뿐이라면,
+        <br/>
+        샌드위치를 몇 개 만들 수 있을까요?
+       </p>
+       <p class="text-xl text-slate-600 leading-relaxed">
+        화학 반응에서도 재료가 아무리 많아도 **'정해진 비율'**이 맞지 않으면 나머지는 그대로 남게 됩니다.
+       </p>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 3: Objectives -->
+   <section data-slide-index="2" data-slide-num="3" data-title="학습 목표" id="slide-3">
+    <div class="slide-content">
+     <h2>
+      학습 목표
+     </h2>
+     <div class="w-full max-w-4xl bg-white p-10 border-l-8 border-teal-600 shadow-sm text-left">
+      <ul class="space-y-8 text-2xl">
+       <li class="reveal-item flex items-start gap-4">
+        <span class="bg-teal-600 text-white w-10 h-10 rounded-full flex items-center justify-center shrink-0">
+         1
+        </span>
+        <span>
+         화합물을 구성하는 성분 원소 사이에 **일정한 질량비**가 성립함을 설명할 수 있다.
+        </span>
+       </li>
+       <li class="reveal-item flex items-start gap-4">
+        <span class="bg-teal-600 text-white w-10 h-10 rounded-full flex items-center justify-center shrink-0">
+         2
+        </span>
+        <span>
+         실험 데이터를 분석하여 물질 간의 질량비를 도출하고 남는 반응물을 계산할 수 있다.
+        </span>
+       </li>
+      </ul>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 4: Think Before Class -->
+   <section data-slide-index="3" data-slide-num="4" data-title="💡 수업 전 생각하기" id="slide-4">
+    <div class="slide-content">
+     <h2>
+      💡 수업 전 생각하기
+     </h2>
+     <div class="p-10 bg-amber-50 rounded-2xl border-2 border-amber-200 text-left max-w-4xl shadow-lg">
+      <p class="text-3xl font-bold text-amber-900 mb-8 italic">
+       "물은 항상 똑같은 비율일까요?"
+      </p>
+      <div class="space-y-6 text-xl leading-relaxed">
+       <p>
+        1. 한강의 물과 태평양의 물, 그리고 외계 행성에서 발견된 물은 모두 같은 성분비로 이루어져 있을까요?
+       </p>
+       <p>
+        2. 산소를 아주 많이 넣는다고 해서 '산소 맛이 더 진한 물'을 만들 수 있을까요?
+       </p>
+       <div class="mt-10 p-6 bg-white/80 rounded-xl border border-amber-100 text-center">
+        <p class="text-slate-700 font-bold">
+         자연이 정해준 **'마법의 비율'**에 대해 알아봅시다.
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 5: Bolt & Nut Model -->
+   <section data-slide-index="4" data-slide-num="5" data-title="탐구 1: 볼트와 너트 조립" id="slide-5">
+    <div class="slide-content">
+     <h2>
+      탐구 1: 볼트와 너트 조립
+     </h2>
+     <p class="text-xl mb-10 text-slate-500">
+      질량이 다른 부품을 사용하여 화합물(\(BN_2\))을 만들어 봅시다.
+     </p>
+     <div class="grid grid-cols-2 gap-12 w-full max-w-5xl">
+      <div class="p-8 bg-slate-50 rounded-2xl text-left border border-slate-200">
+       <h3 class="text-2xl font-bold mb-6 italic text-slate-400">
+        부품 제원
+       </h3>
+       <div class="flex items-center gap-6 mb-6">
+        <div class="bolt">
         </div>
-    </section>
-
-    <!-- Slide 2: Intro (Recipe) -->
-    <section id="s2">
-        <div class="slide-content">
-            <h2>도입: 샌드위치 만들기</h2>
-            <div class="flex gap-12 items-center max-w-6xl mt-8">
-                <div class="w-1/2">
-                    <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="rounded-2xl shadow-2xl" alt="Sandwich">
-                </div>
-                <div class="w-1/2 text-left space-y-8">
-                    <div class="recipe-card">
-                        <h3 class="text-2xl font-bold text-slate-800 mb-4">📜 완벽한 레시피</h3>
-                        <ul class="text-xl space-y-3">
-                            <li>🍞 식빵 2개 + 🥓 햄 1개 = 🥪 샌드위치 1개</li>
-                        </ul>
-                    </div>
-                    <p class="text-2xl font-bold text-red-600 leading-tight">
-                        질문: 식빵이 100개 있어도 햄이 1개뿐이라면,<br>샌드위치를 몇 개 만들 수 있을까요?
-                    </p>
-                    <p class="text-xl text-slate-600 leading-relaxed">
-                        화학 반응에서도 재료가 아무리 많아도 **'정해진 비율'**이 맞지 않으면 나머지는 그대로 남게 됩니다.
-                    </p>
-                </div>
-            </div>
+        <span class="text-xl font-bold">
+         볼트(B) 한 개: **10g**
+        </span>
+       </div>
+       <div class="flex items-center gap-6">
+        <div class="nut">
         </div>
-    </section>
-
-    <!-- Slide 3: Objectives -->
-    <section id="s3">
-        <div class="slide-content">
-            <h2>학습 목표</h2>
-            <div class="w-full max-w-4xl bg-white p-10 border-l-8 border-teal-600 shadow-sm text-left">
-                <ul class="space-y-8 text-2xl">
-                    <li class="reveal-item flex items-start gap-4">
-                        <span class="bg-teal-600 text-white w-10 h-10 rounded-full flex items-center justify-center shrink-0">1</span>
-                        <span>화합물을 구성하는 성분 원소 사이에 **일정한 질량비**가 성립함을 설명할 수 있다.</span>
-                    </li>
-                    <li class="reveal-item flex items-start gap-4">
-                        <span class="bg-teal-600 text-white w-10 h-10 rounded-full flex items-center justify-center shrink-0">2</span>
-                        <span>실험 데이터를 분석하여 물질 간의 질량비를 도출하고 남는 반응물을 계산할 수 있다.</span>
-                    </li>
-                </ul>
-            </div>
+        <span class="text-xl font-bold">
+         너트(N) 한 개: **2g**
+        </span>
+       </div>
+      </div>
+      <div class="p-8 bg-blue-50 rounded-2xl text-left border border-blue-200">
+       <h3 class="text-2xl font-bold mb-6 italic text-blue-400">
+        완성품 (\(BN_2\))
+       </h3>
+       <div class="flex items-center gap-2 mb-6">
+        <div class="bolt">
         </div>
-    </section>
-
-    <!-- Slide 4: Think Before Class -->
-    <section id="s4">
-        <div class="slide-content">
-            <h2>💡 수업 전 생각하기</h2>
-            <div class="p-10 bg-amber-50 rounded-2xl border-2 border-amber-200 text-left max-w-4xl shadow-lg">
-                <p class="text-3xl font-bold text-amber-900 mb-8 italic">"물은 항상 똑같은 비율일까요?"</p>
-                <div class="space-y-6 text-xl leading-relaxed">
-                    <p>1. 한강의 물과 태평양의 물, 그리고 외계 행성에서 발견된 물은 모두 같은 성분비로 이루어져 있을까요?</p>
-                    <p>2. 산소를 아주 많이 넣는다고 해서 '산소 맛이 더 진한 물'을 만들 수 있을까요?</p>
-                    <div class="mt-10 p-6 bg-white/80 rounded-xl border border-amber-100 text-center">
-                        <p class="text-slate-700 font-bold">자연이 정해준 **'마법의 비율'**에 대해 알아봅시다.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="nut">
         </div>
-    </section>
-
-    <!-- Slide 5: Bolt & Nut Model -->
-    <section id="s5">
-        <div class="slide-content">
-            <h2>탐구 1: 볼트와 너트 조립</h2>
-            <p class="text-xl mb-10 text-slate-500">질량이 다른 부품을 사용하여 화합물(\(BN_2\))을 만들어 봅시다.</p>
-            <div class="grid grid-cols-2 gap-12 w-full max-w-5xl">
-                <div class="p-8 bg-slate-50 rounded-2xl text-left border border-slate-200">
-                    <h3 class="text-2xl font-bold mb-6 italic text-slate-400">부품 제원</h3>
-                    <div class="flex items-center gap-6 mb-6">
-                        <div class="bolt"></div> <span class="text-xl font-bold">볼트(B) 한 개: **10g**</span>
-                    </div>
-                    <div class="flex items-center gap-6">
-                        <div class="nut"></div> <span class="text-xl font-bold">너트(N) 한 개: **2g**</span>
-                    </div>
-                </div>
-                <div class="p-8 bg-blue-50 rounded-2xl text-left border border-blue-200">
-                    <h3 class="text-2xl font-bold mb-6 italic text-blue-400">완성품 (\(BN_2\))</h3>
-                    <div class="flex items-center gap-2 mb-6">
-                        <div class="bolt"></div><div class="nut"></div><div class="nut"></div>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="text-xl">개수비 (B:N) = **1 : 2**</p>
-                        <p class="text-2xl font-black text-blue-700">질량비 = 10g : (2g×2) = **5 : 2**</p>
-                    </div>
-                </div>
-            </div>
+        <div class="nut">
         </div>
-    </section>
-
-    <!-- Slide 6: Bolt & Nut Conclusion -->
-    <section id="s6">
-        <div class="slide-content">
-            <h2>모형의 결론</h2>
-            <div class="p-10 bg-slate-900 text-white rounded-3xl max-w-4xl shadow-2xl">
-                <p class="text-3xl leading-relaxed">
-                    볼트와 너트를 수만 개 준비해도,<br>
-                    하나의 완성품 속에 들어있는<br>
-                    **부품의 질량비(5:2)**는 절대로 변하지 않습니다.
-                </p>
-                <div class="h-1 bg-teal-500 w-24 mx-auto my-8"></div>
-                <p class="text-xl text-teal-400 font-bold italic">"원자들도 이와 똑같은 원리로 결합합니다."</p>
-            </div>
+       </div>
+       <div class="space-y-4">
+        <p class="text-xl">
+         개수비 (B:N) = **1 : 2**
+        </p>
+        <p class="text-2xl font-black text-blue-700">
+         질량비 = 10g : (2g&times;2) = **5 : 2**
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 6: Bolt & Nut Conclusion -->
+   <section data-slide-index="5" data-slide-num="6" data-title="모형의 결론" id="slide-6">
+    <div class="slide-content">
+     <h2>
+      모형의 결론
+     </h2>
+     <div class="p-10 bg-slate-900 text-white rounded-3xl max-w-4xl shadow-2xl">
+      <p class="text-3xl leading-relaxed">
+       볼트와 너트를 수만 개 준비해도,
+       <br/>
+       하나의 완성품 속에 들어있는
+       <br/>
+       **부품의 질량비(5:2)**는 절대로 변하지 않습니다.
+      </p>
+      <div class="h-1 bg-teal-500 w-24 mx-auto my-8">
+      </div>
+      <p class="text-xl text-teal-400 font-bold italic">
+       "원자들도 이와 똑같은 원리로 결합합니다."
+      </p>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 7: History (Proust vs Berthollet) -->
+   <section data-slide-index="6" data-slide-num="7" data-title="역사 속 이야기: 위대한 대결" id="slide-7">
+    <div class="slide-content">
+     <h2>
+      역사 속 이야기: 위대한 대결
+     </h2>
+     <div class="grid grid-cols-2 gap-12 w-full max-w-6xl mt-8">
+      <div class="p-8 bg-blue-50 rounded-2xl border-t-8 border-blue-500 text-left">
+       <h3 class="text-xl font-black mb-4">
+        프루스트 (Proust)
+       </h3>
+       <p class="text-lg mb-4">
+        "화합물의 성분비는 **언제나 일정**합니다!"
+       </p>
+       <div class="vs-tag">
+        승리! (법칙 확립)
+       </div>
+      </div>
+      <div class="p-8 bg-slate-50 rounded-2xl border-t-8 border-slate-400 text-left">
+       <h3 class="text-xl font-black mb-4">
+        베르톨레 (Berthollet)
+       </h3>
+       <p class="text-lg mb-4">
+        "아니요, 재료를 섞는 양에 따라 성분비도 **변할 수** 있습니다!"
+       </p>
+       <div class="vs-tag">
+        패배 (혼합물과 혼동)
+       </div>
+      </div>
+     </div>
+     <p class="mt-12 text-xl text-slate-600 italic">
+      8년간의 치열한 논쟁 끝에 '일정 성분비 법칙'이 승리했습니다.
+     </p>
+    </div>
+   </section>
+   <!-- Slide 8: Experiment - Copper Oxide -->
+   <section data-slide-index="7" data-slide-num="8" data-title="실전 탐구: 산화 구리의 생성" id="slide-8">
+    <div class="slide-content">
+     <h2>
+      실전 탐구: 산화 구리의 생성
+     </h2>
+     <p class="text-xl mb-8">
+      구리 가루를 가열할 때 결합하는 산소의 질량을 측정해 봅시다.
+     </p>
+     <div class="flex gap-12 items-center w-full max-w-6xl">
+      <div class="w-1/2">
+       <table class="w-full text-center border-collapse border-2 border-slate-200">
+        <thead class="bg-slate-800 text-white">
+         <tr>
+          <th class="p-4">
+           구리 질량 (g)
+          </th>
+          <th class="p-4">
+           산소 질량 (g)
+          </th>
+         </tr>
+        </thead>
+        <tbody class="text-xl">
+         <tr class="border-b">
+          <td>
+           4.0
+          </td>
+          <td>
+           1.0
+          </td>
+         </tr>
+         <tr class="border-b">
+          <td>
+           8.0
+          </td>
+          <td>
+           2.0
+          </td>
+         </tr>
+         <tr class="border-b">
+          <td>
+           12.0
+          </td>
+          <td>
+           3.0
+          </td>
+         </tr>
+         <tr class="border-b">
+          <td>
+           16.0
+          </td>
+          <td>
+           4.0
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div class="w-1/2 text-left">
+       <h3 class="text-3xl font-black text-slate-800 mb-6">
+        데이터 분석
+       </h3>
+       <p class="text-xl mb-4">
+        구리의 양이 2배, 3배 늘어나면,
+        <br/>
+        결합하는 산소의 양도 정확히 2배, 3배 늘어납니다.
+       </p>
+       <div class="ratio-box">
+        구리 : 산소
+       </div>
+       <div class="ratio-box" style="color: #ef4444;">
+        4 : 1
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 9: Graph Analysis -->
+   <section data-slide-index="8" data-slide-num="9" data-title="그래프 분석: 직선의 의미" id="slide-9">
+    <div class="slide-content">
+     <h2>
+      그래프 분석: 직선의 의미
+     </h2>
+     <div class="flex gap-12 items-center max-w-5xl">
+      <div class="w-1/2 bg-white p-6 rounded-xl border border-slate-200 shadow-lg">
+       <!-- SVG Graph Placeholder -->
+       <svg class="w-full" viewbox="0 0 200 150">
+        <line stroke="#475569" stroke-width="2" x1="20" x2="180" y1="130" y2="130">
+        </line>
+        <line stroke="#475569" stroke-width="2" x1="20" x2="20" y1="130" y2="20">
+        </line>
+        <line stroke="#ef4444" stroke-dasharray="200" stroke-width="3" style="animation: dash 2s forwards;" x1="20" x2="160" y1="130" y2="40">
+        </line>
+        <text font-size="10" text-anchor="middle" x="100" y="145">
+         구리의 질량
+        </text>
+        <text font-size="10" text-anchor="middle" transform="rotate(-90, 10, 75)" x="10" y="75">
+         산소의 질량
+        </text>
+       </svg>
+      </div>
+      <div class="w-1/2 text-left space-y-6">
+       <h3 class="text-2xl font-bold text-slate-800">
+        기울기가 일정하다!
+       </h3>
+       <p class="text-xl leading-relaxed text-slate-600">
+        구리 질량과 산소 질량이 **정비례** 관계에 있다는 것은, 두 원소가 항상 일정한 비율로만 만난다는 뜻입니다.
+       </p>
+       <p class="text-lg bg-teal-50 p-4 rounded border border-teal-100">
+        기울기 = 산소 / 구리 = **1 / 4**
+       </p>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 10: Law Definition -->
+   <section data-slide-index="9" data-slide-num="10" data-title="일정 성분비 법칙" id="slide-10">
+    <div class="slide-content">
+     <h2>
+      일정 성분비 법칙
+     </h2>
+     <div class="flex gap-12 items-center max-w-6xl mt-8">
+      <div class="w-1/3">
+       <img class="rounded-xl shadow-2xl border-4 border-slate-800" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Joseph_Louis_Proust.jpg/440px-Joseph_Louis_Proust.jpg"/>
+       <p class="mt-4 font-bold text-xl">
+        조제프 프루스트
+       </p>
+      </div>
+      <div class="w-2/3 text-left">
+       <div class="bg-teal-900 text-white p-12 rounded-3xl shadow-2xl relative">
+        <span class="absolute top-4 left-6 text-6xl text-teal-700 font-serif">
+         &ldquo;
+        </span>
+        <p class="text-3xl font-light leading-relaxed mb-6">
+         두 종류 이상의 원소가 결합하여
+         <br/>
+         화합물을 생성할 때,
+         <br/>
+         **성분 원소 사이에는 항상**
+         <br/>
+         **일정한 질량비가 성립한다.**
+        </p>
+        <p class="text-xl text-cyan-400 font-bold">
+         - Law of Definite Proportions (1799) -
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 11: Why? (Atomic Reason) -->
+   <section data-slide-index="10" data-slide-num="11" data-title="왜 질량비가 일정할까요?" id="slide-11">
+    <div class="slide-content">
+     <h2>
+      왜 질량비가 일정할까요?
+     </h2>
+     <div class="flex gap-12 items-center max-w-5xl mt-8 text-left">
+      <div class="w-1/2 p-8 bg-slate-900 text-white rounded-2xl shadow-xl">
+       <h3 class="text-2xl font-bold text-cyan-400 mb-8">
+        근본적인 이유
+       </h3>
+       <div class="space-y-10">
+        <div>
+         <p class="text-sm text-slate-400 mb-2">
+          원인 1
+         </p>
+         <p class="text-xl leading-relaxed">
+          화합물을 만들 때 원자들이 항상 **일정한 개수비**로만 결합하기 때문입니다.
+         </p>
         </div>
-    </section>
-
-    <!-- Slide 7: History (Proust vs Berthollet) -->
-    <section id="s7">
-        <div class="slide-content">
-            <h2>역사 속 이야기: 위대한 대결</h2>
-            <div class="grid grid-cols-2 gap-12 w-full max-w-6xl mt-8">
-                <div class="p-8 bg-blue-50 rounded-2xl border-t-8 border-blue-500 text-left">
-                    <h3 class="text-xl font-black mb-4">프루스트 (Proust)</h3>
-                    <p class="text-lg mb-4">"화합물의 성분비는 **언제나 일정**합니다!"</p>
-                    <div class="vs-tag">승리! (법칙 확립)</div>
-                </div>
-                <div class="p-8 bg-slate-50 rounded-2xl border-t-8 border-slate-400 text-left">
-                    <h3 class="text-xl font-black mb-4">베르톨레 (Berthollet)</h3>
-                    <p class="text-lg mb-4">"아니요, 재료를 섞는 양에 따라 성분비도 **변할 수** 있습니다!"</p>
-                    <div class="vs-tag">패배 (혼합물과 혼동)</div>
-                </div>
-            </div>
-            <p class="mt-12 text-xl text-slate-600 italic">8년간의 치열한 논쟁 끝에 '일정 성분비 법칙'이 승리했습니다.</p>
+        <div>
+         <p class="text-sm text-slate-400 mb-2">
+          원인 2
+         </p>
+         <p class="text-xl leading-relaxed">
+          원자마다 고유한 **질량**이 정해져 있기 때문입니다.
+         </p>
         </div>
-    </section>
-
-    <!-- Slide 8: Experiment - Copper Oxide -->
-    <section id="s8">
-        <div class="slide-content">
-            <h2>실전 탐구: 산화 구리의 생성</h2>
-            <p class="text-xl mb-8">구리 가루를 가열할 때 결합하는 산소의 질량을 측정해 봅시다.</p>
-            <div class="flex gap-12 items-center w-full max-w-6xl">
-                <div class="w-1/2">
-                    <table class="w-full text-center border-collapse border-2 border-slate-200">
-                        <thead class="bg-slate-800 text-white">
-                            <tr><th class="p-4">구리 질량 (g)</th><th class="p-4">산소 질량 (g)</th></tr>
-                        </thead>
-                        <tbody class="text-xl">
-                            <tr class="border-b"><td>4.0</td><td>1.0</td></tr>
-                            <tr class="border-b"><td>8.0</td><td>2.0</td></tr>
-                            <tr class="border-b"><td>12.0</td><td>3.0</td></tr>
-                            <tr class="border-b"><td>16.0</td><td>4.0</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="w-1/2 text-left">
-                    <h3 class="text-3xl font-black text-slate-800 mb-6">데이터 분석</h3>
-                    <p class="text-xl mb-4">구리의 양이 2배, 3배 늘어나면,<br>결합하는 산소의 양도 정확히 2배, 3배 늘어납니다.</p>
-                    <div class="ratio-box">구리 : 산소</div>
-                    <div class="ratio-box" style="color: #ef4444;">4 : 1</div>
-                </div>
-            </div>
+       </div>
+      </div>
+      <div class="w-1/2 text-center">
+       <div class="p-8 bg-white border border-slate-200 rounded-2xl shadow-lg">
+        <p class="text-2xl font-black text-slate-800 mb-6">
+         수학적 증명
+        </p>
+        <p class="text-xl leading-loose">
+         개수비가 일정 (\(1:2\))
+         <br/>
+         \(\times\)
+         <br/>
+         원자 한 개의 질량 일정
+         <br/>
+         <span class="text-3xl text-teal-600">
+          ＝ 질량비 일정!
+         </span>
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 12: Ammonia Case -->
+   <section data-slide-index="11" data-slide-num="12" data-title="다양한 사례: 암모니아 (\(NH_3\))" id="slide-12">
+    <div class="slide-content">
+     <h2>
+      다양한 사례: 암모니아 (\(NH_3\))
+     </h2>
+     <div class="flex gap-12 items-center max-w-5xl mt-8">
+      <div class="w-1/3">
+       <div class="molecule mol-nh3 scale-150 mx-auto">
+        <div class="atom atom-n">
+         N
         </div>
-    </section>
-
-    <!-- Slide 9: Graph Analysis -->
-    <section id="s9">
-        <div class="slide-content">
-            <h2>그래프 분석: 직선의 의미</h2>
-            <div class="flex gap-12 items-center max-w-5xl">
-                <div class="w-1/2 bg-white p-6 rounded-xl border border-slate-200 shadow-lg">
-                    <!-- SVG Graph Placeholder -->
-                    <svg viewBox="0 0 200 150" class="w-full">
-                        <line x1="20" y1="130" x2="180" y2="130" stroke="#475569" stroke-width="2" />
-                        <line x1="20" y1="130" x2="20" y2="20" stroke="#475569" stroke-width="2" />
-                        <line x1="20" y1="130" x2="160" y2="40" stroke="#ef4444" stroke-width="3" stroke-dasharray="200" style="animation: dash 2s forwards;" />
-                        <text x="100" y="145" font-size="10" text-anchor="middle">구리의 질량</text>
-                        <text x="10" y="75" font-size="10" text-anchor="middle" transform="rotate(-90, 10, 75)">산소의 질량</text>
-                    </svg>
-                </div>
-                <div class="w-1/2 text-left space-y-6">
-                    <h3 class="text-2xl font-bold text-slate-800">기울기가 일정하다!</h3>
-                    <p class="text-xl leading-relaxed text-slate-600">
-                        구리 질량과 산소 질량이 **정비례** 관계에 있다는 것은, 두 원소가 항상 일정한 비율로만 만난다는 뜻입니다.
-                    </p>
-                    <p class="text-lg bg-teal-50 p-4 rounded border border-teal-100">
-                        기울기 = 산소 / 구리 = **1 / 4**
-                    </p>
-                </div>
-            </div>
+        <div class="atom atom-h">
+         H
         </div>
-    </section>
-
-    <!-- Slide 10: Law Definition -->
-    <section id="s10">
-        <div class="slide-content">
-            <h2>일정 성분비 법칙</h2>
-            <div class="flex gap-12 items-center max-w-6xl mt-8">
-                <div class="w-1/3">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Joseph_Louis_Proust.jpg/440px-Joseph_Louis_Proust.jpg" class="rounded-xl shadow-2xl border-4 border-slate-800">
-                    <p class="mt-4 font-bold text-xl">조제프 프루스트</p>
-                </div>
-                <div class="w-2/3 text-left">
-                    <div class="bg-teal-900 text-white p-12 rounded-3xl shadow-2xl relative">
-                        <span class="absolute top-4 left-6 text-6xl text-teal-700 font-serif">“</span>
-                        <p class="text-3xl font-light leading-relaxed mb-6">
-                            두 종류 이상의 원소가 결합하여<br>
-                            화합물을 생성할 때,<br>
-                            **성분 원소 사이에는 항상**<br>
-                            **일정한 질량비가 성립한다.**
-                        </p>
-                        <p class="text-xl text-cyan-400 font-bold">- Law of Definite Proportions (1799) -</p>
-                    </div>
-                </div>
-            </div>
+        <div class="atom atom-h">
+         H
         </div>
-    </section>
-
-    <!-- Slide 11: Why? (Atomic Reason) -->
-    <section id="s11">
-        <div class="slide-content">
-            <h2>왜 질량비가 일정할까요?</h2>
-            <div class="flex gap-12 items-center max-w-5xl mt-8 text-left">
-                <div class="w-1/2 p-8 bg-slate-900 text-white rounded-2xl shadow-xl">
-                    <h3 class="text-2xl font-bold text-cyan-400 mb-8">근본적인 이유</h3>
-                    <div class="space-y-10">
-                        <div>
-                            <p class="text-sm text-slate-400 mb-2">원인 1</p>
-                            <p class="text-xl leading-relaxed">화합물을 만들 때 원자들이 항상 **일정한 개수비**로만 결합하기 때문입니다.</p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-slate-400 mb-2">원인 2</p>
-                            <p class="text-xl leading-relaxed">원자마다 고유한 **질량**이 정해져 있기 때문입니다.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-1/2 text-center">
-                    <div class="p-8 bg-white border border-slate-200 rounded-2xl shadow-lg">
-                        <p class="text-2xl font-black text-slate-800 mb-6">수학적 증명</p>
-                        <p class="text-xl leading-loose">
-                            개수비가 일정 (\(1:2\))<br>
-                            \(\times\)<br>
-                            원자 한 개의 질량 일정<br>
-                            <span class="text-3xl text-teal-600">＝ 질량비 일정!</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
+        <div class="atom atom-h">
+         H
         </div>
-    </section>
-
-    <!-- Slide 12: Ammonia Case -->
-    <section id="s12">
-        <div class="slide-content">
-            <h2>다양한 사례: 암모니아 (\(NH_3\))</h2>
-            <div class="flex gap-12 items-center max-w-5xl mt-8">
-                <div class="w-1/3">
-                    <div class="molecule mol-nh3 scale-150 mx-auto">
-                        <div class="atom atom-n">N</div>
-                        <div class="atom atom-h">H</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div>
-                    </div>
-                </div>
-                <div class="w-2/3 text-left space-y-6">
-                    <div class="p-8 bg-indigo-50 border-l-8 border-indigo-500 rounded-r-xl">
-                        <h3 class="text-2xl font-bold text-indigo-800 mb-4">암모니아의 질량비</h3>
-                        <p class="text-xl mb-2">질소 원자 1개 질량 : 수소 원자 1개 질량 = **14 : 1**</p>
-                        <p class="text-xl mb-4">개수비 (N : H) = **1 : 3**</p>
-                        <div class="h-px bg-indigo-200 w-full mb-4"></div>
-                        <p class="text-3xl font-black text-indigo-900">최종 질량비 = 14 : 3</p>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+      <div class="w-2/3 text-left space-y-6">
+       <div class="p-8 bg-indigo-50 border-l-8 border-indigo-500 rounded-r-xl">
+        <h3 class="text-2xl font-bold text-indigo-800 mb-4">
+         암모니아의 질량비
+        </h3>
+        <p class="text-xl mb-2">
+         질소 원자 1개 질량 : 수소 원자 1개 질량 = **14 : 1**
+        </p>
+        <p class="text-xl mb-4">
+         개수비 (N : H) = **1 : 3**
+        </p>
+        <div class="h-px bg-indigo-200 w-full mb-4">
         </div>
-    </section>
-
-    <!-- Slide 13: Compounds vs Mixtures -->
-    <section id="s13">
-        <div class="slide-content">
-            <h2>⚠️ 주의: 혼합물은 해당되지 않아요!</h2>
-            <p class="text-xl mb-10 text-slate-500">이 법칙은 오직 **화합물**의 탄생에만 적용됩니다.</p>
-            <div class="grid grid-cols-2 gap-12 w-full max-w-5xl">
-                <div class="p-8 bg-emerald-50 rounded-2xl border-2 border-emerald-200 shadow-sm text-center">
-                    <h3 class="text-2xl font-bold text-emerald-800 mb-6">물 (화합물)</h3>
-                    <div class="flex justify-center mb-6"><div class="molecule mol-water"><div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div></div>
-                    <p class="text-lg leading-relaxed">수소 : 산소 = **1 : 8**<br>**언제나, 어디서나 일정!**</p>
-                </div>
-                <div class="p-8 bg-rose-50 rounded-2xl border-2 border-rose-200 shadow-sm text-center">
-                    <h3 class="text-2xl font-bold text-rose-800 mb-6">설탕물 (혼합물)</h3>
-                    <div class="text-6xl mb-6">🥤 🍯</div>
-                    <p class="text-lg leading-relaxed">설탕을 1g 넣든 100g 넣든 자유!<br>**성분비가 일정하지 않음**</p>
-                </div>
-            </div>
+        <p class="text-3xl font-black text-indigo-900">
+         최종 질량비 = 14 : 3
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 13: Compounds vs Mixtures -->
+   <section data-slide-index="12" data-slide-num="13" data-title="⚠️ 주의: 혼합물은 해당되지 않아요!" id="slide-13">
+    <div class="slide-content">
+     <h2>
+      ⚠️ 주의: 혼합물은 해당되지 않아요!
+     </h2>
+     <p class="text-xl mb-10 text-slate-500">
+      이 법칙은 오직 **화합물**의 탄생에만 적용됩니다.
+     </p>
+     <div class="grid grid-cols-2 gap-12 w-full max-w-5xl">
+      <div class="p-8 bg-emerald-50 rounded-2xl border-2 border-emerald-200 shadow-sm text-center">
+       <h3 class="text-2xl font-bold text-emerald-800 mb-6">
+        물 (화합물)
+       </h3>
+       <div class="flex justify-center mb-6">
+        <div class="molecule mol-water">
+         <div class="atom atom-o">
+          O
+         </div>
+         <div class="atom atom-h">
+          H
+         </div>
+         <div class="atom atom-h">
+          H
+         </div>
         </div>
-    </section>
-
-    <!-- Slide 14: Magnesium Oxide Challenge -->
-    <section id="s14">
-        <div class="slide-content">
-            <h2>연습: 산화 마그네슘의 탄생</h2>
-            <div class="flex gap-12 items-center max-w-5xl mt-8">
-                <div class="w-1/2">
-                    <img src="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="rounded-xl shadow-xl" alt="Burning Magnesium">
-                </div>
-                <div class="w-1/2 text-left space-y-6">
-                    <p class="text-2xl font-bold text-slate-800">마그네슘 3g을 완전히 태웠더니<br>산화 마그네슘 5g이 생겼습니다.</p>
-                    <div class="p-8 bg-slate-800 text-white rounded-2xl shadow-lg">
-                        <p class="text-xl mb-4">반응한 산소의 질량: **2g**</p>
-                        <p class="text-3xl font-black text-cyan-400">질량비 = 3 : 2</p>
-                        <p class="mt-4 text-sm text-slate-400">Mg : O : MgO = 3 : 2 : 5</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 15: Over-dosage Question -->
-    <section id="s15">
-        <div class="slide-content">
-            <h2>질문: 재료를 아주 많이 넣으면?</h2>
-            <p class="text-xl mb-10 italic">"구리 4g에 산소를 100g이나 공급하면 어떻게 될까요?"</p>
-            <div class="flex gap-8 justify-center items-center w-full max-w-4xl">
-                <div class="p-6 bg-blue-100 rounded-xl w-1/3">
-                    <p class="font-bold">구리 4g</p>
-                </div>
-                <span class="text-3xl">+</span>
-                <div class="p-6 bg-red-100 rounded-xl w-1/3">
-                    <p class="font-bold">산소 100g</p>
-                </div>
-                <span class="text-3xl">→</span>
-                <div class="p-6 bg-slate-800 text-white rounded-xl w-1/3">
-                    <p class="font-bold">산화 구리 5g</p>
-                    <p class="text-xs text-red-400 mt-2">산소 99g 남음!</p>
-                </div>
-            </div>
-            <p class="mt-12 text-2xl font-bold text-slate-700 bg-yellow-100 px-8 py-3 rounded-full">
-                "아무리 한쪽이 많아도 **4:1의 비율**만 딱 쓰고 나머지는 버려집니다."
-            </p>
-        </div>
-    </section>
-
-    <!-- Slide 16: Quiz 1 -->
-    <section id="q1">
-        <div class="slide-content">
-            <h2>형성 평가 01</h2>
-            <div class="quiz-container w-full max-w-3xl">
-                <p class="text-2xl font-bold mb-8 text-slate-800">
-                    일정 성분비 법칙이 **성립하는** 물질은?
-                </p>
-                <div class="quiz-options grid grid-cols-2 gap-4">
-                    <button class="quiz-btn" data-correct="false">소금물</button>
-                    <button class="quiz-btn" data-correct="true">이산화 탄소</button>
-                    <button class="quiz-btn" data-correct="false">공기</button>
-                    <button class="quiz-btn" data-correct="false">식혜</button>
-                </div>
-                <div class="quiz-feedback font-bold text-2xl mt-6 text-center"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 17: Quiz 2 -->
-    <section id="q2">
-        <div class="slide-content">
-            <h2>형성 평가 02</h2>
-            <div class="quiz-container w-full max-w-3xl">
-                <p class="text-2xl font-bold mb-8 text-slate-800">
-                    구리 20g을 완전히 산화시키려면 산소 몇 g이 필요할까요?<br>
-                    (단, 구리 : 산소 = 4 : 1)
-                </p>
-                <div class="quiz-options grid grid-cols-4 gap-4">
-                    <button class="quiz-btn text-center" data-correct="false">4g</button>
-                    <button class="quiz-btn text-center" data-correct="true">5g</button>
-                    <button class="quiz-btn text-center" data-correct="false">10g</button>
-                    <button class="quiz-btn text-center" data-correct="false">20g</button>
-                </div>
-                <div class="quiz-feedback font-bold text-2xl mt-6 text-center text-emerald-600"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 18: Quiz 3 (Advanced) -->
-    <section id="q3">
-        <div class="slide-content">
-            <h2>형성 평가 03</h2>
-            <div class="quiz-container w-full max-w-3xl">
-                <p class="text-2xl font-bold mb-8 text-slate-800">
-                    마그네슘 6g과 산소 6g을 반응시키면 어떤 물질이 얼마나 남을까요?<br>
-                    (단, 마그네슘 : 산소 = 3 : 2)
-                </p>
-                <div class="quiz-options grid grid-cols-1 gap-4">
-                    <button class="quiz-btn" data-correct="false">마그네슘 2g이 남는다.</button>
-                    <button class="quiz-btn" data-correct="true">산소 2g이 남는다.</button>
-                    <button class="quiz-btn" data-correct="false">아무것도 남지 않는다.</button>
-                </div>
-                <div class="quiz-feedback font-bold text-lg mt-6 text-slate-500">
-                    계산: Mg 6g에는 산소 4g이 필요하므로, 산소 2g이 남습니다!
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 19: Advanced Thinking -->
-    <section id="s19">
-        <div class="slide-content">
-            <h2>🤔 심화 탐구 및 토론</h2>
-            <div class="grid grid-cols-2 gap-12 w-full max-w-6xl mt-8 text-left">
-                <div class="p-10 bg-indigo-50 border-t-8 border-indigo-500 rounded-xl shadow-lg">
-                    <h3 class="text-2xl font-bold mb-6 text-indigo-700">심화 질문</h3>
-                    <p class="text-xl leading-relaxed">
-                        "과산화 수소(\(H_2O_2\))와 물(\(H_2O\))은 똑같이 수소와 산소로 되어 있지만 성질이 다릅니다. 이 차이를 원자의 결합비 관점에서 설명해 봅시다."
-                    </p>
-                </div>
-                <div class="p-10 bg-emerald-50 border-t-8 border-emerald-500 rounded-xl shadow-lg">
-                    <h3 class="text-2xl font-bold mb-6 text-emerald-700">발표 및 토론</h3>
-                    <p class="text-xl leading-relaxed">
-                        일정 성분비 법칙이 발견되기 전, 사람들은 왜 화합물의 비율이 제멋대로라고 생각했을까요? 당시의 과학적 한계에 대해 토론해 봅시다.
-                    </p>
-                </div>
-            </div>
-            <div class="mt-12 p-6 bg-slate-800 text-slate-300 rounded-xl text-lg text-center">
-                **Tip:** '배수 비례의 법칙'이라는 용어를 조사해 보면 더 깊은 통찰력을 얻을 수 있습니다!
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 20: Outro -->
-    <section id="end">
-        <div class="slide-content" style="border:none; box-shadow:none;">
-            <p class="text-slate-400 font-bold mb-4 uppercase tracking-widest">Next Lesson</p>
-            <h2 class="text-6xl mb-10 border-none">기체 반응 법칙</h2>
-            <p class="text-3xl text-slate-600 font-light mb-12 italic leading-relaxed">
-                "기체들이 반응할 때는 질량보다 더 신기한<br>
-                **부피 사이의 정수비**가 나타납니다."
-            </p>
-            <a href="5_gas_reaction.html" class="btn-enter" style="font-size: 1.8rem; padding: 1.2rem 3rem; background: var(--accent-orange);">다음 강의 시작 →</a>
-        </div>
-    </section>
-
-</main>
-
-<script src="js/slide_engine.js"></script>
-</body>
+       </div>
+       <p class="text-lg leading-relaxed">
+        수소 : 산소 = **1 : 8**
+        <br/>
+        **언제나, 어디서나 일정!**
+       </p>
+      </div>
+      <div class="p-8 bg-rose-50 rounded-2xl border-2 border-rose-200 shadow-sm text-center">
+       <h3 class="text-2xl font-bold text-rose-800 mb-6">
+        설탕물 (혼합물)
+       </h3>
+       <div class="text-6xl mb-6">
+        🥤 🍯
+       </div>
+       <p class="text-lg leading-relaxed">
+        설탕을 1g 넣든 100g 넣든 자유!
+        <br/>
+        **성분비가 일정하지 않음**
+       </p>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 14: Magnesium Oxide Challenge -->
+   <section data-slide-index="13" data-slide-num="14" data-title="연습: 산화 마그네슘의 탄생" id="slide-14">
+    <div class="slide-content">
+     <h2>
+      연습: 산화 마그네슘의 탄생
+     </h2>
+     <div class="flex gap-12 items-center max-w-5xl mt-8">
+      <div class="w-1/2">
+       <img alt="Burning Magnesium" class="rounded-xl shadow-xl" src="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80"/>
+      </div>
+      <div class="w-1/2 text-left space-y-6">
+       <p class="text-2xl font-bold text-slate-800">
+        마그네슘 3g을 완전히 태웠더니
+        <br/>
+        산화 마그네슘 5g이 생겼습니다.
+       </p>
+       <div class="p-8 bg-slate-800 text-white rounded-2xl shadow-lg">
+        <p class="text-xl mb-4">
+         반응한 산소의 질량: **2g**
+        </p>
+        <p class="text-3xl font-black text-cyan-400">
+         질량비 = 3 : 2
+        </p>
+        <p class="mt-4 text-sm text-slate-400">
+         Mg : O : MgO = 3 : 2 : 5
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 15: Over-dosage Question -->
+   <section data-slide-index="14" data-slide-num="15" data-title="질문: 재료를 아주 많이 넣으면?" id="slide-15">
+    <div class="slide-content">
+     <h2>
+      질문: 재료를 아주 많이 넣으면?
+     </h2>
+     <p class="text-xl mb-10 italic">
+      "구리 4g에 산소를 100g이나 공급하면 어떻게 될까요?"
+     </p>
+     <div class="flex gap-8 justify-center items-center w-full max-w-4xl">
+      <div class="p-6 bg-blue-100 rounded-xl w-1/3">
+       <p class="font-bold">
+        구리 4g
+       </p>
+      </div>
+      <span class="text-3xl">
+       +
+      </span>
+      <div class="p-6 bg-red-100 rounded-xl w-1/3">
+       <p class="font-bold">
+        산소 100g
+       </p>
+      </div>
+      <span class="text-3xl">
+       &rarr;
+      </span>
+      <div class="p-6 bg-slate-800 text-white rounded-xl w-1/3">
+       <p class="font-bold">
+        산화 구리 5g
+       </p>
+       <p class="text-xs text-red-400 mt-2">
+        산소 99g 남음!
+       </p>
+      </div>
+     </div>
+     <p class="mt-12 text-2xl font-bold text-slate-700 bg-yellow-100 px-8 py-3 rounded-full">
+      "아무리 한쪽이 많아도 **4:1의 비율**만 딱 쓰고 나머지는 버려집니다."
+     </p>
+    </div>
+   </section>
+   <!-- Slide 16: Quiz 1 -->
+   <section data-slide-index="15" data-slide-num="16" data-title="형성 평가 01" id="slide-16">
+    <div class="slide-content">
+     <h2>
+      형성 평가 01
+     </h2>
+     <div class="quiz-container w-full max-w-3xl">
+      <p class="text-2xl font-bold mb-8 text-slate-800">
+       일정 성분비 법칙이 **성립하는** 물질은?
+      </p>
+      <div class="quiz-options grid grid-cols-2 gap-4">
+       <button class="quiz-btn" data-correct="false">
+        소금물
+       </button>
+       <button class="quiz-btn" data-correct="true">
+        이산화 탄소
+       </button>
+       <button class="quiz-btn" data-correct="false">
+        공기
+       </button>
+       <button class="quiz-btn" data-correct="false">
+        식혜
+       </button>
+      </div>
+      <div class="quiz-feedback font-bold text-2xl mt-6 text-center">
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 17: Quiz 2 -->
+   <section data-slide-index="16" data-slide-num="17" data-title="형성 평가 02" id="slide-17">
+    <div class="slide-content">
+     <h2>
+      형성 평가 02
+     </h2>
+     <div class="quiz-container w-full max-w-3xl">
+      <p class="text-2xl font-bold mb-8 text-slate-800">
+       구리 20g을 완전히 산화시키려면 산소 몇 g이 필요할까요?
+       <br/>
+       (단, 구리 : 산소 = 4 : 1)
+      </p>
+      <div class="quiz-options grid grid-cols-4 gap-4">
+       <button class="quiz-btn text-center" data-correct="false">
+        4g
+       </button>
+       <button class="quiz-btn text-center" data-correct="true">
+        5g
+       </button>
+       <button class="quiz-btn text-center" data-correct="false">
+        10g
+       </button>
+       <button class="quiz-btn text-center" data-correct="false">
+        20g
+       </button>
+      </div>
+      <div class="quiz-feedback font-bold text-2xl mt-6 text-center text-emerald-600">
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 18: Quiz 3 (Advanced) -->
+   <section data-slide-index="17" data-slide-num="18" data-title="형성 평가 03" id="slide-18">
+    <div class="slide-content">
+     <h2>
+      형성 평가 03
+     </h2>
+     <div class="quiz-container w-full max-w-3xl">
+      <p class="text-2xl font-bold mb-8 text-slate-800">
+       마그네슘 6g과 산소 6g을 반응시키면 어떤 물질이 얼마나 남을까요?
+       <br/>
+       (단, 마그네슘 : 산소 = 3 : 2)
+      </p>
+      <div class="quiz-options grid grid-cols-1 gap-4">
+       <button class="quiz-btn" data-correct="false">
+        마그네슘 2g이 남는다.
+       </button>
+       <button class="quiz-btn" data-correct="true">
+        산소 2g이 남는다.
+       </button>
+       <button class="quiz-btn" data-correct="false">
+        아무것도 남지 않는다.
+       </button>
+      </div>
+      <div class="quiz-feedback font-bold text-lg mt-6 text-slate-500">
+       계산: Mg 6g에는 산소 4g이 필요하므로, 산소 2g이 남습니다!
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 19: Advanced Thinking -->
+   <section data-slide-index="18" data-slide-num="19" data-title="🤔 심화 탐구 및 토론" id="slide-19">
+    <div class="slide-content">
+     <h2>
+      🤔 심화 탐구 및 토론
+     </h2>
+     <div class="grid grid-cols-2 gap-12 w-full max-w-6xl mt-8 text-left">
+      <div class="p-10 bg-indigo-50 border-t-8 border-indigo-500 rounded-xl shadow-lg">
+       <h3 class="text-2xl font-bold mb-6 text-indigo-700">
+        심화 질문
+       </h3>
+       <p class="text-xl leading-relaxed">
+        "과산화 수소(\(H_2O_2\))와 물(\(H_2O\))은 똑같이 수소와 산소로 되어 있지만 성질이 다릅니다. 이 차이를 원자의 결합비 관점에서 설명해 봅시다."
+       </p>
+      </div>
+      <div class="p-10 bg-emerald-50 border-t-8 border-emerald-500 rounded-xl shadow-lg">
+       <h3 class="text-2xl font-bold mb-6 text-emerald-700">
+        발표 및 토론
+       </h3>
+       <p class="text-xl leading-relaxed">
+        일정 성분비 법칙이 발견되기 전, 사람들은 왜 화합물의 비율이 제멋대로라고 생각했을까요? 당시의 과학적 한계에 대해 토론해 봅시다.
+       </p>
+      </div>
+     </div>
+     <div class="mt-12 p-6 bg-slate-800 text-slate-300 rounded-xl text-lg text-center">
+      **Tip:** '배수 비례의 법칙'이라는 용어를 조사해 보면 더 깊은 통찰력을 얻을 수 있습니다!
+     </div>
+    </div>
+   </section>
+   <!-- Slide 20: Outro -->
+   <section data-slide-index="19" data-slide-num="20" data-title="기체 반응 법칙" id="slide-20">
+    <div class="slide-content" style="border:none; box-shadow:none;">
+     <p class="text-slate-400 font-bold mb-4 uppercase tracking-widest">
+      Next Lesson
+     </p>
+     <h2 class="text-6xl mb-10 border-none">
+      기체 반응 법칙
+     </h2>
+     <p class="text-3xl text-slate-600 font-light mb-12 italic leading-relaxed">
+      "기체들이 반응할 때는 질량보다 더 신기한
+      <br/>
+      **부피 사이의 정수비**가 나타납니다."
+     </p>
+     <a class="btn-enter" href="5_gas_reaction.html" style="font-size: 1.8rem; padding: 1.2rem 3rem; background: var(--accent-orange);">
+      다음 강의 시작 &rarr;
+     </a>
+    </div>
+   </section>
+  </main>
+  <script src="js/slide_engine.js">
+  </script>
+ </body>
 </html>
