@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borcelle Science Lab - 중3 과학</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        body {
+            background-color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 6px solid var(--accent-cyan);
+        }
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .lesson-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .lesson-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: var(--accent-cyan);
+        }
+        .card-header {
+            padding: 1.5rem;
+            background: #f1f5f9;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .card-num {
+            font-family: 'GmarketSansBold', sans-serif;
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .card-title {
+            font-family: 'GmarketSansBold', sans-serif;
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+            color: var(--primary-blue);
+        }
+        .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+        .card-footer {
+            padding: 1rem 1.5rem;
+            background: #f8fafc;
+            text-align: right;
+        }
+        .btn-enter {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .btn-enter:hover {
+            background: var(--accent-cyan);
+        }
+        footer {
+            margin-top: auto;
+            padding: 2rem;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero-section">
+        <p class="text-cyan-400 font-bold tracking-widest mb-2">BORCELLE SECONDARY SCHOOL</p>
+        <h1 class="text-5xl font-black mb-4">중3 과학: 화학 반응의 규칙</h1>
+        <p class="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            물질의 변화부터 에너지의 출입까지, 세련된 인터랙티브 슬라이드로 만나는 화학의 세계
+        </p>
+    </header>
+
+    <main class="lesson-grid">
+        <!-- Lesson 1 -->
+        <article class="lesson-card">
+            <div class="card-header">
+                <span class="card-num">Lesson 01</span>
+                <h3 class="card-title">물리 변화와 화학 변화</h3>
+            </div>
+            <div class="card-body text-slate-600">
+                물질의 성질은 유지되는가? 입자 모형을 통해 물리 변화와 화학 변화의 근본적인 차이를 알아봅니다.
+            </div>
+            <div class="card-footer">
+                <a href="1_chemical_change.html" class="btn-enter">강의 시작 →</a>
+            </div>
+        </article>
+
+        <!-- Lesson 2 -->
+        <article class="lesson-card">
+            <div class="card-header">
+                <span class="card-num">Lesson 02</span>
+                <h3 class="card-title">화학 반응식 만들기</h3>
+            </div>
+            <div class="card-body text-slate-600">
+                화학자들의 세계 공용어! 화학 반응을 기호로 표현하고 계수를 맞추는 '마법의 공식'을 배웁니다.
+            </div>
+            <div class="card-footer">
+                <a href="2_chemical_equation.html" class="btn-enter">강의 시작 →</a>
+            </div>
+        </article>
+
+        <!-- Lesson 3 -->
+        <article class="lesson-card">
+            <div class="card-header" style="border-top: 4px solid var(--accent-teal);">
+                <span class="card-num" style="color: var(--accent-teal);">Lesson 03</span>
+                <h3 class="card-title">질량 보존 법칙</h3>
+            </div>
+            <div class="card-body text-slate-600">
+                반응이 일어나도 전체 질량은 그대로일까? 앙금 생성과 기체 발생 실험을 통해 라부아지에의 법칙을 증명합니다.
+            </div>
+            <div class="card-footer">
+                <a href="3_mass_conservation.html" class="btn-enter" style="background: var(--accent-teal);">강의 시작 →</a>
+            </div>
+        </article>
+
+        <!-- Lesson 4 -->
+        <article class="lesson-card">
+            <div class="card-header" style="border-top: 4px solid var(--accent-teal);">
+                <span class="card-num" style="color: var(--accent-teal);">Lesson 04</span>
+                <h3 class="card-title">일정 성분비 법칙</h3>
+            </div>
+            <div class="card-body text-slate-600">
+                화합물을 만드는 완벽한 레시피! 성분 원소 사이의 일정한 질량 관계를 볼트와 너트 모형으로 이해합니다.
+            </div>
+            <div class="card-footer">
+                <a href="4_definite_proportions.html" class="btn-enter" style="background: var(--accent-teal);">강의 시작 →</a>
+            </div>
+        </article>
+
+        <!-- Lesson 5 -->
+        <article class="lesson-card">
+            <div class="card-header" style="border-top: 4px solid var(--accent-orange);">
+                <span class="card-num" style="color: var(--accent-orange);">Lesson 05</span>
+                <h3 class="card-title">기체 반응 법칙</h3>
+            </div>
+            <div class="card-body text-slate-600">
+                기체들 사이의 신기한 부피 관계! 아보가드로 법칙을 통해 분자의 개념과 부피비의 비밀을 파헤칩니다.
+            </div>
+            <div class="card-footer">
+                <a href="5_gas_reaction.html" class="btn-enter" style="background: var(--accent-orange);">강의 시작 →</a>
+            </div>
+        </article>
+
+        <!-- Lesson 6 -->
+        <article class="lesson-card">
+            <div class="card-header" style="border-top: 4px solid var(--accent-orange);">
+                <span class="card-num" style="color: var(--accent-orange);">Lesson 06</span>
+                <h3 class="card-title">에너지 출입</h3>
+            </div>
+            <div class="card-body text-slate-600">
+                반응할 때 열이 날까, 뺏길까? 발열 반응과 흡열 반응의 사례와 우리 생활 속 활용을 탐구합니다.
+            </div>
+            <div class="card-footer">
+                <a href="6_energy_change.html" class="btn-enter" style="background: var(--accent-orange);">강의 시작 →</a>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        &copy; 2026 Borcelle Science Lab. Designed for Excellence in Education.
+    </footer>
+
+</body>
+</html>
