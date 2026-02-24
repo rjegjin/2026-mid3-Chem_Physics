@@ -328,19 +328,51 @@ thead.bg-slate-900 th { color: #ffffff !important; }
 .animate-fly-erratic { animation: erratic-fly 4s infinite ease-in-out; }
 .animate-heating { animation: blink-red 1s infinite; }
 
-/* Chemical Reaction Animation (Slide 15) */
-@keyframes react-h2-1 { 0% { transform: translate(0,0); } 30% { transform: translate(150px, 50px) opacity(0); } 100% { opacity: 0; } }
-@keyframes react-h2-2 { 0% { transform: translate(0,0); } 30% { transform: translate(150px, -50px) opacity(0); } 100% { opacity: 0; } }
-@keyframes react-o2 { 0% { transform: translate(0,0); } 30% { transform: translate(-150px, 0) opacity(0); } 100% { opacity: 0; } }
-@keyframes form-water { 0%, 40% { opacity: 0; transform: scale(0.5); } 60% { opacity: 1; transform: scale(1.1); } 100% { opacity: 1; transform: scale(1); } }
+/* Granular Chemical Reaction (Slide 15) */
+@keyframes atom-h1 { 
+    0%, 20% { transform: translate(-220px, -60px); } /* H2-1 */
+    35%, 45% { transform: translate(-20px, -30px); } /* Broken */
+    60%, 100% { transform: translate(-112px, 30px); } /* H2O-1 */
+}
+@keyframes atom-h2 { 
+    0%, 20% { transform: translate(-190px, -60px); } /* H2-1 */
+    35%, 45% { transform: translate(30px, 10px); } /* Broken */
+    60%, 100% { transform: translate(-88px, 30px); } /* H2O-1 */
+}
+@keyframes atom-h3 { 
+    0%, 20% { transform: translate(-220px, 60px); } /* H2-2 */
+    35%, 45% { transform: translate(-40px, 40px); } /* Broken */
+    60%, 100% { transform: translate(88px, 30px); } /* H2O-2 */
+}
+@keyframes atom-h4 { 
+    0%, 20% { transform: translate(-190px, 60px); } /* H2-2 */
+    35%, 45% { transform: translate(50px, -20px); } /* Broken */
+    60%, 100% { transform: translate(112px, 30px); } /* H2O-2 */
+}
+@keyframes atom-o1 { 
+    0%, 20% { transform: translate(180px, 0px); } /* O2 */
+    35%, 45% { transform: translate(-10px, -40px); } /* Broken */
+    60%, 100% { transform: translate(-100px, 0px); } /* H2O-1 O */
+}
+@keyframes atom-o2 { 
+    0%, 20% { transform: translate(225px, 0px); } /* O2 */
+    35%, 45% { transform: translate(15px, 25px); } /* Broken */
+    60%, 100% { transform: translate(100px, 0px); } /* H2O-2 O */
+}
+
+@keyframes label-reactants { 0%, 45% { opacity: 1; } 55%, 100% { opacity: 0; } }
+@keyframes label-products { 0%, 45% { opacity: 0; } 55%, 100% { opacity: 1; } }
 
 .reaction-stage {
     position: relative;
     width: 800px;
-    height: 300px;
+    height: 350px;
     background: #fff;
-    border-radius: 20px;
+    border-radius: 24px;
     overflow: hidden;
     border: 2px solid #fee2e2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
