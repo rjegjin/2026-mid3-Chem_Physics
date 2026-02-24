@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5차시: 화학 반응에서의 에너지 출입</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/presentation_mode.css">
+</head>
+<body class="presentation-mode">
+
+<main>
+    <!-- Slide 1: Cover -->
+    <section id="s1">
+        <div class="slide-content" style="border:none; box-shadow:none;">
+            <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">중학교 3학년 과학 • 화학 5단원</p>
+            <h1 class="text-6xl font-black mb-6 text-slate-900 leading-tight">
+                반응이 일어나면<br><span style="color:#ef4444">온도</span>가 변한다?
+            </h1>
+            <div class="w-20 h-1 bg-slate-800 mx-auto my-8"></div>
+            <p class="text-2xl text-slate-600">제 5강: 화학 반응에서의 에너지 출입</p>
+        </div>
+    </section>
+
+    <!-- Slide 2: Intro Hook -->
+    <section id="s2">
+        <div class="slide-content">
+            <h2>도입: 불 없이 요리하는 도시락?</h2>
+            <p class="mb-8 text-xl">낚시나 등산을 갈 때 불 없이 따뜻한 밥을 먹을 수 있는 비결은?</p>
+            <div class="flex gap-8 justify-center">
+                <div class="p-6 bg-white border-2 border-orange-200 rounded-xl shadow-lg w-72">
+                    <div class="text-5xl mb-4">🍱</div>
+                    <h3 class="font-bold text-xl mb-2">발열 도시락</h3>
+                    <p class="text-sm text-slate-600">줄을 당기면 화학 반응이 일어나며 열이 발생합니다.</p>
+                </div>
+                <div class="p-6 bg-white border-2 border-blue-200 rounded-xl shadow-lg w-72">
+                    <div class="text-5xl mb-4">❄️</div>
+                    <h3 class="font-bold text-xl mb-2">냉각 팩</h3>
+                    <p class="text-sm text-slate-600">주머니를 터뜨리면 주변의 열을 뺏어 시원해집니다.</p>
+                </div>
+            </div>
+            <p class="mt-12 text-2xl font-bold">화학 반응이 일어날 때는 항상 <span class="text-red-600">에너지</span>가 출입합니다.</p>
+        </div>
+    </section>
+
+    <!-- Slide 3: Objectives -->
+    <section id="s3">
+        <div class="slide-content">
+            <h2>학습 목표</h2>
+            <div class="w-full max-w-4xl bg-white p-8 border-l-4 border-orange-500 shadow-sm">
+                <ul class="space-y-6 text-xl text-left">
+                    <li class="reveal-item">
+                        <span class="font-bold text-slate-900">1. 설명하기</span>
+                        <br><span class="text-slate-600">화학 반응이 일어날 때 에너지를 방출하거나 흡수함을 설명할 수 있다.</span>
+                    </li>
+                    <li class="reveal-item">
+                        <span class="font-bold text-slate-900">2. 구분하기</span>
+                        <br><span class="text-slate-600">발열 반응과 흡열 반응의 차이점을 온도 변화와 연결 지어 이해할 수 있다.</span>
+                    </li>
+                    <li class="reveal-item">
+                        <span class="font-bold text-slate-900">3. 적용하기</span>
+                        <br><span class="text-slate-600">우리 생활 속에서 에너지 출입을 이용하는 사례를 찾을 수 있다.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Concept 1 - Exothermic -->
+    <section id="s4">
+        <div class="slide-content">
+            <h2>1. 발열 반응 (Exothermic)</h2>
+            <div class="flex gap-12 items-center">
+                <div class="p-8 energy-box-exo rounded-2xl w-1/2 text-left">
+                    <h3 class="text-3xl font-black mb-4">에너지를 방출!</h3>
+                    <p class="text-xl mb-6">반응이 일어날 때 에너지를 밖으로 내보내는 반응입니다.</p>
+                    <div class="bg-white/50 p-4 rounded-lg">
+                        <p class="font-bold">🌡️ 온도 변화:</p>
+                        <p class="text-2xl text-red-600 font-bold">주변 온도가 높아짐</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="thermometer-container">
+                        <div class="thermometer-mercury" style="height: 85%;"></div>
+                    </div>
+                    <p class="mt-4 font-bold">온도 상승</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Exo Examples 1 -->
+    <section id="s5">
+        <div class="slide-content">
+            <h2>발열 반응의 예시 (1)</h2>
+            <div class="grid grid-cols-2 gap-8 w-full">
+                <div class="symmetry-box">
+                    <div class="text-4xl mb-4">🔥</div>
+                    <h3 class="font-bold text-xl">연소 반응</h3>
+                    <p class="text-slate-600">나무나 가스가 탈 때 엄청난 열과 빛을 내보냅니다.</p>
+                </div>
+                <div class="symmetry-box">
+                    <div class="text-4xl mb-4">🧂</div>
+                    <h3 class="font-bold text-xl">산과 염기의 반응</h3>
+                    <p class="text-slate-600">염산과 수산화 나트륨이 만나면(중화 반응) 따뜻해집니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Exo Examples 2 -->
+    <section id="s6">
+        <div class="slide-content">
+            <h2>발열 반응의 예시 (2)</h2>
+            <div class="grid grid-cols-2 gap-8 w-full">
+                <div class="symmetry-box">
+                    <div class="text-4xl mb-4">⛓️</div>
+                    <h3 class="font-bold text-xl">금속이 녹스는 반응</h3>
+                    <p class="text-slate-600">철이 산소와 결합할 때 열이 납니다.<br>(손난로의 원리!)</p>
+                </div>
+                <div class="symmetry-box">
+                    <div class="text-4xl mb-4">🍋</div>
+                    <h3 class="font-bold text-xl">산과 금속의 반응</h3>
+                    <p class="text-slate-600">묽은 염산에 마그네슘을 넣으면 기체가 나오며 뜨거워집니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Concept 2 - Endothermic -->
+    <section id="s7">
+        <div class="slide-content">
+            <h2>2. 흡열 반응 (Endothermic)</h2>
+            <div class="flex gap-12 items-center">
+                <div class="p-8 energy-box-endo rounded-2xl w-1/2 text-left">
+                    <h3 class="text-3xl font-black mb-4">에너지를 흡수!</h3>
+                    <p class="text-xl mb-6">주변으로부터 에너지를 빨아들이는 반응입니다.</p>
+                    <div class="bg-white/50 p-4 rounded-lg">
+                        <p class="font-bold">🌡️ 온도 변화:</p>
+                        <p class="text-2xl text-blue-600 font-bold">주변 온도가 낮아짐</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="thermometer-container">
+                        <div class="thermometer-mercury" style="height: 20%; background: #3b82f6;"></div>
+                    </div>
+                    <p class="mt-4 font-bold">온도 하강</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: Endo Examples 1 -->
+    <section id="s8">
+        <div class="slide-content">
+            <h2>흡열 반응의 예시 (1)</h2>
+            <div class="grid grid-cols-2 gap-8 w-full">
+                <div class="symmetry-box">
+                    <div class="text-4xl mb-4">🥯</div>
+                    <h3 class="font-bold text-xl">탄산수소 나트륨의 열분해</h3>
+                    <p class="text-slate-600">베이킹소다를 가열하면 열을 흡수하며 분해됩니다.</p>
+                </div>
+                <div class="symmetry-box">
+                    <div class="text-4xl mb-4">🌱</div>
+                    <h3 class="font-bold text-xl">광합성</h3>
+                    <p class="text-slate-600">식물이 빛에너지를 흡수하여 영양분을 만듭니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Endo Examples 2 -->
+    <section id="s9">
+        <div class="slide-content">
+            <h2>흡열 반응의 예시 (2)</h2>
+            <div class="grid grid-cols-2 gap-8 w-full">
+                <div class="symmetry-box">
+                    <div class="text-4xl mb-4">💧</div>
+                    <h3 class="font-bold text-xl">질산 암모늄과 물의 반응</h3>
+                    <p class="text-slate-600">질산 암모늄이 물에 녹을 때 열을 흡수합니다.<br>(질상 암모늄 냉각팩)</p>
+                </div>
+                <div class="symmetry-box">
+                    <div class="text-4xl mb-4">🧂</div>
+                    <h3 class="font-bold text-xl">수산화 바륨과 염화 암모늄</h3>
+                    <p class="text-slate-600">두 고체를 섞으면 열을 너무 많이 뺏어서 나무판 위의 물이 업니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: Experiment 1 - Self-heating container -->
+    <section id="s10">
+        <div class="slide-content">
+            <h2>탐구 1: 손난로(온열 장치) 만들기</h2>
+            <div class="flex gap-8 items-start text-left">
+                <div class="w-1/3 bg-slate-100 p-4 rounded">
+                    <p class="font-bold mb-2">준비물:</p>
+                    <ul class="text-sm list-disc pl-4">
+                        <li>철 가루</li>
+                        <li>탄소 가루, 소금</li>
+                        <li>부직포 주머니</li>
+                    </ul>
+                </div>
+                <div class="w-2/3">
+                    <p class="text-lg font-bold mb-4">원리 분석:</p>
+                    <div class="p-4 bg-orange-50 border-l-4 border-orange-400">
+                        <p class="mb-2">철($Fe$)이 산소($O_2$)와 반응하여 녹슬면서 에너지를 <span class="text-red-600 font-bold">방출</span>합니다.</p>
+                        <p class="text-sm text-slate-500">※ 소금과 탄소 가루는 반응 속도를 빠르게 해주는 촉매 역할을 합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: Experiment 2 - Instant cold pack -->
+    <section id="s11">
+        <div class="slide-content">
+            <h2>탐구 2: 손 냉장고(냉각 장치) 만들기</h2>
+            <div class="flex gap-8 items-start text-left">
+                <div class="w-1/3 bg-slate-100 p-4 rounded">
+                    <p class="font-bold mb-2">준비물:</p>
+                    <ul class="text-sm list-disc pl-4">
+                        <li>질산 암모늄</li>
+                        <li>물</li>
+                        <li>지퍼백</li>
+                    </ul>
+                </div>
+                <div class="w-2/3">
+                    <p class="text-lg font-bold mb-4">원리 분석:</p>
+                    <div class="p-4 bg-blue-50 border-l-4 border-blue-400">
+                        <p class="mb-2">질산 암모늄이 물에 녹으면서 주변의 에너지를 <span class="text-blue-600 font-bold">흡수</span>합니다.</p>
+                        <p class="text-sm text-slate-500">※ 반응이 일어나면 지퍼백 겉면에 이슬이 맺히거나 차가워집니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 12: Visualizing Energy Levels -->
+    <section id="s12">
+        <div class="slide-content">
+            <h2>에너지 수준 비교 (그래프)</h2>
+            <div class="flex gap-12 justify-center">
+                <div class="text-center">
+                    <p class="font-bold mb-4">발열 반응</p>
+                    <div class="relative w-48 h-64 border-l-2 border-b-2 border-slate-400">
+                        <div class="absolute top-8 left-4 w-12 h-1 bg-blue-500"></div><span class="absolute top-4 left-4 text-xs">반응물</span>
+                        <div class="absolute bottom-8 right-4 w-12 h-1 bg-red-500"></div><span class="absolute bottom-12 right-4 text-xs">생성물</span>
+                        <div class="absolute top-10 left-16 w-16 h-24 border-r-2 border-slate-300 flex items-center justify-center">
+                            <span class="text-red-500 text-2xl">⬇️</span>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-sm">남는 에너지를 <span class="font-bold">방출</span></p>
+                </div>
+                <div class="text-center">
+                    <p class="font-bold mb-4">흡열 반응</p>
+                    <div class="relative w-48 h-64 border-l-2 border-b-2 border-slate-400">
+                        <div class="absolute bottom-8 left-4 w-12 h-1 bg-blue-500"></div><span class="absolute bottom-12 left-4 text-xs">반응물</span>
+                        <div class="absolute top-8 right-4 w-12 h-1 bg-red-500"></div><span class="absolute top-4 right-4 text-xs">생성물</span>
+                        <div class="absolute bottom-10 left-16 w-16 h-24 border-r-2 border-slate-300 flex items-center justify-center">
+                            <span class="text-blue-500 text-2xl">⬆️</span>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-sm">부족한 에너지를 <span class="font-bold">흡수</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 13: Usage in Daily Life - Heat -->
+    <section id="s13">
+        <div class="slide-content">
+            <h2>생활 속 활용: 에너지를 얻을 때</h2>
+            <div class="flex gap-8 justify-center">
+                <div class="text-center w-64">
+                    <div class="h-40 bg-slate-100 rounded-lg flex items-center justify-center text-4xl mb-2">🔥</div>
+                    <p class="font-bold">난방 및 조리</p>
+                    <p class="text-sm">가스나 나무의 연소열 이용</p>
+                </div>
+                <div class="text-center w-64">
+                    <div class="h-40 bg-slate-100 rounded-lg flex items-center justify-center text-4xl mb-2">🧤</div>
+                    <p class="font-bold">손난로 및 발열 도시락</p>
+                    <p class="text-sm">화학 반응에서 나오는 열 이용</p>
+                </div>
+                <div class="text-center w-64">
+                    <div class="h-40 bg-slate-100 rounded-lg flex items-center justify-center text-4xl mb-2">⚡</div>
+                    <p class="font-bold">제설제 (염화 칼슘)</p>
+                    <p class="text-sm">눈을 녹일 때 열을 방출</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 14: Usage in Daily Life - Cold -->
+    <section id="s14">
+        <div class="slide-content">
+            <h2>생활 속 활용: 온도를 낮출 때</h2>
+            <div class="flex gap-8 justify-center">
+                <div class="text-center w-64">
+                    <div class="h-40 bg-slate-100 rounded-lg flex items-center justify-center text-4xl mb-2">🧊</div>
+                    <p class="font-bold">질산 암모늄 냉각팩</p>
+                    <p class="text-sm">갑작스러운 부상 시 통증 완화</p>
+                </div>
+                <div class="text-center w-64">
+                    <div class="h-40 bg-slate-100 rounded-lg flex items-center justify-center text-4xl mb-2">🚚</div>
+                    <p class="font-bold">신선 식품 운반</p>
+                    <p class="text-sm">흡열 반응을 이용한 온도 유지</p>
+                </div>
+            </div>
+            <div class="mt-12 p-4 bg-blue-50 rounded-lg">
+                <p class="font-bold">💡 지식 더하기:</p>
+                <p>에어컨 냉매가 증발하며 열을 뺏는 것도 흡열(상태 변화) 현상입니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 15: Comparison Summary -->
+    <section id="s15">
+        <div class="slide-content">
+            <h2>발열 vs 흡열 완벽 정리</h2>
+            <table class="w-full max-w-4xl text-center border-collapse bg-white shadow-lg overflow-hidden rounded-lg">
+                <thead class="bg-slate-800 text-white">
+                    <tr>
+                        <th class="p-4">구분</th>
+                        <th class="p-4">발열 반응</th>
+                        <th class="p-4">흡열 반응</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b bg-orange-50">
+                        <td class="p-4 font-bold">에너지 흐름</td>
+                        <td class="p-4">방출 (Out)</td>
+                        <td class="p-4">흡수 (In)</td>
+                    </tr>
+                    <tr class="border-b bg-blue-50">
+                        <td class="p-4 font-bold">주변 온도</td>
+                        <td class="p-4 text-red-600 font-bold">상승 ↑</td>
+                        <td class="p-4 text-blue-600 font-bold">하강 ↓</td>
+                    </tr>
+                    <tr class="border-b">
+                        <td class="p-4 font-bold">에너지 크기</td>
+                        <td class="p-4">반응물 > 생성물</td>
+                        <td class="p-4">반응물 < 생성물</td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 font-bold">대표 사례</td>
+                        <td class="p-4">연소, 호흡, 금속 부식</td>
+                        <td class="p-4">광합성, 열분해, 전기 분해</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Slide 16: Deep Dive - Respiration -->
+    <section id="s16">
+        <div class="slide-content">
+            <h2>심화: 우리 몸속의 에너지</h2>
+            <div class="flex gap-12 items-center">
+                <div class="text-left w-2/3">
+                    <h3 class="text-3xl font-bold text-red-700 mb-4">세포 호흡은 발열 반응?</h3>
+                    <p class="text-xl mb-4">우리가 먹은 영양분이 산소와 반응하여 에너지를 내보내기 때문에 체온을 유지할 수 있습니다.</p>
+                    <div class="p-4 bg-slate-800 text-white rounded font-mono">
+                        영양분 + 산소 → 이산화 탄소 + 물 + <span class="text-yellow-400">에너지</span>
+                    </div>
+                </div>
+                <div class="w-1/3 text-6xl animate-pulse">🏃</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 17: Quiz 1 -->
+    <section id="q1">
+        <div class="slide-content">
+            <h2>Quiz 01. 개념 확인</h2>
+            <div class="quiz-container w-full max-w-2xl">
+                <p class="text-xl font-bold mb-6 text-slate-800">
+                    화학 반응이 일어날 때 주변 온도가 높아지는 반응은?
+                </p>
+                <div class="quiz-options space-y-3">
+                    <button class="quiz-btn" data-correct="true">연소 반응</button>
+                    <button class="quiz-btn" data-correct="false">광합성</button>
+                    <button class="quiz-btn" data-correct="false">전기 분해</button>
+                    <button class="quiz-btn" data-correct="false">질산 암모늄의 용해</button>
+                </div>
+                <div class="quiz-feedback font-bold text-lg mt-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 18: Quiz 2 -->
+    <section id="q2">
+        <div class="slide-content">
+            <h2>Quiz 02. 사례 구분</h2>
+            <div class="quiz-container w-full max-w-2xl">
+                <p class="text-xl font-bold mb-6 text-slate-800">
+                    '베이킹 소다(탄산수소 나트륨) 가열' 실험에서 일어나는 변화는?
+                </p>
+                <div class="quiz-options space-y-3">
+                    <button class="quiz-btn" data-correct="false">에너지를 방출하여 온도가 올라간다.</button>
+                    <button class="quiz-btn" data-correct="true">에너지를 흡수하는 흡열 반응이다.</button>
+                    <button class="quiz-btn" data-correct="false">주변의 열을 뺏지 않는다.</button>
+                    <button class="quiz-btn" data-correct="false">발열 반응의 대표적인 예이다.</button>
+                </div>
+                <div class="quiz-feedback font-bold text-lg mt-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 19: Quiz 3 -->
+    <section id="q3">
+        <div class="slide-content">
+            <h2>Quiz 03. 심화 도전</h2>
+            <div class="quiz-container w-full max-w-2xl">
+                <p class="text-xl font-bold mb-6 text-slate-800">
+                    발열 반응과 흡열 반응을 이용한 도구가 잘못 짝지어진 것은?
+                </p>
+                <div class="quiz-options space-y-3">
+                    <button class="quiz-btn" data-correct="false">발열 도시락 - 산화 칼슘과 물의 반응</button>
+                    <button class="quiz-btn" data-correct="false">손난로 - 철 가루의 산화 반응</button>
+                    <button class="quiz-btn" data-correct="true">냉각 팩 - 염화 칼슘의 용해 반응</button>
+                    <button class="quiz-btn" data-correct="false">제설제 - 염화 칼슘의 용해 반응</button>
+                </div>
+                <div class="quiz-feedback font-bold text-lg mt-4"></div>
+                <p class="mt-4 text-sm text-slate-500 reveal-item">힌트: 염화 칼슘은 물에 녹으면서 열을 내보내는 '발열 반응'을 합니다!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 20: Outro -->
+    <section id="end">
+        <div class="slide-content" style="border:none; box-shadow:none;">
+            <p class="text-slate-400 font-bold mb-4 uppercase tracking-widest">Chemistry Mastery Complete</p>
+            <h2 class="text-5xl mb-8 border-none text-slate-900">축하합니다!<br>화학 반응 단원을 마쳤습니다.</h2>
+            <div class="w-full max-w-lg p-6 bg-green-50 rounded-lg text-left mx-auto">
+                <p class="font-bold text-green-800 mb-2">🎓 단원 마무리:</p>
+                <p class="text-lg">물질의 변화부터 에너지 출입까지,<br>이제 여러분은 화학 반응의 달인입니다!</p>
+            </div>
+            <div class="mt-12 text-6xl">🎓</div>
+        </div>
+    </section>
+</main>
+
+<script src="js/slide_engine.js"></script>
+
+</body>
+</html>

@@ -179,9 +179,34 @@ body.presentation-mode h2 {
 .quiz-btn.correct { background: #ecfdf5; border-color: #10b981; color: #047857; }
 .quiz-btn.wrong { background: #fef2f2; border-color: #ef4444; color: #b91c1c; }
 
-#slide-controls {
-    position: fixed; bottom: 20px; right: 20px;
-    background: white; padding: 10px 20px;
-    border-radius: 30px; border: 1px solid #e2e8f0;
-    display: flex; gap: 15px; z-index: 100;
+/* --- Energy Change Styles --- */
+.energy-box-exo {
+    background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+    border: 2px solid #f87171;
+    color: #991b1b;
+}
+.energy-box-endo {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 2px solid #38bdf8;
+    color: #075985;
+}
+.thermometer-container {
+    width: 40px; height: 150px;
+    background: #e2e8f0;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid #475569;
+}
+.thermometer-mercury {
+    position: absolute; bottom: 0; width: 100%;
+    background: #ef4444;
+    transition: height 1s ease-in-out;
+}
+.heat-wave {
+    animation: wave 2s infinite;
+}
+@keyframes wave {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(1.5); opacity: 0; }
 }
