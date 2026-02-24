@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2차시: 화학 반응을 나타내는 화학 반응식</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/presentation_mode.css">
+    <style>
+        .equation-box {
+            background: #f1f5f9;
+            padding: 2rem;
+            border-radius: 1rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 2.5rem;
+            color: #1e293b;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .coeff { color: #e11d48; font-weight: 800; border-bottom: 3px solid #fda4af; }
+        .atomic-count {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+        .count-tag {
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body class="presentation-mode">
+
+<main>
+    <!-- Slide 1: Cover -->
+    <section id="s1">
+        <div class="slide-content" style="border:none; box-shadow:none;">
+            <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">중학교 3학년 과학 • 화학 1단원</p>
+            <h1 class="text-6xl font-black mb-6 text-slate-900 leading-tight">
+                전 세계 공용어<br><span style="color:var(--accent-cyan)">화학 반응식</span>
+            </h1>
+            <div class="w-20 h-1 bg-slate-800 mx-auto my-8"></div>
+            <p class="text-2xl text-slate-600">제 2강: 화학 반응식 만들기</p>
+        </div>
+    </section>
+
+    <!-- Slide 2: Think Before Class -->
+    <section id="s2">
+        <div class="slide-content">
+            <h2>💡 수업 전 생각하기</h2>
+            <div class="p-8 bg-amber-50 rounded-xl border-2 border-amber-200 text-left max-w-4xl">
+                <p class="text-2xl font-bold text-amber-900 mb-6">"말이 통하지 않는 외국인 과학자와 대화하려면?"</p>
+                <div class="space-y-4 text-xl">
+                    <p>1. 한국어로 '수소와 산소가 반응해서 물이 된다'라고 쓰면 미국인이나 프랑스인 과학자가 이해할 수 있을까요?</p>
+                    <p>2. 악보의 음표나 수학의 숫자처럼, 화학에서도 전 세계 어디서나 통하는 기호가 필요하지 않을까요?</p>
+                    <p class="mt-8 text-slate-600 italic font-medium">화학자들이 약속한 '마법의 공식'에 대해 알아봅시다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Objectives -->
+    <section id="s3">
+        <div class="slide-content">
+            <h2>학습 목표</h2>
+            <div class="w-full max-w-4xl bg-white p-8 border-l-4 border-cyan-600 shadow-sm">
+                <ul class="space-y-6 text-xl text-left">
+                    <li class="reveal-item">
+                        <span class="font-bold text-slate-900">1. 표현하기</span>
+                        <br><span class="text-slate-600">화학 반응을 화학 반응식으로 나타내는 단계를 설명할 수 있다.</span>
+                    </li>
+                    <li class="reveal-item">
+                        <span class="font-bold text-slate-900">2. 완성하기</span>
+                        <br><span class="text-slate-600">반응 전후 원자의 종류와 개수가 같도록 계수를 맞출 수 있다.</span>
+                    </li>
+                    <li class="reveal-item">
+                        <span class="font-bold text-slate-900">3. 해석하기</span>
+                        <br><span class="text-slate-600">화학 반응식의 계수비가 입자 수의 비(분자 수 비)임을 이해한다.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3-1: History of Symbols -->
+    <section id="s3-1">
+        <div class="slide-content">
+            <h2>화학 기호의 역사: 베르셀리우스</h2>
+            <div class="flex gap-12 items-center">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/J%C3%B6ns_Jacob_Berzelius.jpg/440px-J%C3%B6ns_Jacob_Berzelius.jpg" class="w-64 rounded-lg shadow-xl" alt="Berzelius">
+                <div class="text-left">
+                    <p class="text-xl mb-4">옛날에는 연금술사들이 복잡한 그림으로 원소를 표시했어요.</p>
+                    <p class="text-2xl font-bold text-slate-800 mb-4">"너무 복잡해! 알파벳으로 쓰자!"</p>
+                    <p class="text-lg leading-relaxed">
+                        1813년, 스웨덴의 화학자 **베르셀리우스**가 오늘날 우리가 사용하는 원소 기호(H, O, C 등)를 제안했습니다. 덕분에 우리는 복잡한 화학 반응도 간단한 식으로 쓸 수 있게 되었죠.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Definition of Chemical Reaction -->
+    <section id="s4">
+        <div class="slide-content">
+            <h2>1. 화학 반응이란?</h2>
+            <p class="text-xl mb-8">물질이 화학 변화를 거쳐 성질이 다른 새로운 물질로 변하는 과정</p>
+            <div class="flex gap-8 justify-center items-center">
+                <div class="symmetry-box bg-slate-50 w-64">
+                    <p class="font-bold text-slate-500 mb-2">반응 전</p>
+                    <p class="text-2xl font-bold text-blue-600">반응물</p>
+                </div>
+                <div class="text-4xl">→</div>
+                <div class="symmetry-box bg-slate-50 w-64">
+                    <p class="font-bold text-slate-500 mb-2">반응 후</p>
+                    <p class="text-2xl font-bold text-red-600">생성물</p>
+                </div>
+            </div>
+            <p class="mt-8 text-slate-500">원자들은 없어지지 않고 **재배열**될 뿐입니다.</p>
+        </div>
+    </section>
+
+    <!-- Slide 5: Steps to write (1) -->
+    <section id="s5">
+        <div class="slide-content">
+            <h2>화학 반응식 만들기: 1단계</h2>
+            <div class="p-8 bg-blue-50 border-l-8 border-blue-500 text-left w-full max-w-3xl">
+                <h3 class="text-2xl font-bold mb-4">이름으로 나타내기</h3>
+                <p class="text-xl">반응물은 왼쪽에, 생성물은 오른쪽에 쓰고 화살표(→)로 연결합니다.</p>
+                <div class="mt-6 equation-box text-center">
+                    수소 + 산소 → 물
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Steps to write (2) -->
+    <section id="s6">
+        <div class="slide-content">
+            <h2>화학 반응식 만들기: 2단계</h2>
+            <div class="p-8 bg-cyan-50 border-l-8 border-cyan-500 text-left w-full max-w-3xl">
+                <h3 class="text-2xl font-bold mb-4">화학식으로 바꾸기</h3>
+                <p class="text-xl">물질의 이름을 기호(화학식)로 바꿉니다.</p>
+                <div class="mt-6 equation-box text-center">
+                    \(H_2 + O_2 ightarrow H_2O\)
+                </div>
+                <p class="mt-4 text-red-600 font-bold text-sm text-center">주의! 아직 식이 완성된 것이 아닙니다. 원자 수가 안 맞아요!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: The Problem (Unbalanced) -->
+    <section id="s7">
+        <div class="slide-content">
+            <h2>왜 2단계에서 끝나면 안 될까요?</h2>
+            <div class="flex gap-12 justify-center items-center">
+                <div class="text-center">
+                    <div class="molecule-container">
+                        <div class="molecule mol-h2"><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div>
+                        <span class="text-2xl">+</span>
+                        <div class="molecule mol-o2"><div class="atom atom-o">O</div><div class="atom atom-o">O</div></div>
+                    </div>
+                    <p class="mt-4 text-sm">H: 2개, <span class="text-red-600">O: 2개</span></p>
+                </div>
+                <div class="text-4xl text-slate-300">→</div>
+                <div class="text-center">
+                    <div class="molecule-container">
+                        <div class="molecule mol-water"><div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div>
+                    </div>
+                    <p class="mt-4 text-sm">H: 2개, <span class="text-red-600">O: 1개</span></p>
+                </div>
+            </div>
+            <div class="mt-8 p-6 bg-rose-50 text-rose-700 rounded-lg font-bold">
+                "산소 원자 하나가 어디로 사라졌을까요? 원자는 보존되어야 합니다!"
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: Steps to write (3) - Balancing -->
+    <section id="s8">
+        <div class="slide-content">
+            <h2>화학 반응식 만들기: 3단계 (핵심)</h2>
+            <div class="p-8 bg-emerald-50 border-l-8 border-emerald-500 text-left w-full max-w-3xl">
+                <h3 class="text-2xl font-bold mb-4">계수 맞추기 (Balancing)</h3>
+                <p class="text-xl">반응 전후 원자의 종류와 개수가 같도록 화학식 앞에 숫자를 씁니다.</p>
+                <div class="mt-6 equation-box text-center">
+                    <span class="coeff">2</span>\(H_2 + O_2 ightarrow\) <span class="coeff">2</span>\(H_2O\)
+                </div>
+                <p class="mt-4 text-sm text-slate-500">* 계수가 1인 경우는 생략합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Simulation - Balancing Water -->
+    <section id="s9">
+        <div class="slide-content">
+            <h2>계수 맞추기 시뮬레이션: 물</h2>
+            <div class="flex gap-12 justify-center items-center">
+                <div class="text-center">
+                    <div class="molecule-container">
+                        <div class="molecule mol-h2"><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div>
+                        <div class="molecule mol-h2"><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div>
+                        <span class="text-2xl">+</span>
+                        <div class="molecule mol-o2"><div class="atom atom-o">O</div><div class="atom atom-o">O</div></div>
+                    </div>
+                    <div class="atomic-count">
+                        <span class="count-tag">수소(H): 4개</span>
+                        <span class="count-tag">산소(O): 2개</span>
+                    </div>
+                </div>
+                <div class="text-4xl">→</div>
+                <div class="text-center">
+                    <div class="molecule-container">
+                        <div class="molecule mol-water"><div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div>
+                        <div class="molecule mol-water"><div class="atom atom-o">O</div><div class="atom atom-h">H</div><div class="atom atom-h">H</div></div>
+                    </div>
+                    <div class="atomic-count">
+                        <span class="count-tag">수소(H): 4개</span>
+                        <span class="count-tag">산소(O): 2개</span>
+                    </div>
+                </div>
+            </div>
+            <p class="mt-8 text-xl font-bold text-emerald-600">원자의 종류와 개수가 완벽하게 일치합니다!</p>
+        </div>
+    </section>
+
+    <!-- Slide 10: Rule - Meaning of Coefficients -->
+    <section id="s10">
+        <div class="slide-content">
+            <h2>화학 반응식의 계수가 주는 정보</h2>
+            <div class="p-8 bg-slate-900 text-white rounded-xl w-full max-w-4xl text-center">
+                <p class="text-4xl font-black mb-4">계수비 = 분자 수의 비</p>
+                <p class="text-xl text-slate-400">\(2H_2 + 1O_2 ightarrow 2H_2O\) 이라면?</p>
+                <div class="h-px bg-slate-700 my-6"></div>
+                <p class="text-2xl text-cyan-400">수소 분자 2개와 산소 분자 1개가 반응하여<br>물 분자 2개를 만든다는 뜻!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: Practice - Methane -->
+    <section id="s11">
+        <div class="slide-content">
+            <h2>실전 연습: 메테인의 연소</h2>
+            <p class="mb-8">도시가스(메테인)가 산소와 만나 타는 반응식을 완성해 봅시다.</p>
+            <div class="equation-box mb-8">
+                \(CH_4 + \underline{\quad} O_2 ightarrow CO_2 + \underline{\quad} H_2O\)
+            </div>
+            <div class="grid grid-cols-3 gap-4 text-left text-lg pl-12 reveal-item">
+                <p>1. 탄소(C): 왼쪽 1개, 오른쪽 1개 (OK)</p>
+                <p>2. 수소(H): 왼쪽 4개, 오른쪽 2개 $ightarrow$ **물(\(H_2O\)) 앞에 2**</p>
+                <p>3. 산소(O): 오른쪽 총 4개 $ightarrow$ **산소(\(O_2\)) 앞에 2**</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 12: Result - Methane Equation -->
+    <section id="s12">
+        <div class="slide-content">
+            <h2>완성된 메테인 연소 반응식</h2>
+            <div class="equation-box text-red-600 font-bold mb-12">
+                \(CH_4 + 2O_2 ightarrow CO_2 + 2H_2O\)
+            </div>
+            <div class="flex gap-8 justify-center items-center">
+                <div class="text-center">
+                    <p class="text-sm font-bold">반응물</p>
+                    <div class="p-4 bg-blue-50 rounded">C: 1, H: 4, O: 4</div>
+                </div>
+                <div class="text-2xl">=</div>
+                <div class="text-center">
+                    <p class="text-sm font-bold">생성물</p>
+                    <div class="p-4 bg-emerald-50 rounded">C: 1, H: 4, O: 4</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 13: What we can't know from equation -->
+    <section id="s13">
+        <div class="slide-content">
+            <h2>⚠️ 주의: 알 수 없는 정보</h2>
+            <div class="w-full max-w-3xl space-y-6">
+                <div class="p-6 bg-red-50 border-l-8 border-red-500 text-left">
+                    <h3 class="text-xl font-bold text-red-800 mb-2">질량비는 알 수 없습니다!</h3>
+                    <p>계수가 2:1:2라고 해서 질량이 2g:1g:2g인 것은 아닙니다. 원자마다 무게가 다르기 때문이죠.</p>
+                </div>
+                <div class="p-6 bg-slate-50 border-l-8 border-slate-500 text-left">
+                    <h3 class="text-xl font-bold mb-2">반응 속도는 알 수 없습니다.</h3>
+                    <p>이 반응이 순식간에 일어나는지, 며칠이 걸리는지는 식에 나타나지 않습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 14: States of Matter (Advanced) -->
+    <section id="s14">
+        <div class="slide-content">
+            <h2>심화: 물질의 상태 표시</h2>
+            <p class="mb-8">더 정확한 정보를 위해 괄호 안에 상태를 표시하기도 합니다.</p>
+            <div class="grid grid-cols-4 gap-4 w-full max-w-4xl">
+                <div class="p-4 bg-white border rounded shadow-sm">
+                    <p class="text-2xl font-bold">(s)</p>
+                    <p class="text-slate-500">고체 (Solid)</p>
+                </div>
+                <div class="p-4 bg-white border rounded shadow-sm">
+                    <p class="text-2xl font-bold">(l)</p>
+                    <p class="text-slate-500">액체 (Liquid)</p>
+                </div>
+                <div class="p-4 bg-white border rounded shadow-sm">
+                    <p class="text-2xl font-bold">(g)</p>
+                    <p class="text-slate-500">기체 (Gas)</p>
+                </div>
+                <div class="p-4 bg-white border rounded shadow-sm">
+                    <p class="text-2xl font-bold">(aq)</p>
+                    <p class="text-slate-500 text-xs">수용액 (Aqueous)</p>
+                </div>
+            </div>
+            <p class="mt-8 font-mono text-xl">\(2H_2(g) + O_2(g) ightarrow 2H_2O(l)\)</p>
+        </div>
+    </section>
+
+    <!-- Slide 15: Quiz 1 -->
+    <section id="q1">
+        <div class="slide-content">
+            <h2>형성 평가 01</h2>
+            <div class="quiz-container w-full max-w-2xl">
+                <p class="text-xl font-bold mb-6 text-slate-800">
+                    화학 반응식에서 화살표(→) 왼쪽에 써야 하는 물질은?
+                </p>
+                <div class="quiz-options space-y-3">
+                    <button class="quiz-btn" data-correct="true">반응물</button>
+                    <button class="quiz-btn" data-correct="false">생성물</button>
+                    <button class="quiz-btn" data-correct="false">촉매</button>
+                    <button class="quiz-btn" data-correct="false">혼합물</button>
+                </div>
+                <div class="quiz-feedback font-bold text-lg mt-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 16: Quiz 2 -->
+    <section id="q2">
+        <div class="slide-content">
+            <h2>형성 평가 02</h2>
+            <div class="quiz-container w-full max-w-2xl">
+                <p class="text-xl font-bold mb-6 text-slate-800">
+                    반응 전후에 변하지 **않는** 것은?
+                </p>
+                <div class="quiz-options space-y-3">
+                    <button class="quiz-btn" data-correct="false">분자의 종류</button>
+                    <button class="quiz-btn" data-correct="true">원자의 종류와 개수</button>
+                    <button class="quiz-btn" data-correct="false">물질의 성질</button>
+                    <button class="quiz-btn" data-correct="false">원자의 배열</button>
+                </div>
+                <div class="quiz-feedback font-bold text-lg mt-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 17: Quiz 3 -->
+    <section id="q3">
+        <div class="slide-content">
+            <h2>형성 평가 03</h2>
+            <div class="quiz-container w-full max-w-2xl">
+                <p class="text-xl font-bold mb-6 text-slate-800">
+                    \(N_2 + 3H_2 ightarrow 2NH_3\) 식에서 계수비는?
+                </p>
+                <div class="quiz-options space-y-3">
+                    <button class="quiz-btn" data-correct="false">1 : 1 : 1</button>
+                    <button class="quiz-btn" data-correct="false">2 : 3 : 2</button>
+                    <button class="quiz-btn" data-correct="true">1 : 3 : 2</button>
+                    <button class="quiz-btn" data-correct="false">3 : 1 : 2</button>
+                </div>
+                <div class="quiz-feedback font-bold text-lg mt-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 18: Advanced Thinking & Discussion -->
+    <section id="s18">
+        <div class="slide-content">
+            <h2>🤔 심화 탐구 및 토론</h2>
+            <div class="grid grid-cols-2 gap-8 w-full max-w-5xl">
+                <div class="p-6 bg-slate-50 border-t-4 border-indigo-500 rounded-lg text-left">
+                    <h3 class="text-xl font-bold mb-4 text-indigo-700">심화 질문</h3>
+                    <p class="text-lg">"왜 화학 반응식의 계수를 맞출 때 \(H_2O\)를 \(H_2O_2\)로 바꾸면 안 될까요? 원자 수만 맞으면 되는 것 아닐까요?"</p>
+                </div>
+                <div class="p-6 bg-slate-50 border-t-4 border-emerald-500 rounded-lg text-left">
+                    <h3 class="text-xl font-bold mb-4 text-emerald-700">발표 및 토론</h3>
+                    <p class="text-lg">우리가 배운 단계별 방법을 사용하여, 주변에서 볼 수 있는 다른 반응(예: 광합성, 철의 부식)의 식을 세우는 과정을 토론해 봅시다.</p>
+                </div>
+            </div>
+            <div class="mt-8 p-4 bg-yellow-50 rounded-lg text-sm text-slate-600">
+                Tip: 물질의 화학식 자체가 바뀌면 전혀 다른 물질이 된다는 점을 생각해보세요!
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 19: Outro -->
+    <section id="end">
+        <div class="slide-content" style="border:none; box-shadow:none;">
+            <p class="text-slate-400 font-bold mb-4 uppercase tracking-widest">Next Lesson</p>
+            <h2 class="text-5xl mb-8 border-none">질량 보존 법칙</h2>
+            <div class="flex justify-center gap-4 items-center">
+                <div class="text-3xl font-mono">Reactants (100g)</div>
+                <div class="text-4xl">⚖️</div>
+                <div class="text-3xl font-mono">Products (100g)</div>
+            </div>
+            <p class="mt-8 text-slate-500">화학 반응이 일어나도 변하지 않는 '질량'의 비밀을 알아봅시다.</p>
+        </div>
+    </section>
+</main>
+
+<script src="js/slide_engine.js"></script>
+
+</body>
+</html>
