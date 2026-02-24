@@ -241,25 +241,35 @@ body.presentation-mode h2 {
     100% { transform: scale(1.5); opacity: 0; }
 }
 
-/* --- Readability Enhancements for Dark Boxes --- */
+/* --- Readability Enhancements: Modern Light Theme --- */
 .bg-slate-800, .bg-slate-900, .bg-slate-950 {
-    color: #ffffff !important; /* Force white text */
+    background-color: #ffffff !important;
+    color: #0f172a !important; /* Deep navy text */
+    border: 3px solid #0f172a !important;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1) !important;
 }
+
+/* Specific text color fixes inside transformed dark-to-light boxes */
 .bg-slate-800 p, .bg-slate-900 p, .bg-slate-950 p,
 .bg-slate-800 li, .bg-slate-900 li, .bg-slate-950 li,
 .bg-slate-800 span, .bg-slate-900 span, .bg-slate-950 span {
-    font-weight: 500 !important; /* Slightly thicker text for better projection */
-}
-/* Enhance specific utility text colors on dark backgrounds */
-.bg-slate-800 .text-slate-400, .bg-slate-900 .text-slate-400, .bg-slate-950 .text-slate-400,
-.bg-slate-800 .text-slate-500, .bg-slate-900 .text-slate-500, .bg-slate-950 .text-slate-500 {
-    color: #e2e8f0 !important; /* Brighter (slate-200) */
+    color: #1e293b !important;
     font-weight: 600 !important;
 }
-.bg-slate-800 .text-slate-300, .bg-slate-900 .text-slate-300, .bg-slate-950 .text-slate-300 {
-    color: #f8fafc !important; /* Almost white (slate-50) */
-    font-weight: 700 !important;
+
+/* Brighter highlights for light theme */
+.bg-slate-800 .text-cyan-400, .bg-slate-900 .text-cyan-400 { color: #0891b2 !important; }
+.bg-slate-800 .text-yellow-400, .bg-slate-900 .text-yellow-400 { color: #b45309 !important; }
+.bg-slate-800 .text-orange-400, .bg-slate-900 .text-orange-400 { color: #ea580c !important; }
+.bg-slate-800 .text-slate-400, .bg-slate-900 .text-slate-400 { color: #64748b !important; }
+.bg-slate-800 .text-slate-300, .bg-slate-900 .text-slate-300 { color: #475569 !important; }
+
+/* Table Header Refinement */
+.bg-slate-900.text-white, thead.bg-slate-900 {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
 }
+thead.bg-slate-900 th { color: #ffffff !important; }
 
 /* --- Slide Controls --- */
 #slide-controls {
