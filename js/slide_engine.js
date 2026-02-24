@@ -124,15 +124,20 @@ window.SlideEngine = {
             
             options.forEach(option => {
                 option.addEventListener('click', () => {
-                    options.forEach(opt => opt.classList.remove('correct', 'wrong', 'ring-4', 'ring-blue-300'));
+                    // Disable all options in this quiz
+                    options.forEach(opt => {
+                        opt.disabled = true;
+                        if (opt.dataset.correct === 'true') {
+                            opt.classList.add('correct', 'ring-4', 'ring-green-200');
+                        }
+                    });
                     
                     const isCorrect = option.dataset.correct === 'true';
                     if (isCorrect) {
-                        option.classList.add('correct', 'ring-4', 'ring-green-200');
-                        feedback.innerHTML = '<span class="text-green-600 animate-bounce">정답입니다! 🎉 참 잘했어요!</span>';
+                        feedback.innerHTML = '<span class="text-green-600 font-bold animate-bounce text-xl">정답입니다! 🎉</span>';
                     } else {
                         option.classList.add('wrong', 'ring-4', 'ring-red-200');
-                        feedback.innerHTML = '<span class="text-red-500">아쉬워요! 다시 한번 고민해 볼까요? 🤔</span>';
+                        feedback.innerHTML = '<span class="text-red-500 font-bold text-xl">아쉬워요! 다음엔 꼭! 😢</span>';
                     }
                 });
             });
