@@ -127,8 +127,8 @@ body.presentation-mode li {
 }
 
 /* Specific Atoms */
-.atom-h { width: 30px; height: 30px; background: #94a3b8; border: 1px solid #64748b; } /* 수소 (흰색/회색) */
-.atom-o { width: 45px; height: 45px; background: #ef4444; border: 1px solid #b91c1c; } /* 산소 (빨강) */
+.atom-h { width: 25px; height: 25px; font-size: 0.7rem; } /* 수소 (흰색/회색) */
+.atom-o { width: 35px; height: 35px; font-size: 0.8rem; } /* 산소 (빨강) */
 .atom-n { width: 42px; height: 42px; background: #3b82f6; border: 1px solid #1d4ed8; } /* 질소 (파랑) */
 .atom-c { width: 40px; height: 40px; background: #334155; border: 1px solid #0f172a; } /* 탄소 (검정) */
 .atom-mg { width: 42px; height: 42px; background: #cbd5e1; border: 1px solid #94a3b8; } /* 마그네슘 (은색) */
