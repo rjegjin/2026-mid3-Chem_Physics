@@ -60,9 +60,9 @@ body.presentation-mode h2 {
 body.presentation-mode p, 
 body.presentation-mode li {
     font-size: 1.6rem !important; /* Slightly larger for presentation */
-    font-weight: 450; /* Medium weight for better projection */
+    font-weight: 500; /* Bolder weight for better projection */
     line-height: 1.7 !important;
-    color: #334155;
+    color: #1e293b; /* Slightly darker slate for better contrast */
     margin-bottom: 1.2rem;
     letter-spacing: -0.02em;
 }
@@ -212,6 +212,26 @@ body.presentation-mode h2 {
 @keyframes wave {
     0% { transform: scale(1); opacity: 0.8; }
     100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* --- Readability Enhancements for Dark Boxes --- */
+.bg-slate-800, .bg-slate-900, .bg-slate-950 {
+    color: #ffffff !important; /* Force white text */
+}
+.bg-slate-800 p, .bg-slate-900 p, .bg-slate-950 p,
+.bg-slate-800 li, .bg-slate-900 li, .bg-slate-950 li,
+.bg-slate-800 span, .bg-slate-900 span, .bg-slate-950 span {
+    font-weight: 500 !important; /* Slightly thicker text for better projection */
+}
+/* Enhance specific utility text colors on dark backgrounds */
+.bg-slate-800 .text-slate-400, .bg-slate-900 .text-slate-400, .bg-slate-950 .text-slate-400,
+.bg-slate-800 .text-slate-500, .bg-slate-900 .text-slate-500, .bg-slate-950 .text-slate-500 {
+    color: #e2e8f0 !important; /* Brighter (slate-200) */
+    font-weight: 600 !important;
+}
+.bg-slate-800 .text-slate-300, .bg-slate-900 .text-slate-300, .bg-slate-950 .text-slate-300 {
+    color: #f8fafc !important; /* Almost white (slate-50) */
+    font-weight: 700 !important;
 }
 
 /* --- Slide Controls --- */
