@@ -328,36 +328,36 @@ thead.bg-slate-900 th { color: #ffffff !important; }
 .animate-fly-erratic { animation: erratic-fly 4s infinite ease-in-out; }
 .animate-heating { animation: blink-red 1s infinite; }
 
-/* Granular Chemical Reaction (Slide 15) */
+/* Granular Chemical Reaction (Slide 15) - Reality Refined */
 @keyframes atom-h1 { 
-    0%, 20% { transform: translate(-220px, -60px); } /* H2-1 */
-    35%, 45% { transform: translate(-20px, -30px); } /* Broken */
-    60%, 100% { transform: translate(-112px, 30px); } /* H2O-1 */
+    0%, 20% { transform: translate(-230px, -80px); } /* H2-1 left */
+    35%, 45% { transform: translate(-100px, -40px) rotate(10deg); } /* Broken */
+    65%, 100% { transform: translate(-175px, 25px); } /* H2O-1 Bottom Left */
 }
 @keyframes atom-h2 { 
-    0%, 20% { transform: translate(-190px, -60px); } /* H2-1 */
-    35%, 45% { transform: translate(30px, 10px); } /* Broken */
-    60%, 100% { transform: translate(-88px, 30px); } /* H2O-1 */
+    0%, 20% { transform: translate(-195px, -80px); } /* H2-1 right */
+    35%, 45% { transform: translate(-40px, -90px) rotate(-15deg); } /* Broken */
+    65%, 100% { transform: translate(-125px, 25px); } /* H2O-1 Bottom Right */
 }
 @keyframes atom-h3 { 
-    0%, 20% { transform: translate(-220px, 60px); } /* H2-2 */
-    35%, 45% { transform: translate(-40px, 40px); } /* Broken */
-    60%, 100% { transform: translate(88px, 30px); } /* H2O-2 */
+    0%, 20% { transform: translate(-230px, 80px); } /* H2-2 left */
+    35%, 45% { transform: translate(40px, 90px) rotate(20deg); } /* Broken */
+    65%, 100% { transform: translate(125px, 25px); } /* H2O-2 Bottom Left */
 }
 @keyframes atom-h4 { 
-    0%, 20% { transform: translate(-190px, 60px); } /* H2-2 */
-    35%, 45% { transform: translate(50px, -20px); } /* Broken */
-    60%, 100% { transform: translate(112px, 30px); } /* H2O-2 */
+    0%, 20% { transform: translate(-195px, 80px); } /* H2-2 right */
+    35%, 45% { transform: translate(100px, 40px) rotate(-10deg); } /* Broken */
+    65%, 100% { transform: translate(175px, 25px); } /* H2O-2 Bottom Right */
 }
 @keyframes atom-o1 { 
-    0%, 20% { transform: translate(180px, 0px); } /* O2 */
-    35%, 45% { transform: translate(-10px, -40px); } /* Broken */
-    60%, 100% { transform: translate(-100px, 0px); } /* H2O-1 O */
+    0%, 20% { transform: translate(190px, -23px); } /* O2 Top */
+    35%, 45% { transform: translate(-20px, 20px) scale(1.1); } /* Broken center-left */
+    65%, 100% { transform: translate(-150px, -10px); } /* H2O-1 Center O */
 }
 @keyframes atom-o2 { 
-    0%, 20% { transform: translate(225px, 0px); } /* O2 */
-    35%, 45% { transform: translate(15px, 25px); } /* Broken */
-    60%, 100% { transform: translate(100px, 0px); } /* H2O-2 O */
+    0%, 20% { transform: translate(190px, 23px); } /* O2 Bottom */
+    35%, 45% { transform: translate(20px, -20px) scale(1.1); } /* Broken center-right */
+    65%, 100% { transform: translate(150px, -10px); } /* H2O-2 Center O */
 }
 
 @keyframes label-reactants { 0%, 45% { opacity: 1; } 55%, 100% { opacity: 0; } }

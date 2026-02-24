@@ -543,29 +543,33 @@
      <p class="mb-10 text-xl">
       **원자가 재배열**되어 완전히 새로운 종류의 분자가 탄생합니다.
      </p>
-     <div class="reaction-stage mx-auto shadow-2xl mt-8">
+     <div class="reaction-stage mx-auto shadow-2xl mt-8 bg-gradient-to-br from-white to-slate-50">
       <!-- Atoms (4H + 2O) -->
-      <div class="atom atom-h absolute animate-[atom-h1_6s_infinite] shadow-lg" style="left:50%; top:50%; margin-left:-15px; margin-top:-15px;">H</div>
-      <div class="atom atom-h absolute animate-[atom-h2_6s_infinite] shadow-lg" style="left:50%; top:50%; margin-left:-15px; margin-top:-15px;">H</div>
-      <div class="atom atom-h absolute animate-[atom-h3_6s_infinite] shadow-lg" style="left:50%; top:50%; margin-left:-15px; margin-top:-15px;">H</div>
-      <div class="atom atom-h absolute animate-[atom-h4_6s_infinite] shadow-lg" style="left:50%; top:50%; margin-left:-15px; margin-top:-15px;">H</div>
-      <div class="atom atom-o absolute animate-[atom-o1_6s_infinite] shadow-lg" style="left:50%; top:50%; margin-left:-22.5px; margin-top:-22.5px;">O</div>
-      <div class="atom atom-o absolute animate-[atom-o2_6s_infinite] shadow-lg" style="left:50%; top:50%; margin-left:-22.5px; margin-top:-22.5px;">O</div>
+      <div class="atom atom-h absolute animate-[atom-h1_6s_infinite] shadow-lg" style="left:50%; top:50%; margin-left:-15px; margin-top:-15px; transition: all 0.5s ease-in-out;">H</div>
+      <div class="atom atom-h absolute animate-[atom-h2_6s_infinite] shadow-lg" style="left:50%; top:50%; margin-left:-15px; margin-top:-15px; transition: all 0.5s ease-in-out;">H</div>
+      <div class="atom atom-h absolute animate-[atom-h3_6s_infinite] shadow-lg" style="left:50%; top:50%; margin-left:-15px; margin-top:-15px; transition: all 0.5s ease-in-out;">H</div>
+      <div class="atom atom-h absolute animate-[atom-h4_6s_infinite] shadow-lg" style="left:50%; top:50%; margin-left:-15px; margin-top:-15px; transition: all 0.5s ease-in-out;">H</div>
+      <div class="atom atom-o absolute animate-[atom-o1_6s_infinite] shadow-lg" style="left:50%; top:50%; margin-left:-22.5px; margin-top:-22.5px; transition: all 0.5s ease-in-out;">O</div>
+      <div class="atom atom-o absolute animate-[atom-o2_6s_infinite] shadow-lg" style="left:50%; top:50%; margin-left:-22.5px; margin-top:-22.5px; transition: all 0.5s ease-in-out;">O</div>
 
       <!-- Labels -->
-      <div class="absolute top-6 left-1/2 -translate-x-1/2 flex flex-col items-center">
-        <div class="animate-[label-reactants_6s_infinite] flex flex-col items-center">
-            <span class="text-2xl font-black text-slate-400 uppercase tracking-widest">반응 전</span>
-            <span class="text-4xl font-mono text-slate-600">2H₂ + O₂</span>
+      <div class="absolute top-6 left-10 text-left">
+        <div class="animate-[label-reactants_6s_infinite]">
+            <span class="text-xl font-black text-slate-400 block">반응 전</span>
+            <span class="text-3xl font-mono text-slate-600">2H₂ + O₂</span>
         </div>
-        <div class="animate-[label-products_6s_infinite] absolute top-0 flex flex-col items-center">
-            <span class="text-2xl font-black text-red-500 uppercase tracking-widest">반응 후</span>
-            <span class="text-4xl font-mono text-red-600 font-bold">2H₂O</span>
+      </div>
+      <div class="absolute top-6 right-10 text-right">
+        <div class="animate-[label-products_6s_infinite]">
+            <span class="text-xl font-black text-red-500 block">반응 후</span>
+            <span class="text-3xl font-mono text-red-600 font-bold">2H₂O</span>
         </div>
       </div>
       
-      <div class="absolute bottom-6 w-full text-center text-slate-400 font-bold animate-pulse">
-        원자가 분리되었다가 다시 결합합니다!
+      <div class="absolute bottom-6 w-full text-center">
+        <span class="px-6 py-2 bg-white/80 backdrop-blur-sm rounded-full text-slate-500 font-bold border border-slate-100 shadow-sm">
+            원자의 종류와 개수는 변하지 않습니다!
+        </span>
       </div>
      </div>
      <div class="mt-12 flex gap-4">
