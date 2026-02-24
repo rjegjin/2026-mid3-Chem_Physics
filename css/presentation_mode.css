@@ -45,22 +45,26 @@ body.presentation-mode section.active-slide {
 }
 
 body.presentation-mode h2 {
-    font-size: 2.4rem !important;
-    font-weight: 800;
-    margin-bottom: 1.5rem !important;
+    font-size: 2.8rem !important; /* Larger headers */
+    font-family: var(--font-heading);
+    font-weight: 700;
+    margin-bottom: 2rem !important;
     color: var(--primary-blue);
     text-align: center;
-    border-bottom: 3px solid var(--accent-cyan);
-    padding-bottom: 0.5rem;
+    border-bottom: 4px solid var(--accent-cyan);
+    padding-bottom: 0.8rem;
     display: inline-block;
+    letter-spacing: -0.04em;
 }
 
 body.presentation-mode p, 
 body.presentation-mode li {
-    font-size: 1.4rem !important;
-    line-height: 1.6 !important;
-    color: #475569;
-    margin-bottom: 1rem;
+    font-size: 1.6rem !important; /* Slightly larger for presentation */
+    font-weight: 450; /* Medium weight for better projection */
+    line-height: 1.7 !important;
+    color: #334155;
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.02em;
 }
 
 /* --- Molecular Models (Ball & Stick Style) --- */
@@ -145,9 +149,8 @@ body.presentation-mode li {
 }
 
 body.presentation-mode h2 {
-    border-bottom: 3px solid var(--prestige-navy);
-    text-transform: none; /* 학술 용어는 대소문자 유지 */
-    font-family: 'Inter', sans-serif;
+    border-bottom: 4px solid var(--prestige-navy);
+    text-transform: none; 
 }
 
 .math-font {
