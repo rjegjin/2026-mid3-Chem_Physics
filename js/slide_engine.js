@@ -12,11 +12,10 @@ window.SlideEngine = {
         if (this.initialized) return;
         this.sections = Array.from(document.querySelectorAll('main > section'));
         
-        // Parse Markdown Bold and fix specific typos in content
+        // Parse Markdown Bold
         this.sections.forEach(sec => {
             sec.innerHTML = sec.innerHTML
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/ightarrow/g, '\\rightarrow');
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         });
 
         // Setup initial view
