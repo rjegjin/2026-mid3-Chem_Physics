@@ -15,73 +15,7 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/presentation_mode.css">
-    <style>
-        /* 3D Simulation Styles */
-        .stage-3d {
-            perspective: 800px;
-            width: 300px; height: 300px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 1rem;
-            position: relative;
-            display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
-        }
-        .molecule-3d {
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 100px; height: 100px;
-        }
-        .axis-line {
-            position: absolute;
-            background: rgba(14, 165, 233, 0.4);
-            z-index: 0;
-        }
-        .axis-z { width: 2px; height: 250px; top: -75px; left: 50%; transform: translateX(-50%); }
-        
-        .mirror-plane {
-            position: absolute;
-            background: rgba(34, 211, 238, 0.2);
-            border: 2px solid var(--accent-cyan);
-            backdrop-filter: blur(2px);
-            display: none;
-            z-index: 5;
-        }
-        .math-box {
-            background: #f8fafc;
-            border-left: 4px solid #3b82f6;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            font-size: 1.2rem;
-            overflow-x: auto;
-        }
-        .note-box {
-            background: #fffbeb;
-            border-left: 4px solid #f59e0b;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-        table.char-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1.5rem;
-            font-size: 1.1rem;
-        }
-        table.char-table th, table.char-table td {
-            border: 1px solid #cbd5e1;
-            padding: 0.75rem;
-            text-align: center;
-        }
-        table.char-table th {
-            background: #f1f5f9;
-        }
-    </style>
+    <link rel="stylesheet" href="css/chem_style.css">
 </head>
 <body class="presentation-mode">
 
@@ -717,6 +651,42 @@
             </ul>
         </div>
     </section>
+    <!-- Slide 31-B: Matrix & Orbital Lab (Interactive) -->
+    <section id="s31-lab">
+        <div class="slide-content">
+            <h2 class="text-cyan-400">Advanced Lab: 오비탈 변환과 행렬 지표</h2>
+            <p class="mb-4">대칭 조작이 오비탈의 위상(Phase)과 좌표 행렬에 미치는 영향을 관찰하십시오.</p>
+            
+            <div class="grid grid-cols-2 gap-8 w-full max-w-6xl mt-4">
+                <div class="stage-3d">
+                    <div id="orbital-lab" class="orbital-p">
+                        <div class="lobe plus flex items-center justify-center text-white font-bold">+</div>
+                        <div class="lobe minus flex items-center justify-center text-white font-bold">-</div>
+                    </div>
+                    <div class="absolute bottom-4 text-slate-400 text-xs uppercase tracking-widest">p-orbital (z-axis)</div>
+                </div>
+                
+                <div class="flex flex-col gap-4">
+                    <div id="matrix-display" class="w-full">
+                        <div class="bg-slate-800 p-8 rounded-lg text-slate-500 text-center italic border-2 border-dashed border-slate-700">
+                            조작을 선택하면 변환 행렬이 표시됩니다.
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="labTransform('rotation')" class="p-3 bg-blue-600 text-white rounded font-bold hover:bg-blue-700">C2 회전 (180°)</button>
+                        <button onclick="labTransform('reflection')" class="p-3 bg-cyan-600 text-white rounded font-bold hover:bg-cyan-700">σ_yz 반사</button>
+                        <button onclick="labTransform('inversion')" class="p-3 bg-indigo-600 text-white rounded font-bold hover:bg-indigo-700">i 반전</button>
+                        <button onclick="location.reload()" class="p-3 bg-slate-700 text-white rounded font-bold">초기화</button>
+                    </div>
+                    
+                    <div class="p-4 bg-slate-100 rounded border border-slate-300 text-sm">
+                        <p><b>지표(Character) 확인:</b> 행렬 대각합을 구해보세요. 오비탈이 변하지 않으면 1, 위상이 반전되면 -1이 해당 기약 표현의 지표가 됩니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Slide 32: Reduction Formula -->
     <section id="s32">
@@ -912,30 +882,31 @@
 </main>
 
 <!-- Simulation Scripts -->
+<script src="js/chem_sim.js"></script>
 <script>
-    let rotationAngle = 0;
+    // Specific triggers for this document
     function simulateRotation() {
-        const mol = document.getElementById('water-molecule');
-        const log = document.getElementById('rotation-log');
-        rotationAngle += 180;
-        mol.style.transform = `rotateZ(${rotationAngle}deg)`;
-        log.innerText = `Operation: C2 executed (${rotationAngle % 360}° total)`;
+        // Calls the generic function in chem_sim.js
+        window.simulateRotation('water-molecule', 180, 'rotation-log');
     }
-
-    let isReflected = false;
     function simulateReflection() {
-        const mol = document.getElementById('reflect-molecule');
-        isReflected = !isReflected;
-        mol.style.transform = isReflected ? 'scaleX(-1)' : 'scaleX(1)';
+        window.simulateReflection('reflect-molecule');
+    }
+    
+    function simulateInversion() {
+        window.simulateInversion('invert-molecule');
     }
 
-    let isInverted = false;
-    function simulateInversion() {
-        const mol = document.getElementById('invert-molecule');
-        isInverted = !isInverted;
-        mol.style.transform = isInverted ? 'scale(-1)' : 'scale(1)';
+    // Lab Specific
+    function labTransform(type) {
+        if (type === 'rotation') {
+            window.simulateRotation('orbital-lab', 180, null, 'matrix-display');
+        } else {
+            window.simulateOrbitalTransform('orbital-lab', type, 'matrix-display');
+        }
     }
 </script>
+
 
 <script src="js/slide_engine.js"></script>
 </body>
