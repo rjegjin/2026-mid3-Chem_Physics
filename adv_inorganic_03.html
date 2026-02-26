@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고급 무기화학 03: 진동 분광학과 군론 (Vibrational Spectroscopy)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\(', '\)']],
+                displayMath: [['$$', '$$'], ['\[', '\]']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'style', 'textarea', 'pre', 'code']
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/presentation_mode.css">
+    <link rel="stylesheet" href="css/chem_style.css">
+</head>
+<body class="presentation-mode">
+
+<main>
+    
+    <!-- Slide 1: Cover -->
+    <section id="s1">
+        <div class="slide-content" style="border:none; background:transparent; box-shadow:none;">
+            <p class="text-sm font-bold text-slate-500 uppercase tracking-[0.3em] mb-4">Advanced Inorganic Chemistry Series</p>
+            <h1 class="text-5xl font-black mb-6 text-slate-900 leading-tight">
+                Module 3. 진동 분광학과 군론<br>
+                <span class="text-2xl font-light text-slate-500">(Vibrational Spectroscopy & Group Theory)</span>
+            </h1>
+            <div class="w-32 h-1 bg-slate-900 mx-auto my-10"></div>
+            <p class="text-xl font-medium text-slate-700 uppercase tracking-widest">제 3강: 분자의 춤을 해독하다</p>
+        </div>
+    </section>
+
+    <!-- Slide 2: Intro to Molecular Vibrations -->
+    <section id="s2">
+        <div class="slide-content text-left px-16">
+            <h2>분자의 진동 (Molecular Vibrations)</h2>
+            <p class="mb-6 text-xl">분자 내의 원자들은 정지해 있지 않고, 스프링으로 연결된 질량체처럼 끊임없이 진동합니다.</p>
+            <div class="grid grid-cols-2 gap-8">
+                <div class="p-6 bg-white shadow-sm border border-slate-200 rounded-xl">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">기준 진동 모드 (Normal Modes)</h3>
+                    <p class="text-slate-700 leading-relaxed">복잡해 보이는 분자의 전체 진동은, 각 원자가 동일한 주파수와 위상으로 단순 조화 진동을 하는 <b>독립적인 기본 진동들의 선형 결합</b>으로 표현됩니다.</p>
+                </div>
+                <div class="flex items-center justify-center bg-emerald-50 border-l-4 border-emerald-500 rounded-xl p-6">
+                    <p class="text-lg text-emerald-900 font-medium">"군론(Group Theory)은 복잡한 미분 방정식을 풀지 않고도, 대칭성만으로 이 기준 진동 모드들의 형태와 분광학적 활성도를 완벽하게 예측하게 해줍니다."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Degrees of Freedom -->
+    <section id="s3">
+        <div class="slide-content">
+            <h2>운동의 자유도 (Degrees of Freedom)</h2>
+            <p class="mb-6 text-lg">$N$개의 원자로 이루어진 분자는 각 원자당 $x, y, z$ 축으로 이동할 수 있으므로, 총 <b>$3N$</b>개의 자유도를 가집니다.</p>
+            
+            <div class="grid grid-cols-2 gap-8 w-full max-w-5xl mt-8">
+                <div class="p-8 shadow-lg rounded-2xl border-t-8 border-blue-500 bg-white text-left">
+                    <h3 class="font-bold text-2xl mb-4 text-blue-800">비선형 분자 (Non-linear)</h3>
+                    <ul class="list-disc pl-6 space-y-2 text-lg text-slate-700">
+                        <li>전체 운동: $3N$</li>
+                        <li>병진 운동 (Translation): $3$ ($x, y, z$)</li>
+                        <li>회전 운동 (Rotation): $3$ ($R_x, R_y, R_z$)</li>
+                        <li class="font-black text-red-600 mt-4 pt-4 border-t border-slate-200">진동 자유도: $3N - 6$</li>
+                    </ul>
+                </div>
+                <div class="p-8 shadow-lg rounded-2xl border-t-8 border-purple-500 bg-white text-left">
+                    <h3 class="font-bold text-2xl mb-4 text-purple-800">선형 분자 (Linear)</h3>
+                    <ul class="list-disc pl-6 space-y-2 text-lg text-slate-700">
+                        <li>전체 운동: $3N$</li>
+                        <li>병진 운동 (Translation): $3$ ($x, y, z$)</li>
+                        <li>회전 운동 (Rotation): $2$ (분자축 중심 회전은 무의미)</li>
+                        <li class="font-black text-red-600 mt-4 pt-4 border-t border-slate-200">진동 자유도: $3N - 5$</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: 3N Representation -->
+    <section id="s4">
+        <div class="slide-content text-left px-16">
+            <h2>진동 분석 1단계: $\Gamma_{3N}$ 도출</h2>
+            <p class="mb-6 text-xl">분자의 3N 카테시안 좌표 전체를 기저로 삼아, 점군의 조작들에 대한 <b>가약 표현(Reducible Representation)</b>을 구합니다.</p>
+            
+            <div class="math-box text-center text-2xl p-8 bg-slate-900 text-white rounded-xl shadow-2xl">
+                \[ \chi_{3N}(R) = N_{unshifted} 	imes \chi_{xyz}(R) \]
+            </div>
+            
+            <ul class="mt-8 space-y-4 text-lg text-slate-700">
+                <li><b class="text-blue-700">$N_{unshifted}$:</b> 대칭 조작 $R$을 가했을 때 <b>위치가 변하지 않는 원자의 수</b>. (위치가 변한 원자는 대각합에 기여하지 않음)</li>
+                <li><b class="text-blue-700">$\chi_{xyz}(R)$:</b> 단일 원자의 $(x,y,z)$ 좌표가 조작 $R$에 의해 변환될 때의 지표.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 5: Example H2O Gamma 3N -->
+    <section id="s5">
+        <div class="slide-content">
+            <h2>실습 1: $H_2O$ ($C_{2v}$)의 $\Gamma_{3N}$</h2>
+            <p class="mb-4">물 분자($N=3$)의 총 자유도는 $3(3) = 9$ 입니다.</p>
+            <div class="overflow-x-auto w-full max-w-5xl mt-6">
+                <table class="char-table bg-white text-lg">
+                    <thead class="bg-indigo-900 text-white">
+                        <tr><th>$C_{2v}$</th><th>$E$</th><th>$C_2$</th><th>$\sigma_v(xz)$</th><th>$\sigma_v'(yz)$</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="font-bold bg-slate-50">$N_{unshifted}$</td><td>3</td><td>1 (O)</td><td>3 (O, H, H)</td><td>1 (O)</td></tr>
+                        <tr><td class="font-bold bg-slate-50">$\chi_{xyz}$</td><td>3</td><td>-1</td><td>1</td><td>1</td></tr>
+                        <tr class="bg-blue-50 text-xl font-black text-blue-800"><td class="bg-blue-100">$\Gamma_{3N}$</td><td>9</td><td>-1</td><td>3</td><td>1</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-8 text-slate-600 italic text-left px-16">($\sigma_v(xz)$는 분자 평면이므로 3원자 모두 이동하지 않고, $\sigma_v'(yz)$는 H원자 둘을 교환하므로 O원자 1개만 제자리에 남습니다.)</p>
+        </div>
+    </section>
+
+    <!-- Slide 6: Example H2O Reduction -->
+    <section id="s6">
+        <div class="slide-content text-left px-16">
+            <h2>실습 2: 약분 공식을 통한 분해</h2>
+            <p class="mb-4">얻어진 $\Gamma_{3N} = (9, -1, 3, 1)$ 을 $C_{2v}$ 기약 표현들로 분해합니다.</p>
+            <div class="math-box text-sm">
+                \[ n_i = \frac{1}{h} \sum_R g_c \chi_i(R) \chi_{3N}(R) \]
+            </div>
+            <div class="grid grid-cols-2 gap-4 mt-6 text-lg">
+                <div class="p-4 bg-white border rounded shadow-sm">$n_{A_1} = \frac{1}{4}[ (1)(9) + (1)(-1) + (1)(3) + (1)(1) ] = \frac{12}{4} = 3$</div>
+                <div class="p-4 bg-white border rounded shadow-sm">$n_{A_2} = \frac{1}{4}[ (1)(9) + (1)(-1) + (-1)(3) + (-1)(1) ] = \frac{4}{4} = 1$</div>
+                <div class="p-4 bg-white border rounded shadow-sm">$n_{B_1} = \frac{1}{4}[ (1)(9) + (-1)(-1) + (1)(3) + (-1)(1) ] = \frac{12}{4} = 3$</div>
+                <div class="p-4 bg-white border rounded shadow-sm">$n_{B_2} = \frac{1}{4}[ (1)(9) + (-1)(-1) + (-1)(3) + (1)(1) ] = \frac{8}{4} = 2$</div>
+            </div>
+            <div class="mt-6 p-4 bg-indigo-50 border-l-4 border-indigo-500 font-bold text-xl text-indigo-900">
+                \[ \Gamma_{3N} = 3A_1 + A_2 + 3B_1 + 2B_2 \]
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Example H2O Gamma vib -->
+    <section id="s7">
+        <div class="slide-content text-left px-16">
+            <h2>실습 3: 순수 진동 모드($\Gamma_{vib}$) 추출</h2>
+            <p class="mb-6">전체 운동 $\Gamma_{3N}$ 에는 <b>병진 운동(Translation)</b>과 <b>회전 운동(Rotation)</b>이 포함되어 있습니다. 지표표를 보고 이들을 빼줍니다.</p>
+            
+            <div class="p-6 bg-slate-50 border border-slate-200 rounded-xl mb-6 shadow-inner">
+                <ul class="space-y-4">
+                    <li><b class="text-blue-700">병진 운동 ($\Gamma_{trans}$):</b> 지표표에서 $x, y, z$ 에 해당하는 대칭종. <br>$\implies A_1(z) + B_1(x) + B_2(y)$</li>
+                    <li><b class="text-red-700">회전 운동 ($\Gamma_{rot}$):</b> 지표표에서 $R_x, R_y, R_z$ 에 해당하는 대칭종. <br>$\implies A_2(R_z) + B_1(R_y) + B_2(R_x)$</li>
+                </ul>
+            </div>
+            
+            <div class="math-box bg-white text-2xl text-center py-6 border-2 border-slate-800">
+                \begin{align}
+                \Gamma_{vib} &= \Gamma_{3N} - \Gamma_{trans} - \Gamma_{rot} 
+                &= (3A_1 + A_2 + 3B_1 + 2B_2) - (A_1 + B_1 + B_2) - (A_2 + B_1 + B_2) 
+                &= \mathbf{2A_1 + B_1}
+                \end{align}
+            </div>
+            <p class="mt-4 text-center text-slate-500">(비선형 3원자 분자이므로 진동 자유도는 $3(3)-6 = 3$개. $2A_1 + B_1$ 으로 정확히 3개가 나옵니다.)</p>
+        </div>
+    </section>
+
+    <!-- Slide 8: Normal Modes of H2O Visualized -->
+    <section id="s8">
+        <div class="slide-content">
+            <h2>$H_2O$의 3가지 기준 진동 모드</h2>
+            <p class="mb-8">수학적으로 유도해낸 $2A_1 + B_1$ 이 실제로 어떤 움직임인지 살펴봅시다.</p>
+            <div class="grid grid-cols-3 gap-8 w-full max-w-5xl">
+                <div class="p-6 bg-white border border-slate-200 rounded-2xl shadow-lg flex flex-col items-center text-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Symmetric_stretching_of_water.gif/220px-Symmetric_stretching_of_water.gif" alt="Sym Stretch" class="h-32 mb-4 rounded">
+                    <h3 class="font-bold text-xl text-blue-800">Symmetric Stretch</h3>
+                    <p class="text-sm mt-2 text-slate-600">두 O-H 결합이 동시에 늘어나고 줄어듦. 모든 대칭 조작에 불변.</p>
+                    <span class="mt-4 px-4 py-1 bg-slate-100 font-bold rounded-full text-indigo-600">대칭종: $A_1$</span>
+                </div>
+                <div class="p-6 bg-white border border-slate-200 rounded-2xl shadow-lg flex flex-col items-center text-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Bending_of_water.gif/220px-Bending_of_water.gif" alt="Bending" class="h-32 mb-4 rounded">
+                    <h3 class="font-bold text-xl text-blue-800">Bending</h3>
+                    <p class="text-sm mt-2 text-slate-600">결합각이 커졌다 작아짐. 역시 대칭성이 깨지지 않음.</p>
+                    <span class="mt-4 px-4 py-1 bg-slate-100 font-bold rounded-full text-indigo-600">대칭종: $A_1$</span>
+                </div>
+                <div class="p-6 bg-white border border-slate-200 rounded-2xl shadow-lg flex flex-col items-center text-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Asymmetric_stretching_of_water.gif/220px-Asymmetric_stretching_of_water.gif" alt="Asym Stretch" class="h-32 mb-4 rounded">
+                    <h3 class="font-bold text-xl text-red-800">Asymmetric Stretch</h3>
+                    <p class="text-sm mt-2 text-slate-600">한 결합이 늘어날 때 다른 쪽은 줄어듦. $C_2$ 회전 시 부호(위상)가 반전됨.</p>
+                    <span class="mt-4 px-4 py-1 bg-slate-100 font-bold rounded-full text-red-600">대칭종: $B_1$</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Selection Rules for Spectroscopy -->
+    <section id="s9">
+        <div class="slide-content text-left px-16">
+            <h2>분광학적 선택 규칙 (Selection Rules)</h2>
+            <p class="mb-6 text-xl">어떤 진동 모드가 적외선(IR)을 흡수하거나 라만(Raman) 산란을 일으키는지 군론으로 완벽히 결정할 수 있습니다.</p>
+            
+            <div class="space-y-6">
+                <div class="p-8 bg-rose-50 border-l-8 border-rose-500 rounded-xl shadow-sm">
+                    <h3 class="font-bold text-2xl text-rose-900 mb-2">1. 적외선 (IR) 활성 조건</h3>
+                    <p class="text-lg text-slate-700">진동에 의해 분자의 <b>쌍극자 모멘트(Dipole Moment)</b>가 변해야 합니다.</p>
+                    <p class="mt-2 font-bold text-rose-700">$\implies$ 진동 모드의 대칭종이 지표표의 선형 함수 $(x, y, z)$ 와 같아야 함.</p>
+                </div>
+                
+                <div class="p-8 bg-sky-50 border-l-8 border-sky-500 rounded-xl shadow-sm">
+                    <h3 class="font-bold text-2xl text-sky-900 mb-2">2. 라만 (Raman) 활성 조건</h3>
+                    <p class="text-lg text-slate-700">진동에 의해 분자의 <b>편극률(Polarizability)</b>이 변해야 합니다.</p>
+                    <p class="mt-2 font-bold text-sky-700">$\implies$ 진동 모드의 대칭종이 지표표의 이차 함수 $(x^2, y^2, z^2, xy, yz, zx)$ 와 같아야 함.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: IR/Raman of H2O -->
+    <section id="s10">
+        <div class="slide-content">
+            <h2>$H_2O$ 의 스펙트럼 예측</h2>
+            <p class="mb-8 text-xl">앞서 구한 $\Gamma_{vib} = 2A_1 + B_1$ 을 지표표와 대조해봅니다.</p>
+            <div class="w-full max-w-4xl bg-white p-8 rounded-2xl shadow-xl border border-slate-200 text-left">
+                <ul class="space-y-6 text-lg">
+                    <li class="flex items-start gap-4">
+                        <span class="px-4 py-1 bg-indigo-100 text-indigo-800 font-bold rounded">$A_1$ 모드</span>
+                        <div>
+                            <p>지표표 확인: $z$ (IR), $x^2, y^2, z^2$ (Raman)</p>
+                            <p class="text-emerald-600 font-bold">결과: IR 활성, Raman 활성 모두 가능 (Active)</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4 border-t pt-6">
+                        <span class="px-4 py-1 bg-red-100 text-red-800 font-bold rounded">$B_1$ 모드</span>
+                        <div>
+                            <p>지표표 확인: $x$ (IR), $xz$ (Raman)</p>
+                            <p class="text-emerald-600 font-bold">결과: IR 활성, Raman 활성 모두 가능 (Active)</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="mt-8 p-4 bg-slate-800 text-white rounded-lg text-center font-medium">
+                    "물 분자의 3가지 진동 모드는 모두 IR 흡수 스펙트럼과 라만 스펙트럼에서 관측됩니다."
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: Rule of Mutual Exclusion -->
+    <section id="s11">
+        <div class="slide-content text-left px-16">
+            <h2 class="text-red-700">상호 배타의 원리 (Rule of Mutual Exclusion)</h2>
+            <p class="mb-6 text-xl">반전 중심($i$, Inversion Center)을 가진 분자들에 적용되는 절대적인 분광학 법칙입니다.</p>
+            
+            <div class="p-10 bg-slate-900 text-white rounded-2xl shadow-2xl relative overflow-hidden">
+                <div class="absolute -right-10 -top-10 text-9xl text-slate-800 opacity-50 font-serif">!</div>
+                <p class="text-2xl font-light leading-relaxed relative z-10">
+                    반전 중심을 가지는 분자(예: $CO_2, SF_6, Benzene$)에서, <br>
+                    <b class="text-cyan-400">IR 활성인 진동 모드는 Raman 비활성</b>이며, <br>
+                    <b class="text-pink-400">Raman 활성인 진동 모드는 IR 비활성</b>이다. <br>
+                    (동시에 둘 다 활성인 모드는 존재하지 않는다.)
+                </p>
+            </div>
+            
+            <p class="mt-8 text-lg text-slate-700">
+                <b>군론적 이유:</b> 반전 중심($i$)이 있으면 대칭종이 $g$(gerade, 대칭)와 $u$(ungerade, 반대칭)로 나뉩니다.
+                <br>선형 함수($x,y,z$)는 항상 $u$ 대칭성을, 이차 함수($x^2, xy$ 등)는 항상 $g$ 대칭성을 가지므로 교집합이 생길 수 없습니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Slide 12: Internal Coordinates (Advanced) -->
+    <section id="s12">
+        <div class="slide-content text-left px-16">
+            <h2>내부 좌표계 (Internal Coordinates) 활용</h2>
+            <p class="mb-6 text-lg">복잡한 분자에서 3N 전체를 계산하는 것은 너무 번거롭습니다. 특정 결합의 늘어남(Stretch)만 알고 싶다면, 그 결합 벡터(Bond Vectors)만을 기저로 삼을 수 있습니다.</p>
+            
+            <div class="grid grid-cols-2 gap-8">
+                <div class="p-6 bg-white border border-slate-300 shadow rounded">
+                    <h3 class="font-bold text-xl mb-4 text-slate-800">$\Gamma_{stretch}$ 구하기</h3>
+                    <p>중심 원자와 연결된 $k$개의 결합 화살표를 기저로 삼습니다.</p>
+                    <p class="mt-2 p-2 bg-slate-100 font-mono text-sm rounded">$\chi_{stretch}(R)$ = 이동하지 않은 결합(Bond)의 개수</p>
+                    <p class="mt-4 text-sm text-slate-500">이 가약 표현을 약분하면 신축 진동(Stretching modes)의 대칭종만 바로 얻을 수 있습니다.</p>
+                </div>
+                <div class="p-6 bg-white border border-slate-300 shadow rounded">
+                    <h3 class="font-bold text-xl mb-4 text-slate-800">$\Gamma_{bend}$ 구하기</h3>
+                    <p>결합각(Bond angles)을 기저로 삼아 변환 행렬을 구합니다.</p>
+                    <p class="mt-4 font-bold text-indigo-700">$\Gamma_{vib} = \Gamma_{stretch} + \Gamma_{bend}$</p>
+                    <p class="mt-2 text-sm text-slate-500">전체 진동 모드를 물리적 의미를 가진 신축/굽힘 모드로 세분화하여 분석할 수 있습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 13: Interactive Tool -->
+    <section id="s13-lab">
+        <div class="slide-content">
+            <h2 class="text-cyan-600">Lab: 진동 분광학 활성 판별기</h2>
+            <p class="mb-6">도출된 진동 대칭종을 입력하여 IR/Raman 활성 여부를 확인합니다. (기본 $C_{2v}$ 기준)</p>
+            
+            <div class="w-full max-w-4xl bg-white p-8 rounded-2xl border border-slate-200 shadow-xl">
+                <div class="flex gap-4 mb-8 justify-center">
+                    <button class="px-6 py-2 rounded-full border-2 border-indigo-500 bg-indigo-50 text-indigo-800 font-bold hover:bg-indigo-500 hover:text-white transition-all" onclick="checkActivity('A1')">Test A1 Mode</button>
+                    <button class="px-6 py-2 rounded-full border-2 border-indigo-500 bg-indigo-50 text-indigo-800 font-bold hover:bg-indigo-500 hover:text-white transition-all" onclick="checkActivity('A2')">Test A2 Mode</button>
+                    <button class="px-6 py-2 rounded-full border-2 border-indigo-500 bg-indigo-50 text-indigo-800 font-bold hover:bg-indigo-500 hover:text-white transition-all" onclick="checkActivity('B1')">Test B1 Mode</button>
+                    <button class="px-6 py-2 rounded-full border-2 border-indigo-500 bg-indigo-50 text-indigo-800 font-bold hover:bg-indigo-500 hover:text-white transition-all" onclick="checkActivity('B2')">Test B2 Mode</button>
+                </div>
+                
+                <div id="activity-result" class="p-8 bg-slate-50 rounded-xl border border-slate-300 text-center min-h-[150px] flex flex-col justify-center items-center transition-all">
+                    <p class="text-slate-400 italic">대칭종을 선택하면 분광학적 활성도가 표시됩니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 14: Summary -->
+    <section id="s14" class="end">
+        <div class="slide-content" style="border:none; box-shadow:none;">
+            <p class="text-slate-500 font-bold uppercase tracking-[0.2em] mb-4">Module 3 Complete</p>
+            <h2 class="border-none mb-10 text-4xl">결론 및 요약</h2>
+            <div class="grid grid-cols-2 gap-6 w-full max-w-5xl text-left text-sm mb-10">
+                <div class="p-6 bg-white border border-slate-200 rounded shadow-sm">
+                    <strong class="text-blue-700">1. 진동 자유도:</strong> 비선형 분자는 $3N-6$, 선형 분자는 $3N-5$ 개의 독립적인 기준 진동 모드를 가집니다.
+                </div>
+                <div class="p-6 bg-white border border-slate-200 rounded shadow-sm">
+                    <strong class="text-blue-700">2. $\Gamma_{3N}$ 의 분해:</strong> 원자 좌표 전체를 변환시켜 $\Gamma_{trans}$ 와 $\Gamma_{rot}$ 을 제거하면 순수 진동 모드 $\Gamma_{vib}$ 만 남습니다.
+                </div>
+                <div class="p-6 bg-white border border-slate-200 rounded shadow-sm">
+                    <strong class="text-blue-700">3. 선택 규칙:</strong> 선형 함수($x,y,z$)와 매칭되면 IR 활성, 이차 함수와 매칭되면 Raman 활성입니다.
+                </div>
+                <div class="p-6 bg-white border border-slate-200 rounded shadow-sm">
+                    <strong class="text-blue-700">4. 상호 배타의 원리:</strong> 반전 중심($i$)이 있는 분자는 동일한 모드가 IR과 Raman에서 동시에 관측되지 않습니다.
+                </div>
+            </div>
+            <div class="p-8 bg-slate-900 text-white rounded shadow-xl mt-4 text-center">
+                <p class="text-xl italic font-serif">"Spectroscopy is the music of molecules; Group Theory is its sheet music."</p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script>
+    function checkActivity(mode) {
+        const resultDiv = document.getElementById('activity-result');
+        let ir = false, raman = false;
+        let irFunc = "", ramanFunc = "";
+        
+        // Hardcoded C2v logic for demonstration
+        if (mode === 'A1') { ir = true; raman = true; irFunc = "z"; ramanFunc = "x², y², z²"; }
+        else if (mode === 'A2') { ir = false; raman = true; irFunc = "None"; ramanFunc = "xy"; }
+        else if (mode === 'B1') { ir = true; raman = true; irFunc = "x"; ramanFunc = "xz"; }
+        else if (mode === 'B2') { ir = true; raman = true; irFunc = "y"; ramanFunc = "yz"; }
+
+        let html = `<h3 class="text-3xl font-black text-slate-800 mb-4">${mode} Mode</h3>`;
+        html += `<div class="flex gap-8">`;
+        
+        // IR Result
+        html += `<div class="p-4 rounded-xl w-64 ${ir ? 'bg-rose-100 border-rose-400' : 'bg-slate-100 border-slate-300'} border-2">`;
+        html += `<p class="font-bold ${ir ? 'text-rose-800' : 'text-slate-500'} text-xl mb-2">IR Activity</p>`;
+        html += `<p class="text-3xl font-black ${ir ? 'text-rose-600' : 'text-slate-400'}">${ir ? 'ACTIVE' : 'INACTIVE'}</p>`;
+        html += `<p class="text-sm mt-2 text-slate-600">Func: ${irFunc}</p></div>`;
+        
+        // Raman Result
+        html += `<div class="p-4 rounded-xl w-64 ${raman ? 'bg-sky-100 border-sky-400' : 'bg-slate-100 border-slate-300'} border-2">`;
+        html += `<p class="font-bold ${raman ? 'text-sky-800' : 'text-slate-500'} text-xl mb-2">Raman Activity</p>`;
+        html += `<p class="text-3xl font-black ${raman ? 'text-sky-600' : 'text-slate-400'}">${raman ? 'ACTIVE' : 'INACTIVE'}</p>`;
+        html += `<p class="text-sm mt-2 text-slate-600">Func: ${ramanFunc}</p></div>`;
+        
+        html += `</div>`;
+        resultDiv.innerHTML = html;
+        resultDiv.className = "p-8 rounded-xl border border-slate-300 text-center min-h-[150px] flex flex-col justify-center items-center transition-all bg-white shadow-lg";
+    }
+</script>
+<script src="js/slide_engine.js"></script>
+</body>
+</html>
