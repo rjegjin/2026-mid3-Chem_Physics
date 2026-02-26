@@ -5,12 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>고급 무기화학 01: 분자 대칭성과 물성 (Interactive)</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <script>
         window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'style', 'textarea', 'pre', 'code']
+            },
             svg: { fontCache: 'global' }
         };
     </script>
+
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/presentation_mode.css">
@@ -39,21 +48,21 @@
     <section id="s25">
         <div class="slide-content text-left px-16">
             <h2>대칭성과 분자의 극성 (Polarity)</h2>
-            <p class="mb-8 text-xl text-slate-600">분자가 영구 쌍극자 모멘트(\(\mu\))를 가지기 위한 대칭적 조건</p>
+            <p class="mb-8 text-xl text-slate-600">분자가 영구 쌍극자 모멘트(\\(\mu\\))를 가지기 위한 대칭적 조건</p>
             <div class="grid grid-cols-2 gap-10">
                 <div class="p-8 bg-blue-50 border-l-8 border-blue-500 rounded-xl">
                     <h3 class="font-bold text-2xl mb-4 text-blue-900">극성 가능 점군</h3>
                     <p class="text-lg leading-relaxed">영구 쌍극자를 가지려면 전하 분포의 중심이 일치하지 않아야 합니다.</p>
                     <div class="mt-6 text-3xl font-serif text-blue-700">
-                        \(C_1, C_s, C_n, C_{nv}\)
+                        \\(C_1, C_s, C_n, C_{nv}\\)
                     </div>
                 </div>
                 <div class="p-8 bg-slate-100 border-l-8 border-slate-400 rounded-xl">
                     <h3 class="font-bold text-2xl mb-4 text-slate-800">무극성 강제 조건</h3>
                     <ul class="list-disc pl-6 space-y-3">
-                        <li>반전 중심(\(i\))이 있으면 무조건 무극성</li>
-                        <li>주축에 수직인 \(C_2\) 축이 있으면 무극성 (\(D\)군 전체)</li>
-                        <li>수평 거울면(\(\sigma_h\))이 있으면 무극성</li>
+                        <li>반전 중심(\\(i\\))이 있으면 무조건 무극성</li>
+                        <li>주축에 수직인 \\(C_2\\) 축이 있으면 무극성 (\\(D\\)군 전체)</li>
+                        <li>수평 거울면(\\(\sigma_h\\))이 있으면 무극성</li>
                     </ul>
                 </div>
             </div>
@@ -63,15 +72,15 @@
     <!-- Slide 26: Practice - Why is CO2 Non-polar? -->
     <section id="s26">
         <div class="slide-content">
-            <h2>사례 연구: \(CO_2\) vs \(H_2O\)</h2>
+            <h2>사례 연구: \\(CO_2\\) vs \\(H_2O\\)</h2>
             <div class="grid grid-cols-2 gap-8 w-full mt-8">
                 <div class="p-6 bg-white border border-slate-200 rounded-xl shadow">
-                    <h3 class="font-bold text-xl mb-4 text-red-600">\(CO_2\) (\(D_{\infty h}\))</h3>
-                    <p class="text-left">선형이며 반전 중심(\(i\))이 존재합니다. <br>따라서 모든 쌍극자가 완벽히 상쇄되어 <b>무극성</b>입니다.</p>
+                    <h3 class="font-bold text-xl mb-4 text-red-600">\\(CO_2\\) (\\(D_{\infty h}\\))</h3>
+                    <p class="text-left">선형이며 반전 중심(\\(i\\))이 존재합니다. <br>따라서 모든 쌍극자가 완벽히 상쇄되어 <b>무극성</b>입니다.</p>
                 </div>
                 <div class="p-6 bg-white border border-slate-200 rounded-xl shadow">
-                    <h3 class="font-bold text-xl mb-4 text-blue-600">\(H_2O\) (\(C_{2v}\))</h3>
-                    <p class="text-left">극성 점군인 \(C_{2v}\)에 속합니다. <br>\(C_2\) 축 방향으로 상쇄되지 않는 <b>영구 쌍극자</b>가 존재합니다.</p>
+                    <h3 class="font-bold text-xl mb-4 text-blue-600">\\(H_2O\\) (\\(C_{2v}\\))</h3>
+                    <p class="text-left">극성 점군인 \\(C_{2v}\\)에 속합니다. <br>\\(C_2\\) 축 방향으로 상쇄되지 않는 <b>영구 쌍극자</b>가 존재합니다.</p>
                 </div>
             </div>
         </div>
@@ -83,17 +92,17 @@
             <h2>대칭성과 카이랄성 (Chirality)</h2>
             <p class="mb-8 text-xl text-slate-600">광학 활성(Optical Activity)을 결정하는 수학적 기준</p>
             <div class="bg-emerald-900 text-white p-10 rounded-2xl shadow-xl">
-                <p class="text-3xl font-serif text-center mb-6">"어떤 분자가 카이랄하기 위한 필요충분조건은 <br><span class="text-emerald-400">비고유 회전축(\(S_n\))</span>이 없어야 한다는 것이다."</p>
+                <p class="text-3xl font-serif text-center mb-6">"어떤 분자가 카이랄하기 위한 필요충분조건은 <br><span class="text-emerald-400">비고유 회전축(\\(S_n\\))</span>이 없어야 한다는 것이다."</p>
             </div>
             <div class="grid grid-cols-3 gap-6 mt-8">
                 <div class="p-4 bg-emerald-50 rounded border border-emerald-200">
-                    <strong>\(S_1\) 이 없다:</strong> 거울면(\(\sigma\))이 없어야 함
+                    <strong>\\(S_1\\) 이 없다:</strong> 거울면(\\(\sigma\\))이 없어야 함
                 </div>
                 <div class="p-4 bg-emerald-50 rounded border border-emerald-200">
-                    <strong>\(S_2\) 가 없다:</strong> 반전 중심(\(i\))이 없어야 함
+                    <strong>\\(S_2\\) 가 없다:</strong> 반전 중심(\\(i\\))이 없어야 함
                 </div>
                 <div class="p-4 bg-emerald-50 rounded border border-emerald-200">
-                    <strong>높은 n의 \(S_n\) 도 없다:</strong> 예: \(S_4\) 축이 있으면 무조건 비카이랄
+                    <strong>높은 n의 \\(S_n\\) 도 없다:</strong> 예: \\(S_4\\) 축이 있으면 무조건 비카이랄
                 </div>
             </div>
         </div>
@@ -102,20 +111,20 @@
     <!-- Slide 28: Allene Symmetry -->
     <section id="s28">
         <div class="slide-content">
-            <h2>고난도 판별: 알렌 (Allene, \(C_3H_4\))</h2>
+            <h2>고난도 판별: 알렌 (Allene, \\(C_3H_4\\))</h2>
             <div class="flex gap-8 items-center mt-8">
                 <div class="w-1/2">
                     <img class="rounded-xl shadow-lg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Allene-2D-skeletal.svg/1200px-Allene-2D-skeletal.svg.png" style="background:white; padding:2rem;">
                 </div>
                 <div class="w-1/2 text-left space-y-4">
-                    <h3 class="text-2xl font-bold text-indigo-800">점군: \(D_{2d}\)</h3>
+                    <h3 class="text-2xl font-bold text-indigo-800">점군: \\(D_{2d}\\)</h3>
                     <ul class="list-disc pl-6">
-                        <li>주축: \(C_2\) (중앙 탄소 관통)</li>
-                        <li>수직 \(C_2\): 2개 존재</li>
-                        <li>이면 거울면: 2개의 \(\sigma_d\)</li>
-                        <li class="font-bold text-red-600">결정적 요소: \(S_4\) 축 존재!</li>
+                        <li>주축: \\(C_2\\) (중앙 탄소 관통)</li>
+                        <li>수직 \\(C_2\\): 2개 존재</li>
+                        <li>이면 거울면: 2개의 \\(\sigma_d\\)</li>
+                        <li class="font-bold text-red-600">결정적 요소: \\(S_4\\) 축 존재!</li>
                     </ul>
-                    <p class="p-4 bg-red-50 rounded italic text-red-800">"거울면과 반전 중심이 없지만, \(S_4\) 축 때문에 광학 활성이 없습니다 (A-chiral)."</p>
+                    <p class="p-4 bg-red-50 rounded italic text-red-800">"거울면과 반전 중심이 없지만, \\(S_4\\) 축 때문에 광학 활성이 없습니다 (A-chiral)."</p>
                 </div>
             </div>
         </div>
@@ -124,7 +133,7 @@
     <!-- Slide 29: Point Group Flowchart Practice 1 -->
     <section id="s29">
         <div class="slide-content">
-            <h2>점군 판별 챌린지 01: \(XeF_4\)</h2>
+            <h2>점군 판별 챌린지 01: \\(XeF_4\\)</h2>
             <div class="grid grid-cols-2 gap-10 mt-10">
                 <div class="stage-3d">
                     <!-- Square Planar Visualization -->
@@ -135,11 +144,11 @@
                     <ol class="space-y-4">
                         <li class="reveal-item">1. 선형인가? No.</li>
                         <li class="reveal-item">2. 높은 대칭성(Oh, Td)? No.</li>
-                        <li class="reveal-item">3. 주축? \(C_4\) (평면에 수직)</li>
-                        <li class="reveal-item">4. 수직 \(C_2\)? 4개 존재. (\(D\)군)</li>
-                        <li class="reveal-item text-indigo-600 font-bold">5. 수평 거울면(\(\sigma_h\))? Yes!</li>
+                        <li class="reveal-item">3. 주축? \\(C_4\\) (평면에 수직)</li>
+                        <li class="reveal-item">4. 수직 \\(C_2\\)? 4개 존재. (\\(D\\)군)</li>
+                        <li class="reveal-item text-indigo-600 font-bold">5. 수평 거울면(\\(\sigma_h\\))? Yes!</li>
                     </ol>
-                    <p class="mt-8 text-3xl font-black text-indigo-900">Result: \(D_{4h}\)</p>
+                    <p class="mt-8 text-3xl font-black text-indigo-900">Result: \\(D_{4h}\\)</p>
                 </div>
             </div>
         </div>
@@ -148,7 +157,7 @@
     <!-- Slide 30: Point Group Flowchart Practice 2 -->
     <section id="s30">
         <div class="slide-content">
-            <h2>점군 판별 챌린지 02: \(PCl_5\)</h2>
+            <h2>점군 판별 챌린지 02: \\(PCl_5\\)</h2>
             <div class="grid grid-cols-2 gap-10 mt-10">
                 <div class="stage-3d">
                     <!-- Trigonal Bipyramidal Visualization -->
@@ -156,11 +165,11 @@
                 </div>
                 <div class="text-left">
                     <ol class="space-y-4">
-                        <li>1. 주축? \(C_3\) (축 방향)</li>
-                        <li>2. 수직 \(C_2\)? 3개 존재. (\(D\)군)</li>
+                        <li>1. 주축? \\(C_3\\) (축 방향)</li>
+                        <li>2. 수직 \\(C_2\\)? 3개 존재. (\\(D\\)군)</li>
                         <li>3. 수평 거울면? Yes (적도면)</li>
                     </ol>
-                    <p class="mt-8 text-3xl font-black text-orange-900">Result: \(D_{3h}\)</p>
+                    <p class="mt-8 text-3xl font-black text-orange-900">Result: \\(D_{3h}\\)</p>
                 </div>
             </div>
         </div>
@@ -173,7 +182,7 @@
             <h2 class="border-none mb-10 text-4xl">1강 요약: 분자의 대칭적 초상화</h2>
             <div class="grid grid-cols-2 gap-6 w-full max-w-5xl text-left text-sm mb-10">
                 <div class="p-6 bg-white border border-slate-200 rounded shadow-sm">
-                    <strong class="text-blue-700">1. 대칭 요소의 숙달:</strong> \(E, C_n, \sigma, i, S_n\)을 기하학적으로 시각화함.
+                    <strong class="text-blue-700">1. 대칭 요소의 숙달:</strong> \\(E, C_n, \sigma, i, S_n\\)을 기하학적으로 시각화함.
                 </div>
                 <div class="p-6 bg-white border border-slate-200 rounded shadow-sm">
                     <strong class="text-blue-700">2. 점군 판별:</strong> 체계적인 알고리즘으로 모든 분자를 분류함.
