@@ -25,32 +25,46 @@ function updateMatrixDisplay(containerId, matrix) {
 /**
  * Enhanced Rotation with Matrix
  */
-function simulateRotation(id, step = 180, logId = null, matrixId = null) {
+function coreSimulateRotation(id, step = 180, logId = null, matrixId = null) {
     const mol = document.getElementById(id);
     if (!mol) return;
     
     if (!rotationAngles[id]) rotationAngles[id] = 0;
     rotationAngles[id] += step;
     
-    // Z-axis rotation matrix
+    const rad_step = (step * Math.PI) / 180;
     const matrix = [
-        [Math.cos((step*Math.PI)/180), -Math.sin((step*Math.PI)/180), 0],
-        [Math.sin((step*Math.PI)/180), Math.cos((step*Math.PI)/180), 0],
+        [Math.cos(rad_step), -Math.sin(rad_step), 0],
+        [Math.sin(rad_step), Math.cos(rad_step), 0],
         [0, 0, 1]
     ];
 
     mol.style.transform = `rotateZ(${rotationAngles[id]}deg)`;
     
     if (logId) {
-        document.getElementById(logId).innerText = `Operation: C${360/step} (Total: ${rotationAngles[id] % 360}°)`;
+        document.getElementById(logId).innerText = `Operation: C${Math.round(360/step)} (Total: ${rotationAngles[id] % 360}°)`;
     }
     if (matrixId) updateMatrixDisplay(matrixId, matrix);
+}
+
+function coreSimulateReflection(id) {
+    const mol = document.getElementById(id);
+    if (!mol) return;
+    reflectionStates[id] = !reflectionStates[id];
+    mol.style.transform = reflectionStates[id] ? 'scaleX(-1)' : 'scaleX(1)';
+}
+
+function coreSimulateInversion(id) {
+    const mol = document.getElementById(id);
+    if (!mol) return;
+    inversionStates[id] = !inversionStates[id];
+    mol.style.transform = inversionStates[id] ? 'scale(-1)' : 'scale(1)';
 }
 
 /**
  * Orbital Phase Flip Logic
  */
-function simulateOrbitalTransform(id, type, matrixId = null) {
+function coreSimulateOrbitalTransform(id, type, matrixId = null) {
     const orbital = document.getElementById(id);
     if (!orbital) return;
 
@@ -68,3 +82,9 @@ function simulateOrbitalTransform(id, type, matrixId = null) {
     
     if (matrixId) updateMatrixDisplay(matrixId, matrix);
 }
+
+// Global aliases for convenience
+window.simulateRotation = coreSimulateRotation;
+window.simulateReflection = coreSimulateReflection;
+window.simulateInversion = coreSimulateInversion;
+window.simulateOrbitalTransform = coreSimulateOrbitalTransform;
