@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syllabus: Advanced Inorganic Chemistry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        :root {
+            --u-navy: #002147; /* Oxford Navy */
+            --u-gold: #c5b358;
+        }
+        body {
+            background-color: #f3f4f6;
+            color: #1f2937;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+        .syllabus-container {
+            max-width: 900px;
+            margin: 3rem auto;
+            background: white;
+            padding: 4rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-top: 10px solid var(--u-navy);
+        }
+        .uni-header {
+            text-align: center;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 2rem;
+            margin-bottom: 3rem;
+        }
+        .uni-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #6b7280;
+        }
+        .course-code {
+            font-weight: 700;
+            color: var(--u-navy);
+            margin-top: 1rem;
+        }
+        .course-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #111827;
+            margin: 0.5rem 0;
+        }
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--u-navy);
+            border-bottom: 2px solid #f3f4f6;
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .module-card {
+            border-left: 4px solid #e5e7eb;
+            padding-left: 1.5rem;
+            margin-bottom: 2rem;
+            transition: border-color 0.3s;
+        }
+        .module-card:hover {
+            border-color: var(--u-navy);
+        }
+        .module-num {
+            font-weight: 700;
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+        .module-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #374151;
+        }
+        .module-content {
+            font-size: 0.95rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+        .badge {
+            background: #f3f4f6;
+            color: #4b5563;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="syllabus-container">
+        <header class="uni-header">
+            <div class="uni-name">Division of Chemical & Physical Sciences</div>
+            <div class="course-code">CHEM601 / PHYS601</div>
+            <h1 class="course-title">Advanced Inorganic Chemistry</h1>
+            <p class="text-slate-500 italic">Spring Semester 2026</p>
+        </header>
+
+        <section>
+            <h2 class="section-title">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Course Description
+            </h2>
+            <p class="leading-relaxed text-slate-600">
+                본 과정은 분자 대칭성과 군론(Group Theory)을 기반으로 무기 화합물의 구조와 결합을 심도 있게 탐구합니다. 
+                전이 금속의 전자 구조, 분광학적 특성, 유기금속 촉매 메커니즘 및 현대 재료 화학의 기초를 다룹니다.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="section-title">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                Course Schedule (15 Modules)
+            </h2>
+
+            <div class="space-y-4">
+                <!-- Part 1 -->
+                <div class="mb-8">
+                    <span class="badge mb-4">Part I: Symmetry & Group Theory</span>
+                    <div class="module-card">
+                        <div class="module-num">Module 01</div>
+                        <div class="module-title">Molecular Symmetry & Point Groups</div>
+                        <div class="module-content">대칭 요소, 점군 결정 알고리즘, 수학적 군의 정의</div>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-num">Module 02</div>
+                        <div class="module-title">Representations & Character Tables</div>
+                        <div class="module-content">가약/기약 표현, GOT, 약분 공식의 이해</div>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-num">Module 03</div>
+                        <div class="module-title">Vibrational Spectroscopy</div>
+                        <div class="module-content">진동 모드 분석, IR/Raman 활성 판별, SALCs 도입</div>
+                    </div>
+                </div>
+
+                <!-- Part 2 -->
+                <div class="mb-8">
+                    <span class="badge mb-4">Part II: Electronic Structure & Bonding</span>
+                    <div class="module-card">
+                        <div class="module-num">Module 04</div>
+                        <div class="module-title">Atomic Orbitals & Quantum Numbers</div>
+                        <div class="module-content">슈뢰딩거 해, Slater 행렬식, 전자 배치</div>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-num">Module 05</div>
+                        <div class="module-title">MO Theory: Diatomic Molecules</div>
+                        <div class="module-content">에너지 준위 도표, 대칭성 기반 결합 분석</div>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-num">Module 06</div>
+                        <div class="module-title">MO Theory: Polyatomic Systems</div>
+                        <div class="module-content">다원자 분자 MO, Walsh 도표 및 구조 예측</div>
+                    </div>
+                </div>
+
+                <!-- Part 3 -->
+                <div class="mb-8">
+                    <span class="badge mb-4">Part III: Coordination Chemistry</span>
+                    <div class="module-card">
+                        <div class="module-num">Module 07</div>
+                        <div class="module-title">Crystal Field Theory (CFT)</div>
+                        <div class="module-content">d-오비탈 갈라짐, CFSE 및 자성 분석</div>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-num">Module 08</div>
+                        <div class="module-title">Ligand Field Theory (LFT)</div>
+                        <div class="module-content">σ 및 π 결합 대칭성, 분광화학적 계열</div>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-num">Module 09</div>
+                        <div class="module-title">Electronic Spectra of Complexes</div>
+                        <div class="module-content">Term Symbols, Tanabe-Sugano 도표 해석</div>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="text-center text-slate-400 text-sm mt-10">... Full 15-module schedule is detailed in the roadmap file.</p>
+        </section>
+
+        <footer class="mt-20 pt-8 border-t border-slate-100 text-center">
+            <a href="index.html" class="text-navy-900 font-bold hover:underline">← Back to Lab Index</a>
+        </footer>
+    </div>
+
+</body>
+</html>
