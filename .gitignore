@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Windows
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+*:Zone.Identifier
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# Project Specific
+# (필요시 대용량 PDF나 미디어 파일 제외 검토 가능)
+# *.pdf
+# *.mp4
