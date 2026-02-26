@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고급 무기화학 보너스: 표현론의 수학적 기초</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/presentation_mode.css">
+    <link rel="stylesheet" href="css/chem_style.css">
+    <style>
+        .math-proof { background: #f1f5f9; border-left: 5px solid #64748b; padding: 2rem; margin: 2rem 0; font-family: serif; }
+        .axiom-box { border: 2px solid #3b82f6; border-radius: 1rem; padding: 1.5rem; background: #eff6ff; }
+        .theorem-title { font-weight: 900; color: #1e40af; text-transform: uppercase; margin-bottom: 1rem; display: block; }
+    </style>
+</head>
+<body class="presentation-mode">
+<main>
+
+    <section id="s1">
+        <div class="slide-content" style="border:none; background:transparent; box-shadow:none;">
+            <p class="text-sm font-bold text-slate-500 uppercase tracking-[0.3em] mb-4">Advanced Inorganic Chemistry : Special Supplement</p>
+            <h1 class="text-6xl font-black mb-6 text-slate-900 leading-tight">
+                Bonus Module.<br>
+                <span style="color:#1e40af">표현론의 수학적 기초와<br>양자역학적 엄밀성</span>
+            </h1>
+            <div class="w-32 h-1 bg-blue-800 mx-auto my-10"></div>
+            <p class="text-xl font-medium text-slate-700">Linear Algebra, Group Theory, and Quantum Mechanics</p>
+        </div>
+    </section>
+\n
+    <section id="s6">
+        <div class="slide-content text-left px-16">
+            <h2 class="text-blue-800 underline">1. Hilbert 공간과 연산자</h2>
+            <p class="mb-6">양자역학의 상태 벡터는 Hilbert 공간 \(\mathcal{H}\)의 원소입니다. 대칭 조작은 이 공간 상의 <b>선형 연산자(Linear Operator)</b>로 정의됩니다.</p>
+            <div class="axiom-box">
+                <span class="theorem-title">Axiom: 선형성 (Linearity)</span>
+                \[ \hat{R} (a|\psiangle + b|\phiangle) = a\hat{R}|\psiangle + b\hat{R}|\phiangle \]
+            </div>
+            <p class="mt-6">분자의 에너지를 보존하는 대칭 조작은 규격화된 상태의 길이를 변화시키지 않으므로, 반드시 <b>유니타리 연산자(Unitary Operator)</b>여야 합니다.</p>
+            <div class="math-box text-center">
+                \[ \hat{R}^\dagger \hat{R} = \hat{I} \]
+            </div>
+        </div>
+    </section>
+\n
+    <section id="s26">
+        <div class="slide-content text-left px-16">
+            <h2 class="text-indigo-800">2. Schur의 보조정리 (Schur's Lemma I)</h2>
+            <p class="mb-6 italic text-slate-600">지표표의 직교성을 증명하는 결정적 도구</p>
+            <div class="math-proof shadow-lg">
+                <p><b>Lemma I:</b> 어떤 기약 표현 \(\Gamma_i(R)\)의 모든 행렬들과 가환(Commute)하는 행렬 \(M\)이 있다면, 즉 모든 \(R\)에 대해</p>
+                <div class="p-4 bg-white my-4 border">\[ M \Gamma_i(R) = \Gamma_i(R) M \]</div>
+                <p>이면, \(M\)은 반드시 단위 행렬의 상수배여야 한다 (\(M = cI\)).</p>
+            </div>
+            <p class="text-sm text-slate-500">이 정리는 기약 표현이 더 이상 쪼개질 수 없는 '최소 단위'임을 대수적으로 보증합니다.</p>
+        </div>
+    </section>
+\n
+    <section id="s51">
+        <div class="slide-content text-left px-16">
+            <h2 class="text-red-800">3. 해밀토니안의 대칭성 (Fundamental Theorem)</h2>
+            <p class="mb-8">물리적 계의 대칭 조작 \(\hat{R}\)이 존재한다는 것은, 해밀토니안 \(\hat{H}\)가 해당 조작에 대해 불변임을 의미합니다.</p>
+            <div class="bg-slate-900 text-white p-10 rounded-2xl">
+                <div class="text-3xl font-serif text-center mb-6">
+                    \[ [\hat{H}, \hat{R}] = 0 \implies \hat{H}\hat{R} = \hat{R}\hat{H} \]
+                </div>
+                <p class="text-xl text-center text-cyan-400 font-bold">"대칭 연산자와 에너지는 동시 고유 함수를 가질 수 있다."</p>
+            </div>
+            <p class="mt-8 text-lg leading-relaxed">만약 상태 \(\psi\)가 에너지 \(E\)인 고유 상태라면, \(\hat{R}\psi\) 역시 동일한 에너지 \(E\)를 가지는 고유 상태입니다. 이것이 바로 <b>대칭성에 의한 축퇴(Symmetry-induced Degeneracy)</b>의 기원입니다.</p>
+        </div>
+    </section>
+\n
+    <section id="s66">
+        <div class="slide-content text-left px-16">
+            <h2 class="text-purple-800">4. 텐서곱 공간과 Kronecker Product</h2>
+            <p class="mb-6">두 계의 상호작용은 개별 Hilbert 공간의 텐서곱 \(\mathcal{H}_A \otimes \mathcal{H}_B\)에서 기술됩니다.</p>
+            <div class="math-box">
+                \[ \chi_{A \otimes B}(R) = \chi_A(R) \cdot \chi_B(R) \]
+            </div>
+            <p class="mt-6 text-lg">이 수학적 성질은 <b>분광학적 선택 규칙</b>의 심장이 됩니다. 전이 쌍극자 적분 \(\langle \psi_f | \hat{\mu} | \psi_i angle\)이 살아남기 위해서는, 직접곱 \(\Gamma_f \otimes \Gamma_\mu \otimes \Gamma_i\)가 완전 대칭 기약 표현을 포함해야만 합니다.</p>
+        </div>
+    </section>
+\n
+    <section id="s80" class="end">
+        <div class="slide-content" style="border:none; box-shadow:none;">
+            <p class="text-slate-500 font-bold uppercase tracking-[0.2em] mb-4">Rigorous Symmetry Complete</p>
+            <h2 class="border-none mb-10 text-4xl text-blue-900">수학적 대칭의 정점</h2>
+            <div class="p-10 bg-white border border-slate-200 rounded-3xl shadow-2xl text-left">
+                <p class="text-2xl italic font-serif leading-relaxed">
+                    "우리는 이제 지표표의 숫자가 단순한 약속이 아니라, 선형 대수학적 필연성과 양자 역학적 보존 법칙의 결합체임을 이해했습니다. 이 수학적 토대 위에 비로소 현대 무기화학의 모든 결합 이론이 세워집니다."
+                </p>
+            </div>
+            <p class="mt-12 text-slate-400 font-bold">Module 03로 나아갈 준비가 되었습니다.</p>
+        </div>
+    </section>
+\n</main>\n<script src='js/chem_sim.js'></script>\n<script src='js/slide_engine.js'></script>\n</body>\n</html>
