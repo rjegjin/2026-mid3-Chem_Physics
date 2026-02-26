@@ -8,8 +8,8 @@
     <script>
         window.MathJax = {
             tex: {
-                inlineMath: [['$', '$'], ['\(', '\)']],
-                displayMath: [['$$', '$$'], ['\[', '\]']],
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\\]']],
                 processEscapes: true
             },
             options: {
@@ -26,8 +26,7 @@
         .math-proof { background: #f8fafc; border-left: 6px solid #1e40af; padding: 2.5rem; margin: 2rem 0; font-family: 'Times New Roman', serif; line-height: 1.8; }
         .axiom-box { border: 2px solid #3b82f6; border-radius: 1.5rem; padding: 2rem; background: #eff6ff; margin: 2rem 0; }
         .theorem-title { font-weight: 900; color: #1e40af; text-transform: uppercase; font-size: 1.2rem; margin-bottom: 1.5rem; display: block; border-bottom: 2px solid #bfdbfe; padding-bottom: 0.5rem; }
-        .highlight-math { color: #1e40af; font-weight: bold; }
-        .chapter-header { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.4em; margin-bottom: 1rem; }
+        .chapter-header { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.4em; margin-bottom: 1rem; font-weight: bold;}
     </style>
 </head>
 <body class="presentation-mode">
@@ -42,7 +41,7 @@
         <h1 class="text-6xl font-black text-slate-900 mb-10">Mathematical Foundations</h1>
         <div class="w-40 h-2 bg-blue-600 mx-auto mb-10"></div>
         <p class="text-2xl text-slate-600">Hilbert 공간, 선형 대수학, 그리고 양자역학적 대칭성</p>
-        <p class="mt-20 font-bold text-blue-800 uppercase tracking-widest animate-pulse">Total 80 Rigorous Slides</p>
+        <p class="mt-20 font-bold text-blue-800 uppercase tracking-widest animate-pulse">80 Rigorous Slides of Group Theory</p>
     </div>
 
         </div>
@@ -51,202 +50,157 @@
     <section id="s2">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 01 | Slide 2</div>
-            <h2 class="mb-8">대칭의 추상화와 수리물리학 (2)</h2>
+            <h2 class="mb-8">대수학적 구조로서의 '군 (Group)'</h2>
             
-        <p class='text-xl leading-relaxed'>대칭성은 자연의 기본 언어입니다. 물리적 계의 대칭성을 수학적으로 기술하기 위해서는 '군(Group)'이라는 대수적 구조가 필요합니다.</p>
-        <div class='axiom-box mt-10'>
-            <span class='theorem-title'>군(Group)의 재정의</span>
-            <p>집합 $G$와 연산 $\cdot$에 대해 다음 4가지 공리가 성립해야 합니다:</p>
-            <ul class='list-disc pl-10 mt-4 space-y-2'>
-                <li><b>Closure:</b> $\forall a, b \in G, a \cdot b \in G$</li>
-                <li><b>Associativity:</b> $(a \cdot b) \cdot c = a \cdot (b \cdot c)$</li>
-                <li><b>Identity:</b> $\exists e \in G 	ext{ s.t. } a \cdot e = e \cdot a = a$</li>
-                <li><b>Inverse:</b> $\exists a^{-1} \in G 	ext{ s.t. } a \cdot a^{-1} = e$</li>
-            </ul>
-        </div>
-    
+    <p class='text-xl leading-relaxed'>대칭성은 직관적인 모양이 아니라, 수학적 구조인 <b>군(Group)</b>으로 엄밀하게 정의됩니다.</p>
+    <div class='axiom-box'>
+        <span class='theorem-title'>Axioms of a Group $(G, \cdot)$</span>
+        <ul class='list-disc pl-10 space-y-3'>
+            <li><b>Closure:</b> $\forall a, b \in G$, $a \cdot b \in G$</li>
+            <li><b>Associativity:</b> $\forall a, b, c \in G$, $(a \cdot b) \cdot c = a \cdot (b \cdot c)$</li>
+            <li><b>Identity:</b> $\exists e \in G$ such that $a \cdot e = e \cdot a = a$</li>
+            <li><b>Inverse:</b> $\forall a \in G$, $\exists a^{-1} \in G$ such that $a \cdot a^{-1} = e$</li>
+        </ul>
+    </div>
+
         </div>
     </section>
     
     <section id="s3">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 01 | Slide 3</div>
-            <h2 class="mb-8">대칭의 추상화와 수리물리학 (3)</h2>
+            <h2 class="mb-8">부분군 (Subgroup)</h2>
             
-        <p class='text-xl leading-relaxed'>대칭성은 자연의 기본 언어입니다. 물리적 계의 대칭성을 수학적으로 기술하기 위해서는 '군(Group)'이라는 대수적 구조가 필요합니다.</p>
-        <div class='axiom-box mt-10'>
-            <span class='theorem-title'>군(Group)의 재정의</span>
-            <p>집합 $G$와 연산 $\cdot$에 대해 다음 4가지 공리가 성립해야 합니다:</p>
-            <ul class='list-disc pl-10 mt-4 space-y-2'>
-                <li><b>Closure:</b> $\forall a, b \in G, a \cdot b \in G$</li>
-                <li><b>Associativity:</b> $(a \cdot b) \cdot c = a \cdot (b \cdot c)$</li>
-                <li><b>Identity:</b> $\exists e \in G 	ext{ s.t. } a \cdot e = e \cdot a = a$</li>
-                <li><b>Inverse:</b> $\exists a^{-1} \in G 	ext{ s.t. } a \cdot a^{-1} = e$</li>
-            </ul>
-        </div>
-    
+    <p class='text-xl'>군 $G$의 부분집합 $H$가 그 자체로 군의 공리를 만족할 때, $H$를 $G$의 부분군이라 합니다 ($H \leq G$).</p>
+    <div class='math-proof'>
+        <span class='theorem-title'>부분군 판별법 (Subgroup Test)</span>
+        <p>$H$가 $G$의 부분군이 되기 위한 필요충분조건은 다음 한 줄로 요약됩니다:</p>
+        \[ \forall a, b \in H \implies a \cdot b^{-1} \in H \]
+    </div>
+    <p class='mt-6 text-slate-600'>예: 분자 점군 $C_{3v}$ 내에는 회전 조작들만으로 이루어진 부분군 $C_3 = \{E, C_3, C_3^2\}$ 가 존재합니다.</p>
+
         </div>
     </section>
     
     <section id="s4">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 01 | Slide 4</div>
-            <h2 class="mb-8">대칭의 추상화와 수리물리학 (4)</h2>
+            <h2 class="mb-8">잉여류 (Cosets)</h2>
             
-        <p class='text-xl leading-relaxed'>대칭성은 자연의 기본 언어입니다. 물리적 계의 대칭성을 수학적으로 기술하기 위해서는 '군(Group)'이라는 대수적 구조가 필요합니다.</p>
-        <div class='axiom-box mt-10'>
-            <span class='theorem-title'>군(Group)의 재정의</span>
-            <p>집합 $G$와 연산 $\cdot$에 대해 다음 4가지 공리가 성립해야 합니다:</p>
-            <ul class='list-disc pl-10 mt-4 space-y-2'>
-                <li><b>Closure:</b> $\forall a, b \in G, a \cdot b \in G$</li>
-                <li><b>Associativity:</b> $(a \cdot b) \cdot c = a \cdot (b \cdot c)$</li>
-                <li><b>Identity:</b> $\exists e \in G 	ext{ s.t. } a \cdot e = e \cdot a = a$</li>
-                <li><b>Inverse:</b> $\exists a^{-1} \in G 	ext{ s.t. } a \cdot a^{-1} = e$</li>
-            </ul>
-        </div>
-    
+    <p class='text-xl'>부분군 $H$를 이용하여 전체 군 $G$를 겹치지 않는 구역으로 분할할 수 있습니다.</p>
+    <div class='axiom-box'>
+        <p>요소 $g \in G$에 대한 $H$의 <b>좌잉여류(Left Coset)</b>:</p>
+        \[ gH = \{g \cdot h \mid h \in H\} \]
+    </div>
+    <p class='mt-6'><b>성질:</b> 두 잉여류는 완전히 동일하거나, 서로 교집합이 없습니다 ($aH \cap bH = \emptyset$). 즉, 잉여류들은 $G$의 <b>분할(Partition)</b>을 형성합니다.</p>
+
         </div>
     </section>
     
     <section id="s5">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 01 | Slide 5</div>
-            <h2 class="mb-8">대칭의 추상화와 수리물리학 (5)</h2>
+            <h2 class="mb-8">Lagrange's Theorem</h2>
             
-        <p class='text-xl leading-relaxed'>대칭성은 자연의 기본 언어입니다. 물리적 계의 대칭성을 수학적으로 기술하기 위해서는 '군(Group)'이라는 대수적 구조가 필요합니다.</p>
-        <div class='axiom-box mt-10'>
-            <span class='theorem-title'>군(Group)의 재정의</span>
-            <p>집합 $G$와 연산 $\cdot$에 대해 다음 4가지 공리가 성립해야 합니다:</p>
-            <ul class='list-disc pl-10 mt-4 space-y-2'>
-                <li><b>Closure:</b> $\forall a, b \in G, a \cdot b \in G$</li>
-                <li><b>Associativity:</b> $(a \cdot b) \cdot c = a \cdot (b \cdot c)$</li>
-                <li><b>Identity:</b> $\exists e \in G 	ext{ s.t. } a \cdot e = e \cdot a = a$</li>
-                <li><b>Inverse:</b> $\exists a^{-1} \in G 	ext{ s.t. } a \cdot a^{-1} = e$</li>
-            </ul>
-        </div>
-    
+    <div class='math-proof'>
+        <span class='theorem-title'>라그랑주 정리 (Lagrange's Theorem)</span>
+        <p>유한군 $G$의 임의의 부분군 $H$에 대하여, $H$의 차수(원소의 개수, $|H|$)는 $G$의 차수($|G|$)의 약수이다.</p>
+        \[ |G| = [G:H] \cdot |H| \]
+    </div>
+    <p class='mt-6 text-lg'><b>증명 스케치:</b> 모든 좌잉여류 $gH$는 $H$와 원소의 개수가 같습니다 ($f: h \mapsto gh$ 가 전단사 함수). $G$는 이들 서로소인 잉여류들의 합집합이므로, 전체 개수는 $|H|$의 배수가 될 수밖에 없습니다.</p>
+
         </div>
     </section>
     
     <section id="s6">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 01 | Slide 6</div>
-            <h2 class="mb-8">대칭의 추상화와 수리물리학 (6)</h2>
+            <h2 class="mb-8">켤레류 (Conjugacy Classes)</h2>
             
-        <p class='text-xl leading-relaxed'>대칭성은 자연의 기본 언어입니다. 물리적 계의 대칭성을 수학적으로 기술하기 위해서는 '군(Group)'이라는 대수적 구조가 필요합니다.</p>
-        <div class='axiom-box mt-10'>
-            <span class='theorem-title'>군(Group)의 재정의</span>
-            <p>집합 $G$와 연산 $\cdot$에 대해 다음 4가지 공리가 성립해야 합니다:</p>
-            <ul class='list-disc pl-10 mt-4 space-y-2'>
-                <li><b>Closure:</b> $\forall a, b \in G, a \cdot b \in G$</li>
-                <li><b>Associativity:</b> $(a \cdot b) \cdot c = a \cdot (b \cdot c)$</li>
-                <li><b>Identity:</b> $\exists e \in G 	ext{ s.t. } a \cdot e = e \cdot a = a$</li>
-                <li><b>Inverse:</b> $\exists a^{-1} \in G 	ext{ s.t. } a \cdot a^{-1} = e$</li>
-            </ul>
-        </div>
-    
+    <p class='text-xl'>지표표에서 대칭 조작들이 묶이는 기준인 <b>클래스(Class)</b>의 대수학적 정의입니다.</p>
+    <div class='axiom-box'>
+        <p>두 원소 $a, b \in G$에 대해, 어떤 $x \in G$가 존재하여</p>
+        \[ b = x^{-1} \cdot a \cdot x \]
+        <p>를 만족하면, "$a$와 $b$는 켤레(Conjugate) 관계에 있다"고 합니다.</p>
+    </div>
+
         </div>
     </section>
     
     <section id="s7">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 01 | Slide 7</div>
-            <h2 class="mb-8">대칭의 추상화와 수리물리학 (7)</h2>
+            <h2 class="mb-8">동치 관계 (Equivalence Relation)</h2>
             
-        <p class='text-xl leading-relaxed'>대칭성은 자연의 기본 언어입니다. 물리적 계의 대칭성을 수학적으로 기술하기 위해서는 '군(Group)'이라는 대수적 구조가 필요합니다.</p>
-        <div class='axiom-box mt-10'>
-            <span class='theorem-title'>군(Group)의 재정의</span>
-            <p>집합 $G$와 연산 $\cdot$에 대해 다음 4가지 공리가 성립해야 합니다:</p>
-            <ul class='list-disc pl-10 mt-4 space-y-2'>
-                <li><b>Closure:</b> $\forall a, b \in G, a \cdot b \in G$</li>
-                <li><b>Associativity:</b> $(a \cdot b) \cdot c = a \cdot (b \cdot c)$</li>
-                <li><b>Identity:</b> $\exists e \in G 	ext{ s.t. } a \cdot e = e \cdot a = a$</li>
-                <li><b>Inverse:</b> $\exists a^{-1} \in G 	ext{ s.t. } a \cdot a^{-1} = e$</li>
-            </ul>
-        </div>
-    
+    <p class='text-xl'>켤레 관계는 수학적으로 <b>동치 관계</b>를 형성합니다.</p>
+    <div class='math-proof'>
+        <ul class='list-decimal pl-10 space-y-2'>
+            <li><b>반사성 (Reflexive):</b> $a = e^{-1} a e$ (자신과 켤레)</li>
+            <li><b>대칭성 (Symmetric):</b> $b = x^{-1}ax \implies a = (x^{-1})^{-1}bx^{-1}$</li>
+            <li><b>추이성 (Transitive):</b> $b = x^{-1}ax, c = y^{-1}by \implies c = (xy)^{-1}a(xy)$</li>
+        </ul>
+    </div>
+    <p class='mt-4'>따라서 전체 군 $G$는 서로 겹치지 않는 켤레류(Classes)들로 완벽하게 쪼개집니다.</p>
+
         </div>
     </section>
     
     <section id="s8">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 01 | Slide 8</div>
-            <h2 class="mb-8">대칭의 추상화와 수리물리학 (8)</h2>
+            <h2 class="mb-8">정규 부분군 (Normal Subgroup)</h2>
             
-        <p class='text-xl leading-relaxed'>대칭성은 자연의 기본 언어입니다. 물리적 계의 대칭성을 수학적으로 기술하기 위해서는 '군(Group)'이라는 대수적 구조가 필요합니다.</p>
-        <div class='axiom-box mt-10'>
-            <span class='theorem-title'>군(Group)의 재정의</span>
-            <p>집합 $G$와 연산 $\cdot$에 대해 다음 4가지 공리가 성립해야 합니다:</p>
-            <ul class='list-disc pl-10 mt-4 space-y-2'>
-                <li><b>Closure:</b> $\forall a, b \in G, a \cdot b \in G$</li>
-                <li><b>Associativity:</b> $(a \cdot b) \cdot c = a \cdot (b \cdot c)$</li>
-                <li><b>Identity:</b> $\exists e \in G 	ext{ s.t. } a \cdot e = e \cdot a = a$</li>
-                <li><b>Inverse:</b> $\exists a^{-1} \in G 	ext{ s.t. } a \cdot a^{-1} = e$</li>
-            </ul>
-        </div>
-    
+    <p class='text-xl'>모든 $g \in G$에 대해 좌잉여류와 우잉여류가 같은 특수한 부분군입니다.</p>
+    <div class='axiom-box'>
+        \[ gH = Hg \quad \text{or} \quad g^{-1}Hg = H \quad \forall g \in G \]
+    </div>
+    <p class='mt-4 text-lg'>정규 부분군 $H$ 자체는 $G$의 켤레 연산에 대해 불변인 공간입니다. 이는 군을 더 작은 구조로 "나누는" 핵심 도구가 됩니다.</p>
+
         </div>
     </section>
     
     <section id="s9">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 01 | Slide 9</div>
-            <h2 class="mb-8">대칭의 추상화와 수리물리학 (9)</h2>
+            <h2 class="mb-8">몫군 (Quotient Group)</h2>
             
-        <p class='text-xl leading-relaxed'>대칭성은 자연의 기본 언어입니다. 물리적 계의 대칭성을 수학적으로 기술하기 위해서는 '군(Group)'이라는 대수적 구조가 필요합니다.</p>
-        <div class='axiom-box mt-10'>
-            <span class='theorem-title'>군(Group)의 재정의</span>
-            <p>집합 $G$와 연산 $\cdot$에 대해 다음 4가지 공리가 성립해야 합니다:</p>
-            <ul class='list-disc pl-10 mt-4 space-y-2'>
-                <li><b>Closure:</b> $\forall a, b \in G, a \cdot b \in G$</li>
-                <li><b>Associativity:</b> $(a \cdot b) \cdot c = a \cdot (b \cdot c)$</li>
-                <li><b>Identity:</b> $\exists e \in G 	ext{ s.t. } a \cdot e = e \cdot a = a$</li>
-                <li><b>Inverse:</b> $\exists a^{-1} \in G 	ext{ s.t. } a \cdot a^{-1} = e$</li>
-            </ul>
-        </div>
-    
+    <p class='text-xl'>$H$가 $G$의 정규 부분군일 때, 잉여류들 자체를 원소로 가지는 새로운 군을 만들 수 있습니다.</p>
+    <div class='math-proof'>
+        <span class='theorem-title'>Quotient Group $G/H$</span>
+        <p>연산 정의: $(aH) \cdot (bH) = (ab)H$</p>
+        <p>이 연산은 $H$가 정규 부분군일 때만 잘 정의(well-defined)됩니다.</p>
+    </div>
+
         </div>
     </section>
     
     <section id="s10">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 01 | Slide 10</div>
-            <h2 class="mb-8">대칭의 추상화와 수리물리학 (10)</h2>
+            <h2 class="mb-8">군 동형사상 (Isomorphism)</h2>
             
-        <p class='text-xl leading-relaxed'>대칭성은 자연의 기본 언어입니다. 물리적 계의 대칭성을 수학적으로 기술하기 위해서는 '군(Group)'이라는 대수적 구조가 필요합니다.</p>
-        <div class='axiom-box mt-10'>
-            <span class='theorem-title'>군(Group)의 재정의</span>
-            <p>집합 $G$와 연산 $\cdot$에 대해 다음 4가지 공리가 성립해야 합니다:</p>
-            <ul class='list-disc pl-10 mt-4 space-y-2'>
-                <li><b>Closure:</b> $\forall a, b \in G, a \cdot b \in G$</li>
-                <li><b>Associativity:</b> $(a \cdot b) \cdot c = a \cdot (b \cdot c)$</li>
-                <li><b>Identity:</b> $\exists e \in G 	ext{ s.t. } a \cdot e = e \cdot a = a$</li>
-                <li><b>Inverse:</b> $\exists a^{-1} \in G 	ext{ s.t. } a \cdot a^{-1} = e$</li>
-            </ul>
-        </div>
-    
+    <p class='text-xl'>두 군 $G, G'$가 겉모습(알파벳, 기하학적 동작)은 달라도, 수학적 구조가 완전히 동일할 수 있습니다.</p>
+    <div class='axiom-box'>
+        <p>전단사 함수(Bijection) $\phi: G \to G'$ 가 다음을 만족하면 동형(Isomorphic, $G \cong G'$)입니다:</p>
+        \[ \phi(a \cdot_G b) = \phi(a) \cdot_{G'} \phi(b) \]
+    </div>
+    <p class='mt-4'>모든 유한 점군은 본질적으로 대칭군의 부분군과 동형입니다. (Cayley's Theorem)</p>
+
         </div>
     </section>
     
     <section id="s11">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 02 | Slide 11</div>
-            <h2 class="mb-8">Hilbert 공간의 수학적 구조</h2>
+            <h2 class="mb-8">복소 내적 공간 (Hilbert Space $\mathcal{H}$)</h2>
             
-    <p class='text-xl'>양자 상태는 복소 내적 공간인 Hilbert 공간 $\mathcal{H}$의 벡터로 표현됩니다.</p>
+    <p class='text-xl'>양자역학의 파동함수 $\psi$는 무한 차원 복소 벡터 공간의 원소(Ket, $|\psi\rangle$)입니다.</p>
     <div class='math-proof'>
-        <p>내적(Inner Product) $\langle \psi | \phi 
-angle$은 다음을 만족해야 합니다:</p>
-        <ul class='list-decimal pl-10 mt-4'>
-            <li>Positivity: $\langle \psi | \psi 
-angle \geq 0$</li>
-            <li>Linearity: $\langle \psi | a\phi_1 + b\phi_2 
-angle = a\langle \psi | \phi_1 
-angle + b\langle \psi | \phi_2 
-angle$</li>
-            <li>Skew-symmetry: $\langle \psi | \phi 
-angle = \langle \phi | \psi 
-angle^*$</li>
+        <span class='theorem-title'>내적 (Inner Product) $\langle \phi | \psi \rangle$</span>
+        <ul class='list-decimal pl-10'>
+            <li>$\langle \phi | \psi \rangle = \langle \psi | \phi \rangle^*$ (Conjugate symmetry)</li>
+            <li>$\langle \phi | a\psi_1 + b\psi_2 \rangle = a\langle \phi | \psi_1 \rangle + b\langle \phi | \psi_2 \rangle$</li>
+            <li>$\langle \psi | \psi \rangle \geq 0$ (0 iff $|\psi\rangle = 0$)</li>
         </ul>
     </div>
 
@@ -256,446 +210,434 @@ angle^*$</li>
     <section id="s12">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 02 | Slide 12</div>
-            <h2 class="mb-8">선형 연산자와 행렬 표현 (12)</h2>
+            <h2 class="mb-8">선형 연산자 (Linear Operator)</h2>
             
-        <p class='text-xl'>대칭 조작 $\hat{R}$은 선형 연산자로서 기저 벡터 $|e_i
-angle$를 다른 벡터들의 선형 결합으로 변환합니다.</p>
-        <div class='math-box'>
-            \[ \hat{R} |e_j
-angle = \sum_{i} \Gamma(R)_{ij} |e_i
-angle \]
-        </div>
-        <p class='mt-6'>이때 $\Gamma(R)$은 조작 $R$에 대한 <b>행렬 표현</b>입니다.</p>
-    
+    <p class='text-xl'>대칭 조작 $\hat{R}$은 이 Hilbert 공간 상의 점들을 다른 점으로 이동시키는 선형 사상입니다.</p>
+    <div class='axiom-box text-center'>
+        \[ \hat{R}(c_1|\psi_1\rangle + c_2|\psi_2\rangle) = c_1\hat{R}|\psi_1\rangle + c_2\hat{R}|\psi_2\rangle \]
+    </div>
+    <p class='mt-4'>이 <b>선형성(Linearity)</b> 덕분에, 우리는 무한히 많은 상태를 고려할 필요 없이, 몇 개의 <b>기저(Basis) 벡터</b>가 어떻게 변하는지만 알면 전체를 파악할 수 있습니다.</p>
+
         </div>
     </section>
     
     <section id="s13">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 02 | Slide 13</div>
-            <h2 class="mb-8">선형 연산자와 행렬 표현 (13)</h2>
+            <h2 class="mb-8">행렬 표현 (Matrix Representation)</h2>
             
-        <p class='text-xl'>대칭 조작 $\hat{R}$은 선형 연산자로서 기저 벡터 $|e_i
-angle$를 다른 벡터들의 선형 결합으로 변환합니다.</p>
-        <div class='math-box'>
-            \[ \hat{R} |e_j
-angle = \sum_{i} \Gamma(R)_{ij} |e_i
-angle \]
-        </div>
-        <p class='mt-6'>이때 $\Gamma(R)$은 조작 $R$에 대한 <b>행렬 표현</b>입니다.</p>
-    
+    <p class='text-xl'>직교 정규 기저(Orthonormal basis) $\{|e_i\rangle\}$가 주어졌을 때, 연산자 $\hat{R}$의 작용은 행렬로 완벽히 기술됩니다.</p>
+    <div class='math-proof'>
+        \[ \hat{R} |e_j\rangle = \sum_{i=1}^n \Gamma(R)_{ij} |e_i\rangle \]
+        <p class='mt-4'>행렬 원소 도출 (브라-켓 내적):</p>
+        \[ \Gamma(R)_{ij} = \langle e_i | \hat{R} | e_j \rangle \]
+    </div>
+
         </div>
     </section>
     
     <section id="s14">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 02 | Slide 14</div>
-            <h2 class="mb-8">선형 연산자와 행렬 표현 (14)</h2>
+            <h2 class="mb-8">켤레 연산자 (Adjoint Operator, $\hat{R}^\dagger$)</h2>
             
-        <p class='text-xl'>대칭 조작 $\hat{R}$은 선형 연산자로서 기저 벡터 $|e_i
-angle$를 다른 벡터들의 선형 결합으로 변환합니다.</p>
-        <div class='math-box'>
-            \[ \hat{R} |e_j
-angle = \sum_{i} \Gamma(R)_{ij} |e_i
-angle \]
-        </div>
-        <p class='mt-6'>이때 $\Gamma(R)$은 조작 $R$에 대한 <b>행렬 표현</b>입니다.</p>
-    
+    <p class='text-xl'>물리학에서 가장 중요한 연산자의 대칭적 파트너입니다.</p>
+    <div class='axiom-box'>
+        <p>임의의 $|\phi\rangle, |\psi\rangle$ 에 대해 다음을 만족하는 $\hat{R}^\dagger$ 를 정의합니다:</p>
+        \[ \langle \phi | \hat{R} \psi \rangle = \langle \hat{R}^\dagger \phi | \psi \rangle \]
+    </div>
+    <p class='mt-4'>행렬로 표현하면 켤레 전치 행렬(Conjugate Transpose, $\Gamma_{ij}^\dagger = \Gamma_{ji}^*$)이 됩니다.</p>
+
         </div>
     </section>
     
     <section id="s15">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 02 | Slide 15</div>
-            <h2 class="mb-8">선형 연산자와 행렬 표현 (15)</h2>
+            <h2 class="mb-8">유니타리 연산자 (Unitary Operator)</h2>
             
-        <p class='text-xl'>대칭 조작 $\hat{R}$은 선형 연산자로서 기저 벡터 $|e_i
-angle$를 다른 벡터들의 선형 결합으로 변환합니다.</p>
-        <div class='math-box'>
-            \[ \hat{R} |e_j
-angle = \sum_{i} \Gamma(R)_{ij} |e_i
-angle \]
-        </div>
-        <p class='mt-6'>이때 $\Gamma(R)$은 조작 $R$에 대한 <b>행렬 표현</b>입니다.</p>
-    
+    <p class='text-xl'>대칭 조작은 물리적 상태의 '크기(확률 1)'와 '각도(위상 차이)'를 보존해야 합니다.</p>
+    <div class='math-proof'>
+        \[ \langle \hat{R}\phi | \hat{R}\psi \rangle = \langle \phi | \hat{R}^\dagger \hat{R} | \psi \rangle = \langle \phi | \psi \rangle \]
+        <p class='text-center mt-4 font-bold text-red-600'>$\implies \hat{R}^\dagger \hat{R} = \hat{I} \quad \text{and} \quad \hat{R}^\dagger = \hat{R}^{-1}$</p>
+    </div>
+    <p class='mt-4'>따라서 모든 물리적 대칭 조작의 행렬 표현은 <b>유니타리 행렬(Unitary Matrix)</b>입니다.</p>
+
         </div>
     </section>
     
     <section id="s16">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 02 | Slide 16</div>
-            <h2 class="mb-8">선형 연산자와 행렬 표현 (16)</h2>
+            <h2 class="mb-8">에르미트 연산자 (Hermitian Operator)</h2>
             
-        <p class='text-xl'>대칭 조작 $\hat{R}$은 선형 연산자로서 기저 벡터 $|e_i
-angle$를 다른 벡터들의 선형 결합으로 변환합니다.</p>
-        <div class='math-box'>
-            \[ \hat{R} |e_j
-angle = \sum_{i} \Gamma(R)_{ij} |e_i
-angle \]
-        </div>
-        <p class='mt-6'>이때 $\Gamma(R)$은 조작 $R$에 대한 <b>행렬 표현</b>입니다.</p>
-    
+    <p class='text-xl'>자기 자신이 켤레 연산자와 같은 연산자 ($\hat{H}^\dagger = \hat{H}$). 양자역학의 모든 관측가능량(Observable, 예: 에너지)은 에르미트 연산자입니다.</p>
+    <div class='axiom-box'>
+        <span class='theorem-title'>스펙트럼 정리 (Spectral Theorem)</span>
+        <ul class='list-disc pl-10'>
+            <li>에르미트 연산자의 고유값(Eigenvalues)은 <b>항상 실수(Real number)</b>이다.</li>
+            <li>서로 다른 고유값에 대응하는 고유벡터(Eigenvectors)들은 <b>서로 직교(Orthogonal)</b>한다.</li>
+        </ul>
+    </div>
+
         </div>
     </section>
     
     <section id="s17">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 02 | Slide 17</div>
-            <h2 class="mb-8">선형 연산자와 행렬 표현 (17)</h2>
+            <h2 class="mb-8">기저의 변환 (Change of Basis)</h2>
             
-        <p class='text-xl'>대칭 조작 $\hat{R}$은 선형 연산자로서 기저 벡터 $|e_i
-angle$를 다른 벡터들의 선형 결합으로 변환합니다.</p>
-        <div class='math-box'>
-            \[ \hat{R} |e_j
-angle = \sum_{i} \Gamma(R)_{ij} |e_i
-angle \]
-        </div>
-        <p class='mt-6'>이때 $\Gamma(R)$은 조작 $R$에 대한 <b>행렬 표현</b>입니다.</p>
-    
+    <p class='text-xl'>동일한 대칭 조작도 관찰자가 설정한 좌표계(기저)에 따라 다른 행렬로 보일 수 있습니다.</p>
+    <div class='math-proof'>
+        <p>새로운 기저 $|f_i\rangle = \sum P_{ji} |e_j\rangle$ 로 바꿀 때, 행렬 표현은 다음과 같이 변환됩니다.</p>
+        \[ \Gamma'(R) = P^{-1} \Gamma(R) P \]
+    </div>
+    <p class='mt-4'>이것을 <b>유사 변환(Similarity Transformation)</b>이라 합니다.</p>
+
         </div>
     </section>
     
     <section id="s18">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 02 | Slide 18</div>
-            <h2 class="mb-8">선형 연산자와 행렬 표현 (18)</h2>
+            <h2 class="mb-8">대각합의 불변성 (Invariance of Trace)</h2>
             
-        <p class='text-xl'>대칭 조작 $\hat{R}$은 선형 연산자로서 기저 벡터 $|e_i
-angle$를 다른 벡터들의 선형 결합으로 변환합니다.</p>
-        <div class='math-box'>
-            \[ \hat{R} |e_j
-angle = \sum_{i} \Gamma(R)_{ij} |e_i
-angle \]
-        </div>
-        <p class='mt-6'>이때 $\Gamma(R)$은 조작 $R$에 대한 <b>행렬 표현</b>입니다.</p>
-    
+    <p class='text-xl'>유사 변환을 거쳐도 행렬의 특정 성질들은 변하지 않습니다. 가장 대표적인 것이 <b>대각합(Trace)</b>입니다.</p>
+    <div class='axiom-box'>
+        \[ \text{Tr}(P^{-1} \Gamma P) = \text{Tr}(P P^{-1} \Gamma) = \text{Tr}(\Gamma) \]
+    </div>
+    <p class='mt-4'>이 불변하는 대각합을 군론에서는 <b>지표(Character, $\chi$)</b>라고 부릅니다. 기저 선택의 임의성으로부터 해방된 <b>순수한 수학적 불변량</b>입니다.</p>
+
         </div>
     </section>
     
     <section id="s19">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 02 | Slide 19</div>
-            <h2 class="mb-8">선형 연산자와 행렬 표현 (19)</h2>
+            <h2 class="mb-8">직합 (Direct Sum, $\oplus$)</h2>
             
-        <p class='text-xl'>대칭 조작 $\hat{R}$은 선형 연산자로서 기저 벡터 $|e_i
-angle$를 다른 벡터들의 선형 결합으로 변환합니다.</p>
-        <div class='math-box'>
-            \[ \hat{R} |e_j
-angle = \sum_{i} \Gamma(R)_{ij} |e_i
-angle \]
-        </div>
-        <p class='mt-6'>이때 $\Gamma(R)$은 조작 $R$에 대한 <b>행렬 표현</b>입니다.</p>
-    
+    <p class='text-xl'>두 벡터 공간 $V, W$를 합쳐 더 큰 공간 $V \oplus W$를 만듭니다.</p>
+    <div class='math-proof text-center'>
+        \[
+        \Gamma_{V \oplus W} = 
+        \begin{pmatrix}
+        \Gamma_V & 0 \\
+        0 & \Gamma_W
+        \end{pmatrix}
+        \]
+    </div>
+    <p class='mt-4'>행렬 관점에서는 블록 대각(Block Diagonal) 행렬을 형성하는 연산입니다. 지표는 자명하게 더해집니다: $\chi_{V \oplus W} = \chi_V + \chi_W$.</p>
+
         </div>
     </section>
     
     <section id="s20">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 02 | Slide 20</div>
-            <h2 class="mb-8">선형 연산자와 행렬 표현 (20)</h2>
+            <h2 class="mb-8">텐서곱 (Tensor Product, $\otimes$)</h2>
             
-        <p class='text-xl'>대칭 조작 $\hat{R}$은 선형 연산자로서 기저 벡터 $|e_i
-angle$를 다른 벡터들의 선형 결합으로 변환합니다.</p>
-        <div class='math-box'>
-            \[ \hat{R} |e_j
-angle = \sum_{i} \Gamma(R)_{ij} |e_i
-angle \]
-        </div>
-        <p class='mt-6'>이때 $\Gamma(R)$은 조작 $R$에 대한 <b>행렬 표현</b>입니다.</p>
-    
+    <p class='text-xl'>차원이 곱해지는 더 복잡한 결합입니다. 두 전자의 결합 상태 등을 기술할 때 필수적입니다.</p>
+    <div class='axiom-box text-center'>
+        \[ (\Gamma_V \otimes \Gamma_W)_{(ij)(kl)} = (\Gamma_V)_{ik} (\Gamma_W)_{jl} \]
+    </div>
+    <p class='mt-4 text-red-600 font-bold'>중요한 성질: 텐서곱 행렬의 대각합은 각 행렬 대각합의 곱과 같다.</p>
+    \[ \chi_{V \otimes W}(R) = \chi_V(R) \cdot \chi_W(R) \]
+
         </div>
     </section>
     
     <section id="s21">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 03 | Slide 21</div>
-            <h2 class="mb-8">군 호모모피즘 (Group Homomorphism) (21)</h2>
+            <h2 class="mb-8">표현(Representation)의 수학적 정의</h2>
             
-        <p class='text-xl'>군 $G$에서 일반 선형군 $GL(V)$로의 사상(Mapping) $\Gamma$가 표현이 되기 위해서는 다음 조건을 만족해야 합니다.</p>
-        <div class='axiom-box'>
-            \[ \Gamma(AB) = \Gamma(A)\Gamma(B) \]
-        </div>
-        <p class='mt-6'>즉, 군의 곱셈 구조가 행렬의 곱셈 구조로 보존되어야 합니다.</p>
-    
+    <p class='text-xl'>군 $G$의 구조를 보존하면서, 각 원소 $g$를 행렬 공간 $GL(V)$의 행렬 $\Gamma(g)$에 대응시키는 함수입니다.</p>
+    <div class='math-proof'>
+        <span class='theorem-title'>Homomorphism Condition</span>
+        \[ \Gamma(g_1 \cdot g_2) = \Gamma(g_1) \Gamma(g_2) \quad \forall g_1, g_2 \in G \]
+        \[ \Gamma(e) = I, \quad \Gamma(g^{-1}) = \Gamma(g)^{-1} \]
+    </div>
+
         </div>
     </section>
     
     <section id="s22">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 03 | Slide 22</div>
-            <h2 class="mb-8">군 호모모피즘 (Group Homomorphism) (22)</h2>
+            <h2 class="mb-8">충실한 표현 (Faithful Representation)</h2>
             
-        <p class='text-xl'>군 $G$에서 일반 선형군 $GL(V)$로의 사상(Mapping) $\Gamma$가 표현이 되기 위해서는 다음 조건을 만족해야 합니다.</p>
-        <div class='axiom-box'>
-            \[ \Gamma(AB) = \Gamma(A)\Gamma(B) \]
-        </div>
-        <p class='mt-6'>즉, 군의 곱셈 구조가 행렬의 곱셈 구조로 보존되어야 합니다.</p>
-    
+    <p class='text-xl'>서로 다른 군의 원소가 <b>서로 다른 행렬</b>에 1:1로 매핑될 때, 그 표현을 '충실하다'고 합니다.</p>
+    <div class='axiom-box'>
+        <p>단사 함수(Injective)의 조건:</p>
+        \[ \Gamma(g_1) = \Gamma(g_2) \implies g_1 = g_2 \]
+    </div>
+    <p class='mt-4 text-slate-500'>예: 모든 원소를 숫자 1에 대응시키는 '완전 대칭 표현($A_1$)'은 자명하지만 충실하지 않은 표현입니다.</p>
+
         </div>
     </section>
     
     <section id="s23">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 03 | Slide 23</div>
-            <h2 class="mb-8">군 호모모피즘 (Group Homomorphism) (23)</h2>
+            <h2 class="mb-8">동치 표현 (Equivalent Representations)</h2>
             
-        <p class='text-xl'>군 $G$에서 일반 선형군 $GL(V)$로의 사상(Mapping) $\Gamma$가 표현이 되기 위해서는 다음 조건을 만족해야 합니다.</p>
-        <div class='axiom-box'>
-            \[ \Gamma(AB) = \Gamma(A)\Gamma(B) \]
-        </div>
-        <p class='mt-6'>즉, 군의 곱셈 구조가 행렬의 곱셈 구조로 보존되어야 합니다.</p>
-    
+    <p class='text-xl'>두 표현 $\Gamma^{(1)}$과 $\Gamma^{(2)}$가 동일한 차원을 가지며, 어떤 고정된 가역 행렬 $P$에 대해 다음을 만족하면 '동치(Equivalent)'라고 합니다.</p>
+    <div class='math-proof text-center'>
+        \[ \Gamma^{(1)}(g) = P^{-1} \Gamma^{(2)}(g) P \quad \forall g \in G \]
+    </div>
+    <p class='mt-4 text-lg'>물리적으로 이는 단순히 <b>'좌표계(기저)만 다르게 설정했을 뿐 본질적으로 동일한 물리계'</b>임을 의미합니다.</p>
+
         </div>
     </section>
     
     <section id="s24">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 03 | Slide 24</div>
-            <h2 class="mb-8">군 호모모피즘 (Group Homomorphism) (24)</h2>
+            <h2 class="mb-8">불변 부분 공간 (Invariant Subspace)</h2>
             
-        <p class='text-xl'>군 $G$에서 일반 선형군 $GL(V)$로의 사상(Mapping) $\Gamma$가 표현이 되기 위해서는 다음 조건을 만족해야 합니다.</p>
-        <div class='axiom-box'>
-            \[ \Gamma(AB) = \Gamma(A)\Gamma(B) \]
-        </div>
-        <p class='mt-6'>즉, 군의 곱셈 구조가 행렬의 곱셈 구조로 보존되어야 합니다.</p>
-    
+    <p class='text-xl'>전체 공간 $V$의 어떤 부분 공간 $W$가 대칭 조작에 의해 벗어나지 않을 때의 정의입니다.</p>
+    <div class='axiom-box'>
+        \[ \forall g \in G, \quad \vec{w} \in W \implies \Gamma(g)\vec{w} \in W \]
+    </div>
+    <p class='mt-4 text-lg'>만약 분자에서 z축 방향의 $p_z$ 오비탈이 어떤 대칭 조작에도 $x, y$ 오비탈과 섞이지 않는다면, $p_z$ 오비탈이 이루는 1차원 공간은 불변 부분 공간입니다.</p>
+
         </div>
     </section>
     
     <section id="s25">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 03 | Slide 25</div>
-            <h2 class="mb-8">군 호모모피즘 (Group Homomorphism) (25)</h2>
+            <h2 class="mb-8">가약성 (Reducibility)</h2>
             
-        <p class='text-xl'>군 $G$에서 일반 선형군 $GL(V)$로의 사상(Mapping) $\Gamma$가 표현이 되기 위해서는 다음 조건을 만족해야 합니다.</p>
-        <div class='axiom-box'>
-            \[ \Gamma(AB) = \Gamma(A)\Gamma(B) \]
-        </div>
-        <p class='mt-6'>즉, 군의 곱셈 구조가 행렬의 곱셈 구조로 보존되어야 합니다.</p>
-    
+    <p class='text-xl'>자명하지 않은(0이 아니고 전체 공간도 아닌) 불변 부분 공간 $W$가 존재하면, 해당 표현은 <b>가약 표현(Reducible Representation)</b>입니다.</p>
+    <div class='math-proof'>
+        <p>적절한 기저 변환 $P$를 통해 모든 $\Gamma(g)$를 블록 상삼각 행렬로 만들 수 있습니다:</p>
+        \[ P^{-1} \Gamma(g) P = \begin{pmatrix} \Gamma_1(g) & M(g) \\ 0 & \Gamma_2(g) \end{pmatrix} \]
+    </div>
+
         </div>
     </section>
     
     <section id="s26">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 03 | Slide 26</div>
-            <h2 class="mb-8">군 호모모피즘 (Group Homomorphism) (26)</h2>
+            <h2 class="mb-8">완전 가약성 (Complete Reducibility)</h2>
             
-        <p class='text-xl'>군 $G$에서 일반 선형군 $GL(V)$로의 사상(Mapping) $\Gamma$가 표현이 되기 위해서는 다음 조건을 만족해야 합니다.</p>
-        <div class='axiom-box'>
-            \[ \Gamma(AB) = \Gamma(A)\Gamma(B) \]
-        </div>
-        <p class='mt-6'>즉, 군의 곱셈 구조가 행렬의 곱셈 구조로 보존되어야 합니다.</p>
-    
+    <p class='text-xl'>유한군의 유니타리 표현에서 부분 공간 $W$가 불변이면, 그에 직교하는 공간 $W^\perp$ 역 시 불변입니다.</p>
+    <div class='axiom-box'>
+        <span class='theorem-title'>Maschke's Theorem</span>
+        <p>유한군의 모든 유한 차원 표현은 <b>기약 표현들의 직합(Direct Sum)으로 완전히 분해</b>될 수 있다.</p>
+        \[ \Gamma(g) \sim \begin{pmatrix} \Gamma_1(g) & 0 \\ 0 & \Gamma_2(g) \end{pmatrix} \implies \Gamma = \Gamma_1 \oplus \Gamma_2 \]
+    </div>
+
         </div>
     </section>
     
     <section id="s27">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 03 | Slide 27</div>
-            <h2 class="mb-8">군 호모모피즘 (Group Homomorphism) (27)</h2>
+            <h2 class="mb-8">기약 표현 (Irreducible Representation, IR)</h2>
             
-        <p class='text-xl'>군 $G$에서 일반 선형군 $GL(V)$로의 사상(Mapping) $\Gamma$가 표현이 되기 위해서는 다음 조건을 만족해야 합니다.</p>
-        <div class='axiom-box'>
-            \[ \Gamma(AB) = \Gamma(A)\Gamma(B) \]
-        </div>
-        <p class='mt-6'>즉, 군의 곱셈 구조가 행렬의 곱셈 구조로 보존되어야 합니다.</p>
-    
+    <div class='math-proof text-center py-10'>
+        <h2 class='text-3xl text-red-700 font-bold mb-6'>The Fundamental Building Blocks</h2>
+        <p class='text-2xl'>더 이상 작게 쪼갤 수 없는, 자명하지 않은 불변 부분 공간을 가지지 않는 표현.</p>
+    </div>
+    <p class='mt-8 text-xl leading-relaxed'>기약 표현은 자연계의 대칭성이 허용하는 <b>최소 단위의 공간</b>입니다. 소립자 물리학에서 소립자를 분류하는 기준이 되며, 화학에서는 <b>에너지 준위(축퇴 공간) 그 자체</b>를 의미합니다.</p>
+
         </div>
     </section>
     
     <section id="s28">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 03 | Slide 28</div>
-            <h2 class="mb-8">군 호모모피즘 (Group Homomorphism) (28)</h2>
+            <h2 class="mb-8">기약 표현의 개수 제한</h2>
             
-        <p class='text-xl'>군 $G$에서 일반 선형군 $GL(V)$로의 사상(Mapping) $\Gamma$가 표현이 되기 위해서는 다음 조건을 만족해야 합니다.</p>
-        <div class='axiom-box'>
-            \[ \Gamma(AB) = \Gamma(A)\Gamma(B) \]
-        </div>
-        <p class='mt-6'>즉, 군의 곱셈 구조가 행렬의 곱셈 구조로 보존되어야 합니다.</p>
-    
+    <p class='text-xl'>유한군 $G$가 가질 수 있는 <b>서로 동치이지 않은 기약 표현의 개수</b>는 무한하지 않습니다.</p>
+    <div class='axiom-box'>
+        <p class='text-2xl text-center font-bold'>기약 표현의 수 = 켤레류(Conjugacy Class)의 수</p>
+    </div>
+    <p class='mt-6 text-slate-600'>이 정리에 의해 지표표(Character Table)는 항상 가로열(클래스)과 세로행(기약 표현)의 개수가 같은 <b>정사각행렬</b> 형태를 띠게 됩니다.</p>
+
         </div>
     </section>
     
     <section id="s29">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 03 | Slide 29</div>
-            <h2 class="mb-8">군 호모모피즘 (Group Homomorphism) (29)</h2>
+            <h2 class="mb-8">1차원 기약 표현의 특수성</h2>
             
-        <p class='text-xl'>군 $G$에서 일반 선형군 $GL(V)$로의 사상(Mapping) $\Gamma$가 표현이 되기 위해서는 다음 조건을 만족해야 합니다.</p>
-        <div class='axiom-box'>
-            \[ \Gamma(AB) = \Gamma(A)\Gamma(B) \]
-        </div>
-        <p class='mt-6'>즉, 군의 곱셈 구조가 행렬의 곱셈 구조로 보존되어야 합니다.</p>
-    
+    <p class='text-xl'>아벨 군(Abelian Group, 교환 법칙이 성립하는 군)의 모든 기약 표현은 반드시 1차원입니다.</p>
+    <div class='math-proof'>
+        <p>교환 법칙 $ab = ba$ 가 성립하면 행렬 표현도 $\Gamma(a)\Gamma(b) = \Gamma(b)\Gamma(a)$ 를 만족해야 합니다.</p>
+        <p>선형 대수학에 의해, 서로 가환하는 유니타리 행렬 집합은 <b>동시에 대각화(Simultaneously Diagonalizable)</b> 가능합니다.</p>
+    </div>
+    <p class='mt-4'>대각화되었다는 것은 1차원 블록들의 직합으로 쪼개졌다는 뜻이므로, 기약 표현은 1차원일 수밖에 없습니다.</p>
+
         </div>
     </section>
     
     <section id="s30">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 03 | Slide 30</div>
-            <h2 class="mb-8">군 호모모피즘 (Group Homomorphism) (30)</h2>
+            <h2 class="mb-8">챕터 3 요약: 표현의 구조</h2>
             
-        <p class='text-xl'>군 $G$에서 일반 선형군 $GL(V)$로의 사상(Mapping) $\Gamma$가 표현이 되기 위해서는 다음 조건을 만족해야 합니다.</p>
-        <div class='axiom-box'>
-            \[ \Gamma(AB) = \Gamma(A)\Gamma(B) \]
+    <div class='grid grid-cols-2 gap-8 text-lg'>
+        <div class='p-6 bg-slate-100 rounded-xl'>
+            <ul class='space-y-4'>
+                <li><b>Abstract Group $\to$ Matrices</b> (Homomorphism)</li>
+                <li><b>Basis Change $\to$ Similarity Transform</b></li>
+                <li><b>Trace $\to$ Character</b> (Invariant)</li>
+            </ul>
         </div>
-        <p class='mt-6'>즉, 군의 곱셈 구조가 행렬의 곱셈 구조로 보존되어야 합니다.</p>
-    
+        <div class='p-6 bg-indigo-100 rounded-xl'>
+            <ul class='space-y-4 text-indigo-900 font-bold'>
+                <li>모든 표현은 기약 표현으로 쪼개진다.</li>
+                <li>기약 표현은 양자 역학의 '축퇴된 에너지 공간'과 1:1 매칭된다.</li>
+            </ul>
+        </div>
+    </div>
+
         </div>
     </section>
     
     <section id="s31">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 04 | Slide 31</div>
-            <h2 class="mb-8">가약성과 불변 부분 공간 (31)</h2>
+            <h2 class="mb-8">Schur의 보조정리 (Schur's Lemma) 입문</h2>
             
-        <p class='text-xl'>만약 공간 $V$ 내에 모든 $\Gamma(R)$에 대해 닫혀있는 부분 공간 $W$가 존재한다면, 이 표현은 <b>가약(Reducible)</b>입니다.</p>
-        <div class='math-proof'>
-            \[ \Gamma(R) W \subseteq W \quad \forall R \in G \]
-        </div>
-        <p class='mt-6'>이러한 부분 공간이 $V$ 자신과 $\{0\}$ 밖에 없다면, 그 표현은 <b>기약(Irreducible)</b>입니다.</p>
-    
+    <p class='text-xl leading-relaxed'>군론의 기초 공리에서 위대한 직교성 정리(GOT)로 넘어가는 <b>수학적 다리(Bridge)</b> 역할을 하는 두 개의 보조정리입니다. 수학자 Issai Schur가 1905년에 증명했습니다.</p>
+    <div class='axiom-box mt-10'>
+        <p class='text-center text-slate-600 italic'>이 두 보조정리가 없다면, 우리는 지표표의 그 어떤 숫자도 계산해 낼 수 없습니다.</p>
+    </div>
+
         </div>
     </section>
     
     <section id="s32">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 04 | Slide 32</div>
-            <h2 class="mb-8">가약성과 불변 부분 공간 (32)</h2>
+            <h2 class="mb-8">Schur's Lemma I: 명제</h2>
             
-        <p class='text-xl'>만약 공간 $V$ 내에 모든 $\Gamma(R)$에 대해 닫혀있는 부분 공간 $W$가 존재한다면, 이 표현은 <b>가약(Reducible)</b>입니다.</p>
-        <div class='math-proof'>
-            \[ \Gamma(R) W \subseteq W \quad \forall R \in G \]
-        </div>
-        <p class='mt-6'>이러한 부분 공간이 $V$ 자신과 $\{0\}$ 밖에 없다면, 그 표현은 <b>기약(Irreducible)</b>입니다.</p>
-    
+    <div class='math-proof'>
+        <span class='theorem-title text-red-600'>Schur's Lemma I</span>
+        <p>복소 벡터 공간 $V$ 위의 <b>기약 표현(Irreducible Rep)</b> $\Gamma(g)$ 에 대하여, 어떤 선형 연산자 $M$이 모든 $g \in G$ 에 대해 $\Gamma(g)$와 가환한다면:</p>
+        \[ M \Gamma(g) = \Gamma(g) M \quad \forall g \in G \]
+        <p class='mt-4 font-bold'>그러면 $M$은 반드시 스칼라 배수(상수 행렬)이다.</p>
+        \[ M = c \cdot I \quad (c \in \mathbb{C}) \]
+    </div>
+
         </div>
     </section>
     
     <section id="s33">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 04 | Slide 33</div>
-            <h2 class="mb-8">가약성과 불변 부분 공간 (33)</h2>
+            <h2 class="mb-8">Schur's Lemma I: 엄밀한 증명 1</h2>
             
-        <p class='text-xl'>만약 공간 $V$ 내에 모든 $\Gamma(R)$에 대해 닫혀있는 부분 공간 $W$가 존재한다면, 이 표현은 <b>가약(Reducible)</b>입니다.</p>
-        <div class='math-proof'>
-            \[ \Gamma(R) W \subseteq W \quad \forall R \in G \]
-        </div>
-        <p class='mt-6'>이러한 부분 공간이 $V$ 자신과 $\{0\}$ 밖에 없다면, 그 표현은 <b>기약(Irreducible)</b>입니다.</p>
-    
+    <p class='text-xl'>복소수 필드 위에서, 행렬 $M$은 적어도 하나의 고유값 $\lambda$와 고유벡터 $\vec{v}$를 가집니다. ($M\vec{v} = \lambda\vec{v}$)</p>
+    <p class='mt-4'>행렬 $M - \lambda I$ 를 정의해 봅시다. 이 행렬의 커널(Null space, $N$)은 자명하지 않습니다 ($\vec{v} \in N$).</p>
+    <div class='math-box mt-6'>
+        \[ \forall \vec{w} \in N, \quad (M - \lambda I)\vec{w} = \vec{0} \]
+    </div>
+
         </div>
     </section>
     
     <section id="s34">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 04 | Slide 34</div>
-            <h2 class="mb-8">가약성과 불변 부분 공간 (34)</h2>
+            <h2 class="mb-8">Schur's Lemma I: 엄밀한 증명 2</h2>
             
-        <p class='text-xl'>만약 공간 $V$ 내에 모든 $\Gamma(R)$에 대해 닫혀있는 부분 공간 $W$가 존재한다면, 이 표현은 <b>가약(Reducible)</b>입니다.</p>
-        <div class='math-proof'>
-            \[ \Gamma(R) W \subseteq W \quad \forall R \in G \]
-        </div>
-        <p class='mt-6'>이러한 부분 공간이 $V$ 자신과 $\{0\}$ 밖에 없다면, 그 표현은 <b>기약(Irreducible)</b>입니다.</p>
-    
+    <p class='text-xl'>이제 임의의 $\vec{w} \in N$ 에 대해 $\Gamma(g)$ 를 가해봅시다.</p>
+    <div class='math-proof'>
+        \begin{align}
+        (M - \lambda I) \Gamma(g) \vec{w} &= (M \Gamma(g) - \lambda \Gamma(g)) \vec{w} \\
+        &= (\Gamma(g) M - \Gamma(g) \lambda I) \vec{w} \quad (\because M \text{과 } \Gamma \text{는 가환}) \\
+        &= \Gamma(g) (M - \lambda I) \vec{w} = \Gamma(g) \vec{0} = \vec{0}
+        \end{align}
+    </div>
+    <p class='mt-4'>즉, $\Gamma(g)\vec{w}$ 역시 커널 $N$에 속합니다. <b>커널 $N$은 $\Gamma$에 대해 불변 부분 공간(Invariant Subspace)입니다!</b></p>
+
         </div>
     </section>
     
     <section id="s35">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 04 | Slide 35</div>
-            <h2 class="mb-8">가약성과 불변 부분 공간 (35)</h2>
+            <h2 class="mb-8">Schur's Lemma I: 엄밀한 증명 3 (결론)</h2>
             
-        <p class='text-xl'>만약 공간 $V$ 내에 모든 $\Gamma(R)$에 대해 닫혀있는 부분 공간 $W$가 존재한다면, 이 표현은 <b>가약(Reducible)</b>입니다.</p>
-        <div class='math-proof'>
-            \[ \Gamma(R) W \subseteq W \quad \forall R \in G \]
-        </div>
-        <p class='mt-6'>이러한 부분 공간이 $V$ 자신과 $\{0\}$ 밖에 없다면, 그 표현은 <b>기약(Irreducible)</b>입니다.</p>
-    
+    <p class='text-xl'>그런데 가정에서 $\Gamma$는 <b>기약 표현(Irreducible)</b>이라고 했습니다. 기약 표현은 자명하지 않은 불변 부분 공간을 가질 수 없습니다.</p>
+    <div class='axiom-box'>
+        <p>커널 $N$은 $\{\vec{0}\}$ 이거나 전체 공간 $V$여야만 합니다.</p>
+        <p>하지만 고유벡터 $\vec{v} \neq \vec{0}$ 가 $N$에 존재하므로, $N = V$ 일 수밖에 없습니다.</p>
+    </div>
+    <p class='mt-6 text-xl'>모든 $\vec{x} \in V$ 에 대해 $(M - \lambda I)\vec{x} = \vec{0}$ 이 성립하므로, 결국 <b>$M = \lambda I$</b> (상수 행렬)임이 증명됩니다. $\blacksquare$</p>
+
         </div>
     </section>
     
     <section id="s36">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 04 | Slide 36</div>
-            <h2 class="mb-8">가약성과 불변 부분 공간 (36)</h2>
+            <h2 class="mb-8">Schur's Lemma II: 명제</h2>
             
-        <p class='text-xl'>만약 공간 $V$ 내에 모든 $\Gamma(R)$에 대해 닫혀있는 부분 공간 $W$가 존재한다면, 이 표현은 <b>가약(Reducible)</b>입니다.</p>
-        <div class='math-proof'>
-            \[ \Gamma(R) W \subseteq W \quad \forall R \in G \]
-        </div>
-        <p class='mt-6'>이러한 부분 공간이 $V$ 자신과 $\{0\}$ 밖에 없다면, 그 표현은 <b>기약(Irreducible)</b>입니다.</p>
-    
+    <div class='math-proof'>
+        <span class='theorem-title text-blue-600'>Schur's Lemma II</span>
+        <p>두 기약 표현 $\Gamma^{(1)}$ (차원 $l_1$)과 $\Gamma^{(2)}$ (차원 $l_2$)에 대해, 어떤 행렬 $M$이 다음을 만족한다고 하자:</p>
+        \[ M \Gamma^{(1)}(g) = \Gamma^{(2)}(g) M \quad \forall g \in G \]
+        <p class='mt-4 font-bold'>그러면 다음 두 가지 중 하나만 참이다:</p>
+        <ol class='list-decimal pl-10 mt-2'>
+            <li>$M = 0$ (영행렬)</li>
+            <li>$\Gamma^{(1)}$과 $\Gamma^{(2)}$는 동치 표현이며 ($l_1 = l_2$), $M$은 가역 행렬이다.</li>
+        </ol>
+    </div>
+
         </div>
     </section>
     
     <section id="s37">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 04 | Slide 37</div>
-            <h2 class="mb-8">가약성과 불변 부분 공간 (37)</h2>
+            <h2 class="mb-8">Schur's Lemma II: 증명 구조</h2>
             
-        <p class='text-xl'>만약 공간 $V$ 내에 모든 $\Gamma(R)$에 대해 닫혀있는 부분 공간 $W$가 존재한다면, 이 표현은 <b>가약(Reducible)</b>입니다.</p>
-        <div class='math-proof'>
-            \[ \Gamma(R) W \subseteq W \quad \forall R \in G \]
-        </div>
-        <p class='mt-6'>이러한 부분 공간이 $V$ 자신과 $\{0\}$ 밖에 없다면, 그 표현은 <b>기약(Irreducible)</b>입니다.</p>
-    
+    <p class='text-xl'>이 증명 역시 불변 부분 공간의 논리를 사용합니다.</p>
+    <div class='axiom-box'>
+        <p>행렬 $M$의 커널(Kernel)은 $\Gamma^{(1)}$의 공간에서 불변 부분 공간을 형성하고,</p>
+        <p>행렬 $M$의 치역(Image)은 $\Gamma^{(2)}$의 공간에서 불변 부분 공간을 형성합니다.</p>
+    </div>
+    <p class='mt-4'>두 표현 모두 <b>기약</b>이므로, 커널과 치역은 전체 공간이거나 0공간이어야만 합니다. 이 조건을 풀면 명제가 자연스럽게 도출됩니다.</p>
+
         </div>
     </section>
     
     <section id="s38">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 04 | Slide 38</div>
-            <h2 class="mb-8">가약성과 불변 부분 공간 (38)</h2>
+            <h2 class="mb-8">수학에서 물리학으로</h2>
             
-        <p class='text-xl'>만약 공간 $V$ 내에 모든 $\Gamma(R)$에 대해 닫혀있는 부분 공간 $W$가 존재한다면, 이 표현은 <b>가약(Reducible)</b>입니다.</p>
-        <div class='math-proof'>
-            \[ \Gamma(R) W \subseteq W \quad \forall R \in G \]
-        </div>
-        <p class='mt-6'>이러한 부분 공간이 $V$ 자신과 $\{0\}$ 밖에 없다면, 그 표현은 <b>기약(Irreducible)</b>입니다.</p>
-    
-        </div>
-    </section>
-    
-    <section id="s39">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 04 | Slide 39</div>
-            <h2 class="mb-8">가약성과 불변 부분 공간 (39)</h2>
-            
-        <p class='text-xl'>만약 공간 $V$ 내에 모든 $\Gamma(R)$에 대해 닫혀있는 부분 공간 $W$가 존재한다면, 이 표현은 <b>가약(Reducible)</b>입니다.</p>
-        <div class='math-proof'>
-            \[ \Gamma(R) W \subseteq W \quad \forall R \in G \]
-        </div>
-        <p class='mt-6'>이러한 부분 공간이 $V$ 자신과 $\{0\}$ 밖에 없다면, 그 표현은 <b>기약(Irreducible)</b>입니다.</p>
-    
-        </div>
-    </section>
-    
-    <section id="s40">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 04 | Slide 40</div>
-            <h2 class="mb-8">가약성과 불변 부분 공간 (40)</h2>
-            
-        <p class='text-xl'>만약 공간 $V$ 내에 모든 $\Gamma(R)$에 대해 닫혀있는 부분 공간 $W$가 존재한다면, 이 표현은 <b>가약(Reducible)</b>입니다.</p>
-        <div class='math-proof'>
-            \[ \Gamma(R) W \subseteq W \quad \forall R \in G \]
-        </div>
-        <p class='mt-6'>이러한 부분 공간이 $V$ 자신과 $\{0\}$ 밖에 없다면, 그 표현은 <b>기약(Irreducible)</b>입니다.</p>
-    
+    <p class='text-xl leading-relaxed'>Schur의 보조정리는 순수 대수학의 결과물이지만, 양자역학에 적용되면 엄청난 결과를 낳습니다.</p>
+    <div class='p-8 bg-slate-900 text-white rounded-xl mt-8 shadow-xl'>
+        <p class='italic'>"해밀토니안 $\hat{H}$ 가 모든 대칭 연산자 $\hat{R}$ 과 가환한다면 ($[\hat{H}, \hat{R}]=0$), 특정 기약 표현(에너지 준위) 내에서 $\hat{H}$ 는 반드시 상수 행렬($E \cdot I$)로 작용해야 한다." (by Schur's Lemma I)</p>
+    </div>
+    <p class='mt-6 font-bold text-red-600 text-right'>이것이 바로 에너지의 축퇴(Degeneracy)가 일어나는 근본 원리입니다.</p>
+
         </div>
     </section>
     
     <section id="s41">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 05 | Slide 41</div>
-            <h2 class="mb-8">Schur's Lemma I: 증명</h2>
+            <h2 class="mb-8">위대한 직교성 정리 (GOT)의 전개</h2>
             
-    <div class='math-proof'>
-        <span class='theorem-title'>Schur's Lemma I</span>
-        <p>만약 $M$이 기약 표현 $\Gamma(R)$의 모든 행렬과 가환한다면 ($M\Gamma(R) = \Gamma(R)M$), $M$은 상수 행렬이다.</p>
-        <p class='mt-4'><b>증명 스케치:</b> $M$의 고유값 $\lambda$에 대해 고유 공간 $V_\lambda$를 생각하자. $M$과 $\Gamma(R)$이 가환하므로 $V_\lambda$는 $\Gamma(R)$에 대해 불변이다. $\Gamma$가 기약이므로 $V_\lambda$는 전체 공간 $V$여야 한다. 따라서 $M = \lambda I$.</p>
+    <p class='text-xl'>Schur의 보조정리들을 이용하면, 수학과 물리학을 잇는 가장 중요한 정리인 GOT를 증명할 수 있습니다.</p>
+    <div class='axiom-box bg-slate-900 text-white shadow-2xl'>
+        <span class='theorem-title text-cyan-400'>The Great Orthogonality Theorem</span>
+        <div class='text-2xl text-center py-4'>
+            \[ \sum_{R} \Gamma_i(R)_{mn}^* \Gamma_j(R)_{m'n'} = \frac{h}{\sqrt{l_i l_j}} \delta_{ij} \delta_{mm'} \delta_{nn'} \]
+        </div>
     </div>
+    <p class='mt-6'>이 식은 다차원 공간에서 각 기약 표현의 <b>행렬 원소(Matrix elements)</b>들이 완벽하게 직교하는 축(Axis)들을 형성함을 보여줍니다.</p>
 
         </div>
     </section>
@@ -703,130 +645,80 @@ angle \]
     <section id="s42">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 05 | Slide 42</div>
-            <h2 class="mb-8">Schur's Lemma II와 직교성 (42)</h2>
+            <h2 class="mb-8">GOT 증명 1: 불변 행렬의 구성</h2>
             
-        <p class='text-xl'>두 기약 표현 $\Gamma_i$와 $\Gamma_j$ 사이의 연관성을 규명합니다.</p>
-        <div class='math-box'>
-            \[ 	ext{If } M\Gamma_i(R) = \Gamma_j(R)M, 	ext{ then } M=0 	ext{ or } \Gamma_i \cong \Gamma_j \]
-        </div>
-    
+    <p class='text-xl'>증명의 핵심은 군의 모든 조작을 평균내어 <b>불변 연산자</b>를 인위적으로 만들어내는 것입니다.</p>
+    <div class='math-proof'>
+        <p>임의의 행렬 $X$에 대하여, 다음 행렬 $M$을 구성합니다:</p>
+        \[ M = \sum_{R} \Gamma_i(R) X \Gamma_j(R^{-1}) \]
+        <p class='mt-4 text-blue-800 font-bold'>이 행렬 $M$은 어떤 $S \in G$ 에 대해서도 $\Gamma_i(S) M = M \Gamma_j(S)$ 를 만족합니다!</p>
+    </div>
+
         </div>
     </section>
     
     <section id="s43">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 05 | Slide 43</div>
-            <h2 class="mb-8">Schur's Lemma II와 직교성 (43)</h2>
+            <h2 class="mb-8">GOT 증명 2: Schur's Lemma 적용</h2>
             
-        <p class='text-xl'>두 기약 표현 $\Gamma_i$와 $\Gamma_j$ 사이의 연관성을 규명합니다.</p>
-        <div class='math-box'>
-            \[ 	ext{If } M\Gamma_i(R) = \Gamma_j(R)M, 	ext{ then } M=0 	ext{ or } \Gamma_i \cong \Gamma_j \]
-        </div>
-    
+    <p class='text-xl'>방금 만든 행렬 $M$에 <b>Schur's Lemma II</b>를 적용합니다.</p>
+    <div class='axiom-box'>
+        <p>만약 $i \neq j$ (다른 기약 표현)라면, Lemma II에 의해 $M = 0$ 이 됩니다.</p>
+        \[ \sum_{R} \Gamma_i(R) X \Gamma_j(R^{-1}) = 0 \]
+    </div>
+    <p class='mt-4'>행렬 $X$의 오직 하나의 원소 $X_{pq}=1$ 이고 나머지는 0으로 두면, GOT의 우변에 있는 $\delta_{ij}$ (직교성) 파트가 증명됩니다.</p>
+
         </div>
     </section>
     
     <section id="s44">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 05 | Slide 44</div>
-            <h2 class="mb-8">Schur's Lemma II와 직교성 (44)</h2>
+            <h2 class="mb-8">지표의 불변성 (Class Function)</h2>
             
-        <p class='text-xl'>두 기약 표현 $\Gamma_i$와 $\Gamma_j$ 사이의 연관성을 규명합니다.</p>
-        <div class='math-box'>
-            \[ 	ext{If } M\Gamma_i(R) = \Gamma_j(R)M, 	ext{ then } M=0 	ext{ or } \Gamma_i \cong \Gamma_j \]
-        </div>
-    
+    <p class='text-xl'>대각합(Trace)인 지표 $\chi$의 성질을 다시 짚어봅시다.</p>
+    <div class='math-proof'>
+        <p>두 조작 $A, B$가 같은 클래스(켤레류)에 있다면, $B = X^{-1} A X$ 입니다.</p>
+        \begin{align}
+        \chi(B) &= \text{Tr}(\Gamma(B)) = \text{Tr}(\Gamma(X^{-1} A X)) \\
+        &= \text{Tr}(\Gamma(X)^{-1} \Gamma(A) \Gamma(X)) \\
+        &= \text{Tr}(\Gamma(X) \Gamma(X)^{-1} \Gamma(A)) = \text{Tr}(\Gamma(A)) = \chi(A)
+        \end{align}
+    </div>
+    <p class='mt-4 font-bold text-red-600'>결론: 같은 클래스에 속한 대칭 조작들은 항상 동일한 지표를 갖는다.</p>
+
         </div>
     </section>
     
     <section id="s45">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 05 | Slide 45</div>
-            <h2 class="mb-8">Schur's Lemma II와 직교성 (45)</h2>
+            <h2 class="mb-8">지표의 직교성 (Character Orthogonality)</h2>
             
-        <p class='text-xl'>두 기약 표현 $\Gamma_i$와 $\Gamma_j$ 사이의 연관성을 규명합니다.</p>
-        <div class='math-box'>
-            \[ 	ext{If } M\Gamma_i(R) = \Gamma_j(R)M, 	ext{ then } M=0 	ext{ or } \Gamma_i \cong \Gamma_j \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s46">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 05 | Slide 46</div>
-            <h2 class="mb-8">Schur's Lemma II와 직교성 (46)</h2>
-            
-        <p class='text-xl'>두 기약 표현 $\Gamma_i$와 $\Gamma_j$ 사이의 연관성을 규명합니다.</p>
-        <div class='math-box'>
-            \[ 	ext{If } M\Gamma_i(R) = \Gamma_j(R)M, 	ext{ then } M=0 	ext{ or } \Gamma_i \cong \Gamma_j \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s47">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 05 | Slide 47</div>
-            <h2 class="mb-8">Schur's Lemma II와 직교성 (47)</h2>
-            
-        <p class='text-xl'>두 기약 표현 $\Gamma_i$와 $\Gamma_j$ 사이의 연관성을 규명합니다.</p>
-        <div class='math-box'>
-            \[ 	ext{If } M\Gamma_i(R) = \Gamma_j(R)M, 	ext{ then } M=0 	ext{ or } \Gamma_i \cong \Gamma_j \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s48">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 05 | Slide 48</div>
-            <h2 class="mb-8">Schur's Lemma II와 직교성 (48)</h2>
-            
-        <p class='text-xl'>두 기약 표현 $\Gamma_i$와 $\Gamma_j$ 사이의 연관성을 규명합니다.</p>
-        <div class='math-box'>
-            \[ 	ext{If } M\Gamma_i(R) = \Gamma_j(R)M, 	ext{ then } M=0 	ext{ or } \Gamma_i \cong \Gamma_j \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s49">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 05 | Slide 49</div>
-            <h2 class="mb-8">Schur's Lemma II와 직교성 (49)</h2>
-            
-        <p class='text-xl'>두 기약 표현 $\Gamma_i$와 $\Gamma_j$ 사이의 연관성을 규명합니다.</p>
-        <div class='math-box'>
-            \[ 	ext{If } M\Gamma_i(R) = \Gamma_j(R)M, 	ext{ then } M=0 	ext{ or } \Gamma_i \cong \Gamma_j \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s50">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 05 | Slide 50</div>
-            <h2 class="mb-8">Schur's Lemma II와 직교성 (50)</h2>
-            
-        <p class='text-xl'>두 기약 표현 $\Gamma_i$와 $\Gamma_j$ 사이의 연관성을 규명합니다.</p>
-        <div class='math-box'>
-            \[ 	ext{If } M\Gamma_i(R) = \Gamma_j(R)M, 	ext{ then } M=0 	ext{ or } \Gamma_i \cong \Gamma_j \]
-        </div>
-    
+    <p class='text-xl'>GOT 수식에서 $m=n, m'=n'$ 인 대각 원소들만 취하여 합을 구합니다($\text{Trace}$).</p>
+    <div class='axiom-box text-center'>
+        \[ \sum_{R} \chi_i(R)^* \chi_j(R) = h \delta_{ij} \]
+    </div>
+    <p class='mt-4'>이 식을 클래스의 개수 $g_c$ 를 이용하여 다시 쓰면, 우리가 아는 지표표 작성 규칙(Rule 3)이 도출됩니다.</p>
+    <div class='math-box text-center'>
+        \[ \sum_{c} g_c \chi_i(c)^* \chi_j(c) = h \delta_{ij} \]
+    </div>
+
         </div>
     </section>
     
     <section id="s51">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 06 | Slide 51</div>
-            <h2 class="mb-8">위대한 직교성 정리 (Great Orthogonality Theorem)</h2>
+            <h2 class="mb-8">투영 연산자 (Projection Operator)</h2>
             
-    <div class='axiom-box bg-slate-900 text-white'>
-        <span class='theorem-title text-cyan-400'>The Fundamental Theorem</span>
-        \[ \sum_{R} \Gamma_i(R)_{mn}^* \Gamma_j(R)_{m'n'} = \frac{h}{\sqrt{l_i l_j}} \delta_{ij} \delta_{mm'} \delta_{nn'} \]
+    <p class='text-xl leading-relaxed'>수학적으로 <b>투영 연산자</b>는 전체 공간 $V$를 특정 부분 공간 $W$로 맵핑하는 연산자입니다. $\hat{P}^2 = \hat{P}$ (멱등성, Idempotency)을 만족합니다.</p>
+    <div class='math-proof'>
+        <span class='theorem-title'>지표 투영 연산자 (Character Projection Operator)</span>
+        \[ \hat{P}^{(i)} = \frac{l_i}{h} \sum_{R} \chi^{(i)}(R)^* \hat{R} \]
     </div>
-    <p class='mt-10'>이 수식은 서로 다른 기약 표현의 모든 행렬 원소가 다차원 벡터 공간에서 <b>상호 직교</b>함을 의미합니다.</p>
+    <p class='mt-4'>이 연산자를 임의의 함수 $f$에 가하면, $f$ 안에 숨어있던 $i$번째 기약 표현의 대칭성을 띠는 <b>대칭 적합 선형 결합(SALC)</b> 파트만 정확히 걸러냅니다.</p>
 
         </div>
     </section>
@@ -834,270 +726,71 @@ angle \]
     <section id="s52">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 06 | Slide 52</div>
-            <h2 class="mb-8">지표(Character)의 수학적 성질 (52)</h2>
+            <h2 class="mb-8">텐서곱 공간과 행렬 표현</h2>
             
-        <p class='text-xl'>지표 $\chi(R) = 	ext{Tr}(\Gamma(R))$은 유사 변환에 불변인 <b>Class Function</b>입니다.</p>
-        <div class='math-box'>
-            \[ \chi(P^{-1}RP) = \chi(R) \]
-        </div>
-    
+    <p class='text-xl'>두 전자가 상호작용하는 계나, 편극률(Polarizability) 텐서를 다룰 때 <b>Kronecker Product</b>가 사용됩니다.</p>
+    <div class='axiom-box text-center overflow-x-auto'>
+        \[ A \otimes B = \begin{pmatrix} a_{11}B & a_{12}B & \cdots \\ a_{21}B & a_{22}B & \cdots \\ \vdots & \vdots & \ddots \end{pmatrix} \]
+    </div>
+    <p class='mt-4 text-lg'>텐서곱 행렬의 대각합은 각 행렬 대각합의 곱입니다: $\chi_{A \otimes B} = \chi_A \cdot \chi_B$</p>
+
         </div>
     </section>
     
     <section id="s53">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 06 | Slide 53</div>
-            <h2 class="mb-8">지표(Character)의 수학적 성질 (53)</h2>
+            <h2 class="mb-8">직접곱 (Direct Product)의 분해</h2>
             
-        <p class='text-xl'>지표 $\chi(R) = 	ext{Tr}(\Gamma(R))$은 유사 변환에 불변인 <b>Class Function</b>입니다.</p>
-        <div class='math-box'>
-            \[ \chi(P^{-1}RP) = \chi(R) \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s54">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 06 | Slide 54</div>
-            <h2 class="mb-8">지표(Character)의 수학적 성질 (54)</h2>
-            
-        <p class='text-xl'>지표 $\chi(R) = 	ext{Tr}(\Gamma(R))$은 유사 변환에 불변인 <b>Class Function</b>입니다.</p>
-        <div class='math-box'>
-            \[ \chi(P^{-1}RP) = \chi(R) \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s55">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 06 | Slide 55</div>
-            <h2 class="mb-8">지표(Character)의 수학적 성질 (55)</h2>
-            
-        <p class='text-xl'>지표 $\chi(R) = 	ext{Tr}(\Gamma(R))$은 유사 변환에 불변인 <b>Class Function</b>입니다.</p>
-        <div class='math-box'>
-            \[ \chi(P^{-1}RP) = \chi(R) \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s56">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 06 | Slide 56</div>
-            <h2 class="mb-8">지표(Character)의 수학적 성질 (56)</h2>
-            
-        <p class='text-xl'>지표 $\chi(R) = 	ext{Tr}(\Gamma(R))$은 유사 변환에 불변인 <b>Class Function</b>입니다.</p>
-        <div class='math-box'>
-            \[ \chi(P^{-1}RP) = \chi(R) \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s57">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 06 | Slide 57</div>
-            <h2 class="mb-8">지표(Character)의 수학적 성질 (57)</h2>
-            
-        <p class='text-xl'>지표 $\chi(R) = 	ext{Tr}(\Gamma(R))$은 유사 변환에 불변인 <b>Class Function</b>입니다.</p>
-        <div class='math-box'>
-            \[ \chi(P^{-1}RP) = \chi(R) \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s58">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 06 | Slide 58</div>
-            <h2 class="mb-8">지표(Character)의 수학적 성질 (58)</h2>
-            
-        <p class='text-xl'>지표 $\chi(R) = 	ext{Tr}(\Gamma(R))$은 유사 변환에 불변인 <b>Class Function</b>입니다.</p>
-        <div class='math-box'>
-            \[ \chi(P^{-1}RP) = \chi(R) \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s59">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 06 | Slide 59</div>
-            <h2 class="mb-8">지표(Character)의 수학적 성질 (59)</h2>
-            
-        <p class='text-xl'>지표 $\chi(R) = 	ext{Tr}(\Gamma(R))$은 유사 변환에 불변인 <b>Class Function</b>입니다.</p>
-        <div class='math-box'>
-            \[ \chi(P^{-1}RP) = \chi(R) \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s60">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 06 | Slide 60</div>
-            <h2 class="mb-8">지표(Character)의 수학적 성질 (60)</h2>
-            
-        <p class='text-xl'>지표 $\chi(R) = 	ext{Tr}(\Gamma(R))$은 유사 변환에 불변인 <b>Class Function</b>입니다.</p>
-        <div class='math-box'>
-            \[ \chi(P^{-1}RP) = \chi(R) \]
-        </div>
-    
+    <p class='text-xl'>두 기약 표현 $\Gamma_i$ 와 $\Gamma_j$ 의 텐서곱 표현 $\Gamma_i \otimes \Gamma_j$ 는 일반적으로 <b>가약 표현(Reducible Rep)</b>이 됩니다.</p>
+    <div class='math-proof'>
+        <p>약분 공식을 사용하여 이를 다시 기약 표현의 합(Clebsch-Gordan series)으로 분해해야 합니다.</p>
+        \[ \Gamma_i \otimes \Gamma_j = \sum_{k} c_{ij}^k \Gamma_k \]
+    </div>
+    <p class='mt-4'>이때 계수 $c_{ij}^k$ 를 구하는 과정이 바로 양자역학의 각운동량 합성(Addition of Angular Momentum)과 수학적으로 완벽히 동일합니다.</p>
+
         </div>
     </section>
     
     <section id="s61">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 07 | Slide 61</div>
-            <h2 class="mb-8">지표의 직교성과 약분 공식 (61)</h2>
+            <h2 class="mb-8">해밀토니안의 대칭성 (Symmetry of the Hamiltonian)</h2>
             
-        <p class='text-xl'>GOT로부터 지표의 직교성을 유도합니다.</p>
-        <div class='math-box'>
-            \[ \frac{1}{h} \sum_R \chi_i(R)^* \chi_j(R) = \delta_{ij} \]
-        </div>
-        <p class='mt-6'>이로부터 가약 표현 내에 기약 표현이 몇 번 포함되는지 계산하는 약분 공식이 도출됩니다.</p>
-    
+    <p class='text-xl'>물리계가 어떤 대칭 조작 $\hat{R}$ 에 대해 불변이라는 것은, 계의 위치 에너지가 그 조작에 의해 변하지 않음을 뜻합니다.</p>
+    <div class='axiom-box text-center text-2xl font-serif text-red-700'>
+        \[ \hat{R}^\dagger \hat{H} \hat{R} = \hat{H} \iff [\hat{H}, \hat{R}] = 0 \]
+    </div>
+    <p class='mt-6 text-lg'>이 <b>가환성(Commutativity)</b>은 해밀토니안 $\hat{H}$ 와 대칭 조작 $\hat{R}$ 이 <b>동시 고유함수(Simultaneous Eigenfunctions)</b>를 가질 수 있음을 대수적으로 보장합니다.</p>
+
         </div>
     </section>
     
     <section id="s62">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 07 | Slide 62</div>
-            <h2 class="mb-8">지표의 직교성과 약분 공식 (62)</h2>
+            <h2 class="mb-8">축퇴 (Degeneracy)의 군론적 기원</h2>
             
-        <p class='text-xl'>GOT로부터 지표의 직교성을 유도합니다.</p>
-        <div class='math-box'>
-            \[ \frac{1}{h} \sum_R \chi_i(R)^* \chi_j(R) = \delta_{ij} \]
-        </div>
-        <p class='mt-6'>이로부터 가약 표현 내에 기약 표현이 몇 번 포함되는지 계산하는 약분 공식이 도출됩니다.</p>
-    
-        </div>
-    </section>
-    
-    <section id="s63">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 07 | Slide 63</div>
-            <h2 class="mb-8">지표의 직교성과 약분 공식 (63)</h2>
-            
-        <p class='text-xl'>GOT로부터 지표의 직교성을 유도합니다.</p>
-        <div class='math-box'>
-            \[ \frac{1}{h} \sum_R \chi_i(R)^* \chi_j(R) = \delta_{ij} \]
-        </div>
-        <p class='mt-6'>이로부터 가약 표현 내에 기약 표현이 몇 번 포함되는지 계산하는 약분 공식이 도출됩니다.</p>
-    
-        </div>
-    </section>
-    
-    <section id="s64">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 07 | Slide 64</div>
-            <h2 class="mb-8">지표의 직교성과 약분 공식 (64)</h2>
-            
-        <p class='text-xl'>GOT로부터 지표의 직교성을 유도합니다.</p>
-        <div class='math-box'>
-            \[ \frac{1}{h} \sum_R \chi_i(R)^* \chi_j(R) = \delta_{ij} \]
-        </div>
-        <p class='mt-6'>이로부터 가약 표현 내에 기약 표현이 몇 번 포함되는지 계산하는 약분 공식이 도출됩니다.</p>
-    
-        </div>
-    </section>
-    
-    <section id="s65">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 07 | Slide 65</div>
-            <h2 class="mb-8">지표의 직교성과 약분 공식 (65)</h2>
-            
-        <p class='text-xl'>GOT로부터 지표의 직교성을 유도합니다.</p>
-        <div class='math-box'>
-            \[ \frac{1}{h} \sum_R \chi_i(R)^* \chi_j(R) = \delta_{ij} \]
-        </div>
-        <p class='mt-6'>이로부터 가약 표현 내에 기약 표현이 몇 번 포함되는지 계산하는 약분 공식이 도출됩니다.</p>
-    
-        </div>
-    </section>
-    
-    <section id="s66">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 07 | Slide 66</div>
-            <h2 class="mb-8">지표의 직교성과 약분 공식 (66)</h2>
-            
-        <p class='text-xl'>GOT로부터 지표의 직교성을 유도합니다.</p>
-        <div class='math-box'>
-            \[ \frac{1}{h} \sum_R \chi_i(R)^* \chi_j(R) = \delta_{ij} \]
-        </div>
-        <p class='mt-6'>이로부터 가약 표현 내에 기약 표현이 몇 번 포함되는지 계산하는 약분 공식이 도출됩니다.</p>
-    
-        </div>
-    </section>
-    
-    <section id="s67">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 07 | Slide 67</div>
-            <h2 class="mb-8">지표의 직교성과 약분 공식 (67)</h2>
-            
-        <p class='text-xl'>GOT로부터 지표의 직교성을 유도합니다.</p>
-        <div class='math-box'>
-            \[ \frac{1}{h} \sum_R \chi_i(R)^* \chi_j(R) = \delta_{ij} \]
-        </div>
-        <p class='mt-6'>이로부터 가약 표현 내에 기약 표현이 몇 번 포함되는지 계산하는 약분 공식이 도출됩니다.</p>
-    
-        </div>
-    </section>
-    
-    <section id="s68">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 07 | Slide 68</div>
-            <h2 class="mb-8">지표의 직교성과 약분 공식 (68)</h2>
-            
-        <p class='text-xl'>GOT로부터 지표의 직교성을 유도합니다.</p>
-        <div class='math-box'>
-            \[ \frac{1}{h} \sum_R \chi_i(R)^* \chi_j(R) = \delta_{ij} \]
-        </div>
-        <p class='mt-6'>이로부터 가약 표현 내에 기약 표현이 몇 번 포함되는지 계산하는 약분 공식이 도출됩니다.</p>
-    
-        </div>
-    </section>
-    
-    <section id="s69">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 07 | Slide 69</div>
-            <h2 class="mb-8">지표의 직교성과 약분 공식 (69)</h2>
-            
-        <p class='text-xl'>GOT로부터 지표의 직교성을 유도합니다.</p>
-        <div class='math-box'>
-            \[ \frac{1}{h} \sum_R \chi_i(R)^* \chi_j(R) = \delta_{ij} \]
-        </div>
-        <p class='mt-6'>이로부터 가약 표현 내에 기약 표현이 몇 번 포함되는지 계산하는 약분 공식이 도출됩니다.</p>
-    
-        </div>
-    </section>
-    
-    <section id="s70">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 07 | Slide 70</div>
-            <h2 class="mb-8">지표의 직교성과 약분 공식 (70)</h2>
-            
-        <p class='text-xl'>GOT로부터 지표의 직교성을 유도합니다.</p>
-        <div class='math-box'>
-            \[ \frac{1}{h} \sum_R \chi_i(R)^* \chi_j(R) = \delta_{ij} \]
-        </div>
-        <p class='mt-6'>이로부터 가약 표현 내에 기약 표현이 몇 번 포함되는지 계산하는 약분 공식이 도출됩니다.</p>
-    
+    <p class='text-xl'>슈뢰딩거 방정식 $\hat{H}\psi_n = E\psi_n$ 의 해인 $\psi_n$ 에 대칭 조작을 가해봅니다.</p>
+    <div class='math-proof'>
+        \[ \hat{H}(\hat{R}\psi_n) = \hat{R}\hat{H}\psi_n = \hat{R}(E\psi_n) = E(\hat{R}\psi_n) \]
+    </div>
+    <p class='mt-4'>$\hat{R}\psi_n$ 역시 <b>완전히 동일한 에너지 $E$</b>를 가집니다.</p>
+    <p class='mt-4 font-bold text-blue-700'>결론: 에너지 준위 $E$에 속하는 파동함수들은 군 $G$에 대한 불변 부분 공간을 형성하며, 이 공간은 하나의 <b>기약 표현(Irreducible Rep)</b>을 이룹니다. 이 기약 표현의 차원($l_i$)이 곧 그 에너지 준위의 <b>축퇴도</b>가 됩니다!</p>
+
         </div>
     </section>
     
     <section id="s71">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 08 | Slide 71</div>
-            <h2 class="mb-8">Hamiltonian과 대칭 연산자의 가환</h2>
+            <h2 class="mb-8">소멸 적분 정리 (Vanishing Integral Theorem)</h2>
             
-    <p class='text-xl'>물리적 계의 에너지는 해밀토니안 $\hat{H}$의 고유값입니다.</p>
-    <div class='math-proof'>
-        \[ [\hat{H}, \hat{R}] = 0 \]
-        <p>이 가환성은 조작 $\hat{R}$을 가해도 계의 에너지가 변하지 않음을 의미하며, 이는 <b>대칭성이 물리량의 보존 법칙</b>임을 시사합니다.</p>
+    <p class='text-xl'>물리학에서 가장 많이 쓰이는 대칭성 정리입니다. 공간 전역에 대한 적분 $I = \int f(x,y,z) d\tau$ 를 생각해봅시다.</p>
+    <div class='axiom-box'>
+        <p>만약 피적분 함수 $f$가 군의 <b>완전 대칭 표현($A_1$ 또는 $A_g$)</b>을 포함하지 않는다면, 이 적분값은 수학적으로 <b>정확히 0</b>이 됩니다.</p>
     </div>
+    <p class='mt-4 text-slate-600'>이유: 완전 대칭이 아니라는 것은 어떤 조작(예: 반전)에 대해 부호가 바뀐다는 뜻이며, 전체 공간을 적분하면 +영역과 -영역이 완벽히 상쇄되기 때문입니다.</p>
 
         </div>
     </section>
@@ -1105,119 +798,33 @@ angle \]
     <section id="s72">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 08 | Slide 72</div>
-            <h2 class="mb-8">축퇴도와 기약 표현의 차원 (72)</h2>
+            <h2 class="mb-8">전이 확률과 Selection Rules</h2>
             
-        <p class='text-xl'>에너지 준위 $E$의 축퇴도는 해당 에너지 공간이 형성하는 기약 표현의 차원 $l_i$와 같습니다.</p>
-        <div class='math-box'>
-            \[ \hat{H} \psi_n = E \psi_n \implies \hat{H} (\hat{R} \psi_n) = \hat{R} (\hat{H} \psi_n) = E (\hat{R} \psi_n) \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s73">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 08 | Slide 73</div>
-            <h2 class="mb-8">축퇴도와 기약 표현의 차원 (73)</h2>
-            
-        <p class='text-xl'>에너지 준위 $E$의 축퇴도는 해당 에너지 공간이 형성하는 기약 표현의 차원 $l_i$와 같습니다.</p>
-        <div class='math-box'>
-            \[ \hat{H} \psi_n = E \psi_n \implies \hat{H} (\hat{R} \psi_n) = \hat{R} (\hat{H} \psi_n) = E (\hat{R} \psi_n) \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s74">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 08 | Slide 74</div>
-            <h2 class="mb-8">축퇴도와 기약 표현의 차원 (74)</h2>
-            
-        <p class='text-xl'>에너지 준위 $E$의 축퇴도는 해당 에너지 공간이 형성하는 기약 표현의 차원 $l_i$와 같습니다.</p>
-        <div class='math-box'>
-            \[ \hat{H} \psi_n = E \psi_n \implies \hat{H} (\hat{R} \psi_n) = \hat{R} (\hat{H} \psi_n) = E (\hat{R} \psi_n) \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s75">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 08 | Slide 75</div>
-            <h2 class="mb-8">축퇴도와 기약 표현의 차원 (75)</h2>
-            
-        <p class='text-xl'>에너지 준위 $E$의 축퇴도는 해당 에너지 공간이 형성하는 기약 표현의 차원 $l_i$와 같습니다.</p>
-        <div class='math-box'>
-            \[ \hat{H} \psi_n = E \psi_n \implies \hat{H} (\hat{R} \psi_n) = \hat{R} (\hat{H} \psi_n) = E (\hat{R} \psi_n) \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s76">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 08 | Slide 76</div>
-            <h2 class="mb-8">축퇴도와 기약 표현의 차원 (76)</h2>
-            
-        <p class='text-xl'>에너지 준위 $E$의 축퇴도는 해당 에너지 공간이 형성하는 기약 표현의 차원 $l_i$와 같습니다.</p>
-        <div class='math-box'>
-            \[ \hat{H} \psi_n = E \psi_n \implies \hat{H} (\hat{R} \psi_n) = \hat{R} (\hat{H} \psi_n) = E (\hat{R} \psi_n) \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s77">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 08 | Slide 77</div>
-            <h2 class="mb-8">축퇴도와 기약 표현의 차원 (77)</h2>
-            
-        <p class='text-xl'>에너지 준위 $E$의 축퇴도는 해당 에너지 공간이 형성하는 기약 표현의 차원 $l_i$와 같습니다.</p>
-        <div class='math-box'>
-            \[ \hat{H} \psi_n = E \psi_n \implies \hat{H} (\hat{R} \psi_n) = \hat{R} (\hat{H} \psi_n) = E (\hat{R} \psi_n) \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s78">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 08 | Slide 78</div>
-            <h2 class="mb-8">축퇴도와 기약 표현의 차원 (78)</h2>
-            
-        <p class='text-xl'>에너지 준위 $E$의 축퇴도는 해당 에너지 공간이 형성하는 기약 표현의 차원 $l_i$와 같습니다.</p>
-        <div class='math-box'>
-            \[ \hat{H} \psi_n = E \psi_n \implies \hat{H} (\hat{R} \psi_n) = \hat{R} (\hat{H} \psi_n) = E (\hat{R} \psi_n) \]
-        </div>
-    
-        </div>
-    </section>
-    
-    <section id="s79">
-        <div class="slide-content text-left px-16">
-            <div class="chapter-header">Chapter 08 | Slide 79</div>
-            <h2 class="mb-8">축퇴도와 기약 표현의 차원 (79)</h2>
-            
-        <p class='text-xl'>에너지 준위 $E$의 축퇴도는 해당 에너지 공간이 형성하는 기약 표현의 차원 $l_i$와 같습니다.</p>
-        <div class='math-box'>
-            \[ \hat{H} \psi_n = E \psi_n \implies \hat{H} (\hat{R} \psi_n) = \hat{R} (\hat{H} \psi_n) = E (\hat{R} \psi_n) \]
-        </div>
-    
+    <p class='text-xl'>광자 흡수에 의한 전이 확률은 쌍극자 모멘트 연산자 $\hat{\mu}$ 의 적분에 비례합니다.</p>
+    <div class='math-proof text-center'>
+        \[ I = \langle \psi_{final} | \hat{\mu} | \psi_{initial} \rangle = \int \psi_{final}^* \hat{\mu} \psi_{initial} d\tau \]
+    </div>
+    <p class='mt-4'>이 적분이 0이 아니기 위해서는(Allowed Transition), 피적분 함수의 직접곱 대칭성이 완전 대칭 표현($A_1$)을 포함해야만 합니다.</p>
+    <div class='text-center mt-4 font-bold text-red-600 text-2xl'>
+        \[ \Gamma(\psi_f) \otimes \Gamma(\mu) \otimes \Gamma(\psi_i) \supset A_1 \]
+    </div>
+
         </div>
     </section>
     
     <section id="s80">
         <div class="slide-content text-left px-16">
             <div class="chapter-header">Chapter 08 | Slide 80</div>
-            <h2 class="mb-8">에필로그: Wigner-Eckart 정리와 그 너머</h2>
+            <h2 class="mb-8">에필로그: Wigner-Eckart 정리의 예고</h2>
             
     <div class='slide-content text-center py-10'>
-        <h2 class='text-4xl font-bold mb-10'>The Peak of Symmetry</h2>
-        <p class='text-xl italic mb-10'>"수학은 대칭을 정의하고, 대칭은 물리 법칙을 강제한다."</p>
-        <div class='axiom-box'>
-            <p>우리는 이제 분자의 거동이 왜 지표표라는 작은 숫자의 표에 의해 지배받는지 그 심오한 이유를 깨달았습니다.</p>
+        <h2 class='text-4xl font-bold mb-10 text-indigo-900'>The Pinnacle of Symmetry</h2>
+        <div class='math-proof text-left text-sm mb-10'>
+            <span class='theorem-title'>Wigner-Eckart Theorem</span>
+            \[ \langle \alpha, j, m | T_q^{(k)} | \alpha', j', m' \rangle = \langle j' k ; m' q | j' k ; j m \rangle \frac{\langle \alpha, j || T^{(k)} || \alpha', j' \rangle}{\sqrt{2j+1}} \]
         </div>
-        <p class='mt-10 font-bold'>- Bonus Module Complete -</p>
+        <p class='text-xl italic mb-10 leading-relaxed text-slate-700'>"군론은 물리적 상호작용의 적분값을 <b>순수 기하학적 요소(Clebsch-Gordan 계수)</b>와 <b>동역학적 요소(Reduced matrix element)</b>로 분리해냅니다. 우리는 오직 전자를 계산하여 후자의 복잡한 계산을 회피할 수 있습니다."</p>
+        <p class='mt-10 font-black text-2xl text-blue-600 tracking-widest'>- RIGOROUS BONUS MODULE COMPLETE -</p>
     </div>
 
         </div>
