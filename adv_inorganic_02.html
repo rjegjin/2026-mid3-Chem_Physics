@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고급 무기화학 02: 표현론과 지표표 (Representations & Character Tables)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'style', 'textarea', 'pre', 'code']
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/presentation_mode.css">
+    <link rel="stylesheet" href="css/chem_style.css">
+</head>
+<body class="presentation-mode">
+
+<main>
+    
+    <!-- Slide 1: Cover -->
+    <section id="s1">
+        <div class="slide-content" style="border:none; background:transparent; box-shadow:none;">
+            <p class="text-sm font-bold text-slate-500 uppercase tracking-[0.3em] mb-4">Advanced Inorganic Chemistry Series</p>
+            <h1 class="text-5xl font-black mb-6 text-slate-900 leading-tight">
+                Module 2. 표현론과 지표표<br>
+                <span class="text-2xl font-light text-slate-500">(Representations and Character Tables)</span>
+            </h1>
+            <div class="w-32 h-1 bg-slate-900 mx-auto my-10"></div>
+            <p class="text-xl font-medium text-slate-700 uppercase tracking-widest">제 2강: 위대한 직교성 정리와 행렬의 수학</p>
+        </div>
+    </section>
+
+    <!-- Slide 2: Prerequisite -->
+    <section id="s2">
+        <div class="slide-content">
+            <h2>Review: 모듈 1 핵심 요약</h2>
+            <div class="w-full max-w-4xl bg-white p-10 border border-slate-200">
+                <ul class="text-left text-lg space-y-4">
+                    <li><strong class="text-blue-700">대칭 조작 (Symmetry Operations):</strong> \( E, C_n, \sigma, i, S_n \)</li>
+                    <li><strong class="text-blue-700">점군 (Point Group):</strong> 분자의 모든 대칭 조작의 집합.</li>
+                    <li><strong class="text-blue-700">지표표 (Character Table):</strong> 대칭 조작에 대한 기약 표현의 흔적(Trace)을 모아둔 표.</li>
+                </ul>
+                <div class="p-6 bg-slate-100 mt-8 rounded-xl border-l-4 border-slate-500">
+                    <p class="text-left font-bold">이번 강의의 목표:</p>
+                    <p class="text-left mt-2">지표표의 숫자들이 단순히 주어진 것이 아니라, <strong>수학적 행렬 변환과 엄밀한 정리(GOT)를 통해 유도된 것임</strong>을 증명하고 직접 작성해봅니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Basis Vectors -->
+    <section id="s3">
+        <div class="slide-content text-left px-16">
+            <h2>기저 (Basis)의 개념</h2>
+            <p class="mb-6 text-xl">대칭 조작을 수학적으로 표현하기 위해서는 <strong>'무엇을 변환시킬 것인가'</strong>를 정해야 합니다.</p>
+            
+            <div class="grid grid-cols-2 gap-8">
+                <div class="p-6 bg-white shadow-sm border border-slate-200 rounded-xl">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">흔히 사용되는 기저</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-slate-700">
+                        <li>원자의 \(x, y, z\) 좌표 (3차원 기저)</li>
+                        <li>분자 전체 원자의 \(3N\) 좌표 (3N차원 기저)</li>
+                        <li>원자 오비탈 (예: \(p_x, p_y, p_z\))</li>
+                        <li>결합 벡터 (Bond Vectors)</li>
+                    </ul>
+                </div>
+                <div class="flex items-center justify-center bg-slate-50 rounded-xl p-4">
+                    <div class="math-box m-0 w-full text-center">
+                        \[ \hat{R} \mathbf{V} = \Gamma(R) \mathbf{V} \]
+                        <p class="text-sm mt-2 text-slate-500">대칭 연산자 \(\hat{R}\) 이 기저 벡터 \(\mathbf{V}\) 에 작용하여 변환 행렬 \(\Gamma(R)\) 을 생성</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: 3N Coordinates -->
+    <section id="s4">
+        <div class="slide-content">
+            <h2>3N 카테시안 좌표 기저 (3N Cartesian Basis)</h2>
+            <p class="mb-6 text-lg">물 분자(\(H_2O\))의 전체 운동을 기술하기 위해 3개의 원자 각각에 \(x, y, z\) 축을 부여하면, 총 <strong>9차원</strong>의 기저 벡터가 생성됩니다.</p>
+            <div class="math-box">
+                \[
+                \mathbf{V}_{3N} = \begin{pmatrix} x_{O} \\ y_{O} \\ z_{O} \\ x_{H1} \\ y_{H1} \\ z_{H1} \\ x_{H2} \\ y_{H2} \\ z_{H2} \end{pmatrix}
+                \]
+            </div>
+            <p class="text-left px-16 mt-4 text-slate-700">이 9차원 벡터에 \(C_{2v}\) 점군의 대칭 조작(\(E, C_2, \sigma_v, \sigma_v'\))을 가하면, 각각 \(9 \times 9\) 크기의 거대한 변환 행렬을 얻게 됩니다.</p>
+        </div>
+    </section>
+
+    <!-- Slide 5: Unshifted Atoms -->
+    <section id="s5">
+        <div class="slide-content text-left px-16">
+            <h2>대각합(Trace)과 이동하지 않는 원자</h2>
+            <div class="p-6 bg-amber-50 border border-amber-200 rounded-xl mb-6">
+                <h3 class="font-bold text-amber-800 mb-2">핵심 원리 (Shortcut)</h3>
+                <p>행렬의 대각합(Character, \(\chi\))을 구할 때, <strong>위치가 바뀌는 원자는 기여도가 0</strong>입니다.</p>
+                <p>오직 <strong>제자리에 머무는 원자(Unshifted atoms)</strong>만이 행렬의 대각선 원소에 기여하여 지표값을 형성합니다.</p>
+            </div>
+            <div class="math-box">
+                \[ \chi_{3N}(R) = (\text{이동하지 않는 원자의 수}) \times \chi_{xyz}(R) \]
+            </div>
+            <p class="text-slate-600 mt-4">\(\chi_{xyz}(R)\)은 단일 원자의 \(x,y,z\) 좌표계가 해당 조작 \(R\)에 의해 변환될 때의 지표입니다.</p>
+        </div>
+    </section>
+
+    <!-- Slide 6: chi_xyz contributions -->
+    <section id="s6">
+        <div class="slide-content text-left px-16">
+            <h2>\(\chi_{xyz}(R)\) 의 값 (단일 원자 기준)</h2>
+            <table class="char-table w-full mb-6">
+                <thead class="bg-indigo-900 text-white">
+                    <tr><th>대칭 조작 (\(R\))</th><th>변환 결과 (\(x \to x', y \to y', z \to z'\))</th><th>\(\chi_{xyz}\) (대각합)</th></tr>
+                </thead>
+                <tbody class="bg-white">
+                    <tr><td class="font-bold">\( E \)</td><td>\(x, y, z\) (그대로)</td><td class="text-blue-600 font-bold">3</td></tr>
+                    <tr><td class="font-bold">\( i \)</td><td>\(-x, -y, -z\)</td><td class="text-blue-600 font-bold">-3</td></tr>
+                    <tr><td class="font-bold">\( \sigma \) (xy 평면)</td><td>\(x, y, -z\)</td><td class="text-blue-600 font-bold">1</td></tr>
+                    <tr><td class="font-bold">\( C_2 \) (z축)</td><td>\(-x, -y, z\)</td><td class="text-blue-600 font-bold">-1</td></tr>
+                    <tr><td class="font-bold">\( C_n \) (z축)</td><td>\( \cos\theta + \cos\theta + 1 \)</td><td class="text-blue-600 font-bold">\( 1 + 2\cos\theta \)</td></tr>
+                    <tr><td class="font-bold">\( S_n \) (z축)</td><td>\( \cos\theta + \cos\theta - 1 \)</td><td class="text-blue-600 font-bold">\( -1 + 2\cos\theta \)</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Slide 7: H2O 3N Example -->
+    <section id="s7">
+        <div class="slide-content">
+            <h2>\(H_2O\) 분자의 \(\Gamma_{3N}\) 구하기</h2>
+            <p class="mb-4">물 분자는 \(C_{2v}\) 점군에 속합니다 (\(E, C_2, \sigma_v(xz), \sigma_v'(yz)\)).</p>
+            <div class="overflow-x-auto w-full max-w-5xl">
+                <table class="char-table bg-white">
+                    <thead class="bg-slate-100">
+                        <tr><th>Operation</th><th>\(E\)</th><th>\(C_2\)</th><th>\(\sigma_v(xz)\)</th><th>\(\sigma_v'(yz)\)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>이동 안 하는 원자 수</td><td>3 (O, H, H)</td><td>1 (O)</td><td>3 (O, H, H)</td><td>1 (O)</td></tr>
+                        <tr><td>\(\chi_{xyz}\)</td><td>3</td><td>-1</td><td>1</td><td>1</td></tr>
+                        <tr class="bg-blue-50 font-bold"><td>\(\Gamma_{3N}\) (\(\chi_{total}\))</td><td class="text-red-600">9</td><td class="text-red-600">-1</td><td class="text-red-600">3</td><td class="text-red-600">1</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-6 text-lg text-left px-16">이렇게 구한 \(\Gamma = (9, -1, 3, 1)\) 은 9차원 행렬의 대각합을 나타내는 <strong>가약 표현 (Reducible Representation)</strong> 입니다.</p>
+        </div>
+    </section>
+
+    <!-- Slide 8: Block Diagonalization -->
+    <section id="s8">
+        <div class="slide-content">
+            <h2>블록 대각화 (Block Diagonalization)</h2>
+            <p class="mb-6">거대한 가약 표현 행렬은 적절한 <strong>유사 변환 (Similarity Transformation)</strong> 을 통해 더 이상 쪼개질 수 없는 작은 행렬(블록)들로 분해될 수 있습니다.</p>
+            <div class="math-box">
+                \[
+                P^{-1} \Gamma_{red} P = 
+                \begin{pmatrix}
+                [\Gamma_1] & 0 & 0 \\
+                0 & [\Gamma_2] & 0 \\
+                0 & 0 & [\Gamma_3]
+                \end{pmatrix}
+                \]
+            </div>
+            <p class="text-left px-16 mt-4">여기서 쪼개진 가장 작은 단위의 블록 행렬들을 <strong>기약 표현 (Irreducible Representations, IR)</strong> 이라고 부르며, 이들의 대각합(Trace)이 바로 지표표의 행(Row)을 구성합니다.</p>
+        </div>
+    </section>
+
+    <!-- Slide 9: Trace Invariance -->
+    <section id="s9">
+        <div class="slide-content text-left px-16">
+            <h2>대각합의 불변성 (Invariance of the Trace)</h2>
+            <div class="p-6 bg-white border border-slate-200 shadow-sm rounded-xl">
+                <p class="text-lg mb-4">행렬의 수학적 성질에 의해, 두 행렬의 곱의 대각합은 순서를 바꾸어도 동일합니다.</p>
+                <div class="math-box text-center">
+                    \[ \text{Tr}(AB) = \text{Tr}(BA) \]
+                </div>
+                <p class="text-lg mt-4 mb-4">따라서 유사 변환에 대해 대각합은 변하지 않습니다.</p>
+                <div class="math-box text-center">
+                    \[ \text{Tr}(P^{-1} A P) = \text{Tr}(P P^{-1} A) = \text{Tr}(A) \]
+                </div>
+                <p class="text-slate-600 mt-4"><strong>결론:</strong> 어떤 기저를 선택하더라도(가약 표현의 형태가 다르더라도), 그것을 분해했을 때 나오는 기약 표현들의 지표의 합은 원래 가약 표현의 지표와 정확히 일치합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: GOT Definition -->
+    <section id="s10">
+        <div class="slide-content">
+            <h2 class="text-indigo-700">위대한 직교성 정리 (Great Orthogonality Theorem)</h2>
+            <p class="text-xl mb-4 italic">군론의 심장이자 모든 지표표의 수학적 근원</p>
+            <div class="bg-indigo-900 text-white p-8 rounded-xl shadow-2xl w-full max-w-5xl">
+                <div class="text-3xl font-serif text-center mb-6 overflow-x-auto p-4">
+                    \[
+                    \sum_{R} \left[ \Gamma_i(R)_{mn} \right]^* \left[ \Gamma_j(R)_{m'n'} \right] = \frac{h}{\sqrt{l_i l_j}} \delta_{ij} \delta_{mm'} \delta_{nn'}
+                    \]
+                </div>
+            </div>
+            <ul class="text-left mt-6 space-y-2 text-lg w-full max-w-4xl px-8">
+                <li>\( h \) : 군의 차수 (Order of the group, 대칭 조작의 총 개수)</li>
+                <li>\( l_i, l_j \) : 기약 표현 \( \Gamma_i, \Gamma_j \) 의 차원 (Dimension)</li>
+                <li>\( R \) : 군에 속한 각 대칭 조작</li>
+                <li>\( \delta \) : 크로네커 델타 (Kronecker delta, 인덱스가 같으면 1, 다르면 0)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 11: Meaning of GOT -->
+    <section id="s11">
+        <div class="slide-content text-left px-16">
+            <h2>GOT의 물리적 의미</h2>
+            <p class="mb-6 text-lg">복잡한 수식이지만, 핵심은 <strong>"직교성(Orthogonality)"</strong>입니다.</p>
+            <div class="space-y-6">
+                <div class="p-6 bg-slate-50 border-l-4 border-blue-500">
+                    <h3 class="font-bold text-blue-800 text-xl mb-2">\(\delta_{ij}\) 의 의미</h3>
+                    <p>서로 다른 기약 표현(\(i \neq j\))의 행렬 원소들을 곱해서 모든 조작(\(R\))에 대해 더하면 <strong>항상 0</strong>이 됩니다. 즉, 서로 다른 기약 표현은 완전히 독립적(직교)입니다.</p>
+                </div>
+                <div class="p-6 bg-slate-50 border-l-4 border-red-500">
+                    <h3 class="font-bold text-red-800 text-xl mb-2">\(\delta_{mm'} \delta_{nn'}\) 의 의미</h3>
+                    <p>같은 기약 표현 내에서도, 서로 다른 위치의 행렬 원소들끼리 곱해서 더하면 <strong>0</strong>이 됩니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 12: Rule 1 & 2 -->
+    <section id="s12">
+        <div class="slide-content text-left px-16">
+            <h2>지표표 작성 규칙 (Rule 1 & 2)</h2>
+            <p class="mb-6">GOT에 행렬의 대각합(\(m=n, m'=n'\)) 개념을 적용하여 얻어지는 실용적인 5가지 규칙 중 첫 두 가지입니다.</p>
+            
+            <div class="space-y-6">
+                <div class="p-6 border border-slate-300 rounded shadow-sm">
+                    <h3 class="font-bold text-xl mb-2">Rule 1. 기약 표현 차원의 제곱합 = 군의 차수(\(h\))</h3>
+                    <div class="math-box">
+                        \[ \sum_{i} l_i^2 = l_1^2 + l_2^2 + \dots + l_k^2 = h \]
+                    </div>
+                    <p class="text-sm text-slate-500 mt-2">항등 조작 \(E\)의 지표 \(\chi_i(E)\) 가 곧 해당 표현의 차원 \(l_i\) 이므로, \(E\)열의 숫자들을 제곱해서 더하면 총 조작 수(\(h\))가 나와야 합니다.</p>
+                </div>
+                
+                <div class="p-6 border border-slate-300 rounded shadow-sm">
+                    <h3 class="font-bold text-xl mb-2">Rule 2. 기약 표현 지표의 제곱합 = 군의 차수(\(h\))</h3>
+                    <div class="math-box">
+                        \[ \sum_{R} [\chi_i(R)]^2 = h \]
+                    </div>
+                    <p class="text-sm text-slate-500 mt-2">지표표에서 임의의 행(가로줄)을 선택하여, 각 원소를 제곱한 뒤 클래스의 계수(\(g_c\))를 곱해 모두 더하면 항상 \(h\)가 됩니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 13: Rule 3 -->
+    <section id="s13">
+        <div class="slide-content">
+            <h2>지표표 작성 규칙 (Rule 3)</h2>
+            <div class="w-full max-w-4xl bg-white p-8 border border-slate-200 rounded-xl text-left">
+                <h3 class="font-bold text-xl mb-4 text-indigo-700">Rule 3. 서로 다른 기약 표현의 지표 벡터는 직교한다.</h3>
+                <div class="math-box">
+                    \[ \sum_{R} \chi_i(R) \chi_j(R) = 0 \quad (i \neq j) \]
+                </div>
+                <p class="text-lg mt-4 leading-relaxed">
+                    지표표의 어떤 두 행을 골라 내적(Dot Product)을 취하면 반드시 0이 됩니다.<br>
+                    <strong>주의:</strong> 클래스로 묶여 있을 경우, 해당 클래스에 속한 조작의 개수(\(g_c\))를 반드시 곱해서 더해야 합니다.
+                </p>
+                <div class="math-box bg-slate-50">
+                    \[ \sum_{c} g_c \chi_i(c) \chi_j(c) = 0 \]
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 14: Rule 4 & 5 -->
+    <section id="s14">
+        <div class="slide-content text-left px-16">
+            <h2>지표표 작성 규칙 (Rule 4 & 5)</h2>
+            
+            <div class="space-y-6 mt-6">
+                <div class="p-6 bg-slate-50 border-l-4 border-emerald-500">
+                    <h3 class="font-bold text-emerald-800 text-xl mb-2">Rule 4. 기약 표현의 수 = 클래스(Class)의 수</h3>
+                    <p>지표표는 항상 <strong>정사각 행렬(Square Matrix)</strong> 형태를 띱니다. (행의 개수 = 열의 개수)</p>
+                    <p class="text-sm text-slate-500 mt-2">※ 클래스란? 서로 유사 변환 관계에 있는 대칭 조작들의 묶음. (예: 3개의 \(\sigma_v\) 가 한 클래스로 묶임)</p>
+                </div>
+                
+                <div class="p-6 bg-slate-50 border-l-4 border-purple-500">
+                    <h3 class="font-bold text-purple-800 text-xl mb-2">Rule 5. 열(Column) 벡터들의 직교성</h3>
+                    <p>행 벡터뿐만 아니라, 동일한 클래스 열이 아닌 서로 다른 두 열을 뽑아 기약 표현들에 대해 더해도 직교합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 15: Constructing C2v Table 1 -->
+    <section id="s15">
+        <div class="slide-content">
+            <h2>실습: \(C_{2v}\) 지표표 직접 유도하기 (1단계)</h2>
+            <p class="mb-6">오직 5가지 규칙만을 이용하여 빈 표를 채워봅시다.</p>
+            <div class="bg-white p-6 border border-slate-300 rounded shadow">
+                <p class="text-left mb-2 font-bold text-slate-700">1. 군의 조작 파악:</p>
+                <p class="text-left pl-4 mb-4">\(C_{2v} = \{ E, C_2, \sigma_v, \sigma_v' \} \implies h = 4 \)</p>
+                
+                <p class="text-left mb-2 font-bold text-slate-700">2. 클래스 수에 따른 차원 결정 (Rule 4 & 1):</p>
+                <p class="text-left pl-4">클래스가 4개이므로, 기약 표현(행)도 4개입니다. (\(\Gamma_1, \Gamma_2, \Gamma_3, \Gamma_4\))</p>
+                <p class="text-left pl-4">\( l_1^2 + l_2^2 + l_3^2 + l_4^2 = h = 4 \)</p>
+                <p class="text-left pl-4 text-blue-600 font-bold">유일한 정수해: \(1^2 + 1^2 + 1^2 + 1^2 = 4\). 모든 표현은 1차원입니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 16: Constructing C2v Table 2 -->
+    <section id="s16">
+        <div class="slide-content">
+            <h2>실습: \(C_{2v}\) 지표표 직접 유도하기 (2단계)</h2>
+            <div class="w-full max-w-4xl overflow-hidden border border-slate-300 rounded mt-4">
+                <table class="char-table bg-white">
+                    <thead class="bg-indigo-100">
+                        <tr><th>\(C_{2v}\)</th><th>\(E\)</th><th>\(C_2\)</th><th>\(\sigma_v(xz)\)</th><th>\(\sigma_v'(yz)\)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>\(\Gamma_1\)</td><td class="font-bold text-blue-600">1</td><td></td><td></td><td></td></tr>
+                        <tr><td>\(\Gamma_2\)</td><td class="font-bold text-blue-600">1</td><td></td><td></td><td></td></tr>
+                        <tr><td>\(\Gamma_3\)</td><td class="font-bold text-blue-600">1</td><td></td><td></td><td></td></tr>
+                        <tr><td>\(\Gamma_4\)</td><td class="font-bold text-blue-600">1</td><td></td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-left px-16 mt-6">
+                <p>1차원 행렬이므로 \(\chi_i(E)\) 는 차원수인 1이 됩니다.</p>
+                <p class="mt-4 font-bold">3. 완전 대칭 표현 (Totally Symmetric Representation):</p>
+                <p>모든 군은 모든 대칭 조작에 대해 변하지 않는(지표가 모두 +1인) 표현을 최소 하나 가집니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 17: Constructing C2v Table 3 -->
+    <section id="s17">
+        <div class="slide-content">
+            <h2>실습: \(C_{2v}\) 지표표 직접 유도하기 (3단계)</h2>
+            <div class="w-full max-w-4xl overflow-hidden border border-slate-300 rounded mt-4">
+                <table class="char-table bg-white">
+                    <thead class="bg-indigo-100">
+                        <tr><th>\(C_{2v}\)</th><th>\(E\)</th><th>\(C_2\)</th><th>\(\sigma_v\)</th><th>\(\sigma_v'\)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>\(\Gamma_1\) (A1)</td><td>1</td><td class="text-green-600 font-bold">1</td><td class="text-green-600 font-bold">1</td><td class="text-green-600 font-bold">1</td></tr>
+                        <tr><td>\(\Gamma_2\) (A2)</td><td>1</td><td></td><td></td><td></td></tr>
+                        <tr><td>\(\Gamma_3\) (B1)</td><td>1</td><td></td><td></td><td></td></tr>
+                        <tr><td>\(\Gamma_4\) (B2)</td><td>1</td><td></td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-left px-16 mt-6">
+                <p>이제 나머지 칸들을 채웁니다. <br>Rule 2에 의해 각 행의 제곱합은 4가 되어야 합니다: \( 1^2 + x^2 + y^2 + z^2 = 4 \)</p>
+                <p>따라서 나머지 원소들은 모두 \(+1\) 아니면 \(-1\) 이어야 합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 18: Constructing C2v Table 4 -->
+    <section id="s18">
+        <div class="slide-content">
+            <h2>실습: \(C_{2v}\) 지표표 직접 유도하기 (완성)</h2>
+            <p class="mb-4">Rule 3 (직교성)을 만족하도록 +1과 -1의 조합을 찾습니다.</p>
+            <div class="w-full max-w-4xl overflow-hidden border border-slate-300 rounded">
+                <table class="char-table bg-white">
+                    <thead class="bg-indigo-100">
+                        <tr><th>\(C_{2v}\)</th><th>\(E\)</th><th>\(C_2\)</th><th>\(\sigma_v(xz)\)</th><th>\(\sigma_v'(yz)\)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>\(\Gamma_1\) (A1)</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+                        <tr><td>\(\Gamma_2\) (A2)</td><td>1</td><td>1</td><td class="text-red-600 font-bold">-1</td><td class="text-red-600 font-bold">-1</td></tr>
+                        <tr><td>\(\Gamma_3\) (B1)</td><td>1</td><td class="text-red-600 font-bold">-1</td><td>1</td><td class="text-red-600 font-bold">-1</td></tr>
+                        <tr><td>\(\Gamma_4\) (B2)</td><td>1</td><td class="text-red-600 font-bold">-1</td><td class="text-red-600 font-bold">-1</td><td>1</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-left px-16 mt-6">
+                <p>\(\Gamma_1 \cdot \Gamma_2 = (1)(1) + (1)(1) + (1)(-1) + (1)(-1) = 0\) (직교 만족)</p>
+                <p>수학적 규칙만으로 전체 표를 완벽하게 유도해냈습니다!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 19: Degeneracy -->
+    <section id="s19">
+        <div class="slide-content text-left px-16">
+            <h2>비가환 군과 축퇴 (Non-Abelian Groups & Degeneracy)</h2>
+            <div class="grid grid-cols-2 gap-8 mt-8">
+                <div class="p-6 bg-slate-50 border border-slate-200 rounded-xl">
+                    <h3 class="font-bold text-slate-800 mb-2">가환 군 (Abelian Group)</h3>
+                    <p>조작의 순서를 바꾸어도 결과가 같은 군 (\(AB = BA\)).</p>
+                    <p class="mt-2 text-blue-600 font-bold">특징: 모든 기약 표현이 1차원입니다. (예: \(C_{2v}\))</p>
+                </div>
+                <div class="p-6 bg-slate-50 border border-slate-200 rounded-xl">
+                    <h3 class="font-bold text-slate-800 mb-2">비가환 군 (Non-Abelian Group)</h3>
+                    <p>조작 순서가 결과를 바꾸는 군 (\(AB \neq BA\)).</p>
+                    <p class="mt-2 text-red-600 font-bold">특징: 차원이 2 이상인 기약 표현(E, T)이 존재합니다.</p>
+                </div>
+            </div>
+            <div class="mt-8 p-6 bg-yellow-50 border-l-4 border-yellow-500">
+                <p>다차원 기약 표현의 존재는 양자 역학적으로 에너지 준위의 <strong>겹침(축퇴, Degeneracy)</strong>을 의미합니다. (예: \(p_x, p_y\) 오비탈의 에너지 동일)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 20: Constructing C3v 1 -->
+    <section id="s20">
+        <div class="slide-content">
+            <h2>고급 실습: \(C_{3v}\) 지표표 유도 (1단계)</h2>
+            <p class="mb-4">암모니아(\(NH_3\))의 점군인 \(C_{3v}\)는 비가환 군의 좋은 예시입니다.</p>
+            <div class="bg-white p-6 border border-slate-300 rounded shadow text-left">
+                <p class="font-bold text-slate-700">1. 조작 및 클래스 파악:</p>
+                <ul class="list-disc pl-8 mt-2 space-y-1">
+                    <li>\(E\) : 1개</li>
+                    <li>\(C_3, C_3^2\) : 같은 클래스로 묶여 <strong>\(2C_3\)</strong></li>
+                    <li>\(\sigma_v, \sigma_v', \sigma_v''\) : 같은 클래스로 묶여 <strong>\(3\sigma_v\)</strong></li>
+                </ul>
+                <p class="mt-4 font-bold text-red-600">총 조작 수 \(h = 1+2+3 = 6\)</p>
+                <p class="font-bold text-blue-600">클래스 수 = 3개 \(\implies\) 기약 표현은 3개 (\(\Gamma_1, \Gamma_2, \Gamma_3\))</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 21: Constructing C3v 2 -->
+    <section id="s21">
+        <div class="slide-content">
+            <h2>고급 실습: \(C_{3v}\) 차원 구하기</h2>
+            <div class="math-box text-center">
+                \[ l_1^2 + l_2^2 + l_3^2 = h = 6 \]
+            </div>
+            <p class="text-left px-16 mt-6 text-xl">이 방정식을 만족하는 정수해는 오직 하나뿐입니다.</p>
+            <div class="math-box text-center text-red-600 font-bold bg-red-50 border-red-200">
+                \[ 1^2 + 1^2 + 2^2 = 6 \]
+            </div>
+            <p class="text-left px-16 mt-6">따라서 \(C_{3v}\) 점군은 <strong>두 개의 1차원 표현(A)</strong>과 <strong>한 개의 2차원 표현(E)</strong>을 가집니다.</p>
+        </div>
+    </section>
+
+    <!-- Slide 22: Constructing C3v 3 -->
+    <section id="s22">
+        <div class="slide-content">
+            <h2>고급 실습: \(C_{3v}\) 표 채우기</h2>
+            <div class="w-full max-w-4xl overflow-hidden border border-slate-300 rounded mt-4">
+                <table class="char-table bg-white">
+                    <thead class="bg-indigo-100">
+                        <tr><th>\(C_{3v}\)</th><th>\(E\)</th><th>\(2C_3\)</th><th>\(3\sigma_v\)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>\(\Gamma_1\) (A1)</td><td>1</td><td>1</td><td>1</td></tr>
+                        <tr><td>\(\Gamma_2\) (A2)</td><td>1</td><td>x</td><td>y</td></tr>
+                        <tr><td>\(\Gamma_3\) (E)</td><td class="font-bold text-blue-600">2</td><td>a</td><td>b</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-left px-16 mt-6 space-y-2">
+                <p>1. 첫 줄은 항상 완전 대칭 표현(모두 1)입니다.</p>
+                <p>2. \(\Gamma_2\) 구하기 (직교성 이용):</p>
+                <p class="pl-4">\((1)(1)(1) + (2)(1)(x) + (3)(1)(y) = 0 \implies 1 + 2x + 3y = 0\)</p>
+                <p class="pl-4 text-slate-500">지표의 제곱합(Rule 2)을 고려하면 해는 \(x=1, y=-1\) 입니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 23: Constructing C3v 4 -->
+    <section id="s23">
+        <div class="slide-content">
+            <h2>고급 실습: \(C_{3v}\) 2차원 표현 계산</h2>
+            <p class="mb-4">\(\Gamma_3\) (E)의 지표 \(a\) 와 \(b\) 를 구합니다.</p>
+            <div class="math-box text-sm">
+                \[
+                \begin{align}
+                &\text{직교성 (A1과 E): } (1)(1)(2) + (2)(1)(a) + (3)(1)(b) = 0 \\
+                &\implies 2 + 2a + 3b = 0 \\
+                &\text{직교성 (A2와 E): } (1)(1)(2) + (2)(1)(a) + (3)(-1)(b) = 0 \\
+                &\implies 2 + 2a - 3b = 0
+                \end{align}
+                \]
+            </div>
+            <p class="text-center font-bold text-xl mt-4 text-red-600">두 식을 연립하면: \(b = 0\), \(a = -1\)</p>
+        </div>
+    </section>
+
+    <!-- Slide 24: C3v Completed -->
+    <section id="s24">
+        <div class="slide-content">
+            <h2>\(C_{3v}\) 지표표 완성</h2>
+            <div class="w-full max-w-4xl overflow-hidden border border-slate-300 rounded shadow-xl mt-8">
+                <table class="char-table bg-white">
+                    <thead class="bg-indigo-900 text-white">
+                        <tr><th>\(C_{3v}\)</th><th>\(E\)</th><th>\(2C_3\)</th><th>\(3\sigma_v\)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="font-bold">A1</td><td>1</td><td>1</td><td>1</td></tr>
+                        <tr><td class="font-bold">A2</td><td>1</td><td>1</td><td>-1</td></tr>
+                        <tr><td class="font-bold text-blue-600">E</td><td class="text-blue-600">2</td><td class="text-blue-600">-1</td><td class="text-blue-600">0</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-8 text-lg px-16 text-left">
+                이 표는 분자가 3중 대칭축을 가질 때, <strong>2차원적으로 축퇴된 오비탈 쌍(예: \(p_x, p_y\))</strong>이 존재하며, 이들이 \(C_3\) 회전에 의해 섞이게 됨을 수학적으로 증명합니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Slide 25: Revisit Reduction Formula -->
+    <section id="s25">
+        <div class="slide-content text-left px-16">
+            <h2>약분 공식 (Reduction Formula) 복습 및 확장</h2>
+            <div class="bg-indigo-900 text-white p-6 rounded-xl math-box mb-6">
+                \[
+                n_i = \frac{1}{h} \sum_{c} g_c \chi_i(R) \chi_{\Gamma}(R)
+                \]
+            </div>
+            <p class="text-lg leading-relaxed">
+                앞서 유도한 직교성 정리(GOT)에 의해, 임의의 가약 표현 \(\Gamma\) 는 기약 표현들의 선형 결합으로 고유하게 분해됩니다.<br>
+                이 공식은 <strong>복잡한 분자 진동이나 혼성 오비탈을 기본 대칭 단위로 쪼개는 화학적 해부용 메스</strong>와 같습니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Slide 26: Reduction Formula Interactive -->
+    <section id="s26-lab">
+        <div class="slide-content">
+            <h2 class="text-cyan-400">Interactive Lab: \(C_{3v}\) 약분 계산기</h2>
+            <p class="mb-6">클래스의 계수(\(g_c\))가 1이 아닌 경우의 약분 계산을 실습합니다.</p>
+            
+            <div class="p-8 bg-white border border-slate-200 rounded-2xl shadow-xl w-full max-w-4xl">
+                <div class="grid grid-cols-3 gap-6 mb-8">
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-500">\( \chi(E) \) (계수: 1)</label>
+                        <input type="number" id="c3v-chi-E" value="4" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-cyan-500 outline-none">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-500">\( \chi(C_3) \) (계수: 2)</label>
+                        <input type="number" id="c3v-chi-C3" value="1" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-cyan-500 outline-none">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-500">\( \chi(\sigma_v) \) (계수: 3)</label>
+                        <input type="number" id="c3v-chi-sv" value="-2" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-cyan-500 outline-none">
+                    </div>
+                </div>
+                <button onclick="calculateC3vReduction()" class="w-full py-4 bg-cyan-600 text-white font-bold rounded-xl hover:bg-cyan-700 transition-all shadow-lg mb-6">
+                    약분(Reduction) 실행
+                </button>
+                <div id="c3v-reduction-result" class="text-3xl font-black text-center text-cyan-800 p-6 bg-cyan-50 rounded-xl border-2 border-cyan-100">
+                    Γ = ?
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 27: Direct Product Intro -->
+    <section id="s27">
+        <div class="slide-content text-left px-16">
+            <h2>표현의 직접곱 (Direct Product)</h2>
+            <p class="mb-6 text-xl">두 개의 기약 표현 행렬을 곱하여 새로운 표현을 만드는 방법입니다.</p>
+            <div class="math-box">
+                \[ \chi_{\Gamma_A \otimes \Gamma_B}(R) = \chi_{\Gamma_A}(R) \times \chi_{\Gamma_B}(R) \]
+            </div>
+            <div class="p-6 bg-slate-50 border border-slate-200 rounded-xl mt-6">
+                <h3 class="font-bold text-slate-800 mb-2">왜 중요한가?</h3>
+                <ul class="list-disc pl-5 text-slate-700">
+                    <li>양자역학에서 두 파동함수(오비탈)가 겹칠 때의 대칭성을 판별합니다.</li>
+                    <li>분광학에서 전이 확률(Transition Probability) 적분값이 0이 되는지(금지된 전이) 판단하는 핵심 근거가 됩니다.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 28: Direct Product Rules -->
+    <section id="s28">
+        <div class="slide-content text-left px-16">
+            <h2>Mulliken 기호 곱셈 규칙</h2>
+            <p class="mb-6">지표를 직접 곱하지 않고도 기호만으로 직접곱의 결과를 예측할 수 있습니다.</p>
+            <div class="grid grid-cols-2 gap-6">
+                <div class="p-4 border-l-4 border-blue-500 bg-white shadow-sm">
+                    <p class="font-bold">주축에 대한 대칭성</p>
+                    <p>\(A \times A = A\)<br>\(B \times B = A\)<br>\(A \times B = B\)</p>
+                </div>
+                <div class="p-4 border-l-4 border-red-500 bg-white shadow-sm">
+                    <p class="font-bold">반전 중심에 대한 대칭성 (Parity)</p>
+                    <p>\(g \times g = g\)<br>\(u \times u = g\)<br>\(g \times u = u\)</p>
+                </div>
+                <div class="col-span-2 p-4 border-l-4 border-purple-500 bg-white shadow-sm">
+                    <p class="font-bold">축퇴 표현의 곱 (복잡한 경우)</p>
+                    <p>\(E \times E = A_1 + A_2 + E\) (분해 필요)<br>
+                    축퇴 표현끼리의 곱은 가약 표현이 되므로 약분 공식을 다시 적용해야 합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 29: Quantum Integrals -->
+    <section id="s29">
+        <div class="slide-content">
+            <h2>양자역학적 적분과 대칭성</h2>
+            <div class="math-box text-center text-xl">
+                \[ I = \int \psi_a^* \hat{Op} \psi_b \, d\tau \]
+            </div>
+            <p class="text-left px-16 mt-8 text-lg leading-relaxed">
+                위 적분은 두 상태 사이의 상호작용이나 전이 확률을 나타냅니다.<br>
+                군론의 위대한 점은, <strong>이 복잡한 적분을 직접 계산하지 않고도 적분값이 0인지 아닌지 판별할 수 있다</strong>는 것입니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Slide 30: Vanishing Integral Rule -->
+    <section id="s30">
+        <div class="slide-content text-left px-16">
+            <h2 class="text-red-700">소멸 적분 규칙 (Vanishing Integrals)</h2>
+            <div class="p-8 bg-red-50 border-2 border-red-200 rounded-xl shadow-md">
+                <p class="text-xl font-bold text-red-900 mb-4">"적분 값이 0이 아니려면(Non-zero), 피적분 함수의 직접곱 표현 내에 <strong>완전 대칭 표현(Totally Symmetric Rep, 예: \(A_1, A_g\))</strong>이 포함되어야 한다."</p>
+                <div class="math-box bg-white">
+                    \[ \Gamma(\psi_a) \otimes \Gamma(\hat{Op}) \otimes \Gamma(\psi_b) \supset A_1 \]
+                </div>
+            </div>
+            <p class="mt-6 text-slate-700">만약 직접곱 결과에 완전 대칭 표현이 없다면, 적분 공간 전체에서 +부분과 -부분이 상쇄되어 적분값은 수학적으로 정확히 0이 됩니다.</p>
+        </div>
+    </section>
+
+    <!-- Slide 31: Selection Rules -->
+    <section id="s31">
+        <div class="slide-content">
+            <h2>분광학적 선택 규칙 (Selection Rules)의 유도</h2>
+            <p class="mb-6">전자기파(빛)를 흡수하여 전이가 일어나려면 <strong>전이 쌍극자 모멘트 적분(Transition Dipole Moment Integral)</strong>이 0이 아니어야 합니다.</p>
+            <div class="math-box text-sm">
+                \[ \mu_{mn} = \int \psi_m^* \hat{\mu} \psi_n \, d\tau \neq 0 \]
+            </div>
+            <div class="text-left px-16 mt-6">
+                <p>쌍극자 모멘트 연산자 \(\hat{\mu}\) 는 \(x, y, z\) 벡터의 성질을 가집니다.</p>
+                <p class="mt-4 font-bold text-blue-700">따라서, 시작 상태(\(\psi_n\))와 최종 상태(\(\psi_m\))의 대칭성 직접곱이 \(x, y, z\) 의 대칭성과 같아야 전이가 허용(Allowed)됩니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 32: Summary & Conclusion -->
+    <section id="s32" class="end">
+        <div class="slide-content" style="border:none; box-shadow:none;">
+            <p class="text-slate-500 font-bold uppercase tracking-[0.2em] mb-4">Module 2 Complete</p>
+            <h2 class="border-none mb-10 text-4xl">결론 및 요약</h2>
+            <div class="grid grid-cols-2 gap-6 w-full max-w-5xl text-left text-sm mb-10">
+                <div class="p-6 bg-white border border-slate-200 rounded">
+                    <strong class="text-blue-700">1. 기저와 행렬:</strong> 대칭 조작은 기저 벡터(좌표, 오비탈)를 변환하는 행렬로 표현됨.
+                </div>
+                <div class="p-6 bg-white border border-slate-200 rounded">
+                    <strong class="text-blue-700">2. GOT:</strong> 군론의 핵심 정리로, 기약 표현의 차원과 지표의 직교성을 규명함.
+                </div>
+                <div class="p-6 bg-white border border-slate-200 rounded">
+                    <strong class="text-blue-700">3. 지표표 유도:</strong> 5가지 규칙을 통해 \(C_{2v}, C_{3v}\) 등의 지표표를 수학적으로 도출함.
+                </div>
+                <div class="p-6 bg-white border border-slate-200 rounded">
+                    <strong class="text-blue-700">4. 직접곱과 적분:</strong> 대칭성의 곱셈 규칙을 통해 분광학적 전이의 허용/금지를 판별함.
+                </div>
+            </div>
+            <div class="p-8 bg-slate-900 text-white rounded shadow-xl mt-4">
+                <p class="text-xl italic font-serif">"Representation theory bridges abstract algebra and the physical reality of molecules."</p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script src="js/chem_sim.js"></script>
+<script>
+    // C3v Reduction Specific
+    function calculateC3vReduction() {
+        const table = {
+            'A1': [1, 1, 1],
+            'A2': [1, 1, -1],
+            'E': [2, -1, 0]
+        };
+        const h = 6;
+        const gc = [1, 2, 3]; // E, 2C3, 3sv
+        
+        const chiGamma = [
+            parseFloat(document.getElementById('c3v-chi-E').value) || 0,
+            parseFloat(document.getElementById('c3v-chi-C3').value) || 0,
+            parseFloat(document.getElementById('c3v-chi-sv').value) || 0
+        ];
+        
+        let resultText = "Γ = ";
+        let terms = [];
+        
+        for (let ir in table) {
+            let n = 0;
+            for (let i = 0; i < 3; i++) {
+                n += gc[i] * table[ir][i] * chiGamma[i];
+            }
+            n = Math.round(n / h);
+            if (n > 0) {
+                terms.push((n > 1 ? n : "") + ir);
+            } else if (n < 0) {
+                terms.push("(" + n + ")" + ir); // Handle negative cases just in case of wrong input
+            }
+        }
+        
+        document.getElementById('c3v-reduction-result').innerText = resultText + (terms.length > 0 ? terms.join(" + ") : "0");
+    }
+</script>
+<script src="js/slide_engine.js"></script>
+</body>
+</html>
