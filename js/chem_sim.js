@@ -32,10 +32,6 @@ function simulateRotation(id, step = 180, logId = null, matrixId = null) {
     if (!rotationAngles[id]) rotationAngles[id] = 0;
     rotationAngles[id] += step;
     
-    const rad = (rotationAngles[id] * Math.PI) / 180;
-    const cos = Math.cos(rad);
-    const sin = Math.sin(rad);
-    
     // Z-axis rotation matrix
     const matrix = [
         [Math.cos((step*Math.PI)/180), -Math.sin((step*Math.PI)/180), 0],
@@ -72,8 +68,3 @@ function simulateOrbitalTransform(id, type, matrixId = null) {
     
     if (matrixId) updateMatrixDisplay(matrixId, matrix);
 }
-
-window.MathJax = {
-    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
-    svg: { fontCache: 'global' }
-};
