@@ -705,13 +705,38 @@
                 n_i = \frac{1}{h} \sum_{c} g_c \chi_i(R) \chi_{\Gamma}(R)
                 \]
             </div>
-            <ul class="text-left pl-8 mt-6 space-y-2 text-lg">
-                <li>\( n_i \) : \( i \)번째 기약 표현이 포함된 횟수</li>
-                <li>\( h \) : 군의 전체 차수 (조작의 총 개수)</li>
-                <li>\( g_c \) : 해당 클래스(열)에 속한 대칭 조작의 개수 (계수)</li>
-                <li>\( \chi_i(R) \) : 기약 표현의 지표 (표의 값)</li>
-                <li>\( \chi_{\Gamma}(R) \) : 가약 표현의 지표 (우리가 구한 값)</li>
-            </ul>
+
+            <!-- Reduction Tool -->
+            <div class="mt-8 p-8 bg-white border border-slate-200 rounded-2xl shadow-xl w-full max-w-4xl">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                    <span class="p-2 bg-indigo-100 text-indigo-700 rounded-lg">Tool</span>
+                    \(C_{2v}\) 기약 표현 약분 계산기
+                </h3>
+                <div class="grid grid-cols-4 gap-6 mb-8">
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-500">\( \chi(E) \)</label>
+                        <input type="number" id="chi-E" value="3" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-500">\( \chi(C_2) \)</label>
+                        <input type="number" id="chi-C2" value="-1" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-500">\( \chi(\sigma_v) \)</label>
+                        <input type="number" id="chi-sv" value="1" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-500">\( \chi(\sigma_v') \)</label>
+                        <input type="number" id="chi-sv2" value="1" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+                </div>
+                <button onclick="calculateReduction()" class="w-full py-4 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all shadow-lg mb-6">
+                    약분(Reduction) 실행
+                </button>
+                <div id="reduction-result" class="text-3xl font-black text-center text-indigo-800 p-6 bg-indigo-50 rounded-xl border-2 border-indigo-100">
+                    Γ = A1 + B1 + B2
+                </div>
+            </div>
         </div>
     </section>
 

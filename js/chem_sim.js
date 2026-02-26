@@ -6,8 +6,6 @@ let inversionStates = {};
 
 /**
  * Update Matrix Display
- * @param {string} containerId - ID of the div to show the matrix
- * @param {Array} matrix - 3x3 array
  */
 function updateMatrixDisplay(containerId, matrix) {
     const container = document.getElementById(containerId);
@@ -23,7 +21,7 @@ function updateMatrixDisplay(containerId, matrix) {
 }
 
 /**
- * Enhanced Rotation with Matrix
+ * Core Rotation Simulation
  */
 function coreSimulateRotation(id, step = 180, logId = null, matrixId = null) {
     const mol = document.getElementById(id);
@@ -42,7 +40,8 @@ function coreSimulateRotation(id, step = 180, logId = null, matrixId = null) {
     mol.style.transform = `rotateZ(${rotationAngles[id]}deg)`;
     
     if (logId) {
-        document.getElementById(logId).innerText = `Operation: C${Math.round(360/step)} (Total: ${rotationAngles[id] % 360}°)`;
+        const logEl = document.getElementById(logId);
+        if (logEl) logEl.innerText = `Operation: C${Math.round(360/step)} (Total: ${rotationAngles[id] % 360}°)`;
     }
     if (matrixId) updateMatrixDisplay(matrixId, matrix);
 }
@@ -61,9 +60,6 @@ function coreSimulateInversion(id) {
     mol.style.transform = inversionStates[id] ? 'scale(-1)' : 'scale(1)';
 }
 
-/**
- * Orbital Phase Flip Logic
- */
 function coreSimulateOrbitalTransform(id, type, matrixId = null) {
     const orbital = document.getElementById(id);
     if (!orbital) return;
@@ -73,7 +69,7 @@ function coreSimulateOrbitalTransform(id, type, matrixId = null) {
     if (type === 'reflection') {
         reflectionStates[id] = !reflectionStates[id];
         orbital.classList.toggle('phase-flipped');
-        matrix = [[-1,0,0],[0,1,0],[0,0,1]]; // Sigma_yz (reflect X)
+        matrix = [[-1,0,0],[0,1,0],[0,0,1]];
     } else if (type === 'inversion') {
         inversionStates[id] = !inversionStates[id];
         orbital.classList.toggle('inverted');
@@ -83,8 +79,47 @@ function coreSimulateOrbitalTransform(id, type, matrixId = null) {
     if (matrixId) updateMatrixDisplay(matrixId, matrix);
 }
 
-// Global aliases for convenience
+/**
+ * Reduction Formula Tool (C2v Example)
+ */
+function calculateReduction() {
+    // C2v Character Table
+    const table = {
+        'A1': [1, 1, 1, 1],
+        'A2': [1, 1, -1, -1],
+        'B1': [1, -1, 1, -1],
+        'B2': [1, -1, -1, 1]
+    };
+    const h = 4;
+    const gc = [1, 1, 1, 1]; // Number of ops in each class
+    
+    // Get user input
+    const chiGamma = [
+        parseFloat(document.getElementById('chi-E').value) || 0,
+        parseFloat(document.getElementById('chi-C2').value) || 0,
+        parseFloat(document.getElementById('chi-sv').value) || 0,
+        parseFloat(document.getElementById('chi-sv2').value) || 0
+    ];
+    
+    let resultText = "Γ = ";
+    let terms = [];
+    
+    for (let ir in table) {
+        let n = 0;
+        for (let i = 0; i < 4; i++) {
+            n += gc[i] * table[ir][i] * chiGamma[i];
+        }
+        n = n / h;
+        if (n > 0) {
+            terms.push((n > 1 ? n : "") + ir);
+        }
+    }
+    
+    document.getElementById('reduction-result').innerText = resultText + (terms.length > 0 ? terms.join(" + ") : "0");
+}
+
 window.simulateRotation = coreSimulateRotation;
 window.simulateReflection = coreSimulateReflection;
 window.simulateInversion = coreSimulateInversion;
 window.simulateOrbitalTransform = coreSimulateOrbitalTransform;
+window.calculateReduction = calculateReduction;
