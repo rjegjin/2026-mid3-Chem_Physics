@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>고급 무기화학 보너스: 표현론의 수학적 기초 (80 Slides)</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <script>
         window.MathJax = {
             tex: {
                 inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\\]']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
                 processEscapes: true
             },
             options: {
@@ -18,6 +19,7 @@
             svg: { fontCache: 'global' }
         };
     </script>
+
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/presentation_mode.css">
@@ -75,7 +77,7 @@
     <div class='math-proof'>
         <span class='theorem-title'>부분군 판별법 (Subgroup Test)</span>
         <p>$H$가 $G$의 부분군이 되기 위한 필요충분조건은 다음 한 줄로 요약됩니다:</p>
-        \[ \forall a, b \in H \implies a \cdot b^{-1} \in H \]
+        \\[ \forall a, b \in H \implies a \cdot b^{-1} \in H \\]
     </div>
     <p class='mt-6 text-slate-600'>예: 분자 점군 $C_{3v}$ 내에는 회전 조작들만으로 이루어진 부분군 $C_3 = \{E, C_3, C_3^2\}$ 가 존재합니다.</p>
 
@@ -90,7 +92,7 @@
     <p class='text-xl'>부분군 $H$를 이용하여 전체 군 $G$를 겹치지 않는 구역으로 분할할 수 있습니다.</p>
     <div class='axiom-box'>
         <p>요소 $g \in G$에 대한 $H$의 <b>좌잉여류(Left Coset)</b>:</p>
-        \[ gH = \{g \cdot h \mid h \in H\} \]
+        \\[ gH = \{g \cdot h \mid h \in H\} \\]
     </div>
     <p class='mt-6'><b>성질:</b> 두 잉여류는 완전히 동일하거나, 서로 교집합이 없습니다 ($aH \cap bH = \emptyset$). 즉, 잉여류들은 $G$의 <b>분할(Partition)</b>을 형성합니다.</p>
 
@@ -105,7 +107,7 @@
     <div class='math-proof'>
         <span class='theorem-title'>라그랑주 정리 (Lagrange's Theorem)</span>
         <p>유한군 $G$의 임의의 부분군 $H$에 대하여, $H$의 차수(원소의 개수, $|H|$)는 $G$의 차수($|G|$)의 약수이다.</p>
-        \[ |G| = [G:H] \cdot |H| \]
+        \\[ |G| = [G:H] \cdot |H| \\]
     </div>
     <p class='mt-6 text-lg'><b>증명 스케치:</b> 모든 좌잉여류 $gH$는 $H$와 원소의 개수가 같습니다 ($f: h \mapsto gh$ 가 전단사 함수). $G$는 이들 서로소인 잉여류들의 합집합이므로, 전체 개수는 $|H|$의 배수가 될 수밖에 없습니다.</p>
 
@@ -120,7 +122,7 @@
     <p class='text-xl'>지표표에서 대칭 조작들이 묶이는 기준인 <b>클래스(Class)</b>의 대수학적 정의입니다.</p>
     <div class='axiom-box'>
         <p>두 원소 $a, b \in G$에 대해, 어떤 $x \in G$가 존재하여</p>
-        \[ b = x^{-1} \cdot a \cdot x \]
+        \\[ b = x^{-1} \cdot a \cdot x \\]
         <p>를 만족하면, "$a$와 $b$는 켤레(Conjugate) 관계에 있다"고 합니다.</p>
     </div>
 
@@ -152,7 +154,7 @@
             
     <p class='text-xl'>모든 $g \in G$에 대해 좌잉여류와 우잉여류가 같은 특수한 부분군입니다.</p>
     <div class='axiom-box'>
-        \[ gH = Hg \quad \text{or} \quad g^{-1}Hg = H \quad \forall g \in G \]
+        \\[ gH = Hg \quad \text{or} \quad g^{-1}Hg = H \quad \forall g \in G \\]
     </div>
     <p class='mt-4 text-lg'>정규 부분군 $H$ 자체는 $G$의 켤레 연산에 대해 불변인 공간입니다. 이는 군을 더 작은 구조로 "나누는" 핵심 도구가 됩니다.</p>
 
@@ -182,7 +184,7 @@
     <p class='text-xl'>두 군 $G, G'$가 겉모습(알파벳, 기하학적 동작)은 달라도, 수학적 구조가 완전히 동일할 수 있습니다.</p>
     <div class='axiom-box'>
         <p>전단사 함수(Bijection) $\phi: G \to G'$ 가 다음을 만족하면 동형(Isomorphic, $G \cong G'$)입니다:</p>
-        \[ \phi(a \cdot_G b) = \phi(a) \cdot_{G'} \phi(b) \]
+        \\[ \phi(a \cdot_G b) = \phi(a) \cdot_{G'} \phi(b) \\]
     </div>
     <p class='mt-4'>모든 유한 점군은 본질적으로 대칭군의 부분군과 동형입니다. (Cayley's Theorem)</p>
 
@@ -214,7 +216,7 @@
             
     <p class='text-xl'>대칭 조작 $\hat{R}$은 이 Hilbert 공간 상의 점들을 다른 점으로 이동시키는 선형 사상입니다.</p>
     <div class='axiom-box text-center'>
-        \[ \hat{R}(c_1|\psi_1\rangle + c_2|\psi_2\rangle) = c_1\hat{R}|\psi_1\rangle + c_2\hat{R}|\psi_2\rangle \]
+        \\[ \hat{R}(c_1|\psi_1\rangle + c_2|\psi_2\rangle) = c_1\hat{R}|\psi_1\rangle + c_2\hat{R}|\psi_2\rangle \\]
     </div>
     <p class='mt-4'>이 <b>선형성(Linearity)</b> 덕분에, 우리는 무한히 많은 상태를 고려할 필요 없이, 몇 개의 <b>기저(Basis) 벡터</b>가 어떻게 변하는지만 알면 전체를 파악할 수 있습니다.</p>
 
@@ -228,9 +230,9 @@
             
     <p class='text-xl'>직교 정규 기저(Orthonormal basis) $\{|e_i\rangle\}$가 주어졌을 때, 연산자 $\hat{R}$의 작용은 행렬로 완벽히 기술됩니다.</p>
     <div class='math-proof'>
-        \[ \hat{R} |e_j\rangle = \sum_{i=1}^n \Gamma(R)_{ij} |e_i\rangle \]
+        \\[ \hat{R} |e_j\rangle = \sum_{i=1}^n \Gamma(R)_{ij} |e_i\rangle \\]
         <p class='mt-4'>행렬 원소 도출 (브라-켓 내적):</p>
-        \[ \Gamma(R)_{ij} = \langle e_i | \hat{R} | e_j \rangle \]
+        \\[ \Gamma(R)_{ij} = \langle e_i | \hat{R} | e_j \rangle \\]
     </div>
 
         </div>
@@ -244,7 +246,7 @@
     <p class='text-xl'>물리학에서 가장 중요한 연산자의 대칭적 파트너입니다.</p>
     <div class='axiom-box'>
         <p>임의의 $|\phi\rangle, |\psi\rangle$ 에 대해 다음을 만족하는 $\hat{R}^\dagger$ 를 정의합니다:</p>
-        \[ \langle \phi | \hat{R} \psi \rangle = \langle \hat{R}^\dagger \phi | \psi \rangle \]
+        \\[ \langle \phi | \hat{R} \psi \rangle = \langle \hat{R}^\dagger \phi | \psi \rangle \\]
     </div>
     <p class='mt-4'>행렬로 표현하면 켤레 전치 행렬(Conjugate Transpose, $\Gamma_{ij}^\dagger = \Gamma_{ji}^*$)이 됩니다.</p>
 
@@ -258,7 +260,7 @@
             
     <p class='text-xl'>대칭 조작은 물리적 상태의 '크기(확률 1)'와 '각도(위상 차이)'를 보존해야 합니다.</p>
     <div class='math-proof'>
-        \[ \langle \hat{R}\phi | \hat{R}\psi \rangle = \langle \phi | \hat{R}^\dagger \hat{R} | \psi \rangle = \langle \phi | \psi \rangle \]
+        \\[ \langle \hat{R}\phi | \hat{R}\psi \rangle = \langle \phi | \hat{R}^\dagger \hat{R} | \psi \rangle = \langle \phi | \psi \rangle \\]
         <p class='text-center mt-4 font-bold text-red-600'>$\implies \hat{R}^\dagger \hat{R} = \hat{I} \quad \text{and} \quad \hat{R}^\dagger = \hat{R}^{-1}$</p>
     </div>
     <p class='mt-4'>따라서 모든 물리적 대칭 조작의 행렬 표현은 <b>유니타리 행렬(Unitary Matrix)</b>입니다.</p>
@@ -291,7 +293,7 @@
     <p class='text-xl'>동일한 대칭 조작도 관찰자가 설정한 좌표계(기저)에 따라 다른 행렬로 보일 수 있습니다.</p>
     <div class='math-proof'>
         <p>새로운 기저 $|f_i\rangle = \sum P_{ji} |e_j\rangle$ 로 바꿀 때, 행렬 표현은 다음과 같이 변환됩니다.</p>
-        \[ \Gamma'(R) = P^{-1} \Gamma(R) P \]
+        \\[ \Gamma'(R) = P^{-1} \Gamma(R) P \\]
     </div>
     <p class='mt-4'>이것을 <b>유사 변환(Similarity Transformation)</b>이라 합니다.</p>
 
@@ -305,7 +307,7 @@
             
     <p class='text-xl'>유사 변환을 거쳐도 행렬의 특정 성질들은 변하지 않습니다. 가장 대표적인 것이 <b>대각합(Trace)</b>입니다.</p>
     <div class='axiom-box'>
-        \[ \text{Tr}(P^{-1} \Gamma P) = \text{Tr}(P P^{-1} \Gamma) = \text{Tr}(\Gamma) \]
+        \\[ \text{Tr}(P^{-1} \Gamma P) = \text{Tr}(P P^{-1} \Gamma) = \text{Tr}(\Gamma) \\]
     </div>
     <p class='mt-4'>이 불변하는 대각합을 군론에서는 <b>지표(Character, $\chi$)</b>라고 부릅니다. 기저 선택의 임의성으로부터 해방된 <b>순수한 수학적 불변량</b>입니다.</p>
 
@@ -319,13 +321,13 @@
             
     <p class='text-xl'>두 벡터 공간 $V, W$를 합쳐 더 큰 공간 $V \oplus W$를 만듭니다.</p>
     <div class='math-proof text-center'>
-        \[
+        \\[
         \Gamma_{V \oplus W} = 
         \begin{pmatrix}
         \Gamma_V & 0 \\
         0 & \Gamma_W
         \end{pmatrix}
-        \]
+        \\]
     </div>
     <p class='mt-4'>행렬 관점에서는 블록 대각(Block Diagonal) 행렬을 형성하는 연산입니다. 지표는 자명하게 더해집니다: $\chi_{V \oplus W} = \chi_V + \chi_W$.</p>
 
@@ -339,10 +341,10 @@
             
     <p class='text-xl'>차원이 곱해지는 더 복잡한 결합입니다. 두 전자의 결합 상태 등을 기술할 때 필수적입니다.</p>
     <div class='axiom-box text-center'>
-        \[ (\Gamma_V \otimes \Gamma_W)_{(ij)(kl)} = (\Gamma_V)_{ik} (\Gamma_W)_{jl} \]
+        \\[ (\Gamma_V \otimes \Gamma_W)_{(ij)(kl)} = (\Gamma_V)_{ik} (\Gamma_W)_{jl} \\]
     </div>
     <p class='mt-4 text-red-600 font-bold'>중요한 성질: 텐서곱 행렬의 대각합은 각 행렬 대각합의 곱과 같다.</p>
-    \[ \chi_{V \otimes W}(R) = \chi_V(R) \cdot \chi_W(R) \]
+    \\[ \chi_{V \otimes W}(R) = \chi_V(R) \cdot \chi_W(R) \\]
 
         </div>
     </section>
@@ -355,8 +357,8 @@
     <p class='text-xl'>군 $G$의 구조를 보존하면서, 각 원소 $g$를 행렬 공간 $GL(V)$의 행렬 $\Gamma(g)$에 대응시키는 함수입니다.</p>
     <div class='math-proof'>
         <span class='theorem-title'>Homomorphism Condition</span>
-        \[ \Gamma(g_1 \cdot g_2) = \Gamma(g_1) \Gamma(g_2) \quad \forall g_1, g_2 \in G \]
-        \[ \Gamma(e) = I, \quad \Gamma(g^{-1}) = \Gamma(g)^{-1} \]
+        \\[ \Gamma(g_1 \cdot g_2) = \Gamma(g_1) \Gamma(g_2) \quad \forall g_1, g_2 \in G \\]
+        \\[ \Gamma(e) = I, \quad \Gamma(g^{-1}) = \Gamma(g)^{-1} \\]
     </div>
 
         </div>
@@ -370,7 +372,7 @@
     <p class='text-xl'>서로 다른 군의 원소가 <b>서로 다른 행렬</b>에 1:1로 매핑될 때, 그 표현을 '충실하다'고 합니다.</p>
     <div class='axiom-box'>
         <p>단사 함수(Injective)의 조건:</p>
-        \[ \Gamma(g_1) = \Gamma(g_2) \implies g_1 = g_2 \]
+        \\[ \Gamma(g_1) = \Gamma(g_2) \implies g_1 = g_2 \\]
     </div>
     <p class='mt-4 text-slate-500'>예: 모든 원소를 숫자 1에 대응시키는 '완전 대칭 표현($A_1$)'은 자명하지만 충실하지 않은 표현입니다.</p>
 
@@ -384,7 +386,7 @@
             
     <p class='text-xl'>두 표현 $\Gamma^{(1)}$과 $\Gamma^{(2)}$가 동일한 차원을 가지며, 어떤 고정된 가역 행렬 $P$에 대해 다음을 만족하면 '동치(Equivalent)'라고 합니다.</p>
     <div class='math-proof text-center'>
-        \[ \Gamma^{(1)}(g) = P^{-1} \Gamma^{(2)}(g) P \quad \forall g \in G \]
+        \\[ \Gamma^{(1)}(g) = P^{-1} \Gamma^{(2)}(g) P \quad \forall g \in G \\]
     </div>
     <p class='mt-4 text-lg'>물리적으로 이는 단순히 <b>'좌표계(기저)만 다르게 설정했을 뿐 본질적으로 동일한 물리계'</b>임을 의미합니다.</p>
 
@@ -398,7 +400,7 @@
             
     <p class='text-xl'>전체 공간 $V$의 어떤 부분 공간 $W$가 대칭 조작에 의해 벗어나지 않을 때의 정의입니다.</p>
     <div class='axiom-box'>
-        \[ \forall g \in G, \quad \vec{w} \in W \implies \Gamma(g)\vec{w} \in W \]
+        \\[ \forall g \in G, \quad \vec{w} \in W \implies \Gamma(g)\vec{w} \in W \\]
     </div>
     <p class='mt-4 text-lg'>만약 분자에서 z축 방향의 $p_z$ 오비탈이 어떤 대칭 조작에도 $x, y$ 오비탈과 섞이지 않는다면, $p_z$ 오비탈이 이루는 1차원 공간은 불변 부분 공간입니다.</p>
 
@@ -413,7 +415,7 @@
     <p class='text-xl'>자명하지 않은(0이 아니고 전체 공간도 아닌) 불변 부분 공간 $W$가 존재하면, 해당 표현은 <b>가약 표현(Reducible Representation)</b>입니다.</p>
     <div class='math-proof'>
         <p>적절한 기저 변환 $P$를 통해 모든 $\Gamma(g)$를 블록 상삼각 행렬로 만들 수 있습니다:</p>
-        \[ P^{-1} \Gamma(g) P = \begin{pmatrix} \Gamma_1(g) & M(g) \\ 0 & \Gamma_2(g) \end{pmatrix} \]
+        \\[ P^{-1} \Gamma(g) P = \begin{pmatrix} \Gamma_1(g) & M(g) \\ 0 & \Gamma_2(g) \end{pmatrix} \\]
     </div>
 
         </div>
@@ -428,7 +430,7 @@
     <div class='axiom-box'>
         <span class='theorem-title'>Maschke's Theorem</span>
         <p>유한군의 모든 유한 차원 표현은 <b>기약 표현들의 직합(Direct Sum)으로 완전히 분해</b>될 수 있다.</p>
-        \[ \Gamma(g) \sim \begin{pmatrix} \Gamma_1(g) & 0 \\ 0 & \Gamma_2(g) \end{pmatrix} \implies \Gamma = \Gamma_1 \oplus \Gamma_2 \]
+        \\[ \Gamma(g) \sim \begin{pmatrix} \Gamma_1(g) & 0 \\ 0 & \Gamma_2(g) \end{pmatrix} \implies \Gamma = \Gamma_1 \oplus \Gamma_2 \\]
     </div>
 
         </div>
@@ -522,9 +524,9 @@
     <div class='math-proof'>
         <span class='theorem-title text-red-600'>Schur's Lemma I</span>
         <p>복소 벡터 공간 $V$ 위의 <b>기약 표현(Irreducible Rep)</b> $\Gamma(g)$ 에 대하여, 어떤 선형 연산자 $M$이 모든 $g \in G$ 에 대해 $\Gamma(g)$와 가환한다면:</p>
-        \[ M \Gamma(g) = \Gamma(g) M \quad \forall g \in G \]
+        \\[ M \Gamma(g) = \Gamma(g) M \quad \forall g \in G \\]
         <p class='mt-4 font-bold'>그러면 $M$은 반드시 스칼라 배수(상수 행렬)이다.</p>
-        \[ M = c \cdot I \quad (c \in \mathbb{C}) \]
+        \\[ M = c \cdot I \quad (c \in \mathbb{C}) \\]
     </div>
 
         </div>
@@ -538,7 +540,7 @@
     <p class='text-xl'>복소수 필드 위에서, 행렬 $M$은 적어도 하나의 고유값 $\lambda$와 고유벡터 $\vec{v}$를 가집니다. ($M\vec{v} = \lambda\vec{v}$)</p>
     <p class='mt-4'>행렬 $M - \lambda I$ 를 정의해 봅시다. 이 행렬의 커널(Null space, $N$)은 자명하지 않습니다 ($\vec{v} \in N$).</p>
     <div class='math-box mt-6'>
-        \[ \forall \vec{w} \in N, \quad (M - \lambda I)\vec{w} = \vec{0} \]
+        \\[ \forall \vec{w} \in N, \quad (M - \lambda I)\vec{w} = \vec{0} \\]
     </div>
 
         </div>
@@ -585,7 +587,7 @@
     <div class='math-proof'>
         <span class='theorem-title text-blue-600'>Schur's Lemma II</span>
         <p>두 기약 표현 $\Gamma^{(1)}$ (차원 $l_1$)과 $\Gamma^{(2)}$ (차원 $l_2$)에 대해, 어떤 행렬 $M$이 다음을 만족한다고 하자:</p>
-        \[ M \Gamma^{(1)}(g) = \Gamma^{(2)}(g) M \quad \forall g \in G \]
+        \\[ M \Gamma^{(1)}(g) = \Gamma^{(2)}(g) M \quad \forall g \in G \\]
         <p class='mt-4 font-bold'>그러면 다음 두 가지 중 하나만 참이다:</p>
         <ol class='list-decimal pl-10 mt-2'>
             <li>$M = 0$ (영행렬)</li>
@@ -634,7 +636,7 @@
     <div class='axiom-box bg-slate-900 text-white shadow-2xl'>
         <span class='theorem-title text-cyan-400'>The Great Orthogonality Theorem</span>
         <div class='text-2xl text-center py-4'>
-            \[ \sum_{R} \Gamma_i(R)_{mn}^* \Gamma_j(R)_{m'n'} = \frac{h}{\sqrt{l_i l_j}} \delta_{ij} \delta_{mm'} \delta_{nn'} \]
+            \\[ \sum_{R} \Gamma_i(R)_{mn}^* \Gamma_j(R)_{m'n'} = \frac{h}{\sqrt{l_i l_j}} \delta_{ij} \delta_{mm'} \delta_{nn'} \\]
         </div>
     </div>
     <p class='mt-6'>이 식은 다차원 공간에서 각 기약 표현의 <b>행렬 원소(Matrix elements)</b>들이 완벽하게 직교하는 축(Axis)들을 형성함을 보여줍니다.</p>
@@ -650,7 +652,7 @@
     <p class='text-xl'>증명의 핵심은 군의 모든 조작을 평균내어 <b>불변 연산자</b>를 인위적으로 만들어내는 것입니다.</p>
     <div class='math-proof'>
         <p>임의의 행렬 $X$에 대하여, 다음 행렬 $M$을 구성합니다:</p>
-        \[ M = \sum_{R} \Gamma_i(R) X \Gamma_j(R^{-1}) \]
+        \\[ M = \sum_{R} \Gamma_i(R) X \Gamma_j(R^{-1}) \\]
         <p class='mt-4 text-blue-800 font-bold'>이 행렬 $M$은 어떤 $S \in G$ 에 대해서도 $\Gamma_i(S) M = M \Gamma_j(S)$ 를 만족합니다!</p>
     </div>
 
@@ -665,7 +667,7 @@
     <p class='text-xl'>방금 만든 행렬 $M$에 <b>Schur's Lemma II</b>를 적용합니다.</p>
     <div class='axiom-box'>
         <p>만약 $i \neq j$ (다른 기약 표현)라면, Lemma II에 의해 $M = 0$ 이 됩니다.</p>
-        \[ \sum_{R} \Gamma_i(R) X \Gamma_j(R^{-1}) = 0 \]
+        \\[ \sum_{R} \Gamma_i(R) X \Gamma_j(R^{-1}) = 0 \\]
     </div>
     <p class='mt-4'>행렬 $X$의 오직 하나의 원소 $X_{pq}=1$ 이고 나머지는 0으로 두면, GOT의 우변에 있는 $\delta_{ij}$ (직교성) 파트가 증명됩니다.</p>
 
@@ -698,11 +700,11 @@
             
     <p class='text-xl'>GOT 수식에서 $m=n, m'=n'$ 인 대각 원소들만 취하여 합을 구합니다($\text{Trace}$).</p>
     <div class='axiom-box text-center'>
-        \[ \sum_{R} \chi_i(R)^* \chi_j(R) = h \delta_{ij} \]
+        \\[ \sum_{R} \chi_i(R)^* \chi_j(R) = h \delta_{ij} \\]
     </div>
     <p class='mt-4'>이 식을 클래스의 개수 $g_c$ 를 이용하여 다시 쓰면, 우리가 아는 지표표 작성 규칙(Rule 3)이 도출됩니다.</p>
     <div class='math-box text-center'>
-        \[ \sum_{c} g_c \chi_i(c)^* \chi_j(c) = h \delta_{ij} \]
+        \\[ \sum_{c} g_c \chi_i(c)^* \chi_j(c) = h \delta_{ij} \\]
     </div>
 
         </div>
@@ -716,7 +718,7 @@
     <p class='text-xl leading-relaxed'>수학적으로 <b>투영 연산자</b>는 전체 공간 $V$를 특정 부분 공간 $W$로 맵핑하는 연산자입니다. $\hat{P}^2 = \hat{P}$ (멱등성, Idempotency)을 만족합니다.</p>
     <div class='math-proof'>
         <span class='theorem-title'>지표 투영 연산자 (Character Projection Operator)</span>
-        \[ \hat{P}^{(i)} = \frac{l_i}{h} \sum_{R} \chi^{(i)}(R)^* \hat{R} \]
+        \\[ \hat{P}^{(i)} = \frac{l_i}{h} \sum_{R} \chi^{(i)}(R)^* \hat{R} \\]
     </div>
     <p class='mt-4'>이 연산자를 임의의 함수 $f$에 가하면, $f$ 안에 숨어있던 $i$번째 기약 표현의 대칭성을 띠는 <b>대칭 적합 선형 결합(SALC)</b> 파트만 정확히 걸러냅니다.</p>
 
@@ -730,7 +732,7 @@
             
     <p class='text-xl'>두 전자가 상호작용하는 계나, 편극률(Polarizability) 텐서를 다룰 때 <b>Kronecker Product</b>가 사용됩니다.</p>
     <div class='axiom-box text-center overflow-x-auto'>
-        \[ A \otimes B = \begin{pmatrix} a_{11}B & a_{12}B & \cdots \\ a_{21}B & a_{22}B & \cdots \\ \vdots & \vdots & \ddots \end{pmatrix} \]
+        \\[ A \otimes B = \begin{pmatrix} a_{11}B & a_{12}B & \cdots \\ a_{21}B & a_{22}B & \cdots \\ \vdots & \vdots & \ddots \end{pmatrix} \\]
     </div>
     <p class='mt-4 text-lg'>텐서곱 행렬의 대각합은 각 행렬 대각합의 곱입니다: $\chi_{A \otimes B} = \chi_A \cdot \chi_B$</p>
 
@@ -745,7 +747,7 @@
     <p class='text-xl'>두 기약 표현 $\Gamma_i$ 와 $\Gamma_j$ 의 텐서곱 표현 $\Gamma_i \otimes \Gamma_j$ 는 일반적으로 <b>가약 표현(Reducible Rep)</b>이 됩니다.</p>
     <div class='math-proof'>
         <p>약분 공식을 사용하여 이를 다시 기약 표현의 합(Clebsch-Gordan series)으로 분해해야 합니다.</p>
-        \[ \Gamma_i \otimes \Gamma_j = \sum_{k} c_{ij}^k \Gamma_k \]
+        \\[ \Gamma_i \otimes \Gamma_j = \sum_{k} c_{ij}^k \Gamma_k \\]
     </div>
     <p class='mt-4'>이때 계수 $c_{ij}^k$ 를 구하는 과정이 바로 양자역학의 각운동량 합성(Addition of Angular Momentum)과 수학적으로 완벽히 동일합니다.</p>
 
@@ -759,7 +761,7 @@
             
     <p class='text-xl'>물리계가 어떤 대칭 조작 $\hat{R}$ 에 대해 불변이라는 것은, 계의 위치 에너지가 그 조작에 의해 변하지 않음을 뜻합니다.</p>
     <div class='axiom-box text-center text-2xl font-serif text-red-700'>
-        \[ \hat{R}^\dagger \hat{H} \hat{R} = \hat{H} \iff [\hat{H}, \hat{R}] = 0 \]
+        \\[ \hat{R}^\dagger \hat{H} \hat{R} = \hat{H} \iff [\hat{H}, \hat{R}] = 0 \\]
     </div>
     <p class='mt-6 text-lg'>이 <b>가환성(Commutativity)</b>은 해밀토니안 $\hat{H}$ 와 대칭 조작 $\hat{R}$ 이 <b>동시 고유함수(Simultaneous Eigenfunctions)</b>를 가질 수 있음을 대수적으로 보장합니다.</p>
 
@@ -773,7 +775,7 @@
             
     <p class='text-xl'>슈뢰딩거 방정식 $\hat{H}\psi_n = E\psi_n$ 의 해인 $\psi_n$ 에 대칭 조작을 가해봅니다.</p>
     <div class='math-proof'>
-        \[ \hat{H}(\hat{R}\psi_n) = \hat{R}\hat{H}\psi_n = \hat{R}(E\psi_n) = E(\hat{R}\psi_n) \]
+        \\[ \hat{H}(\hat{R}\psi_n) = \hat{R}\hat{H}\psi_n = \hat{R}(E\psi_n) = E(\hat{R}\psi_n) \\]
     </div>
     <p class='mt-4'>$\hat{R}\psi_n$ 역시 <b>완전히 동일한 에너지 $E$</b>를 가집니다.</p>
     <p class='mt-4 font-bold text-blue-700'>결론: 에너지 준위 $E$에 속하는 파동함수들은 군 $G$에 대한 불변 부분 공간을 형성하며, 이 공간은 하나의 <b>기약 표현(Irreducible Rep)</b>을 이룹니다. 이 기약 표현의 차원($l_i$)이 곧 그 에너지 준위의 <b>축퇴도</b>가 됩니다!</p>
@@ -802,11 +804,11 @@
             
     <p class='text-xl'>광자 흡수에 의한 전이 확률은 쌍극자 모멘트 연산자 $\hat{\mu}$ 의 적분에 비례합니다.</p>
     <div class='math-proof text-center'>
-        \[ I = \langle \psi_{final} | \hat{\mu} | \psi_{initial} \rangle = \int \psi_{final}^* \hat{\mu} \psi_{initial} d\tau \]
+        \\[ I = \langle \psi_{final} | \hat{\mu} | \psi_{initial} \rangle = \int \psi_{final}^* \hat{\mu} \psi_{initial} d\tau \\]
     </div>
     <p class='mt-4'>이 적분이 0이 아니기 위해서는(Allowed Transition), 피적분 함수의 직접곱 대칭성이 완전 대칭 표현($A_1$)을 포함해야만 합니다.</p>
     <div class='text-center mt-4 font-bold text-red-600 text-2xl'>
-        \[ \Gamma(\psi_f) \otimes \Gamma(\mu) \otimes \Gamma(\psi_i) \supset A_1 \]
+        \\[ \Gamma(\psi_f) \otimes \Gamma(\mu) \otimes \Gamma(\psi_i) \supset A_1 \\]
     </div>
 
         </div>
@@ -821,7 +823,7 @@
         <h2 class='text-4xl font-bold mb-10 text-indigo-900'>The Pinnacle of Symmetry</h2>
         <div class='math-proof text-left text-sm mb-10'>
             <span class='theorem-title'>Wigner-Eckart Theorem</span>
-            \[ \langle \alpha, j, m | T_q^{(k)} | \alpha', j', m' \rangle = \langle j' k ; m' q | j' k ; j m \rangle \frac{\langle \alpha, j || T^{(k)} || \alpha', j' \rangle}{\sqrt{2j+1}} \]
+            \\[ \langle \alpha, j, m | T_q^{(k)} | \alpha', j', m' \rangle = \langle j' k ; m' q | j' k ; j m \rangle \frac{\langle \alpha, j || T^{(k)} || \alpha', j' \rangle}{\sqrt{2j+1}} \\]
         </div>
         <p class='text-xl italic mb-10 leading-relaxed text-slate-700'>"군론은 물리적 상호작용의 적분값을 <b>순수 기하학적 요소(Clebsch-Gordan 계수)</b>와 <b>동역학적 요소(Reduced matrix element)</b>로 분리해냅니다. 우리는 오직 전자를 계산하여 후자의 복잡한 계산을 회피할 수 있습니다."</p>
         <p class='mt-10 font-black text-2xl text-blue-600 tracking-widest'>- RIGOROUS BONUS MODULE COMPLETE -</p>
