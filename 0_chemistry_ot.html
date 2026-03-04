@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Orientation: 2026 중3 화학의 세계
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6">
+  </script>
+  <script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <link href="css/common.css" rel="stylesheet"/>
+  <link href="css/presentation_mode.css" rel="stylesheet"/>
+  <link href="css/chem_style.css" rel="stylesheet"/>
+  <style>
+   .img-card {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .bg-overlay {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 1rem;
+            backdrop-filter: blur(5px);
+        }
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .curriculum-card {
+            transition: all 0.3s ease;
+        }
+        .curriculum-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+  </style>
+ </head>
+ <body class="presentation-mode">
+  <main>
+   <!-- Slide 1: Welcome -->
+   <section class="hero-bg" data-slide-index="0" data-slide-num="1" data-title="Welcome" id="slide-1">
+    <div class="slide-content bg-overlay">
+     <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">
+      2026학년도 중학교 3학년 과학
+     </p>
+     <h1 class="text-4xl md:text-6xl font-black mb-6 text-slate-900 leading-tight">
+      <span style="color:var(--accent-cyan)">
+       화학 반응의 규칙
+      </span>
+      <br/>
+      오리엔테이션
+     </h1>
+     <div class="w-20 h-1 bg-slate-800 mx-auto my-8">
+     </div>
+     <p class="text-2xl text-slate-600">
+      눈에 보이지 않는 입자들이 만드는 마법 같은 변화
+     </p>
+    </div>
+   </section>
+
+   <!-- Slide 2: Why Chemistry? -->
+   <section data-slide-index="1" data-slide-num="2" data-title="왜 화학인가?" id="slide-2">
+    <div class="slide-content">
+     <h2 class="text-blue-700">왜 화학을 배워야 할까요?</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl mt-8">
+      <div class="reveal-item text-center p-6 bg-slate-50 rounded-xl">
+       <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80" class="img-card" alt="Technology">
+       <h3 class="text-xl font-bold mb-2">첨단 기술</h3>
+       <p class="text-slate-600">반도체, 배터리, 신소재의 핵심 원리</p>
+      </div>
+      <div class="reveal-item text-center p-6 bg-slate-50 rounded-xl" style="transition-delay: 0.2s">
+       <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80" class="img-card" alt="Medicine">
+       <h3 class="text-xl font-bold mb-2">생명과 건강</h3>
+       <p class="text-slate-600">우리 몸속의 반응과 의약품의 작용</p>
+      </div>
+      <div class="reveal-item text-center p-6 bg-slate-50 rounded-xl" style="transition-delay: 0.4s">
+       <img src="https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80" class="img-card" alt="Environment">
+       <h3 class="text-xl font-bold mb-2">지속 가능한 지구</h3>
+       <p class="text-slate-600">기후 변화와 에너지 문제의 해결사</p>
+      </div>
+     </div>
+     <p class="mt-8 text-xl font-medium text-slate-700">"화학은 세상의 '본질'을 이해하는 언어입니다."</p>
+    </div>
+   </section>
+
+   <!-- Slide 3: Course Philosophy -->
+   <section data-slide-index="2" data-slide-num="3" data-title="수업 철학" id="slide-3">
+    <div class="slide-content">
+     <h2 class="text-indigo-700">우리의 학습 목표</h2>
+     <div class="w-full max-w-4xl bg-white p-10 border-l-8 border-indigo-600 shadow-sm text-left">
+      <ul class="space-y-8 text-2xl">
+       <li class="reveal-item flex items-start gap-4">
+        <span class="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center shrink-0">1</span>
+        <span>단순 암기가 아닌, **현상의 원리**를 꿰뚫어 봅니다.</span>
+       </li>
+       <li class="reveal-item flex items-start gap-4">
+        <span class="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center shrink-0">2</span>
+        <span>**입자적 관점**에서 거시적인 변화를 해석합니다.</span>
+       </li>
+       <li class="reveal-item flex items-start gap-4">
+        <span class="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center shrink-0">3</span>
+        <span>실험과 시뮬레이션을 통해 **과학적 사고력**을 키웁니다.</span>
+       </li>
+      </ul>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 4: Curriculum 1 -->
+   <section data-slide-index="3" data-slide-num="4" data-title="커리큘럼 (전반부)" id="slide-4">
+    <div class="slide-content">
+     <h2>학습 내용: 화학 반응의 기초</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-6xl mt-8">
+      <div class="curriculum-card p-6 bg-blue-50 border-t-4 border-blue-500 rounded-lg text-left">
+       <span class="text-xs font-bold text-blue-500">Lesson 01</span>
+       <h3 class="text-xl font-bold mt-2">물질의 변화</h3>
+       <p class="mt-4 text-slate-600">물리 변화와 화학 변화를 구분하고 입자 배열의 차이를 이해합니다.</p>
+      </div>
+      <div class="curriculum-card p-6 bg-blue-50 border-t-4 border-blue-500 rounded-lg text-left">
+       <span class="text-xs font-bold text-blue-500">Lesson 02</span>
+       <h3 class="text-xl font-bold mt-2">화학 반응식</h3>
+       <p class="mt-4 text-slate-600">화학 기호를 사용하여 복잡한 반응을 식으로 표현하는 방법을 배웁니다.</p>
+      </div>
+      <div class="curriculum-card p-6 bg-blue-50 border-t-4 border-blue-500 rounded-lg text-left">
+       <span class="text-xs font-bold text-blue-500">Lesson 03</span>
+       <h3 class="text-xl font-bold mt-2">질량 보존 법칙</h3>
+       <p class="mt-4 text-slate-600">반응 전후에 원자의 종류와 개수가 일정함을 실험으로 확인합니다.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 5: Curriculum 2 -->
+   <section data-slide-index="4" data-slide-num="5" data-title="커리큘럼 (후반부)" id="slide-5">
+    <div class="slide-content">
+     <h2>학습 내용: 화학 반응의 양과 에너지</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-6xl mt-8">
+      <div class="curriculum-card p-6 bg-emerald-50 border-t-4 border-emerald-500 rounded-lg text-left">
+       <span class="text-xs font-bold text-emerald-500">Lesson 04</span>
+       <h3 class="text-xl font-bold mt-2">일정 성분비 법칙</h3>
+       <p class="mt-4 text-slate-600">화합물을 구성하는 성분 원소 사이의 일정한 질량비를 탐구합니다.</p>
+      </div>
+      <div class="curriculum-card p-6 bg-emerald-50 border-t-4 border-emerald-500 rounded-lg text-left">
+       <span class="text-xs font-bold text-emerald-500">Lesson 05</span>
+       <h3 class="text-xl font-bold mt-2">기체 반응 법칙</h3>
+       <p class="mt-4 text-slate-600">기체 반응에서 부피 사이에 성립하는 정수비를 아보가드로 수로 설명합니다.</p>
+      </div>
+      <div class="curriculum-card p-6 bg-emerald-50 border-t-4 border-emerald-500 rounded-lg text-left">
+       <span class="text-xs font-bold text-emerald-500">Lesson 06</span>
+       <h3 class="text-xl font-bold mt-2">에너지 출입</h3>
+       <p class="mt-4 text-slate-600">발열 반응과 흡열 반응을 구분하고 실생활 속 에너지를 분석합니다.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 6: How to Study -->
+   <section data-slide-index="5" data-slide-num="6" data-title="화학 공부법" id="slide-6">
+    <div class="slide-content">
+     <h2 class="text-amber-700">효과적인 화학 학습법</h2>
+     <div class="flex flex-col md:flex-row gap-8 w-full max-w-5xl mt-8">
+      <div class="flex-1 p-8 bg-amber-50 rounded-2xl border-2 border-amber-200">
+       <h3 class="text-2xl font-black text-amber-800 mb-4">👀 관찰과 질문</h3>
+       <p class="text-lg leading-relaxed">눈앞의 현상을 당연하게 여기지 마세요. "왜 저런 색깔이 날까?", "기포는 왜 생길까?" 끊임없이 질문하세요.</p>
+      </div>
+      <div class="flex-1 p-8 bg-amber-50 rounded-2xl border-2 border-amber-200">
+       <h3 class="text-2xl font-black text-amber-800 mb-4">🖋️ 모형 그리기</h3>
+       <p class="text-lg leading-relaxed">눈에 보이지 않는 입자를 직접 그려보세요. 입자 모형을 그릴 줄 안다면 화학의 절반은 정복한 것입니다.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 7: Evaluation -->
+   <section data-slide-index="6" data-slide-num="7" data-title="평가 안내" id="slide-7">
+    <div class="slide-content">
+     <h2>평가 계획 및 비중</h2>
+     
+     <!-- Placeholder for Evaluation Table Image -->
+     <div class="w-full max-w-5xl mb-8 p-12 bg-slate-100 border-2 border-dashed border-slate-300 rounded-2xl flex flex-col items-center justify-center text-slate-400">
+        <span class="text-5xl mb-4">📊</span>
+        <p class="text-xl font-bold">[지필 / 수행 과학A, 과학B 평가 계획표 이미지 삽입 공간]</p>
+        <p class="text-sm mt-2">지필 및 수행평가의 세부 항목과 배점이 포함된 표 이미지를 여기에 배치하세요.</p>
+     </div>
+
+     <div class="w-full max-w-5xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+       <div class="p-8 bg-slate-800 text-white rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-bold mb-6 border-b border-slate-600 pb-2">지필 평가 (60%)</h3>
+        <ul class="space-y-4 text-lg">
+         <li class="flex justify-between"><span>중간고사</span><span class="font-mono text-cyan-400">30%</span></li>
+         <li class="flex justify-between"><span>기말고사</span><span class="font-mono text-cyan-400">30%</span></li>
+        </ul>
+        <p class="mt-6 text-sm text-slate-400 italic">* 핵심 개념 이해 및 문제 해결 능력 평가</p>
+       </div>
+       <div class="p-8 bg-white border-2 border-slate-200 rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-bold mb-6 border-b border-slate-200 pb-2 text-slate-800">수행 평가 (40%)</h3>
+        <ul class="space-y-4 text-lg text-slate-700">
+         <li class="flex justify-between"><span>실험 보고서 작성</span><span class="font-mono text-indigo-600">20%</span></li>
+         <li class="flex justify-between"><span>화학 반응식 퀴즈</span><span class="font-mono text-indigo-600">20%</span></li>
+        </ul>
+        <p class="mt-6 text-sm text-slate-500 italic">* 실험 참여도 및 과학적 탐구 역량 평가</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 8: Preparation -->
+   <section data-slide-index="7" data-slide-num="8" data-title="준비물 및 태도" id="slide-8">
+    <div class="slide-content">
+     <h2>수업 준비와 마음가짐</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mt-8">
+      <div class="p-8 bg-cyan-50 border border-cyan-200 rounded-xl text-left">
+       <h3 class="text-xl font-bold text-cyan-700 mb-4">📝 필수 준비물</h3>
+       <ul class="text-lg space-y-3">
+        <li>&bull; 과학 교과서 및 배움 공책</li>
+        <li>&bull; 필기구 (3색 볼펜 추천)</li>
+        <li>&bull; 태블릿/노트북 (디지털 탐구 시)</li>
+       </ul>
+      </div>
+      <div class="p-8 bg-rose-50 border border-rose-200 rounded-xl text-left">
+       <h3 class="text-xl font-bold text-rose-700 mb-4">🤝 약속해요</h3>
+       <ul class="text-lg space-y-3">
+        <li>&bull; 수업 시작 1분 전 착석</li>
+        <li>&bull; 질문을 두려워하지 않기</li>
+        <li>&bull; 실험 기구는 소중하고 안전하게</li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 9: Lab Safety -->
+   <section data-slide-index="8" data-slide-num="9" data-title="실험 안전" id="slide-9">
+    <div class="slide-content">
+     <h2 class="text-red-600">⚠️ 화학 실험실 안전 수칙</h2>
+     <div class="bg-red-50 p-10 border-4 border-red-200 rounded-3xl max-w-4xl mt-8 text-left">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+       <div class="space-y-6">
+        <div class="flex gap-4">
+         <span class="text-3xl">🥽</span>
+         <div>
+          <h4 class="font-bold text-red-800">보호구 착용</h4>
+          <p class="text-red-700">보호 안경과 실험복은 생명줄입니다.</p>
+         </div>
+        </div>
+        <div class="flex gap-4">
+         <span class="text-3xl">👃</span>
+         <div>
+          <h4 class="font-bold text-red-800">함부로 맛/냄새 금지</h4>
+          <p class="text-red-700">약품의 냄새는 손바닥으로 부쳐서 맡습니다.</p>
+         </div>
+        </div>
+       </div>
+       <div class="space-y-6">
+        <div class="flex gap-4">
+         <span class="text-3xl">🔥</span>
+         <div>
+          <h4 class="font-bold text-red-800">가열 주의</h4>
+          <p class="text-red-700">시험관 입구는 사람이 없는 쪽을 향합니다.</p>
+         </div>
+        </div>
+        <div class="flex gap-4">
+         <span class="text-3xl">🗑️</span>
+         <div>
+          <h4 class="font-bold text-red-800">폐기물 처리</h4>
+          <p class="text-red-700">지정된 폐수통에만 약품을 버립니다.</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 10: Let's Start -->
+   <section data-slide-index="9" data-slide-num="10" data-title="시작하며" id="slide-10">
+    <div class="slide-content" style="border:none; box-shadow:none;">
+     <p class="text-slate-400 font-bold mb-4 uppercase tracking-widest">
+      Ready to Explore?
+     </p>
+     <h2 class="text-4xl md:text-6xl mb-10 border-none">
+      화학의 세계로 떠날 준비가 되었나요?
+     </h2>
+     <div class="p-10 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl text-white shadow-2xl mb-12">
+      <p class="text-2xl font-medium leading-relaxed">
+       "모든 큰 변화는 보이지 않는 작은 원자들의 움직임에서 시작됩니다. <br/>여러분의 성장도 오늘부터 시작될 것입니다."
+      </p>
+     </div>
+     <a class="btn-enter" href="1_chemical_change.html" style="font-size: 1.8rem; padding: 1.2rem 3rem;">
+      제 1강: 물질의 변화 시작 &rarr;
+     </a>
+    </div>
+   </section>
+  </main>
+  <script src="js/chem_sim.js"></script>
+  <script src="js/slide_engine.js"></script>
+ </body>
+</html>
