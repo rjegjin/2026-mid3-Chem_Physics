@@ -13,6 +13,7 @@
 
 ## 📚 강의 구성 (Curriculum)
 
+0. **[오리엔테이션](0_chemistry_ot.html)** - 2026 중3 화학 수업 안내 및 실험 안전
 1. **[1차시: 물질의 변화](1_chemical_change.html)** - 물리 변화와 화학 변화의 구분
 2. **[2차시: 화학 반응식](2_chemical_equation.html)** - 화학 반응을 수식으로 표현하기
 3. **[3차시: 질량 보존 법칙](3_mass_conservation.html)** - 반응 전후의 질량 관계
