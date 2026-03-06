@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 과학 수업 워드클라우드 (지구본 형태)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 3D TagCloud Library -->
+    <script src="https://www.goat1000.com/tagcanvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+        body { font-family: 'Noto+Sans+KR', sans-serif; }
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* 캔버스 스타일링 */
+        #myCanvasContainer {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        canvas {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col p-4 md:p-8">
+
+    <header class="max-w-6xl w-full mx-auto mb-8 text-center">
+        <h1 class="text-3xl font-bold text-white mb-2">🌍 3D 과학 수업 워드클라우드</h1>
+        <p class="text-slate-400">마우스로 지구본을 돌려가며 학생들의 생각을 탐험해보세요.</p>
+    </header>
+
+    <main class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8 flex-grow">
+        <!-- 설정 사이드바 -->
+        <section class="lg:col-span-1 space-y-6">
+            <div class="bg-slate-800 p-6 rounded-2xl shadow-xl border border-slate-700">
+                <h2 class="font-bold text-blue-400 mb-4 flex items-center gap-2">
+                    <span class="bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">1</span> 
+                    데이터 동기화
+                </h2>
+                
+                <div class="space-y-4">
+                    <button id="fetch-sheet-btn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        시트 데이터 불러오기
+                    </button>
+
+                    <div id="column-selector-container" class="hidden">
+                        <label class="block text-xs font-bold text-slate-400 mb-1">분석할 질문 선택</label>
+                        <select id="column-selector" class="w-full p-2 border border-slate-600 rounded-lg text-sm bg-slate-700 text-white focus:ring-2 focus:ring-blue-500 outline-none">
+                            <!-- 헤더 목록 -->
+                        </select>
+                    </div>
+
+                    <textarea id="text-input" class="w-full h-24 p-3 border border-slate-600 rounded-xl text-xs bg-slate-900 text-slate-300 resize-none hidden" placeholder="직접 입력 모드"></textarea>
+                </div>
+
+                <div class="mt-6">
+                    <label class="block text-sm font-bold text-slate-400 mb-2">필터링 (제외할 단어)</label>
+                    <input id="stop-words" type="text" class="w-full p-2 border border-slate-600 rounded-lg text-sm bg-slate-700 text-white" value="것, 수, 등, 입니다, 합니다, 해요, 정말, 너무, 매우">
+                </div>
+
+                <button id="generate-btn" class="w-full mt-6 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 rounded-xl transition-all shadow-lg active:scale-95">
+                    3D 지구본 생성하기
+                </button>
+            </div>
+
+            <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700 text-xs text-slate-400">
+                <p>💡 <strong>3D 조작 가이드:</strong></p>
+                <ul class="list-disc ml-4 mt-2 space-y-1">
+                    <li>마우스를 움직이면 회전 방향이 바뀝니다.</li>
+                    <li>가운데에서 멀어질수록 회전 속도가 빨라집니다.</li>
+                    <li>단어를 클릭하면 강조됩니다.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 3D 결과 구역 -->
+        <section class="lg:col-span-3 relative">
+            <div id="result-card" class="bg-slate-800 rounded-3xl shadow-2xl border border-slate-700 h-full min-h-[600px] flex flex-col items-center justify-center relative overflow-hidden">
+                
+                <div id="myCanvasContainer" class="w-full h-full">
+                    <canvas width="800" height="600" id="myCanvas">
+                        <p>이 브라우저는 3D 워드클라우드를 지원하지 않습니다.</p>
+                    </canvas>
+                </div>
+
+                <!-- 단어 리스트가 숨겨진 채로 생성되는 곳 -->
+                <div id="tags" class="hidden">
+                    <ul id="tagsList">
+                        <!-- JS가 여기에 <li>를 생성함 -->
+                    </ul>
+                </div>
+
+                <div id="placeholder" class="absolute inset-0 flex flex-col items-center justify-center text-slate-500 pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 mb-4 opacity-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                    </svg>
+                    <p class="text-xl font-medium">데이터를 불러온 후 버튼을 눌러주세요</p>
+                </div>
+
+                <!-- 로딩 오버레이 -->
+                <div id="loader" class="hidden absolute inset-0 bg-slate-900/90 flex flex-col items-center justify-center z-20">
+                    <div class="loading-spinner mb-4"></div>
+                    <p class="text-blue-400 font-bold">3D 공간 구성 중...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 시트 설정
+        const SHEET_ID = '1CFr8c0SJR1KsKozMdPXV3BnKNsCtWK1ZCEQXzBWNX9o';
+        const GID = '936611387';
+        const JSON_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${GID}`;
+
+        const fetchBtn = document.getElementById('fetch-sheet-btn');
+        const generateBtn = document.getElementById('generate-btn');
+        const textInput = document.getElementById('text-input');
+        const stopWordsInput = document.getElementById('stop-words');
+        const colSelector = document.getElementById('column-selector');
+        const colContainer = document.getElementById('column-selector-container');
+        const container = document.getElementById('myCanvasContainer');
+        const canvas = document.getElementById('myCanvas');
+        const tagsList = document.getElementById('tagsList');
+        const loader = document.getElementById('loader');
+        const placeholder = document.getElementById('placeholder');
+
+        let rawSheetData = [];
+        let headers = [];
+
+        // 시트 데이터 패치
+        async function fetchSheetData() {
+            loader.classList.remove('hidden');
+            try {
+                const response = await fetch(JSON_URL);
+                if (!response.ok) throw new Error('시트 공개 설정을 확인해주세요.');
+                const text = await response.text();
+                // Extract JSON from GViz response
+                const jsonString = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\);?/)[1];
+                const data = JSON.parse(jsonString);
+                parseSheetData(data);
+                
+                fetchBtn.innerText = '✅ 실시간 데이터 연결됨';
+                fetchBtn.classList.replace('bg-blue-600', 'bg-slate-700');
+            } catch (error) {
+                alert('데이터를 가져오는데 실패했습니다: ' + error.message);
+            } finally {
+                loader.classList.add('hidden');
+            }
+        }
+
+        function parseSheetData(data) {
+            headers = data.table.cols.map(col => col.label || '');
+            rawSheetData = data.table.rows.map(row => 
+                row.c.map(cell => (cell && cell.v !== null) ? String(cell.v) : '')
+            );
+            
+            colSelector.innerHTML = '';
+            headers.forEach((header, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = header;
+                colSelector.appendChild(option);
+            });
+            
+            // Column C (Index 2) 기본 선택 (존재할 경우)
+            if (headers.length > 2) {
+                colSelector.value = "2";
+            }
+            colContainer.classList.remove('hidden');
+            updateTextInput();
+        }
+
+        function updateTextInput() {
+            const colIndex = colSelector.value;
+            const content = rawSheetData.map(row => row[colIndex]).filter(v => v).join('\n');
+            textInput.value = content;
+        }
+
+        colSelector.addEventListener('change', updateTextInput);
+
+        // 단어 빈도수 계산
+        function processText(text) {
+            const stopWords = stopWordsInput.value.split(',').map(s => s.trim());
+            const words = text.split(/[\s,.\n?!\(\)\[\]]+/)
+                .map(word => word.trim())
+                .filter(word => word.length > 1 && !stopWords.includes(word));
+
+            const counts = {};
+            words.forEach(word => { counts[word] = (counts[word] || 0) + 1; });
+
+            return Object.entries(counts).map(([text, count]) => ({
+                text,
+                count,
+                fontSize: Math.min(10 + (count * 5), 50) // 최소 10px, 최대 50px
+            })).sort((a, b) => b.count - a.count).slice(0, 50); // 상위 50개만
+        }
+
+        function start3DCloud(words) {
+            // 태그 리스트 생성
+            tagsList.innerHTML = '';
+            const colors = ['#60a5fa', '#34d399', '#f472b6', '#fbbf24', '#a78bfa', '#22d3ee'];
+            
+            words.forEach(item => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = "#";
+                a.innerText = item.text;
+                a.style.fontSize = item.fontSize + "pt";
+                a.style.color = colors[Math.floor(Math.random() * colors.length)];
+                li.appendChild(a);
+                tagsList.appendChild(li);
+            });
+
+            // 캔버스 크기 조정
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+
+            try {
+                // TagCanvas 시작
+                TagCanvas.Start('myCanvas', 'tagsList', {
+                    textColour: null, // 개별 스타일 사용
+                    outlineColour: '#1e293b',
+                    reverse: true,
+                    depth: 0.8,
+                    maxSpeed: 0.05,
+                    minSpeed: 0.01,
+                    wheelZoom: true,
+                    initial: [0.1, -0.1],
+                    textFont: 'Noto Sans KR, sans-serif',
+                    weight: true,
+                    activeCursor: 'pointer',
+                    clickToFront: 600
+                });
+            } catch (e) {
+                // 오류 시 재시도 (이미 시작된 경우 Update)
+                TagCanvas.Update('myCanvas', 'tagsList');
+            }
+            
+            loader.classList.add('hidden');
+        }
+
+        fetchBtn.addEventListener('click', fetchSheetData);
+        
+        generateBtn.addEventListener('click', () => {
+            const text = textInput.value.trim();
+            if (!text) { alert('데이터를 먼저 불러와주세요.'); return; }
+            placeholder.classList.add('hidden');
+            loader.classList.remove('hidden');
+            
+            setTimeout(() => {
+                const words = processText(text);
+                if (words.length === 0) {
+                    alert('분석할 유효한 단어가 부족합니다.');
+                    loader.classList.add('hidden');
+                    return;
+                }
+                start3DCloud(words);
+            }, 300);
+        });
+
+        // 리사이즈 지원
+        window.addEventListener('resize', () => {
+            if (rawSheetData.length > 0 && !placeholder.classList.contains('hidden')) {
+                canvas.width = container.offsetWidth;
+                canvas.height = container.offsetHeight;
+                TagCanvas.Update('myCanvas', 'tagsList');
+            }
+        });
+    </script>
+</body>
+</html>
