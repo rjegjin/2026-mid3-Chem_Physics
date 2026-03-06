@@ -30,6 +30,8 @@ body {
     letter-spacing: -0.01em;
     word-break: keep-all; /* 한글 가독성 핵심 */
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, h4 {
@@ -45,3 +47,11 @@ strong {
     color: var(--accent-cyan);
     font-weight: 700;
 }
+
+/* 고해상도 모니터 이미지 최적화 */
+img, video {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    transform: translateZ(0); /* 강제 하드웨어 가속으로 렌더링 품질 향상 */
+}
+
