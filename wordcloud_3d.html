@@ -226,32 +226,38 @@
                 tagsList.appendChild(li);
             });
 
-            // 캔버스 크기 조정
-            canvas.width = container.offsetWidth;
-            canvas.height = container.offsetHeight;
+            // 캔버스 고해상도 지원 (전자 칠판 등 High DPI 디스플레이 대응)
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = container.offsetWidth * dpr;
+            canvas.height = container.offsetHeight * dpr;
+            canvas.style.width = `${container.offsetWidth}px`;
+            canvas.style.height = `${container.offsetHeight}px`;
 
-            try {
-                // TagCanvas 시작
-                TagCanvas.Start('myCanvas', 'tagsList', {
-                    textColour: null, // 개별 스타일 사용
-                    outlineColour: '#1e293b',
-                    reverse: true,
-                    depth: 0.8,
-                    maxSpeed: 0.05,
-                    minSpeed: 0.01,
-                    wheelZoom: true,
-                    initial: [0.1, -0.1],
-                    textFont: 'Noto Sans KR, sans-serif',
-                    weight: true,
-                    activeCursor: 'pointer',
-                    clickToFront: 600
-                });
-            } catch (e) {
-                // 오류 시 재시도 (이미 시작된 경우 Update)
-                TagCanvas.Update('myCanvas', 'tagsList');
-            }
-            
-            loader.classList.add('hidden');
+            // TagCanvas가 내부적으로 크기를 인식하도록 약간의 시간 지연 후 실행
+            setTimeout(() => {
+                try {
+                    // TagCanvas 시작
+                    TagCanvas.Start('myCanvas', 'tagsList', {
+                        textColour: null, // 개별 스타일 사용
+                        outlineColour: '#1e293b',
+                        reverse: true,
+                        depth: 0.8,
+                        maxSpeed: 0.05,
+                        minSpeed: 0.01,
+                        wheelZoom: true,
+                        initial: [0.1, -0.1],
+                        textFont: 'Noto Sans KR, sans-serif',
+                        weight: true,
+                        activeCursor: 'pointer',
+                        clickToFront: 600
+                    });
+                } catch (e) {
+                    // 오류 시 재시도 (이미 시작된 경우 Update)
+                    TagCanvas.Update('myCanvas', 'tagsList');
+                }
+                
+                loader.classList.add('hidden');
+            }, 50);
         }
 
         fetchBtn.addEventListener('click', fetchSheetData);
@@ -273,12 +279,15 @@
             }, 300);
         });
 
-        // 리사이즈 지원
+        // 리사이즈 지원 (고해상도 유지)
         window.addEventListener('resize', () => {
             if (rawSheetData.length > 0 && !placeholder.classList.contains('hidden')) {
-                canvas.width = container.offsetWidth;
-                canvas.height = container.offsetHeight;
-                TagCanvas.Update('myCanvas', 'tagsList');
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = container.offsetWidth * dpr;
+                canvas.height = container.offsetHeight * dpr;
+                canvas.style.width = `${container.offsetWidth}px`;
+                canvas.style.height = `${container.offsetHeight}px`;
+                setTimeout(() => TagCanvas.Update('myCanvas', 'tagsList'), 50);
             }
         });
     </script>
