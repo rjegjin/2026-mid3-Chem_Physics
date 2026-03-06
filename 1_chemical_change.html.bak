@@ -654,15 +654,15 @@
        <ul class="space-y-3 text-lg text-slate-700">
          <li class="flex items-start gap-2">
            <span class="text-indigo-500 font-bold">●</span>
-           <span><strong>물리 변화:</strong> 모양/상태만 변함, 성질 유지 (예: 얼음이 녹음)</span>
+           <span><strong>물리 변화:</strong> 분자의 배열만 변함 &rarr; 성질은 그대로! (예: 얼음이 녹음, 설탕이 물에 녹음)</span>
          </li>
          <li class="flex items-start gap-2">
            <span class="text-indigo-500 font-bold">●</span>
-           <span><strong>화학 변화:</strong> 원자 재배열로 성질이 변함 (예: 연소, 녹슬음)</span>
+           <span><strong>화학 변화:</strong> 원자의 배열이 달라져 새로운 분자 탄생 &rarr; 성질이 변함! (예: 양초가 탐, 철이 녹슬음)</span>
          </li>
          <li class="flex items-start gap-2">
            <span class="text-indigo-500 font-bold">●</span>
-           <span><strong>변함없는 것:</strong> 원자의 종류와 개수, 물질의 총 질량</span>
+           <span><strong>공통점:</strong> 어떤 변화가 일어나도 <strong>원자의 종류와 개수</strong>는 절대 변하지 않음!</span>
          </li>
        </ul>
      </div>
@@ -837,7 +837,7 @@
   </main>
 
   <!-- 🎮 Gamification Floating Button -->
-  <a href="https://tinkerbell.kr/quiz/share/123456" target="_blank" class="fixed bottom-24 right-10 bg-yellow-400 text-yellow-900 font-black py-4 px-8 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all flex items-center gap-3 z-50 animate-bounce">
+  <a href="https://tinkerbell.kr/quiz/share/123456" target="_blank" class="fixed bottom-10 right-10 bg-yellow-400 text-yellow-900 font-black py-4 px-8 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all flex items-center gap-3 z-50 animate-bounce">
     <span class="text-2xl">🎮</span>
     오늘의 핵심 용어 배틀!
   </a>

@@ -780,35 +780,7 @@
       </div>
      </div>
     </div>
-   
-
-   <!-- Slide: PhET Simulation (Auto Injected) -->
-   <section data-slide-index="99" data-slide-num="99" data-title="🔬 디지털 탐구" id="slide-phet-auto">
-    <div class="slide-content">
-     <h2 class="text-teal-700">🔬 디지털 탐구: 가상 실험 시뮬레이션</h2>
-     <div class="grid grid-cols-2 gap-4 mb-6 w-full max-w-4xl">
-        <div class="bg-orange-50 p-4 rounded-xl border border-orange-200 flex items-center gap-4">
-            <span class="text-3xl">🛠️</span>
-            <div class="text-left">
-                <p class="text-xs font-black text-orange-800">활동가형 (Activity)</p>
-                <p class="text-sm text-orange-700">태블릿을 조작하여 변화를 관찰하세요.</p>
-            </div>
-        </div>
-        <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 flex items-center gap-4">
-            <span class="text-3xl">📝</span>
-            <div class="text-left">
-                <p class="text-xs font-black text-blue-800">기록가형 (Recorder)</p>
-                <p class="text-sm text-blue-700">관찰 수치와 결과를 학습지에 기록하세요.</p>
-            </div>
-        </div>
-     </div>
-     <div class="w-full max-w-5xl aspect-video rounded-2xl overflow-hidden shadow-2xl border-4 border-white relative group">
-        <iframe src="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" 
-                class="w-full h-full" allowfullscreen></iframe>
-     </div>
-    </div>
    </section>
-</section>
    <!-- Slide 19: Advanced Thinking -->
    <section data-slide-index="18" data-slide-num="19" data-title="🤔 심화 탐구 및 토론" id="slide-19">
     <div class="slide-content">
@@ -837,29 +809,7 @@
       **Tip:** 분자는 하나하나 낱개로 존재하기 때문에 0.5개라는 개념은 현실적으로 불가능합니다!
      </div>
     </div>
-   
-
-     <!-- 📝 Cheat Sheet Panel (Auto Injected) -->
-     <div class="bg-indigo-50 border-l-8 border-indigo-500 p-8 rounded-r-2xl mt-12 max-w-5xl w-full text-left shadow-md">
-       <h3 class="text-2xl font-black text-indigo-800 mb-4 flex items-center gap-2">
-         <span>📝</span> 선생님의 1분 요약 (시험 단골 포인트)
-       </h3>
-       <ul class="space-y-3 text-lg text-slate-700">
-         <li class="flex items-start gap-2">
-           <span class="text-indigo-500 font-bold">●</span>
-           <span><strong>화학 반응식:</strong> 화학식과 기호를 사용하여 반응을 나타낸 식</span>
-         </li>
-         <li class="flex items-start gap-2">
-           <span class="text-indigo-500 font-bold">●</span>
-           <span><strong>계수 맞추기:</strong> 화살표 양쪽의 원자 종류와 개수가 같아야 함</span>
-         </li>
-         <li class="flex items-start gap-2">
-           <span class="text-indigo-500 font-bold">●</span>
-           <span><strong>계수비의 의미:</strong> 분자 수의 비 (절대 질량비가 아님에 주의!)</span>
-         </li>
-       </ul>
-     </div>
-</section>
+   </section>
    <!-- Slide 20: Next -->
    <section data-slide-index="19" data-slide-num="20" data-title="질량 보존 법칙" id="slide-20">
     <div class="slide-content" style="border:none; box-shadow:none;">
@@ -892,13 +842,6 @@
     </div>
    </section>
   </main>
-
-  <!-- 🎮 Gamification Floating Button -->
-  <a href="https://tinkerbell.kr/quiz/share/123456" target="_blank" class="fixed bottom-24 right-10 bg-yellow-400 text-yellow-900 font-black py-4 px-8 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all flex items-center gap-3 z-50 animate-bounce">
-    <span class="text-2xl">🎮</span>
-    오늘의 핵심 용어 배틀!
-  </a>
-
   <script src="js/chem_sim.js"></script>
   <script src="js/slide_engine.js">
   </script>
