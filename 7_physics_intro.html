@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Physics: 운동과 에너지 오리엔테이션</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="css/common.css" rel="stylesheet"/>
+  <link href="css/presentation_mode.css" rel="stylesheet"/>
+  <link href="css/chem_style.css" rel="stylesheet"/>
+  <style>
+   .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .bg-overlay {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3rem;
+            border-radius: 2rem;
+            backdrop-filter: blur(10px);
+        }
+  </style>
+ </head>
+ <body class="presentation-mode">
+  <main>
+   <!-- Slide 1: Welcome Physics -->
+   <section class="hero-bg" data-slide-index="0" data-slide-num="1" data-title="Physics Intro" id="slide-1">
+    <div class="slide-content bg-overlay">
+     <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">2026학년도 중학교 3학년 과학 &bull; 물리</p>
+     <h1 class="text-4xl md:text-6xl font-black mb-6 text-slate-900 leading-tight">
+      <span style="color:var(--accent-teal)">운동과 에너지</span><br/>세상을 움직이는 법칙
+     </h1>
+     <div class="w-20 h-1 bg-slate-800 mx-auto my-8"></div>
+     <p class="text-2xl text-slate-600">보이지 않는 힘이 만드는 역동적인 변화</p>
+    </div>
+   </section>
+   <!-- Slide 2: Roadmap -->
+   <section data-slide-index="1" data-slide-num="2" data-title="물리 로드맵" id="slide-2">
+    <div class="slide-content">
+     <h2 class="text-teal-700">물리 단원 학습 로드맵</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl mt-8 text-left">
+      <div class="p-8 bg-teal-50 border-t-8 border-teal-500 rounded-2xl">
+       <h3 class="text-2xl font-bold mb-4">1. 물체의 운동</h3>
+       <p class="text-lg">속력과 방향, 그리고 시간에 따른 위치 변화를 탐구합니다.</p>
+      </div>
+      <div class="p-8 bg-amber-50 border-t-8 border-amber-500 rounded-2xl">
+       <h3 class="text-2xl font-bold mb-4">2. 에너지의 전환과 보존</h3>
+       <p class="text-lg">운동 에너지와 위치 에너지, 그리고 에너지는 왜 사라지지 않는지 배웁니다.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 3: Coming Soon -->
+   <section data-slide-index="2" data-slide-num="3" data-title="준비 중" id="slide-3">
+    <div class="slide-content">
+      <div class="text-center">
+        <span class="text-6xl mb-8 block">🚧</span>
+        <h2 class="text-3xl font-black mb-4">이 단원은 현재 준비 중입니다</h2>
+        <p class="text-xl text-slate-500">화학 반응의 신비로운 탐험이 끝난 후, <br> 박진감 넘치는 물리 수업이 시작됩니다!</p>
+      </div>
+    </div>
+   </section>
+  </main>
+  <!-- 🎮 Gamification Floating Button -->
+  <a href="#" class="fixed bottom-24 right-10 bg-teal-500 text-white font-black py-4 px-8 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all flex items-center gap-3 z-50 animate-bounce">
+    <span class="text-2xl">🎮</span>물리 개념 챌린지 준비 중
+  </a>
+  <script src="js/slide_engine.js"></script>
+ </body>
+</html>
