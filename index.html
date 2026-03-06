@@ -148,9 +148,9 @@
             <a href="asset_dashboard.html" class="text-xs bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full border border-white/20 transition-all">이미지 대시보드</a>
             <a href="syllabus.html" class="text-xs bg-cyan-500/20 hover:bg-cyan-500/40 px-3 py-1 rounded-full border border-cyan-400/30 transition-all text-cyan-200">Syllabus 전체 보기</a>
         </div>
-        <h1 class="text-5xl font-black mb-4">Borcelle Chemistry Lab</h1>
+        <h1 class="text-5xl font-black mb-4">2026 중3 과학 A 수업</h1>
         <p class="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            중등 기초부터 전공 심화까지, 인터랙티브 슬라이드로 탐구하는 화학의 세계
+            화학 반응의 규칙부터 운동과 에너지까지, 인터랙티브 슬라이드로 탐구하는 과학의 세계
         </p>
     </header>
 
@@ -158,7 +158,10 @@
     <div class="tab-container text-center">
         <div class="tab-nav">
             <button onclick="switchTab('mid3')" id="tab-mid3" class="tab-btn active">
-                중등 과정 (중3 과학)
+                화학 단원 (화학 반응의 규칙)
+            </button>
+            <button onclick="switchTab('phys')" id="tab-phys" class="tab-btn">
+                물리 단원 (운동과 에너지)
             </button>
             <button onclick="switchTab('adv')" id="tab-adv" class="tab-btn">
                 전공 과정 (무기화학)
@@ -269,6 +272,39 @@
         </main>
     </section>
 
+    <!-- Physics Section -->
+    <section id="section-phys" class="lesson-section hidden">
+        <main class="lesson-grid">
+            <!-- Physics Orientation -->
+            <article class="lesson-card" style="border: 2px solid var(--accent-teal); background: #f0fdfa;">
+                <div class="card-header" style="background: #f0fdf4; border-bottom: 2px solid #bbf7d0;">
+                    <span class="card-num" style="color: #16a34a;">Intro</span>
+                    <h3 class="card-title" style="color: #166534;">2026 중3 물리 OT</h3>
+                </div>
+                <div class="card-body text-slate-700 font-medium">
+                    새로운 단원의 시작! 물체의 운동과 에너지의 전환, 보존 법칙을 배우기 위한 로드맵을 확인합니다.
+                </div>
+                <div class="card-footer" style="background: #f0fdf4;">
+                    <a href="7_physics_intro.html" class="btn-enter" style="background: #16a34a;">물리 시작 →</a>
+                </div>
+            </article>
+
+            <!-- Placeholder for Lesson 07 -->
+            <article class="lesson-card opacity-60">
+                <div class="card-header">
+                    <span class="card-num">Lesson 07</span>
+                    <h3 class="card-title">물체의 운동</h3>
+                </div>
+                <div class="card-body text-slate-500">
+                    속력과 방향의 변화. 여러 가지 물체의 운동을 분석하고 시간-거리, 시간-속력 그래프를 이해합니다.
+                </div>
+                <div class="card-footer">
+                    <span class="text-slate-400 font-bold">준비 중...</span>
+                </div>
+            </article>
+        </main>
+    </section>
+
     <!-- Advanced Section -->
     <section id="section-adv" class="lesson-section hidden">
         <main class="lesson-grid">
@@ -331,7 +367,7 @@
     </section>
 
     <footer>
-        &copy; 2026 Borcelle Chemistry Lab. Designed for Excellence in Education.
+        &copy; 2026 중3 과학 A 수업. Designed for Excellence in Education.
     </footer>
 
     <script>
