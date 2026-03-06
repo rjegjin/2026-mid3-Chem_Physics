@@ -26,12 +26,17 @@ body {
     font-family: var(--font-body);
     background-color: var(--bg-main);
     color: var(--primary-blue);
-    line-height: 1.6;
+    line-height: 1.8; /* 줄 간격 대폭 확대 (여유로운 가독성) */
     letter-spacing: -0.01em;
     word-break: keep-all; /* 한글 가독성 핵심 */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+}
+
+/* 텍스트 요소들 줄 간격 일괄 적용 */
+p, li, .text-lg, .text-xl, .slide-content {
+    line-height: 1.8 !important;
 }
 
 h1, h2, h3, h4 {
