@@ -2,1099 +2,1138 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>스마트 이미지 리소스 관리자</title>
+    <title>이미지 리소스 라이브 관리자 (2026)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'Pretendard', sans-serif; }
-        .asset-card { transition: all 0.2s; border: 1px solid #e2e8f0; }
-        .asset-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: #06b6d4; }
-        .img-container { height: 160px; display: flex; align-items: center; justify-content: center; background: #f8fafc; overflow: hidden; position: relative; border-bottom: 1px solid #e2e8f0; }
-        .img-container img { max-height: 100%; max-width: 100%; object-fit: contain; transition: opacity 0.3s; }
-        .slide-badge { font-size: 0.75rem; font-weight: 700; color: #475569; background: #f1f5f9; padding: 2px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px; }
-        .changed-indicator { display: none; color: #0891b2; font-size: 0.7rem; font-weight: bold; margin-top: 4px; }
-        .asset-card.modified { border-color: #0891b2; background-color: #ecfeff; }
-        .asset-card.modified .changed-indicator { display: block; }
+        .asset-card { transition: all 0.2s; border: 2px solid transparent; }
+        .asset-card:hover { transform: translateY(-5px); border-color: #06b6d4; }
+        .img-container { height: 150px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; overflow: hidden; position: relative; }
+        .img-container img { max-height: 100%; object-fit: contain; z-index: 1; }
+        .loading-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.8); display: none; align-items: center; justify-content: center; z-index: 10; }
+        .category-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
-    <div class="max-w-7xl mx-auto p-8">
-        <header class="flex justify-between items-end mb-10 border-b border-slate-200 pb-8">
+<body class="bg-slate-50 p-10 font-[Pretendard]">
+    <div class="max-w-7xl mx-auto">
+        <header class="flex justify-between items-end mb-12">
             <div>
-                <h1 class="text-3xl font-black text-slate-900 tracking-tight">Smart Asset Manager</h1>
-                <p class="text-slate-500 mt-2 text-sm">이미지 주소를 입력하면 <strong>즉시 미리보기</strong>가 반영됩니다.</p>
+                <h1 class="text-4xl font-black text-slate-900">2026 Asset Manager</h1>
+                <p class="text-slate-500 mt-2">로컬 수정은 [저장] 즉시 반영되며, GitHub 동기화용 JSON이 자동 생성됩니다.</p>
             </div>
-            <div class="flex gap-3">
-                <button onclick="exportChanges()" class="bg-slate-900 text-white px-5 py-2.5 rounded-lg font-bold hover:bg-slate-800 transition-all text-sm flex items-center gap-2 shadow-lg shadow-slate-200">
-                    <span>📋</span> 변경 사항 JSON 복사
-                </button>
-                <a href="index.html" class="bg-white text-slate-700 border border-slate-300 px-5 py-2.5 rounded-lg font-bold hover:bg-slate-50 transition-all text-sm">Home</a>
+            <div class="flex flex-col items-end gap-2">
+                <div class="flex gap-4">
+                    <span class="flex items-center gap-2 text-xs font-bold text-emerald-600 bg-emerald-50 px-4 py-2 rounded-full border border-emerald-200">
+                        <span class="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span> Local Server Connected
+                    </span>
+                    <a href="index.html" class="bg-slate-900 text-white px-6 py-2 rounded-full font-bold hover:bg-slate-700 transition-colors">Home</a>
+                </div>
+                <p class="text-[10px] text-slate-400 font-mono">Manifest: image_manifest.json (Updated)</p>
             </div>
         </header>
-        
-        <div id="dashboard-container" class="space-y-12">
+        <div class="space-y-20">
 
-        <section class="file-section" data-filename="1_chemical_change.html">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-1 h-6 bg-cyan-500 rounded-full"></div>
-                <h2 class="text-xl font-bold text-slate-800">1_chemical_change.html</h2>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="생각 열기: 종이의 두 갈래 길">
-                            <span>📄</span> P.5
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="종이를 찢으면?">종이를 찢으면?</span>
+<div class="category-group">
+    <div class="category-header border-b-4 border-slate-900 mb-8 py-4">
+        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tighter">0. Orientation & Intro</h2>
+    </div>
+    <div class="space-y-16">
+
+        <section>
+            <h3 class="text-xl font-bold text-slate-700 mb-6 flex items-center gap-3">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> 0_chemistry_ot.html
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-3608743827451230360" src="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" alt="종이를 찢으면?" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" value="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" 
-                                   oninput="previewImage(this, 'img_-3608743827451230360')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_0" type="text" value="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('0_chemistry_ot.html', 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80', 'input_0')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="생각 열기: 종이의 두 갈래 길">
-                            <span>📄</span> P.5
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="종이를 태우면?">종이를 태우면?</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_3076869469541622392" src="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" alt="종이를 태우면?" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" value="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" 
-                                   oninput="previewImage(this, 'img_3076869469541622392')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1" type="text" value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('0_chemistry_ot.html', 'https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_1')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="1. 물리 변화 (Physical Change)">
-                            <span>📄</span> P.6
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="Physical change example">Physical change example</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_7223543543300016874" src="https://images.nagwa.com/figures/explainers/146165392424/9.svg" alt="Physical change example" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://images.nagwa.com/figures/explainers/146165392424/9.svg" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://images.nagwa.com/figures/explainers/146165392424/9.svg" value="https://images.nagwa.com/figures/explainers/146165392424/9.svg" 
-                                   oninput="previewImage(this, 'img_7223543543300016874')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_2" type="text" value="https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('0_chemistry_ot.html', 'https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80', 'input_2')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="예시 1: 상태 변화">
-                            <span>📄</span> P.7
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="고체 (얼음)">고체 (얼음)</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-4425966109534694289" src="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" alt="고체 (얼음)" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" value="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" 
-                                   oninput="previewImage(this, 'img_-4425966109534694289')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_3" type="text" value="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('0_chemistry_ot.html', 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80', 'input_3')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="예시 1: 상태 변화">
-                            <span>📄</span> P.7
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="고체 (얼음)">고체 (얼음)</span>
+            </div></section>
+        <section>
+            <h3 class="text-xl font-bold text-slate-700 mb-6 flex items-center gap-3">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> 7_physics_intro.html
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-5625519953687478597" src="https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg" alt="고체 (얼음)" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg" value="https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg" 
-                                   oninput="previewImage(this, 'img_-5625519953687478597')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_4" type="text" value="https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('7_physics_intro.html', 'https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_4')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="예시 1: 상태 변화">
-                            <span>📄</span> P.7
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="액체 (물)">액체 (물)</span>
+            </div></section>    </div></div>
+<div class="category-group">
+    <div class="category-header border-b-4 border-slate-900 mb-8 py-4">
+        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tighter">1. Middle School Chemistry</h2>
+    </div>
+    <div class="space-y-16">
+
+        <section>
+            <h3 class="text-xl font-bold text-slate-700 mb-6 flex items-center gap-3">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> 1_chemical_change.html
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&amp;s" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_8029673413212950617" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s" alt="액체 (물)" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s" 
-                                   oninput="previewImage(this, 'img_8029673413212950617')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_5" type="text" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&amp;s" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&amp;s', 'input_5')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="예시 1: 상태 변화">
-                            <span>📄</span> P.7
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="액체 (물)">액체 (물)</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&amp;s" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-8927186384794084473" src="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" alt="액체 (물)" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" value="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" 
-                                   oninput="previewImage(this, 'img_-8927186384794084473')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_6" type="text" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&amp;s" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&amp;s', 'input_6')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="예시 1: 상태 변화">
-                            <span>📄</span> P.7
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="기체 (수증기)">기체 (수증기)</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_7417941289539761416" src="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" alt="기체 (수증기)" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" value="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" 
-                                   oninput="previewImage(this, 'img_7417941289539761416')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_7" type="text" value="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg', 'input_7')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="예시 1: 상태 변화">
-                            <span>📄</span> P.7
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="기체 (수증기)">기체 (수증기)</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-5550332644013175232" src="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" alt="기체 (수증기)" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" value="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" 
-                                   oninput="previewImage(this, 'img_-5550332644013175232')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_8" type="text" value="https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg', 'input_8')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="예시 2: 모양 변화">
-                            <span>📄</span> P.8
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="설명 없음">설명 없음</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-5083549717355150784" src="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" alt="설명 없음" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" value="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" 
-                                   oninput="previewImage(this, 'img_-5083549717355150784')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_9" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg', 'input_9')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="예시 2: 모양 변화">
-                            <span>📄</span> P.8
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="설명 없음">설명 없음</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&amp;s" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_8607829868257814449" src="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" alt="설명 없음" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" value="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" 
-                                   oninput="previewImage(this, 'img_8607829868257814449')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_10" type="text" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&amp;s" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&amp;s', 'input_10')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="심화 탐구: 설탕물의 비밀">
-                            <span>📄</span> P.9
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="설명 없음">설명 없음</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&amp;s" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_7141177327142695430" src="https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg" alt="설명 없음" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg" value="https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg" 
-                                   oninput="previewImage(this, 'img_7141177327142695430')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_11" type="text" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&amp;s" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&amp;s', 'input_11')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="2. 화학 변화 (Chemical Change)">
-                            <span>📄</span> P.10
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="Chemical change example">Chemical change example</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_3143851678584909344" src="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" alt="Chemical change example" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" value="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" 
-                                   oninput="previewImage(this, 'img_3143851678584909344')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_12" type="text" value="https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg', 'input_12')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="예시 1: 연소 (Combustion)">
-                            <span>📄</span> P.11
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="설명 없음">설명 없음</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-2481470639687431386" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s" alt="설명 없음" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s" 
-                                   oninput="previewImage(this, 'img_-2481470639687431386')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_13" type="text" value="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg', 'input_13')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="예시 2: 산화와 부식">
-                            <span>📄</span> P.12
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="철의 부식">철의 부식</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.nagwa.com/figures/explainers/146165392424/9.svg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_2063137813000565411" src="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" alt="철의 부식" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" value="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" 
-                                   oninput="previewImage(this, 'img_2063137813000565411')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_14" type="text" value="https://images.nagwa.com/figures/explainers/146165392424/9.svg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://images.nagwa.com/figures/explainers/146165392424/9.svg', 'input_14')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="예시 2: 산화와 부식">
-                            <span>📄</span> P.12
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="과일의 갈변">과일의 갈변</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_7844352992521248421" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s" alt="과일의 갈변" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s" 
-                                   oninput="previewImage(this, 'img_7844352992521248421')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_15" type="text" value="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=', 'input_15')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="예시 3: 앙금 생성과 기체 발생">
-                            <span>📄</span> P.13
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="🧪 앙금 생성">🧪 앙금 생성</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_5251961194045041709" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s" alt="🧪 앙금 생성" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s" 
-                                   oninput="previewImage(this, 'img_5251961194045041709')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_16" type="text" value="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg', 'input_16')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="예시 3: 앙금 생성과 기체 발생">
-                            <span>📄</span> P.13
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="🥐 발효와 부패">🥐 발효와 부패</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_3394067703480115791" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s" alt="🥐 발효와 부패" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s" 
-                                   oninput="previewImage(this, 'img_3394067703480115791')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_17" type="text" value="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg', 'input_17')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="실험 관찰: 마그네슘의 연소">
-                            <span>📄</span> P.17
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="설명 없음">설명 없음</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_6246475500714147304" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" alt="설명 없음" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" 
-                                   oninput="previewImage(this, 'img_6246475500714147304')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_18" type="text" value="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=', 'input_18')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-            </div>
-        </section>
-        
-        <section class="file-section" data-filename="2_chemical_equation.html">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-1 h-6 bg-cyan-500 rounded-full"></div>
-                <h2 class="text-xl font-bold text-slate-800">2_chemical_equation.html</h2>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="과학의 약속: 화학 기호">
-                            <span>📄</span> P.2
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="베르셀리우스 (J. J. Berzelius)">베르셀리우스 (J. J. Berzelius)</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-4093145191297745680" src="https://chedulife.com.au/wp-content/uploads/images.jpeg-100-3.jpg" alt="베르셀리우스 (J. J. Berzelius)" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://chedulife.com.au/wp-content/uploads/images.jpeg-100-3.jpg" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://chedulife.com.au/wp-content/uploads/images.jpeg-100-3.jpg" value="https://chedulife.com.au/wp-content/uploads/images.jpeg-100-3.jpg" 
-                                   oninput="previewImage(this, 'img_-4093145191297745680')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_19" type="text" value="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg', 'input_19')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="질량 보존 법칙">
-                            <span>📄</span> P.20
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="Reactants (100g)">Reactants (100g)</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-7675934670477352049" src="https://www.allrecipes.com/thmb/W66rurgV3YA2kk7EMcoUSrI6GSE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/baking-ingredients-photo-by-brett-stevens-GettyImages-148198912-19cca7bea03e418db3977eeb36966f78.jpg" alt="Reactants (100g)" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://www.allrecipes.com/thmb/W66rurgV3YA2kk7EMcoUSrI6GSE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/baking-ingredients-photo-by-brett-stevens-GettyImages-148198912-19cca7bea03e418db3977eeb36966f78.jpg" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://www.allrecipes.com/thmb/W66rurgV3YA2kk7EMcoUSrI6GSE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/baking-ingredients-photo-by-brett-stevens-GettyImages-148198912-19cca7bea03e418db3977eeb36966f78.jpg" value="https://www.allrecipes.com/thmb/W66rurgV3YA2kk7EMcoUSrI6GSE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/baking-ingredients-photo-by-brett-stevens-GettyImages-148198912-19cca7bea03e418db3977eeb36966f78.jpg" 
-                                   oninput="previewImage(this, 'img_-7675934670477352049')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_20" type="text" value="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=', 'input_20')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="질량 보존 법칙">
-                            <span>📄</span> P.20
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="Products (100g)">Products (100g)</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_6924324498563797173" src="https://tastesbetterfromscratch.com/wp-content/uploads/2020/03/Bread-Recipe-5-2.jpg" alt="Products (100g)" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://tastesbetterfromscratch.com/wp-content/uploads/2020/03/Bread-Recipe-5-2.jpg" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://tastesbetterfromscratch.com/wp-content/uploads/2020/03/Bread-Recipe-5-2.jpg" value="https://tastesbetterfromscratch.com/wp-content/uploads/2020/03/Bread-Recipe-5-2.jpg" 
-                                   oninput="previewImage(this, 'img_6924324498563797173')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_21" type="text" value="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg', 'input_21')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-            </div>
-        </section>
-        
-        <section class="file-section" data-filename="3_mass_conservation.html">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-1 h-6 bg-cyan-500 rounded-full"></div>
-                <h2 class="text-xl font-bold text-slate-800">3_mass_conservation.html</h2>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="도입: 로켓 발사의 비밀">
-                            <span>📄</span> P.2
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="설명 없음">설명 없음</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&amp;s" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-7276180536930841732" src="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="설명 없음" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" value="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                                   oninput="previewImage(this, 'img_-7276180536930841732')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_22" type="text" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&amp;s" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&amp;s', 'input_22')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="앙금 생성 반응과 질량">
-                            <span>📄</span> P.5
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="반응물">반응물</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-1941841610356995108" src="https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="반응물" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" value="https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                                   oninput="previewImage(this, 'img_-1941841610356995108')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_23" type="text" value="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg', 'input_23')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="질량 보존 법칙">
-                            <span>📄</span> P.8
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="앙투안 라부아지에">앙투안 라부아지에</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-4460092465765426667" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Antoine_lavoisier.jpg/440px-Antoine_lavoisier.jpg" alt="앙투안 라부아지에" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Antoine_lavoisier.jpg/440px-Antoine_lavoisier.jpg" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Antoine_lavoisier.jpg/440px-Antoine_lavoisier.jpg" value="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Antoine_lavoisier.jpg/440px-Antoine_lavoisier.jpg" 
-                                   oninput="previewImage(this, 'img_-4460092465765426667')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_24" type="text" value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_24')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="심화: 나무의 연소 (질량 감소?)">
-                            <span>📄</span> P.10
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="설명 없음">설명 없음</span>
+            </div></section>
+        <section>
+            <h3 class="text-xl font-bold text-slate-700 mb-6 flex items-center gap-3">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> 2_chemical_equation.html
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1532634922-8fe0b757fb13?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_569422052009644570" src="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="설명 없음" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" value="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                                   oninput="previewImage(this, 'img_569422052009644570')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_25" type="text" value="https://images.unsplash.com/photo-1532634922-8fe0b757fb13?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('2_chemical_equation.html', 'https://images.unsplash.com/photo-1532634922-8fe0b757fb13?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_25')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="심화: 강철 솜의 연소 (질량 증가?)">
-                            <span>📄</span> P.11
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="설명 없음">설명 없음</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://cheerfulcook.com/wp-content/uploads/2022/12/bread-Cheerful-Cook-ingredients.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-6604464607301969010" src="https://images.unsplash.com/photo-1536633132051-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="설명 없음" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://images.unsplash.com/photo-1536633132051-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://images.unsplash.com/photo-1536633132051-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" value="https://images.unsplash.com/photo-1536633132051-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                                   oninput="previewImage(this, 'img_-6604464607301969010')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_26" type="text" value="https://cheerfulcook.com/wp-content/uploads/2022/12/bread-Cheerful-Cook-ingredients.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('2_chemical_equation.html', 'https://cheerfulcook.com/wp-content/uploads/2022/12/bread-Cheerful-Cook-ingredients.jpg', 'input_26')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-            </div>
-        </section>
-        
-        <section class="file-section" data-filename="4_definite_proportions.html">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-1 h-6 bg-cyan-500 rounded-full"></div>
-                <h2 class="text-xl font-bold text-slate-800">4_definite_proportions.html</h2>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="도입: 샌드위치 만들기">
-                            <span>📄</span> P.2
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="Sandwich">Sandwich</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://chedulife.com.au/wp-content/uploads/images.jpeg-100-3.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_7479766518448238664" src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sandwich" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" value="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                                   oninput="previewImage(this, 'img_7479766518448238664')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_27" type="text" value="https://chedulife.com.au/wp-content/uploads/images.jpeg-100-3.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('2_chemical_equation.html', 'https://chedulife.com.au/wp-content/uploads/images.jpeg-100-3.jpg', 'input_27')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="일정 성분비 법칙">
-                            <span>📄</span> P.10
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="조제프 프루스트">조제프 프루스트</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://tastesbetterfromscratch.com/wp-content/uploads/2020/03/Bread-Recipe-5-2.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-5088658585423955736" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Joseph_Louis_Proust.jpg/440px-Joseph_Louis_Proust.jpg" alt="조제프 프루스트" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Joseph_Louis_Proust.jpg/440px-Joseph_Louis_Proust.jpg" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Joseph_Louis_Proust.jpg/440px-Joseph_Louis_Proust.jpg" value="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Joseph_Louis_Proust.jpg/440px-Joseph_Louis_Proust.jpg" 
-                                   oninput="previewImage(this, 'img_-5088658585423955736')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_28" type="text" value="https://tastesbetterfromscratch.com/wp-content/uploads/2020/03/Bread-Recipe-5-2.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('2_chemical_equation.html', 'https://tastesbetterfromscratch.com/wp-content/uploads/2020/03/Bread-Recipe-5-2.jpg', 'input_28')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="연습: 산화 마그네슘의 탄생">
-                            <span>📄</span> P.14
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="Burning Magnesium">Burning Magnesium</span>
+            </div></section>
+        <section>
+            <h3 class="text-xl font-bold text-slate-700 mb-6 flex items-center gap-3">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> 3_mass_conservation.html
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://i.ytimg.com/vi/4uZqAWwguXU/hqdefault.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-6172876368430127844" src="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Burning Magnesium" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" value="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                                   oninput="previewImage(this, 'img_-6172876368430127844')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_29" type="text" value="https://i.ytimg.com/vi/4uZqAWwguXU/hqdefault.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('3_mass_conservation.html', 'https://i.ytimg.com/vi/4uZqAWwguXU/hqdefault.jpg', 'input_29')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-            </div>
-        </section>
-        
-        <section class="file-section" data-filename="5_gas_reaction.html">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-1 h-6 bg-cyan-500 rounded-full"></div>
-                <h2 class="text-xl font-bold text-slate-800">5_gas_reaction.html</h2>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="도입: 풍선 속의 비밀">
-                            <span>📄</span> P.2
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="Balloons">Balloons</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_8765911852757645421" src="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Balloons" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" value="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                                   oninput="previewImage(this, 'img_8765911852757645421')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_30" type="text" value="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('3_mass_conservation.html', 'https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80', 'input_30')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="게이뤼삭의 발견 (1808년)">
-                            <span>📄</span> P.5
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="조제프 게이뤼삭">조제프 게이뤼삭</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://i.ytimg.com/vi/yQowrUeaFk8/sddefault.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_9091596651356803581" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" alt="조제프 게이뤼삭" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" 
-                                   oninput="previewImage(this, 'img_9091596651356803581')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_31" type="text" value="https://i.ytimg.com/vi/yQowrUeaFk8/sddefault.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('3_mass_conservation.html', 'https://i.ytimg.com/vi/yQowrUeaFk8/sddefault.jpg', 'input_31')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="질문: 왜 부피비가 성립할까요?">
-                            <span>📄</span> P.8
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="설명 없음">설명 없음</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-5836106011866688636" src="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="설명 없음" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" value="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                                   oninput="previewImage(this, 'img_-5836106011866688636')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_32" type="text" value="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('3_mass_conservation.html', 'https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80', 'input_32')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="구원자: 아보가드로의 '분자설'">
-                            <span>📄</span> P.10
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="아메데오 아보가드로 (1811)">아메데오 아보가드로 (1811)</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://i.namu.wiki/i/VWme9fcr0umOvZj-de8GECYkiuEJGVr2ei_cKXclyjBZm8ptoeXIZFi-A-ckpKelIGKM-4kRh6YkVnJ64UvHUw.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-9172768966272673364" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" alt="아메데오 아보가드로 (1811)" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" 
-                                   oninput="previewImage(this, 'img_-9172768966272673364')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_33" type="text" value="https://i.namu.wiki/i/VWme9fcr0umOvZj-de8GECYkiuEJGVr2ei_cKXclyjBZm8ptoeXIZFi-A-ckpKelIGKM-4kRh6YkVnJ64UvHUw.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('3_mass_conservation.html', 'https://i.namu.wiki/i/VWme9fcr0umOvZj-de8GECYkiuEJGVr2ei_cKXclyjBZm8ptoeXIZFi-A-ckpKelIGKM-4kRh6YkVnJ64UvHUw.jpg', 'input_33')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-            </div>
-        </section>
-        
-        <section class="file-section" data-filename="6_energy_change.html">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-1 h-6 bg-cyan-500 rounded-full"></div>
-                <h2 class="text-xl font-bold text-slate-800">6_energy_change.html</h2>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="도입: 불 없이 요리하는 비밀">
-                            <span>📄</span> P.2
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="Camping food">Camping food</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1536633132051-6407270d4949?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_-2788681782168524168" src="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Camping food" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" value="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                                   oninput="previewImage(this, 'img_-2788681782168524168')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_34" type="text" value="https://images.unsplash.com/photo-1536633132051-6407270d4949?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('3_mass_conservation.html', 'https://images.unsplash.com/photo-1536633132051-6407270d4949?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80', 'input_34')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="발열 반응의 대표 사례 (1)">
-                            <span>📄</span> P.6
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="연소 (Fire)">연소 (Fire)</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_3694775564971647259" src="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="연소 (Fire)" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" value="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                                   oninput="previewImage(this, 'img_3694775564971647259')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_35" type="text" value="https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('3_mass_conservation.html', 'https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_35')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="발열 반응의 대표 사례 (1)">
-                            <span>📄</span> P.6
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="금속의 산화">금속의 산화</span>
+            </div></section>
+        <section>
+            <h3 class="text-xl font-bold text-slate-700 mb-6 flex items-center gap-3">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> 4_definite_proportions.html
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_7995443641658257219" src="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="금속의 산화" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" value="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                                   oninput="previewImage(this, 'img_7995443641658257219')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_36" type="text" value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('4_definite_proportions.html', 'https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80', 'input_36')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-                <div class="asset-card bg-white rounded-xl overflow-hidden flex flex-col">
-                    <div class="p-3 border-b border-slate-100 bg-white flex justify-between items-center">
-                        <span class="slide-badge" title="생명 과학 속 에너지 (발열)">
-                            <span>📄</span> P.10
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-400 truncate max-w-[120px]" title="설명 없음">설명 없음</span>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
                     </div>
-                    <div class="img-container group relative">
-                        <img id="img_1885276061501544671" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="설명 없음" onerror="this.src='https://via.placeholder.com/150?text=Error'">
-                        <a href="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" target="_blank" class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition-opacity">
-                            원본 보기 ↗
-                        </a>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col gap-3">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Image Source URL</label>
-                            <input type="text" data-original="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" value="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                                   oninput="previewImage(this, 'img_1885276061501544671')"
-                                   class="img-input w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder-slate-300"
-                                   placeholder="https://...">
-                            <span class="changed-indicator">● 수정됨</span>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_37" type="text" value="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
                         </div>
+                        <button onclick="updateAsset('4_definite_proportions.html', 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80', 'input_37')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
                     </div>
                 </div>
-                
-            </div>
-        </section>
-        
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Joseph_Louis_Proust.jpg/440px-Joseph_Louis_Proust.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_38" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Joseph_Louis_Proust.jpg/440px-Joseph_Louis_Proust.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('4_definite_proportions.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Joseph_Louis_Proust.jpg/440px-Joseph_Louis_Proust.jpg', 'input_38')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
+                    </div>
+                </div>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1554224155-1696413565d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_39" type="text" value="https://images.unsplash.com/photo-1554224155-1696413565d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('4_definite_proportions.html', 'https://images.unsplash.com/photo-1554224155-1696413565d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_39')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
+                    </div>
+                </div>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_40" type="text" value="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('4_definite_proportions.html', 'https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80', 'input_40')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
+                    </div>
+                </div>
+            </div></section>
+        <section>
+            <h3 class="text-xl font-bold text-slate-700 mb-6 flex items-center gap-3">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> 5_gas_reaction.html
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_41" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('5_gas_reaction.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png', 'input_41')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
+                    </div>
+                </div>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_42" type="text" value="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('5_gas_reaction.html', 'https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80', 'input_42')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
+                    </div>
+                </div>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_43" type="text" value="https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('5_gas_reaction.html', 'https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_43')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
+                    </div>
+                </div>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_44" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('5_gas_reaction.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg', 'input_44')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
+                    </div>
+                </div>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_45" type="text" value="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('5_gas_reaction.html', 'https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80', 'input_45')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
+                    </div>
+                </div>
+            </div></section>
+        <section>
+            <h3 class="text-xl font-bold text-slate-700 mb-6 flex items-center gap-3">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> 6_energy_change.html
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_46" type="text" value="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('6_energy_change.html', 'https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80', 'input_46')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
+                    </div>
+                </div>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_47" type="text" value="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('6_energy_change.html', 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80', 'input_47')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
+                    </div>
+                </div>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_48" type="text" value="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('6_energy_change.html', 'https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80', 'input_48')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
+                    </div>
+                </div>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_49" type="text" value="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('6_energy_change.html', 'https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80', 'input_49')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
+                    </div>
+                </div>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_50" type="text" value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('6_energy_change.html', 'https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_50')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
+                    </div>
+                </div>
+            </div></section>    </div></div>
+<div class="category-group">
+    <div class="category-header border-b-4 border-slate-900 mb-8 py-4">
+        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tighter">2. Advanced Inorganic Chemistry</h2>
+    </div>
+    <div class="space-y-16">
+
+        <section>
+            <h3 class="text-xl font-bold text-slate-700 mb-6 flex items-center gap-3">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> adv_inorganic_01.html
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Allene-2D-skeletal.svg/1200px-Allene-2D-skeletal.svg.png" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_51" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Allene-2D-skeletal.svg/1200px-Allene-2D-skeletal.svg.png" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('adv_inorganic_01.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Allene-2D-skeletal.svg/1200px-Allene-2D-skeletal.svg.png', 'input_51')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
+                    </div>
+                </div>
+            </div></section>
+        <section>
+            <h3 class="text-xl font-bold text-slate-700 mb-6 flex items-center gap-3">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> adv_inorganic_03.html
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Symmetric_stretching_of_water.gif/220px-Symmetric_stretching_of_water.gif" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_52" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Symmetric_stretching_of_water.gif/220px-Symmetric_stretching_of_water.gif" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('adv_inorganic_03.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Symmetric_stretching_of_water.gif/220px-Symmetric_stretching_of_water.gif', 'input_52')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
+                    </div>
+                </div>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Bending_of_water.gif/220px-Bending_of_water.gif" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_53" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Bending_of_water.gif/220px-Bending_of_water.gif" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('adv_inorganic_03.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Bending_of_water.gif/220px-Bending_of_water.gif', 'input_53')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
+                    </div>
+                </div>
+
+                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
+                    <div class="img-container">
+                        <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Asymmetric_stretching_of_water.gif/220px-Asymmetric_stretching_of_water.gif" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_54" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Asymmetric_stretching_of_water.gif/220px-Asymmetric_stretching_of_water.gif" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('adv_inorganic_03.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Asymmetric_stretching_of_water.gif/220px-Asymmetric_stretching_of_water.gif', 'input_54')" 
+                                class="mt-3 w-full bg-slate-100 hover:bg-cyan-600 hover:text-white text-slate-600 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Save Local
+                        </button>
+                    </div>
+                </div>
+            </div></section>    </div></div>
         </div>
     </div>
-
     <script>
-        function previewImage(inputElement, imgId) {
-            const newSrc = inputElement.value.trim();
-            const imgElement = document.getElementById(imgId);
-            const card = inputElement.closest('.asset-card');
+        async function updateAsset(filename, oldSrc, inputId) {
+            const input = document.getElementById(inputId);
+            const newSrc = input.value.trim();
+            const card = input.closest('.asset-card');
+            const overlay = card.querySelector('.loading-overlay');
             
-            // Update image source
-            if (newSrc) {
-                imgElement.src = newSrc;
-            }
-            
-            // Visual feedback for modification
-            if (newSrc !== inputElement.dataset.original) {
-                card.classList.add('modified');
-            } else {
-                card.classList.remove('modified');
-            }
-        }
-
-        function exportChanges() {
-            const changes = [];
-            const inputs = document.querySelectorAll('.img-input');
-            
-            inputs.forEach(input => {
-                const original = input.dataset.original;
-                const current = input.value.trim();
-                
-                if (original !== current) {
-                    const section = input.closest('.file-section');
-                    const filename = section.dataset.filename;
-                    
-                    changes.push({
-                        file: filename,
-                        old_src: original,
-                        new_src: current
-                    });
-                }
-            });
-
-            if (changes.length === 0) {
-                alert('변경 사항이 없습니다.');
+            if (oldSrc === newSrc) {
+                alert('변경사항이 없습니다.');
                 return;
             }
 
-            const jsonOutput = JSON.stringify(changes, null, 2);
-            navigator.clipboard.writeText(jsonOutput).then(() => {
-                alert('✅ 변경 사항 복사 완료!\n\nGemini 채팅창에 붙여넣어 주세요.');
-            });
+            overlay.style.display = 'flex';
+            
+            try {
+                const response = await fetch('http://localhost:8000/update-asset', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ filename, old_src: oldSrc, new_src: newSrc })
+                });
+
+                if (response.ok) {
+                    alert('성공적으로 수정되었습니다! 페이지를 새로고침하면 반영된 이미지를 볼 수 있습니다.');
+                    location.reload();
+                } else {
+                    alert('수정 실패: 서버 오류가 발생했습니다.');
+                }
+            } catch (err) {
+                alert('서버와 연결할 수 없습니다. asset_server.py가 실행 중인지 확인하세요.');
+            } finally {
+                overlay.style.display = 'none';
+            }
         }
     </script>
 </body>
