@@ -15,45 +15,127 @@
   <link href="css/common.css" rel="stylesheet"/>
   <link href="css/presentation_mode.css" rel="stylesheet"/>
   <style>
-   .equation-display {
-            background: linear-gradient(to right, #f8fafc, #f1f5f9);
-            padding: 2.5rem;
-            border-radius: 1.5rem;
-            font-family: 'Fira Code', monospace;
+   :root {
+            --primary-blue: #2563eb;
+            --accent-cyan: #0891b2;
+            --accent-teal: #0d9488;
+            --bg-soft-blue: #f8fafc;
+            --bg-soft-red: #fff1f2;
+            --text-main: #1e293b;
+        }
+        body {
+            line-height: 1.8;
+            color: var(--text-main);
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        .slide-content h2 {
             font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
             color: #0f172a;
-            box-shadow: inset 0 4px 10px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
-            margin: 1.5rem 0;
+            letter-spacing: -0.025em;
+        }
+        .equation-display {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            padding: 3rem 2rem;
+            border-radius: 2rem;
+            font-family: 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 3.5rem;
+            color: #f8fafc;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 4px solid #334155;
+            margin: 2rem 0;
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
         }
         .coeff-box {
-            color: #e11d48;
+            color: #fbbf24;
             font-weight: 900;
-            border-bottom: 5px solid #fda4af;
-            padding: 0 5px;
+            background: rgba(251, 191, 36, 0.1);
+            padding: 0 15px;
+            border-radius: 0.5rem;
+            border: 2px solid rgba(251, 191, 36, 0.3);
         }
         .step-badge {
-            background: var(--primary-blue);
+            background: linear-gradient(to right, #2563eb, #0891b2);
             color: white;
-            padding: 0.4rem 1.2rem;
-            border-radius: 9999px;
-            font-size: 1rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
+            padding: 0.6rem 1.5rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
             display: inline-block;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
         }
         .hero-bg-chem {
-            background-image: url('https://images.unsplash.com/photo-1532634922-8fe0b757fb13?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-image: url('https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
         }
         .formula-card {
             background: white;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
+        }
+        .formula-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: #3b82f6;
+        }
+        .molecule-container {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 2rem;
+            backdrop-filter: blur(8px);
+        }
+        .atom {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 1.5rem;
+            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.2), 5px 5px 15px rgba(0,0,0,0.1);
+        }
+        .atom-h { background: radial-gradient(circle at 30% 30%, #f1f5f9, #94a3b8); color: #334155; }
+        .atom-o { background: radial-gradient(circle at 30% 30%, #fca5a5, #ef4444); }
+        .atom-c { background: radial-gradient(circle at 30% 30%, #64748b, #1e293b); }
+        .atom-n { background: radial-gradient(circle at 30% 30%, #93c5fd, #3b82f6); }
+        
+        .quiz-btn {
+            background: white;
+            padding: 1.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 1rem;
+            transition: all 0.2s;
+            text-align: left;
+            font-weight: 600;
+        }
+        .quiz-btn:hover {
+            background: #f1f5f9;
+            border-color: #3b82f6;
+        }
+        .bg-overlay {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 4rem 3rem;
+            border-radius: 2.5rem;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            max-width: 900px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
   </style>
    <link href="css/chem_style.css" rel="stylesheet"/>
@@ -86,31 +168,31 @@
    <!-- Slide 2: History of Symbols -->
    <section data-slide-index="1" data-slide-num="2" data-title="과학의 약속: 화학 기호" id="slide-2">
     <div class="slide-content">
-     <h2>
-      과학의 약속: 화학 기호
-     </h2>
-     <div class="flex flex-col md:flex-row gap-4 md:gap-6 md:gap-6 md:p-12 items-center max-w-6xl mt-8">
-      <div class="w-full md:w-1/2">
-       <img alt="Berzelius" class="rounded-2xl shadow-2xl border-8 border-white" src="https://chedulife.com.au/wp-content/uploads/images.jpeg-100-3.jpg"/>
-       <p class="mt-4 text-slate-500 italic">
-        베르셀리우스 (J. J. Berzelius)
-       </p>
+     <h2>과학의 약속: 화학 기호</h2>
+     <div class="flex flex-col md:flex-row gap-12 items-center max-w-6xl mt-12">
+      <div class="w-full md:w-1/2 relative group">
+       <div class="absolute -inset-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
+       <img alt="Berzelius" class="relative rounded-2xl shadow-2xl border-4 border-white w-full" src="https://chedulife.com.au/wp-content/uploads/images.jpeg-100-3.jpg"/>
+       <div class="mt-6 text-center">
+        <p class="text-2xl font-black text-slate-800">베르셀리우스</p>
+        <p class="text-lg text-slate-500 font-medium">Jöns Jacob Berzelius (1779-1848)</p>
+       </div>
       </div>
-      <div class="w-full md:w-1/2 text-left space-y-8">
-       <div class="p-6 bg-slate-50 border-l-4 border-slate-800">
-        <h3 class="text-2xl font-bold mb-4 text-slate-800">
-         그림에서 문자로
+      <div class="w-full md:w-1/2 text-left space-y-10">
+       <div class="p-8 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+        <h3 class="text-2xl font-black mb-4 text-blue-600 flex items-center gap-3">
+         <span class="bg-blue-100 p-2 rounded-lg">🔤</span> 그림에서 문자로
         </h3>
         <p class="text-xl leading-relaxed text-slate-600">
-         연금술사들의 복잡한 상형문자를 버리고, **알파벳**을 이용한 원소 기호를 제안했습니다.
+         연금술사들의 복잡한 상형문자를 버리고, <strong>알파벳</strong>을 이용한 현대적 원소 기호를 제안했습니다.
         </p>
        </div>
-       <div class="p-6 bg-cyan-50 border-l-4 border-cyan-500">
-        <h3 class="text-2xl font-bold mb-4 text-cyan-800">
-         공통의 언어
+       <div class="p-8 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+        <h3 class="text-2xl font-black mb-4 text-cyan-600 flex items-center gap-3">
+         <span class="bg-cyan-100 p-2 rounded-lg">🌍</span> 공통의 언어
         </h3>
         <p class="text-xl leading-relaxed text-slate-600">
-         국적이 달라도 과학자들은 화학식 하나로 완벽하게 소통할 수 있게 되었습니다.
+         국적이 달라도 과학자들은 화학식 하나로 완벽하게 소통할 수 있는 <strong>'과학적 에스페란토'</strong>를 만들었습니다.
         </p>
        </div>
       </div>
@@ -120,25 +202,28 @@
    <!-- Slide 3: Think Before Class -->
    <section data-slide-index="2" data-slide-num="3" data-title="💡 수업 전 생각하기" id="slide-3">
     <div class="slide-content">
-     <h2>
-      💡 수업 전 생각하기
-     </h2>
-     <div class="p-6 md:p-10 bg-amber-50 rounded-2xl border-2 border-amber-200 text-left max-w-4xl shadow-lg">
-      <p class="text-3xl font-bold text-amber-900 mb-8 italic">
-       "레시피가 틀리면 요리가 될까요?"
+     <h2>💡 수업 전 생각하기</h2>
+     <div class="p-12 bg-white rounded-[3rem] shadow-2xl border border-slate-100 text-left max-w-5xl relative overflow-hidden">
+      <div class="absolute top-0 right-0 p-8 opacity-10">
+        <svg class="w-40 h-40" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+      </div>
+      <p class="text-4xl font-black text-slate-900 mb-12 leading-tight">
+       "레시피가 틀리면<br><span class="text-orange-500">요리가 될까요?</span>"
       </p>
-      <div class="space-y-6 text-xl leading-relaxed">
-       <p>
-        1. 김치찌개를 끓이는데 김치를 넣지 않으면 그것을 김치찌개라고 부를 수 있을까요?
-       </p>
-       <p>
-        2. 요리 전의 재료 무게와 요리 후의 음식 무게가 다르다면, 사라진 재료는 어디로 간 걸까요?
-       </p>
-       <div class="mt-10 p-6 bg-white/80 rounded-xl border border-amber-100 shadow-sm">
-        <p class="text-slate-700 font-bold">
-         화학 반응에서도 반응물과 생성물의 **원자 수**는 정확히 맞아야 합니다.
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div class="space-y-4">
+          <p class="text-xl font-bold text-slate-400">Question 01</p>
+          <p class="text-2xl text-slate-700 leading-relaxed">김치찌개를 끓이는데 김치를 넣지 않으면 그것을 김치찌개라고 부를 수 있을까요?</p>
+        </div>
+        <div class="space-y-4">
+          <p class="text-xl font-bold text-slate-400">Question 02</p>
+          <p class="text-2xl text-slate-700 leading-relaxed">요리 전의 재료 무게와 요리 후의 음식 무게가 다르다면, 사라진 재료는 어디로 간 걸까요?</p>
+        </div>
+      </div>
+      <div class="p-8 bg-orange-50 rounded-2xl border-2 border-orange-100">
+        <p class="text-2xl text-orange-900 font-bold leading-relaxed">
+         ✨ 화학 반응에서도 반응물과 생성물의 <span class="underline decoration-orange-500 decoration-4 underline-offset-8">원자 수</span>는 정확히 맞아야 합니다.
         </p>
-       </div>
       </div>
      </div>
     </div>
@@ -146,112 +231,81 @@
    <!-- Slide 4: Objectives -->
    <section data-slide-index="3" data-slide-num="4" data-title="학습 목표" id="slide-4">
     <div class="slide-content">
-     <h2>
-      학습 목표
-     </h2>
-     <div class="w-full max-w-4xl bg-white p-6 md:p-10 border-l-8 border-cyan-600 shadow-sm text-left">
-      <ul class="space-y-8 text-2xl">
-       <li class="reveal-item flex items-start gap-4">
-        <span class="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center shrink-0">
-         1
-        </span>
-        <span>
-         화학 반응을 화학 반응식으로 나타내는 **3단계 과정**을 설명할 수 있다.
-        </span>
-       </li>
-       <li class="reveal-item flex items-start gap-4">
-        <span class="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center shrink-0">
-         2
-        </span>
-        <span>
-         반응 전후 원자의 종류와 개수가 같도록 **계수**를 맞출 수 있다.
-        </span>
-       </li>
-       <li class="reveal-item flex items-start gap-4">
-        <span class="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center shrink-0">
-         3
-        </span>
-        <span>
-         화학 반응식의 계수비가 **분자 수의 비**임을 이해한다.
-        </span>
-       </li>
-      </ul>
+     <h2 class="mb-16">학습 목표</h2>
+     <div class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-8">
+       <div class="bg-white p-8 rounded-3xl shadow-xl border-b-8 border-blue-500 hover:-translate-y-2 transition-transform">
+         <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center text-3xl mb-6">📝</div>
+         <h3 class="text-xl font-black mb-4">3단계 과정</h3>
+         <p class="text-lg text-slate-600 leading-relaxed">화학 반응을 화학 반응식으로 나타내는 <strong>3단계 과정</strong>을 설명할 수 있다.</p>
+       </div>
+       <div class="bg-white p-8 rounded-3xl shadow-xl border-b-8 border-cyan-500 hover:-translate-y-2 transition-transform">
+         <div class="w-16 h-16 bg-cyan-100 rounded-2xl flex items-center justify-center text-3xl mb-6">⚖️</div>
+         <h3 class="text-xl font-black mb-4">계수 맞추기</h3>
+         <p class="text-lg text-slate-600 leading-relaxed">반응 전후 원자의 종류와 개수가 같도록 <strong>계수</strong>를 맞출 수 있다.</p>
+       </div>
+       <div class="bg-white p-8 rounded-3xl shadow-xl border-b-8 border-teal-500 hover:-translate-y-2 transition-transform">
+         <div class="w-16 h-16 bg-teal-100 rounded-2xl flex items-center justify-center text-3xl mb-6">🔬</div>
+         <h3 class="text-xl font-black mb-4">분자 수의 비</h3>
+         <p class="text-lg text-slate-600 leading-relaxed">화학 반응식의 계수비가 <strong>분자 수의 비</strong>임을 이해한다.</p>
+       </div>
      </div>
     </div>
    </section>
    <!-- Slide 5: Chemical Formula Review -->
    <section data-slide-index="4" data-slide-num="5" data-title="복습: 자주 쓰이는 화학식" id="slide-5">
     <div class="slide-content">
-     <h2>
-      복습: 자주 쓰이는 화학식
-     </h2>
-     <p class="text-xl mb-10 text-slate-500">
-      반응식을 쓰기 위해 꼭 알아야 할 기초 단어들입니다.
+     <h2>복습: 자주 쓰이는 화학식</h2>
+     <p class="text-2xl mb-12 text-slate-500 font-medium italic">
+      "반응식을 쓰기 위해 꼭 알아야 할 기초 단어들입니다."
      </p>
-     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-5xl px-4 md:px-0">
-      <div class="formula-card">
-       <p class="text-3xl font-mono mb-2">
-        \(H_2\)
-       </p>
-       <p class="text-slate-500">
-        수소
-       </p>
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 w-full max-w-6xl px-4 md:px-0">
+      <div class="formula-card group">
+       <div class="text-5xl mb-6 group-hover:scale-110 transition-transform">🎈</div>
+       <p class="text-4xl font-mono font-black mb-2">\(H_2\)</p>
+       <p class="text-xl text-slate-400 font-bold uppercase tracking-widest">Hydrogen</p>
+       <p class="text-2xl font-black text-slate-700 mt-2">수소</p>
       </div>
-      <div class="formula-card">
-       <p class="text-3xl font-mono mb-2">
-        \(O_2\)
-       </p>
-       <p class="text-slate-500">
-        산소
-       </p>
+      <div class="formula-card group">
+       <div class="text-5xl mb-6 group-hover:scale-110 transition-transform">💨</div>
+       <p class="text-4xl font-mono font-black mb-2">\(O_2\)</p>
+       <p class="text-xl text-slate-400 font-bold uppercase tracking-widest">Oxygen</p>
+       <p class="text-2xl font-black text-slate-700 mt-2">산소</p>
       </div>
-      <div class="formula-card">
-       <p class="text-3xl font-mono mb-2">
-        \(N_2\)
-       </p>
-       <p class="text-slate-500">
-        질소
-       </p>
+      <div class="formula-card group">
+       <div class="text-5xl mb-6 group-hover:scale-110 transition-transform">❄️</div>
+       <p class="text-4xl font-mono font-black mb-2">\(N_2\)</p>
+       <p class="text-xl text-slate-400 font-bold uppercase tracking-widest">Nitrogen</p>
+       <p class="text-2xl font-black text-slate-700 mt-2">질소</p>
       </div>
-      <div class="formula-card">
-       <p class="text-3xl font-mono mb-2">
-        \(Cl_2\)
-       </p>
-       <p class="text-slate-500">
-        염소
-       </p>
+      <div class="formula-card group">
+       <div class="text-5xl mb-6 group-hover:scale-110 transition-transform">🧪</div>
+       <p class="text-4xl font-mono font-black mb-2">\(Cl_2\)</p>
+       <p class="text-xl text-slate-400 font-bold uppercase tracking-widest">Chlorine</p>
+       <p class="text-2xl font-black text-slate-700 mt-2">염소</p>
       </div>
-      <div class="formula-card bg-cyan-50">
-       <p class="text-3xl font-mono mb-2">
-        \(H_2O\)
-       </p>
-       <p class="text-cyan-700">
-        물
-       </p>
+      <div class="formula-card bg-blue-50 border-blue-100 group">
+       <div class="text-5xl mb-6 group-hover:scale-110 transition-transform">💧</div>
+       <p class="text-4xl font-mono font-black mb-2 text-blue-600">\(H_2O\)</p>
+       <p class="text-xl text-blue-300 font-bold uppercase tracking-widest">Water</p>
+       <p class="text-2xl font-black text-blue-800 mt-2">물</p>
       </div>
-      <div class="formula-card bg-cyan-50">
-       <p class="text-3xl font-mono mb-2">
-        \(CO_2\)
-       </p>
-       <p class="text-cyan-700">
-        이산화 탄소
-       </p>
+      <div class="formula-card bg-slate-50 border-slate-100 group">
+       <div class="text-5xl mb-6 group-hover:scale-110 transition-transform">🌋</div>
+       <p class="text-4xl font-mono font-black mb-2 text-slate-600">\(CO_2\)</p>
+       <p class="text-xl text-slate-300 font-bold uppercase tracking-widest">Carbon Dioxide</p>
+       <p class="text-2xl font-black text-slate-800 mt-2">이산화 탄소</p>
       </div>
-      <div class="formula-card bg-cyan-50">
-       <p class="text-3xl font-mono mb-2">
-        \(NH_3\)
-       </p>
-       <p class="text-cyan-700">
-        암모니아
-       </p>
+      <div class="formula-card bg-indigo-50 border-indigo-100 group">
+       <div class="text-5xl mb-6 group-hover:scale-110 transition-transform">👃</div>
+       <p class="text-4xl font-mono font-black mb-2 text-indigo-600">\(NH_3\)</p>
+       <p class="text-xl text-indigo-300 font-bold uppercase tracking-widest">Ammonia</p>
+       <p class="text-2xl font-black text-indigo-800 mt-2">암모니아</p>
       </div>
-      <div class="formula-card bg-cyan-50">
-       <p class="text-3xl font-mono mb-2">
-        \(CH_4\)
-       </p>
-       <p class="text-cyan-700">
-        메테인
-       </p>
+      <div class="formula-card bg-emerald-50 border-emerald-100 group">
+       <div class="text-5xl mb-6 group-hover:scale-110 transition-transform">🔥</div>
+       <p class="text-4xl font-mono font-black mb-2 text-emerald-600">\(CH_4\)</p>
+       <p class="text-xl text-emerald-300 font-bold uppercase tracking-widest">Methane</p>
+       <p class="text-2xl font-black text-emerald-800 mt-2">메테인</p>
       </div>
      </div>
     </div>
@@ -259,36 +313,27 @@
    <!-- Slide 6: Definition -->
    <section data-slide-index="5" data-slide-num="6" data-title="화학 반응식이란?" id="slide-6">
     <div class="slide-content">
-     <h2>
-      화학 반응식이란?
-     </h2>
-     <p class="text-2xl mb-12">
+     <h2>화학 반응식이란?</h2>
+     <p class="text-3xl mb-16 font-bold text-slate-600 bg-slate-100 px-8 py-4 rounded-full">
       화학식을 이용하여 화학 반응을 나타낸 식
      </p>
-     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 w-full max-w-5xl px-4 md:px-0 items-center">
-      <div class="p-8 bg-blue-50 rounded-2xl border-2 border-blue-200">
-       <h3 class="text-xl font-bold text-blue-800 mb-2">
-        반응물
-       </h3>
-       <p class="text-slate-600">
-        변화가 일어나기 전의 물질
-       </p>
+     <div class="flex flex-col md:flex-row items-center justify-center gap-12 w-full max-w-5xl">
+      <div class="flex-1 p-10 bg-gradient-to-br from-blue-50 to-blue-100 rounded-[2rem] border-2 border-blue-200 shadow-lg relative overflow-hidden group">
+       <div class="absolute -right-4 -bottom-4 text-9xl opacity-5 group-hover:rotate-12 transition-transform">🧪</div>
+       <h3 class="text-3xl font-black text-blue-800 mb-4">반응물</h3>
+       <p class="text-xl text-blue-600 font-medium">변화가 일어나기 전의 물질</p>
       </div>
-      <div class="text-3xl md:text-5xl text-slate-100 font-black">
-       &rarr;
-      </div>
-      <div class="p-8 bg-red-50 rounded-2xl border-2 border-red-200">
-       <h3 class="text-xl font-bold text-red-800 mb-2">
-        생성물
-       </h3>
-       <p class="text-slate-600">
-        변화 결과 만들어진 새 물질
-       </p>
+      <div class="text-6xl text-slate-300 animate-pulse">→</div>
+      <div class="flex-1 p-10 bg-gradient-to-br from-rose-50 to-rose-100 rounded-[2rem] border-2 border-rose-200 shadow-lg relative overflow-hidden group">
+       <div class="absolute -right-4 -bottom-4 text-9xl opacity-5 group-hover:-rotate-12 transition-transform">✨</div>
+       <h3 class="text-3xl font-black text-rose-800 mb-4">생성물</h3>
+       <p class="text-xl text-rose-600 font-medium">변화 결과 만들어진 새 물질</p>
       </div>
      </div>
-     <div class="mt-12 p-6 bg-slate-800 text-white rounded-xl shadow-lg">
-      <p class="text-xl italic">
-       "원자는 없어지거나 생겨나지 않고 **재배열**될 뿐입니다."
+     <div class="mt-20 p-10 bg-slate-900 text-white rounded-[2.5rem] shadow-2xl max-w-4xl relative">
+      <div class="absolute -top-6 left-10 bg-blue-600 px-6 py-2 rounded-full font-black uppercase tracking-widest text-sm">Law of Nature</div>
+      <p class="text-2xl leading-relaxed italic">
+       "원자는 없어지거나 생겨나지 않고 <span class="text-cyan-400 font-black not-italic">재배열</span>될 뿐입니다."
       </p>
      </div>
     </div>
@@ -296,165 +341,140 @@
    <!-- Slide 7: Step 1 -->
    <section data-slide-index="6" data-slide-num="7" data-title="반응물과 생성물 이름 쓰기" id="slide-7">
     <div class="slide-content">
-     <div class="step-badge">
-      Step 01
-     </div>
-     <h2>
-      반응물과 생성물 이름 쓰기
-     </h2>
-     <p class="text-xl mb-10 text-slate-500">
-      먼저 우리말로 관계를 명확히 정리합니다.
+     <div class="step-badge">Step 01</div>
+     <h2>반응물과 생성물 이름 쓰기</h2>
+     <p class="text-2xl mb-12 text-slate-500 font-medium italic">
+      "먼저 우리말로 관계를 명확히 정리합니다."
      </p>
      <div class="equation-display">
-      수소 + 산소 &rarr; 물
+      수소 <span class="text-4xl mx-4 text-slate-500">+</span> 산소 <span class="text-5xl mx-8 text-cyan-400">→</span> 물
      </div>
-     <div class="mt-8 text-left p-8 bg-white border border-slate-200 rounded-xl max-w-3xl shadow-sm">
-      <ul class="text-xl space-y-4">
-       <li class="flex gap-3">
-        <span class="text-blue-500 font-bold">
-         ●
-        </span>
-        <span>
-         반응물은 **왼쪽**, 생성물은 **오른쪽**에 씁니다.
-        </span>
-       </li>
-       <li class="flex gap-3">
-        <span class="text-blue-500 font-bold">
-         ●
-        </span>
-        <span>
-         물질이 여러 개면 **더하기(+)** 기호를 사용합니다.
-        </span>
-       </li>
-      </ul>
+     <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl text-left">
+       <div class="p-8 bg-white rounded-2xl shadow-sm border border-slate-100 flex gap-6">
+         <div class="text-4xl">⬅️</div>
+         <div>
+           <p class="text-2xl font-black text-slate-800 mb-2">왼쪽: 반응물</p>
+           <p class="text-lg text-slate-600 leading-relaxed">변화의 <strong>재료</strong>가 되는 물질들을 씁니다.</p>
+         </div>
+       </div>
+       <div class="p-8 bg-white rounded-2xl shadow-sm border border-slate-100 flex gap-6">
+         <div class="text-4xl">➡️</div>
+         <div>
+           <p class="text-2xl font-black text-slate-800 mb-2">오른쪽: 생성물</p>
+           <p class="text-lg text-slate-600 leading-relaxed">변화로 인해 <strong>새롭게 탄생</strong>한 물질을 씁니다.</p>
+         </div>
+       </div>
      </div>
     </div>
    </section>
    <!-- Slide 8: Step 2 -->
    <section data-slide-index="7" data-slide-num="8" data-title="화학식으로 나타내기" id="slide-8">
     <div class="slide-content">
-     <div class="step-badge">
-      Step 02
-     </div>
-     <h2>
-      화학식으로 나타내기
-     </h2>
-     <p class="text-xl mb-10 text-slate-500">
-      이름을 기호(화학식)로 변환합니다.
+     <div class="step-badge">Step 02</div>
+     <h2>화학식으로 나타내기</h2>
+     <p class="text-2xl mb-12 text-slate-500 font-medium italic">
+      "이름을 기호(화학식)로 변환합니다."
      </p>
      <div class="equation-display">
-      \(H_2 + O_2 \rightarrow H_2O\)
+      \(H_2\) <span class="text-4xl mx-4 text-slate-500">+</span> \(O_2\) <span class="text-5xl mx-8 text-cyan-400">→</span> \(H_2O\)
      </div>
-     <div class="mt-8 p-8 bg-red-50 border-2 border-red-200 rounded-2xl text-red-700 font-black max-w-3xl animate-pulse">
-      ⚠️ 경고: 아직은 원자의 개수가 맞지 않습니다! (산소 원자 실종 사건)
+     <div class="mt-12 p-10 bg-rose-50 border-2 border-rose-100 rounded-[2rem] text-rose-800 max-w-4xl relative overflow-hidden group">
+      <div class="absolute -right-4 top-0 text-9xl opacity-5 group-hover:scale-110 transition-transform">⚠️</div>
+      <p class="text-2xl font-black mb-4 flex items-center gap-3">
+        <span class="animate-bounce">🚨</span> 아직은 미완성입니다!
+      </p>
+      <p class="text-xl leading-relaxed font-medium">
+        왼쪽의 산소 원자는 2개인데, 오른쪽은 1개뿐입니다. <br>
+        자연계에서 <span class="underline decoration-rose-400 decoration-4 underline-offset-4">원자가 갑자기 사라지는 일</span>은 절대로 없습니다!
+      </p>
      </div>
     </div>
    </section>
    <!-- Slide 9: The Unbalanced State (Detail) -->
    <section data-slide-index="8" data-slide-num="9" data-title="사라진 원자를 찾아라!" id="slide-9">
     <div class="slide-content">
-     <h2>
-      사라진 원자를 찾아라!
-     </h2>
-     <div class="flex flex-col md:flex-row gap-4 md:gap-6 md:gap-6 md:p-12 justify-center items-center mt-8">
-      <div class="text-center p-8 bg-white rounded-2xl shadow-xl border border-slate-100">
-       <p class="mb-6 font-bold text-slate-500 uppercase tracking-widest">
-        반응 전
+     <h2 class="mb-12">사라진 원자를 찾아라!</h2>
+     <div class="flex flex-col md:flex-row gap-8 justify-center items-center mt-8 w-full max-w-6xl">
+      <div class="flex-1 text-center p-12 bg-white rounded-[2.5rem] shadow-2xl border border-slate-50 relative">
+       <p class="absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-2 bg-slate-800 text-white rounded-full font-black text-sm uppercase tracking-widest">
+        Reactants
        </p>
-       <div class="molecule-container">
-        <div class="molecule mol-h2">
-         <div class="atom atom-h">
-          H
-         </div>
-         <div class="atom atom-h">
-          H
+       <div class="molecule-container justify-center mb-8">
+        <div class="flex flex-col gap-2">
+         <div class="flex">
+          <div class="atom atom-h">H</div>
+          <div class="atom atom-h -ml-4">H</div>
          </div>
         </div>
-        <span class="text-2xl font-black text-slate-100">
-         +
-        </span>
-        <div class="molecule mol-o2">
-         <div class="atom atom-o">
-          O
-         </div>
-         <div class="atom atom-o">
-          O
-         </div>
+        <span class="text-4xl font-black text-slate-300 mx-4">+</span>
+        <div class="flex">
+         <div class="atom atom-o">O</div>
+         <div class="atom atom-o -ml-4">O</div>
         </div>
        </div>
-       <div class="flex gap-4 justify-center mt-6">
-        <span class="px-4 py-2 bg-slate-100 rounded-full font-bold">
-         H: 2개
-        </span>
-        <span class="px-4 py-2 bg-red-500 text-white rounded-full font-bold">
-         O: 2개
-        </span>
+       <div class="grid grid-cols-2 gap-4">
+        <div class="bg-slate-50 p-4 rounded-2xl font-black text-slate-700 text-xl border border-slate-100">H: 2개</div>
+        <div class="bg-rose-500 p-4 rounded-2xl font-black text-white text-xl shadow-lg shadow-rose-200">O: 2개</div>
        </div>
       </div>
-      <div class="text-3xl md:text-5xl text-slate-200">
-       &rarr;
-      </div>
-      <div class="text-center p-8 bg-white rounded-2xl shadow-xl border border-slate-100">
-       <p class="mb-6 font-bold text-slate-500 uppercase tracking-widest">
-        반응 후
+      <div class="text-6xl text-slate-200">→</div>
+      <div class="flex-1 text-center p-12 bg-white rounded-[2.5rem] shadow-2xl border border-slate-50 relative">
+       <p class="absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-2 bg-blue-600 text-white rounded-full font-black text-sm uppercase tracking-widest">
+        Products
        </p>
-       <div class="molecule-container">
-        <div class="molecule mol-water">
-         <div class="atom atom-o">
-          O
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
+       <div class="molecule-container justify-center mb-8">
+        <div class="flex flex-col items-center">
+          <div class="atom atom-o">O</div>
+          <div class="flex -mt-4">
+            <div class="atom atom-h">H</div>
+            <div class="atom atom-h">H</div>
+          </div>
         </div>
        </div>
-       <div class="flex gap-4 justify-center mt-6">
-        <span class="px-4 py-2 bg-slate-100 rounded-full font-bold">
-         H: 2개
-        </span>
-        <span class="px-4 py-2 bg-red-500 text-white rounded-full font-bold">
-         O: 1개
-        </span>
+       <div class="grid grid-cols-2 gap-4">
+        <div class="bg-slate-50 p-4 rounded-2xl font-black text-slate-700 text-xl border border-slate-100">H: 2개</div>
+        <div class="bg-rose-100 p-4 rounded-2xl font-black text-rose-500 text-xl border border-rose-200">O: 1개</div>
        </div>
       </div>
      </div>
-     <p class="mt-12 text-2xl font-black text-red-600">
-      산소 원자 하나가 어디로 갔을까요? 자연계에서 원자는 사라지지 않습니다!
-     </p>
+     <div class="mt-16 text-center">
+       <p class="text-3xl font-black text-rose-600 animate-pulse">
+         "산소 원자 1개 실종 사건 발생!"
+       </p>
+     </div>
     </div>
    </section>
    <!-- Slide 10: The Prohibition (Crucial) -->
    <section data-slide-index="9" data-slide-num="10" data-title="🚫 절대로 하면 안 되는 실수" id="slide-10">
     <div class="slide-content">
-     <h2>
-      🚫 절대로 하면 안 되는 실수
-     </h2>
-     <p class="text-xl mb-10 italic">
-      "원자 수가 안 맞으니 \(H_2O\)를 \(H_2O_2\)로 바꾸면 어때요?"
-     </p>
-     <div class="flex flex-col md:flex-row gap-4 md:gap-6 md:gap-6 md:p-12 items-center max-w-5xl">
-      <div class="w-full md:w-1/2 p-8 bg-rose-600 text-white rounded-3xl shadow-2xl">
-       <h3 class="text-3xl font-black mb-6 underline">
-        화학식 수정 금지!
-       </h3>
-       <p class="text-xl leading-relaxed">
-        화학식 뒤의 작은 숫자를 바꾸는 것은 물질의 **정체성(신분증)**을 바꾸는 것입니다.
-        <br/>
-        <br/>
-        물(\(H_2O\))을 먹고 싶었는데 과산화 수소(\(H_2O_2\))를 마실 수는 없잖아요!
+     <h2 class="mb-12">🚫 절대로 하면 안 되는 실수</h2>
+     <div class="flex flex-col md:flex-row gap-12 items-center max-w-6xl">
+      <div class="w-full md:w-1/2 p-12 bg-gradient-to-br from-rose-600 to-rose-700 text-white rounded-[3rem] shadow-2xl relative overflow-hidden group">
+       <div class="absolute -right-10 -bottom-10 text-[15rem] opacity-10 group-hover:rotate-12 transition-transform">🛑</div>
+       <h3 class="text-4xl font-black mb-8 underline decoration-4 underline-offset-8">화학식 수정 금지!</h3>
+       <p class="text-2xl leading-relaxed font-medium">
+        화학식 뒤의 작은 숫자를 바꾸는 것은 물질의 <strong>정체성(Identity)</strong>을 통째로 바꾸는 위험한 행위입니다!
+        <br/><br/>
+        물(\(H_2O\))이 필요하다고 과산화 수소(\(H_2O_2\))를 만들어서 마실 수는 없으니까요!
        </p>
       </div>
-      <div class="w-full md:w-1/2 text-left">
-       <div class="p-6 bg-slate-100 rounded-xl mb-4 border-l-8 border-slate-800">
-        <p class="font-bold">
-         방법: 오직 **계수(앞의 큰 숫자)**만 조절합니다.
-        </p>
+      <div class="w-full md:w-1/2 text-left space-y-8">
+       <div class="p-8 bg-slate-900 text-white rounded-[2rem] border-l-[12px] border-blue-500 shadow-xl">
+        <p class="text-2xl font-black mb-2">올바른 방법</p>
+        <p class="text-xl text-slate-300">오직 <strong>계수(앞의 큰 숫자)</strong>만 조절하여 개수를 맞춥니다.</p>
        </div>
-       <div class="text-2xl md:text-4xl md:text-6xl text-center mt-8">
-        🚫 🙅&zwj;&male;️ ❌
+       <div class="flex justify-center gap-8">
+         <div class="text-center">
+           <div class="text-6xl mb-2">💧</div>
+           <p class="font-mono text-xl">\(H_2O\)</p>
+           <p class="text-sm font-bold text-blue-500">Delicious Water</p>
+         </div>
+         <div class="flex items-center text-4xl text-slate-300">≠</div>
+         <div class="text-center">
+           <div class="text-6xl mb-2">🧪</div>
+           <p class="font-mono text-xl">\(H_2O_2\)</p>
+           <p class="text-sm font-bold text-rose-500">Poisonous!</p>
+         </div>
        </div>
       </div>
      </div>
@@ -463,49 +483,26 @@
    <!-- Slide 11: Step 3 -->
    <section data-slide-index="10" data-slide-num="11" data-title="계수 맞추기 (Balancing)" id="slide-11">
     <div class="slide-content">
-     <div class="step-badge">
-      Step 03
-     </div>
-     <h2>
-      계수 맞추기 (Balancing)
-     </h2>
-     <p class="text-xl mb-10 text-slate-500">
-      원자의 종류와 개수가 같게 화학식 앞에 숫자를 씁니다.
-     </p>
+     <div class="step-badge">Step 03</div>
+     <h2 class="mb-12">계수 맞추기 (Balancing)</h2>
      <div class="equation-display">
-      <span class="coeff-box">
-       2
-      </span>
-      \(H_2 + O_2 \rightarrow\)
-      <span class="coeff-box">
-       2
-      </span>
-      \(H_2O\)
+      <span class="coeff-box animate-pulse">2</span> \(H_2 + O_2 \rightarrow\) <span class="coeff-box animate-pulse">2</span> \(H_2O\)
      </div>
-     <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl">
-      <div class="p-6 bg-emerald-50 rounded-xl border border-emerald-200 reveal-item">
-       <p class="font-bold mb-2">
-        1단계
-       </p>
-       <p class="text-sm">
-        산소 2개를 맞추기 위해 물(\(H_2O\)) 앞에 2를 씁니다.
-       </p>
+     <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl">
+      <div class="p-8 bg-white rounded-3xl shadow-lg border border-slate-100 hover:border-emerald-500 transition-colors group">
+       <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center font-black mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">1</div>
+       <h3 class="text-xl font-black mb-4">산소 맞추기</h3>
+       <p class="text-lg text-slate-600">오른쪽 물(\(H_2O\)) 앞에 <strong>2</strong>를 써서 산소 2개를 맞춥니다.</p>
       </div>
-      <div class="p-6 bg-emerald-50 rounded-xl border border-emerald-200 reveal-item">
-       <p class="font-bold mb-2">
-        2단계
-       </p>
-       <p class="text-sm">
-        수소 원자가 4개가 되었으니 왼쪽 \(H_2\) 앞에 2를 씁니다.
-       </p>
+      <div class="p-8 bg-white rounded-3xl shadow-lg border border-slate-100 hover:border-emerald-500 transition-colors group">
+       <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center font-black mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">2</div>
+       <h3 class="text-xl font-black mb-4">수소 맞추기</h3>
+       <p class="text-lg text-slate-600">수소가 4개가 되었으므로 왼쪽 \(H_2\) 앞에 <strong>2</strong>를 씁니다.</p>
       </div>
-      <div class="p-6 bg-emerald-50 rounded-xl border border-emerald-200 reveal-item">
-       <p class="font-bold mb-2">
-        3단계
-       </p>
-       <p class="text-sm">
-        계수가 1인 산소(\(O_2\))는 생략합니다.
-       </p>
+      <div class="p-8 bg-white rounded-3xl shadow-lg border border-slate-100 hover:border-emerald-500 transition-colors group">
+       <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center font-black mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">3</div>
+       <h3 class="text-xl font-black mb-4">가장 작은 정수비</h3>
+       <p class="text-lg text-slate-600">계수는 가장 작은 정수로 나타내며, <strong>1은 생략</strong>합니다.</p>
       </div>
      </div>
     </div>
@@ -513,161 +510,113 @@
    <!-- Slide 12: Balanced Simulation -->
    <section data-slide-index="11" data-slide-num="12" data-title="완성된 모형: 완벽한 균형" id="slide-12">
     <div class="slide-content">
-     <h2>
-      완성된 모형: 완벽한 균형
-     </h2>
-     <div class="flex flex-col md:flex-row gap-4 md:gap-6 md:gap-6 md:p-12 justify-center items-center mt-8">
-      <div class="text-center p-8 bg-white rounded-2xl shadow-xl border-2 border-emerald-500">
-       <div class="molecule-container">
+     <h2 class="mb-12">완성된 모형: 완벽한 균형</h2>
+     <div class="flex flex-col md:flex-row gap-12 justify-center items-center mt-8 w-full max-w-6xl">
+      <div class="flex-1 text-center p-12 bg-emerald-50 rounded-[3rem] shadow-2xl border-4 border-emerald-400 relative">
+       <div class="molecule-container justify-center mb-8 bg-white/50">
         <div class="flex flex-col gap-4">
-         <div class="molecule mol-h2">
-          <div class="atom atom-h">
-           H
-          </div>
-          <div class="atom atom-h">
-           H
-          </div>
+         <div class="flex">
+          <div class="atom atom-h">H</div>
+          <div class="atom atom-h -ml-4">H</div>
          </div>
-         <div class="molecule mol-h2">
-          <div class="atom atom-h">
-           H
-          </div>
-          <div class="atom atom-h">
-           H
-          </div>
+         <div class="flex">
+          <div class="atom atom-h">H</div>
+          <div class="atom atom-h -ml-4">H</div>
          </div>
         </div>
-        <span class="text-2xl font-black text-slate-100">
-         +
-        </span>
-        <div class="molecule mol-o2">
-         <div class="atom atom-o">
-          O
-         </div>
-         <div class="atom atom-o">
-          O
-         </div>
+        <span class="text-4xl font-black text-slate-300 mx-4">+</span>
+        <div class="flex">
+         <div class="atom atom-o">O</div>
+         <div class="atom atom-o -ml-4">O</div>
         </div>
        </div>
-       <p class="mt-6 font-bold text-slate-700">
-        H: 4개, O: 2개
-       </p>
+       <p class="text-2xl font-black text-emerald-800">H: 4개, O: 2개</p>
       </div>
-      <div class="text-3xl md:text-5xl text-emerald-500">
-       ＝
-      </div>
-      <div class="text-center p-8 bg-white rounded-2xl shadow-xl border-2 border-emerald-500">
-       <div class="molecule-container">
-        <div class="molecule mol-water">
-         <div class="atom atom-o">
-          O
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
-        </div>
-        <div class="molecule mol-water">
-         <div class="atom atom-o">
-          O
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
-         <div class="atom atom-h">
-          H
-         </div>
+      <div class="text-8xl text-emerald-500 animate-pulse">＝</div>
+      <div class="flex-1 text-center p-12 bg-emerald-50 rounded-[3rem] shadow-2xl border-4 border-emerald-400 relative">
+       <div class="molecule-container justify-center mb-8 bg-white/50">
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-col items-center">
+            <div class="atom atom-o">O</div>
+            <div class="flex -mt-4">
+              <div class="atom atom-h">H</div>
+              <div class="atom atom-h">H</div>
+            </div>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="atom atom-o">O</div>
+            <div class="flex -mt-4">
+              <div class="atom atom-h">H</div>
+              <div class="atom atom-h">H</div>
+            </div>
+          </div>
         </div>
        </div>
-       <p class="mt-6 font-bold text-slate-700">
-        H: 4개, O: 2개
-       </p>
+       <p class="text-2xl font-black text-emerald-800">H: 4개, O: 2개</p>
       </div>
      </div>
-     <p class="mt-12 text-2xl font-bold text-emerald-700">
-      원자의 종류와 개수가 완벽하게 보존되었습니다!
-     </p>
+     <div class="mt-16 p-8 bg-emerald-600 text-white rounded-2xl shadow-xl">
+       <p class="text-3xl font-black">✨ 원자의 종류와 개수가 보존되었습니다!</p>
+     </div>
     </div>
    </section>
    <!-- Slide 13: Rule - Meaning -->
    <section data-slide-index="12" data-slide-num="13" data-title="계수비의 놀라운 의미" id="slide-13">
     <div class="slide-content">
-     <h2>
-      계수비의 놀라운 의미
-     </h2>
-     <div class="p-6 md:p-12 bg-slate-900 text-white rounded-3xl w-full max-w-5xl px-4 md:px-0 text-center shadow-2xl">
-      <p class="text-3xl md:text-5xl font-black mb-8 text-cyan-400">
-       계수비 = 분자 수의 비
+     <h2 class="mb-12">계수비의 놀라운 의미</h2>
+     <div class="p-16 bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-[4rem] w-full max-w-6xl shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500 rounded-full blur-[120px] opacity-20"></div>
+      <p class="text-4xl md:text-6xl font-black mb-12 text-center">
+        <span class="text-cyan-400">계수비</span> = <span class="text-yellow-400">분자 수의 비</span>
       </p>
-      <div class="h-px bg-slate-700 w-full mb-8">
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 text-2xl">
-       <div class="space-y-2">
-        <p class="text-slate-400">
-         계수비
-        </p>
-        <p class="font-mono text-2xl md:text-4xl">
-         2 : 1 : 2
-        </p>
+      <div class="h-px bg-slate-700 w-full mb-12"></div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+       <div class="text-center space-y-4">
+        <p class="text-2xl font-bold text-slate-400 uppercase tracking-widest">Coefficients</p>
+        <div class="flex justify-center gap-4 text-5xl font-mono font-black text-cyan-400">
+          <span>2</span><span>:</span><span>1</span><span>:</span><span>2</span>
+        </div>
        </div>
-       <div class="flex items-center justify-center text-2xl md:text-4xl text-yellow-400">
-        &harr;
+       <div class="flex justify-center">
+         <div class="w-20 h-20 bg-slate-700 rounded-full flex items-center justify-center text-4xl shadow-inner">↔</div>
        </div>
-       <div class="space-y-2">
-        <p class="text-slate-400">
-         분자 수 비
-        </p>
-        <p class="font-mono text-2xl md:text-4xl text-yellow-400">
-         2 : 1 : 2
-        </p>
+       <div class="text-center space-y-4">
+        <p class="text-2xl font-bold text-slate-400 uppercase tracking-widest">Molecules</p>
+        <div class="flex justify-center gap-4 text-5xl font-mono font-black text-yellow-400">
+          <span>2</span><span>:</span><span>1</span><span>:</span><span>2</span>
+        </div>
        </div>
       </div>
-      <p class="mt-10 text-xl text-slate-400 leading-relaxed italic">
-       "반응식만 보면, 얼마나 많은 분자가
-       <br/>
-       필요하고 생성되는지 한눈에 보입니다."
-      </p>
+      <div class="mt-16 p-8 bg-white/5 rounded-2xl border border-white/10 text-center">
+        <p class="text-2xl text-slate-300 leading-relaxed italic">
+          "반응식만 봐도 얼마나 많은 분자가 필요한지 한눈에 보입니다."
+        </p>
+      </div>
      </div>
     </div>
    </section>
    <!-- Slide 14: Practice 1 - Methane -->
    <section data-slide-index="13" data-slide-num="14" data-title="실전 연습 1: 메테인의 연소" id="slide-14">
     <div class="slide-content">
-     <h2>
-      실전 연습 1: 메테인의 연소
-     </h2>
-     <p class="text-xl mb-8">
-      도시가스(\(CH_4\))가 타는 식을 완성해 봅시다.
+     <h2 class="mb-12">실전 연습 1: 메테인의 연소</h2>
+     <p class="text-2xl mb-12 text-slate-500 font-medium italic">
+      "도시가스(\(CH_4\))가 타는 식을 완성해 봅시다."
      </p>
      <div class="equation-display">
-      \(CH_4 + \underline{\quad} O_2 \rightarrow CO_2 + \underline{\quad} H_2O\)
+      \(CH_4\) + <span class="coeff-box">?</span> \(O_2 \rightarrow CO_2\) + <span class="coeff-box">?</span> \(H_2O\)
      </div>
-     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-5xl w-full mt-8">
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200">
-       <h3 class="font-bold text-slate-800 mb-2">
-        1. 탄소(C)
-       </h3>
-       <p class="text-sm">
-        왼쪽 1개, 오른쪽 1개. **일치!**
-       </p>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left max-w-6xl w-full mt-16">
+      <div class="p-8 bg-white rounded-3xl shadow-lg border-l-8 border-slate-400">
+       <h3 class="text-xl font-black text-slate-800 mb-4">1. 탄소(C) 맞추기</h3>
+       <p class="text-lg text-slate-600">왼쪽 1개, 오른쪽 1개. <br><strong>이미 완벽합니다!</strong></p>
       </div>
-      <div class="p-6 bg-slate-100 rounded-xl border border-slate-200">
-       <h3 class="font-bold text-slate-800 mb-2">
-        2. 수소(H)
-       </h3>
-       <p class="text-sm">
-        왼쪽 4개, 오른쪽 2개. **\(H_2O\) 앞에 2**
-       </p>
+      <div class="p-8 bg-white rounded-3xl shadow-lg border-l-8 border-blue-400">
+       <h3 class="text-xl font-black text-slate-800 mb-4">2. 수소(H) 맞추기</h3>
+       <p class="text-lg text-slate-600">왼쪽 4개, 오른쪽 2개. <br><strong>\(H_2O\) 앞에 2를 씁니다.</strong></p>
       </div>
-      <div class="p-6 bg-slate-200 rounded-xl border border-slate-200">
-       <h3 class="font-bold text-slate-800 mb-2">
-        3. 산소(O)
-       </h3>
-       <p class="text-sm">
-        오른쪽 총 4개. **\(O_2\) 앞에 2**
-       </p>
+      <div class="p-8 bg-white rounded-3xl shadow-lg border-l-8 border-rose-400">
+       <h3 class="text-xl font-black text-slate-800 mb-4">3. 산소(O) 맞추기</h3>
+       <p class="text-lg text-slate-600">오른쪽 총 4개이므로, <br><strong>왼쪽 \(O_2\) 앞에 2를 씁니다.</strong></p>
       </div>
      </div>
     </div>
@@ -675,25 +624,21 @@
    <!-- Slide 15: Practice 2 - H2O2 -->
    <section data-slide-index="14" data-slide-num="15" data-title="실전 연습 2: 과산화 수소의 분해" id="slide-15">
     <div class="slide-content">
-     <h2>
-      실전 연습 2: 과산화 수소의 분해
-     </h2>
-     <p class="text-xl mb-8">
-      상처 소독약(\(H_2O_2\))에서 거품(산소)이 나는 반응입니다.
+     <h2 class="mb-12">실전 연습 2: 과산화 수소의 분해</h2>
+     <p class="text-2xl mb-12 text-slate-500 font-medium italic">
+      "상처 소독약(\(H_2O_2\))에서 거품(산소)이 나는 반응입니다."
      </p>
      <div class="equation-display">
-      \(\underline{\quad} H_2O_2 \rightarrow \underline{\quad} H_2O + O_2\)
+      <span class="coeff-box">?</span> \(H_2O_2 \rightarrow\) <span class="coeff-box">?</span> \(H_2O + O_2\)
      </div>
-     <div class="p-8 bg-blue-50 border-l-8 border-blue-500 rounded-r-xl text-left max-w-4xl">
-      <p class="text-xl leading-loose">
-       1. 수소는 2개씩 같지만, 산소는 왼쪽 2개 vs 오른쪽 3개입니다.
-       <br/>
-       2. 오른쪽의 개수를 짝수로 만들기 위해 \(H_2O\) 앞에 **2**를 써봅시다.
-       <br/>
-       3. 그러면 수소가 4개가 되니 왼쪽 \(H_2O_2\) 앞에도 **2**를 씁니다.
-       <br/>
-       **결과:** \(2H_2O_2 \rightarrow 2H_2O + O_2\) (성공!)
-      </p>
+     <div class="mt-16 p-12 bg-blue-50 border-l-[16px] border-blue-500 rounded-r-[3rem] text-left max-w-5xl shadow-xl relative overflow-hidden">
+      <div class="absolute right-0 top-0 p-8 text-8xl opacity-5">🧪</div>
+      <div class="space-y-6 text-2xl leading-relaxed">
+        <p>1. 수소는 같지만, 산소는 <span class="font-black text-slate-400">왼쪽 2개</span> vs <span class="font-black text-blue-600">오른쪽 3개</span>입니다.</p>
+        <p>2. 오른쪽의 개수를 짝수로 만들기 위해 <strong>\(H_2O\) 앞에 2</strong>를 써봅니다.</p>
+        <p>3. 그러면 수소가 4개가 되니 <strong>왼쪽 \(H_2O_2\) 앞에도 2</strong>를 씁니다.</p>
+        <p class="text-3xl font-black text-blue-800 pt-4">결과: \(2H_2O_2 \rightarrow 2H_2O + O_2\)</p>
+      </div>
      </div>
     </div>
    </section>
@@ -863,8 +808,35 @@
        </ul>
      </div>
 </section>
-   <!-- Slide 20: Next -->
-   <section data-slide-index="19" data-slide-num="20" data-title="질량 보존 법칙" id="slide-20">
+   <!-- Slide: Quiz -->
+   <section data-slide-index="19" data-slide-num="20" data-title="🏁 오늘의 퀴즈 배틀!" id="slide-quiz">
+    <div class="slide-content">
+     <h2 class="text-4xl font-black mb-8 text-indigo-800">🏁 오늘의 핵심 용어 배틀!</h2>
+     <p class="text-2xl mb-12 text-slate-600">수업 내용을 얼마나 잘 이해했는지 친구들과 함께 대결해 봅시다!</p>
+     
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 text-left max-w-4xl mx-auto">
+       <div class="p-6 bg-white rounded-xl shadow-sm border-l-4 border-yellow-400">
+         <p class="text-lg font-bold text-slate-700">Q1. 화살표(→)는 무엇을 의미할까?</p>
+       </div>
+       <div class="p-6 bg-white rounded-xl shadow-sm border-l-4 border-yellow-400">
+         <p class="text-lg font-bold text-slate-700">Q2. 계수를 맞추는 기준 법칙은?</p>
+       </div>
+       <div class="p-6 bg-white rounded-xl shadow-sm border-l-4 border-yellow-400">
+         <p class="text-lg font-bold text-slate-700">Q3. 계수비는 무엇의 비와 같을까?</p>
+       </div>
+       <div class="p-6 bg-white rounded-xl shadow-sm border-l-4 border-yellow-400">
+         <p class="text-lg font-bold text-slate-700">Q4. 반응물과 생성물의 위치는?</p>
+       </div>
+     </div>
+
+     <a href="https://tinkerbell.kr/quiz/share/123456" target="_blank" class="inline-flex items-center gap-4 bg-yellow-400 text-yellow-900 font-black py-6 px-12 rounded-2xl shadow-xl hover:scale-105 active:scale-95 transition-all animate-pulse text-3xl">
+       <span class="text-4xl">🎮</span>
+       게임 입장하기
+     </a>
+    </div>
+   </section>
+   <!-- Slide 21: Next -->
+   <section data-slide-index="20" data-slide-num="21" data-title="질량 보존 법칙" id="slide-20">
     <div class="slide-content" style="border:none; box-shadow:none;">
      <p class="text-slate-400 font-bold mb-4 uppercase tracking-widest">
       Next Lesson
@@ -896,13 +868,8 @@
    </section>
   </main>
 
-  <!-- 🎮 Gamification Floating Button -->
-  <a href="https://tinkerbell.kr/quiz/share/123456" target="_blank" class="fixed bottom-24 right-10 bg-yellow-400 text-yellow-900 font-black py-4 px-8 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all flex items-center gap-3 z-50 animate-bounce">
-    <span class="text-2xl">🎮</span>
-    오늘의 핵심 용어 배틀!
-  </a>
-
   <script src="js/chem_sim.js"></script>
+
   <script src="js/slide_engine.js">
   </script>
  </body>
