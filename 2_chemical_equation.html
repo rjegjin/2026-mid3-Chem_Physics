@@ -70,14 +70,6 @@
             display: inline-block;
             box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
         }
-        .hero-bg-chem {
-            background-image: url('https://img.freepik.com/free-vector/hand-drawn-science-education-background_23-2148499325.jpg?t=st=1741510000&exp=1741513600&hmac=pastel_illustration_placeholder');
-            /* Replace with a more reliable pastel science illustration */
-            background-image: url('https://images.unsplash.com/photo-1532634922-8fe0b757fb13?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); /* Keeping this but adding overlay for pastel feel */
-            background-size: cover;
-            background-position: center;
-        }
-        /* Overriding hero-bg-chem for a cleaner pastel look */
         #slide-1 {
             background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
             position: relative;
@@ -332,8 +324,9 @@
        <p class="text-xl text-rose-600 font-medium">변화 결과 만들어진 새 물질</p>
       </div>
      </div>
-     <div class="mt-20 p-10 bg-slate-900 text-white rounded-[2.5rem] shadow-2xl max-w-4xl relative">
-      <div class="absolute -top-6 left-10 bg-blue-600 px-6 py-2 rounded-full font-black uppercase tracking-widest text-sm">Law of Nature</div>
+     <!-- Improved contrast for the dark box -->
+     <div class="mt-20 p-10 bg-slate-900 rounded-[2.5rem] shadow-2xl max-w-4xl relative border border-slate-700">
+      <div class="absolute -top-6 left-10 bg-blue-600 px-6 py-2 rounded-full font-black uppercase tracking-widest text-sm text-white">Law of Nature</div>
       <p class="text-2xl leading-relaxed italic text-white">
        "원자는 없어지거나 생겨나지 않고 <span class="text-cyan-400 font-black not-italic underline decoration-cyan-400 underline-offset-8">재배열</span>될 뿐입니다."
       </p>
@@ -461,7 +454,8 @@
        </p>
       </div>
       <div class="w-full md:w-1/2 text-left space-y-8">
-       <div class="p-8 bg-slate-900 text-white rounded-[2rem] border-l-[12px] border-blue-500 shadow-xl">
+       <!-- Improved visibility for Slide 10 dark box -->
+       <div class="p-8 bg-slate-900 rounded-[2rem] border-l-[12px] border-blue-500 shadow-xl border border-slate-700">
         <p class="text-2xl font-black mb-2 text-white">올바른 방법</p>
         <p class="text-xl text-blue-300 font-bold">오직 <span class="text-yellow-400">계수(앞의 큰 숫자)</span>만 조절하여 개수를 맞춥니다.</p>
        </div>
@@ -566,31 +560,36 @@
    <section data-slide-index="12" data-slide-num="13" data-title="계수비의 놀라운 의미" id="slide-13">
     <div class="slide-content">
      <h2 class="mb-12">계수비의 놀라운 의미</h2>
-     <div class="p-16 bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-[4rem] w-full max-w-6xl shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] relative overflow-hidden">
-      <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500 rounded-full blur-[120px] opacity-20"></div>
+     <!-- Slide 13: Full overhaul for visibility -->
+     <div class="p-16 bg-gradient-to-br from-slate-900 to-indigo-950 rounded-[4rem] w-full max-w-6xl shadow-2xl relative overflow-hidden border border-slate-700">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-cyan-500/20 rounded-full blur-[120px]"></div>
       <p class="text-4xl md:text-6xl font-black mb-12 text-center text-white">
-        <span class="text-cyan-400">계수비</span> = <span class="text-yellow-400">분자 수의 비</span>
+        <span class="text-cyan-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]">계수비</span> = <span class="text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]">분자 수의 비</span>
       </p>
-      <div class="h-px bg-slate-700 w-full mb-12"></div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center text-white">
-       <div class="text-center space-y-4">
-        <p class="text-2xl font-bold text-slate-400 uppercase tracking-widest">Coefficients</p>
-        <div class="flex justify-center gap-4 text-5xl font-mono font-black text-cyan-400">
-          <span>2</span><span>:</span><span>1</span><span>:</span><span>2</span>
+      <div class="h-1 bg-gradient-to-r from-transparent via-slate-600 to-transparent w-full mb-12"></div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+       <div class="text-center space-y-6">
+        <p class="text-2xl font-black text-slate-300 uppercase tracking-widest">Coefficients</p>
+        <div class="inline-block px-8 py-4 bg-white/10 rounded-2xl border border-white/20">
+          <div class="flex justify-center gap-4 text-6xl font-mono font-black text-cyan-400">
+            <span>2</span><span>:</span><span>1</span><span>:</span><span>2</span>
+          </div>
         </div>
        </div>
        <div class="flex justify-center">
-         <div class="w-20 h-20 bg-slate-700 rounded-full flex items-center justify-center text-4xl shadow-inner text-white">↔</div>
+         <div class="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center text-5xl shadow-inner text-white border border-white/20">↔</div>
        </div>
-       <div class="text-center space-y-4">
-        <p class="text-2xl font-bold text-slate-400 uppercase tracking-widest">Molecules</p>
-        <div class="flex justify-center gap-4 text-5xl font-mono font-black text-yellow-400">
-          <span>2</span><span>:</span><span>1</span><span>:</span><span>2</span>
+       <div class="text-center space-y-6">
+        <p class="text-2xl font-black text-slate-300 uppercase tracking-widest">Molecule Count</p>
+        <div class="inline-block px-8 py-4 bg-white/10 rounded-2xl border border-white/20">
+          <div class="flex justify-center gap-4 text-6xl font-mono font-black text-yellow-400">
+            <span>2</span><span>:</span><span>1</span><span>:</span><span>2</span>
+          </div>
         </div>
        </div>
       </div>
-      <div class="mt-16 p-8 bg-white/5 rounded-2xl border border-white/10 text-center">
-        <p class="text-2xl text-slate-300 leading-relaxed italic">
+      <div class="mt-16 p-8 bg-indigo-900/40 rounded-2xl border border-indigo-500/30 text-center backdrop-blur-sm">
+        <p class="text-2xl text-cyan-100 leading-relaxed font-bold italic">
           "반응식만 봐도 얼마나 많은 분자가 필요한지 한눈에 보입니다."
         </p>
       </div>
