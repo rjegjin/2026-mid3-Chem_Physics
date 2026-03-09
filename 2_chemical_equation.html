@@ -327,7 +327,7 @@
      <!-- Improved contrast for the dark box -->
      <div class="mt-20 p-10 bg-slate-900 rounded-[2.5rem] shadow-2xl max-w-4xl relative border border-slate-700">
       <div class="absolute -top-6 left-10 bg-blue-600 px-6 py-2 rounded-full font-black uppercase tracking-widest text-sm text-white">Law of Nature</div>
-      <p class="text-2xl leading-relaxed italic text-white">
+      <p class="text-2xl leading-relaxed italic text-white font-bold">
        "원자는 없어지거나 생겨나지 않고 <span class="text-cyan-400 font-black not-italic underline decoration-cyan-400 underline-offset-8">재배열</span>될 뿐입니다."
       </p>
      </div>
@@ -457,7 +457,7 @@
        <!-- Improved visibility for Slide 10 dark box -->
        <div class="p-8 bg-slate-900 rounded-[2rem] border-l-[12px] border-blue-500 shadow-xl border border-slate-700">
         <p class="text-2xl font-black mb-2 text-white">올바른 방법</p>
-        <p class="text-xl text-blue-300 font-bold">오직 <span class="text-yellow-400">계수(앞의 큰 숫자)</span>만 조절하여 개수를 맞춥니다.</p>
+        <p class="text-xl text-white font-bold">오직 <span class="text-yellow-400 font-black">계수(앞의 큰 숫자)</span>만 조절하여 개수를 맞춥니다.</p>
        </div>
        <div class="flex justify-center gap-8">
          <div class="text-center">
@@ -557,40 +557,55 @@
     </div>
    </section>
    <!-- Slide 13: Rule - Meaning -->
-   <section data-slide-index="12" data-slide-num="13" data-title="계수비의 놀라운 의미" id="slide-13">
+   <section data-slide-index="12" data-slide-num="13" data-title="화학 반응식 계수의 의미" id="slide-13">
     <div class="slide-content">
-     <h2 class="mb-12">계수비의 놀라운 의미</h2>
-     <!-- Slide 13: Full overhaul for visibility -->
-     <div class="p-16 bg-gradient-to-br from-slate-900 to-indigo-950 rounded-[4rem] w-full max-w-6xl shadow-2xl relative overflow-hidden border border-slate-700">
-      <div class="absolute top-0 right-0 w-96 h-96 bg-cyan-500/20 rounded-full blur-[120px]"></div>
-      <p class="text-4xl md:text-6xl font-black mb-12 text-center text-white">
-        <span class="text-cyan-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]">계수비</span> = <span class="text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]">분자 수의 비</span>
-      </p>
-      <div class="h-1 bg-gradient-to-r from-transparent via-slate-600 to-transparent w-full mb-12"></div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
-       <div class="text-center space-y-6">
-        <p class="text-2xl font-black text-slate-300 uppercase tracking-widest">Coefficients</p>
-        <div class="inline-block px-8 py-4 bg-white/10 rounded-2xl border border-white/20">
-          <div class="flex justify-center gap-4 text-6xl font-mono font-black text-cyan-400">
-            <span>2</span><span>:</span><span>1</span><span>:</span><span>2</span>
-          </div>
+     <h2 class="mb-12 text-slate-800">화학 반응식 계수의 의미</h2>
+     
+     <div class="w-full max-w-6xl bg-white rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-slate-100 p-16 relative overflow-hidden">
+      <!-- 배경 장식 -->
+      <div class="absolute -top-24 -right-24 w-64 h-64 bg-blue-50 rounded-full opacity-50"></div>
+      <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-cyan-50 rounded-full opacity-50"></div>
+
+      <!-- 핵심 공식 영역 -->
+      <div class="relative z-10 text-center mb-16">
+       <p class="text-5xl md:text-7xl font-black text-slate-900 flex justify-center items-center gap-6">
+        <span class="text-blue-600 bg-blue-50 px-6 py-2 rounded-2xl">계수비</span>
+        <span class="text-slate-300 text-4xl">=</span>
+        <span class="text-cyan-600 bg-cyan-50 px-6 py-2 rounded-2xl">분자 수의 비</span>
+       </p>
+      </div>
+
+      <div class="h-px bg-slate-200 w-full mb-16"></div>
+
+      <!-- 수치 비교 영역 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center relative z-10">
+       <div class="text-center space-y-4">
+        <p class="text-xl font-bold text-slate-400 uppercase tracking-widest">Coefficients</p>
+        <div class="text-6xl font-mono font-black text-blue-600 drop-shadow-sm">
+          2 : 1 : 2
         </div>
        </div>
+       
        <div class="flex justify-center">
-         <div class="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center text-5xl shadow-inner text-white border border-white/20">↔</div>
+         <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center text-4xl text-slate-400 border-4 border-white shadow-md">
+          ⚖️
+         </div>
        </div>
-       <div class="text-center space-y-6">
-        <p class="text-2xl font-black text-slate-300 uppercase tracking-widest">Molecule Count</p>
-        <div class="inline-block px-8 py-4 bg-white/10 rounded-2xl border border-white/20">
-          <div class="flex justify-center gap-4 text-6xl font-mono font-black text-yellow-400">
-            <span>2</span><span>:</span><span>1</span><span>:</span><span>2</span>
-          </div>
+
+       <div class="text-center space-y-4">
+        <p class="text-xl font-bold text-slate-400 uppercase tracking-widest">Molecule Ratio</p>
+        <div class="text-6xl font-mono font-black text-cyan-600 drop-shadow-sm">
+          2 : 1 : 2
         </div>
        </div>
       </div>
-      <div class="mt-16 p-8 bg-indigo-900/40 rounded-2xl border border-indigo-500/30 text-center backdrop-blur-sm">
-        <p class="text-2xl text-cyan-100 leading-relaxed font-bold italic">
-          "반응식만 봐도 얼마나 많은 분자가 필요한지 한눈에 보입니다."
+
+      <!-- 요약 설명 -->
+      <div class="mt-16 bg-slate-50 p-8 rounded-3xl border-2 border-slate-100 text-center relative">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-white px-4 text-slate-400 font-bold text-sm uppercase tracking-widest">Summary</div>
+        <p class="text-2xl text-slate-700 leading-relaxed font-bold">
+         "반응식의 <span class="text-blue-600">숫자(계수)</span>만 확인하면,<br>
+         실제로 몇 개의 분자가 반응하는지 즉시 알 수 있습니다."
         </p>
       </div>
      </div>
