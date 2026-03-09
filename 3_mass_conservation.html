@@ -194,9 +194,12 @@
         <h3 class="text-xl font-black mb-4 text-blue-800 flex items-center gap-2">
           <span class="w-2 h-8 bg-blue-500 rounded-full"></span> 반응물 (Before)
         </h3>
-        <p class="text-xl text-slate-700 font-bold leading-relaxed">
-         염화 나트륨 수용액 <br>+ 질산 은 수용액
-        </p>
+        <div class="space-y-2">
+          <p class="text-xl text-slate-700 font-bold">염화 나트륨 + 질산 은</p>
+          <p class="text-lg text-blue-600 font-mono bg-white px-3 py-1 rounded-lg border border-blue-100 inline-block">
+            \(NaCl + AgNO_3\)
+          </p>
+        </div>
        </div>
       </div>
       <div class="experiment-card group transition-all duration-300 hover:-translate-y-2">
@@ -207,9 +210,12 @@
         <h3 class="text-xl font-black mb-4 text-teal-800 flex items-center gap-2">
           <span class="w-2 h-8 bg-teal-500 rounded-full"></span> 생성물 (After)
         </h3>
-        <p class="text-xl text-slate-700 font-bold leading-relaxed">
-         <span class="text-teal-600">염화 은 (흰색 앙금)</span> <br>+ 질산 나트륨 수용액
-        </p>
+        <div class="space-y-2">
+          <p class="text-xl text-slate-700 font-bold"><span class="text-teal-600">염화 은(↓)</span> + 질산 나트륨</p>
+          <p class="text-lg text-teal-600 font-mono bg-white px-3 py-1 rounded-lg border border-teal-100 inline-block">
+            \(AgCl \downarrow + NaNO_3\)
+          </p>
+        </div>
        </div>
       </div>
      </div>
@@ -258,9 +264,10 @@
      </p>
      <div class="w-full max-w-5xl">
       <div class="p-8 bg-orange-50 rounded-2xl border-2 border-orange-100 mb-10">
-        <p class="text-2xl font-black text-orange-900">
-         탄산 칼슘 + 묽은 염산 &rarr; <span class="bg-white px-2 py-1 rounded border border-orange-200">염화 칼슘 + 물</span> + <span class="text-red-600 animate-bounce inline-block">이산화 탄소(&uarr;)</span>
+        <p class="text-3xl font-black text-orange-900 font-mono">
+          \(CaCO_3 + 2HCl \rightarrow CaCl_2 + H_2O + CO_2 \uparrow\)
         </p>
+        <p class="text-slate-500 mt-4 font-bold">(탄산 칼슘 + 묽은 염산 &rarr; 염화 칼슘 + 물 + 이산화 탄소)</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
        <div class="p-8 bg-white rounded-3xl shadow-xl border-t-8 border-red-500 text-left group hover:bg-red-50 transition-colors">
@@ -291,14 +298,14 @@
        <p class="mt-6 font-black text-slate-800 text-xl text-center tracking-tighter">앙투안 라부아지에 <br><span class="text-sm font-bold text-slate-400 font-serif">Antoine Lavoisier</span></p>
       </div>
       <div class="w-full md:w-2/3 text-left">
-       <div class="bg-slate-900 text-white p-12 rounded-[3rem] shadow-2xl relative overflow-hidden border-b-8 border-teal-500">
-        <div class="absolute top-0 right-0 p-12 text-slate-800 text-[10rem] font-serif leading-none select-none">"</div>
-        <p class="text-4xl font-light leading-[1.6] mb-8 relative z-10">
+       <div class="bg-teal-50 text-slate-900 p-12 rounded-[3rem] shadow-2xl relative overflow-hidden border-b-8 border-teal-500 border-2 border-teal-100">
+        <div class="absolute top-0 right-0 p-12 text-teal-100 text-[10rem] font-serif leading-none select-none">"</div>
+        <p class="text-4xl font-black leading-[1.6] mb-8 relative z-10 text-teal-900">
          화학 반응이 일어날 때,<br>
-         <span class="text-teal-400 font-bold">반응물의 총 질량</span>은<br>
-         <span class="text-teal-400 font-bold">생성물의 총 질량</span>과 같다.
+         <span class="bg-teal-200/50 px-2">반응물의 총 질량</span>은<br>
+         <span class="bg-teal-200/50 px-2">생성물의 총 질량</span>과 같다.
         </p>
-        <p class="text-xl text-slate-400 font-mono tracking-widest relative z-10">
+        <p class="text-xl text-teal-600 font-mono tracking-widest relative z-10 font-bold">
          - Law of Conservation of Mass, 1774 -
         </p>
        </div>
@@ -347,10 +354,10 @@
        </div>
       </div>
      </div>
-     <div class="mt-12 p-10 bg-slate-900 text-white rounded-3xl w-full max-w-5xl text-center shadow-2xl">
-      <p class="text-3xl font-bold leading-tight">
-        "원자의 <span class="text-yellow-400">배열</span>은 달라지지만,<br>
-        원자의 <span class="text-cyan-400 underline underline-offset-8">종류와 개수</span>는 절대로 변하지 않습니다."
+     <div class="mt-12 p-10 bg-teal-600 text-white rounded-3xl w-full max-w-5xl text-center shadow-2xl border-4 border-teal-200">
+      <p class="text-3xl font-black leading-tight">
+        "원자의 <span class="text-yellow-300">배열</span>은 달라지지만,<br>
+        원자의 <span class="text-white underline decoration-yellow-300 decoration-4 underline-offset-8">종류와 개수</span>는 절대로 변하지 않습니다."
       </p>
      </div>
     </div>
@@ -364,19 +371,19 @@
      </h2>
      <div class="flex flex-col md:flex-row gap-12 items-center max-w-6xl mt-10">
       <div class="w-full md:w-1/2 relative">
-       <div class="absolute inset-0 bg-red-500/10 blur-3xl animate-pulse rounded-full"></div>
-       <img class="relative rounded-3xl shadow-2xl border-2 border-white" src="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80"/>
+       <div class="absolute inset-0 bg-orange-500/20 blur-3xl animate-pulse rounded-full"></div>
+       <img class="relative rounded-3xl shadow-2xl border-4 border-white" src="https://images.unsplash.com/photo-1542332213-31f87348057f?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"/>
       </div>
       <div class="w-full md:w-1/2 text-left space-y-8">
-       <div class="inline-block px-4 py-1 bg-red-100 text-red-700 font-black rounded-lg text-sm uppercase tracking-tighter">Case: Wood Combustion</div>
-       <h3 class="text-3xl font-black text-slate-800 tracking-tight">날아간 범인들을 찾아서 🔍</h3>
+       <div class="inline-block px-4 py-1 bg-red-100 text-red-700 font-black rounded-lg text-sm uppercase tracking-widest">Open System Analysis</div>
+       <h3 class="text-3xl font-black text-slate-800">날아간 기체 범인들 찾기 🔍</h3>
        <p class="text-xl text-slate-600 leading-relaxed font-medium">
-        나무가 타면 산소와 결합하여 <span class="text-red-600 font-bold">이산화 탄소</span>와 <span class="text-blue-600 font-bold">수증기</span>가 됩니다.
+        나무 속의 탄소(\(C\))와 수소(\(H\))가 산소와 만나 <span class="text-red-600 font-bold">이산화 탄소(\(CO_2\))</span>와 <span class="text-blue-600 font-bold">수증기(\(H_2O\))</span>가 됩니다.
         <br><br>
-        열린 공간에서는 이 기체들이 하늘로 날아가 버리기 때문에 남은 재의 무게만 측정하면 질량이 줄어든 것처럼 보일 뿐입니다.
+        이들은 **기체** 상태이므로 공기 중으로 날아가 버립니다. 남은 **재**의 무게만 재면 질량이 줄어든 것처럼 보일 뿐입니다.
        </p>
-       <div class="p-6 bg-slate-100 border-l-8 border-slate-400 rounded-r-xl font-mono text-xl shadow-inner">
-        나무 + 산소 = 재 + <span class="text-red-500">날아간 기체</span>
+       <div class="p-6 bg-slate-100 border-l-8 border-red-500 rounded-r-xl font-mono text-xl shadow-inner">
+        \(나무 + 산소 = 재 + \color{red}{CO_2 \uparrow + H_2O \uparrow}\)
        </div>
       </div>
      </div>
@@ -391,19 +398,19 @@
      </h2>
      <div class="flex flex-col md:flex-row-reverse gap-12 items-center max-w-6xl mt-10">
       <div class="w-full md:w-1/2 relative">
-       <div class="absolute inset-0 bg-blue-500/10 blur-3xl animate-pulse rounded-full"></div>
-       <img class="relative rounded-3xl shadow-2xl border-2 border-white" src="https://images.unsplash.com/photo-1536633132051-6407270d4949?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80"/>
+       <div class="absolute inset-0 bg-blue-500/20 blur-3xl animate-pulse rounded-full"></div>
+       <img class="relative rounded-3xl shadow-2xl border-4 border-white" src="https://images.unsplash.com/photo-1518152006812-edab29b069ac?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"/>
       </div>
       <div class="w-full md:w-1/2 text-left space-y-8">
-       <div class="inline-block px-4 py-1 bg-blue-100 text-blue-700 font-black rounded-lg text-sm uppercase tracking-tighter">Case: Steel Wool Combustion</div>
-       <h3 class="text-3xl font-black text-slate-800 tracking-tight">새롭게 합류한 산소 ⚓</h3>
+       <div class="inline-block px-4 py-1 bg-blue-100 text-blue-700 font-black rounded-lg text-sm uppercase tracking-widest">Open System Analysis</div>
+       <h3 class="text-3xl font-black text-slate-800 tracking-tight">새롭게 합류한 산소 대원들 ⚓</h3>
        <p class="text-xl text-slate-600 leading-relaxed font-medium">
-        강철 솜(철)이 타면 공기 중의 <span class="text-blue-600 font-bold">산소</span>가 철과 결합하여 고체 상태의 <span class="text-slate-800 font-bold">산화 철</span>이 됩니다.
+        강철 솜(철, \(Fe\))이 타면 공기 중의 <span class="text-blue-600 font-bold">산소(\(O_2\))</span>가 철 원자와 강하게 결합하여 고체 상태의 <span class="text-slate-800 font-bold">산화 철</span>이 됩니다.
         <br><br>
-        외부에서 들어온 산소의 무게가 더해졌기 때문에 질량이 늘어나는 현상이 관찰됩니다.
+        외부(공기)에서 들어온 산소의 질량이 고체 속에 **박혔기 때문에** 전체 질량은 처음보다 늘어나게 됩니다.
        </p>
-       <div class="p-6 bg-blue-50 border-l-8 border-blue-400 rounded-r-xl font-mono text-xl shadow-inner">
-        산화 철 = 철 + <span class="text-blue-500">결합한 산소</span>
+       <div class="p-6 bg-blue-50 border-l-8 border-blue-500 rounded-r-xl font-mono text-xl shadow-inner text-blue-900">
+        \(철(Fe) + \color{blue}{산소(O_2)} = 산화 철\)
        </div>
       </div>
      </div>
@@ -506,25 +513,25 @@
    <!-- Slide 15: PhET Simulation -->
    <section data-slide-index="14" data-slide-num="15" data-title="🔬 디지털 탐구" id="slide-phet">
     <div class="slide-content">
-     <h2 class="text-teal-700">🔬 디지털 탐구: 가상 실험 시뮬레이션</h2>
+     <h2 class="text-teal-700">🔬 디지털 탐구: 반응물과 생성물</h2>
      <div class="grid grid-cols-2 gap-4 mb-6 w-full max-w-4xl">
-        <div class="bg-orange-50 p-4 rounded-xl border border-orange-200 flex items-center gap-4 text-left">
-            <span class="text-3xl">🛠️</span>
+        <div class="bg-orange-50 p-4 rounded-xl border border-orange-200 flex items-center gap-4 text-left shadow-sm">
+            <span class="text-3xl">🥪</span>
             <div>
-                <p class="text-xs font-black text-orange-800 uppercase">Activity</p>
-                <p class="text-sm text-orange-700">분자를 직접 조립해 보세요.</p>
+                <p class="text-xs font-black text-orange-800 uppercase">Step 1</p>
+                <p class="text-sm text-orange-700">샌드위치 만들기로 원리를 이해하세요.</p>
             </div>
         </div>
-        <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 flex items-center gap-4 text-left">
-            <span class="text-3xl">📝</span>
+        <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 flex items-center gap-4 text-left shadow-sm">
+            <span class="text-3xl">🧪</span>
             <div>
-                <p class="text-xs font-black text-blue-800 uppercase">Recorder</p>
-                <p class="text-sm text-blue-700">변화하는 숫자를 기록하세요.</p>
+                <p class="text-xs font-black text-blue-800 uppercase">Step 2</p>
+                <p class="text-sm text-blue-700">분자 반응에서 질량이 보존되는지 확인하세요.</p>
             </div>
         </div>
      </div>
      <div class="w-full max-w-5xl aspect-video rounded-2xl overflow-hidden shadow-2xl border-4 border-white relative group">
-        <iframe src="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" 
+        <iframe src="https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_all.html?locale=ko" 
                 class="w-full h-full" allowfullscreen></iframe>
      </div>
     </div>
