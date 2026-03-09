@@ -32,17 +32,17 @@ body.presentation-mode section.active-slide {
     background: var(--bg-main);
     max-width: 1300px; 
     width: 95%;
-    max-height: 88vh; /* Tighten height limit */
-    padding: 1.2rem 2.5rem;
+    max-height: 92vh; /* 높이 제한 완화 */
+    padding: 2.5rem 4rem; /* 패딩을 넓혀 여유로운 배치 */
     border: 1px solid var(--border-light);
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    overflow-y: auto; /* Allow internal scrolling for outliers */
+    overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 transparent;
 }
@@ -84,11 +84,11 @@ body.presentation-mode h2 {
 
 body.presentation-mode p, 
 body.presentation-mode li {
-    font-size: 1.35rem !important; /* Reduced for better fit */
+    font-size: 1.5rem !important; /* 가독성을 위해 크기 확대 */
     font-weight: 500;
-    line-height: 1.4 !important;
+    line-height: 1.8 !important; /* 줄 간격을 1.8로 대폭 확대 */
     color: #1e293b;
-    margin-bottom: 0.6rem;
+    margin-bottom: 1.2rem; /* 단락 간격 확대 */
     letter-spacing: -0.02em;
 }
 
