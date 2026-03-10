@@ -63,7 +63,9 @@ window.SlideEngine = {
             controls.innerHTML = `
                 <a href="index.html" id="home-btn" title="메인 화면으로">🏠 Home</a>
                 <div class="control-sep"></div>
-                <button id="view-all-btn" title="전체 보기 (V)">📋 전체</button>
+                <button id="fullscreen-btn" title="전체 화면 (F)">🖥️ Full</button>
+                <div class="control-sep"></div>
+                <button id="view-all-btn" title="문서 전체 보기 (V)">📋 전체</button>
                 <div class="control-sep"></div>
                 <button id="prev-btn" title="이전 (Left Arrow)">←</button>
                 <button id="next-btn" title="다음 (Right Arrow / Space)">→</button>
@@ -74,6 +76,7 @@ window.SlideEngine = {
     },
 
     bindEvents: function() {
+        document.getElementById('fullscreen-btn').addEventListener('click', () => this.toggleFullscreen());
         document.getElementById('view-all-btn').addEventListener('click', () => this.toggleViewAll());
         document.getElementById('prev-btn').addEventListener('click', () => this.prevSlide());
         document.getElementById('next-btn').addEventListener('click', () => this.nextSlide());
@@ -100,8 +103,22 @@ window.SlideEngine = {
                 this.prevSlide();
             } else if (e.key.toLowerCase() === 'v') {
                 this.toggleViewAll();
+            } else if (e.key.toLowerCase() === 'f') {
+                this.toggleFullscreen();
             }
         });
+    },
+
+    toggleFullscreen: function() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => {
+                alert(`Error attempting to enable full-screen mode: ${err.message}`);
+            });
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
     },
 
     toggleViewAll: function() {
