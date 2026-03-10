@@ -30,7 +30,7 @@ body.presentation-mode section.active-slide {
 /* --- Content Styling --- */
 .slide-content {
     background: var(--bg-main);
-    max-width: 1300px; 
+    max-width: 1500px; 
     width: 95%;
     max-height: 92vh; /* 높이 제한 완화 */
     padding: 2.5rem 4rem; /* 패딩을 넓혀 여유로운 배치 */
