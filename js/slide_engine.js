@@ -37,6 +37,12 @@ window.SlideEngine = {
         this.setupQuiz();
         this.updateView();
         
+        // Handle query params
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('mode') === 'all' || urlParams.get('view') === 'all') {
+            this.toggleViewAll();
+        }
+
         console.log('Slide Engine Pro Ready');
         this.initialized = true;
     },
@@ -57,6 +63,8 @@ window.SlideEngine = {
             controls.innerHTML = `
                 <a href="index.html" id="home-btn" title="메인 화면으로">🏠 Home</a>
                 <div class="control-sep"></div>
+                <button id="view-all-btn" title="전체 보기 (V)">📋 전체</button>
+                <div class="control-sep"></div>
                 <button id="prev-btn" title="이전 (Left Arrow)">←</button>
                 <button id="next-btn" title="다음 (Right Arrow / Space)">→</button>
                 <span id="slide-indicator">1 / ${this.sections.length}</span>
@@ -66,6 +74,7 @@ window.SlideEngine = {
     },
 
     bindEvents: function() {
+        document.getElementById('view-all-btn').addEventListener('click', () => this.toggleViewAll());
         document.getElementById('prev-btn').addEventListener('click', () => this.prevSlide());
         document.getElementById('next-btn').addEventListener('click', () => this.nextSlide());
         
@@ -89,6 +98,38 @@ window.SlideEngine = {
                 this.nextSlide();
             } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
                 this.prevSlide();
+            } else if (e.key.toLowerCase() === 'v') {
+                this.toggleViewAll();
+            }
+        });
+    },
+
+    toggleViewAll: function() {
+        document.body.classList.toggle('view-all-mode');
+        const isViewAll = document.body.classList.contains('view-all-mode');
+        const btn = document.getElementById('view-all-btn');
+        if (isViewAll) {
+            btn.innerHTML = '📽️ 슬라이드';
+            btn.title = '슬라이드 모드 (V)';
+            this.revealAllQuizzes();
+        } else {
+            btn.innerHTML = '📋 전체';
+            btn.title = '전체 보기 (V)';
+            this.updateView();
+        }
+    },
+
+    revealAllQuizzes: function() {
+        const quizButtons = document.querySelectorAll('.quiz-btn');
+        quizButtons.forEach(btn => {
+            if (btn.dataset.correct === 'true') {
+                btn.classList.add('correct', 'ring-4', 'ring-green-200');
+            }
+        });
+        const feedbacks = document.querySelectorAll('.quiz-feedback');
+        feedbacks.forEach(fb => {
+            if (!fb.innerHTML.trim()) {
+                fb.innerHTML = '<span class="text-green-600 font-bold">정답 공개됨</span>';
             }
         });
     },
