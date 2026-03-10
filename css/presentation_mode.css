@@ -42,9 +42,19 @@ body.presentation-mode section.active-slide {
     justify-content: center;
     align-items: center;
     text-align: center;
-    overflow-y: auto;
+    overflow: auto !important; /* 가로/세로 스크롤 모두 허용 */
+    -webkit-overflow-scrolling: touch; /* 모바일 터치 스크롤 부드럽게 */
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 transparent;
+    touch-action: auto; /* 터치 액션 허용 */
+}
+
+/* 모바일 대응 패딩 조정 */
+@media (max-width: 768px) {
+    .slide-content {
+        padding: 1.5rem 1rem;
+        width: 98%;
+    }
 }
 
 /* Custom scrollbar for Webkit */
