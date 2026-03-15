@@ -1,7 +1,5 @@
-
 import os
 import time
-import csv
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -9,104 +7,78 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.common.exceptions import TimeoutException
 
-# ---------------------------------------------------------------------
-# CONFIGURATION
-# ---------------------------------------------------------------------
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-QUIZ_FILES = [f"lesson{i}_quiz.csv" for i in range(1, 7)]
-TINKERBELL_URL = "https://www.tkbell.co.kr/"
-
-# ---------------------------------------------------------------------
-# SELENIUM SETUP
-# ---------------------------------------------------------------------
-def setup_driver():
-    chrome_options = Options()
-    # 크롬 프로필을 사용하고 싶다면 아래 주석을 해제하고 경로를 본인의 것으로 수정하세요.
-    # chrome_options.add_argument(f"user-data-dir={os.path.expanduser('~')}/.config/google-chrome/Default")
-    
-    # 일반적인 상황에서는 새 창을 띄워 수동 로그인을 유도합니다.
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
-    return driver
-
-def wait_and_click(driver, selector, by=By.CSS_SELECTOR, timeout=10):
-    element = WebDriverWait(driver, timeout).until(EC.element_to_be_clickable((by, selector)))
-    element.click()
-    return element
-
-def wait_and_send_keys(driver, selector, text, by=By.CSS_SELECTOR, timeout=10):
-    element = WebDriverWait(driver, timeout).until(EC.presence_of_element_located((by, selector)))
-    element.clear()
-    element.send_keys(text)
-    return element
-
-# ---------------------------------------------------------------------
-# MAIN AUTOMATION LOGIC
-# ---------------------------------------------------------------------
 def automate_quiz_creation():
-    print("🚀 팅커벨 퀴즈 자동화 봇을 시작합니다.")
-    driver = setup_driver()
-    driver.get(TINKERBELL_URL)
+    # 1. 환경 설정
+    CHROME_DRIVER_PATH = "/usr/bin/chromedriver"  # Lubuntu 환경 확인 필요
+    QUIZ_CSV = "/home/rjegj/projects/2026-mid3-Chem_Physics/tinkerbell_quizzes.csv"
     
-    print("\n[STEP 1] 브라우저에서 팅커벨에 로그인해 주세요.")
-    print("로그인이 완료되어 '만들기' 화면으로 이동할 준비가 되었다면 터미널에서 Enter를 눌러주세요.")
-    input(">>> 로그인을 마쳤으면 Enter 키를 누르세요...")
+    if not os.path.exists(QUIZ_CSV):
+        print(f"❌ CSV 파일을 찾을 수 없습니다: {QUIZ_CSV}")
+        return
 
-    for quiz_file in QUIZ_FILES:
-        file_path = os.path.join(BASE_DIR, quiz_file)
-        if not os.path.exists(file_path):
-            print(f"⚠️ 파일을 찾을 수 없습니다: {quiz_file}")
-            continue
+    # 2. 데이터 로드
+    df = pd.read_csv(QUIZ_CSV)
+    print(f"📊 로드된 퀴즈 데이터: {len(df)}개")
 
-        print(f"\n[STEP 2] {quiz_file} 데이터 처리를 시작합니다.")
+    # 3. 브라우저 실행
+    chrome_options = Options()
+    # chrome_options.add_argument("--headless") # 필요 시 활성화
+    driver = webdriver.Chrome(options=chrome_options)
+    wait = WebDriverWait(driver, 15)
+
+    try:
+        # 4. 팅커벨 로그인 페이지 접속
+        print("🔗 팅커벨 접속 중...")
+        driver.get("https://www.tkbell.co.kr/user/login.do")
         
-        # CSV 읽기 (utf-8-sig)
-        with open(file_path, 'r', encoding='utf-8-sig') as f:
-            reader = csv.DictReader(f)
-            questions = list(reader)
+        print("\n⚠️  [수동 작업 필요]")
+        print("1. 브라우저에서 로그인을 진행해주세요.")
+        print("2. '퀴즈 만들기' -> '새 퀴즈' 페이지까지 이동해주세요.")
+        input(">>> 준비가 되었으면 Enter를 누르세요...")
 
-        print(f"✅ 총 {len(questions)}개의 문제를 발견했습니다.")
-        
-        # 팅커벨 내비게이션 (여기서부터는 팅커벨 사이트의 실제 구조에 따라 셀렉터 수정이 필요함)
-        print("💡 이제 팅커벨에서 '퀴즈 만들기'를 수동으로 시작해 주세요.")
-        print("문제 입력 창이 활성화된 상태에서 'Enter'를 누르면 자동 입력을 시작합니다.")
-        input(">>> 문제 입력 화면을 띄웠나요? 시작하려면 Enter...")
+        # 5. 문제 입력 루프
+        for idx, row in df.iterrows():
+            print(f"\n📝 문제 {idx+1} 입력 중: {row['질문'][:20]}...")
+            
+            # 유형 판별 (OX, 객관식, 단답형)
+            q_type = str(row['유형']).strip()
+            
+            try:
+                # [문제 추가 버튼 클릭] - 실제 사이트의 버튼 ID/Class 확인 필요
+                # 여기서는 시뮬레이션 로그만 남기고, 실제 연동 시 아래 주석 해제하여 사용
+                
+                if q_type == "OX":
+                    print(f"  > [OX 퀴즈] 정답: {row['정답']}")
+                    # TODO: driver.find_element(By.ID, "ox_btn").click()
+                elif "객관식" in q_type:
+                    print(f"  > [객관식] 보기: {row['보기']}")
+                    # TODO: driver.find_element(By.ID, "choice_btn").click()
+                else:
+                    print(f"  > [단답형] 정답: {row['정답']}")
+                    # TODO: driver.find_element(By.ID, "short_btn").click()
 
-        for i, q in enumerate(questions):
-            print(f"📝 {i+1}번 문제 입력 중: {q['질문'][:20]}...")
-            
-            # TODO: 실제 팅커벨 웹 요소의 셀렉터를 파악한 후 아래를 수정해야 합니다.
-            # 팅커벨은 동적 요소가 많으므로 세밀한 조정이 필요합니다.
-            
-            # 예시 코드 (실제 작동을 위해서는 class/id 수정 필수):
-            # 1. 질문 입력
-            # wait_and_send_keys(driver, ".question-input-area", q['질문'])
-            
-            # 2. 유형 선택 (객관식/OX/단답형)
-            # q_type = q['유형']
-            
-            # 3. 보기 입력 및 정답 체크
-            # if q_type == '객관식':
-            #     options = q['보기'].split(',')
-            #     for idx, opt in enumerate(options):
-            #         wait_and_send_keys(driver, f".option-{idx+1}", opt.strip())
-            #     # 정답 체크
-            #     wait_and_click(driver, f".correct-btn-{q['정답']}")
-            
-            # 4. 다음 문제 추가 버튼 클릭
-            # wait_and_click(driver, ".add-question-btn")
-            
-            print(f"   - 데이터: {q}")
-            print("   --- (현재는 화면 구조 분석이 필요하여 데이터만 출력합니다) ---")
-            # time.sleep(1)
+                # 공통 질문 입력
+                # driver.find_element(By.ID, "question_area").send_keys(row['질문'])
+                
+                # 해설 입력
+                if pd.notna(row['해설']):
+                    print(f"  > 해설 포함: {row['해설'][:15]}...")
+                    # driver.find_element(By.ID, "comment_area").send_keys(row['해설'])
 
-        print(f"\n🎉 {quiz_file} 입력 시뮬레이션 종료.")
-        print("실제 웹 요소(Selectors) 정보가 확보되면 위 주석 처리된 코드를 활성화하여 완전 자동화가 가능합니다.")
-        
-    print("\n✅ 모든 작업이 끝났습니다. 브라우저를 닫으려면 아무 키나 누르세요.")
-    input(">>> 종료하려면 Enter...")
-    driver.quit()
+                time.sleep(1) # 입력 안정성을 위한 대기
+                
+            except Exception as e:
+                print(f"  ⚠️ 문제 {idx+1} 입력 중 오류 발생: {e}")
+
+        print("\n✅ 모든 퀴즈 데이터의 입력 시뮬레이션이 완료되었습니다.")
+        print("실제 사이트의 HTML 구조(XPath/Selector)가 확정되면 위 코드를 즉시 실전용으로 전환할 수 있습니다.")
+
+    finally:
+        print("\n브라우저를 닫으려면 Enter를 누르세요.")
+        input()
+        driver.quit()
 
 if __name__ == "__main__":
     automate_quiz_creation()
