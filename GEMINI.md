@@ -1,19 +1,16 @@
-# 2026-mid3-Chem_Physics 프로젝트 가이드라인
+# 🧪 2026-mid3-Chem_Physics (Asset Hub)
 
-## 🎨 디자인 및 가독성 원칙 (Presentation Design Rules)
+## 🎯 비전
+2026학년도 과학 수업을 위한 고품질 인터랙티브 수업 에셋과 HTML5 기반 프레젠테이션을 관리하고 실시간 배포하는 **"수업 자산 관제 플랫폼"**.
 
-### 1. 대비(Contrast) 최적화 (CRITICAL)
-- **어두운 배경 (Dark Background):** 배경이 어두운 색(예: `bg-slate-900`, `bg-indigo-900`, `bg-prestige-navy`)일 경우, 글씨는 반드시 **밝은 색**(`text-white`, `text-slate-100`, `text-cyan-400` 등)을 사용해야 함.
-- **밝은 배경 (Light Background):** 배경이 밝은 색(예: `bg-white`, `bg-slate-50`, `bg-blue-50`)일 경우, 글씨는 **어두운 색**(`text-slate-900`, `text-slate-800`, `text-blue-900` 등)을 사용해야 함.
-- 시뮬레이션 로그나 박스 내부의 텍스트가 배경색에 묻히지 않도록 항상 검토할 것.
+## 📈 현재 상태 (Active)
+- [x] `generate_dashboard.py`를 이용한 전 단원 HTML 에셋 자동 스캔 및 인덱싱
+- [x] `asset_server.py` 기반의 안정적인 미디어 자산 공급 체계 수립
+- [x] 고급 무기화학(Advanced Inorganic) 심화 과정 로드맵 연계
+- [ ] `Project-SCOPE` 빌드 결과물(units/dist)과의 실시간 파일 동기화
+- [ ] `image_manifest.json`을 통한 GitHub AI 및 외부 에셋 참조 최적화
 
-### 2. 컴포넌트 일관성
-- `math-box`, `note-box`, `stage-3d` 등의 공통 클래스를 적극 활용하여 전체적인 톤앤매너를 유지함.
-- 강조 텍스트는 `font-bold` 또는 `text-accent` 컬러를 사용하여 가독성을 높임.
-
-### 3. LaTeX 렌더링 보안
-- 수식의 역슬래시(``)가 HTML 소스에서 소실되지 않도록 더블 역슬래시(``)를 적절히 사용하거나 `replace` 도구 사용 시 주의할 것.
-
-## 🛠️ 개발 지침
-- 모든 화학/물리 시뮬레이션 로직은 `js/chem_sim.js`의 `coreSimulate...` 함수를 호출하여 처리함.
-- 새로운 슬라이드 추가 시 `index.html`과 `ADV_INORGANIC_ROADMAP.md`의 연동성을 고려함.
+## 🛠️ 기술적 과제 (Roadmap)
+1. **에셋 버전 관리**: 수업 자료 수정 시 에셋 경로가 깨지지 않도록 하는 해시 기반 매니페스트 관리.
+2. **인터랙티브 대시보드**: `asset_dashboard.html`을 Streamlit으로 포팅하여 실시간 수업 상태 모니터링 및 퀴즈 제어 기능 통합.
+3. **하이브리드 연동**: 로컬 HTML 프레젠테이션과 클라우드 에셋 간의 끊김 없는 통신을 위한 로컬 프록시 설정 자동화.

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학습지: 1차시 물질 변화</title>
+    <style>
+        /* 폰트 설정: 한글 문서에 가장 적합한 맑은 고딕 또는 바탕체 계열 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        
+        body {
+            background-color: #e5e7eb;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+            color: #000;
+        }
+
+        /* A4 용지 규격 및 초기화 */
+        .a4-page {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            margin: 0 auto;
+            padding: 15mm;
+            box-sizing: border-box;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        /* 인쇄 시 여백 및 설정 */
+        @page {
+            size: A4;
+            margin: 0; /* 브라우저 자체 여백 제거 */
+        }
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+            .a4-page {
+                box-shadow: none;
+                margin: 0;
+                padding: 15mm; /* 인쇄 시 내부 여백만 유지 */
+            }
+            .no-print {
+                display: none !important;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+
+        /* 전체 콘텐츠를 감싸는 테두리 (PDF의 외곽선 역할) */
+        .content-border {
+            border: 1px solid #000;
+            width: 100%;
+            height: 100%;
+            min-height: 260mm; /* A4 높이에서 패딩 제외한 여유 공간 */
+            padding: 15px 20px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* 표 (헤더) 스타일 */
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1.5px solid #000;
+            margin-bottom: 25px;
+            font-size: 13px; /* HWP 기준 약 10pt */
+        }
+        .header-table th, .header-table td {
+            border: 1px solid #000;
+            text-align: center;
+            vertical-align: middle;
+            padding: 6px 4px;
+        }
+        .bg-blue-light {
+            background-color: #b4c6e7; /* 원본 PDF와 유사한 탁한 파스텔 블루 */
+        }
+        .bg-gray-light {
+            background-color: #f2f2f2;
+        }
+        .title-text {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+        .subtitle-text {
+            font-weight: 700;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        /* 소단원 배지 스타일 */
+        .section-wrap {
+            display: flex;
+            align-items: center;
+            margin-top: 30px;
+            margin-bottom: 12px;
+            padding-left: 5px;
+        }
+        .sec-num {
+            background-color: #4dc0b5; /* PDF의 민트/청록색 */
+            color: #fff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 13px;
+            margin-right: 6px;
+            font-family: Arial, sans-serif;
+        }
+        .sec-title {
+            background-color: #4dc0b5;
+            color: #fff;
+            border-radius: 12px;
+            padding: 2px 14px;
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        /* 본문 텍스트 스타일 */
+        .content-body {
+            font-size: 14px; /* HWP 기준 10.5pt 정도 */
+            line-height: 1.7;
+            padding-left: 10px;
+        }
+        
+        /* 텍스트 들여쓰기 구조 */
+        .indent-row {
+            display: flex;
+            margin-bottom: 5px;
+        }
+        .indent-bullet {
+            width: 15px;
+            flex-shrink: 0;
+            text-align: center;
+        }
+        .indent-text {
+            flex-grow: 1;
+        }
+
+        /* 예시 목록 들여쓰기 */
+        .example-block {
+            margin-top: 5px;
+            padding-left: 15px;
+        }
+        .example-row {
+            display: flex;
+            margin-bottom: 3px;
+        }
+        .ex-label {
+            width: 25px;
+            flex-shrink: 0;
+        }
+        .ex-bullet {
+            width: 15px;
+            flex-shrink: 0;
+            text-align: center;
+        }
+        .ex-text {
+            flex-grow: 1;
+        }
+
+        /* 기호 및 빈칸 */
+        .arrow {
+            font-weight: bold;
+            font-size: 12px;
+            margin: 0 3px;
+        }
+        .blank {
+            display: inline-block;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        /* 하단 퀴즈 영역 */
+        .quiz-area {
+            margin-top: 40px;
+            padding-left: 10px;
+        }
+        .quiz-title {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .quiz-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            row-gap: 8px;
+            column-gap: 40px;
+            padding-left: 10px;
+            font-size: 14px;
+        }
+        .quiz-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* 페이지 번호 */
+        .page-num {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: #333;
+        }
+
+        /* 컨트롤 패널 */
+        .control-panel {
+            text-align: center;
+            padding: 15px;
+            background: #374151;
+            color: white;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        button.print-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+        button.print-btn:hover { background: #059669; }
+    </style>
+</head>
+<body>
+
+    <div class="no-print control-panel">
+        📄 원본 PDF의 레이아웃과 자간/여백을 그대로 재현한 HTML 포맷입니다. 
+        <button class="print-btn" onclick="window.print()">🖨️ 인쇄하기 (Ctrl+P)</button>
+    </div>
+
+    <div class="a4-page">
+        <!-- 외곽선 테두리 -->
+        <div class="content-border">
+            
+            <!-- 1. 헤더 테이블 -->
+            <table class="header-table">
+                <tr>
+                    <td rowspan="2" style="width: 12%; border-right: none; border-bottom: none;">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzhjY2VmYyIgc3Ryb2tlPSIjMGI3NmI2IiBzdHJva2Utd2lkdGg9IjEuNSI+PHBhdGggZD0iTTE3LjUgMTkuMmMtMi4xIDAtMy44LTEuNy0zLjgtMy44bDAtLjFjLTEuNS43LTMuMy40LTQuNC0xLS40LjEtLjguMS0xLjIuMWEzLjggMy44IDAgMCAxIDAtNy42YzEuOC0xLjggNC45LTIgNy0uNWwxLS4xYTMuOCAzLjggMCAwIDEgMy44IDMuOGMwIC40LS4xLjgtLjEgMS4yIDEuMSAxLjEgMS41IDIuOSAxIDQuNC4xIDAgLjIgMCAuMyAwIDIuMSAwIDMuOCAxLjcgMy44IDMuOHMtMS43IDMuOC0zLjggMy44eiIvPjwvc3ZnPg==" alt="cloud" style="width: 40px; opacity: 0.8;">
+                    </td>
+                    <td rowspan="2" style="width: 38%; border-left: none; border-bottom: none;">
+                        <div class="title-text">Ⅰ.화학 반응의 규칙과<br>에너지 변화</div>
+                    </td>
+                    <td colspan="4" class="bg-blue-light subtitle-text" style="padding: 8px 0;">
+                        1. 물질 변화와 화학반응식<br>
+                        01. 주변에서 일어나는 물질 변화
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bg-gray-light" style="width: 8%;">학번</td>
+                    <td style="width: 22%; font-size: 13px;">3학년 &nbsp;&nbsp;&nbsp;&nbsp;반 &nbsp;&nbsp;&nbsp;&nbsp;번</td>
+                    <td class="bg-gray-light" style="width: 8%;">이름</td>
+                    <td style="width: 12%;"></td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="text-align: left; padding: 10px 15px; border-right: none;">
+                        <span style="font-weight: bold;">✔ 학습 목표</span> &nbsp;&nbsp; ✿ 물리 변화와 화학 변화의 차이를 설명할 수 있다.
+                    </td>
+                    <td style="font-weight: bold; border-left: 1.5px solid #000;">
+                        선생님 확인
+                    </td>
+                </tr>
+            </table>
+
+            <!-- 2. 본문 내용: 물리 변화 -->
+            <div class="section-wrap">
+                <div class="sec-num">1</div>
+                <div class="sec-title">물리 변화</div>
+            </div>
+            
+            <div class="content-body">
+                <div class="indent-row">
+                    <div class="indent-bullet">:</div>
+                    <div class="indent-text">
+                        물질 고유의 성질은 변하지 않으면서 ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )이나 ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )가 변하는 현상
+                    </div>
+                </div>
+                
+                <div class="example-block">
+                    <div class="example-row">
+                        <div class="ex-label">예)</div>
+                        <div class="ex-bullet">•</div>
+                        <div class="ex-text">컵이 깨진다. <span class="arrow">➡</span> 모양 변화</div>
+                    </div>
+                    <div class="example-row">
+                        <div class="ex-label"></div>
+                        <div class="ex-bullet">•</div>
+                        <div class="ex-text">알루미늄 캔이 찌그러진다. <span class="arrow">➡</span> 모양 변화</div>
+                    </div>
+                    <div class="example-row">
+                        <div class="ex-label"></div>
+                        <div class="ex-bullet">•</div>
+                        <div class="ex-text">아이스크림이 녹는다. <span class="arrow">➡</span> 고체에서 액체로의 ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) 변화</div>
+                    </div>
+                    <div class="example-row">
+                        <div class="ex-label"></div>
+                        <div class="ex-bullet">•</div>
+                        <div class="ex-text">향기가 퍼진다. <span class="arrow">➡</span> 확산</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 본문 내용: 화학 변화 -->
+            <div class="section-wrap" style="margin-top: 40px;">
+                <div class="sec-num">2</div>
+                <div class="sec-title">화학 변화</div>
+            </div>
+            
+            <div class="content-body">
+                <div class="indent-row">
+                    <div class="indent-bullet">:</div>
+                    <div class="indent-text">
+                        어떤 물질이 ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )이 다른 새로운 물질로 변하는 현상
+                    </div>
+                </div>
+                
+                <div class="example-block">
+                    <div class="example-row">
+                        <div class="ex-label">예)</div>
+                        <div class="ex-bullet">•</div>
+                        <div class="ex-text">양초가 탄다. <span class="arrow">➡</span> 양초와 ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )의 반응</div>
+                    </div>
+                    <div class="example-row">
+                        <div class="ex-label"></div>
+                        <div class="ex-bullet">•</div>
+                        <div class="ex-text">철이 녹슨다. <span class="arrow">➡</span> 철과 ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )의 반응</div>
+                    </div>
+                    <div class="example-row">
+                        <div class="ex-label"></div>
+                        <div class="ex-bullet">•</div>
+                        <div class="ex-text">포도가 익는다. <span class="arrow">➡</span> 광합성으로 양분의 생성 및 저장</div>
+                    </div>
+                    <div class="example-row">
+                        <div class="ex-label"></div>
+                        <div class="ex-bullet">•</div>
+                        <div class="ex-text">김치가 시어진다. <span class="arrow">➡</span> 발효</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. 퀴즈 영역 -->
+            <div class="quiz-area">
+                <div class="quiz-title">* 다음 현상이 물리 변화이면 '물', 화학 변화이면 '화'라고 쓰시오.</div>
+                <div class="quiz-grid">
+                    <div class="quiz-item">
+                        <span>1) 못이 녹슨다.</span>
+                        <span>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</span>
+                    </div>
+                    <div class="quiz-item">
+                        <span>2) 나무로 책상을 만든다.</span>
+                        <span>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</span>
+                    </div>
+                    <div class="quiz-item">
+                        <span>3) 물이 끓어 수증기가 된다.</span>
+                        <span>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</span>
+                    </div>
+                    <div class="quiz-item">
+                        <span>4) 종이를 태우면 재가 남는다.</span>
+                        <span>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</span>
+                    </div>
+                    <div class="quiz-item">
+                        <span>5) 젖은 빨래가 말랐다.</span>
+                        <span>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</span>
+                    </div>
+                    <div class="quiz-item">
+                        <span>6) 향수 냄새가 방 안에 퍼진다.</span>
+                        <span>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</span>
+                    </div>
+                    <div class="quiz-item">
+                        <span>7) 설탕을 물에 녹이면 설탕물이 된다.</span>
+                        <span>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</span>
+                    </div>
+                    <div class="quiz-item">
+                        <span>8) 강철 솜을 연소시켰더니 검게 변하였다.</span>
+                        <span>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. 페이지 번호 -->
+            <div class="page-num">- 1 -</div>
+            
+        </div>
+    </div>
+
+</body>
+</html>

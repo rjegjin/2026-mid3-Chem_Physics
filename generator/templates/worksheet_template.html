@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>심화 학습지: {{ data.lesson_info.topic }}</title>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        
+        @page { size: A4; margin: 15mm 20mm; }
+        body { margin: 0; padding: 0; font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif; background: #eee; color: #000; line-height: 1.7; }
+        
+        .document-wrapper { width: 210mm; margin: 0 auto; background: white; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+        @media print { body { background: white; } .document-wrapper { width: 100%; box-shadow: none; margin: 0; } .no-print { display: none !important; } }
+
+        .page-border { border: 1.2px solid #000; padding: 20px 25px; min-height: 250mm; display: flex; flex-direction: column; margin-bottom: 30px; position: relative; box-sizing: border-box; }
+        .header-table { width: 100%; border-collapse: collapse; border: 2px solid #000; margin-bottom: 20px; }
+        .header-table td { border: 1px solid #000; text-align: center; padding: 8px; font-size: 13px; }
+        .bg-blue-light { background-color: #b4c6e7; font-weight: bold; }
+        .bg-gray-light { background-color: #f2f2f2; }
+        .title-text { font-size: 20px; font-weight: 700; line-height: 1.4; }
+
+        .section-container { margin-bottom: 25px; break-inside: avoid; }
+        .section-header { display: flex; align-items: center; margin-bottom: 10px; }
+        .sec-num { background: #4dc0b5; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; font-weight: bold; margin-right: 8px; font-size: 13px; }
+        .sec-title { background: #4dc0b5; color: white; border-radius: 12px; padding: 2px 15px; font-weight: bold; font-size: 14px; }
+
+        .content-body { font-size: 14.5px; padding-left: 10px; text-align: justify; }
+        .indent-row { display: flex; margin-bottom: 6px; align-items: flex-start; }
+        .bullet { width: 20px; flex-shrink: 0; font-weight: bold; text-align: center; }
+
+        .ans-text { color: {{ 'red' if teacher_mode else 'transparent' }}; font-weight: bold; border-bottom: 1.2px solid #000; min-width: 60px; display: inline-block; text-align: center; }
+        
+        /* [일원화된 정답 박스] */
+        .teacher-answer-box {
+            margin: 15px 0 10px 25px;
+            padding: 12px 18px;
+            background-color: #fffafa;
+            border: 1px dashed #b91c1c;
+            color: #b91c1c;
+            font-size: 14px;
+            border-radius: 6px;
+            line-height: 1.6;
+            display: {{ 'block' if teacher_mode else 'none' }};
+            break-inside: avoid;
+        }
+        .teacher-answer-box b { color: #b91c1c; margin-bottom: 3px; display: block; font-size: 13px; }
+
+        .graph-container { text-align: center; margin: 15px 0; border: 1px solid #f0f0f0; padding: 10px; background: #fafafa; border-radius: 5px; }
+        .compare-table { width: 100%; border-collapse: collapse; margin: 12px 0; border: 1.2px solid #000; font-size: 13.5px; }
+        .compare-table th, .compare-table td { border: 1px solid #000; padding: 8px; text-align: center; }
+        .compare-table th { background: #f1f5f9; }
+
+        .problem-area { border-top: 1.5px solid #000; padding-top: 25px; margin-top: 20px; }
+        .problem-header { font-weight: bold; font-size: 17px; margin-bottom: 25px; border-left: 6px solid #000; padding-left: 15px; }
+        .problem-item { margin-bottom: 45px; position: relative; font-size: 14.5px; break-inside: avoid; }
+        .choice-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 8px; margin-top: 12px; padding-left: 25px; }
+        .bog-box { border: 1px solid #000; margin: 15px 25px; padding: 12px 18px; position: relative; background: #fff; font-size: 14px; }
+        .bog-label { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: #fff; padding: 0 10px; font-weight: bold; font-size: 13px; }
+
+        .page-num { position: absolute; bottom: 8mm; left: 0; width: 100%; text-align: center; font-size: 12px; color: #333; }
+        .force-page-break { break-before: page; }
+    </style>
+</head>
+<body>
+    <div class="document-wrapper">
+        <!-- 1페이지: 이론 -->
+        <div class="page-border">
+            <table class="header-table">
+                <tr>
+                    <td rowspan="2" style="width: 12%; border-right: none; border-bottom: none;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzhjY2VmYyIgc3Ryb2tlPSIjMGI3NmI2IiBzdHJva2Utd2lkdGg9IjEuNSI+PHBhdGggZD0iTTE3LjUgMTkuMmMtMi4xIDAtMy44LTEuNy0zLjgtMy44bDAtLjFjLTEuNS43LTMuMy40LTQuNC0xLS40LjEtLjguMS0xLjIuMWEzLjggMy44IDAgMCAxIDAtNy42YzEuOC0xLjggNC45LTIgNy0uNWwxLS4xYTMuOCAzLjggMCAwIDEgMy44IDMuOGMwIC40LS4xLjgtLjEgMS4yIDEuMSAxLjEgMS41IDIuOSAxIDQuNC4xIDAgLjIgMCAuMyAwIDIuMSAwIDMuOCAxLjcgMy44IDMuOHMtMS43IDMuOC0zLjggMy44eiIvPjwvc3ZnPg==" style="width: 35px;"></td>
+                    <td rowspan="2" style="width: 38%; border-left: none; border-bottom: none;"><div class="title-text">{{ data.lesson_info.unit_id | safe }}</div></td>
+                    <td colspan="4" class="bg-blue-light">{{ data.lesson_info.lesson_id }}<br>{{ data.lesson_info.topic }}</td>
+                </tr>
+                <tr><td class="bg-gray-light">학번</td><td>3학년 &nbsp;&nbsp;&nbsp;&nbsp;반 &nbsp;&nbsp;&nbsp;&nbsp;번</td><td class="bg-gray-light">이름</td><td></td></tr>
+                <tr><td colspan="5" style="text-align: left; padding: 10px 15px; border-right: none;"><span style="font-weight: bold;">✔ 학습 목표</span> &nbsp;&nbsp; ✿ {{ data.lesson_info.learning_objective }}</td><td style="font-weight: bold; border-left: 1.5px solid #000;">교사 확인</td></tr>
+            </table>
+
+            {% for section in data.sections %}
+            <div class="section-container">
+                <div class="section-header"><div class="sec-num">{{ section.id }}</div><div class="sec-title">{{ section.title }}</div></div>
+                <div class="content-body">
+                    {% if section.summary %}<div class="indent-row"><div class="bullet">:</div><div>{{ section.summary | safe }}</div></div>{% endif %}
+                    {% for item in section.contents %}
+                    <div class="indent-row">
+                        <div class="bullet">{{ item.bullet if item.bullet else '•' }}</div>
+                        <div style="flex-grow:1;">
+                            {{ item.text | safe }}
+                            {% if item.graph %}<div class="graph-container">{{ item.graph | safe }}</div>{% endif %}
+                            {% if item.table %}
+                            <table class="compare-table"><thead><tr>{% for th in item.table.headers %}<th>{{ th }}</th>{% endfor %}</tr></thead>
+                            <tbody>{% for row in item.table.rows %}<tr>{% for td in row %}<td>{{ td | safe }}</td>{% endfor %}</tr>{% endfor %}</tbody></table>
+                            {% endif %}
+                            {% if item.sub_items %}
+                            <div style="margin-top: 5px;">{% for sub in item.sub_items %}<div class="indent-row" style="font-size: 0.95em;"><div style="width: 15px;">-</div><div>{{ sub | safe }}</div></div>{% endfor %}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+            <div class="page-num">- 1 -</div>
+        </div>
+
+        <!-- 2페이지 이후: 실전 문제 -->
+        <div class="page-border force-page-break">
+            <div class="problem-area">
+                <div class="problem-header">실전 역량 강화 문제 (심화 탐구)</div>
+                {% for q in data.quizzes %}
+                <div class="problem-item">
+                    <div class="indent-row">
+                        <div class="bullet" style="width: 25px;">{{ loop.index }}.</div>
+                        <div style="flex-grow:1; font-weight: 500;">
+                            {{ q.question | safe }}
+                            {% if q.graph %}<div class="graph-container">{{ q.graph | safe }}</div>{% endif %}
+                            {% if q.box %}<div class="bog-box"><div class="bog-label">&lt;보 기&gt;</div>{% for line in q.box %}<div>{{ line | safe }}</div>{% endfor %}</div>{% endif %}
+                            
+                            {% if q.type == 'choice' %}
+                            <div class="choice-grid">{% for choice in q.choices %}<div>{{ loop.index }}) {{ choice | safe }}</div>{% endfor %}</div>
+                            {% if teacher_mode %}
+                            <div class="teacher-answer-box"><b>[정답 및 해설]</b> {{ q.correct_answer | safe }}</div>
+                            {% endif %}
+                            
+                            {% elif q.type == 'descriptive' %}
+                            {% if teacher_mode %}
+                            <div class="teacher-answer-box"><b>[모범 답안]</b> {{ q.correct_answer | safe }}</div>
+                            {% endif %}
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px; margin-top: 15px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% if loop.index == 3 and data.quizzes|length > 3 %}
+                <div class="page-num">- 2 -</div></div></div><div class="a4-page"><div class="page-border"><div class="problem-area" style="border-top:none; margin-top:0;">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="page-num">- {{ '3' if data.quizzes|length > 3 else '2' }} -</div>
+        </div>
+    </div>
+</body>
+</html>
