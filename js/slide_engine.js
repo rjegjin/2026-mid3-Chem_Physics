@@ -60,8 +60,18 @@ window.SlideEngine = {
         if (!document.getElementById('slide-controls')) {
             const controls = document.createElement('div');
             controls.id = 'slide-controls';
+
+            // Set home link based on lecture type
+            let homeLink = "index.html";
+            const filename = window.location.pathname.split('/').pop();
+            if (filename.startsWith('adv_inorganic')) {
+                homeLink = "index.html?tab=adv";
+            } else if (filename.startsWith('7_')) {
+                homeLink = "index.html?tab=phys";
+            }
+
             controls.innerHTML = `
-                <a href="index.html" id="home-btn" title="메인 화면으로">🏠 Home</a>
+                <a href="${homeLink}" id="home-btn" title="메인 화면으로">🏠 Home</a>
                 <div class="control-sep"></div>
                 <button id="fullscreen-btn" title="전체 화면 (F)">🖥️ Full</button>
                 <div class="control-sep"></div>
