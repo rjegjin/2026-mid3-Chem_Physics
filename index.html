@@ -360,6 +360,21 @@
                     <a href="adv_inorganic_03.html?view=all" class="text-xs text-slate-400 mt-2 block hover:underline">문서 전체 보기</a>
                 </div>
             </article>
+
+            <!-- Advanced Inorganic 04 -->
+            <article class="lesson-card" style="border: 2px solid #ec4899; background: #fdf2f8;">
+                <div class="card-header" style="background: #fce7f3; border-bottom: 2px solid #fbcfe8;">
+                    <span class="card-num" style="color: #be185d;">University / Graduate</span>
+                    <h3 class="card-title" style="color: #831843;">고급 무기화학 04</h3>
+                </div>
+                <div class="card-body text-slate-700 font-medium">
+                    MO 이론과 SALCs. 투영 연산자(Projection Operator)를 사용하여 대칭 적합 선형 결합을 유도하고 분자 오비탈 다이어그램을 구축합니다.
+                </div>
+                <div class="card-footer" style="background: #fdf2f8;">
+                    <a href="adv_inorganic_04.html" class="btn-enter" style="background: #db2777;">연구 시작 →</a>
+                    <a href="adv_inorganic_04.html?view=all" class="text-xs text-slate-400 mt-2 block hover:underline">문서 전체 보기</a>
+                </div>
+            </article>
         
             <!-- Advanced Inorganic Bonus -->
             <article class="lesson-card" style="border: 2px solid #3b82f6; background: #eff6ff;">
@@ -396,6 +411,15 @@
                 btn.classList.remove('active');
             });
             document.getElementById('tab-' + level).classList.add('active');
+        }
+
+        // On Load: Check for tab parameter
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tab = urlParams.get('tab');
+            if (tab === 'adv') switchTab('adv');
+            else if (tab === 'phys') switchTab('phys');
+            else switchTab('mid3');
         }
     </script>
 
