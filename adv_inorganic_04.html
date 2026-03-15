@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Inorganic Chemistry 04: MO Theory & SALCs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/presentation_mode.css">
+    <link rel="stylesheet" href="css/chem_style.css">
+    <style>
+        body { background-color: #ffffff; color: #0f172a; font-family: 'Inter', system-ui, sans-serif; }
+        .slide-content { background: #ffffff; border: 1px solid #e2e8f0; color: #0f172a; box-shadow: none; }
+        .math-box { background: #f8fafc; color: #0f172a; padding: 1.5rem; border: 2px solid #0f172a; border-radius: 0.5rem; margin: 1rem 0; }
+        .info-card { border-left: 6px solid #0f172a; padding: 1.25rem; background: #f1f5f9; margin-bottom: 1.5rem; }
+        .logic-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 900; font-size: 0.7rem; text-transform: uppercase; border: 1px solid #0f172a; }
+        h2 { color: #0f172a; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; border-bottom: 3px solid #0f172a; padding-bottom: 0.5rem; margin-bottom: 2rem; }
+        h3 { color: #334155; font-weight: 800; margin-top: 1.5rem; }
+        .step-box { background: #ffffff; border: 2px solid #e2e8f0; padding: 1rem; border-radius: 1rem; }
+        .bond-sigma { color: #166534; font-weight: bold; }
+        .bond-pi { color: #991b1b; font-weight: bold; }
+    </style>
+</head>
+<body class="presentation-mode">
+
+<main>
+    <!-- Slide 1: Title -->
+    <section id="s1">
+        <div class="slide-content text-center">
+            <p class="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-4">Advanced Inorganic Chemistry Series</p>
+            <h1 class="text-6xl font-black text-slate-900 mb-6 tracking-tighter leading-tight">Molecular Orbital Theory <br>& SALCs</h1>
+            <p class="text-xl text-slate-500 font-medium italic">"From Symmetry-Adapted Basis Sets to Complex Electronic Structure"</p>
+            <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
+            <p class="text-base font-bold text-slate-800">Lecture 04: The Projection Operator Method and MO Diagram Construction</p>
+        </div>
+    </section>
+
+    <!-- Slide 2: Prerequisite: LCAO -->
+    <section id="s2">
+        <div class="slide-content text-left px-20">
+            <h2>1. Review: LCAO-MO Theory</h2>
+            <p class="text-lg font-medium mb-6">Molecular Orbitals ($\Psi$) are formed by the <b>Linear Combination of Atomic Orbitals</b> ($\phi$).</p>
+            <div class="math-box text-center py-10">
+                $$ \Psi = c_1 \phi_1 + c_2 \phi_2 + \dots + c_n \phi_n $$
+            </div>
+            <div class="info-card mt-10">
+                <p class="font-black text-slate-900 uppercase text-xs mb-3">Two Primary Conditions for Interaction</p>
+                <ul class="text-sm space-y-3 font-medium text-slate-700">
+                    <li>● <b>Energy Proximity:</b> Atomic orbitals must have comparable energies.</li>
+                    <li>● <b>Symmetry Match:</b> The integral $\langle \phi_i | \hat{H} | \phi_j \rangle$ is non-zero ONLY if both orbitals belong to the same IR.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Concept of SALCs -->
+    <section id="s3">
+        <div class="slide-content text-left px-20">
+            <h2>2. Symmetry-Adapted Linear Combinations (SALCs)</h2>
+            <p class="text-base text-slate-700 mb-10">In multi-center systems, we group equivalent atomic orbitals into **Basis Sets** that transform according to the point group of the molecule.</p>
+            <div class="grid grid-cols-2 gap-10">
+                <div class="step-box">
+                    <h3 class="mt-0">The SALC Goal</h3>
+                    <p class="text-xs leading-relaxed">Instead of individual atomic orbitals, we use their linear combinations that match the IRs of the group. This decouples the secular determinant into smaller, manageable blocks.</p>
+                </div>
+                <div class="step-box bg-slate-50">
+                    <h3 class="mt-0">Why SALCs?</h3>
+                    <p class="text-xs leading-relaxed">Symmetry ensures that an orbital of $A_1$ symmetry cannot interact with an orbital of $B_1$ symmetry. SALCs automatically group orbitals by their interaction potential.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: The Projection Operator -->
+    <section id="s4">
+        <div class="slide-content text-left px-20">
+            <h2>3. The Projection Operator Method</h2>
+            <p class="text-lg font-bold mb-6">How do we mathematically derive SALCs? We use the <b>Projection Operator ($\hat{P}$)</b>.</p>
+            <div class="math-box py-10 text-center text-3xl">
+                $$ \hat{P}^{\Gamma_i} \phi = \frac{l_i}{h} \sum_R \chi_i(R) \hat{R} \phi $$
+            </div>
+            <div class="space-y-4 mt-8 font-medium text-sm">
+                <p>1. Start with one basis orbital (e.g., $\phi_1$).</p>
+                <p>2. Apply all symmetry operations ($\hat{R}$) of the point group to it.</p>
+                <p>3. Multiply each result by the corresponding character ($\chi_i$) from the table.</p>
+                <p>4. Sum them up to get the SALC for representation $\Gamma_i$.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Example H2O SALCs (Step 1) -->
+    <section id="s5">
+        <div class="slide-content text-left px-20">
+            <h2>4. Case Study: $H_2O$ Hydrogen 1s SALCs</h2>
+            <p class="mb-6 font-bold">Basis Set: $\{ s_1, s_2 \}$ (The two H 1s orbitals)</p>
+            <table class="char-table">
+                <thead>
+                    <tr><th>$C_{2v}$</th><th>$E$</th><th>$C_2$</th><th>$\sigma_v(xz)$</th><th>$\sigma_v'(yz)$</th></tr>
+                </thead>
+                <tbody class="font-black">
+                    <tr><td>$\hat{R} s_1$</td><td>$s_1$</td><td>$s_2$</td><td>$s_1$</td><td>$s_2$</td></tr>
+                    <tr class="bg-cyan-50"><td>$\chi(A_1)$</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+                    <tr class="bg-red-50"><td>$\chi(B_2)$</td><td>1</td><td>-1</td><td>-1</td><td>1</td></tr>
+                </tbody>
+            </table>
+            <p class="mt-8 text-xs font-bold text-slate-400 uppercase tracking-widest">Note: $\Gamma_{basis} = A_1 + B_2$</p>
+        </div>
+    </section>
+
+    <!-- Slide 6: Example H2O SALCs (Step 2) -->
+    <section id="s6">
+        <div class="slide-content text-left px-20">
+            <h2>5. Case Study: $H_2O$ SALC Derivation</h2>
+            <div class="space-y-8 mt-10">
+                <div class="p-6 border-2 border-slate-900 rounded-2xl">
+                    <p class="font-black text-indigo-700">$A_1$ SALC Calculation:</p>
+                    <p class="text-sm font-bold">$\Psi_{A_1} = (1)s_1 + (1)s_2 + (1)s_1 + (1)s_2 = 2(s_1 + s_2)$</p>
+                    <p class="text-xs text-slate-500 mt-2">$\rightarrow$ Normalizing: $N(s_1 + s_2)$ (Bonding Phase)</p>
+                </div>
+                <div class="p-6 border-2 border-slate-900 rounded-2xl">
+                    <p class="font-black text-rose-700">$B_2$ SALC Calculation:</p>
+                    <p class="text-sm font-bold">$\Psi_{B_2} = (1)s_1 + (-1)s_2 + (-1)s_1 + (1)s_2$ ?? </p>
+                    <p class="text-xs text-red-600 mt-2">Warning: Coordinate definitions (xz vs yz) can flip signs. In $C_{2v}$, $B_2$ typically maps to $s_1 - s_2$.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Central Atom Symmetry -->
+    <section id="s7">
+        <div class="slide-content text-left px-20">
+            <h2>6. Central Atom Orbitals (Oxygen)</h2>
+            <p class="mb-10 text-slate-600 italic">Consult the $C_{2v}$ Character Table for valence orbitals of Oxygen ($2s, 2p$):</p>
+            <div class="grid grid-cols-2 gap-10">
+                <div class="p-6 bg-slate-50 border rounded-xl">
+                    <ul class="text-sm space-y-4 font-black">
+                        <li>$2s$ Orbital: $A_1$</li>
+                        <li>$2p_z$ Orbital: $A_1$</li>
+                        <li>$2p_x$ Orbital: $B_1$</li>
+                        <li>$2p_y$ Orbital: $B_2$</li>
+                    </ul>
+                </div>
+                <div class="flex flex-col justify-center">
+                    <p class="text-sm font-medium">Interactions possible with H SALCs ($A_1, B_2$):</p>
+                    <ul class="text-xs list-disc pl-6 mt-2 space-y-2">
+                        <li>$A_1$ (H SALC) + $2s, 2p_z$ (O)</li>
+                        <li>$B_2$ (H SALC) + $2p_y$ (O)</li>
+                        <li class="text-red-600 font-bold">$2p_x$ (O) remains Non-Bonding ($B_1$)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: MO Diagram Construction -->
+    <section id="s8">
+        <div class="slide-content text-left px-20">
+            <h2>7. Constructing the MO Diagram</h2>
+            <ol class="list-decimal pl-6 space-y-4 font-bold text-slate-700">
+                <li>Determine Point Group ($C_{2v}$).</li>
+                <li>Find $\Gamma_{basis}$ for terminal atoms (SALCs).</li>
+                <li>Decompose $\Gamma_{basis}$ into IRs.</li>
+                <li>Identify symmetry of central atom orbitals.</li>
+                <li>Combine orbitals of the <b>SAME symmetry</b>.</li>
+                <li>Rank levels by node count and energy.</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- Slide 9: Octahedral Complexes (Part 1) -->
+    <section id="s9">
+        <div class="slide-content text-left px-20">
+            <h2>8. Advanced: $O_h$ $\sigma$-bonding</h2>
+            <p class="mb-6 font-medium">In transition metal complexes (e.g., $[Co(NH_3)_6]^{3+}$), we use the 6 ligand lone pair vectors as basis set.</p>
+            <div class="math-box text-center">
+                $$ \Gamma_{\sigma} = A_{1g} + E_g + T_{1u} $$
+            </div>
+            <p class="mt-6 text-sm">Matching Metal d-orbitals in $O_h$:</p>
+            <ul class="text-xs space-y-2 font-bold pl-6 mt-2">
+                <li>$s$ orbital: $A_{1g}$ (Match!)</li>
+                <li>$p$ orbitals: $T_{1u}$ (Match!)</li>
+                <li>$d$ orbitals ($d_{z^2}, d_{x^2-y^2}$): $E_g$ (Match!)</li>
+                <li>$d$ orbitals ($d_{xy}, d_{yz}, d_{zx}$): $T_{2g}$ (Non-Bonding!)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 10: Ligand Field Theory Transition -->
+    <section id="s10">
+        <div class="slide-content text-left px-20">
+            <h2>9. Transition to Ligand Field Theory</h2>
+            <p class="text-base text-slate-700 mb-8">The splitting of d-orbitals in a complex is a direct result of these symmetry interactions.</p>
+            <div class="grid grid-cols-2 gap-10">
+                <div class="p-6 border-l-8 border-cyan-600 bg-cyan-50">
+                    <p class="font-black text-cyan-900">$\sigma$-Bonding</p>
+                    <p class="text-xs mt-2">Increases the energy of $e_g$ orbitals (Stronger overlap).</p>
+                </div>
+                <div class="p-6 border-l-8 border-red-600 bg-red-50">
+                    <p class="font-black text-red-900">$\pi$-Bonding</p>
+                    <p class="text-xs mt-2">Affects the $t_{2g}$ orbitals. Can be donor (weak field) or acceptor (strong field).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: Summary Checklist -->
+    <section id="s11">
+        <div class="slide-content text-left px-20">
+            <h2>10. Module 4 Key Competencies</h2>
+            <div class="space-y-4 mt-10">
+                <div class="p-4 border-2 border-slate-900 rounded-xl font-bold flex items-center gap-4">
+                    <span class="text-2xl">✅</span>
+                    <p>Ability to use the <b>Projection Operator</b> to derive SALCs.</p>
+                </div>
+                <div class="p-4 border-2 border-slate-900 rounded-xl font-bold flex items-center gap-4">
+                    <span class="text-2xl">✅</span>
+                    <p>Skill in matching SALC symmetries with central atom orbitals.</p>
+                </div>
+                <div class="p-4 border-2 border-slate-900 rounded-xl font-bold flex items-center gap-4">
+                    <span class="text-2xl">✅</span>
+                    <p>Understanding the symmetry origin of <b>Non-Bonding</b> orbitals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 40: End -->
+    <section id="s40" class="end">
+        <div class="slide-content text-center">
+            <h2 class="border-none text-5xl font-black mb-10 tracking-tighter">Module 4 Complete</h2>
+            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest">Next Phase:</p>
+            <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Transition Metal Chemistry <br>& Electronic Spectra</p>
+            <div class="mt-20 p-8 border-t-2 border-slate-100 italic font-serif text-slate-400">
+                "Symmetry is the key that unlocks the complexity of the chemical bond."
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="js/slide_engine.js"></script>
+</body>
+</html>
