@@ -1,72 +1,1112 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>이미지 리소스 라이브 관리자 (2026)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>중3 과학 실험실 - 화학 반응의 규칙</title><script src="https://cdn.tailwindcss.com"></script><link href="css/common.css" rel="stylesheet"/><style>
+        body {
+            background-color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 6px solid var(--accent-cyan);
+        }
+        .tab-container {
+            max-width: 1200px;
+            margin: -1.5rem auto 0;
+            z-index: 10;
+            position: relative;
+        }
+        .tab-nav {
+            display: inline-flex;
+            background: #e2e8f0;
+            padding: 0.35rem;
+            border-radius: 0.85rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .tab-btn {
+            padding: 0.75rem 2rem;
+            border-radius: 0.65rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            color: #64748b;
+        }
+        .tab-btn.active {
+            background: white;
+            color: #0f172a;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-btn:hover:not(.active) {
+            color: #334155;
+            background: #f1f5f9;
+        }
+
+        .lesson-section {
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hidden {
+            display: none !important;
+        }
+
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .lesson-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .lesson-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: var(--accent-cyan);
+        }
+        .card-header {
+            padding: 1.5rem;
+            background: #f1f5f9;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .card-num {
+            font-family: 'GmarketSansBold', sans-serif;
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .card-title {
+            font-family: 'GmarketSansBold', sans-serif;
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+            color: var(--primary-blue);
+        }
+        .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+        .card-footer {
+            padding: 1rem 1.5rem;
+            background: #f8fafc;
+            text-align: right;
+        }
+        .btn-enter {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .btn-enter:hover {
+            background: var(--accent-cyan);
+        }
+        footer {
+            margin-top: auto;
+            padding: 2rem;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .hero-section p.text-slate-400 {
+            color: #cbd5e1 !important;
+            font-weight: 500;
+        }
+        .hero-section h1 {
+            color: #ffffff !important;
+        }
+    </style>
     <style>
-        .asset-card { transition: all 0.2s; border: 2px solid transparent; }
-        .asset-card:hover { transform: translateY(-5px); border-color: #06b6d4; }
-        .img-container { height: 150px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; overflow: hidden; position: relative; }
+        .asset-card { transition: all 0.3s ease; border: 1px solid #e2e8f0; border-radius: 1rem; overflow: hidden; display: flex; flex-direction: column; background: white; }
+        .asset-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-color: var(--accent-cyan); }
+        .img-container { height: 180px; display: flex; align-items: center; justify-content: center; background: #f8fafc; overflow: hidden; position: relative; border-bottom: 1px solid #f1f5f9; }
         .img-container img { max-height: 100%; object-fit: contain; z-index: 1; }
-        .loading-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.8); display: none; align-items: center; justify-content: center; z-index: 10; }
-        .category-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); }
+        .category-group { margin-top: 4rem; }
+        .category-header { border-bottom: 4px solid var(--primary-blue); margin-bottom: 2rem; padding-bottom: 1rem; }
+        .lesson-section-header { margin-bottom: 1.5rem; display: flex; items-center: center; gap: 0.5rem; }
+        .lesson-section-header h3 { font-size: 1.25rem; color: var(--primary-blue); }
     </style>
 </head>
-<body class="bg-slate-50 p-10 font-[Pretendard]">
-    <div class="max-w-7xl mx-auto">
-        <header class="flex justify-between items-end mb-12">
-            <div>
-                <h1 class="text-4xl font-black text-slate-900">2026 Asset Manager</h1>
-                <p class="text-slate-500 mt-2">로컬 수정은 [저장] 즉시 반영되며, GitHub 동기화용 JSON이 자동 생성됩니다.</p>
-            </div>
-            <div class="flex flex-col items-end gap-2">
-                <div class="flex gap-4">
-                    <span class="flex items-center gap-2 text-xs font-bold text-emerald-600 bg-emerald-50 px-4 py-2 rounded-full border border-emerald-200">
-                        <span class="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span> Local Server Connected
-                    </span>
-                    <a href="index.html" class="bg-slate-900 text-white px-6 py-2 rounded-full font-bold hover:bg-slate-700 transition-colors">Home</a>
-                </div>
-                <p class="text-[10px] text-slate-400 font-mono">Manifest: image_manifest.json (Updated)</p>
-            </div>
-        </header>
-        <div class="space-y-20">
+<body class="bg-[#f8fafc]">
+    <header class="hero-section">
+<div class="flex justify-center gap-4 mb-4"><a class="text-xs bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full border border-white/20 transition-all" href="index.html">Home Dashboard →</a></div>
+<h1 class="text-5xl font-black mb-4">2026 Asset Manager</h1>
+<p class="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">로컬 수정은 [저장] 즉시 반영되며, GitHub 동기화용 JSON이 자동 생성됩니다.</p>
+</header>
 
+    <main class="max-w-7xl mx-auto px-6 pb-20">
+
+    <div class="category-group">
+        <div class="category-header">
+            <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tighter">0. Orientation & Intro</h2>
+        </div>
+        <div class="space-y-16">
+    
+        <section>
+            <div class="lesson-section-header">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span>
+                <h3 class="font-bold">화학 반응의 규칙오리엔테이션 <span class="text-sm font-normal text-slate-400 ml-2">(0_chemistry_ot.html)</span></h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_0._Orientation_&_Intro_0_chemistry_ot_html_0" type="text" value="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('0_chemistry_ot.html', 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80', 'input_0._Orientation_&_Intro_0_chemistry_ot_html_0')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_0._Orientation_&_Intro_0_chemistry_ot_html_1" type="text" value="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('0_chemistry_ot.html', 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80', 'input_0._Orientation_&_Intro_0_chemistry_ot_html_1')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_0._Orientation_&_Intro_0_chemistry_ot_html_2" type="text" value="https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('0_chemistry_ot.html', 'https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80', 'input_0._Orientation_&_Intro_0_chemistry_ot_html_2')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_0._Orientation_&_Intro_0_chemistry_ot_html_3" type="text" value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('0_chemistry_ot.html', 'https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_0._Orientation_&_Intro_0_chemistry_ot_html_3')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+            </div>
+        </section>
+        
+        <section>
+            <div class="lesson-section-header">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span>
+                <h3 class="font-bold">운동과 에너지세상을 움직이는 법칙 <span class="text-sm font-normal text-slate-400 ml-2">(7_physics_intro.html)</span></h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_0._Orientation_&_Intro_7_physics_intro_html_0" type="text" value="https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('7_physics_intro.html', 'https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_0._Orientation_&_Intro_7_physics_intro_html_0')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+            </div>
+        </section>
+        
         </div>
     </div>
+    
+    <div class="category-group">
+        <div class="category-header">
+            <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tighter">1. Middle School Chemistry</h2>
+        </div>
+        <div class="space-y-16">
+    
+        <section>
+            <div class="lesson-section-header">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span>
+                <h3 class="font-bold">우리 주변의물질 변화 <span class="text-sm font-normal text-slate-400 ml-2">(1_chemical_change.html)</span></h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_0" type="text" value="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg', 'input_1._Middle_School_Chemistry_1_chemical_change_html_0')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_1" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg', 'input_1._Middle_School_Chemistry_1_chemical_change_html_1')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_2" type="text" value="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg', 'input_1._Middle_School_Chemistry_1_chemical_change_html_2')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.nagwa.com/figures/explainers/146165392424/9.svg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_3" type="text" value="https://images.nagwa.com/figures/explainers/146165392424/9.svg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://images.nagwa.com/figures/explainers/146165392424/9.svg', 'input_1._Middle_School_Chemistry_1_chemical_change_html_3')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_4" type="text" value="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg', 'input_1._Middle_School_Chemistry_1_chemical_change_html_4')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_5" type="text" value="https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg', 'input_1._Middle_School_Chemistry_1_chemical_change_html_5')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_6" type="text" value="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=', 'input_1._Middle_School_Chemistry_1_chemical_change_html_6')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_7" type="text" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s', 'input_1._Middle_School_Chemistry_1_chemical_change_html_7')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_8" type="text" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s', 'input_1._Middle_School_Chemistry_1_chemical_change_html_8')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_9" type="text" value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_1._Middle_School_Chemistry_1_chemical_change_html_9')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_10" type="text" value="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg', 'input_1._Middle_School_Chemistry_1_chemical_change_html_10')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_11" type="text" value="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=', 'input_1._Middle_School_Chemistry_1_chemical_change_html_11')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_12" type="text" value="https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg', 'input_1._Middle_School_Chemistry_1_chemical_change_html_12')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_13" type="text" value="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg', 'input_1._Middle_School_Chemistry_1_chemical_change_html_13')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_14" type="text" value="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg', 'input_1._Middle_School_Chemistry_1_chemical_change_html_14')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_15" type="text" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s', 'input_1._Middle_School_Chemistry_1_chemical_change_html_15')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_16" type="text" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s', 'input_1._Middle_School_Chemistry_1_chemical_change_html_16')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_17" type="text" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s', 'input_1._Middle_School_Chemistry_1_chemical_change_html_17')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_18" type="text" value="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=', 'input_1._Middle_School_Chemistry_1_chemical_change_html_18')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_1_chemical_change_html_19" type="text" value="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('1_chemical_change.html', 'https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg', 'input_1._Middle_School_Chemistry_1_chemical_change_html_19')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+            </div>
+        </section>
+        
+        <section>
+            <div class="lesson-section-header">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span>
+                <h3 class="font-bold">화학 반응의 설계도:화학 반응식 <span class="text-sm font-normal text-slate-400 ml-2">(2_chemical_equation.html)</span></h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/J%C3%B6ns_Jacob_Berzelius.jpg/220px-J%C3%B6ns_Jacob_Berzelius.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_2_chemical_equation_html_0" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/J%C3%B6ns_Jacob_Berzelius.jpg/220px-J%C3%B6ns_Jacob_Berzelius.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('2_chemical_equation.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/J%C3%B6ns_Jacob_Berzelius.jpg/220px-J%C3%B6ns_Jacob_Berzelius.jpg', 'input_1._Middle_School_Chemistry_2_chemical_equation_html_0')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+            </div>
+        </section>
+        
+        <section>
+            <div class="lesson-section-header">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span>
+                <h3 class="font-bold">사라지지 않는물질의 총 질량 <span class="text-sm font-normal text-slate-400 ml-2">(3_mass_conservation.html)</span></h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://i.ytimg.com/vi/4uZqAWwguXU/hqdefault.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_3_mass_conservation_html_0" type="text" value="https://i.ytimg.com/vi/4uZqAWwguXU/hqdefault.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('3_mass_conservation.html', 'https://i.ytimg.com/vi/4uZqAWwguXU/hqdefault.jpg', 'input_1._Middle_School_Chemistry_3_mass_conservation_html_0')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1542332213-31f87348057f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_3_mass_conservation_html_1" type="text" value="https://images.unsplash.com/photo-1542332213-31f87348057f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('3_mass_conservation.html', 'https://images.unsplash.com/photo-1542332213-31f87348057f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'input_1._Middle_School_Chemistry_3_mass_conservation_html_1')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_3_mass_conservation_html_2" type="text" value="https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('3_mass_conservation.html', 'https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_1._Middle_School_Chemistry_3_mass_conservation_html_2')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://i.ytimg.com/vi/yQowrUeaFk8/sddefault.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_3_mass_conservation_html_3" type="text" value="https://i.ytimg.com/vi/yQowrUeaFk8/sddefault.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('3_mass_conservation.html', 'https://i.ytimg.com/vi/yQowrUeaFk8/sddefault.jpg', 'input_1._Middle_School_Chemistry_3_mass_conservation_html_3')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1518152006812-edab29b069ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_3_mass_conservation_html_4" type="text" value="https://images.unsplash.com/photo-1518152006812-edab29b069ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('3_mass_conservation.html', 'https://images.unsplash.com/photo-1518152006812-edab29b069ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'input_1._Middle_School_Chemistry_3_mass_conservation_html_4')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://i.namu.wiki/i/VWme9fcr0umOvZj-de8GECYkiuEJGVr2ei_cKXclyjBZm8ptoeXIZFi-A-ckpKelIGKM-4kRh6YkVnJ64UvHUw.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_3_mass_conservation_html_5" type="text" value="https://i.namu.wiki/i/VWme9fcr0umOvZj-de8GECYkiuEJGVr2ei_cKXclyjBZm8ptoeXIZFi-A-ckpKelIGKM-4kRh6YkVnJ64UvHUw.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('3_mass_conservation.html', 'https://i.namu.wiki/i/VWme9fcr0umOvZj-de8GECYkiuEJGVr2ei_cKXclyjBZm8ptoeXIZFi-A-ckpKelIGKM-4kRh6YkVnJ64UvHUw.jpg', 'input_1._Middle_School_Chemistry_3_mass_conservation_html_5')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_3_mass_conservation_html_6" type="text" value="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('3_mass_conservation.html', 'https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'input_1._Middle_School_Chemistry_3_mass_conservation_html_6')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+            </div>
+        </section>
+        
+        <section>
+            <div class="lesson-section-header">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span>
+                <h3 class="font-bold">자연의 레시피일정 성분비 법칙 <span class="text-sm font-normal text-slate-400 ml-2">(4_definite_proportions.html)</span></h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_4_definite_proportions_html_0" type="text" value="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('4_definite_proportions.html', 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'input_1._Middle_School_Chemistry_4_definite_proportions_html_0')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_4_definite_proportions_html_1" type="text" value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('4_definite_proportions.html', 'https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80', 'input_1._Middle_School_Chemistry_4_definite_proportions_html_1')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Magnesium_ribbon_burning.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_4_definite_proportions_html_2" type="text" value="https://upload.wikimedia.org/wikipedia/commons/d/d0/Magnesium_ribbon_burning.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('4_definite_proportions.html', 'https://upload.wikimedia.org/wikipedia/commons/d/d0/Magnesium_ribbon_burning.jpg', 'input_1._Middle_School_Chemistry_4_definite_proportions_html_2')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1554224155-1696413565d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_4_definite_proportions_html_3" type="text" value="https://images.unsplash.com/photo-1554224155-1696413565d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('4_definite_proportions.html', 'https://images.unsplash.com/photo-1554224155-1696413565d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_1._Middle_School_Chemistry_4_definite_proportions_html_3')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Joseph_Louis_Proust.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_4_definite_proportions_html_4" type="text" value="https://upload.wikimedia.org/wikipedia/commons/d/d2/Joseph_Louis_Proust.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('4_definite_proportions.html', 'https://upload.wikimedia.org/wikipedia/commons/d/d2/Joseph_Louis_Proust.jpg', 'input_1._Middle_School_Chemistry_4_definite_proportions_html_4')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+            </div>
+        </section>
+        
+        <section>
+            <div class="lesson-section-header">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span>
+                <h3 class="font-bold">기체들 사이의신비한 부피 규칙 <span class="text-sm font-normal text-slate-400 ml-2">(5_gas_reaction.html)</span></h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_5_gas_reaction_html_0" type="text" value="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('5_gas_reaction.html', 'https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'input_1._Middle_School_Chemistry_5_gas_reaction_html_0')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_5_gas_reaction_html_1" type="text" value="https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('5_gas_reaction.html', 'https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_1._Middle_School_Chemistry_5_gas_reaction_html_1')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_5_gas_reaction_html_2" type="text" value="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('5_gas_reaction.html', 'https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'input_1._Middle_School_Chemistry_5_gas_reaction_html_2')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_5_gas_reaction_html_3" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('5_gas_reaction.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png', 'input_1._Middle_School_Chemistry_5_gas_reaction_html_3')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_5_gas_reaction_html_4" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('5_gas_reaction.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg', 'input_1._Middle_School_Chemistry_5_gas_reaction_html_4')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+            </div>
+        </section>
+        
+        <section>
+            <div class="lesson-section-header">
+                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span>
+                <h3 class="font-bold">에너지를방출하거나흡수하거나 <span class="text-sm font-normal text-slate-400 ml-2">(6_energy_change.html)</span></h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_6_energy_change_html_0" type="text" value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('6_energy_change.html', 'https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_1._Middle_School_Chemistry_6_energy_change_html_0')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_6_energy_change_html_1" type="text" value="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('6_energy_change.html', 'https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', 'input_1._Middle_School_Chemistry_6_energy_change_html_1')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_6_energy_change_html_2" type="text" value="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('6_energy_change.html', 'https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', 'input_1._Middle_School_Chemistry_6_energy_change_html_2')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_6_energy_change_html_3" type="text" value="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('6_energy_change.html', 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'input_1._Middle_School_Chemistry_6_energy_change_html_3')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="asset-card">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Source Path</label>
+                            <input id="input_1._Middle_School_Chemistry_6_energy_change_html_4" type="text" value="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                   class="w-full text-[10px] p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                        </div>
+                        <button onclick="updateAsset('6_energy_change.html', 'https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'input_1._Middle_School_Chemistry_6_energy_change_html_4')" 
+                                class="w-full bg-slate-900 text-white hover:bg-cyan-600 py-2 rounded-lg text-xs font-bold transition-all shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            
+            </div>
+        </section>
+        
+        </div>
+    </div>
+    
+    </main>
+
+    <footer>
+        © 2026 중3 과학 A 수업. Designed for Excellence in Education.
+    </footer>
+
     <script>
-        async function updateAsset(filename, oldSrc, inputId) {
-            const input = document.getElementById(inputId);
-            const newSrc = input.value.trim();
-            const card = input.closest('.asset-card');
-            const overlay = card.querySelector('.loading-overlay');
+    async function updateAsset(filename, oldUrl, inputId) {
+        const newUrl = document.getElementById(inputId).value;
+        const btn = document.querySelector(`button[onclick*="${inputId}"]`);
+        
+        btn.disabled = true;
+        btn.innerText = "Saving...";
+        
+        try {
+            const response = await fetch('http://localhost:5000/update_asset', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ filename, old_url: oldUrl, new_url: newUrl })
+            });
             
-            if (oldSrc === newSrc) {
-                alert('변경사항이 없습니다.');
-                return;
+            if (response.ok) {
+                btn.innerText = "✓ Saved";
+                btn.classList.add('bg-emerald-600');
+                setTimeout(() => {
+                    btn.innerText = "Save Changes";
+                    btn.classList.remove('bg-emerald-600');
+                    btn.disabled = false;
+                }, 2000);
+            } else {
+                throw new Error('Save failed');
             }
-
-            overlay.style.display = 'flex';
-            
-            try {
-                const response = await fetch('http://localhost:8000/update-asset', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ filename, old_src: oldSrc, new_src: newSrc })
-                });
-
-                if (response.ok) {
-                    alert('성공적으로 수정되었습니다! 페이지를 새로고침하면 반영된 이미지를 볼 수 있습니다.');
-                    location.reload();
-                } else {
-                    alert('수정 실패: 서버 오류가 발생했습니다.');
-                }
-            } catch (err) {
-                alert('서버와 연결할 수 없습니다. asset_server.py가 실행 중인지 확인하세요.');
-            } finally {
-                overlay.style.display = 'none';
-            }
+        } catch (err) {
+            alert('Error: ' + err.message);
+            btn.disabled = false;
+            btn.innerText = "Retry Save";
         }
+    }
     </script>
 </body>
 </html>
