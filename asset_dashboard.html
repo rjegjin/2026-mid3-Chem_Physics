@@ -2,818 +2,543 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Intelligent Asset Manager (2026)</title>
+    <title>2026 Asset Dashboard (AST Powered)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .asset-card { transition: all 0.2s; border: 2px solid transparent; }
-        .asset-card:hover { transform: translateY(-5px); border-color: #06b6d4; }
-        .img-container { height: 150px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; overflow: hidden; position: relative; }
-        .img-container img { max-height: 100%; object-fit: contain; z-index: 1; }
-        .loading-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.8); display: none; align-items: center; justify-content: center; z-index: 10; }
-        .category-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); }
-    </style>
 </head>
-<body class="bg-slate-50 p-10 font-[Pretendard]">
+<body class="bg-slate-50 text-slate-900 font-sans p-8">
     <div class="max-w-7xl mx-auto">
-        <header class="flex justify-between items-end mb-12">
+        <header class="flex justify-between items-end mb-12 border-b-4 border-slate-900 pb-6">
             <div>
-                <h1 class="text-4xl font-black text-slate-900">Intelligent Asset Manager</h1>
-                <p class="text-slate-500 mt-2">BeautifulSoup4 기반 DOM 파싱 적용. 모든 에셋이 자동으로 스캔됩니다.</p>
+                <h1 class="text-5xl font-black tracking-tighter text-slate-900">Asset Dashboard</h1>
+                <p class="text-slate-500 mt-2 font-bold">Powered by BeautifulSoup AST Parsing</p>
             </div>
-            <div class="flex flex-col items-end gap-2">
-                <div class="flex gap-4">
-                    <span class="flex items-center gap-2 text-xs font-bold text-emerald-600 bg-emerald-50 px-4 py-2 rounded-full border border-emerald-200">
-                        <span class="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span> DOM Scanner Active
-                    </span>
-                    <a href="index.html" class="bg-slate-900 text-white px-6 py-2 rounded-full font-bold hover:bg-slate-700 transition-colors">Home</a>
-                </div>
-            </div>
+            <a href="index.html" class="bg-slate-900 text-white px-8 py-3 rounded-full font-black hover:bg-blue-600 transition-all shadow-lg">Home</a>
         </header>
         <div class="space-y-20">
 
-<div class="category-group">
-    <div class="category-header border-b-4 border-slate-900 mb-8 py-4">
-        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tighter">0. Orientation & Intro</h2>
-    </div>
-    <div class="space-y-16">
+    <div>
+        <h2 class="text-3xl font-black text-blue-800 mb-8 flex items-center gap-4">
+            <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm">📁</span> 0. Orientation & Intro
+        </h2>
+        <div class="space-y-12">
 
-        <section>
-            <div class="flex items-start justify-between mb-6">
-                <h3 class="text-xl font-bold text-slate-700 flex items-center gap-3">
-                    <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> 0_chemistry_ot.html
-                    <span class="text-xs bg-slate-200 text-slate-600 px-2 py-1 rounded-full">4 Assets</span>
-                </h3>
-                
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">0_chemistry_ot.html</h3>
+                    
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_0" type="text" value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_1" type="text" value="https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="wordcloud_3d.html" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="wordcloud_3d.html" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_2" type="text" value="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_3" type="text" value="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
-            </div></section>
-        <section>
-            <div class="flex items-start justify-between mb-6">
-                <h3 class="text-xl font-bold text-slate-700 flex items-center gap-3">
-                    <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> 7_physics_intro.html
-                    <span class="text-xs bg-slate-200 text-slate-600 px-2 py-1 rounded-full">1 Assets</span>
-                </h3>
-                
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+</div></div></div></div>
+    <div>
+        <h2 class="text-3xl font-black text-blue-800 mb-8 flex items-center gap-4">
+            <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm">📁</span> 1. Middle School Chemistry
+        </h2>
+        <div class="space-y-12">
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_4" type="text" value="https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
-                        </div>
-                    </div>
-                </div>
-            </div></section>    </div></div>
-<div class="category-group">
-    <div class="category-header border-b-4 border-slate-900 mb-8 py-4">
-        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tighter">1. Middle School Chemistry</h2>
-    </div>
-    <div class="space-y-16">
-
-        <section>
-            <div class="flex items-start justify-between mb-6">
-                <h3 class="text-xl font-bold text-slate-700 flex items-center gap-3">
-                    <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> 1_chemical_change.html
-                    <span class="text-xs bg-slate-200 text-slate-600 px-2 py-1 rounded-full">20 Assets</span>
-                </h3>
-                
-            <div class="mt-4 p-4 bg-cyan-50 border-2 border-cyan-200 rounded-xl flex items-center justify-between">
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">1_chemical_change.html</h3>
+                    
+            <div class="p-3 bg-cyan-50 border border-cyan-200 rounded-lg flex items-center justify-between shadow-sm">
                 <div>
-                    <span class="text-[10px] font-black text-cyan-600 uppercase">Tinkerbell Quiz</span>
-                    <h4 class="text-sm font-bold text-slate-800">1차시 통합 퀴즈 (10문제)</h4>
+                    <span class="text-[10px] font-black text-cyan-600">Tinkerbell Quiz</span>
+                    <p class="text-sm font-bold text-slate-800">1차시 퀴즈 (10문제)</p>
                 </div>
-                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" 
-                   class="bg-cyan-600 text-white px-4 py-2 rounded-lg text-xs font-black hover:bg-cyan-700 shadow-sm">
-                   🚀 퀴즈 시작
-                </a>
+                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" class="bg-cyan-600 text-white px-4 py-2 rounded-md text-xs font-black hover:bg-cyan-700 transition-colors">Start</a>
             </div>
             
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_5" type="text" value="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_6" type="text" value="https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_7" type="text" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_8" type="text" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_9" type="text" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.nagwa.com/figures/explainers/146165392424/9.svg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://images.nagwa.com/figures/explainers/146165392424/9.svg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_10" type="text" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_11" type="text" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.nagwa.com/figures/explainers/146165392424/9.svg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_12" type="text" value="https://images.nagwa.com/figures/explainers/146165392424/9.svg" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_13" type="text" value="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_14" type="text" value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_15" type="text" value="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <iframe src="https://phet.colorado.edu/sims/html/states-of-matter-basics/latest/states-of-matter-basics_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://phet.colorado.edu/sims/html/states-of-matter-basics/latest/states-of-matter-basics_all.html?locale=ko" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_16" type="text" value="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_17" type="text" value="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_18" type="text" value="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_19" type="text" value="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_20" type="text" value="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_21" type="text" value="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_22" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_23" type="text" value="https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_24" type="text" value="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
-            </div></section>
-        <section>
-            <div class="flex items-start justify-between mb-6">
-                <h3 class="text-xl font-bold text-slate-700 flex items-center gap-3">
-                    <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> 2_chemical_equation.html
-                    <span class="text-xs bg-slate-200 text-slate-600 px-2 py-1 rounded-full">1 Assets</span>
-                </h3>
-                
-            <div class="mt-4 p-4 bg-cyan-50 border-2 border-cyan-200 rounded-xl flex items-center justify-between">
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">2_chemical_equation.html</h3>
+                    
+            <div class="p-3 bg-cyan-50 border border-cyan-200 rounded-lg flex items-center justify-between shadow-sm">
                 <div>
-                    <span class="text-[10px] font-black text-cyan-600 uppercase">Tinkerbell Quiz</span>
-                    <h4 class="text-sm font-bold text-slate-800">2차시 통합 퀴즈 (10문제)</h4>
+                    <span class="text-[10px] font-black text-cyan-600">Tinkerbell Quiz</span>
+                    <p class="text-sm font-bold text-slate-800">2차시 퀴즈 (10문제)</p>
                 </div>
-                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" 
-                   class="bg-cyan-600 text-white px-4 py-2 rounded-lg text-xs font-black hover:bg-cyan-700 shadow-sm">
-                   🚀 퀴즈 시작
-                </a>
+                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" class="bg-cyan-600 text-white px-4 py-2 rounded-md text-xs font-black hover:bg-cyan-700 transition-colors">Start</a>
             </div>
             
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/J%C3%B6ns_Jacob_Berzelius.jpg/220px-J%C3%B6ns_Jacob_Berzelius.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_25" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/J%C3%B6ns_Jacob_Berzelius.jpg/220px-J%C3%B6ns_Jacob_Berzelius.jpg" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <iframe src="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
-            </div></section>
-        <section>
-            <div class="flex items-start justify-between mb-6">
-                <h3 class="text-xl font-bold text-slate-700 flex items-center gap-3">
-                    <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> 3_mass_conservation.html
-                    <span class="text-xs bg-slate-200 text-slate-600 px-2 py-1 rounded-full">4 Assets</span>
-                </h3>
-                
-            <div class="mt-4 p-4 bg-cyan-50 border-2 border-cyan-200 rounded-xl flex items-center justify-between">
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/J%C3%B6ns_Jacob_Berzelius.jpg/220px-J%C3%B6ns_Jacob_Berzelius.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/J%C3%B6ns_Jacob_Berzelius.jpg/220px-J%C3%B6ns_Jacob_Berzelius.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">3_mass_conservation.html</h3>
+                    
+            <div class="p-3 bg-cyan-50 border border-cyan-200 rounded-lg flex items-center justify-between shadow-sm">
                 <div>
-                    <span class="text-[10px] font-black text-cyan-600 uppercase">Tinkerbell Quiz</span>
-                    <h4 class="text-sm font-bold text-slate-800">3차시 통합 퀴즈 (10문제)</h4>
+                    <span class="text-[10px] font-black text-cyan-600">Tinkerbell Quiz</span>
+                    <p class="text-sm font-bold text-slate-800">3차시 퀴즈 (10문제)</p>
                 </div>
-                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" 
-                   class="bg-cyan-600 text-white px-4 py-2 rounded-lg text-xs font-black hover:bg-cyan-700 shadow-sm">
-                   🚀 퀴즈 시작
-                </a>
+                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" class="bg-cyan-600 text-white px-4 py-2 rounded-md text-xs font-black hover:bg-cyan-700 transition-colors">Start</a>
             </div>
             
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_26" type="text" value="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <iframe src="https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_all.html?locale=ko" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1518152006812-edab29b069ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_27" type="text" value="https://images.unsplash.com/photo-1518152006812-edab29b069ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1542332213-31f87348057f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_28" type="text" value="https://images.unsplash.com/photo-1542332213-31f87348057f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Portrait_of_Antoine-Laurent_Lavoisier_and_his_wife_by_Jacques-Louis_David_crop.jpg/300px-Portrait_of_Antoine-Laurent_Lavoisier_and_his_wife_by_Jacques-Louis_David_crop.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Portrait_of_Antoine-Laurent_Lavoisier_and_his_wife_by_Jacques-Louis_David_crop.jpg/300px-Portrait_of_Antoine-Laurent_Lavoisier_and_his_wife_by_Jacques-Louis_David_crop.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Portrait_of_Antoine-Laurent_Lavoisier_and_his_wife_by_Jacques-Louis_David_crop.jpg/300px-Portrait_of_Antoine-Laurent_Lavoisier_and_his_wife_by_Jacques-Louis_David_crop.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_29" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Portrait_of_Antoine-Laurent_Lavoisier_and_his_wife_by_Jacques-Louis_David_crop.jpg/300px-Portrait_of_Antoine-Laurent_Lavoisier_and_his_wife_by_Jacques-Louis_David_crop.jpg" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1518152006812-edab29b069ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://images.unsplash.com/photo-1518152006812-edab29b069ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
-            </div></section>
-        <section>
-            <div class="flex items-start justify-between mb-6">
-                <h3 class="text-xl font-bold text-slate-700 flex items-center gap-3">
-                    <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> 4_definite_proportions.html
-                    <span class="text-xs bg-slate-200 text-slate-600 px-2 py-1 rounded-full">5 Assets</span>
-                </h3>
-                
-            <div class="mt-4 p-4 bg-cyan-50 border-2 border-cyan-200 rounded-xl flex items-center justify-between">
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1542332213-31f87348057f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://images.unsplash.com/photo-1542332213-31f87348057f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">4_definite_proportions.html</h3>
+                    
+            <div class="p-3 bg-cyan-50 border border-cyan-200 rounded-lg flex items-center justify-between shadow-sm">
                 <div>
-                    <span class="text-[10px] font-black text-cyan-600 uppercase">Tinkerbell Quiz</span>
-                    <h4 class="text-sm font-bold text-slate-800">4차시 통합 퀴즈 (11문제)</h4>
+                    <span class="text-[10px] font-black text-cyan-600">Tinkerbell Quiz</span>
+                    <p class="text-sm font-bold text-slate-800">4차시 퀴즈 (11문제)</p>
                 </div>
-                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" 
-                   class="bg-cyan-600 text-white px-4 py-2 rounded-lg text-xs font-black hover:bg-cyan-700 shadow-sm">
-                   🚀 퀴즈 시작
-                </a>
+                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" class="bg-cyan-600 text-white px-4 py-2 rounded-md text-xs font-black hover:bg-cyan-700 transition-colors">Start</a>
             </div>
             
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_30" type="text" value="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Magnesium_ribbon_burning.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/d/d0/Magnesium_ribbon_burning.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_31" type="text" value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1554224155-1696413565d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_32" type="text" value="https://images.unsplash.com/photo-1554224155-1696413565d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <iframe src="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Magnesium_ribbon_burning.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_33" type="text" value="https://upload.wikimedia.org/wikipedia/commons/d/d0/Magnesium_ribbon_burning.jpg" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Joseph_Louis_Proust.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/d/d2/Joseph_Louis_Proust.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Joseph_Louis_Proust.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_34" type="text" value="https://upload.wikimedia.org/wikipedia/commons/d/d2/Joseph_Louis_Proust.jpg" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
-            </div></section>
-        <section>
-            <div class="flex items-start justify-between mb-6">
-                <h3 class="text-xl font-bold text-slate-700 flex items-center gap-3">
-                    <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> 5_gas_reaction.html
-                    <span class="text-xs bg-slate-200 text-slate-600 px-2 py-1 rounded-full">5 Assets</span>
-                </h3>
-                
-            <div class="mt-4 p-4 bg-cyan-50 border-2 border-cyan-200 rounded-xl flex items-center justify-between">
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">5_gas_reaction.html</h3>
+                    
+            <div class="p-3 bg-cyan-50 border border-cyan-200 rounded-lg flex items-center justify-between shadow-sm">
                 <div>
-                    <span class="text-[10px] font-black text-cyan-600 uppercase">Tinkerbell Quiz</span>
-                    <h4 class="text-sm font-bold text-slate-800">5차시 통합 퀴즈 (9문제)</h4>
+                    <span class="text-[10px] font-black text-cyan-600">Tinkerbell Quiz</span>
+                    <p class="text-sm font-bold text-slate-800">5차시 퀴즈 (9문제)</p>
                 </div>
-                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" 
-                   class="bg-cyan-600 text-white px-4 py-2 rounded-lg text-xs font-black hover:bg-cyan-700 shadow-sm">
-                   🚀 퀴즈 시작
-                </a>
+                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" class="bg-cyan-600 text-white px-4 py-2 rounded-md text-xs font-black hover:bg-cyan-700 transition-colors">Start</a>
             </div>
             
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_35" type="text" value="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_36" type="text" value="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_37" type="text" value="https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <iframe src="https://phet.colorado.edu/sims/html/gas-properties/latest/gas-properties_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://phet.colorado.edu/sims/html/gas-properties/latest/gas-properties_all.html?locale=ko" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_38" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_39" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
-            </div></section>
-        <section>
-            <div class="flex items-start justify-between mb-6">
-                <h3 class="text-xl font-bold text-slate-700 flex items-center gap-3">
-                    <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> 6_energy_change.html
-                    <span class="text-xs bg-slate-200 text-slate-600 px-2 py-1 rounded-full">5 Assets</span>
-                </h3>
-                
-            <div class="mt-4 p-4 bg-cyan-50 border-2 border-cyan-200 rounded-xl flex items-center justify-between">
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">6_energy_change.html</h3>
+                    
+            <div class="p-3 bg-cyan-50 border border-cyan-200 rounded-lg flex items-center justify-between shadow-sm">
                 <div>
-                    <span class="text-[10px] font-black text-cyan-600 uppercase">Tinkerbell Quiz</span>
-                    <h4 class="text-sm font-bold text-slate-800">6차시 통합 퀴즈 (10문제)</h4>
+                    <span class="text-[10px] font-black text-cyan-600">Tinkerbell Quiz</span>
+                    <p class="text-sm font-bold text-slate-800">6차시 퀴즈 (10문제)</p>
                 </div>
-                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" 
-                   class="bg-cyan-600 text-white px-4 py-2 rounded-lg text-xs font-black hover:bg-cyan-700 shadow-sm">
-                   🚀 퀴즈 시작
-                </a>
+                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" class="bg-cyan-600 text-white px-4 py-2 rounded-md text-xs font-black hover:bg-cyan-700 transition-colors">Start</a>
             </div>
             
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_40" type="text" value="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_41" type="text" value="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_42" type="text" value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_43" type="text" value="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <iframe src="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_44" type="text" value="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3">
+                            <input type="text" readonly value="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
                         </div>
                     </div>
-                </div>
-            </div></section>    </div></div>
-<div class="category-group">
-    <div class="category-header border-b-4 border-slate-900 mb-8 py-4">
-        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tighter">3. Others</h2>
-    </div>
-    <div class="space-y-16">
-
-        <section>
-            <div class="flex items-start justify-between mb-6">
-                <h3 class="text-xl font-bold text-slate-700 flex items-center gap-3">
-                    <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span> wordcloud_3d.html
-                    <span class="text-xs bg-slate-200 text-slate-600 px-2 py-1 rounded-full">1 Assets</span>
-                </h3>
-                
-            <div class="mt-4 p-4 bg-cyan-50 border-2 border-cyan-200 rounded-xl flex items-center justify-between">
-                <div>
-                    <span class="text-[10px] font-black text-cyan-600 uppercase">Tinkerbell Quiz</span>
-                    <h4 class="text-sm font-bold text-slate-800">3차시 통합 퀴즈 (10문제)</h4>
-                </div>
-                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" 
-                   class="bg-cyan-600 text-white px-4 py-2 rounded-lg text-xs font-black hover:bg-cyan-700 shadow-sm">
-                   🚀 퀴즈 시작
-                </a>
-            </div>
-            
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-                <div class="asset-card bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-                    <div class="img-container">
-                        <img src="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Not+Found'">
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between bg-slate-50 border-t border-slate-100">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase mb-1 block">Extracted Path</label>
-                            <input id="input_45" type="text" value="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" readonly 
-                                   class="w-full text-[10px] p-2 bg-white border border-slate-200 rounded font-mono text-slate-600 outline-none">
-                        </div>
-                    </div>
-                </div>
-            </div></section>    </div></div>
+</div></div></div></div>
         </div>
     </div>
 </body>
