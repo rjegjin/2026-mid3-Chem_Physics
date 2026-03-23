@@ -142,9 +142,20 @@
         }
 
         /* Chemical formula styling */
+        /* 기본 sub - 일반 텍스트(p, div 등) 안에서 */
         sub {
             font-size: 0.75em;
+            display: inline-block;
             vertical-align: sub;
+            line-height: 1;
+        }
+        /* flex container(.option-label) 안의 sub는 translateY로 별도 처리 */
+        .option-label sub {
+            font-size: 0.75em;
+            display: inline-block;
+            transform: translateY(0.80em);
+            line-height: 1;
+            vertical-align: baseline;
         }
 
         /* ─── OPTIONS ─── */
