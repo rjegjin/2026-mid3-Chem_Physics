@@ -24,3 +24,6 @@ $RECYCLE.BIN/
 # Project Specific - 대용량 미디어
 *.pdf
 *.mp4
+
+# Backup files
+*.bak
