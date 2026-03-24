@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3단원 논술형 평가 - 질량 보존의 법칙</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+            margin: 0;
+        }
+        .essay-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .essay-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+            width: 100%;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .question-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            background: #0f172a;
+            color: white;
+            font-weight: 900;
+            font-size: 1.2rem;
+            border-radius: 1rem;
+            flex-shrink: 0;
+        }
+        .question-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #334155;
+            margin: 0;
+            flex: 1;
+        }
+        .scenario-box {
+            background: #f0f9ff;
+            border-left: 5px solid #0891b2;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0.75rem;
+        }
+        .scenario-title {
+            font-size: 0.9rem;
+            font-weight: 900;
+            color: #0891b2;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+        .scenario-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #334155;
+            margin: 0;
+        }
+        .answer-area {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 1rem;
+            padding: 2rem;
+            min-height: 200px;
+            margin: 2rem 0;
+        }
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+        }
+        .rubric {
+            background: #fef3c7;
+            border-left: 5px solid #f59e0b;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.75rem;
+        }
+        .rubric-title {
+            font-weight: 900;
+            color: #92400e;
+            margin-bottom: 0.75rem;
+        }
+        .rubric-item {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #78350f;
+            margin: 0.5rem 0;
+        }
+        .hint-box {
+            background: #dbeafe;
+            border-left: 5px solid #3b82f6;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            color: #1e40af;
+        }
+        .submit-button {
+            width: 100%;
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 1.25rem;
+            background: #1e40af;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 900;
+            border: none;
+            border-radius: 1rem;
+            cursor: pointer;
+            display: block;
+            transition: all 0.2s;
+        }
+        .submit-button:hover {
+            background: #1e3a8a;
+            transform: translateY(-2px);
+        }
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+        }
+    </style>
+</head>
+<body>
+
+<header class="bg-gradient-to-r from-slate-900 to-blue-900 text-white py-8 px-4">
+    <div class="content-wrapper">
+        <h1 class="text-3xl font-black mb-2">3단원 논술형 평가 📝</h1>
+        <p class="text-slate-300 text-lg">질량 보존의 법칙: 문제 기반 학습 (PBL)</p>
+        <p class="text-slate-400 text-sm mt-2">⏱ 제한 시간: 40분 | 만점: 30점 (문항별 10점)</p>
+    </div>
+</header>
+
+<div class="content-wrapper py-10">
+
+    <!-- 안내 -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-8">
+        <h2 class="font-bold text-slate-900 mb-4">📌 응답 지침</h2>
+        <ul class="space-y-2 text-slate-700">
+            <li>✓ 각 문제의 예상 답변 길이: 200~300자</li>
+            <li>✓ 화학식과 계산 과정을 명확하게 표기하세요</li>
+            <li>✓ 과학적 근거와 논리를 포함하세요</li>
+            <li>✓ 다른 과목 개념과 연결하면 높은 평가를 받습니다 🌟</li>
+        </ul>
+    </div>
+
+    <!-- Q1: 실험 설계 -->
+    <div class="essay-card">
+        <div class="essay-header">
+            <span class="question-num">1</span>
+            <h2 class="question-title">실험 설계 & 관찰</h2>
+        </div>
+
+        <div class="scenario-box">
+            <p class="scenario-title">🧪 상황 제시</p>
+            <p class="scenario-text">
+                과학 동아리에서 질량 보존의 법칙을 확인하기 위해 다음 두 가지 실험을 계획했습니다:
+                <br><br>
+                <strong>[실험 A]</strong> 닫힌 시험관에서 철가루(Fe)와 황(S)을 가열하여 반응시킨 후, 냉각 전후의 질량을 측정합니다.
+                <br><br>
+                <strong>[실험 B]</strong> 열린 비커에서 탄산칼슘(CaCO₃)과 염산(HCl)을 반응시킨 후, 반응 직후의 용액 질량을 측정합니다.
+            </p>
+        </div>
+
+        <div>
+            <h3 class="font-bold text-slate-800 mb-3">
+                📋 문제: 두 실험의 예상 결과를 비교하고, 결과가 다른 이유를 질량 보존의 법칙으로 설명하시오.
+            </h3>
+            <div class="hint-box">
+                💡 <strong>힌트:</strong> 발생하는 기체의 유무를 고려하세요. 닫힌 계에서는 무엇이 달라질까요?
+            </div>
+        </div>
+
+        <div class="rubric">
+            <div class="rubric-title">📊 평가 기준 (10점)</div>
+            <div class="rubric-item">• 실험 A의 예상 결과 명확히 기술: 3점</div>
+            <div class="rubric-item">• 실험 B의 예상 결과 명확히 기술: 2점</div>
+            <div class="rubric-item">• 두 실험 결과 차이 설명 (기체 발생): 3점</div>
+            <div class="rubric-item">• 질량 보존의 법칙 적용 논리: 2점</div>
+        </div>
+
+        <textarea id="q1-answer" placeholder="당신의 답변을 작성하세요... (예상 길이: 200~300자)"></textarea>
+    </div>
+
+    <!-- Q2: 데이터 분석 -->
+    <div class="essay-card">
+        <div class="essay-header">
+            <span class="question-num">2</span>
+            <h2 class="question-title">실험 결과 분석 & 추론</h2>
+        </div>
+
+        <div class="scenario-box">
+            <p class="scenario-title">📊 실험 데이터</p>
+            <p class="scenario-text">
+                <strong>실험: Mg(마그네슘) 연소</strong>
+                <br>
+                • 실험 1 (닫힌 도가니) - 반응 전 질량: 10.0g → 반응 후 질량: 10.0g
+                <br>
+                • 실험 2 (열린 도가니) - 반응 전 질량: 10.0g → 반응 후 질량: 16.6g
+                <br><br>
+                <strong>참고:</strong> Mg의 원자량 = 24, O의 원자량 = 16
+            </p>
+        </div>
+
+        <div>
+            <h3 class="font-bold text-slate-800 mb-3">
+                📋 문제: 위 실험 결과를 해석하고, 실험 2에서 질량이 증가한 이유를 설명하시오. 또한 이 결과가 질량 보존의 법칙과 모순되지 않는 이유를 논의하시오.
+            </h3>
+            <div class="hint-box">
+                💡 <strong>힌트:</strong>
+                <br>• 2Mg + O₂ → 2MgO 반응식을 활용하세요
+                <br>• 열린 도가니에서는 무엇이 추가되고 있나요?
+                <br>• "측정 범위"와 "실제 계"의 차이를 생각해보세요
+            </div>
+        </div>
+
+        <div class="rubric">
+            <div class="rubric-title">📊 평가 기준 (10점)</div>
+            <div class="rubric-item">• 실험 1 해석 (닫힌 계 = 질량 불변): 2점</div>
+            <div class="rubric-item">• 실험 2 질량 증가 원인 분석 (산소 결합): 3점</div>
+            <div class="rubric-item">• 화학식/계산 과정 포함: 2점</div>
+            <div class="rubric-item">• 질량 보존의 법칙 적용 및 논리: 3점</div>
+        </div>
+
+        <textarea id="q2-answer" placeholder="당신의 답변을 작성하세요... (예상 길이: 250~350자)"></textarea>
+    </div>
+
+    <!-- Q3: 실생활 적용 -->
+    <div class="essay-card">
+        <div class="essay-header">
+            <span class="question-num">3</span>
+            <h2 class="question-title">문제해결 & 실제 적용</h2>
+        </div>
+
+        <div class="scenario-box">
+            <p class="scenario-title">🏭 실제 상황</p>
+            <p class="scenario-text">
+                시멘트 공장에서 탄산칼슘(CaCO₃)을 고온으로 가열하여 석회(CaO)를 만드는 공정에서 매년 막대한 양의 이산화탄소(CO₂)가 대기로 배출되고 있습니다.
+                <br><br>
+                <strong>CaCO₃ → CaO + CO₂</strong> (가열)
+                <br><br>
+                공장에서 1,000kg의 탄산칼슘을 처리할 때, 약 440kg의 이산화탄소가 배출됩니다.
+                <br><br>
+                <strong>원자량: Ca=40, C=12, O=16</strong>
+            </p>
+        </div>
+
+        <div>
+            <h3 class="font-bold text-slate-800 mb-3">
+                📋 문제:
+                <br>(1) 1,000kg의 CaCO₃에서 생성되는 CaO와 CO₂의 이론적 질량을 계산하시오.
+                <br>(2) 위 계산 결과와 실제 배출량을 비교하여 질량 보존의 법칙을 확인하시오.
+                <br>(3) 이 공정에서 배출되는 CO₂를 감소시키기 위한 과학적 방안을 제안하시오. (창의성 평가)
+            </h3>
+            <div class="hint-box">
+                💡 <strong>힌트:</strong>
+                <br>• 분자량: CaCO₃=100, CaO=56, CO₂=44
+                <br>• 계산 과정을 단계별로 명시하세요
+                <br>• 탄소 중립(Carbon Neutral) 개념을 생각해보세요 🌍
+            </div>
+        </div>
+
+        <div class="rubric">
+            <div class="rubric-title">📊 평가 기준 (10점)</div>
+            <div class="rubric-item">• (1) CaO 질량 계산: 1.5점</div>
+            <div class="rubric-item">• (1) CO₂ 질량 계산: 1.5점</div>
+            <div class="rubric-item">• (2) 질량 보존 확인 및 오차 분석: 3점</div>
+            <div class="rubric-item">• (3) CO₂ 감축 방안 (창의성): 3점</div>
+        </div>
+
+        <textarea id="q3-answer" placeholder="당신의 답변을 작성하세요... (예상 길이: 300~400자)"></textarea>
+    </div>
+
+    <!-- 제출 버튼 -->
+    <button class="submit-button" onclick="submitAnswers()">📤 답변 제출하기</button>
+
+</div>
+
+<script>
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx25Ev-OkyclLK6LVmSizkYGGLD09N1DOTtszjTBAAmkOyJRUSeh3OSg1MqsQF3QiNA/exec';
+
+    function submitAnswers() {
+        const q1 = document.getElementById('q1-answer').value.trim();
+        const q2 = document.getElementById('q2-answer').value.trim();
+        const q3 = document.getElementById('q3-answer').value.trim();
+
+        if(!q1 || !q2 || !q3) {
+            alert('⚠️ 모든 문항에 답변해주세요.');
+            return;
+        }
+
+        if(q1.length < 100 || q2.length < 100 || q3.length < 100) {
+            alert('⚠️ 각 문항당 최소 100자 이상 작성해주세요.');
+            return;
+        }
+
+        const timestamp = new Date().toISOString();
+        const data = {
+            assessmentType: 'essay_unit3',
+            timestamp: timestamp,
+            answers: [
+                { questionNum: 1, content: q1, expectedLength: '200-300' },
+                { questionNum: 2, content: q2, expectedLength: '250-350' },
+                { questionNum: 3, content: q3, expectedLength: '300-400' }
+            ]
+        };
+
+        console.log('📝 논술형 평가 제출:', data);
+        alert('✅ 답변이 저장되었습니다!\n\n선생님이 검토 후 피드백을 제공할 예정입니다.\n평가 기준:\n- 과학적 정확성\n- 논리적 구성\n- 창의성 및 연결성');
+    }
+</script>
+
+</body>
+</html>
