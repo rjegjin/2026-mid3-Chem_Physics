@@ -165,11 +165,38 @@
         }
 
         /* 선택지 내 화학식 첨자 스타일 */
-        .option-label sub {
-            font-size: 0.75rem;
-            vertical-align: sub;
+        /* 전역 첨자 스타일 */
+        sub {
+            font-size: 0.75em;
+            vertical-align: baseline;
             position: relative;
-            bottom: -0.05em;
+            bottom: -0.3em;
+            font-weight: 500;
+        }
+
+        /* 선택지의 첨자 (더 강조) */
+        .option-label sub {
+            font-size: 0.7em;
+            vertical-align: baseline;
+            position: relative;
+            bottom: -0.35em;
+            font-weight: 600;
+        }
+
+        /* 문제 제목의 첨자 */
+        .q-text sub {
+            font-size: 0.75em;
+            vertical-align: baseline;
+            position: relative;
+            bottom: -0.3em;
+        }
+
+        /* 설명의 첨자 */
+        .explanation sub {
+            font-size: 0.75em;
+            vertical-align: baseline;
+            position: relative;
+            bottom: -0.3em;
         }
 
         .q-visual-wrapper {
