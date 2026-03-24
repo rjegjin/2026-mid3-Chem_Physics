@@ -26,6 +26,73 @@
             margin: 0;
         }
 
+        /* ─── HEADER ─── */
+        .quiz-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);
+            color: white;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        #progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 4px;
+            width: 100%;
+            margin-top: 1rem;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        #progress-fill {
+            background: linear-gradient(90deg, #0891b2, #10b981);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* ─── STUDENT INFO BAR ─── */
+        .student-info-bar {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 1.5rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-field {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-field span {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #64748b;
+            min-width: 40px;
+        }
+
+        .info-field input {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .info-field input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
         /* ─── PRINT ─── */
         @media print {
             .no-print { display: none !important; }
