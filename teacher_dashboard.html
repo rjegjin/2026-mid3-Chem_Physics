@@ -33,9 +33,14 @@
                 <span class="text-2xl">🧪</span> 화학 Dashboard
             </h1>
             <nav class="space-y-2">
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-widest px-3 py-2 mt-4">📝 객관식 (2-3단원)</div>
                 <a href="#" onclick="showView('stat')" class="sidebar-item active block p-3 rounded-xl text-slate-500 hover:bg-slate-50 transition">📊 전체 통계</a>
                 <a href="#" onclick="showView('list')" class="sidebar-item block p-3 rounded-xl text-slate-500 hover:bg-slate-50 transition">👥 학생 명단</a>
                 <a href="#" onclick="showView('analysis')" class="sidebar-item block p-3 rounded-xl text-slate-500 hover:bg-slate-50 transition">📈 문항 분석</a>
+
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-widest px-3 py-2 mt-6">✍️ 논술형 (3단원)</div>
+                <a href="#" onclick="showView('essay-list')" class="sidebar-item block p-3 rounded-xl text-slate-500 hover:bg-slate-50 transition">📋 논술형 목록</a>
+                <a href="#" onclick="showView('essay-analysis')" class="sidebar-item block p-3 rounded-xl text-slate-500 hover:bg-slate-50 transition">📊 제출 현황</a>
             </nav>
             <div class="mt-auto pt-10">
                 <button onclick="logout()" class="text-slate-400 text-sm hover:text-red-500 flex items-center gap-1">🚪 로그아웃</button>
@@ -128,6 +133,69 @@
                 </div>
             </div>
 
+            <!-- 4. 논술형 목록 뷰 -->
+            <div id="view-essay-list" class="view-pane hidden space-y-6">
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
+                        <input type="text" id="essay-search-input" oninput="filterEssayList()" placeholder="학번 또는 이름 검색..." class="px-4 py-2 border border-slate-300 rounded-lg text-sm w-64 outline-none focus:ring-2 focus:ring-amber-500">
+                        <span class="text-sm text-slate-500" id="essay-list-count">총 0명</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="text-left text-slate-400 text-sm bg-slate-50 border-b border-slate-100">
+                                <tr>
+                                    <th class="px-6 py-4">학번</th>
+                                    <th class="px-6 py-4">이름</th>
+                                    <th class="px-6 py-4">제출시간</th>
+                                    <th class="px-6 py-4">글자수</th>
+                                    <th class="px-6 py-4">평가</th>
+                                    <th class="px-6 py-4">작업</th>
+                                </tr>
+                            </thead>
+                            <tbody id="essay-table-body" class="text-sm divide-y divide-slate-100">
+                                <!-- JS로 채워짐 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. 논술형 제출 현황 뷰 -->
+            <div id="view-essay-analysis" class="view-pane hidden space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">총 제출</p>
+                        <p class="text-4xl font-black text-amber-600" id="essay-total">0명</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">평가 완료</p>
+                        <p class="text-4xl font-black text-emerald-600" id="essay-graded">0명</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">평가 대기</p>
+                        <p class="text-4xl font-black text-orange-600" id="essay-pending">0명</p>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-lg mb-6">최근 제출 (최근 5명)</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="text-left text-slate-400 text-sm border-b border-slate-100">
+                                <tr>
+                                    <th class="pb-4">시간</th>
+                                    <th class="pb-4">학번</th>
+                                    <th class="pb-4">이름</th>
+                                    <th class="pb-4">평가 상태</th>
+                                </tr>
+                            </thead>
+                            <tbody id="essay-recent-table-body" class="text-sm">
+                                <!-- JS로 채워짐 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
 
@@ -173,8 +241,11 @@
         const ADMIN_PW = 'chemistry'; // ⚠️ 실제 사용 시 변경하세요
 
         let allData = [];
+        let allEssayData = [];
         let currentStudent = null;
+        let currentEssayStudent = null;
         let analysisChart = null;
+        let essayFilteredData = [];
 
         // 1. 인증 로직
         function checkAuth() {
@@ -194,16 +265,26 @@
         async function refreshData() {
             const icon = document.getElementById('refresh-icon');
             icon.classList.add('animate-spin');
-            
+
             try {
-                const response = await fetch(`${APPS_SCRIPT_URL}?action=get_all`);
-                const result = await response.json();
-                
-                if(result.success) {
-                    allData = result.data;
-                    updateUI();
+                // 객관식 데이터
+                const quizResponse = await fetch(`${APPS_SCRIPT_URL}?action=get_all`);
+                const quizResult = await quizResponse.json();
+                if(quizResult.success) {
+                    allData = quizResult.data;
                 }
+
+                // 논술형 데이터
+                const essayResponse = await fetch(`${APPS_SCRIPT_URL}?action=get_essay_all`);
+                const essayResult = await essayResponse.json();
+                if(essayResult.success) {
+                    allEssayData = essayResult.data;
+                    essayFilteredData = essayResult.data;
+                }
+
+                updateUI();
             } catch(e) {
+                console.error(e);
                 alert('데이터를 가져오는데 실패했습니다.');
             } finally {
                 icon.classList.remove('animate-spin');
@@ -243,6 +324,69 @@
             if(!document.getElementById('view-analysis').classList.contains('hidden')) {
                 renderAnalysis();
             }
+
+            // 논술형 UI 업데이트
+            updateEssayUI();
+        }
+
+        function updateEssayUI() {
+            const total = allEssayData.length;
+            const graded = allEssayData.filter(d => d.score || d.feedback).length;
+            const pending = total - graded;
+
+            document.getElementById('essay-total').textContent = `${total}명`;
+            document.getElementById('essay-graded').textContent = `${graded}명`;
+            document.getElementById('essay-pending').textContent = `${pending}명`;
+
+            renderEssayTables();
+        }
+
+        function renderEssayTables() {
+            // 논술형 목록 테이블
+            const tbody = document.getElementById('essay-table-body');
+            tbody.innerHTML = '';
+
+            essayFilteredData.forEach(row => {
+                const tr = document.createElement('tr');
+                const timestamp = new Date(row.timestamp).toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+                const totalLength = (row.answers[0]?.content?.length || 0) + (row.answers[1]?.content?.length || 0) + (row.answers[2]?.content?.length || 0);
+                const status = row.score || row.feedback ? '<span class="text-emerald-600 font-bold">✓ 평가완료</span>' : '<span class="text-orange-600 font-bold">대기중</span>';
+
+                tr.innerHTML = `
+                    <td class="px-6 py-4">${row.studentId}</td>
+                    <td class="px-6 py-4">${row.name}</td>
+                    <td class="px-6 py-4 text-slate-500">${timestamp}</td>
+                    <td class="px-6 py-4">${totalLength}자</td>
+                    <td class="px-6 py-4">${status}</td>
+                    <td class="px-6 py-4">
+                        <button onclick="openEssayFeedbackModal('${row.studentId}', '${row.name}')" class="px-3 py-1 bg-amber-100 text-amber-700 rounded-lg text-sm font-bold hover:bg-amber-200 transition">
+                            평가하기
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // 최근 제출 테이블
+            const recentBody = document.getElementById('essay-recent-table-body');
+            recentBody.innerHTML = '';
+            const recent = allEssayData.slice().reverse().slice(0, 5);
+
+            recent.forEach(row => {
+                const tr = document.createElement('tr');
+                const timestamp = new Date(row.timestamp).toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+                const status = row.score || row.feedback ? '<span class="text-emerald-600">✓ 평가완료</span>' : '<span class="text-orange-600">⏳ 대기중</span>';
+
+                tr.innerHTML = `
+                    <td class="py-4">${timestamp}</td>
+                    <td class="py-4">${row.studentId}</td>
+                    <td class="py-4">${row.name}</td>
+                    <td class="py-4">${status}</td>
+                `;
+                recentBody.appendChild(tr);
+            });
+
+            document.getElementById('essay-list-count').textContent = `총 ${essayFilteredData.length}명`;
         }
 
         function renderTables() {
@@ -426,6 +570,157 @@
                     alert('저장 실패: ' + result.error);
                 }
             } catch(e) {
+                alert('서버 통신 오류가 발생했습니다.');
+            } finally {
+                btnText.style.display = 'block';
+                btnSpinner.style.display = 'none';
+            }
+        }
+
+        // 7. 논술형 피드백
+        function filterEssayList() {
+            const searchTerm = document.getElementById('essay-search-input').value.toLowerCase();
+            essayFilteredData = allEssayData.filter(row => {
+                return row.studentId.includes(searchTerm) || row.name.toLowerCase().includes(searchTerm);
+            });
+            renderEssayTables();
+        }
+
+        function openEssayFeedbackModal(studentId, studentName) {
+            currentEssayStudent = allEssayData.find(r => r.studentId === studentId);
+            if(!currentEssayStudent) return;
+
+            const modalTitle = document.getElementById('modal-title');
+            const fbMainMsg = document.getElementById('fb-main-message');
+            const qArea = document.getElementById('modal-questions-area');
+
+            // 모달 제목과 정보 업데이트
+            modalTitle.textContent = `${studentName} (${studentId}) 논술형 평가`;
+            document.getElementById('modal-score').textContent = currentEssayStudent.score || '미평가';
+
+            fbMainMsg.value = currentEssayStudent.feedback || "";
+            fbMainMsg.placeholder = "전체 격려 메시지를 입력하세요...";
+
+            // 논술형 문항 표시
+            const comments = currentEssayStudent.questionComments || ["", "", ""];
+            const questionTitles = ["Q1: 실험 설계 & 관찰", "Q2: 데이터 분석 & 추론", "Q3: 문제해결 & 실제 적용"];
+
+            qArea.innerHTML = currentEssayStudent.answers.map((ans, idx) => {
+                const comment = comments[idx] || "";
+                const content = ans?.content || "(제출되지 않음)";
+                const length = ans?.content?.length || 0;
+
+                return `
+                    <div class="p-4 rounded-lg border border-amber-200 bg-amber-50">
+                        <div class="mb-3">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-amber-900 uppercase">${questionTitles[idx]} (${length}자)</span>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg text-sm text-slate-700 max-h-40 overflow-y-auto">
+                                ${content}
+                            </div>
+                        </div>
+                        <input type="text" class="q-comment-input w-full px-3 py-2 text-sm border border-slate-200 rounded-lg outline-none focus:border-amber-400"
+                               placeholder="이 문항에 대한 평가 의견..." data-index="${idx}" value="${comment}">
+                    </div>
+                `;
+            }).join('');
+
+            // 점수 입력 필드 추가
+            const scoreDiv = document.createElement('div');
+            scoreDiv.className = 'mt-4 p-4 border border-slate-200 rounded-lg';
+            scoreDiv.innerHTML = `
+                <label class="block font-bold text-slate-700 mb-2">📊 최종 점수</label>
+                <input type="text" id="essay-score-input" class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none focus:border-amber-400" placeholder="예: 28/30" value="${currentEssayStudent.score || ''}">
+            `;
+            qArea.parentElement.appendChild(scoreDiv);
+
+            document.getElementById('feedback-modal').classList.remove('hidden');
+        }
+
+        async function saveFeedbackToServer() {
+            if(currentEssayStudent) {
+                // 논술형 피드백 저장
+                await saveEssayFeedback();
+            } else {
+                // 객관식 피드백 저장 (기존 로직)
+                const message = document.getElementById('fb-main-message').value;
+                const commentInputs = document.querySelectorAll('.q-comment-input');
+                const comments = Array(20).fill("");
+                commentInputs.forEach(input => {
+                    const idx = parseInt(input.dataset.index);
+                    comments[idx] = input.value;
+                });
+
+                const btnText = document.getElementById('save-btn-text');
+                const btnSpinner = document.getElementById('save-spinner');
+                btnText.style.display = 'none';
+                btnSpinner.style.display = 'block';
+
+                try {
+                    const params = new URLSearchParams({
+                        action: 'save_feedback',
+                        studentId: currentStudent.studentId,
+                        name: currentStudent.name,
+                        message: message,
+                        comments: JSON.stringify(comments)
+                    });
+
+                    const response = await fetch(`${APPS_SCRIPT_URL}?${params.toString()}`);
+                    const result = await response.json();
+
+                    if(result.success) {
+                        alert('피드백이 성공적으로 저장되었습니다.');
+                        closeModal();
+                        refreshData();
+                    } else {
+                        alert('저장 실패: ' + result.error);
+                    }
+                } catch(e) {
+                    alert('서버 통신 오류가 발생했습니다.');
+                } finally {
+                    btnText.style.display = 'block';
+                    btnSpinner.style.display = 'none';
+                }
+            }
+        }
+
+        async function saveEssayFeedback() {
+            const message = document.getElementById('fb-main-message').value;
+            const score = document.getElementById('essay-score-input').value;
+            const commentInputs = document.querySelectorAll('.q-comment-input');
+            const comments = [];
+            commentInputs.forEach(input => {
+                comments.push(input.value);
+            });
+
+            const btnText = document.getElementById('save-btn-text');
+            const btnSpinner = document.getElementById('save-spinner');
+            btnText.style.display = 'none';
+            btnSpinner.style.display = 'block';
+
+            try {
+                const params = new URLSearchParams({
+                    action: 'save_essay_feedback',
+                    studentId: currentEssayStudent.studentId,
+                    name: currentEssayStudent.name,
+                    overallFeedback: message,
+                    score: score,
+                    comments: JSON.stringify(comments)
+                });
+
+                const response = await fetch(`${APPS_SCRIPT_URL}?${params.toString()}`);
+                const result = await response.json();
+
+                if(result.success) {
+                    alert('논술형 평가가 저장되었습니다.');
+                    closeModal();
+                    refreshData();
+                } else {
+                    alert('저장 실패: ' + result.error);
+                }
+            } catch(e) {
+                console.error(e);
                 alert('서버 통신 오류가 발생했습니다.');
             } finally {
                 btnText.style.display = 'block';
