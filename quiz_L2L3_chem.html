@@ -31,9 +31,8 @@
             .no-print { display: none !important; }
             .quiz-header { background: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             body { background: white; }
-            
-        
-        
+        }
+
         /* ─── PROFESSIONAL QUIZ LAYOUT ─── */
         .question-card {
             background: white;
@@ -88,6 +87,16 @@
             flex: 1;
         }
 
+        .section-header {
+            margin: 3rem 0 1.5rem;
+            padding-left: 1.5rem;
+            border-left: 5px solid #3b82f6;
+        }
+
+        .section-header.teal {
+            border-left-color: #0d9488;
+        }
+
         .q-visual-wrapper {
             background: #fdfdfd;
             border: 2px dashed #f1f5f9;
@@ -107,44 +116,22 @@
             gap: 4rem;
             flex-wrap: wrap;
             width: 100%;
+            overflow-x: auto;
         }
-        
+
+        .visual-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
         .options-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
             width: 100%;
             padding-top: 1rem;
-        }
-        .option-label {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem 1.25rem;
-            border: 2px solid #f1f5f9;
-            border-radius: 1rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
-            background: white;
-        }
-        .option-label:hover { border-color: #3b82f6; background: #eff6ff; }
-        .option-label.selected { border-color: #3b82f6; background: #3b82f6; color: white; }
-        .option-label.selected .option-badge { background: rgba(255,255,255,0.2); color: white; }
-
-        @media (max-width: 640px) {
-            .options-grid { grid-template-columns: 1fr; }
-            .question-card { padding: 1.5rem; gap: 1.5rem; }
-            .q-visual-wrapper { padding: 2rem 1rem; }
-            .visual-row { gap: 2rem; }
-            .q-text { font-size: 1.1rem; }
-        }
-
-        @media (max-width: 640px) {
-            .options-grid { grid-template-columns: 1fr; }
-            .question-card { padding: 1.5rem; gap: 1.5rem; }
-            .q-visual-wrapper { padding: 2rem 1rem; }
-            .visual-row { gap: 1.5rem; }
         }
 
         .random-badge {
@@ -160,11 +147,11 @@
 
         @media (max-width: 640px) {
             .options-grid { grid-template-columns: 1fr; }
-            .question-card { padding: 1.5rem; }
+            .question-card { padding: 1.5rem; gap: 1.5rem; }
             .q-visual-wrapper { padding: 1.5rem 1rem; }
+            .visual-row { gap: 1.5rem; }
+            .q-text { font-size: 1.1rem; }
         }
-
-        @media (max-width: 600px) { .options-grid { grid-template-columns: 1fr; } }
 
         .option-label {
             display: flex;
@@ -365,29 +352,9 @@
         .omr-dot.correct { background: var(--correct); color: white; border-color: var(--correct); }
         .omr-dot.wrong { background: var(--wrong); color: white; border-color: var(--wrong); }
 
-    
+
         /* ─── VISUAL AIDS ─── */
-        
-        .q-visual {
-            background: #ffffff;
-            border: 2px solid #f1f5f9;
-            border-radius: 1.25rem;
-            margin: 3rem 0;
-            padding: 4rem 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-        }
-        .q-visual-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 3rem;
-            width: 100%;
-        }
+
         .particle-label {
             font-size: 0.9rem;
             font-weight: 800;
@@ -538,7 +505,7 @@
 
             <div class="visual-row">
                 <div class="visual-item">
-                    <svg width="160" height="80" viewBox="0 0 80 40">
+                    <svg width="140" height="70" viewBox="0 0 80 40" style="max-width:100%">
                         <circle cx="15" cy="20" r="8" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="27" cy="20" r="8" fill="#cbd5e1" stroke="#94a3b8"/>
                         <circle cx="53" cy="20" r="8" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="65" cy="20" r="8" fill="#cbd5e1" stroke="#94a3b8"/>
                     </svg>
@@ -546,7 +513,7 @@
                 </div>
                 <div style="font-size: 2rem; font-weight:bold; color:#e2e8f0">+</div>
                 <div class="visual-item">
-                    <svg width="80" height="80" viewBox="0 0 40 40">
+                    <svg width="70" height="70" viewBox="0 0 40 40" style="max-width:100%">
                         <circle cx="14" cy="20" r="10" fill="#f87171" stroke="#dc2626"/><circle cx="26" cy="20" r="10" fill="#f87171" stroke="#dc2626"/>
                     </svg>
                     <div class="particle-label">산소(O₂) 1분자</div>
@@ -572,14 +539,14 @@
 
             <div class="visual-row">
                 <div class="visual-item">
-                    <svg width="80" height="80" viewBox="0 0 40 40">
+                    <svg width="70" height="70" viewBox="0 0 40 40" style="max-width:100%">
                         <circle cx="14" cy="20" r="10" fill="#818cf8" stroke="#4f46e5"/><circle cx="26" cy="20" r="10" fill="#818cf8" stroke="#4f46e5"/>
                     </svg>
                     <div class="particle-label">질소(N₂) 1분자</div>
                 </div>
                 <div style="font-size: 2rem; font-weight:bold; color:#e2e8f0">+</div>
                 <div class="visual-item">
-                    <svg width="200" height="80" viewBox="0 0 100 40">
+                    <svg width="180" height="70" viewBox="0 0 100 40" style="max-width:100%">
                         <circle cx="12" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="22" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/>
                         <circle cx="45" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="55" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/>
                         <circle cx="78" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="88" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/>
@@ -773,7 +740,7 @@
         <div class="q-visual-wrapper">
 
             <div class="visual-row">
-                <svg width="360" height="300" viewBox="0 0 120 100">
+                <svg width="220" height="183" viewBox="0 0 120 100" style="max-width:100%">
                     <path d="M40 20 L40 40 L20 80 A10 10 0 0 0 30 90 L90 90 A10 10 0 0 0 100 80 L80 40 L80 20 Z" fill="none" stroke="#475569" stroke-width="3"/>
                     <circle cx="60" cy="60" r="3" fill="#cbd5e1"/><circle cx="50" cy="75" r="4" fill="#cbd5e1"/><circle cx="75" cy="70" r="3" fill="#cbd5e1"/>
                     <path d="M55 15 Q60 5 70 10 M65 25 Q75 15 85 20" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 2">
@@ -911,7 +878,7 @@
     </button>
 
     <!-- RETRY -->
-    <button id="retry-btn" class="no-print" onclick="retryQuiz()" style="display:none; width:100%; max-width:400px; margin:0.5rem auto 3rem; padding:1rem 2rem; background:#334155; color:white; font-size:1.1rem; font-weight:700; border:none; border-radius:1rem; cursor:pointer; display:none;">
+    <button id="retry-btn" class="no-print" onclick="retryQuiz()" style="display:none; width:100%; max-width:400px; margin:0.5rem auto 3rem; padding:1rem 2rem; background:#334155; color:white; font-size:1.1rem; font-weight:700; border:none; border-radius:1rem; cursor:pointer;">
         다시 풀기
     </button>
 
@@ -937,7 +904,9 @@
         q6_container.innerHTML = '';
         for(let i=0; i<q6_base; i++) {
             const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svg.setAttribute("width", "100"); svg.setAttribute("height", "60");
+            svg.setAttribute("width", "60"); svg.setAttribute("height", "60");
+            svg.setAttribute("viewBox", "0 0 60 60");
+            svg.setAttribute("style", "max-width:100%");
             svg.innerHTML = '<circle cx="20" cy="30" r="15" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="45" cy="30" r="15" fill="#cbd5e1" stroke="#94a3b8"/>';
             q6_container.appendChild(svg);
             if(i === 4 && q6_base > 6) { // Line break for many particles
