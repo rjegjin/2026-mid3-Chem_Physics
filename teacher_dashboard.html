@@ -301,18 +301,23 @@
         // 5. 차트 렌더링
         function renderAnalysis() {
             const ctx = document.getElementById('analysis-chart').getContext('2d');
-            
+
             // 문항별 정답률 계산
             const questionStats = Array(20).fill(0);
+            const totalStudents = allData.length || 1;
+
             allData.forEach(r => {
-                // 이 예제에서는 answers가 채워져 있으므로, 실제 정답지와 비교 로직이 필요함.
-                // 여기서는 간단히 '답변이 있음'을 전제로 랜덤 시뮬레이션 데이터를 활용하거나 
-                // 실제 correct 배열을 Apps Script에서 넘겨받도록 보강해야 함.
-                // 일단은 답변의 글자 수 등으로 임시 가시화 (실제로는 correct 정보를 가져오는 게 정확함)
-                r.answers.forEach((ans, idx) => {
-                    if(ans && ans.length > 0) questionStats[idx]++; // 임시: 응답률로 표시
-                });
+                if(r.correct && Array.isArray(r.correct)) {
+                    r.correct.forEach((isCorrect, idx) => {
+                        if(isCorrect === true) {
+                            questionStats[idx]++;
+                        }
+                    });
+                }
             });
+
+            // 백분율로 변환
+            const correctRates = questionStats.map(count => Math.round((count / totalStudents) * 100));
 
             if(analysisChart) analysisChart.destroy();
             analysisChart = new Chart(ctx, {
@@ -320,16 +325,27 @@
                 data: {
                     labels: Array.from({length: 20}, (_, i) => `Q${i+1}`),
                     datasets: [{
-                        label: '정답 인원 (임시: 응답 인원)',
-                        data: questionStats,
-                        backgroundColor: '#3b82f6',
+                        label: '정답률 (%)',
+                        data: correctRates,
+                        backgroundColor: '#10b981',
                         borderRadius: 8
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    scales: { y: { beginAtZero: true, grid: { display: false } } }
+                    plugins: {
+                        legend: { display: true },
+                        tooltip: { callbacks: { label: (ctx) => `정답률: ${ctx.parsed.y}%` } }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { callback: (val) => val + '%' },
+                            grid: { display: false }
+                        }
+                    }
                 }
             });
         }
@@ -344,16 +360,28 @@
             document.getElementById('fb-main-message').value = currentStudent.feedback || "";
 
             const qArea = document.getElementById('modal-questions-area');
-            qArea.innerHTML = currentStudent.answers.map((ans, idx) => `
-                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold text-slate-400 uppercase">Question ${idx+1}</span>
-                        <span class="text-xs font-medium">학생 답변: <strong class="text-slate-900">${ans || '미응답'}</strong></span>
+            const correct = currentStudent.correct || Array(20).fill(false);
+            const comments = currentStudent.questionComments || Array(20).fill("");
+
+            qArea.innerHTML = currentStudent.answers.map((ans, idx) => {
+                const isCorrect = correct[idx] === true;
+                const statusColor = isCorrect ? 'bg-emerald-50 border-emerald-200' : 'bg-red-50 border-red-200';
+                const statusBadge = isCorrect ? '<span class="text-xs font-bold px-2 py-1 bg-emerald-100 text-emerald-700 rounded-md">✓ 정답</span>' : '<span class="text-xs font-bold px-2 py-1 bg-red-100 text-red-700 rounded-md">✗ 오답</span>';
+
+                return `
+                    <div class="p-3 rounded-lg border ${statusColor}">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Q${idx+1}</span>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-medium">학생 답변: <strong class="text-slate-900">${ans || '미응답'}</strong></span>
+                                ${statusBadge}
+                            </div>
+                        </div>
+                        <input type="text" class="q-comment-input w-full px-3 py-2 text-sm border border-slate-200 rounded-lg outline-none focus:border-blue-400"
+                               placeholder="문항별 코멘트 입력..." data-index="${idx}" value="${comments[idx] || ''}">
                     </div>
-                    <input type="text" class="q-comment-input w-full px-3 py-2 text-sm border border-slate-200 rounded-lg outline-none focus:border-blue-400" 
-                           placeholder="문항별 코멘트 입력..." data-index="${idx}">
-                </div>
-            `).join('');
+                `;
+            }).join('');
 
             document.getElementById('feedback-modal').classList.remove('hidden');
         }

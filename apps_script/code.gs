@@ -211,17 +211,21 @@ function handleGetAll() {
   for (let i = 1; i < data.length; i++) {
     const row = data[i];
     const sId = String(row[1]);
+    const questionsData = JSON.parse(row[headers.length - 1] || '[]');
+
     results.push({
       timestamp: row[0],
       studentId: sId,
       name: row[2],
       answers: row.slice(3, 23),
+      correct: questionsData.correct || Array(20).fill(false), // 정답 여부 배열 추가
       totalScore: row[headers.length - 3],
-      questions: JSON.parse(row[headers.length - 1] || '[]'),
-      feedback: feedbackMap[sId] ? feedbackMap[sId].message : ""
+      questions: questionsData.questions || [], // 문제 텍스트 배열
+      feedback: feedbackMap[sId] ? feedbackMap[sId].message : "",
+      questionComments: feedbackMap[sId] ? feedbackMap[sId].comments : Array(20).fill("")
     });
   }
-  
+
   return createJsonResponse({ success: true, data: results });
 }
 
