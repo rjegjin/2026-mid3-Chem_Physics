@@ -154,6 +154,22 @@
 
 <div class="content-wrapper py-10">
 
+    <!-- 학번/이름 입력 섹션 -->
+    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl shadow-sm border border-blue-200 mb-8">
+        <h2 class="font-bold text-blue-900 mb-4">👤 학생 정보</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-bold text-slate-700 mb-2">학번</label>
+                <input type="text" id="student-id" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="예: 30101">
+            </div>
+            <div>
+                <label class="block text-sm font-bold text-slate-700 mb-2">이름</label>
+                <input type="text" id="student-name" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="예: 홍길동">
+            </div>
+        </div>
+        <p class="text-xs text-slate-500 mt-3">💡 팁: 화학 쪽지시험을 이미 제출했다면, 학번과 이름이 자동으로 입력됩니다.</p>
+    </div>
+
     <!-- 안내 -->
     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-8">
         <h2 class="font-bold text-slate-900 mb-4">📌 응답 지침</h2>
@@ -300,10 +316,27 @@
 <script>
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx25Ev-OkyclLK6LVmSizkYGGLD09N1DOTtszjTBAAmkOyJRUSeh3OSg1MqsQF3QiNA/exec';
 
-    function submitAnswers() {
+    // 페이지 로드 시 로컬 스토리지에서 학번/이름 로드
+    window.onload = () => {
+        const savedId = localStorage.getItem('chem_quiz_student_id');
+        const savedName = localStorage.getItem('chem_quiz_student_name');
+        if(savedId) document.getElementById('student-id').value = savedId;
+        if(savedName) document.getElementById('student-name').value = savedName;
+    };
+
+    async function submitAnswers() {
+        const studentId = document.getElementById('student-id').value.trim();
+        const studentName = document.getElementById('student-name').value.trim();
         const q1 = document.getElementById('q1-answer').value.trim();
         const q2 = document.getElementById('q2-answer').value.trim();
         const q3 = document.getElementById('q3-answer').value.trim();
+
+        // 검증
+        if(!studentId || !studentName) {
+            alert('⚠️ 학번과 이름을 입력해주세요.');
+            document.getElementById('student-id').focus();
+            return;
+        }
 
         if(!q1 || !q2 || !q3) {
             alert('⚠️ 모든 문항에 답변해주세요.');
@@ -315,10 +348,12 @@
             return;
         }
 
-        const timestamp = new Date().toISOString();
+        // 제출 데이터 구성
         const data = {
             assessmentType: 'essay_unit3',
-            timestamp: timestamp,
+            studentId: studentId,
+            name: studentName,
+            timestamp: new Date().toISOString(),
             answers: [
                 { questionNum: 1, content: q1, expectedLength: '200-300' },
                 { questionNum: 2, content: q2, expectedLength: '250-350' },
@@ -326,8 +361,40 @@
             ]
         };
 
-        console.log('📝 논술형 평가 제출:', data);
-        alert('✅ 답변이 저장되었습니다!\n\n선생님이 검토 후 피드백을 제공할 예정입니다.\n평가 기준:\n- 과학적 정확성\n- 논리적 구성\n- 창의성 및 연결성');
+        try {
+            const response = await fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if(result.success) {
+                // 로컬 스토리지 저장
+                localStorage.setItem('chem_quiz_student_id', studentId);
+                localStorage.setItem('chem_quiz_student_name', studentName);
+                localStorage.setItem('essay_unit3_token', result.token);
+                localStorage.setItem('essay_unit3_submitted', 'true');
+
+                alert(`✅ 논술형 평가가 제출되었습니다!\n\n학번: ${studentId}\n이름: ${studentName}\n\n선생님이 검토 후 피드백을 제공할 예정입니다.\n\n📝 확인 토큰: ${result.token}`);
+
+                // 텍스트 입력 비활성화
+                document.getElementById('student-id').disabled = true;
+                document.getElementById('student-name').disabled = true;
+                document.getElementById('q1-answer').disabled = true;
+                document.getElementById('q2-answer').disabled = true;
+                document.getElementById('q3-answer').disabled = true;
+                document.querySelector('.submit-button').disabled = true;
+                document.querySelector('.submit-button').style.opacity = '0.5';
+
+                console.log('📝 논술형 평가 제출 성공:', result);
+            } else {
+                alert(`⚠️ 제출 실패: ${result.error || '알 수 없는 오류'}`);
+            }
+        } catch(error) {
+            console.error('제출 오류:', error);
+            alert('⚠️ 서버와의 통신 중 오류가 발생했습니다.');
+        }
     }
 </script>
 
