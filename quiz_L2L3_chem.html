@@ -154,6 +154,13 @@
             flex: 1;
         }
 
+        sub {
+            font-size: 0.8rem;
+            vertical-align: baseline;
+            position: relative;
+            bottom: -0.2em;
+        }
+
         .section-header {
             margin: 3rem 0 1.5rem;
             padding-left: 1.5rem;
@@ -1003,20 +1010,22 @@
 
         // Q14: CaCO3 + 2HCl -> CaCl2 + H2O + CO2
         const q14_scale = [1, 2, 0.5, 1.5][Math.floor(Math.random() * 4)];
-        const v14_1 = 10 * q14_scale;
-        const v14_2 = 6.4 * q14_scale;
-        const v14_3 = 11.1 * q14_scale;
-        const v14_4 = 0.9 * q14_scale;
-        const v14_ans = (v14_1 + v14_2 - v14_3 - v14_4).toFixed(1);
-        document.getElementById('q14-v1').textContent = v14_1 + 'g';
-        document.getElementById('q14-v2').textContent = v14_2 + 'g';
-        document.getElementById('q14-v3').textContent = v14_3 + 'g';
-        document.getElementById('q14-v4').textContent = v14_4 + 'g';
+        const v14_1 = parseFloat((10 * q14_scale).toFixed(1));
+        const v14_2 = parseFloat((6.4 * q14_scale).toFixed(1));
+        const v14_3 = parseFloat((11.1 * q14_scale).toFixed(1));
+        const v14_4 = parseFloat((0.9 * q14_scale).toFixed(1));
+        const v14_ans = parseFloat((v14_1 + v14_2 - v14_3 - v14_4).toFixed(1));
+        // 정수일 경우 소수점 제거, 소수일 경우만 소수점 표시
+        const formatNum = (n) => n % 1 === 0 ? n.toFixed(0) : n.toFixed(1);
+        document.getElementById('q14-v1').textContent = formatNum(v14_1) + 'g';
+        document.getElementById('q14-v2').textContent = formatNum(v14_2) + 'g';
+        document.getElementById('q14-v3').textContent = formatNum(v14_3) + 'g';
+        document.getElementById('q14-v4').textContent = formatNum(v14_4) + 'g';
         ANSWERS[14] = 2;
-        document.getElementById('q14-opt1').textContent = (v14_ans * 0.8).toFixed(1) + 'g';
-        document.getElementById('q14-opt2').textContent = v14_ans + 'g';
-        document.getElementById('q14-opt3').textContent = (parseFloat(v14_ans) + 1).toFixed(1) + 'g';
-        document.getElementById('q14-opt4').textContent = (v14_ans * 1.5).toFixed(1) + 'g';
+        document.getElementById('q14-opt1').textContent = formatNum(parseFloat((v14_ans * 0.8).toFixed(1))) + 'g';
+        document.getElementById('q14-opt2').textContent = formatNum(v14_ans) + 'g';
+        document.getElementById('q14-opt3').textContent = formatNum(parseFloat((v14_ans + 1).toFixed(1))) + 'g';
+        document.getElementById('q14-opt4').textContent = formatNum(parseFloat((v14_ans * 1.5).toFixed(1))) + 'g';
 
         // Q18: Fe + O2
         const v18_2 = [40, 80, 20, 60][Math.floor(Math.random() * 4)];
