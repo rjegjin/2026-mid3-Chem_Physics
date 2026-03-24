@@ -33,67 +33,100 @@
                     <label class="block text-sm font-bold text-slate-700 mb-1">학번 (예: 30101)</label>
                     <input type="text" id="login-id" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none transition" placeholder="학번 입력">
                 </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-1">확인 토큰 (Token)</label>
-                    <input type="text" id="login-token" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none transition font-mono text-sm" placeholder="시험 제출 후 받은 긴 문자열">
-                </div>
                 <button onclick="verifyStudent()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition shadow-md flex justify-center items-center gap-2 mt-2">
                     <span id="btn-text">결과 확인하기</span>
                     <div id="btn-spinner" class="spinner" style="display:none; width:20px; height:20px; border-width:2px; border-left-color:white;"></div>
                 </button>
             </div>
-            <p class="text-xs text-slate-400 mt-4 text-center">* 토큰은 퀴즈 제출 직후 화면에 표시된 코드입니다.</p>
+            <p class="text-xs text-slate-400 mt-4 text-center">💡 퀴즈나 논술형 평가를 제출했다면 결과를 확인할 수 있습니다.</p>
         </div>
 
         <!-- 결과 표시 섹션 (숨김 처리됨) -->
         <div id="result-section" class="hidden space-y-6">
-            
+
             <!-- 상단 요약 -->
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="text-center md:text-left">
                     <p class="text-slate-500 font-bold mb-1">반가워요!</p>
                     <h2 class="text-2xl font-black text-slate-900"><span id="res-name" class="text-blue-600">홍길동</span> 학생 (<span id="res-id">30101</span>)</h2>
                 </div>
+            </div>
+
+            <!-- 탭 네비게이션 -->
+            <div class="flex gap-2 border-b border-slate-200">
+                <button onclick="switchTab('quiz')" id="quiz-tab" class="px-6 py-3 font-bold text-slate-700 border-b-2 border-blue-600 bg-blue-50">
+                    📝 객관식 (2-3단원)
+                </button>
+                <button onclick="switchTab('essay')" id="essay-tab" class="px-6 py-3 font-bold text-slate-500 border-b-2 border-transparent hover:text-slate-700">
+                    ✍️ 논술형 (3단원)
+                </button>
+            </div>
+
+            <!-- 객관식 콘텐츠 -->
+            <div id="quiz-content" class="space-y-6">
+                <!-- 객관식 점수 -->
                 <div class="bg-slate-50 px-8 py-4 rounded-xl border border-slate-100 text-center">
-                    <p class="text-sm font-bold text-slate-500 mb-1 uppercase tracking-widest">Total Score</p>
-                    <p class="text-4xl font-black text-slate-800" id="res-score">15 / 20</p>
+                    <p class="text-sm font-bold text-slate-500 mb-1 uppercase tracking-widest">객관식 점수</p>
+                    <p class="text-4xl font-black text-slate-800" id="quiz-score">15 / 20</p>
                 </div>
-            </div>
 
-            <!-- 교사 피드백 -->
-            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-100 shadow-sm relative overflow-hidden">
-                <div class="absolute -right-4 -top-4 text-6xl opacity-10">💬</div>
-                <h3 class="text-lg font-bold text-blue-800 mb-3 flex items-center gap-2">👨‍🏫 선생님의 전체 피드백</h3>
-                <div class="bg-white/60 p-4 rounded-xl text-slate-700 leading-relaxed font-medium" id="res-feedback">
-                    피드백이 아직 등록되지 않았습니다.
+                <!-- 교사 피드백 -->
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-6xl opacity-10">💬</div>
+                    <h3 class="text-lg font-bold text-blue-800 mb-3 flex items-center gap-2">👨‍🏫 선생님의 피드백</h3>
+                    <div class="bg-white/60 p-4 rounded-xl text-slate-700 leading-relaxed font-medium" id="quiz-feedback">
+                        피드백이 아직 등록되지 않았습니다.
+                    </div>
                 </div>
-            </div>
 
-            <!-- 문항별 결과 및 코멘트 -->
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <div class="bg-slate-900 text-white p-4">
-                    <h3 class="font-bold text-lg">문항별 상세 분석</h3>
-                </div>
-                <div class="p-6">
-                    <!-- 정오표 요약 맵 -->
-                    <div class="mb-8">
-                        <p class="text-sm font-bold text-slate-500 mb-3">정오표 한눈에 보기 (응답 현황)</p>
-                        <div class="flex flex-wrap gap-2" id="omr-map">
-                            <!-- JS로 생성됨 -->
+                <!-- 문항별 결과 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-900 text-white p-4">
+                        <h3 class="font-bold text-lg">문항별 상세 분석</h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-8">
+                            <p class="text-sm font-bold text-slate-500 mb-3">정오표 한눈에 보기</p>
+                            <div class="flex flex-wrap gap-2" id="omr-map">
+                            </div>
+                        </div>
+                        <div class="space-y-4" id="questions-list">
                         </div>
                     </div>
+                </div>
 
-                    <!-- 개별 문항 리스트 -->
-                    <div class="space-y-4" id="questions-list">
-                        <!-- JS로 생성됨 -->
-                    </div>
+                <div class="text-center">
+                    <button onclick="window.location.href='quiz_L2L3_chem.html'" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-xl transition">
+                        📝 퀴즈 다시 풀어보기
+                    </button>
                 </div>
             </div>
 
-            <div class="text-center pt-4">
-                <button onclick="window.location.href='quiz_L2L3_chem.html'" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-xl transition">
-                    📝 퀴즈 다시 풀어보기
-                </button>
+            <!-- 논술형 콘텐츠 -->
+            <div id="essay-content" class="hidden space-y-6">
+                <!-- 교사 피드백 -->
+                <div class="bg-gradient-to-r from-amber-50 to-orange-50 p-6 rounded-2xl border border-amber-200 shadow-sm relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-6xl opacity-10">💬</div>
+                    <h3 class="text-lg font-bold text-amber-800 mb-3 flex items-center gap-2">👨‍🏫 선생님의 평가</h3>
+                    <div class="bg-white/60 p-4 rounded-xl text-slate-700 leading-relaxed font-medium" id="essay-feedback">
+                        평가가 아직 완료되지 않았습니다.
+                    </div>
+                </div>
+
+                <!-- 문항별 평가 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-amber-900 text-white p-4">
+                        <h3 class="font-bold text-lg">문항별 평가 의견</h3>
+                    </div>
+                    <div class="p-6 space-y-6" id="essay-questions-list">
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="window.location.href='essay_unit3_conservation.html'" class="bg-amber-200 hover:bg-amber-300 text-amber-900 font-bold py-3 px-6 rounded-xl transition">
+                        ✍️ 논술형 다시 풀어보기
+                    </button>
+                </div>
             </div>
 
         </div>
@@ -102,20 +135,20 @@
     <script>
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx25Ev-OkyclLK6LVmSizkYGGLD09N1DOTtszjTBAAmkOyJRUSeh3OSg1MqsQF3QiNA/exec';
 
+        let quizData = null;
+        let essayData = null;
+
         // 페이지 로드 시 로컬 스토리지 확인
         window.onload = () => {
             const savedId = localStorage.getItem('chem_quiz_student_id');
-            const savedToken = localStorage.getItem('chem_quiz_token');
             if(savedId) document.getElementById('login-id').value = savedId;
-            if(savedToken) document.getElementById('login-token').value = savedToken;
         };
 
         async function verifyStudent() {
             const studentId = document.getElementById('login-id').value.trim();
-            const token = document.getElementById('login-token').value.trim();
 
-            if(!studentId || !token) {
-                alert('학번과 토큰을 모두 입력해주세요.');
+            if(!studentId) {
+                alert('학번을 입력해주세요.');
                 return;
             }
 
@@ -126,17 +159,34 @@
             btnSpinner.style.display = 'block';
 
             try {
-                const response = await fetch(`${APPS_SCRIPT_URL}?action=verify&studentId=${encodeURIComponent(studentId)}&token=${encodeURIComponent(token)}`);
-                const result = await response.json();
-
-                if(result.success) {
-                    renderResult(result);
-                    // 로컬스토리지 최신화
-                    localStorage.setItem('chem_quiz_student_id', studentId);
-                    localStorage.setItem('chem_quiz_token', token);
-                } else {
-                    alert(result.message || '인증에 실패했습니다. 학번과 토큰을 다시 확인하세요.');
+                // 객관식 조회
+                const quizToken = localStorage.getItem('chem_quiz_token');
+                if(quizToken) {
+                    const quizResponse = await fetch(`${APPS_SCRIPT_URL}?action=verify&studentId=${encodeURIComponent(studentId)}&token=${encodeURIComponent(quizToken)}`);
+                    const quizResult = await quizResponse.json();
+                    if(quizResult.success && quizResult.assessmentType === 'quiz') {
+                        quizData = quizResult;
+                    }
                 }
+
+                // 논술형 조회
+                const essayToken = localStorage.getItem('essay_unit3_token');
+                if(essayToken) {
+                    const essayResponse = await fetch(`${APPS_SCRIPT_URL}?action=verify&studentId=${encodeURIComponent(studentId)}&token=${encodeURIComponent(essayToken)}`);
+                    const essayResult = await essayResponse.json();
+                    if(essayResult.success && essayResult.assessmentType === 'essay') {
+                        essayData = essayResult;
+                    }
+                }
+
+                if(!quizData && !essayData) {
+                    alert('제출된 평가가 없습니다. 학번과 평가 결과를 다시 확인하세요.');
+                    return;
+                }
+
+                renderResults();
+                localStorage.setItem('chem_quiz_student_id', studentId);
+
             } catch(error) {
                 console.error(error);
                 alert('서버와 통신 중 오류가 발생했습니다.');
@@ -146,26 +196,68 @@
             }
         }
 
-        function renderResult(data) {
-            // 화면 전환
+        function switchTab(tab) {
+            if(tab === 'quiz') {
+                if(!quizData) {
+                    alert('제출된 객관식 평가가 없습니다.');
+                    return;
+                }
+                document.getElementById('quiz-content').classList.remove('hidden');
+                document.getElementById('essay-content').classList.add('hidden');
+                document.getElementById('quiz-tab').classList.add('border-blue-600', 'bg-blue-50');
+                document.getElementById('quiz-tab').classList.remove('border-transparent', 'text-slate-500');
+                document.getElementById('essay-tab').classList.add('border-transparent', 'text-slate-500');
+                document.getElementById('essay-tab').classList.remove('border-blue-600', 'bg-blue-50');
+            } else {
+                if(!essayData) {
+                    alert('제출된 논술형 평가가 없습니다.');
+                    return;
+                }
+                document.getElementById('essay-content').classList.remove('hidden');
+                document.getElementById('quiz-content').classList.add('hidden');
+                document.getElementById('essay-tab').classList.add('border-amber-600', 'bg-amber-50');
+                document.getElementById('essay-tab').classList.remove('border-transparent', 'text-slate-500');
+                document.getElementById('quiz-tab').classList.add('border-transparent', 'text-slate-500');
+                document.getElementById('quiz-tab').classList.remove('border-blue-600', 'bg-blue-50');
+            }
+        }
+
+        function renderResults() {
             document.getElementById('login-section').classList.add('hidden');
             document.getElementById('result-section').classList.remove('hidden');
 
-            // 기본 정보 세팅
-            document.getElementById('res-name').textContent = data.name;
-            document.getElementById('res-id').textContent = data.studentId;
-            document.getElementById('res-score').textContent = data.totalScore;
-            
-            if(data.feedback && data.feedback.trim() !== "") {
-                document.getElementById('res-feedback').textContent = data.feedback;
+            // 학생 정보
+            const name = quizData?.name || essayData?.name || '학생';
+            const id = quizData?.studentId || essayData?.studentId;
+            document.getElementById('res-name').textContent = name;
+            document.getElementById('res-id').textContent = id;
+
+            if(quizData) {
+                renderQuizResult(quizData);
+            }
+            if(essayData) {
+                renderEssayResult(essayData);
             }
 
-            
-            const answers = data.answers; // 내가 적은 답 배열
-            const questions = data.questions || []; // 내가 본 문제 텍스트 배열
-            const comments = data.questionComments || []; // 문항별 피드백
-            
-            // 점수 문자열 "15/20" 파싱
+            // 첫 번째 탭 선택
+            if(quizData) {
+                switchTab('quiz');
+            } else if(essayData) {
+                switchTab('essay');
+            }
+        }
+
+        function renderQuizResult(data) {
+            document.getElementById('quiz-score').textContent = data.totalScore;
+
+            if(data.feedback && data.feedback.trim() !== "") {
+                document.getElementById('quiz-feedback').textContent = data.feedback;
+            }
+
+            const answers = data.answers;
+            const questions = data.questions || [];
+            const comments = data.questionComments || [];
+
             const scoreParts = data.totalScore.split('/');
             const totalQ = parseInt(scoreParts[1]) || answers.length;
 
@@ -179,8 +271,7 @@
                 const myAns = answers[i] || "미응답";
                 const qText = questions[i] || `제 ${qNum}번 문제`;
                 const comment = comments[i];
-                
-                
+
                 // OMR 맵 버튼
                 const omrBtn = document.createElement('div');
                 omrBtn.className = `w-10 h-10 flex items-center justify-center rounded-lg font-bold text-sm bg-slate-100 border border-slate-200 text-slate-500 cursor-pointer hover:bg-white hover:shadow-md transition-all`;
@@ -195,11 +286,11 @@
                 };
                 omrMap.appendChild(omrBtn);
 
-
                 // 상세 리스트
                 const qCard = document.createElement('div');
-                qCard.className = "p-5 rounded-xl border border-slate-200 bg-white shadow-sm flex flex-col gap-3"; qCard.id = `qcard-${qNum}`;
-                
+                qCard.className = "p-5 rounded-xl border border-slate-200 bg-white shadow-sm flex flex-col gap-3";
+                qCard.id = `qcard-${qNum}`;
+
                 let commentHtml = '';
                 if(comment && comment.trim() !== '') {
                     commentHtml = `<div class="mt-2 text-sm text-blue-700 bg-blue-50 px-4 py-3 rounded-lg border border-blue-100">👨‍🏫 선생님 피드백: ${comment}</div>`;
@@ -224,6 +315,49 @@
                     </div>
                 `;
                 qList.appendChild(qCard);
+            }
+        }
+
+        function renderEssayResult(data) {
+            if(data.feedback && data.feedback.trim() !== "") {
+                document.getElementById('essay-feedback').textContent = data.feedback;
+            }
+
+            const answers = data.answers || [];
+            const comments = data.questionComments || ["", "", ""];
+
+            const essayList = document.getElementById('essay-questions-list');
+            essayList.innerHTML = '';
+
+            const questionTitles = ["Q1: 실험 설계 & 관찰", "Q2: 실험 결과 분석 & 추론", "Q3: 문제해결 & 실제 적용"];
+
+            for(let i=0; i<3; i++) {
+                const qNum = i + 1;
+                const answer = answers[i]?.content || "(제출되지 않음)";
+                const answerLength = answers[i]?.content?.length || 0;
+                const comment = comments[i];
+
+                const qCard = document.createElement('div');
+                qCard.className = "p-5 rounded-xl border border-amber-200 bg-amber-50 flex flex-col gap-3";
+
+                let commentHtml = '';
+                if(comment && comment.trim() !== '') {
+                    commentHtml = `<div class="mt-3 text-sm text-amber-800 bg-white px-4 py-3 rounded-lg border border-amber-100">👨‍🏫 평가 의견: ${comment}</div>`;
+                }
+
+                qCard.innerHTML = `
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-amber-900 text-white px-2.5 py-1 rounded-md text-xs font-black">${questionTitles[i]}</span>
+                            <span class="text-xs text-amber-700 font-bold">${answerLength}자</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border border-amber-100 text-slate-800 leading-relaxed">
+                            ${answer}
+                        </div>
+                        ${commentHtml}
+                    </div>
+                `;
+                essayList.appendChild(qCard);
             }
         }
     </script>
