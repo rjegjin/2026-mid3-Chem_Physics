@@ -79,7 +79,7 @@ function handleQuizSubmit(data) {
   // 시트가 없으면 생성하고 헤더 작성
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_RESPONSES);
-    const headers = ['timestamp', 'studentId', 'name', ...Array.from({length: 20}, (_, i) => `Q${i+1}`), 'total_score', 'token', 'questions_json'];
+    const headers = ['timestamp', 'studentId', 'name', ...Array.from({length: 20}, (_, i) => `Q${i+1}`), 'total_score', 'token', 'questions_data_json'];
     sheet.appendRow(headers);
   }
 
@@ -91,8 +91,18 @@ function handleQuizSubmit(data) {
   const correctCount = correct.filter(c => c === true).length;
   const totalScore = `${correctCount}/${correct.length}`;
 
-  // 행 데이터 준비
-  const rowData = [timestamp, studentId, name, ...answers, totalScore, token, JSON.stringify(data.questions || [])];
+  // 행 데이터 준비 (correct, totalScore, questions 모두 JSON에 포함)
+  const questionsData = {
+    correct: correct,
+    questions: data.questions || [],
+    totalScore: totalScore  // ← 점수도 함께 저장
+  };
+      const questionsData = {
+      correct: correct,
+      questions: data.questions || [],
+      totalScore: totalScore
+    };
+    const rowData = [timestamp, studentId, name, ...answers, totalScore, token, JSON.stringify(questionsData)];
 
   sheet.appendRow(rowData);
 
@@ -104,11 +114,30 @@ function handleQuizSubmit(data) {
     feedbackSheet.appendRow(fbHeaders);
   }
 
+  // Parse the consolidated JSON column
+  const questionsDataIndex = headers.length - 1;
+  let qData = { questions: [], correct: Array(20).fill(false), totalScore: null };
+  try {
+      if(foundRecord.length > questionsDataIndex) {
+          const rawJson = foundRecord[questionsDataIndex];
+          if(rawJson && typeof rawJson === 'string' && rawJson.startsWith('{')) {
+              qData = JSON.parse(rawJson);
+          }
+      }
+  } catch(e) {}
+
+  const totalScoreIndex = headers.indexOf('total_score') !== -1 ? headers.indexOf('total_score') : headers.length - 3;
+
   return createJsonResponse({
     success: true,
-    token: token,
-    totalScore: totalScore,
-    message: "성공적으로 제출되었습니다."
+    studentId: foundRecord[1],
+    name: foundRecord[2],
+    answers: foundRecord.slice(3, 23),
+    totalScore: qData.totalScore || foundRecord[totalScoreIndex] || foundRecord[23],
+    questions: qData.questions || [],
+    correct: qData.correct || Array(20).fill(false),
+    feedback: feedback.message,
+    questionComments: feedback.comments
   });
 }
 
@@ -167,10 +196,30 @@ function handleEssaySubmit(data) {
     feedbackSheet.appendRow(fbHeaders);
   }
 
+  // Parse the consolidated JSON column
+  const questionsDataIndex = headers.length - 1;
+  let qData = { questions: [], correct: Array(20).fill(false), totalScore: null };
+  try {
+      if(foundRecord.length > questionsDataIndex) {
+          const rawJson = foundRecord[questionsDataIndex];
+          if(rawJson && typeof rawJson === 'string' && rawJson.startsWith('{')) {
+              qData = JSON.parse(rawJson);
+          }
+      }
+  } catch(e) {}
+
+  const totalScoreIndex = headers.indexOf('total_score') !== -1 ? headers.indexOf('total_score') : headers.length - 3;
+
   return createJsonResponse({
     success: true,
-    token: token,
-    message: "논술형 평가가 제출되었습니다."
+    studentId: foundRecord[1],
+    name: foundRecord[2],
+    answers: foundRecord.slice(3, 23),
+    totalScore: qData.totalScore || foundRecord[totalScoreIndex] || foundRecord[23],
+    questions: qData.questions || [],
+    correct: qData.correct || Array(20).fill(false),
+    feedback: feedback.message,
+    questionComments: feedback.comments
   });
 }
 
@@ -213,31 +262,61 @@ function handleVerify(params) {
   // 먼저 객관식 응답에서 찾기
   let quizResult = findQuizRecord(studentId, token);
   if (quizResult) {
-    return createJsonResponse({
-      success: true,
-      assessmentType: 'quiz',
-      studentId: quizResult.studentId,
-      name: quizResult.name,
-      answers: quizResult.answers,
-      totalScore: quizResult.totalScore,
-      questions: quizResult.questions,
-      feedback: quizResult.feedback,
-      questionComments: quizResult.questionComments
-    });
+    // Parse the consolidated JSON column
+  const questionsDataIndex = headers.length - 1;
+  let qData = { questions: [], correct: Array(20).fill(false), totalScore: null };
+  try {
+      if(foundRecord.length > questionsDataIndex) {
+          const rawJson = foundRecord[questionsDataIndex];
+          if(rawJson && typeof rawJson === 'string' && rawJson.startsWith('{')) {
+              qData = JSON.parse(rawJson);
+          }
+      }
+  } catch(e) {}
+
+  const totalScoreIndex = headers.indexOf('total_score') !== -1 ? headers.indexOf('total_score') : headers.length - 3;
+
+  return createJsonResponse({
+    success: true,
+    studentId: foundRecord[1],
+    name: foundRecord[2],
+    answers: foundRecord.slice(3, 23),
+    totalScore: qData.totalScore || foundRecord[totalScoreIndex] || foundRecord[23],
+    questions: qData.questions || [],
+    correct: qData.correct || Array(20).fill(false),
+    feedback: feedback.message,
+    questionComments: feedback.comments
+  });
   }
 
   // 그 다음 논술형 응답에서 찾기
   let essayResult = findEssayRecord(studentId, token);
   if (essayResult) {
-    return createJsonResponse({
-      success: true,
-      assessmentType: 'essay',
-      studentId: essayResult.studentId,
-      name: essayResult.name,
-      answers: essayResult.answers,
-      feedback: essayResult.feedback,
-      questionComments: essayResult.questionComments
-    });
+    // Parse the consolidated JSON column
+  const questionsDataIndex = headers.length - 1;
+  let qData = { questions: [], correct: Array(20).fill(false), totalScore: null };
+  try {
+      if(foundRecord.length > questionsDataIndex) {
+          const rawJson = foundRecord[questionsDataIndex];
+          if(rawJson && typeof rawJson === 'string' && rawJson.startsWith('{')) {
+              qData = JSON.parse(rawJson);
+          }
+      }
+  } catch(e) {}
+
+  const totalScoreIndex = headers.indexOf('total_score') !== -1 ? headers.indexOf('total_score') : headers.length - 3;
+
+  return createJsonResponse({
+    success: true,
+    studentId: foundRecord[1],
+    name: foundRecord[2],
+    answers: foundRecord.slice(3, 23),
+    totalScore: qData.totalScore || foundRecord[totalScoreIndex] || foundRecord[23],
+    questions: qData.questions || [],
+    correct: qData.correct || Array(20).fill(false),
+    feedback: feedback.message,
+    questionComments: feedback.comments
+  });
   }
 
   return createJsonResponse({ success: false, message: "학번 또는 토큰이 일치하지 않습니다." });
@@ -254,10 +333,21 @@ function findQuizRecord(studentId, token) {
   const data = sheet.getDataRange().getValues();
   const headers = data[0];
 
+  // 열 인덱스 동적으로 찾기 (robust하게)
+  let studentIdIndex = headers.indexOf('studentId');
+  let tokenIndex = headers.indexOf('token');
+  let totalScoreIndex = headers.indexOf('total_score');
+  let questionsIndex = headers.indexOf('questions_json');
+
+  if (studentIdIndex === -1) studentIdIndex = 1;
+  if (tokenIndex === -1) tokenIndex = headers.length - 2;
+  if (totalScoreIndex === -1) totalScoreIndex = headers.length - 3;
+  if (questionsIndex === -1) questionsIndex = headers.length - 1;
+
   let foundRecord = null;
   for (let i = data.length - 1; i > 0; i--) {
     const row = data[i];
-    if (String(row[1]) === String(studentId) && String(row[headers.length - 2]) === String(token)) {
+    if (String(row[studentIdIndex]) === String(studentId) && String(row[tokenIndex]) === String(token)) {
       foundRecord = row;
       break;
     }
@@ -279,12 +369,24 @@ function findQuizRecord(studentId, token) {
     }
   }
 
+  // name과 answers도 동적으로 찾기
+  let nameIndex = headers.indexOf('name');
+  if (nameIndex === -1) nameIndex = 2;
+
+  // Q1-Q20 답변 추출 (동적)
+  let q1Index = headers.indexOf('Q1');
+  if (q1Index === -1) q1Index = 3; // 기본값: timestamp, studentId, name 다음
+  const answerCount = 20;
+  const answers = foundRecord.slice(q1Index, q1Index + answerCount);
+
+  const questionsData = JSON.parse(foundRecord[questionsIndex] || '{}');
+
   return {
-    studentId: foundRecord[1],
-    name: foundRecord[2],
-    answers: foundRecord.slice(3, 23),
-    totalScore: foundRecord[headers.length - 3],
-    questions: JSON.parse(foundRecord[headers.length - 1] || '[]'),
+    studentId: foundRecord[studentIdIndex],
+    name: foundRecord[nameIndex],
+    answers: answers,
+    totalScore: questionsData.totalScore || foundRecord[totalScoreIndex], // JSON에서 먼저 읽기
+    questions: questionsData.questions || [],
     feedback: feedback.message,
     questionComments: feedback.comments
   };
@@ -301,13 +403,18 @@ function findEssayRecord(studentId, token) {
   const data = sheet.getDataRange().getValues();
   const headers = data[0];
 
-  let foundRecord = null;
+  // 열 인덱스 동적으로 찾기
+  let studentIdIndex = headers.indexOf('studentId');
   let tokenIndex = headers.indexOf('token');
+  let answersJsonIndex = headers.indexOf('answers_json');
+  if (studentIdIndex === -1) studentIdIndex = 1;
   if (tokenIndex === -1) tokenIndex = 9; // 기본값
+  if (answersJsonIndex === -1) answersJsonIndex = headers.length - 1;
 
+  let foundRecord = null;
   for (let i = data.length - 1; i > 0; i--) {
     const row = data[i];
-    if (String(row[1]) === String(studentId) && String(row[tokenIndex]) === String(token)) {
+    if (String(row[studentIdIndex]) === String(studentId) && String(row[tokenIndex]) === String(token)) {
       foundRecord = row;
       break;
     }
@@ -315,8 +422,12 @@ function findEssayRecord(studentId, token) {
 
   if (!foundRecord) return null;
 
+  // name과 answers_json 인덱스 찾기
+  let nameIndex = headers.indexOf('name');
+  if (nameIndex === -1) nameIndex = 2;
+
   // 논술형 답변 추출 (Q1_content, Q2_content, Q3_content)
-  const answers = JSON.parse(foundRecord[headers.length - 1] || '[]');
+  const answers = JSON.parse(foundRecord[answersJsonIndex] || '[]');
 
   // 피드백 조회
   let feedback = { message: "", comments: ["", "", ""] };
@@ -333,8 +444,8 @@ function findEssayRecord(studentId, token) {
   }
 
   return {
-    studentId: foundRecord[1],
-    name: foundRecord[2],
+    studentId: foundRecord[studentIdIndex],
+    name: foundRecord[nameIndex],
     answers: answers,
     feedback: feedback.message,
     questionComments: feedback.comments
@@ -348,13 +459,45 @@ function handleGetAll() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = ss.getSheetByName(SHEET_RESPONSES);
   const fbSheet = ss.getSheetByName(SHEET_FEEDBACK);
-  
-  if (!sheet) return createJsonResponse({ success: true, data: [] });
-  
+
+  if (!sheet) // Parse the consolidated JSON column
+  const questionsDataIndex = headers.length - 1;
+  let qData = { questions: [], correct: Array(20).fill(false), totalScore: null };
+  try {
+      if(foundRecord.length > questionsDataIndex) {
+          const rawJson = foundRecord[questionsDataIndex];
+          if(rawJson && typeof rawJson === 'string' && rawJson.startsWith('{')) {
+              qData = JSON.parse(rawJson);
+          }
+      }
+  } catch(e) {}
+
+  const totalScoreIndex = headers.indexOf('total_score') !== -1 ? headers.indexOf('total_score') : headers.length - 3;
+
+  return createJsonResponse({
+    success: true,
+    studentId: foundRecord[1],
+    name: foundRecord[2],
+    answers: foundRecord.slice(3, 23),
+    totalScore: qData.totalScore || foundRecord[totalScoreIndex] || foundRecord[23],
+    questions: qData.questions || [],
+    correct: qData.correct || Array(20).fill(false),
+    feedback: feedback.message,
+    questionComments: feedback.comments
+  });
+
   const data = sheet.getDataRange().getValues();
   const headers = data[0];
   const results = [];
-  
+
+  // 열 인덱스 동적으로 찾기
+  let studentIdIndex = headers.indexOf('studentId');
+  let totalScoreIndex = headers.indexOf('total_score');
+  let questionsIndex = headers.indexOf('questions_json');
+  if (studentIdIndex === -1) studentIdIndex = 1;
+  if (totalScoreIndex === -1) totalScoreIndex = headers.length - 3;
+  if (questionsIndex === -1) questionsIndex = headers.length - 1;
+
   // 피드백 매핑 맵 생성
   const feedbackMap = {};
   if (fbSheet) {
@@ -366,27 +509,74 @@ function handleGetAll() {
       };
     }
   }
-  
+
+  // name과 answers도 동적으로 찾기
+  let nameIndex = headers.indexOf('name');
+  if (nameIndex === -1) nameIndex = 2;
+  let q1Index = headers.indexOf('Q1');
+  if (q1Index === -1) q1Index = 3;
+
   // 데이터 조립 (헤더 제외)
+  const totalScoreIndex = headers.indexOf('total_score') !== -1 ? headers.indexOf('total_score') : headers.length - 3;
+  const questionsDataIndex = headers.length - 1; // Assuming it's the last column added
+  
   for (let i = 1; i < data.length; i++) {
     const row = data[i];
     const sId = String(row[1]);
-    const questionsData = JSON.parse(row[headers.length - 1] || '[]');
+    
+    // Parse the consolidated JSON column if it exists, otherwise fallback
+    let qData = { questions: [], correct: Array(20).fill(false), totalScore: null };
+    try {
+        if(row.length > questionsDataIndex) {
+            const rawJson = row[questionsDataIndex];
+            if(rawJson && typeof rawJson === 'string' && rawJson.startsWith('{')) {
+                qData = JSON.parse(rawJson);
+            } else if (rawJson && typeof rawJson === 'string' && rawJson.startsWith('[')) {
+                 // Fallback for older format where we only saved questions array
+                 qData.questions = JSON.parse(rawJson);
+            }
+        }
+    } catch(e) { console.error(e); }
 
     results.push({
       timestamp: row[0],
       studentId: sId,
       name: row[2],
       answers: row.slice(3, 23),
-      correct: questionsData.correct || Array(20).fill(false), // 정답 여부 배열 추가
-      totalScore: row[headers.length - 3],
-      questions: questionsData.questions || [], // 문제 텍스트 배열
+      // Prefer JSON score over raw column score to avoid index mismatch
+      totalScore: qData.totalScore || row[totalScoreIndex] || row[23], 
+      questions: qData.questions || [],
+      correct: qData.correct || Array(20).fill(false),
       feedback: feedbackMap[sId] ? feedbackMap[sId].message : "",
       questionComments: feedbackMap[sId] ? feedbackMap[sId].comments : Array(20).fill("")
     });
   }
 
-  return createJsonResponse({ success: true, data: results });
+  // Parse the consolidated JSON column
+  const questionsDataIndex = headers.length - 1;
+  let qData = { questions: [], correct: Array(20).fill(false), totalScore: null };
+  try {
+      if(foundRecord.length > questionsDataIndex) {
+          const rawJson = foundRecord[questionsDataIndex];
+          if(rawJson && typeof rawJson === 'string' && rawJson.startsWith('{')) {
+              qData = JSON.parse(rawJson);
+          }
+      }
+  } catch(e) {}
+
+  const totalScoreIndex = headers.indexOf('total_score') !== -1 ? headers.indexOf('total_score') : headers.length - 3;
+
+  return createJsonResponse({
+    success: true,
+    studentId: foundRecord[1],
+    name: foundRecord[2],
+    answers: foundRecord.slice(3, 23),
+    totalScore: qData.totalScore || foundRecord[totalScoreIndex] || foundRecord[23],
+    questions: qData.questions || [],
+    correct: qData.correct || Array(20).fill(false),
+    feedback: feedback.message,
+    questionComments: feedback.comments
+  });
 }
 
 /**
@@ -435,7 +625,31 @@ function handleSaveFeedback(params) {
     sheet.appendRow(rowData);
   }
 
-  return createJsonResponse({ success: true, message: "피드백이 저장되었습니다." });
+  // Parse the consolidated JSON column
+  const questionsDataIndex = headers.length - 1;
+  let qData = { questions: [], correct: Array(20).fill(false), totalScore: null };
+  try {
+      if(foundRecord.length > questionsDataIndex) {
+          const rawJson = foundRecord[questionsDataIndex];
+          if(rawJson && typeof rawJson === 'string' && rawJson.startsWith('{')) {
+              qData = JSON.parse(rawJson);
+          }
+      }
+  } catch(e) {}
+
+  const totalScoreIndex = headers.indexOf('total_score') !== -1 ? headers.indexOf('total_score') : headers.length - 3;
+
+  return createJsonResponse({
+    success: true,
+    studentId: foundRecord[1],
+    name: foundRecord[2],
+    answers: foundRecord.slice(3, 23),
+    totalScore: qData.totalScore || foundRecord[totalScoreIndex] || foundRecord[23],
+    questions: qData.questions || [],
+    correct: qData.correct || Array(20).fill(false),
+    feedback: feedback.message,
+    questionComments: feedback.comments
+  });
 }
 
 /**
@@ -446,11 +660,43 @@ function handleGetEssayAll() {
   const sheet = ss.getSheetByName(SHEET_ESSAY_RESPONSES);
   const fbSheet = ss.getSheetByName(SHEET_ESSAY_FEEDBACK);
 
-  if (!sheet) return createJsonResponse({ success: true, data: [] });
+  if (!sheet) // Parse the consolidated JSON column
+  const questionsDataIndex = headers.length - 1;
+  let qData = { questions: [], correct: Array(20).fill(false), totalScore: null };
+  try {
+      if(foundRecord.length > questionsDataIndex) {
+          const rawJson = foundRecord[questionsDataIndex];
+          if(rawJson && typeof rawJson === 'string' && rawJson.startsWith('{')) {
+              qData = JSON.parse(rawJson);
+          }
+      }
+  } catch(e) {}
+
+  const totalScoreIndex = headers.indexOf('total_score') !== -1 ? headers.indexOf('total_score') : headers.length - 3;
+
+  return createJsonResponse({
+    success: true,
+    studentId: foundRecord[1],
+    name: foundRecord[2],
+    answers: foundRecord.slice(3, 23),
+    totalScore: qData.totalScore || foundRecord[totalScoreIndex] || foundRecord[23],
+    questions: qData.questions || [],
+    correct: qData.correct || Array(20).fill(false),
+    feedback: feedback.message,
+    questionComments: feedback.comments
+  });
 
   const data = sheet.getDataRange().getValues();
   const headers = data[0];
   const results = [];
+
+  // 열 인덱스 동적으로 찾기
+  let studentIdIndex = headers.indexOf('studentId');
+  let nameIndex = headers.indexOf('name');
+  let answersJsonIndex = headers.indexOf('answers_json');
+  if (studentIdIndex === -1) studentIdIndex = 1;
+  if (nameIndex === -1) nameIndex = 2;
+  if (answersJsonIndex === -1) answersJsonIndex = headers.length - 1;
 
   // 피드백 매핑 맵 생성
   const feedbackMap = {};
@@ -468,13 +714,13 @@ function handleGetEssayAll() {
   // 데이터 조립
   for (let i = 1; i < data.length; i++) {
     const row = data[i];
-    const sId = String(row[1]);
-    const answersData = JSON.parse(row[headers.length - 1] || '[]');
+    const sId = String(row[studentIdIndex]);
+    const answersData = JSON.parse(row[answersJsonIndex] || '[]');
 
     results.push({
       timestamp: row[0],
       studentId: sId,
-      name: row[2],
+      name: row[nameIndex],
       answers: answersData,
       feedback: feedbackMap[sId] ? feedbackMap[sId].overallFeedback : "",
       questionComments: feedbackMap[sId] ? feedbackMap[sId].comments : ["", "", ""],
@@ -482,7 +728,31 @@ function handleGetEssayAll() {
     });
   }
 
-  return createJsonResponse({ success: true, data: results });
+  // Parse the consolidated JSON column
+  const questionsDataIndex = headers.length - 1;
+  let qData = { questions: [], correct: Array(20).fill(false), totalScore: null };
+  try {
+      if(foundRecord.length > questionsDataIndex) {
+          const rawJson = foundRecord[questionsDataIndex];
+          if(rawJson && typeof rawJson === 'string' && rawJson.startsWith('{')) {
+              qData = JSON.parse(rawJson);
+          }
+      }
+  } catch(e) {}
+
+  const totalScoreIndex = headers.indexOf('total_score') !== -1 ? headers.indexOf('total_score') : headers.length - 3;
+
+  return createJsonResponse({
+    success: true,
+    studentId: foundRecord[1],
+    name: foundRecord[2],
+    answers: foundRecord.slice(3, 23),
+    totalScore: qData.totalScore || foundRecord[totalScoreIndex] || foundRecord[23],
+    questions: qData.questions || [],
+    correct: qData.correct || Array(20).fill(false),
+    feedback: feedback.message,
+    questionComments: feedback.comments
+  });
 }
 
 /**
@@ -526,5 +796,29 @@ function handleSaveEssayFeedback(params) {
     sheet.appendRow(rowData);
   }
 
-  return createJsonResponse({ success: true, message: "논술형 피드백이 저장되었습니다." });
+  // Parse the consolidated JSON column
+  const questionsDataIndex = headers.length - 1;
+  let qData = { questions: [], correct: Array(20).fill(false), totalScore: null };
+  try {
+      if(foundRecord.length > questionsDataIndex) {
+          const rawJson = foundRecord[questionsDataIndex];
+          if(rawJson && typeof rawJson === 'string' && rawJson.startsWith('{')) {
+              qData = JSON.parse(rawJson);
+          }
+      }
+  } catch(e) {}
+
+  const totalScoreIndex = headers.indexOf('total_score') !== -1 ? headers.indexOf('total_score') : headers.length - 3;
+
+  return createJsonResponse({
+    success: true,
+    studentId: foundRecord[1],
+    name: foundRecord[2],
+    answers: foundRecord.slice(3, 23),
+    totalScore: qData.totalScore || foundRecord[totalScoreIndex] || foundRecord[23],
+    questions: qData.questions || [],
+    correct: qData.correct || Array(20).fill(false),
+    feedback: feedback.message,
+    questionComments: feedback.comments
+  });
 }

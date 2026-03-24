@@ -261,17 +261,48 @@
             }
         }
 
-        // 2. 데이터 새로고침
+        // 2. 데이터 새로고침 (localStorage 캐싱 포함)
         async function refreshData() {
             const icon = document.getElementById('refresh-icon');
             icon.classList.add('animate-spin');
 
+            const CACHE_TTL = 5 * 60 * 1000; // 5분 (밀리초)
+            const CACHE_QUIZ_KEY = 'teacher_quiz_cache';
+            const CACHE_ESSAY_KEY = 'teacher_essay_cache';
+            const CACHE_TIME_KEY = 'teacher_cache_time';
+
             try {
+                const now = Date.now();
+                const lastCacheTime = parseInt(localStorage.getItem(CACHE_TIME_KEY) || '0');
+
+                // 캐시가 유효하면 사용
+                if (now - lastCacheTime < CACHE_TTL) {
+                    const cachedQuiz = localStorage.getItem(CACHE_QUIZ_KEY);
+                    const cachedEssay = localStorage.getItem(CACHE_ESSAY_KEY);
+
+                    if (cachedQuiz && cachedEssay) {
+                        allData = JSON.parse(cachedQuiz);
+                        allEssayData = JSON.parse(cachedEssay);
+                        essayFilteredData = allEssayData;
+                        updateUI();
+                        console.log('✅ 캐시에서 로드 (남은 시간: ' + Math.ceil((CACHE_TTL - (now - lastCacheTime)) / 1000) + '초)');
+                        return;
+                    }
+                }
+
+                // 캐시 만료 또는 없음 → 서버에서 가져오기
+                console.log('🔄 서버에서 데이터 가져오는 중...');
+
                 // 객관식 데이터
                 const quizResponse = await fetch(`${APPS_SCRIPT_URL}?action=get_all`);
                 const quizResult = await quizResponse.json();
                 if(quizResult.success) {
                     allData = quizResult.data;
+                    localStorage.setItem(CACHE_QUIZ_KEY, JSON.stringify(allData));
+                    // 디버깅: 첫 번째 행 확인
+                    if(allData.length > 0) {
+                        console.log('🔍 첫 번째 학생 데이터:', allData[0]);
+                    }
                 }
 
                 // 논술형 데이터
@@ -280,7 +311,12 @@
                 if(essayResult.success) {
                     allEssayData = essayResult.data;
                     essayFilteredData = essayResult.data;
+                    localStorage.setItem(CACHE_ESSAY_KEY, JSON.stringify(allEssayData));
                 }
+
+                // 캐시 타임스탬프 업데이트
+                localStorage.setItem(CACHE_TIME_KEY, now.toString());
+                console.log('✅ 캐시 저장 완료 (5분 유효)');
 
                 updateUI();
             } catch(e) {
@@ -442,109 +478,72 @@
             if(viewName === 'analysis') renderAnalysis();
         }
 
-        // 5. 차트 렌더링
+        
+        // 5. 차트 렌더링 (실제 정답률 반영)
         function renderAnalysis() {
             const ctx = document.getElementById('analysis-chart').getContext('2d');
-
-            // 문항별 정답률 계산 (개선된 로직)
-            const questionStats = {
-                correct: Array(20).fill(0),      // 정답한 학생 수
-                attempted: Array(20).fill(0)     // 응답한 학생 수
-            };
+            
+            // 문항별 정답 수 집계 (20문항)
+            const questionCorrectCounts = Array(20).fill(0);
+            const totalSubmissions = allData.length;
 
             allData.forEach(r => {
-                if(r.correct && Array.isArray(r.correct) && r.answers) {
+                // Apps Script에서 전달된 correct 배열이 있는지 확인
+                // 데이터 조립 시 correct 정보를 포함하도록 백엔드와 연동되어 있어야 함
+                if (r.correct && Array.isArray(r.correct)) {
                     r.correct.forEach((isCorrect, idx) => {
-                        const answer = r.answers[idx];
-                        // 응답이 있으면 attempted 증가
-                        if(answer !== undefined && answer !== null && answer !== "") {
-                            questionStats.attempted[idx]++;
-                        }
-                        // 정답이면 correct 증가
-                        if(isCorrect === true) {
-                            questionStats.correct[idx]++;
-                        }
+                        if(isCorrect === true || isCorrect === "true") questionCorrectCounts[idx]++;
                     });
+                } else if (r.answers) {
+                    // correct 배열이 없을 경우를 대비한 하이브리드 로직 (임시)
+                    // 실제로는 백엔드에서 주는 correct 정보를 쓰는 것이 정확함
                 }
             });
 
-            // 정답률 계산 (응답한 학생 기준)
-            const correctRates = questionStats.attempted.map((attemptCount, idx) => {
-                if(attemptCount === 0) return 0;
-                return Math.round((questionStats.correct[idx] / attemptCount) * 100);
-            });
-
-            // 응답률 계산 (전체 학생 기준)
-            const totalStudents = allData.length || 1;
-            const attemptRates = questionStats.attempted.map(count => Math.round((count / totalStudents) * 100));
-
-            // 색상 동적 결정 (정답률 기반)
-            const backgroundColor = correctRates.map(rate => {
-                if(rate >= 80) return '#10b981';      // 녹색 (80% 이상)
-                if(rate >= 60) return '#f59e0b';      // 주황색 (60-80%)
-                if(rate >= 40) return '#ef4444';      // 빨간색 (40-60%)
-                return '#dc2626';                      // 진한 빨간색 (40% 미만)
-            });
-
-            // 라벨 생성 (응답률 포함)
-            const labels = Array.from({length: 20}, (_, i) => {
-                const qNum = i + 1;
-                const rate = attemptRates[i];
-                return `Q${qNum}\n(${rate}% 응답)`;
-            });
+            // 퍼센트 단위로 변환
+            const accuracyData = questionCorrectCounts.map(count => 
+                totalSubmissions > 0 ? Math.round((count / totalSubmissions) * 100) : 0
+            );
 
             if(analysisChart) analysisChart.destroy();
             analysisChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: labels,
+                    labels: Array.from({length: 20}, (_, i) => `Q${i+1}`),
                     datasets: [{
-                        label: '정답률 (%)',
-                        data: correctRates,
-                        backgroundColor: backgroundColor,
-                        borderRadius: 8,
-                        borderWidth: 2,
-                        borderColor: 'rgba(0,0,0,0.1)'
+                        label: '문항별 정답률 (%)',
+                        data: accuracyData,
+                        backgroundColor: accuracyData.map(val => {
+                            if(val >= 80) return '#10b981'; // 초록 (우수)
+                            if(val >= 50) return '#3b82f6'; // 파랑 (보통)
+                            return '#ef4444'; // 빨강 (주의)
+                        }),
+                        borderRadius: 8
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    indexAxis: 'x',
+                    scales: { 
+                        y: { 
+                            beginAtZero: true, 
+                            max: 100,
+                            ticks: { callback: value => value + '%' }
+                        } 
+                    },
                     plugins: {
-                        legend: {
-                            display: true,
-                            labels: { font: { size: 12 } }
-                        },
                         tooltip: {
                             callbacks: {
-                                label: (ctx) => {
-                                    const idx = ctx.dataIndex;
-                                    const correct = questionStats.correct[idx];
-                                    const attempted = questionStats.attempted[idx];
-                                    return [
-                                        `정답률: ${ctx.parsed.y}%`,
-                                        `정답: ${correct}/${attempted}명`,
-                                        `응답률: ${attemptRates[idx]}%`
-                                    ];
+                                label: function(context) {
+                                    return `정답률: ${context.raw}% (${questionCorrectCounts[context.dataIndex]}/${totalSubmissions}명)`;
                                 }
                             }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100,
-                            ticks: { callback: (val) => val + '%' },
-                            grid: { drawBorder: false }
-                        },
-                        x: {
-                            grid: { display: false }
                         }
                     }
                 }
             });
         }
+
 
         // 6. 피드백 모달
         function openFeedbackModal(studentId) {
