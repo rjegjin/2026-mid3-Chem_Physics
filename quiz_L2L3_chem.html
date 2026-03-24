@@ -257,7 +257,7 @@
             background: var(--navy);
             color: white;
             border-radius: 1.5rem;
-            padding: 2.5rem;
+            padding: 4rem 2rem;
             margin: 1rem 0 2rem;
             text-align: center;
         }
@@ -378,24 +378,36 @@
 
     
         /* ─── VISUAL AIDS ─── */
+        
         .q-visual {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 0.75rem;
-            margin: 1rem 0;
-            padding: 1rem;
+            background: #ffffff;
+            border: 2px solid #f1f5f9;
+            border-radius: 1.25rem;
+            margin: 3rem 0;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .q-visual-row {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 1.5rem;
+            gap: 3rem;
+            width: 100%;
         }
         .particle-label {
-            font-size: 0.7rem;
+            font-size: 0.9rem;
             font-weight: 800;
-            color: #64748b;
+            color: #94a3b8;
             text-align: center;
-            margin-top: 0.25rem;
+            margin-top: 0.75rem;
+            letter-spacing: 0.05em;
         }
+
 
     </style>
 </head>
@@ -537,61 +549,28 @@
             <span class="q-num">3</span>
             <p class="q-text">H<sub>2</sub> + O<sub>2</sub> → H<sub>2</sub>O 의 계수를 <strong>올바르게</strong> 맞춘 것은?</p>
 
+        
+        
         <div class="q-visual">
-            <div style="text-align:center">
-                <svg width="80" height="40" viewBox="0 0 80 40">
-                    <circle cx="15" cy="20" r="8" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="27" cy="20" r="8" fill="#cbd5e1" stroke="#94a3b8"/>
-                    <circle cx="53" cy="20" r="8" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="65" cy="20" r="8" fill="#cbd5e1" stroke="#94a3b8"/>
-                </svg>
-                <div class="particle-label">수소(H₂) 2분자</div>
-            </div>
-            <div style="font-weight:bold; color:#94a3b8">+</div>
-            <div style="text-align:center">
-                <svg width="40" height="40" viewBox="0 0 40 40">
-                    <circle cx="14" cy="20" r="10" fill="#f87171" stroke="#dc2626"/><circle cx="26" cy="20" r="10" fill="#f87171" stroke="#dc2626"/>
-                </svg>
-                <div class="particle-label">산소(O₂) 1분자</div>
-            </div>
-        </div>
-
-        </div>
-        <div class="options-grid">
-            <label class="option-label" data-q="3" data-v="1"><input type="radio" name="q3" value="1"><span class="option-badge">①</span>H<sub>2</sub> + O<sub>2</sub> → H<sub>2</sub>O</label>
-            <label class="option-label" data-q="3" data-v="2"><input type="radio" name="q3" value="2"><span class="option-badge">②</span>2H<sub>2</sub> + O<sub>2</sub> → 2H<sub>2</sub>O</label>
-            <label class="option-label" data-q="3" data-v="3"><input type="radio" name="q3" value="3"><span class="option-badge">③</span>H<sub>2</sub> + 2O<sub>2</sub> → 2H<sub>2</sub>O</label>
-            <label class="option-label" data-q="3" data-v="4"><input type="radio" name="q3" value="4"><span class="option-badge">④</span>2H<sub>2</sub> + 2O<sub>2</sub> → 2H<sub>2</sub>O</label>
-        </div>
-        <div class="explanation" id="exp-3">
-            ②번 확인: 왼쪽 H=4, O=2 / 오른쪽 H=4, O=2 → <strong>성립!</strong><br>
-            ①: O가 왼쪽 2, 오른쪽 1로 불일치 / ③: O가 왼쪽 4, 오른쪽 2 불일치 / ④: O가 왼쪽 4, 오른쪽 2 불일치
-        </div>
-    </div>
-
-    <!-- Q4 -->
-    <div class="question-card" id="qcard-4">
-        <div style="display:flex; align-items:flex-start; gap:0.5rem; margin-bottom:0.75rem;">
-            <span class="q-num">4</span>
-            <p class="q-text">N<sub>2</sub> + H<sub>2</sub> → NH<sub>3</sub> 의 계수를 <strong>올바르게</strong> 맞춘 것은?</p>
-
-        <div class="q-visual">
-            <div style="text-align:center">
-                <svg width="40" height="40" viewBox="0 0 40 40">
-                    <circle cx="14" cy="20" r="10" fill="#818cf8" stroke="#4f46e5"/><circle cx="26" cy="20" r="10" fill="#818cf8" stroke="#4f46e5"/>
-                </svg>
-                <div class="particle-label">질소(N₂)</div>
-            </div>
-            <div style="font-weight:bold; color:#94a3b8">+</div>
-            <div style="text-align:center">
-                <svg width="100" height="40" viewBox="0 0 100 40">
-                    <circle cx="12" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="22" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/>
-                    <circle cx="45" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="55" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/>
-                    <circle cx="78" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="88" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/>
-                </svg>
-                <div class="particle-label">수소(H₃) 3분자</div>
+            <div class="q-visual-row">
+                <div style="text-align:center">
+                    <svg width="80" height="80" viewBox="0 0 40 40">
+                        <circle cx="14" cy="20" r="10" fill="#818cf8" stroke="#4f46e5"/><circle cx="26" cy="20" r="10" fill="#818cf8" stroke="#4f46e5"/>
+                    </svg>
+                    <div class="particle-label">질소(N₂) 1분자</div>
+                </div>
+                <div style="font-size: 2rem; font-weight:bold; color:#e2e8f0">+</div>
+                <div style="text-align:center">
+                    <svg width="200" height="80" viewBox="0 0 100 40">
+                        <circle cx="12" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="22" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/>
+                        <circle cx="45" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="55" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/>
+                        <circle cx="78" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="88" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/>
+                    </svg>
+                    <div class="particle-label">수소(H₂) 3분자</div>
+                </div>
             </div>
         </div>
 
-        </div>
         <div class="options-grid">
             <label class="option-label" data-q="4" data-v="1"><input type="radio" name="q4" value="1"><span class="option-badge">①</span>N<sub>2</sub> + H<sub>2</sub> → NH<sub>3</sub></label>
             <label class="option-label" data-q="4" data-v="2"><input type="radio" name="q4" value="2"><span class="option-badge">②</span>N<sub>2</sub> + 2H<sub>2</sub> → 2NH<sub>3</sub></label>
@@ -812,8 +791,8 @@
             <span class="q-num">15</span>
             <p class="q-text"><strong>열린 용기</strong>에서 탄산칼슘과 염산을 반응시켰을 때 반응 후 측정한 질량이 줄어든 이유로 옳은 것은?</p>
 
-        <div class="q-visual">
-            <svg width="120" height="100" viewBox="0 0 120 100">
+        <div class="q-visual"><div class="q-visual-row">
+            <svg width="360" height="300" viewBox="0 0 120 100">
                 <!-- Flask -->
                 <path d="M40 20 L40 40 L20 80 A10 10 0 0 0 30 90 L90 90 A10 10 0 0 0 100 80 L80 40 L80 20 Z" fill="none" stroke="#475569" stroke-width="3"/>
                 <!-- Bubbles/Gas escaping -->
@@ -1008,8 +987,8 @@
         q6_container.innerHTML = '';
         for(let i=0; i<q6_base; i++) {
             const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svg.setAttribute("width", "30"); svg.setAttribute("height", "20");
-            svg.innerHTML = '<circle cx="8" cy="10" r="6" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="18" cy="10" r="6" fill="#cbd5e1" stroke="#94a3b8"/>';
+            svg.setAttribute("width", "100"); svg.setAttribute("height", "60");
+            svg.innerHTML = '<circle cx="20" cy="30" r="15" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="45" cy="30" r="15" fill="#cbd5e1" stroke="#94a3b8"/>';
             q6_container.appendChild(svg);
             if(i === 4 && q6_base > 6) { // Line break for many particles
                 const br = document.createElement('div'); br.style.width = '100%'; q6_container.appendChild(br);
@@ -1287,6 +1266,10 @@
 
             const response = await fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8',
+                },
                 body: JSON.stringify(payload)
             });
             
@@ -1298,7 +1281,7 @@
                         <h3 style="color:#065f46; margin-bottom:0.5rem; font-size:1.4rem;">✅ 서버 제출 성공!</h3>
                         <p style="font-size:1rem; color:#065f46;">나의 고유 토큰: <strong style="font-family:monospace; background:white; padding:2px 6px; border-radius:4px;">${result.token}</strong></p>
                         <p style="font-size:0.8rem; color:#059669; mt-1">(토큰이 클립보드에 복사되었습니다.)</p>
-                        <a href="student_result.html" target="_blank" style="display:inline-block; margin-top:1rem; background:#10b981; color:white; padding:0.75rem 2rem; border-radius:0.75rem; text-decoration:none; font-weight:bold; box-shadow:0 4px 6px rgba(16,185,129,0.3);">결과 상세 대시보드 보기 ➡️</a>
+                        <a href="student_result.html" target="_blank" style="display:inline-block; margin-top:1rem; background:#10b981; color:white; padding:1rem 3rem; border-radius:1rem; font-size:1.2rem; text-decoration:none; font-weight:bold; box-shadow:0 4px 6px rgba(16,185,129,0.3);">결과 상세 대시보드 보기 ➡️</a>
                     </div>
                 `;
                 navigator.clipboard.writeText(result.token).catch(e => {});
