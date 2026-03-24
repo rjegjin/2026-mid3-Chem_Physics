@@ -31,7 +31,7 @@
             .no-print { display: none !important; }
             .quiz-header { background: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             body { background: white; }
-            .question-card { break-inside: avoid; box-shadow: none; border: 1px solid #cbd5e1; }
+            .question-card { position: relative;  break-inside: avoid; box-shadow: none; border: 1px solid #cbd5e1; }
             .option-label { border: 1px solid #cbd5e1 !important; }
         }
 
@@ -114,7 +114,7 @@
         }
 
         /* ─── QUESTION CARD ─── */
-        .question-card {
+        .question-card { position: relative; 
             background: white;
             border-radius: 1rem;
             padding: 1.5rem 2rem;
@@ -567,7 +567,7 @@
     <!-- Q6 -->
     <div class="question-card" id="qcard-6">
         <div style="display:flex; align-items:flex-start; gap:0.5rem; margin-bottom:0.75rem;">
-            <span class="q-num">6</span> <span id="q6-random-badge" style="font-size:0.6rem; background:#f1f5f9; padding:2px 6px; border-radius:4px; color:#94a3b8; font-weight:normal; vertical-align:middle; margin-left:4px;">랜덤 문항</span>
+            <span class="q-num">6</span> 
             <p class="q-text">화학 반응식 2H<sub>2</sub> + O<sub>2</sub> → 2H<sub>2</sub>O 에서 수소 분자 <strong id="q6-val">6개</strong>가 반응할 때 생성되는 물 분자는 몇 개인가?</p>
         </div>
         <div class="options-grid">
@@ -580,6 +580,7 @@
             계수 비 = 분자 수 비: H<sub>2</sub> : H<sub>2</sub>O = 2 : 2 = <strong>1 : 1</strong><br>
             따라서 수소 분자 6개 → 물 분자 <strong>6개</strong> 생성 (산소 분자는 3개 필요)
         </div>
+    <div id="q6-random-badge" style="position: absolute; bottom: 0.4rem; right: 0.8rem; font-size: 0.5rem; color: #cbd5e1; font-family: monospace; pointer-events: none; opacity: 0.7;">RC-6</div>
     </div>
 
     <!-- Q7 -->
@@ -702,7 +703,7 @@
     <!-- Q13 -->
     <div class="question-card" id="qcard-13">
         <div style="display:flex; align-items:flex-start; gap:0.5rem; margin-bottom:0.75rem;">
-            <span class="q-num">13</span> <span id="q13-random-badge" style="font-size:0.6rem; background:#f1f5f9; padding:2px 6px; border-radius:4px; color:#94a3b8; font-weight:normal; vertical-align:middle; margin-left:4px;">랜덤 문항</span>
+            <span class="q-num">13</span> 
             <p class="q-text">수소 <strong id="q13-v1">2g</strong>과 산소 <strong id="q13-v2">16g</strong>이 완전히 반응하여 물이 생성될 때, 생성된 물의 질량은?</p>
         </div>
         <div class="options-grid">
@@ -716,12 +717,13 @@
             2g + 16g = <strong>18g</strong><br>
             (이는 물 H<sub>2</sub>O의 분자량 18과도 일치합니다!)
         </div>
+    <div id="q13-random-badge" style="position: absolute; bottom: 0.4rem; right: 0.8rem; font-size: 0.5rem; color: #cbd5e1; font-family: monospace; pointer-events: none; opacity: 0.7;">RC-13</div>
     </div>
 
     <!-- Q14 -->
     <div class="question-card" id="qcard-14">
         <div style="display:flex; align-items:flex-start; gap:0.5rem; margin-bottom:0.75rem;">
-            <span class="q-num">14</span> <span id="q14-random-badge" style="font-size:0.6rem; background:#f1f5f9; padding:2px 6px; border-radius:4px; color:#94a3b8; font-weight:normal; vertical-align:middle; margin-left:4px;">랜덤 문항</span>
+            <span class="q-num">14</span> 
             <p class="q-text">탄산칼슘 <strong id="q14-v1">10g</strong>과 염산 <strong id="q14-v2">6.4g</strong>을 반응시켰더니 염화칼슘 <span id="q14-v3">11.1g</span>, 물 <span id="q14-v4">0.9g</span>, 이산화탄소가 생성되었다. 이산화탄소의 질량은? (단, 닫힌 용기)</p>
         </div>
         <div class="options-grid">
@@ -735,6 +737,7 @@
             CO<sub>2</sub> 질량 = 16.4 − 11.1 − 0.9 = <strong>4.4g</strong><br>
             (반응 전 = 반응 후 → 질량 보존 적용!)
         </div>
+    <div id="q14-random-badge" style="position: absolute; bottom: 0.4rem; right: 0.8rem; font-size: 0.5rem; color: #cbd5e1; font-family: monospace; pointer-events: none; opacity: 0.7;">RC-14</div>
     </div>
 
     <!-- Q15 -->
@@ -795,7 +798,7 @@
     <!-- Q18 -->
     <div class="question-card" id="qcard-18">
         <div style="display:flex; align-items:flex-start; gap:0.5rem; margin-bottom:0.75rem;">
-            <span class="q-num">18</span> <span id="q18-random-badge" style="font-size:0.6rem; background:#f1f5f9; padding:2px 6px; border-radius:4px; color:#94a3b8; font-weight:normal; vertical-align:middle; margin-left:4px;">랜덤 문항</span>
+            <span class="q-num">18</span> 
             <p class="q-text">철 <strong id="q18-v1">28g</strong>을 완전히 산화시켰더니 산화철 <strong id="q18-v2">40g</strong>이 생성되었다. 반응한 산소의 질량은?</p>
         </div>
         <div class="options-grid">
@@ -810,12 +813,13 @@
             산소 = 40 − 28 = <strong>12g</strong><br>
             (철은 공기 중 산소와 결합해 질량이 증가한다는 것도 기억!)
         </div>
+    <div id="q18-random-badge" style="position: absolute; bottom: 0.4rem; right: 0.8rem; font-size: 0.5rem; color: #cbd5e1; font-family: monospace; pointer-events: none; opacity: 0.7;">RC-18</div>
     </div>
 
     <!-- Q19 -->
     <div class="question-card" id="qcard-19">
         <div style="display:flex; align-items:flex-start; gap:0.5rem; margin-bottom:0.75rem;">
-            <span class="q-num">19</span> <span id="q19-random-badge" style="font-size:0.6rem; background:#f1f5f9; padding:2px 6px; border-radius:4px; color:#94a3b8; font-weight:normal; vertical-align:middle; margin-left:4px;">랜덤 문항</span>
+            <span class="q-num">19</span> 
             <p class="q-text">열린 용기에서 마그네슘 <strong id="q19-val">6g</strong>을 완전히 연소시켰다.<br>
             생성된 산화마그네슘의 질량은? <span style="font-size:0.85rem; color:#64748b;">(단, Mg : O 질량비 = 3 : 2)</span></p>
         </div>
@@ -830,6 +834,7 @@
             생성된 산화마그네슘 = Mg + O = 6 + 4 = <strong>10g</strong><br>
             ※ 마그네슘 연소는 공기 중 산소를 흡수하므로 <strong>고체 질량이 증가</strong>합니다.
         </div>
+    <div id="q19-random-badge" style="position: absolute; bottom: 0.4rem; right: 0.8rem; font-size: 0.5rem; color: #cbd5e1; font-family: monospace; pointer-events: none; opacity: 0.7;">RC-19</div>
     </div>
 
     <!-- Q20 -->
