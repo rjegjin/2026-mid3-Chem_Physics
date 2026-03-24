@@ -17,4 +17,5 @@
 
 
 # 현재 상태
+- [x] Implement parameterized quiz system with student/teacher dashboards and index linking
 - [x] Redesign 5_gas_reaction.html with bright theme and hotel analogy
