@@ -9,7 +9,7 @@
         window.MathJax = {
             tex: {
                 inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                displayMath: [['$$', '$$'], ['$$', '$$']],
                 processEscapes: true
             },
             options: {
@@ -41,7 +41,7 @@
             <h2 class="mb-8 border-none text-slate-500 text-xl tracking-[0.2em]">Module Special Supplement</h2>
             
             <div class="text-center py-20">
-                <h1 class="text-6xl font-black text-slate-900 mb-10 leading-tight">Mathematical Foundations <br>of Representation Theory</h1>
+                <h1 class="text-6xl font-black text-slate-90 mb-10 leading-tight">Mathematical Foundations <br>of Representation Theory</h1>
                 <div class="w-40 h-2 bg-blue-600 mx-auto mb-10"></div>
                 <p class="text-2xl text-slate-700 font-medium italic">Hilbert Spaces, Linear Algebra, and Quantum Symmetry</p>
                 <p class="mt-20 font-bold text-blue-800 uppercase tracking-widest">Rigorous Proofs and Derivations</p>
@@ -76,7 +76,7 @@
             <div class='math-proof shadow-inner'>
                 <span class='theorem-title'>Subgroup Test</span>
                 <p class="mb-4">The necessary and sufficient condition for $H$ to be a subgroup is summarized in one line:</p>
-                \\[ \forall a, b \in H \implies a \cdot b^{-1} \in H \\]
+                $$ \forall a, b \in H \implies a \cdot b^{-1} \in H $$
             </div>
             <p class='mt-6 text-slate-600 font-bold'>Example: Within the $C_{3v}$ molecular point group, there exists a subgroup $C_3 = \{E, C_3, C_3^2\}$ consisting solely of rotational operations.</p>
         </div>
@@ -90,7 +90,7 @@
             <p class='text-xl font-medium text-slate-800'>We can use a subgroup $H$ to partition the entire group $G$ into non-overlapping regions.</p>
             <div class='axiom-box'>
                 <p class="font-bold mb-4">The <b>Left Coset</b> of $H$ with respect to an element $g \in G$:</p>
-                \\[ gH = \{g \cdot h \mid h \in H\} \\]
+                $$ gH = \{g \cdot h \mid h \in H\} $$
             </div>
             <p class='mt-6 text-lg leading-relaxed text-slate-700'><b>Property:</b> Two cosets are either identical or completely disjoint ($aH \cap bH = \emptyset$). Therefore, cosets form a perfect <b>Partition</b> of $G$.</p>
         </div>
@@ -104,7 +104,7 @@
             <div class='math-proof'>
                 <span class='theorem-title'>Lagrange's Theorem</span>
                 <p class="mb-4 font-bold">For any finite group $G$ and subgroup $H$, the order (number of elements) of $H$, $|H|$, must perfectly divide the order of $G$, $|G|$.</p>
-                \\[ |G| = [G:H] \cdot |H| \\]
+                $$ |G| = [G:H] \cdot |H| $$
             </div>
             <p class='mt-6 text-base leading-relaxed text-slate-600'><b>Proof Sketch:</b> Every left coset $gH$ has exactly the same number of elements as $H$ (via the bijection $f: h \mapsto gh$). Since $G$ is the union of these disjoint cosets, the total number of elements in $G$ must be a multiple of $|H|$.</p>
         </div>
@@ -118,7 +118,7 @@
             <p class='text-xl font-medium text-slate-800'>This is the algebraic definition of a <b>Class</b>, which groups symmetry operations in Character Tables.</p>
             <div class='axiom-box bg-white border-slate-300'>
                 <p class="mb-4 text-lg">For two elements $a, b \in G$, if there exists an $x \in G$ such that:</p>
-                \\[ b = x^{-1} \cdot a \cdot x \\]
+                $$ b = x^{-1} \cdot a \cdot x $$
                 <p class="mt-4 font-bold text-indigo-800">Then we say "$a$ and $b$ are conjugate to each other."</p>
             </div>
         </div>
@@ -148,7 +148,7 @@
             
             <p class='text-xl font-medium text-slate-800'>A special subgroup where the left coset equals the right coset for every $g \in G$.</p>
             <div class='axiom-box text-center py-10'>
-                \\[ gH = Hg \quad \text{or equivalently} \quad g^{-1}Hg = H \quad \forall g \in G \\]
+                $$ gH = Hg \quad \text{or equivalently} \quad g^{-1}Hg = H \quad \forall g \in G $$
             </div>
             <p class='mt-6 text-base leading-relaxed text-slate-700'>A normal subgroup $H$ is an invariant space under the conjugacy operation of $G$. This becomes the core tool for "dividing" a group into smaller structural components.</p>
         </div>
@@ -176,7 +176,7 @@
             <p class='text-xl font-medium text-slate-800'>Two groups $G$ and $G'$ may look different (different letters, different geometric actions), but possess the exact same mathematical structure.</p>
             <div class='axiom-box border-emerald-500 bg-emerald-50'>
                 <p class="mb-4 text-emerald-900 font-bold">A bijection $\phi: G \to G'$ is an isomorphism ($G \cong G'$) if:</p>
-                \\[ \phi(a \cdot_G b) = \phi(a) \cdot_{G'} \phi(b) \\]
+                $$ \phi(a \cdot_G b) = \phi(a) \cdot_{G'} \phi(b) $$
             </div>
             <p class='mt-6 font-bold text-slate-500 text-sm'>Note: By Cayley's Theorem, every finite point group is essentially isomorphic to a subgroup of a symmetric group.</p>
         </div>
@@ -206,7 +206,7 @@
             
             <p class='text-xl font-medium text-slate-800'>A symmetry operation $\hat{R}$ is a linear mapping that moves points within this Hilbert space to other points.</p>
             <div class='axiom-box text-center py-10 shadow-md border-indigo-300'>
-                \\[ \hat{R}(c_1|\psi_1\rangle + c_2|\psi_2\rangle) = c_1\hat{R}|\psi_1\rangle + c_2\hat{R}|\psi_2\rangle \\]
+                $$ \hat{R}(c_1|\psi_1\rangle + c_2|\psi_2\rangle) = c_1\hat{R}|\psi_1\rangle + c_2\hat{R}|\psi_2\rangle $$
             </div>
             <p class='mt-6 text-base leading-relaxed text-slate-700'>Because of this <b>Linearity</b>, we do not need to track infinitely many states. We only need to know how a finite set of <b>Basis Vectors</b> transforms to completely define the operator.</p>
         </div>
@@ -219,9 +219,9 @@
             
             <p class='text-xl font-medium text-slate-800'>Given an orthonormal basis $\{|e_i\rangle\}$, the action of an operator $\hat{R}$ is perfectly described by a matrix.</p>
             <div class='math-proof text-center'>
-                \\[ \hat{R} |e_j\rangle = \sum_{i=1}^n \Gamma(R)_{ij} |e_i\rangle \\]
+                $$ \hat{R} |e_j\rangle = \sum_{i=1}^n \Gamma(R)_{ij} |e_i\rangle $$
                 <p class='mt-8 text-sm font-bold text-left uppercase text-slate-400'>Deriving Matrix Elements via Bra-Ket:</p>
-                \\[ \Gamma(R)_{ij} = \langle e_i | \hat{R} | e_j \rangle \\]
+                $$ \Gamma(R)_{ij} = \langle e_i | \hat{R} | e_j \rangle $$
             </div>
         </div>
     </section>
@@ -234,7 +234,7 @@
             <p class='text-xl font-medium text-slate-800'>The most important symmetric partner of an operator in physics.</p>
             <div class='axiom-box bg-slate-50 border-slate-800'>
                 <p class="font-bold mb-4">The adjoint $\hat{R}^\dagger$ is defined such that for any $|\phi\rangle, |\psi\rangle$:</p>
-                \\[ \langle \phi | \hat{R} \psi \rangle = \langle \hat{R}^\dagger \phi | \psi \rangle \\]
+                $$ \langle \phi | \hat{R} \psi \rangle = \langle \hat{R}^\dagger \phi | \psi \rangle $$
             </div>
             <p class='mt-6 text-lg text-slate-600'>In matrix notation, this corresponds to the Conjugate Transpose: $\Gamma_{ij}^\dagger = \Gamma_{ji}^*$.</p>
         </div>
@@ -247,7 +247,7 @@
             
             <p class='text-xl font-medium text-slate-800'>Physical symmetry operations must preserve the 'magnitude' (total probability = 1) and 'angles' (relative phase) of states.</p>
             <div class='math-proof'>
-                \\[ \langle \hat{R}\phi | \hat{R}\psi \rangle = \langle \phi | \hat{R}^\dagger \hat{R} | \psi \rangle = \langle \phi | \psi \rangle \\]
+                $$ \langle \hat{R}\phi | \hat{R}\psi \rangle = \langle \phi | \hat{R}^\dagger \hat{R} | \psi \rangle = \langle \phi | \psi \rangle $$
                 <p class='text-center mt-8 font-black text-red-700 text-2xl'>$\implies \hat{R}^\dagger \hat{R} = \hat{I} \quad \text{and} \quad \hat{R}^\dagger = \hat{R}^{-1}$</p>
             </div>
             <p class='mt-6 font-bold text-indigo-900'>Therefore, the matrix representation of any physical symmetry operation is always a <b>Unitary Matrix</b>.</p>
@@ -278,7 +278,7 @@
             <p class='text-xl font-medium text-slate-800'>The exact same symmetry operation will look like a different matrix depending on the coordinate system (basis) the observer chooses.</p>
             <div class='math-proof'>
                 <p class="font-bold mb-4">When shifting to a new basis $|f_i\rangle = \sum P_{ji} |e_j\rangle$, the matrix representation transforms as:</p>
-                \\[ \Gamma'(R) = P^{-1} \Gamma(R) P \\]
+                $$ \Gamma'(R) = P^{-1} \Gamma(R) P $$
             </div>
             <p class='mt-6 font-black uppercase text-sm tracking-widest text-slate-500'>This is defined as a <b>Similarity Transformation</b>.</p>
         </div>
@@ -290,8 +290,8 @@
             <h2 class="mb-8">Invariance of the Trace</h2>
             
             <p class='text-xl font-medium text-slate-800'>Certain properties of matrices survive similarity transformations unscathed. The most crucial one is the <b>Trace</b> (sum of diagonals).</p>
-            <div class='axiom-box text-center py-10 shadow-lg border-slate-900'>
-                \\[ \text{Tr}(P^{-1} \Gamma P) = \text{Tr}(P P^{-1} \Gamma) = \text{Tr}(\Gamma) \\]
+            <div class='axiom-box text-center py-10 shadow-lg border-slate-90'>
+                $$ \text{Tr}(P^{-1} \Gamma P) = \text{Tr}(P P^{-1} \Gamma) = \text{Tr}(\Gamma) $$
             </div>
             <p class='mt-6 text-lg leading-relaxed text-slate-700'>In Group Theory, this invariant trace is called the <b>Character ($\chi$)</b>. It is a pure mathematical invariant, completely liberated from the arbitrary choice of basis vectors.</p>
         </div>
@@ -304,13 +304,13 @@
             
             <p class='text-xl font-medium text-slate-800'>Combining two vector spaces $V$ and $W$ to create a larger space $V \oplus W$.</p>
             <div class='math-proof text-center py-10'>
-                \\[
+                $$
                 \Gamma_{V \oplus W} = 
                 \begin{pmatrix}
                 \Gamma_V & 0 \\
                 0 & \Gamma_W
                 \end{pmatrix}
-                \\]
+                $$
             </div>
             <p class='mt-6 font-bold text-slate-600'>From a matrix perspective, this forms a Block Diagonal structure. The characters sum trivially: $\chi_{V \oplus W} = \chi_V + \chi_W$.</p>
         </div>
@@ -323,11 +323,11 @@
             
             <p class='text-xl font-medium text-slate-800'>A more complex union where dimensions multiply. Essential for describing multi-electron interactions.</p>
             <div class='axiom-box text-center overflow-x-auto'>
-                \\[ A \otimes B = \begin{pmatrix} a_{11}B & a_{12}B & \cdots \\ a_{21}B & a_{22}B & \cdots \\ \vdots & \vdots & \ddots \end{pmatrix} \\]
+                $$ A \otimes B = \begin{pmatrix} a_{11}B & a_{12}B & \cdots \\ a_{21}B & a_{22}B & \cdots \\ \vdots & \vdots & \ddots \end{pmatrix} $$
             </div>
             <p class='mt-6 font-black text-red-700 text-lg'>Crucial Theorem: The trace of a tensor product matrix is the product of the individual traces.</p>
             <div class="text-center mt-4 font-bold text-xl">
-                \\[ \chi_{V \otimes W}(R) = \chi_V(R) \cdot \chi_W(R) \\]
+                $$ \chi_{V \otimes W}(R) = \chi_V(R) \cdot \chi_W(R) $$
             </div>
         </div>
     </section>
@@ -340,8 +340,8 @@
             <p class='text-xl font-medium text-slate-800'>A function that maps each element $g$ of a group $G$ to a matrix $\Gamma(g)$ in the General Linear group $GL(V)$, while preserving the group structure.</p>
             <div class='math-proof'>
                 <span class='theorem-title'>Homomorphism Condition</span>
-                \\[ \Gamma(g_1 \cdot g_2) = \Gamma(g_1) \Gamma(g_2) \quad \forall g_1, g_2 \in G \\]
-                \\[ \Gamma(e) = I, \quad \Gamma(g^{-1}) = \Gamma(g)^{-1} \\]
+                $$ \Gamma(g_1 \cdot g_2) = \Gamma(g_1) \Gamma(g_2) \quad \forall g_1, g_2 \in G $$
+                $$ \Gamma(e) = I, \quad \Gamma(g^{-1}) = \Gamma(g)^{-1} $$
             </div>
         </div>
     </section>
@@ -354,7 +354,7 @@
             <p class='text-xl font-medium text-slate-800'>If different elements of the group map strictly to <b>different matrices</b> (a 1:1 mapping), the representation is called 'Faithful'.</p>
             <div class='axiom-box'>
                 <p class="font-bold mb-4">Injective function condition:</p>
-                \\[ \Gamma(g_1) = \Gamma(g_2) \implies g_1 = g_2 \\]
+                $$ \Gamma(g_1) = \Gamma(g_2) \implies g_1 = g_2 $$
             </div>
             <p class='mt-6 text-sm font-bold text-slate-500'>Example: The 'Totally Symmetric Representation' ($A_1$), where every element maps to the number 1, is trivial and unfaithful.</p>
         </div>
@@ -367,7 +367,7 @@
             
             <p class='text-xl font-medium text-slate-800'>Two representations $\Gamma^{(1)}$ and $\Gamma^{(2)}$ of the same dimension are 'Equivalent' if there exists a fixed invertible matrix $P$ such that:</p>
             <div class='math-proof text-center py-10'>
-                \\[ \Gamma^{(1)}(g) = P^{-1} \Gamma^{(2)}(g) P \quad \forall g \in G \\]
+                $$ \Gamma^{(1)}(g) = P^{-1} \Gamma^{(2)}(g) P \quad \forall g \in G $$
             </div>
             <p class='mt-6 text-lg text-indigo-900 font-bold'>Physically, this implies they represent the <b>exact same physical system, merely viewed from a different coordinate system</b>.</p>
         </div>
@@ -380,7 +380,7 @@
             
             <p class='text-xl font-medium text-slate-800'>A subspace $W$ of the total vector space $V$ is invariant if symmetry operations never push vectors outside of $W$.</p>
             <div class='axiom-box border-emerald-400 bg-emerald-50 text-center py-10'>
-                \\[ \forall g \in G, \quad \vec{w} \in W \implies \Gamma(g)\vec{w} \in W \\]
+                $$ \forall g \in G, \quad \vec{w} \in W \implies \Gamma(g)\vec{w} \in W $$
             </div>
             <p class='mt-6 text-base leading-relaxed text-slate-700'>Example: If the $p_z$ orbital in a molecule never mixes with $x$ or $y$ orbitals under any symmetry operation, the 1D space spanned by $p_z$ is an invariant subspace.</p>
         </div>
@@ -394,7 +394,7 @@
             <p class='text-xl font-medium text-slate-800'>If a non-trivial invariant subspace $W$ exists (neither $\{0\}$ nor $V$), the representation is defined as a <b>Reducible Representation</b>.</p>
             <div class='math-proof'>
                 <p class="font-bold mb-4">Through a suitable basis change $P$, all matrices $\Gamma(g)$ can be brought into a block upper-triangular form:</p>
-                \\[ P^{-1} \Gamma(g) P = \begin{pmatrix} \Gamma_1(g) & M(g) \\ 0 & \Gamma_2(g) \end{pmatrix} \\]
+                $$ P^{-1} \Gamma(g) P = \begin{pmatrix} \Gamma_1(g) & M(g) \\ 0 & \Gamma_2(g) \end{pmatrix} $$
             </div>
         </div>
     </section>
@@ -405,11 +405,11 @@
             <h2 class="mb-8">Complete Reducibility</h2>
             
             <p class='text-xl font-medium text-slate-800'>For unitary representations of finite groups, if $W$ is invariant, its orthogonal complement $W^\perp$ is also invariant.</p>
-            <div class='axiom-box shadow-xl border-slate-900'>
-                <span class='theorem-title text-slate-900'>Maschke's Theorem</span>
+            <div class='axiom-box shadow-xl border-slate-90'>
+                <span class='theorem-title text-slate-90'>Maschke's Theorem</span>
                 <p class="mb-4 font-bold text-lg">Every finite-dimensional representation of a finite group can be completely decomposed into a <b>Direct Sum of Irreducible Representations</b>.</p>
                 <div class="text-center font-bold text-xl">
-                    \\[ \Gamma(g) \sim \begin{pmatrix} \Gamma_1(g) & 0 \\ 0 & \Gamma_2(g) \end{pmatrix} \implies \Gamma = \Gamma_1 \oplus \Gamma_2 \\]
+                    $$ \Gamma(g) \sim \begin{pmatrix} \Gamma_1(g) & 0 \\ 0 & \Gamma_2(g) \end{pmatrix} \implies \Gamma = \Gamma_1 \oplus \Gamma_2 $$
                 </div>
             </div>
         </div>
@@ -420,7 +420,7 @@
             <div class="chapter-header">Chapter 03 | Slide 27</div>
             <h2 class="mb-8">Irreducible Representation (IR)</h2>
             
-            <div class='math-proof text-center py-16 bg-slate-900 text-white border-none shadow-2xl'>
+            <div class='math-proof text-center py-16 bg-slate-90 text-white border-none shadow-2xl'>
                 <h2 class='text-5xl text-cyan-400 font-black mb-8 border-none'>The Fundamental Building Blocks</h2>
                 <p class='text-2xl font-light'>A representation that possesses NO non-trivial invariant subspaces. It cannot be broken down any further.</p>
             </div>
@@ -484,7 +484,7 @@
             <h2 class="mb-8">Entering Schur's Lemmas</h2>
             
             <p class='text-xl leading-relaxed font-medium text-slate-800'>These two lemmas act as the <b>Mathematical Bridge</b> connecting basic group axioms to the Great Orthogonality Theorem (GOT). Proven by Issai Schur in 1905.</p>
-            <div class='axiom-box mt-10 bg-white border-slate-900 border-dashed'>
+            <div class='axiom-box mt-10 bg-white border-slate-90 border-dashed'>
                 <p class='text-center text-slate-600 italic font-serif text-2xl'>"Without these lemmas, we could not compute a single number inside any Character Table."</p>
             </div>
         </div>
@@ -498,9 +498,9 @@
             <div class='math-proof border-red-600 bg-red-50'>
                 <span class='theorem-title text-red-800'>Schur's Lemma I</span>
                 <p class="mb-4 text-lg">Let $\Gamma(g)$ be an <b>Irreducible Representation</b> over a complex vector space $V$. If a linear operator $M$ commutes with $\Gamma(g)$ for all $g \in G$:</p>
-                \\[ M \Gamma(g) = \Gamma(g) M \quad \forall g \in G \\]
+                $$ M \Gamma(g) = \Gamma(g) M \quad \forall g \in G $$
                 <p class='mt-6 font-black text-xl text-red-900'>Then $M$ MUST be a scalar multiple of the identity matrix.</p>
-                \\[ M = c \cdot I \quad (c \in \mathbb{C}) \\]
+                $$ M = c \cdot I \quad (c \in \mathbb{C}) $$
             </div>
         </div>
     </section>
@@ -513,7 +513,7 @@
             <p class='text-xl font-medium text-slate-800'>Over the field of complex numbers, any matrix $M$ must have at least one eigenvalue $\lambda$ and corresponding eigenvector $\vec{v}$ ($M\vec{v} = \lambda\vec{v}$).</p>
             <p class='mt-6 text-lg'>Let us define a new matrix: $M - \lambda I$. <br>The null space (kernel, $N$) of this matrix is non-trivial because $\vec{v} \in N$.</p>
             <div class='math-box mt-8 text-center text-2xl font-black shadow-inner'>
-                \\[ \forall \vec{w} \in N, \quad (M - \lambda I)\vec{w} = \vec{0} \\]
+                $$ \forall \vec{w} \in N, \quad (M - \lambda I)\vec{w} = \vec{0} $$
             </div>
         </div>
     </section>
@@ -546,7 +546,7 @@
                 <p class="font-bold text-lg mb-2 text-emerald-900">Therefore, the kernel $N$ must be either $\{\vec{0}\}$ or the entire space $V$.</p>
                 <p class="text-slate-700">Since we already established that the eigenvector $\vec{v} \neq \vec{0}$ resides in $N$, $N$ cannot be zero. It must be the whole space $V$.</p>
             </div>
-            <p class='mt-8 text-2xl font-black text-center text-slate-900'>Since $(M - \lambda I)\vec{x} = \vec{0}$ for all $\vec{x}$, <br><span class="text-blue-600">$M = \lambda I$</span> $\quad \blacksquare$</p>
+            <p class='mt-8 text-2xl font-black text-center text-slate-90'>Since $(M - \lambda I)\vec{x} = \vec{0}$ for all $\vec{x}$, <br><span class="text-blue-600">$M = \lambda I$</span> $\quad \blacksquare$</p>
         </div>
     </section>
     
@@ -558,7 +558,7 @@
             <div class='math-proof border-blue-600 bg-blue-50'>
                 <span class='theorem-title text-blue-800'>Schur's Lemma II</span>
                 <p class="text-lg mb-4">Let $\Gamma^{(1)}$ (dim $l_1$) and $\Gamma^{(2)}$ (dim $l_2$) be two IRs. If a matrix $M$ satisfies the following relation:</p>
-                \\[ M \Gamma^{(1)}(g) = \Gamma^{(2)}(g) M \quad \forall g \in G \\]
+                $$ M \Gamma^{(1)}(g) = \Gamma^{(2)}(g) M \quad \forall g \in G $$
                 <p class='mt-6 font-black text-xl'>Then, ONLY ONE of the following is true:</p>
                 <ol class='list-decimal pl-10 mt-4 space-y-2 font-bold'>
                     <li>$M = 0$ (The zero matrix)</li>
@@ -591,7 +591,7 @@
             <h2 class="mb-8">From Pure Math to Physics</h2>
             
             <p class='text-xl leading-relaxed font-medium text-slate-800'>Schur’s Lemmas are products of pure algebra, but when applied to quantum mechanics, the implications are profound.</p>
-            <div class='p-10 border-4 border-slate-900 rounded-3xl mt-10 shadow-2xl bg-white'>
+            <div class='p-10 border-4 border-slate-90 rounded-3xl mt-10 shadow-2xl bg-white'>
                 <p class='italic font-serif text-2xl leading-relaxed text-slate-800'>"If the Hamiltonian $\hat{H}$ commutes with all symmetry operators $\hat{R}$ ($[\hat{H}, \hat{R}]=0$), then by Schur's Lemma I, within the space of a specific Irreducible Representation, $\hat{H}$ must act as a constant matrix ($E \cdot I$)."</p>
             </div>
             <p class='mt-10 font-black text-rose-700 text-2xl text-center uppercase tracking-widest'>This is the fundamental origin of Energy Degeneracy.</p>
@@ -607,7 +607,7 @@
             <div class='axiom-box shadow-2xl border-cyan-500 bg-cyan-50'>
                 <span class='theorem-title text-cyan-900'>The Great Orthogonality Theorem</span>
                 <div class='text-3xl text-center py-6 font-black'>
-                    \\[ \sum_{R} \Gamma_i(R)_{mn}^* \Gamma_j(R)_{m'n'} = \frac{h}{\sqrt{l_i l_j}} \delta_{ij} \delta_{mm'} \delta_{nn'} \\]
+                    $$ \sum_{R} \Gamma_i(R)_{mn}^* \Gamma_j(R)_{m'n'} = \frac{h}{\sqrt{l_i l_j}} \delta_{ij} \delta_{mm'} \delta_{nn'} $$
                 </div>
             </div>
             <p class='mt-6 text-lg text-slate-600 font-bold'>This equation states that the individual matrix elements of Irreducible Representations act as mutually orthogonal vectors in an $h$-dimensional space.</p>
@@ -622,7 +622,7 @@
             <p class='text-xl font-medium text-slate-800 mb-6'>The crux of the proof involves artificially creating an <b>Invariant Matrix</b> by averaging over all group operations.</p>
             <div class='math-proof'>
                 <p class="mb-4">For any arbitrary matrix $X$, construct matrix $M$ as follows:</p>
-                \\[ M = \sum_{R} \Gamma_i(R) X \Gamma_j(R^{-1}) \\]
+                $$ M = \sum_{R} \Gamma_i(R) X \Gamma_j(R^{-1}) $$
                 <p class='mt-6 text-indigo-800 font-black text-lg'>Through group rearrangement, one can prove that this matrix $M$ satisfies $\Gamma_i(S) M = M \Gamma_j(S)$ for any operation $S \in G$!</p>
             </div>
         </div>
@@ -636,7 +636,7 @@
             <p class='text-xl font-medium text-slate-800 mb-6'>We now apply <b>Schur's Lemma II</b> to this engineered matrix $M$.</p>
             <div class='axiom-box'>
                 <p class="mb-4 text-lg">If $i \neq j$ (they are non-equivalent IRs), Lemma II dictates that $M$ MUST be $0$.</p>
-                \\[ \sum_{R} \Gamma_i(R) X \Gamma_j(R^{-1}) = 0 \\]
+                $$ \sum_{R} \Gamma_i(R) X \Gamma_j(R^{-1}) = 0 $$
             </div>
             <p class='mt-6 text-slate-700 leading-relaxed'>If we set the arbitrary matrix $X$ such that only one element $X_{pq}=1$ and the rest are 0, this immediately derives the $\delta_{ij}$ (orthogonality between different representations) part of the GOT.</p>
         </div>
@@ -668,11 +668,11 @@
             
             <p class='text-xl font-medium text-slate-800 mb-6'>By taking only the diagonal elements ($m=n, m'=n'$) from the GOT equation and summing them up ($\text{Trace}$):</p>
             <div class='axiom-box text-center py-10 shadow-md'>
-                \\[ \sum_{R} \chi_i(R)^* \chi_j(R) = h \delta_{ij} \\]
+                $$ \sum_{R} \chi_i(R)^* \chi_j(R) = h \delta_{ij} $$
             </div>
             <p class='mt-6 text-lg'>Rewriting this using the number of elements in each class ($g_c$), we yield the famous Rule 3 of Character Table construction:</p>
             <div class='math-box text-center mt-4 border-dashed'>
-                \\[ \sum_{c} g_c \chi_i(c)^* \chi_j(c) = h \delta_{ij} \\]
+                $$ \sum_{c} g_c \chi_i(c)^* \chi_j(c) = h \delta_{ij} $$
             </div>
         </div>
     </section>
@@ -685,7 +685,7 @@
             <p class='text-xl leading-relaxed font-medium text-slate-800'>Mathematically, a <b>Projection Operator</b> maps the entire vector space $V$ onto a specific target subspace $W$. It must satisfy idempotency ($\hat{P}^2 = \hat{P}$).</p>
             <div class='math-proof'>
                 <span class='theorem-title'>Character Projection Operator</span>
-                \\[ \hat{P}^{(i)} = \frac{l_i}{h} \sum_{R} \chi^{(i)}(R)^* \hat{R} \\]
+                $$ \hat{P}^{(i)} = \frac{l_i}{h} \sum_{R} \chi^{(i)}(R)^* \hat{R} $$
             </div>
             <p class='mt-6 text-lg text-slate-700'>Applying this operator to any arbitrary function $f$ systematically strips away all parts except those conforming exactly to the symmetry of the $i$-th Irreducible Representation, yielding the <b>SALC</b>.</p>
         </div>
@@ -698,7 +698,7 @@
             
             <p class='text-xl font-medium text-slate-800 mb-6'>When dealing with multi-electron systems or Polarizability tensors, we must use the <b>Kronecker Product</b>.</p>
             <div class='axiom-box text-center overflow-x-auto py-10'>
-                \\[ A \otimes B = \begin{pmatrix} a_{11}B & a_{12}B & \cdots \\ a_{21}B & a_{22}B & \cdots \\ \vdots & \vdots & \ddots \end{pmatrix} \\]
+                $$ A \otimes B = \begin{pmatrix} a_{11}B & a_{12}B & \cdots \\ a_{21}B & a_{22}B & \cdots \\ \vdots & \vdots & \ddots \end{pmatrix} $$
             </div>
             <p class='mt-6 text-xl font-black text-center text-indigo-900'>Trace Property: $\chi_{A \otimes B} = \chi_A \cdot \chi_B$</p>
         </div>
@@ -712,7 +712,7 @@
             <p class='text-xl font-medium text-slate-800 mb-6'>The tensor product of two IRs, $\Gamma_i \otimes \Gamma_j$, is generally a <b>Reducible Representation</b>.</p>
             <div class='math-proof'>
                 <p class="mb-4 text-slate-700">We use the reduction formula to decompose it into a direct sum of IRs (Clebsch-Gordan series):</p>
-                \\[ \Gamma_i \otimes \Gamma_j = \sum_{k} c_{ij}^k \Gamma_k \\]
+                $$ \Gamma_i \otimes \Gamma_j = \sum_{k} c_{ij}^k \Gamma_k $$
             </div>
             <p class='mt-6 text-lg leading-relaxed text-slate-600'>The process of finding the coefficients $c_{ij}^k$ is mathematically identical to the <b>Addition of Angular Momentum</b> in quantum mechanics.</p>
         </div>
@@ -725,7 +725,7 @@
             
             <p class='text-xl font-medium text-slate-800 mb-6'>Saying a physical system is invariant under an operation $\hat{R}$ means the potential energy configuration is unaffected by that operation.</p>
             <div class='axiom-box text-center py-12 shadow-inner border-rose-400 bg-rose-50'>
-                \\[ \hat{R}^\dagger \hat{H} \hat{R} = \hat{H} \iff [\hat{H}, \hat{R}] = 0 \\]
+                $$ \hat{R}^\dagger \hat{H} \hat{R} = \hat{H} \iff [\hat{H}, \hat{R}] = 0 $$
             </div>
             <p class='mt-8 text-xl font-bold text-slate-700 leading-relaxed'>This <b>Commutativity</b> algebraically guarantees that the Hamiltonian $\hat{H}$ and the symmetry operator $\hat{R}$ can share a set of <b>Simultaneous Eigenfunctions</b>.</p>
         </div>
@@ -738,7 +738,7 @@
             
             <p class='text-xl font-medium text-slate-800 mb-6'>Let $\psi_n$ be a solution to the Schrödinger equation $\hat{H}\psi_n = E\psi_n$. Apply a symmetry operation $\hat{R}$ to it:</p>
             <div class='math-proof text-center text-2xl font-black py-10 text-slate-800'>
-                \\[ \hat{H}(\hat{R}\psi_n) = \hat{R}\hat{H}\psi_n = \hat{R}(E\psi_n) = E(\hat{R}\psi_n) \\]
+                $$ \hat{H}(\hat{R}\psi_n) = \hat{R}\hat{H}\psi_n = \hat{R}(E\psi_n) = E(\hat{R}\psi_n) $$
             </div>
             <p class='mt-6 text-xl'>Thus, $\hat{R}\psi_n$ is also a valid eigenfunction with the <b>exact same energy $E$</b>.</p>
             <p class='mt-6 font-black text-indigo-700 text-lg leading-relaxed'>Conclusion: All wavefunctions belonging to the energy level $E$ form an invariant subspace under group $G$. This subspace is an <b>Irreducible Representation</b>. The dimension ($l_i$) of this IR is the exact <b>Degeneracy</b> of the energy level!</p>
@@ -752,7 +752,7 @@
             
             <p class='text-xl font-medium text-slate-800 mb-6'>Consider an integral over all space: $I = \int f(x,y,z) d\tau$.</p>
             <div class='axiom-box border-slate-800'>
-                <p class="text-xl font-bold text-slate-900 leading-relaxed">If the integrand $f$ does not contain the <b>Totally Symmetric Representation ($A_1$ or $A_g$)</b> of the group, the value of this integral is mathematically, rigorously <b>Zero</b>.</p>
+                <p class="text-xl font-bold text-slate-90 leading-relaxed">If the integrand $f$ does not contain the <b>Totally Symmetric Representation ($A_1$ or $A_g$)</b> of the group, the value of this integral is mathematically, rigorously <b>Zero</b>.</p>
             </div>
             <p class='mt-6 text-lg text-slate-600 leading-relaxed'>Reasoning: Lacking total symmetry implies the function changes sign under certain operations (e.g., inversion). Integrating across symmetric space guarantees perfect cancellation of positive and negative regions.</p>
         </div>
@@ -765,11 +765,11 @@
             
             <p class='text-xl font-medium text-slate-800 mb-6'>The probability of an electronic transition via photon absorption is proportional to the transition dipole moment integral.</p>
             <div class='math-proof text-center py-8 text-2xl'>
-                \\[ I = \langle \psi_{final} | \hat{\mu} | \psi_{initial} \rangle = \int \psi_{final}^* \hat{\mu} \psi_{initial} d\tau \\]
+                $$ I = \langle \psi_{final} | \hat{\mu} | \psi_{initial} \rangle = \int \psi_{final}^* \hat{\mu} \psi_{initial} d\tau $$
             </div>
             <p class='mt-6 text-lg'>For this integral to be non-zero (an <b>Allowed Transition</b>), the direct product of the symmetries of the initial state, the dipole operator, and the final state must span $A_1$.</p>
             <div class='text-center mt-8 p-6 bg-rose-50 border-2 border-rose-300 rounded-2xl font-black text-rose-800 text-3xl'>
-                \\[ \Gamma(\psi_f) \otimes \Gamma(\mu) \otimes \Gamma(\psi_i) \supset A_1 \\]
+                $$ \Gamma(\psi_f) \otimes \Gamma(\mu) \otimes \Gamma(\psi_i) \supset A_1 $$
             </div>
         </div>
     </section>
@@ -779,15 +779,15 @@
             <div class="chapter-header">Chapter 08 | Slide 80</div>
             <h2 class="mb-8">Epilogue: Previewing Wigner-Eckart</h2>
             
-            <div class='p-12 border-4 border-slate-900 bg-white rounded-3xl text-center shadow-2xl'>
+            <div class='p-12 border-4 border-slate-90 bg-white rounded-3xl text-center shadow-2xl'>
                 <h2 class='text-4xl font-black mb-10 text-indigo-900 border-none uppercase tracking-widest'>The Pinnacle of Symmetry</h2>
                 <div class='math-box text-left text-sm mb-10 border-none bg-slate-50'>
                     <span class='theorem-title'>The Wigner-Eckart Theorem</span>
-                    \\[ \langle \alpha, j, m | T_q^{(k)} | \alpha', j', m' \rangle = \langle j' k ; m' q | j' k ; j m \rangle \frac{\langle \alpha, j || T^{(k)} || \alpha', j' \rangle}{\sqrt{2j+1}} \\]
+                    $$ \langle \alpha, j, m | T_q^{(k)} | \alpha', j', m' \rangle = \langle j' k ; m' q | j' k ; j m \rangle \frac{\langle \alpha, j || T^{(k)} || \alpha', j' \rangle}{\sqrt{2j+1}} $$
                 </div>
                 <p class='text-xl italic mb-10 leading-relaxed text-slate-700 font-serif'>"Group theory allows us to factorize the integral of a physical interaction into a <b>pure geometric component (Clebsch-Gordan coefficient)</b> and a <b>dynamical component (Reduced matrix element)</b>. We evaluate the former to bypass the intractable complexities of the latter."</p>
                 <div class="w-full h-1 bg-slate-200 my-8"></div>
-                <p class='font-black text-2xl text-slate-900 tracking-widest'>- END OF RIGOROUS SUPPLEMENT -</p>
+                <p class='font-black text-2xl text-slate-90 tracking-widest'>- END OF RIGOROUS SUPPLEMENT -</p>
             </div>
         </div>
     </section>

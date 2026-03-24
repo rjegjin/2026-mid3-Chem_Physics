@@ -16,12 +16,12 @@
 <body class="text-slate-800">
 
     <!-- 로그인 오버레이 -->
-    <div id="auth-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900">
+    <div id="auth-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-90">
         <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-sm w-full text-center">
             <div class="text-4xl mb-4">🔐</div>
             <h2 class="text-2xl font-black mb-6">Admin Access</h2>
             <input type="password" id="admin-pw" class="w-full px-4 py-3 border border-slate-300 rounded-lg mb-4 text-center focus:ring-2 focus:ring-blue-500 outline-none" placeholder="비밀번호 입력">
-            <button onclick="checkAuth()" class="w-full bg-slate-900 text-white font-bold py-3 rounded-lg hover:bg-slate-800 transition">접속하기</button>
+            <button onclick="checkAuth()" class="w-full bg-slate-90 text-white font-bold py-3 rounded-lg hover:bg-slate-800 transition">접속하기</button>
             <p id="auth-error" class="text-red-500 text-sm mt-4 hidden">비밀번호가 틀렸습니다.</p>
         </div>
     </div>
@@ -29,7 +29,7 @@
     <div id="dashboard-content" class="hidden flex min-h-screen">
         <!-- 사이드바 -->
         <aside class="w-64 bg-white border-r border-slate-200 p-6 hidden md:block">
-            <h1 class="text-xl font-black text-slate-900 mb-10 flex items-center gap-2">
+            <h1 class="text-xl font-black text-slate-90 mb-10 flex items-center gap-2">
                 <span class="text-2xl">🧪</span> 화학 Dashboard
             </h1>
             <nav class="space-y-2">
@@ -52,7 +52,7 @@
             
             <header class="flex justify-between items-center mb-10">
                 <div>
-                    <h2 id="view-title" class="text-3xl font-black text-slate-900">전체 통계 요약</h2>
+                    <h2 id="view-title" class="text-3xl font-black text-slate-90">전체 통계 요약</h2>
                     <p class="text-slate-500 mt-1">실시간으로 수집된 퀴즈 결과입니다.</p>
                 </div>
                 <button onclick="refreshData()" class="bg-blue-50 text-blue-600 font-bold px-4 py-2 rounded-lg border border-blue-100 hover:bg-blue-100 transition flex items-center gap-2">
@@ -65,7 +65,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                         <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Total Submissions</p>
-                        <p class="text-4xl font-black text-slate-900" id="stat-total">0명</p>
+                        <p class="text-4xl font-black text-slate-90" id="stat-total">0명</p>
                     </div>
                     <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                         <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Average Score</p>
@@ -202,7 +202,7 @@
     <!-- 피드백 입력 모달 -->
     <div id="feedback-modal" class="fixed inset-0 z-50 flex items-center justify-center modal hidden">
         <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
-            <div class="p-6 bg-slate-900 text-white flex justify-between items-center">
+            <div class="p-6 bg-slate-90 text-white flex justify-between items-center">
                 <div>
                     <h3 class="text-xl font-bold" id="modal-title">홍길동 (31205) 피드백</h3>
                     <p class="text-slate-400 text-sm">점수: <span id="modal-score">15/20</span></p>
@@ -422,7 +422,7 @@
                         ${r.feedback ? '<span class="status-badge bg-emerald-100 text-emerald-600">완료</span>' : '<span class="status-badge bg-slate-100 text-slate-400">대기</span>'}
                     </td>
                     <td class="p-4 text-center">
-                        <button onclick="openFeedbackModal('${r.studentId}')" class="bg-slate-900 text-white text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-blue-600 transition">피드백</button>
+                        <button onclick="openFeedbackModal('${r.studentId}')" class="bg-slate-90 text-white text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-blue-600 transition">피드백</button>
                     </td>
                 </tr>
             `).join('');
@@ -569,7 +569,7 @@
                         <div class="flex justify-between items-center mb-3">
                             <span class="text-xs font-bold text-slate-500 uppercase">Q${idx+1}</span>
                             <div class="flex items-center gap-2">
-                                <span class="text-xs font-medium">학생 답변: <strong class="text-slate-900">${ans || '미응답'}</strong></span>
+                                <span class="text-xs font-medium">학생 답변: <strong class="text-slate-90">${ans || '미응답'}</strong></span>
                                 ${statusBadge}
                             </div>
                         </div>

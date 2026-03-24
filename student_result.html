@@ -22,7 +22,7 @@
     <div class="max-w-3xl mx-auto">
         <!-- 헤더 -->
         <header class="text-center mb-10">
-            <h1 class="text-3xl md:text-4xl font-black text-slate-900 mb-2">나의 쪽지시험 결과 📊</h1>
+            <h1 class="text-3xl md:text-4xl font-black text-slate-90 mb-2">나의 쪽지시험 결과 📊</h1>
             <p class="text-slate-500">학번과 토큰을 입력하여 선생님의 피드백을 확인하세요.</p>
         </header>
 
@@ -48,7 +48,7 @@
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="text-center md:text-left">
                     <p class="text-slate-500 font-bold mb-1">반가워요!</p>
-                    <h2 class="text-2xl font-black text-slate-900"><span id="res-name" class="text-blue-600">홍길동</span> 학생 (<span id="res-id">30101</span>)</h2>
+                    <h2 class="text-2xl font-black text-slate-90"><span id="res-name" class="text-blue-600">홍길동</span> 학생 (<span id="res-id">30101</span>)</h2>
                 </div>
             </div>
 
@@ -81,7 +81,7 @@
 
                 <!-- 문항별 결과 -->
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                    <div class="bg-slate-900 text-white p-4">
+                    <div class="bg-slate-90 text-white p-4">
                         <h3 class="font-bold text-lg">문항별 상세 분석</h3>
                     </div>
                     <div class="p-6">
@@ -303,13 +303,13 @@
                 qCard.innerHTML = `
                     <div>
                         <div class="flex items-center gap-2 mb-2">
-                            <span class="bg-slate-900 text-white px-2.5 py-1 rounded-md text-xs font-black">Q${qNum}</span>
+                            <span class="bg-slate-90 text-white px-2.5 py-1 rounded-md text-xs font-black">Q${qNum}</span>
                             <span class="text-sm font-bold text-slate-400">질문 내역</span>
                         </div>
                         <p class="text-slate-800 font-bold leading-relaxed mb-3">${qText}</p>
                         <div class="flex items-center gap-3 text-sm">
                             <span class="text-slate-500 font-medium">나의 응답:</span>
-                            <span class="bg-slate-100 px-3 py-1 rounded-full font-black text-slate-900">${myAns}</span>
+                            <span class="bg-slate-100 px-3 py-1 rounded-full font-black text-slate-90">${myAns}</span>
                         </div>
                         ${commentHtml}
                     </div>
