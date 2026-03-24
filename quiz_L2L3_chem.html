@@ -429,6 +429,9 @@
         </div>
         <div style="margin-top:0.5rem; border-top:1px solid #f1f5f9; pt-2 text-center">
             <button onclick="window.scrollTo({top:0, behavior:'smooth'})" style="font-size:0.6rem; font-weight:bold; color:var(--cyan); background:none; border:none; cursor:pointer;">TOP ▲</button>
+        <div style="margin-top:1rem; border-top:1px solid #f1f5f9; pt-3">
+            <button onclick="submitQuiz()" id="omr-submit-btn" style="width:100%; padding:0.75rem; background:#2563eb; color:white; border:none; border-radius:0.5rem; font-weight:bold; cursor:pointer; font-size:0.8rem;">채점/제출 🚀</button>
+        </div>
         </div>
     </div>
 
@@ -564,7 +567,7 @@
     <!-- Q6 -->
     <div class="question-card" id="qcard-6">
         <div style="display:flex; align-items:flex-start; gap:0.5rem; margin-bottom:0.75rem;">
-            <span class="q-num">6</span>
+            <span class="q-num">6</span> <span id="q6-random-badge" style="font-size:0.6rem; background:#f1f5f9; padding:2px 6px; border-radius:4px; color:#94a3b8; font-weight:normal; vertical-align:middle; margin-left:4px;">랜덤 문항</span>
             <p class="q-text">화학 반응식 2H<sub>2</sub> + O<sub>2</sub> → 2H<sub>2</sub>O 에서 수소 분자 <strong id="q6-val">6개</strong>가 반응할 때 생성되는 물 분자는 몇 개인가?</p>
         </div>
         <div class="options-grid">
@@ -699,7 +702,7 @@
     <!-- Q13 -->
     <div class="question-card" id="qcard-13">
         <div style="display:flex; align-items:flex-start; gap:0.5rem; margin-bottom:0.75rem;">
-            <span class="q-num">13</span>
+            <span class="q-num">13</span> <span id="q13-random-badge" style="font-size:0.6rem; background:#f1f5f9; padding:2px 6px; border-radius:4px; color:#94a3b8; font-weight:normal; vertical-align:middle; margin-left:4px;">랜덤 문항</span>
             <p class="q-text">수소 <strong id="q13-v1">2g</strong>과 산소 <strong id="q13-v2">16g</strong>이 완전히 반응하여 물이 생성될 때, 생성된 물의 질량은?</p>
         </div>
         <div class="options-grid">
@@ -718,7 +721,7 @@
     <!-- Q14 -->
     <div class="question-card" id="qcard-14">
         <div style="display:flex; align-items:flex-start; gap:0.5rem; margin-bottom:0.75rem;">
-            <span class="q-num">14</span>
+            <span class="q-num">14</span> <span id="q14-random-badge" style="font-size:0.6rem; background:#f1f5f9; padding:2px 6px; border-radius:4px; color:#94a3b8; font-weight:normal; vertical-align:middle; margin-left:4px;">랜덤 문항</span>
             <p class="q-text">탄산칼슘 <strong id="q14-v1">10g</strong>과 염산 <strong id="q14-v2">6.4g</strong>을 반응시켰더니 염화칼슘 <span id="q14-v3">11.1g</span>, 물 <span id="q14-v4">0.9g</span>, 이산화탄소가 생성되었다. 이산화탄소의 질량은? (단, 닫힌 용기)</p>
         </div>
         <div class="options-grid">
@@ -792,7 +795,7 @@
     <!-- Q18 -->
     <div class="question-card" id="qcard-18">
         <div style="display:flex; align-items:flex-start; gap:0.5rem; margin-bottom:0.75rem;">
-            <span class="q-num">18</span>
+            <span class="q-num">18</span> <span id="q18-random-badge" style="font-size:0.6rem; background:#f1f5f9; padding:2px 6px; border-radius:4px; color:#94a3b8; font-weight:normal; vertical-align:middle; margin-left:4px;">랜덤 문항</span>
             <p class="q-text">철 <strong id="q18-v1">28g</strong>을 완전히 산화시켰더니 산화철 <strong id="q18-v2">40g</strong>이 생성되었다. 반응한 산소의 질량은?</p>
         </div>
         <div class="options-grid">
@@ -812,7 +815,7 @@
     <!-- Q19 -->
     <div class="question-card" id="qcard-19">
         <div style="display:flex; align-items:flex-start; gap:0.5rem; margin-bottom:0.75rem;">
-            <span class="q-num">19</span>
+            <span class="q-num">19</span> <span id="q19-random-badge" style="font-size:0.6rem; background:#f1f5f9; padding:2px 6px; border-radius:4px; color:#94a3b8; font-weight:normal; vertical-align:middle; margin-left:4px;">랜덤 문항</span>
             <p class="q-text">열린 용기에서 마그네슘 <strong id="q19-val">6g</strong>을 완전히 연소시켰다.<br>
             생성된 산화마그네슘의 질량은? <span style="font-size:0.85rem; color:#64748b;">(단, Mg : O 질량비 = 3 : 2)</span></p>
         </div>
@@ -886,7 +889,7 @@
         </div>
     </div>
 
-    <button id="submit-btn" class="no-print" onclick="submitQuiz()">
+    <button id="submit-btn" class="no-print" onclick="submitQuiz()" style="background: #2563eb; padding: 1.5rem; margin-bottom: 4rem;">
         채점하기 →
     </button>
 
@@ -905,13 +908,13 @@
     };
     const TOTAL = 20;
 
+    
     /* --- 문제 변수화 (Random Generator) --- */
     function generateDynamicQuestions() {
         // Q6: 2H2 + O2 -> 2H2O (Ratio 2:1:2)
         const q6_base = [2, 4, 6, 8, 10, 12, 20][Math.floor(Math.random() * 7)];
         document.getElementById('q6-val').textContent = q6_base + '개';
-        const q6_ans = q6_base;
-        ANSWERS[6] = 3; // We'll keep the position constant for simplicity, or shuffle later
+        ANSWERS[6] = 3;
         document.getElementById('q6-opt1').textContent = (q6_base / 2) + '개';
         document.getElementById('q6-opt2').textContent = (q6_base * 0.75).toFixed(0) + '개';
         document.getElementById('q6-opt3').textContent = q6_base + '개';
@@ -930,8 +933,7 @@
         document.getElementById('q13-opt3').textContent = v13_ans + 'g';
         document.getElementById('q13-opt4').textContent = (v13_2 * 2) + 'g';
 
-        // Q14: CaCO3 + 2HCl -> CaCl2 + H2O + CO2 (Mass 100:73 -> 111:18:44)
-        // Simple scaling of the textbook example (10g, 6.4g -> 11.1g, 0.9g, 4.4g)
+        // Q14: CaCO3 + 2HCl -> CaCl2 + H2O + CO2
         const q14_scale = [1, 2, 0.5, 1.5][Math.floor(Math.random() * 4)];
         const v14_1 = 10 * q14_scale;
         const v14_2 = 6.4 * q14_scale;
@@ -948,9 +950,9 @@
         document.getElementById('q14-opt3').textContent = (parseFloat(v14_ans) + 1).toFixed(1) + 'g';
         document.getElementById('q14-opt4').textContent = (v14_ans * 1.5).toFixed(1) + 'g';
 
-        // Q18: Fe + O2 (Subtraction)
+        // Q18: Fe + O2
         const v18_2 = [40, 80, 20, 60][Math.floor(Math.random() * 4)];
-        const v18_1 = v18_2 * 0.7; // Ratio Fe:O is approx 7:3
+        const v18_1 = v18_2 * 0.7;
         const v18_ans = v18_2 - v18_1;
         document.getElementById('q18-v1').textContent = v18_1.toFixed(1) + 'g';
         document.getElementById('q18-v2').textContent = v18_2.toFixed(1) + 'g';
@@ -960,7 +962,7 @@
         document.getElementById('q18-opt3').textContent = v18_2.toFixed(1) + 'g';
         document.getElementById('q18-opt4').textContent = (v18_1 + v18_2).toFixed(1) + 'g';
 
-        // Q19: Mg + O -> MgO (3:2:5)
+        // Q19: Mg + O -> MgO
         const q19_base = [3, 6, 9, 12, 15, 30][Math.floor(Math.random() * 6)];
         const v19_ans = (q19_base * 5 / 3);
         document.getElementById('q19-val').textContent = q19_base + 'g';
@@ -969,10 +971,18 @@
         document.getElementById('q19-opt2').textContent = q19_base + 'g';
         document.getElementById('q19-opt3').textContent = (q19_base * 4 / 3) + 'g';
         document.getElementById('q19-opt4').textContent = v19_ans + 'g';
+
+        // Visual indicator update
+        const randomSeed = Math.random().toString(36).substring(7).toUpperCase();
+        [6, 13, 14, 18, 19].forEach(id => {
+            const badge = document.getElementById(`q${id}-random-badge`);
+            if(badge) badge.textContent = `Random Code: ${randomSeed}-${id}`;
+        });
+        console.log("🧪 Dynamic questions generated with seed:", randomSeed);
     }
     
-    // Call after definition
     generateDynamicQuestions();
+
 
 
     // ── TIMER ──
@@ -1075,14 +1085,55 @@
     }
 
     // ── SUBMIT ──
-    function submitQuiz() {
+    
+    // ── CONSOLIDATED SUBMIT & GRADE ──
+    async function submitQuiz() {
         if (submitted) return;
+
+        // 1. Validation: 학번/이름 체크
+        const classVal = document.getElementById('info-class').value;
+        const numVal = document.getElementById('info-num').value;
+        const nameVal = document.getElementById('info-name').value;
+        
+        if(!classVal || !numVal || !nameVal) {
+            alert('⚠️ 상단에서 학번(반/번호)과 이름을 먼저 입력해주세요!');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            if(!classVal) document.getElementById('info-class').focus();
+            else if(!numVal) document.getElementById('info-num').focus();
+            else document.getElementById('info-name').focus();
+            return;
+        }
+
+        const classNums = classVal.match(/\d+/g);
+        let studentId = "";
+        if (classNums && classNums.length >= 2) {
+            studentId = classNums[0] + classNums[1].padStart(2, '0') + numVal.padStart(2, '0');
+        } else if (classNums && classNums.length === 1) {
+            studentId = "3" + classNums[0].padStart(2, '0') + numVal.padStart(2, '0');
+        } else {
+            studentId = classVal + numVal.padStart(2, '0');
+        }
+
+        if(!confirm('채점을 진행하고 결과를 서버에 제출하시겠습니까?')) return;
+
         submitted = true;
         clearInterval(timerInterval);
+
+        const btn = document.getElementById('submit-btn');
+        const omrBtn = document.getElementById('omr-submit-btn');
+        btn.disabled = true;
+        btn.innerHTML = '데이터 처리 및 제출 중... ⏳';
+        if(omrBtn) {
+            omrBtn.disabled = true;
+            omrBtn.style.background = '#94a3b8';
+        }
 
         let totalScore = 0;
         let scoreA = 0;
         let scoreB = 0;
+        const answers = [];
+        const correctArr = [];
+        const questionTexts = [];
 
         for (let q = 1; q <= TOTAL; q++) {
             const correct = ANSWERS[q];
@@ -1090,11 +1141,14 @@
             const card = document.getElementById(`qcard-${q}`);
             const isCorrect = userAns === correct;
 
-            // color card
-            card.classList.remove('answered');
-            card.classList.add(isCorrect ? 'correct' : 'wrong');
+            if(card) {
+                card.classList.remove('answered');
+                card.classList.add(isCorrect ? 'correct' : 'wrong');
+                questionTexts.push(card.querySelector('.q-text').innerText);
+            } else {
+                questionTexts.push(`Question ${q}`);
+            }
 
-            // color options
             document.querySelectorAll(`.option-label[data-q="${q}"]`).forEach(label => {
                 const v = parseInt(label.dataset.v);
                 label.style.cursor = 'not-allowed';
@@ -1106,126 +1160,28 @@
                 }
             });
 
-            // show explanation
-            document.getElementById(`exp-${q}`).classList.add('visible');
+            const exp = document.getElementById(`exp-${q}`);
+            if(exp) exp.classList.add('visible');
 
             if (isCorrect) {
                 totalScore++;
                 if (q <= 10) scoreA++;
                 else scoreB++;
             }
-        }
-
-        // disable submit
-        const btn = document.getElementById('submit-btn');
-        btn.style.display = 'none';
-        
-        // Show server submit area
-        document.getElementById('server-submit-area').style.display = 'block';
-
-        // show score panel
-        showScore(totalScore, scoreA, scoreB); updateOMR();
-
-        // show retry
-        document.getElementById('retry-btn').style.display = 'block';
-
-        // scroll to top
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function showScore(total, a, b) {
-        const panel = document.getElementById('score-panel');
-        panel.classList.add('visible');
-
-        // ring animation
-        const circumference = 427.26;
-        const offset = circumference * (1 - total / TOTAL);
-        setTimeout(() => {
-            document.getElementById('ring-fill-el').style.strokeDashoffset = offset;
-        }, 100);
-
-        document.getElementById('score-number').textContent = `${total}`;
-
-        // grade
-        const pct = (total / TOTAL) * 100;
-        let grade, color, msg;
-        if (pct >= 95)      { grade = '🏆 완벽!';      color = '#eab308'; msg = '모든 개념을 완벽히 이해했습니다. 최고예요!'; }
-        else if (pct >= 85) { grade = '⭐ 우수';       color = '#22c55e'; msg = '아주 잘했어요! 틀린 문제 해설을 확인하세요.'; }
-        else if (pct >= 70) { grade = '👍 보통';       color = '#3b82f6'; msg = '기본기는 갖췄어요. 오답 분석이 필요해요.'; }
-        else if (pct >= 50) { grade = '📚 노력 필요'; color = '#f97316'; msg = '반 이상 맞혔어요. 해설을 꼼꼼히 읽어보세요.'; }
-        else                { grade = '💡 기초 다지기'; color = '#ef4444'; msg = '다시 교과서를 복습하고 재도전해 보세요!'; }
-
-        const badge = document.getElementById('grade-badge');
-        badge.textContent = grade;
-        badge.style.background = color + '22';
-        badge.style.color = color;
-        badge.style.border = `2px solid ${color}`;
-
-        document.getElementById('score-msg').textContent = msg;
-        document.getElementById('score-a').textContent = `${a} / 10`;
-        document.getElementById('score-b').textContent = `${b} / 10`;
-    }
-
-
-    /* --- 서버 제출 통신 로직 --- */
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx25Ev-OkyclLK6LVmSizkYGGLD09N1DOTtszjTBAAmkOyJRUSeh3OSg1MqsQF3QiNA/exec';
-
-    async function sendQuizDataToServer() {
-        
-        const classVal = document.getElementById('info-class').value;
-        const numVal = document.getElementById('info-num').value;
-        const classNums = classVal.match(/\d+/g);
-        let studentId = "";
-        
-        if (classNums && classNums.length >= 2) {
-            // "3-12" -> "3" + "12" + "05" = "31205"
-            studentId = classNums[0] + classNums[1].padStart(2, '0') + numVal.padStart(2, '0');
-        } else if (classNums && classNums.length === 1) {
-            // "12" -> "3" (default) + "12" + "05" = "31205"
-            studentId = "3" + classNums[0].padStart(2, '0') + numVal.padStart(2, '0');
-        } else {
-            studentId = classVal + numVal.padStart(2, '0');
-        }
-
-        const studentName = document.getElementById('info-name').value;
-        
-        if(!document.getElementById('info-class').value || !document.getElementById('info-num').value || !studentName) {
-            alert('맨 위에서 학번(반/번호)과 이름을 정확히 입력해주세요!');
-            window.scrollTo({top: 0, behavior: 'smooth'});
-            return;
-        }
-
-        
-        const answers = [];
-        const correctArr = [];
-        const questionTexts = [];
-        
-        for(let i=1; i<=20; i++) {
-            const userAns = userAnswers[i];
-            const correctAns = ANSWERS[i];
-            answers.push(userAns ? userAns.toString() : "");
-            correctArr.push(userAns === correctAns);
             
-            // Collect the question text (first paragraph in the card)
-            const qCard = document.getElementById(`qcard-${i}`);
-            const qText = qCard ? qCard.querySelector('.q-text').innerText : `Question ${i}`;
-            questionTexts.push(qText);
+            answers.push(userAns ? userAns.toString() : "");
+            correctArr.push(isCorrect);
         }
-
-        const payload = {
-            studentId: studentId,
-            name: studentName,
-            answers: answers,
-            correct: correctArr,
-            questions: questionTexts // Added this
-        };
-
-
-
-        document.getElementById('submitResultBtn').style.display = 'none';
-        document.getElementById('submitLoading').style.display = 'block';
 
         try {
+            const payload = {
+                studentId: studentId,
+                name: nameVal,
+                answers: answers,
+                correct: correctArr,
+                questions: questionTexts
+            };
+
             const response = await fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
                 body: JSON.stringify(payload)
@@ -1234,29 +1190,38 @@
             const result = await response.json();
             
             if(result.success) {
-                document.getElementById('submitFormArea').style.display = 'none';
-                document.getElementById('submitSuccessArea').style.display = 'block';
-                document.getElementById('studentTokenDisplay').textContent = result.token;
-                
-                navigator.clipboard.writeText(result.token).catch(e => console.log(e));
-                
+                document.getElementById('server-submit-area').innerHTML = `
+                    <div style="text-align:center; padding:1.5rem; background:#ecfdf5; border-radius:1rem; border:2px solid #10b981; margin-bottom:2rem;">
+                        <h3 style="color:#065f46; margin-bottom:0.5rem; font-size:1.4rem;">✅ 서버 제출 성공!</h3>
+                        <p style="font-size:1rem; color:#065f46;">나의 고유 토큰: <strong style="font-family:monospace; background:white; padding:2px 6px; border-radius:4px;">${result.token}</strong></p>
+                        <p style="font-size:0.8rem; color:#059669; mt-1">(토큰이 클립보드에 복사되었습니다.)</p>
+                        <a href="student_result.html" target="_blank" style="display:inline-block; margin-top:1rem; background:#10b981; color:white; padding:0.75rem 2rem; border-radius:0.75rem; text-decoration:none; font-weight:bold; box-shadow:0 4px 6px rgba(16,185,129,0.3);">결과 상세 대시보드 보기 ➡️</a>
+                    </div>
+                `;
+                navigator.clipboard.writeText(result.token).catch(e => {});
                 localStorage.setItem('chem_quiz_student_id', studentId);
                 localStorage.setItem('chem_quiz_token', result.token);
             } else {
-                alert('제출 실패: ' + result.error);
-                resetServerSubmitUI();
+                throw new Error(result.error);
             }
         } catch(e) {
-            // Google Apps Script CORS issue fallback for opaque responses if it happens
-            console.error('Fetch error:', e);
-            alert('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-            resetServerSubmitUI();
+            console.error('Submission failed:', e);
+            alert('채점은 완료되었으나 서버 제출에 실패했습니다. (네트워크 오류)');
+            document.getElementById('server-submit-area').innerHTML = `
+                <div style="text-align:center; padding:1.5rem; background:#fef2f2; border-radius:1rem; border:2px solid #ef4444; margin-bottom:2rem;">
+                    <h3 style="color:#991b1b; margin-bottom:0.5rem;">❌ 서버 제출 실패</h3>
+                    <p style="font-size:0.9rem; color:#991b1b;">데이터가 저장되지 않았습니다. 인터넷 연결을 확인하세요.</p>
+                    <button onclick="location.reload()" style="margin-top:1rem; background:#ef4444; color:white; border:none; padding:0.6rem 1.5rem; border-radius:0.5rem; cursor:pointer; font-weight:bold;">새로고침 후 다시 풀기</button>
+                </div>
+            `;
         }
-    }
-    
-    function resetServerSubmitUI() {
-        document.getElementById('submitResultBtn').style.display = 'block';
-        document.getElementById('submitLoading').style.display = 'none';
+
+        btn.textContent = `제출 완료 — ${totalScore} / ${TOTAL}점`;
+        document.getElementById('server-submit-area').style.display = 'block';
+        showScore(totalScore, scoreA, scoreB);
+        updateOMR();
+        document.getElementById('retry-btn').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function retryQuiz() {
