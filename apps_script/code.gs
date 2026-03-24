@@ -144,7 +144,8 @@ function handleVerify(params) {
   // 가장 최신 제출 기록을 찾기 위해 뒤에서부터 검색
   for (let i = data.length - 1; i > 0; i--) {
     const row = data[i];
-    if (String(row[1]) === String(studentId) && String(row[headers.length - 1]) === String(token)) {
+    // index 24 = token (headers.length - 2)
+    if (String(row[1]) === String(studentId) && String(row[headers.length - 2]) === String(token)) {
       foundRecord = row;
       break;
     }
