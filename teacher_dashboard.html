@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교사용 대시보드 - 2026 화학 쪽지시험</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #f8fafc; }
+        .sidebar-item.active { background-color: #e2e8f0; color: #1e293b; font-weight: bold; }
+        .status-badge { padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: bold; }
+        .modal { backdrop-filter: blur(4px); background-color: rgba(0,0,0,0.4); }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- 로그인 오버레이 -->
+    <div id="auth-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900">
+        <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-sm w-full text-center">
+            <div class="text-4xl mb-4">🔐</div>
+            <h2 class="text-2xl font-black mb-6">Admin Access</h2>
+            <input type="password" id="admin-pw" class="w-full px-4 py-3 border border-slate-300 rounded-lg mb-4 text-center focus:ring-2 focus:ring-blue-500 outline-none" placeholder="비밀번호 입력">
+            <button onclick="checkAuth()" class="w-full bg-slate-900 text-white font-bold py-3 rounded-lg hover:bg-slate-800 transition">접속하기</button>
+            <p id="auth-error" class="text-red-500 text-sm mt-4 hidden">비밀번호가 틀렸습니다.</p>
+        </div>
+    </div>
+
+    <div id="dashboard-content" class="hidden flex min-h-screen">
+        <!-- 사이드바 -->
+        <aside class="w-64 bg-white border-r border-slate-200 p-6 hidden md:block">
+            <h1 class="text-xl font-black text-slate-900 mb-10 flex items-center gap-2">
+                <span class="text-2xl">🧪</span> 화학 Dashboard
+            </h1>
+            <nav class="space-y-2">
+                <a href="#" onclick="showView('stat')" class="sidebar-item active block p-3 rounded-xl text-slate-500 hover:bg-slate-50 transition">📊 전체 통계</a>
+                <a href="#" onclick="showView('list')" class="sidebar-item block p-3 rounded-xl text-slate-500 hover:bg-slate-50 transition">👥 학생 명단</a>
+                <a href="#" onclick="showView('analysis')" class="sidebar-item block p-3 rounded-xl text-slate-500 hover:bg-slate-50 transition">📈 문항 분석</a>
+            </nav>
+            <div class="mt-auto pt-10">
+                <button onclick="logout()" class="text-slate-400 text-sm hover:text-red-500 flex items-center gap-1">🚪 로그아웃</button>
+            </div>
+        </aside>
+
+        <!-- 메인 콘텐츠 -->
+        <main class="flex-1 p-4 md:p-10 overflow-y-auto">
+            
+            <header class="flex justify-between items-center mb-10">
+                <div>
+                    <h2 id="view-title" class="text-3xl font-black text-slate-900">전체 통계 요약</h2>
+                    <p class="text-slate-500 mt-1">실시간으로 수집된 퀴즈 결과입니다.</p>
+                </div>
+                <button onclick="refreshData()" class="bg-blue-50 text-blue-600 font-bold px-4 py-2 rounded-lg border border-blue-100 hover:bg-blue-100 transition flex items-center gap-2">
+                    <span id="refresh-icon">🔄</span> 새로고침
+                </button>
+            </header>
+
+            <!-- 1. 통계 뷰 -->
+            <div id="view-stat" class="view-pane space-y-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Total Submissions</p>
+                        <p class="text-4xl font-black text-slate-900" id="stat-total">0명</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Average Score</p>
+                        <p class="text-4xl font-black text-blue-600" id="stat-avg">0.0</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Top Class</p>
+                        <p class="text-4xl font-black text-emerald-600" id="stat-top">-</p>
+                    </div>
+                </div>
+                <!-- 최근 활동 -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-lg mb-6">최근 제출 현황 (최근 5명)</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="text-left text-slate-400 text-sm border-b border-slate-100">
+                                <tr>
+                                    <th class="pb-4">시간</th>
+                                    <th class="pb-4">학번</th>
+                                    <th class="pb-4">이름</th>
+                                    <th class="pb-4">점수</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-table-body" class="text-sm">
+                                <!-- JS로 채워짐 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 학생 명단 뷰 -->
+            <div id="view-list" class="view-pane hidden space-y-6">
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
+                        <input type="text" id="search-input" oninput="filterList()" placeholder="학번 또는 이름 검색..." class="px-4 py-2 border border-slate-300 rounded-lg text-sm w-64 outline-none focus:ring-2 focus:ring-blue-500">
+                        <span class="text-sm text-slate-500" id="list-count">총 0명</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-slate-50 text-slate-400 text-xs font-bold uppercase">
+                                <tr>
+                                    <th class="p-4">학번</th>
+                                    <th class="p-4">이름</th>
+                                    <th class="p-4">점수</th>
+                                    <th class="p-4">피드백 여부</th>
+                                    <th class="p-4 text-center">관리</th>
+                                </tr>
+                            </thead>
+                            <tbody id="full-table-body" class="divide-y divide-slate-100">
+                                <!-- JS로 채워짐 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 문항 분석 뷰 -->
+            <div id="view-analysis" class="view-pane hidden space-y-8">
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-lg mb-6 text-center">문항별 정답률 분석</h3>
+                    <div class="h-[400px]">
+                        <canvas id="analysis-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- 피드백 입력 모달 -->
+    <div id="feedback-modal" class="fixed inset-0 z-50 flex items-center justify-center modal hidden">
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+            <div class="p-6 bg-slate-900 text-white flex justify-between items-center">
+                <div>
+                    <h3 class="text-xl font-bold" id="modal-title">홍길동 (31205) 피드백</h3>
+                    <p class="text-slate-400 text-sm">점수: <span id="modal-score">15/20</span></p>
+                </div>
+                <button onclick="closeModal()" class="text-2xl">&times;</button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto flex-1 space-y-6">
+                <!-- 전체 피드백 -->
+                <div>
+                    <label class="block font-bold text-slate-700 mb-2">👨‍🏫 전체 피드백 메시지</label>
+                    <textarea id="fb-main-message" class="w-full p-4 border border-slate-300 rounded-xl h-24 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="학생에게 전할 격려의 말을 적어주세요."></textarea>
+                </div>
+
+                <!-- 문항별 코멘트 -->
+                <div>
+                    <label class="block font-bold text-slate-700 mb-4">📝 문항별 개별 코멘트</label>
+                    <div class="space-y-3" id="modal-questions-area">
+                        <!-- JS로 문항 리스트 생성 -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6 bg-slate-50 border-t border-slate-200 flex justify-end gap-3">
+                <button onclick="closeModal()" class="px-6 py-2 rounded-lg font-bold text-slate-500 hover:bg-slate-200 transition">취소</button>
+                <button onclick="saveFeedbackToServer()" id="save-btn" class="px-8 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition flex items-center gap-2">
+                    <span id="save-btn-text">저장하기</span>
+                    <div id="save-spinner" class="spinner" style="display:none; width:16px; height:16px; border-width:2px; border-left-color:white;"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx25Ev-OkyclLK6LVmSizkYGGLD09N1DOTtszjTBAAmkOyJRUSeh3OSg1MqsQF3QiNA/exec';
+        const ADMIN_PW = 'chemistry'; // ⚠️ 실제 사용 시 변경하세요
+
+        let allData = [];
+        let currentStudent = null;
+        let analysisChart = null;
+
+        // 1. 인증 로직
+        function checkAuth() {
+            const pw = document.getElementById('admin-pw').value;
+            if(pw === ADMIN_PW) {
+                document.getElementById('auth-overlay').classList.add('hidden');
+                document.getElementById('dashboard-content').classList.remove('hidden');
+                refreshData();
+            } else {
+                const err = document.getElementById('auth-error');
+                err.classList.remove('hidden');
+                setTimeout(() => err.classList.add('hidden'), 2000);
+            }
+        }
+
+        // 2. 데이터 새로고침
+        async function refreshData() {
+            const icon = document.getElementById('refresh-icon');
+            icon.classList.add('animate-spin');
+            
+            try {
+                const response = await fetch(`${APPS_SCRIPT_URL}?action=get_all`);
+                const result = await response.json();
+                
+                if(result.success) {
+                    allData = result.data;
+                    updateUI();
+                }
+            } catch(e) {
+                alert('데이터를 가져오는데 실패했습니다.');
+            } finally {
+                icon.classList.remove('animate-spin');
+            }
+        }
+
+        // 3. UI 업데이트
+        function updateUI() {
+            // 통계 계산
+            const total = allData.length;
+            let sum = 0;
+            const classCounts = {};
+            
+            allData.forEach(row => {
+                const score = parseInt(row.totalScore.split('/')[0]) || 0;
+                sum += score;
+                const classCode = row.studentId.substring(0, 3); // 31205 -> 312
+                classCounts[classCode] = (classCounts[classCode] || 0) + 1;
+            });
+
+            document.getElementById('stat-total').textContent = `${total}명`;
+            document.getElementById('stat-avg').textContent = total > 0 ? (sum / total).toFixed(1) : '0.0';
+            
+            let topClass = '-';
+            let maxCount = 0;
+            for(let c in classCounts) {
+                if(classCounts[c] > maxCount) {
+                    maxCount = classCounts[c];
+                    topClass = `${c.substring(1,3)}반 (${maxCount}명)`;
+                }
+            }
+            document.getElementById('stat-top').textContent = topClass;
+
+            // 테이블 업데이트
+            renderTables();
+            // 차트 업데이트 (분석 뷰가 열려있을 때만)
+            if(!document.getElementById('view-analysis').classList.contains('hidden')) {
+                renderAnalysis();
+            }
+        }
+
+        function renderTables() {
+            // 최근 5명
+            const recent = [...allData].reverse().slice(0, 5);
+            const recentBody = document.getElementById('recent-table-body');
+            recentBody.innerHTML = recent.map(r => `
+                <tr class="border-b border-slate-50">
+                    <td class="py-3 text-slate-400">${new Date(r.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</td>
+                    <td class="py-3 font-bold">${r.studentId}</td>
+                    <td class="py-3">${r.name}</td>
+                    <td class="py-3 font-black text-blue-600">${r.totalScore}</td>
+                </tr>
+            `).join('');
+
+            // 전체 명단
+            filterList();
+        }
+
+        function filterList() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filtered = allData.filter(r => r.studentId.includes(query) || r.name.includes(query));
+            
+            document.getElementById('list-count').textContent = `검색 결과: ${filtered.length}명 / 총 ${allData.length}명`;
+            
+            const fullBody = document.getElementById('full-table-body');
+            fullBody.innerHTML = filtered.reverse().map(r => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="p-4 font-bold text-slate-600">${r.studentId}</td>
+                    <td class="p-4 font-black">${r.name}</td>
+                    <td class="p-4"><span class="text-blue-600 font-bold">${r.totalScore}</span></td>
+                    <td class="p-4">
+                        ${r.feedback ? '<span class="status-badge bg-emerald-100 text-emerald-600">완료</span>' : '<span class="status-badge bg-slate-100 text-slate-400">대기</span>'}
+                    </td>
+                    <td class="p-4 text-center">
+                        <button onclick="openFeedbackModal('${r.studentId}')" class="bg-slate-900 text-white text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-blue-600 transition">피드백</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // 4. 뷰 전환
+        function showView(viewName) {
+            document.querySelectorAll('.view-pane').forEach(p => p.classList.add('hidden'));
+            document.getElementById(`view-${viewName}`).classList.remove('hidden');
+            
+            document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            const titles = { 'stat': '전체 통계 요약', 'list': '학생별 제출 명단', 'analysis': '문항별 정오 분석' };
+            document.getElementById('view-title').textContent = titles[viewName];
+
+            if(viewName === 'analysis') renderAnalysis();
+        }
+
+        // 5. 차트 렌더링
+        function renderAnalysis() {
+            const ctx = document.getElementById('analysis-chart').getContext('2d');
+            
+            // 문항별 정답률 계산
+            const questionStats = Array(20).fill(0);
+            allData.forEach(r => {
+                // 이 예제에서는 answers가 채워져 있으므로, 실제 정답지와 비교 로직이 필요함.
+                // 여기서는 간단히 '답변이 있음'을 전제로 랜덤 시뮬레이션 데이터를 활용하거나 
+                // 실제 correct 배열을 Apps Script에서 넘겨받도록 보강해야 함.
+                // 일단은 답변의 글자 수 등으로 임시 가시화 (실제로는 correct 정보를 가져오는 게 정확함)
+                r.answers.forEach((ans, idx) => {
+                    if(ans && ans.length > 0) questionStats[idx]++; // 임시: 응답률로 표시
+                });
+            });
+
+            if(analysisChart) analysisChart.destroy();
+            analysisChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Array.from({length: 20}, (_, i) => `Q${i+1}`),
+                    datasets: [{
+                        label: '정답 인원 (임시: 응답 인원)',
+                        data: questionStats,
+                        backgroundColor: '#3b82f6',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, grid: { display: false } } }
+                }
+            });
+        }
+
+        // 6. 피드백 모달
+        function openFeedbackModal(studentId) {
+            currentStudent = allData.find(r => r.studentId === studentId);
+            if(!currentStudent) return;
+
+            document.getElementById('modal-title').textContent = `${currentStudent.name} (${currentStudent.studentId}) 피드백`;
+            document.getElementById('modal-score').textContent = currentStudent.totalScore;
+            document.getElementById('fb-main-message').value = currentStudent.feedback || "";
+
+            const qArea = document.getElementById('modal-questions-area');
+            qArea.innerHTML = currentStudent.answers.map((ans, idx) => `
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold text-slate-400 uppercase">Question ${idx+1}</span>
+                        <span class="text-xs font-medium">학생 답변: <strong class="text-slate-900">${ans || '미응답'}</strong></span>
+                    </div>
+                    <input type="text" class="q-comment-input w-full px-3 py-2 text-sm border border-slate-200 rounded-lg outline-none focus:border-blue-400" 
+                           placeholder="문항별 코멘트 입력..." data-index="${idx}">
+                </div>
+            `).join('');
+
+            document.getElementById('feedback-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('feedback-modal').classList.add('hidden');
+        }
+
+        async function saveFeedbackToServer() {
+            const message = document.getElementById('fb-main-message').value;
+            const commentInputs = document.querySelectorAll('.q-comment-input');
+            const comments = Array(20).fill("");
+            commentInputs.forEach(input => {
+                const idx = parseInt(input.dataset.index);
+                comments[idx] = input.value;
+            });
+
+            // 로딩 상태
+            const btnText = document.getElementById('save-btn-text');
+            const btnSpinner = document.getElementById('save-spinner');
+            btnText.style.display = 'none';
+            btnSpinner.style.display = 'block';
+
+            try {
+                // Apps Script GET action=save_feedback 활용
+                const params = new URLSearchParams({
+                    action: 'save_feedback',
+                    studentId: currentStudent.studentId,
+                    name: currentStudent.name,
+                    message: message,
+                    comments: JSON.stringify(comments)
+                });
+
+                const response = await fetch(`${APPS_SCRIPT_URL}?${params.toString()}`);
+                const result = await response.json();
+
+                if(result.success) {
+                    alert('피드백이 성공적으로 저장되었습니다.');
+                    closeModal();
+                    refreshData(); // 데이터 최신화
+                } else {
+                    alert('저장 실패: ' + result.error);
+                }
+            } catch(e) {
+                alert('서버 통신 오류가 발생했습니다.');
+            } finally {
+                btnText.style.display = 'block';
+                btnSpinner.style.display = 'none';
+            }
+        }
+
+        function logout() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>

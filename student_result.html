@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학생 결과 확인 - 2026 화학 쪽지시험</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #f1f5f9; }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1); width: 36px; height: 36px; border-radius: 50%;
+            border-left-color: #3b82f6; animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .correct-box { background-color: #ecfdf5; border-color: #10b981; color: #065f46; }
+        .wrong-box { background-color: #fef2f2; border-color: #ef4444; color: #991b1b; }
+    </style>
+</head>
+<body class="text-slate-800 p-4 md:p-8">
+
+    <div class="max-w-3xl mx-auto">
+        <!-- 헤더 -->
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-black text-slate-900 mb-2">나의 쪽지시험 결과 📊</h1>
+            <p class="text-slate-500">학번과 토큰을 입력하여 선생님의 피드백을 확인하세요.</p>
+        </header>
+
+        <!-- 로그인 섹션 -->
+        <div id="login-section" class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8 max-w-md mx-auto">
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">학번 (예: 30101)</label>
+                    <input type="text" id="login-id" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none transition" placeholder="학번 입력">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">확인 토큰 (Token)</label>
+                    <input type="text" id="login-token" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none transition font-mono text-sm" placeholder="시험 제출 후 받은 긴 문자열">
+                </div>
+                <button onclick="verifyStudent()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition shadow-md flex justify-center items-center gap-2 mt-2">
+                    <span id="btn-text">결과 확인하기</span>
+                    <div id="btn-spinner" class="spinner" style="display:none; width:20px; height:20px; border-width:2px; border-left-color:white;"></div>
+                </button>
+            </div>
+            <p class="text-xs text-slate-400 mt-4 text-center">* 토큰은 퀴즈 제출 직후 화면에 표시된 코드입니다.</p>
+        </div>
+
+        <!-- 결과 표시 섹션 (숨김 처리됨) -->
+        <div id="result-section" class="hidden space-y-6">
+            
+            <!-- 상단 요약 -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-center md:text-left">
+                    <p class="text-slate-500 font-bold mb-1">반가워요!</p>
+                    <h2 class="text-2xl font-black text-slate-900"><span id="res-name" class="text-blue-600">홍길동</span> 학생 (<span id="res-id">30101</span>)</h2>
+                </div>
+                <div class="bg-slate-50 px-8 py-4 rounded-xl border border-slate-100 text-center">
+                    <p class="text-sm font-bold text-slate-500 mb-1 uppercase tracking-widest">Total Score</p>
+                    <p class="text-4xl font-black text-slate-800" id="res-score">15 / 20</p>
+                </div>
+            </div>
+
+            <!-- 교사 피드백 -->
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-100 shadow-sm relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 text-6xl opacity-10">💬</div>
+                <h3 class="text-lg font-bold text-blue-800 mb-3 flex items-center gap-2">👨‍🏫 선생님의 전체 피드백</h3>
+                <div class="bg-white/60 p-4 rounded-xl text-slate-700 leading-relaxed font-medium" id="res-feedback">
+                    피드백이 아직 등록되지 않았습니다.
+                </div>
+            </div>
+
+            <!-- 문항별 결과 및 코멘트 -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-slate-900 text-white p-4">
+                    <h3 class="font-bold text-lg">문항별 상세 분석</h3>
+                </div>
+                <div class="p-6">
+                    <!-- 정오표 요약 맵 -->
+                    <div class="mb-8">
+                        <p class="text-sm font-bold text-slate-500 mb-3">정오표 한눈에 보기 (응답 현황)</p>
+                        <div class="flex flex-wrap gap-2" id="omr-map">
+                            <!-- JS로 생성됨 -->
+                        </div>
+                    </div>
+
+                    <!-- 개별 문항 리스트 -->
+                    <div class="space-y-4" id="questions-list">
+                        <!-- JS로 생성됨 -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center pt-4">
+                <button onclick="window.location.href='quiz_L2L3_chem.html'" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-xl transition">
+                    📝 퀴즈 다시 풀어보기
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx25Ev-OkyclLK6LVmSizkYGGLD09N1DOTtszjTBAAmkOyJRUSeh3OSg1MqsQF3QiNA/exec';
+
+        // 페이지 로드 시 로컬 스토리지 확인
+        window.onload = () => {
+            const savedId = localStorage.getItem('chem_quiz_student_id');
+            const savedToken = localStorage.getItem('chem_quiz_token');
+            if(savedId) document.getElementById('login-id').value = savedId;
+            if(savedToken) document.getElementById('login-token').value = savedToken;
+        };
+
+        async function verifyStudent() {
+            const studentId = document.getElementById('login-id').value.trim();
+            const token = document.getElementById('login-token').value.trim();
+
+            if(!studentId || !token) {
+                alert('학번과 토큰을 모두 입력해주세요.');
+                return;
+            }
+
+            // 로딩 상태
+            const btnText = document.getElementById('btn-text');
+            const btnSpinner = document.getElementById('btn-spinner');
+            btnText.style.display = 'none';
+            btnSpinner.style.display = 'block';
+
+            try {
+                const response = await fetch(`${APPS_SCRIPT_URL}?action=verify&studentId=${encodeURIComponent(studentId)}&token=${encodeURIComponent(token)}`);
+                const result = await response.json();
+
+                if(result.success) {
+                    renderResult(result);
+                    // 로컬스토리지 최신화
+                    localStorage.setItem('chem_quiz_student_id', studentId);
+                    localStorage.setItem('chem_quiz_token', token);
+                } else {
+                    alert(result.message || '인증에 실패했습니다. 학번과 토큰을 다시 확인하세요.');
+                }
+            } catch(error) {
+                console.error(error);
+                alert('서버와 통신 중 오류가 발생했습니다.');
+            } finally {
+                btnText.style.display = 'block';
+                btnSpinner.style.display = 'none';
+            }
+        }
+
+        function renderResult(data) {
+            // 화면 전환
+            document.getElementById('login-section').classList.add('hidden');
+            document.getElementById('result-section').classList.remove('hidden');
+
+            // 기본 정보 세팅
+            document.getElementById('res-name').textContent = data.name;
+            document.getElementById('res-id').textContent = data.studentId;
+            document.getElementById('res-score').textContent = data.totalScore;
+            
+            if(data.feedback && data.feedback.trim() !== "") {
+                document.getElementById('res-feedback').textContent = data.feedback;
+            }
+
+            
+            const answers = data.answers; // 내가 적은 답 배열
+            const questions = data.questions || []; // 내가 본 문제 텍스트 배열
+            const comments = data.questionComments || []; // 문항별 피드백
+            
+            // 점수 문자열 "15/20" 파싱
+            const scoreParts = data.totalScore.split('/');
+            const totalQ = parseInt(scoreParts[1]) || answers.length;
+
+            const omrMap = document.getElementById('omr-map');
+            const qList = document.getElementById('questions-list');
+            omrMap.innerHTML = '';
+            qList.innerHTML = '';
+
+            for(let i=0; i<totalQ; i++) {
+                const qNum = i + 1;
+                const myAns = answers[i] || "미응답";
+                const qText = questions[i] || `제 ${qNum}번 문제`;
+                const comment = comments[i];
+                
+                // OMR 맵 버튼
+                const omrBtn = document.createElement('div');
+                omrBtn.className = `w-10 h-10 flex items-center justify-center rounded-lg font-bold text-sm bg-slate-100 border border-slate-200 text-slate-500`;
+                omrBtn.textContent = qNum;
+                omrMap.appendChild(omrBtn);
+
+                // 상세 리스트
+                const qCard = document.createElement('div');
+                qCard.className = "p-5 rounded-xl border border-slate-200 bg-white shadow-sm flex flex-col gap-3";
+                
+                let commentHtml = '';
+                if(comment && comment.trim() !== '') {
+                    commentHtml = `<div class="mt-2 text-sm text-blue-700 bg-blue-50 px-4 py-3 rounded-lg border border-blue-100">👨‍🏫 선생님 피드백: ${comment}</div>`;
+                    omrBtn.classList.add('ring-2', 'ring-blue-400', 'bg-blue-100', 'text-blue-700');
+                } else if(myAns !== "미응답") {
+                    omrBtn.classList.replace('bg-slate-100', 'bg-white');
+                    omrBtn.classList.replace('text-slate-500', 'text-slate-800');
+                }
+
+                qCard.innerHTML = `
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-slate-900 text-white px-2.5 py-1 rounded-md text-xs font-black">Q${qNum}</span>
+                            <span class="text-sm font-bold text-slate-400">질문 내역</span>
+                        </div>
+                        <p class="text-slate-800 font-bold leading-relaxed mb-3">${qText}</p>
+                        <div class="flex items-center gap-3 text-sm">
+                            <span class="text-slate-500 font-medium">나의 응답:</span>
+                            <span class="bg-slate-100 px-3 py-1 rounded-full font-black text-slate-900">${myAns}</span>
+                        </div>
+                        ${commentHtml}
+                    </div>
+                `;
+                qList.appendChild(qCard);
+            }
+
+        }
+        }
+    </script>
+</body>
+</html>
