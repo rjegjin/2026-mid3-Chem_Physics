@@ -313,6 +313,48 @@
         <textarea id="q3-answer" placeholder="당신의 답변을 작성하세요... (예상 길이: 300~400자)"></textarea>
     </div>
 
+    <!-- 난이도 및 소감 섹션 -->
+    <div class="essay-card" style="border: 2px solid #f59e0b; background: #fffbeb;">
+        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:2rem;">
+            <span style="font-size:1.5rem;">⭐</span>
+            <h2 style="margin:0; color:#92400e; font-size:1.2rem; font-weight:700;">평가 참여 (보너스 포인트 제공)</h2>
+        </div>
+
+        <!-- 난이도 리커트 척도 -->
+        <div style="margin-bottom:2rem;">
+            <h3 style="font-weight:700; color:#b45309; margin-bottom:1rem;">1️⃣ 이번 평가의 난이도는 어땠나요?</h3>
+            <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:space-between;">
+                <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; padding:0.75rem 1rem; background:white; border:2px solid #fde68a; border-radius:0.75rem; transition:all 0.2s;" id="difficulty-1">
+                    <input type="radio" name="difficulty" value="1" style="cursor:pointer;">
+                    <span style="font-weight:600; color:#b45309;">매우 어려움</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; padding:0.75rem 1rem; background:white; border:2px solid #fde68a; border-radius:0.75rem; transition:all 0.2s;" id="difficulty-2">
+                    <input type="radio" name="difficulty" value="2" style="cursor:pointer;">
+                    <span style="font-weight:600; color:#b45309;">어려움</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; padding:0.75rem 1rem; background:white; border:2px solid #fde68a; border-radius:0.75rem; transition:all 0.2s;" id="difficulty-3">
+                    <input type="radio" name="difficulty" value="3" style="cursor:pointer;">
+                    <span style="font-weight:600; color:#b45309;">적당함</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; padding:0.75rem 1rem; background:white; border:2px solid #fde68a; border-radius:0.75rem; transition:all 0.2s;" id="difficulty-4">
+                    <input type="radio" name="difficulty" value="4" style="cursor:pointer;">
+                    <span style="font-weight:600; color:#b45309;">쉬움</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; padding:0.75rem 1rem; background:white; border:2px solid #fde68a; border-radius:0.75rem; transition:all 0.2s;" id="difficulty-5">
+                    <input type="radio" name="difficulty" value="5" style="cursor:pointer;">
+                    <span style="font-weight:600; color:#b45309;">매우 쉬움</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- 주관식 소감 -->
+        <div>
+            <h3 style="font-weight:700; color:#b45309; margin-bottom:1rem;">2️⃣ 이 평가에 대한 소감을 자유롭게 적어주세요</h3>
+            <p style="font-size:0.9rem; color:#78350f; margin-bottom:1rem;">💡 팁: 가장 어려웠던 부분, 배운 점, 개선 제안 등을 자유롭게 작성하세요. (필수 아님, 100자 이상 권장)</p>
+            <textarea id="feedback-text" placeholder="예: 문제 3번이 가장 어려웠는데, CO₂ 계산 과정을 더 자세히 설명받고 싶습니다..." style="width:100%; min-height:150px; padding:1rem; border:2px solid #fde68a; border-radius:0.75rem; font-family:'Noto Sans KR', sans-serif; font-size:1rem; resize:vertical;"></textarea>
+        </div>
+    </div>
+
     <!-- 제출 버튼 -->
     <button class="submit-button" onclick="submitAnswers()">📤 답변 제출하기</button>
 
@@ -323,7 +365,7 @@
 
     // 자동 저장 설정 (디바운스 500ms)
     let autoSaveTimer = null;
-    const textareas = ['q1-answer', 'q2-answer', 'q3-answer'];
+    const textareas = ['q1-answer', 'q2-answer', 'q3-answer', 'feedback-text'];
 
     textareas.forEach(id => {
         const textarea = document.getElementById(id);
@@ -333,6 +375,14 @@
                 localStorage.setItem(`essay_unit3_${id}`, textarea.value);
                 console.log(`💾 자동저장: ${id}`);
             }, 500);
+        });
+    });
+
+    // 난이도 선택 저장
+    document.querySelectorAll('input[name="difficulty"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            localStorage.setItem('essay_unit3_difficulty', radio.value);
+            console.log(`💾 난이도 저장: ${radio.value}`);
         });
     });
 
@@ -348,6 +398,13 @@
             const saved = localStorage.getItem(`essay_unit3_${id}`);
             if(saved) document.getElementById(id).value = saved;
         });
+
+        // 난이도 복구
+        const savedDifficulty = localStorage.getItem('essay_unit3_difficulty');
+        if(savedDifficulty) {
+            const radio = document.querySelector(`input[name="difficulty"][value="${savedDifficulty}"]`);
+            if(radio) radio.checked = true;
+        }
     });
 
     async function submitAnswers() {
@@ -356,6 +413,8 @@
         const q1 = document.getElementById('q1-answer').value.trim();
         const q2 = document.getElementById('q2-answer').value.trim();
         const q3 = document.getElementById('q3-answer').value.trim();
+        const difficulty = document.querySelector('input[name="difficulty"]:checked')?.value;
+        const feedback = document.getElementById('feedback-text').value.trim();
 
         // 검증
         if(!studentId || !studentName) {
@@ -374,6 +433,11 @@
             return;
         }
 
+        if(!difficulty) {
+            alert('⚠️ 난이도를 선택해주세요. (보너스 포인트!)');
+            return;
+        }
+
         // 제출 데이터 구성
         const data = {
             assessmentType: 'essay_unit3',
@@ -384,7 +448,12 @@
                 { questionNum: 1, content: q1, expectedLength: '200-300' },
                 { questionNum: 2, content: q2, expectedLength: '250-350' },
                 { questionNum: 3, content: q3, expectedLength: '300-400' }
-            ]
+            ],
+            feedback: {
+                difficulty: parseInt(difficulty),
+                difficultyLabel: ['매우 어려움', '어려움', '적당함', '쉬움', '매우 쉬움'][parseInt(difficulty) - 1],
+                studentFeedback: feedback || ''
+            }
         };
 
         try {

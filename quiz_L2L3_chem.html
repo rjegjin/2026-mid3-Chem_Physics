@@ -947,7 +947,48 @@
     <div id="server-submit-area" class="no-print" style="display:none; max-width: 600px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 2px solid #3b82f6;">
         <h3 style="margin-top:0; color:#1e293b; font-size:1.5rem; text-align:center;">📡 결과 서버에 제출하기</h3>
         <p style="color:#64748b; text-align:center; margin-bottom:1.5rem;">선생님께 결과를 전송하려면 아래 버튼을 클릭하세요.</p>
-        
+
+        <!-- 난이도 및 소감 섹션 -->
+        <div style="margin-bottom:2rem; padding: 1.25rem; background: #fffbeb; border: 2px solid #f59e0b; border-radius: 0.75rem;">
+            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem;">
+                <span style="font-size:1.2rem;">⭐</span>
+                <h4 style="margin:0; color:#92400e; font-weight:700;">보너스 포인트: 피드백 남기기</h4>
+            </div>
+
+            <!-- 난이도 리커트 척도 -->
+            <div style="margin-bottom:1rem;">
+                <p style="margin:0 0 0.6rem 0; font-weight:600; color:#b45309; font-size:0.9rem;">🎯 이 시험의 난이도는?</p>
+                <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+                    <label style="display:flex; flex-direction:column; align-items:center; gap:0.3rem; cursor:pointer; padding:0.6rem; background:white; border:2px solid #fde68a; border-radius:0.4rem; transition:all 0.2s; flex:1; min-width:70px;" id="diff-label-1">
+                        <input type="radio" name="difficulty-quiz" value="1" style="cursor:pointer;">
+                        <span style="font-weight:600; color:#b45309; font-size:0.75rem; text-align:center;">매우<br>어려움</span>
+                    </label>
+                    <label style="display:flex; flex-direction:column; align-items:center; gap:0.3rem; cursor:pointer; padding:0.6rem; background:white; border:2px solid #fde68a; border-radius:0.4rem; transition:all 0.2s; flex:1; min-width:70px;" id="diff-label-2">
+                        <input type="radio" name="difficulty-quiz" value="2" style="cursor:pointer;">
+                        <span style="font-weight:600; color:#b45309; font-size:0.75rem; text-align:center;">어려움</span>
+                    </label>
+                    <label style="display:flex; flex-direction:column; align-items:center; gap:0.3rem; cursor:pointer; padding:0.6rem; background:white; border:2px solid #fde68a; border-radius:0.4rem; transition:all 0.2s; flex:1; min-width:70px;" id="diff-label-3">
+                        <input type="radio" name="difficulty-quiz" value="3" style="cursor:pointer;">
+                        <span style="font-weight:600; color:#b45309; font-size:0.75rem; text-align:center;">적당함</span>
+                    </label>
+                    <label style="display:flex; flex-direction:column; align-items:center; gap:0.3rem; cursor:pointer; padding:0.6rem; background:white; border:2px solid #fde68a; border-radius:0.4rem; transition:all 0.2s; flex:1; min-width:70px;" id="diff-label-4">
+                        <input type="radio" name="difficulty-quiz" value="4" style="cursor:pointer;">
+                        <span style="font-weight:600; color:#b45309; font-size:0.75rem; text-align:center;">쉬움</span>
+                    </label>
+                    <label style="display:flex; flex-direction:column; align-items:center; gap:0.3rem; cursor:pointer; padding:0.6rem; background:white; border:2px solid #fde68a; border-radius:0.4rem; transition:all 0.2s; flex:1; min-width:70px;" id="diff-label-5">
+                        <input type="radio" name="difficulty-quiz" value="5" style="cursor:pointer;">
+                        <span style="font-weight:600; color:#b45309; font-size:0.75rem; text-align:center;">매우<br>쉬움</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 주관식 소감 -->
+            <div>
+                <p style="margin:0 0 0.4rem 0; font-weight:600; color:#b45309; font-size:0.9rem;">💭 소감 (선택사항)</p>
+                <textarea id="quiz-feedback-text" placeholder="예: 문제 5번이 어려웠어요 / 시간이 부족했어요 / 재미있었어요" style="width:100%; min-height:80px; padding:0.6rem; border:2px solid #fde68a; border-radius:0.4rem; font-family:'Noto Sans KR', sans-serif; font-size:0.9rem; resize:vertical;"></textarea>
+            </div>
+        </div>
+
         <div id="submitFormArea">
             <button id="submitResultBtn" onclick="sendQuizDataToServer()" style="width: 100%; background: #3b82f6; color: white; border: none; padding: 1rem; border-radius: 0.75rem; font-size: 1.2rem; font-weight: 800; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(59,130,246,0.3);">
                 내 점수 전송하기 🚀
@@ -1154,6 +1195,30 @@
         });
     });
 
+    // 난이도와 소감 저장
+    document.querySelectorAll('input[name="difficulty-quiz"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            localStorage.setItem('quiz_L2L3_difficulty', radio.value);
+        });
+    });
+
+    document.getElementById('quiz-feedback-text')?.addEventListener('input', (e) => {
+        localStorage.setItem('quiz_L2L3_feedback', e.target.value);
+    });
+
+    // 페이지 로드/돌아올 때 난이도와 소감 복구
+    window.addEventListener('pageshow', () => {
+        const savedDifficulty = localStorage.getItem('quiz_L2L3_difficulty');
+        if(savedDifficulty) {
+            const radio = document.querySelector(`input[name="difficulty-quiz"][value="${savedDifficulty}"]`);
+            if(radio) radio.checked = true;
+        }
+        const savedFeedback = localStorage.getItem('quiz_L2L3_feedback');
+        if(savedFeedback && document.getElementById('quiz-feedback-text')) {
+            document.getElementById('quiz-feedback-text').value = savedFeedback;
+        }
+    });
+
 
     // ── OMR NAV LOGIC ──
     function initOMR() {
@@ -1305,12 +1370,21 @@
         }
 
         try {
+            // 난이도와 소감 수집
+            const difficulty = document.querySelector('input[name="difficulty-quiz"]:checked')?.value;
+            const feedbackText = document.getElementById('quiz-feedback-text')?.value || '';
+
             const payload = {
                 studentId: studentId,
                 name: nameVal,
                 answers: answers,
                 correct: correctArr,
-                questions: questionTexts
+                questions: questionTexts,
+                feedback: {
+                    difficulty: difficulty ? parseInt(difficulty) : null,
+                    difficultyLabel: difficulty ? ['매우 어려움', '어려움', '적당함', '쉬움', '매우 쉬움'][parseInt(difficulty) - 1] : null,
+                    studentFeedback: feedbackText
+                }
             };
 
             const response = await fetch(APPS_SCRIPT_URL, {
