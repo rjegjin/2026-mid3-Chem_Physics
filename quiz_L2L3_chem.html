@@ -1037,7 +1037,8 @@
     /* --- 문제 변수화 (Random Generator) --- */
     function generateDynamicQuestions() {
         // Q6: 2H2 + O2 -> 2H2O (Ratio 2:1:2)
-        const q6_base = [2, 4, 6, 8, 10, 12, 20][Math.floor(Math.random() * 7)];
+        // q6_base=2 제거 (선택지 2번, 3번이 같아지는 버그 방지)
+        const q6_base = [4, 6, 8, 10, 12, 20][Math.floor(Math.random() * 6)];
         document.getElementById('q6-val').textContent = q6_base + '개';
 
         // Q6 Visual update
@@ -1356,8 +1357,35 @@
                 }
             });
 
+            // 각 문제에 정오 결과 섹션 추가
+            const resultDiv = document.createElement('div');
+            resultDiv.style.cssText = 'margin-top:1rem; padding:1rem; background:' + (isCorrect ? '#ecfdf5' : '#fef2f2') + '; border:2px solid ' + (isCorrect ? '#10b981' : '#ef4444') + '; border-radius:0.5rem; font-weight:700; color:' + (isCorrect ? '#065f46' : '#991b1b') + ';';
+            const badgeEmoji = isCorrect ? '✅' : '❌';
+            let resultHTML = `${badgeEmoji} <strong>${isCorrect ? '정답!' : '오답'}</strong>`;
+            if (!isCorrect) {
+                const userAnsText = ['(선택 안 함)', '①', '②', '③', '④'][userAns || 0];
+                const correctAnsText = ['', '①', '②', '③', '④'][correct];
+                resultHTML += `<br><span style="font-size:0.9rem; opacity:0.9;">
+                    당신의 답: <strong>${userAnsText}</strong>
+                    &nbsp; • &nbsp;
+                    정답: <strong>${correctAnsText}</strong>
+                </span>`;
+            }
+            resultDiv.innerHTML = resultHTML;
+            if(card) card.appendChild(resultDiv);
+
             const exp = document.getElementById(`exp-${q}`);
-            if(exp) exp.classList.add('visible');
+            if(exp) {
+                exp.classList.add('visible');
+                // 해설 앞에 "📖 해설:" 라벨 추가 (없으면)
+                if (!exp.querySelector('.explanation-label')) {
+                    const label = document.createElement('div');
+                    label.className = 'explanation-label';
+                    label.style.cssText = 'font-weight:700; color:#1e40af; margin-bottom:0.5rem; font-size:0.95rem;';
+                    label.textContent = '📖 해설:';
+                    exp.insertAdjacentElement('beforebegin', label);
+                }
+            }
 
             if (isCorrect) {
                 totalScore++;
