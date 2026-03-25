@@ -145,10 +145,15 @@
 <body>
 
 <header class="bg-gradient-to-r from-slate-90 to-blue-900 text-white py-8 px-4">
-    <div class="content-wrapper">
-        <h1 class="text-3xl font-black mb-2">3단원 논술형 평가 📝</h1>
-        <p class="text-slate-300 text-lg">질량 보존의 법칙: 문제 기반 학습 (PBL)</p>
-        <p class="text-slate-400 text-sm mt-2">⏱ 제한 시간: 40분 | 만점: 30점 (문항별 10점)</p>
+    <div class="content-wrapper flex justify-between items-start">
+        <div>
+            <h1 class="text-3xl font-black mb-2">3단원 논술형 평가 📝</h1>
+            <p class="text-slate-300 text-lg">질량 보존의 법칙: 문제 기반 학습 (PBL)</p>
+            <p class="text-slate-400 text-sm mt-2">⏱ 제한 시간: 40분 | 만점: 30점 (문항별 10점)</p>
+        </div>
+        <a href="index.html" class="text-sm bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-all">
+            🏠 메인으로
+        </a>
     </div>
 </header>
 
@@ -316,13 +321,34 @@
 <script>
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx25Ev-OkyclLK6LVmSizkYGGLD09N1DOTtszjTBAAmkOyJRUSeh3OSg1MqsQF3QiNA/exec';
 
-    // 페이지 로드 시 로컬 스토리지에서 학번/이름 로드
-    window.onload = () => {
+    // 자동 저장 설정 (디바운스 500ms)
+    let autoSaveTimer = null;
+    const textareas = ['q1-answer', 'q2-answer', 'q3-answer'];
+
+    textareas.forEach(id => {
+        const textarea = document.getElementById(id);
+        textarea.addEventListener('input', () => {
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(() => {
+                localStorage.setItem(`essay_unit3_${id}`, textarea.value);
+                console.log(`💾 자동저장: ${id}`);
+            }, 500);
+        });
+    });
+
+    // 페이지 로드 시 로컬 스토리지에서 복구
+    window.addEventListener('pageshow', () => {
         const savedId = localStorage.getItem('chem_quiz_student_id');
         const savedName = localStorage.getItem('chem_quiz_student_name');
         if(savedId) document.getElementById('student-id').value = savedId;
         if(savedName) document.getElementById('student-name').value = savedName;
-    };
+
+        // 답변 복구
+        textareas.forEach(id => {
+            const saved = localStorage.getItem(`essay_unit3_${id}`);
+            if(saved) document.getElementById(id).value = saved;
+        });
+    });
 
     async function submitAnswers() {
         const studentId = document.getElementById('student-id').value.trim();

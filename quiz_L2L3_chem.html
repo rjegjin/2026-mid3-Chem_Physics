@@ -475,9 +475,12 @@
                 <span style="font-size:0.9rem; background:#1e40af; padding:0.2rem 0.7rem; border-radius:9999px; margin-left:0.5rem; vertical-align:middle;">20문항</span>
             </h1>
         </div>
-        <div style="text-align:right;">
-            <div id="timer-display">⏱ 20:00</div>
-            <div style="font-size:0.75rem; color:#64748b; margin-top:0.25rem;" id="answered-count">0 / 20 답변</div>
+        <div style="display:flex; gap:0.5rem; align-items:flex-start;">
+            <a href="index.html" style="font-size:0.75rem; background:#94a3b8; color:white; padding:0.4rem 0.8rem; border-radius:0.5rem; text-decoration:none; transition:all 0.2s; hover:background:#64748b;">🏠 메인</a>
+            <div style="text-align:right;">
+                <div id="timer-display">⏱ 20:00</div>
+                <div style="font-size:0.75rem; color:#64748b; margin-top:0.25rem;" id="answered-count">0 / 20 답변</div>
+            </div>
         </div>
     </div>
     <div id="progress-bar"><div id="progress-fill"></div></div>
@@ -1106,6 +1109,32 @@
 
     // ── OPTION SELECTION ──
     let userAnswers = {};
+
+    // localStorage에서 이전 답변 복구
+    window.addEventListener('pageshow', () => {
+        const saved = localStorage.getItem('quiz_L2L3_answers');
+        if(saved) {
+            try {
+                userAnswers = JSON.parse(saved);
+                // UI에 복구된 답변 반영
+                Object.keys(userAnswers).forEach(q => {
+                    const v = userAnswers[q];
+                    const label = document.querySelector(`.option-label[data-q="${q}"][data-v="${v}"]`);
+                    if(label) {
+                        label.classList.add('selected');
+                        label.querySelector('input').checked = true;
+                        const card = document.getElementById(`qcard-${q}`);
+                        if(card) card.classList.add('answered');
+                    }
+                });
+                updateProgress(); updateOMR();
+                console.log('📥 이전 답변 복구됨:', userAnswers);
+            } catch(e) {
+                console.log('저장된 답변 복구 실패');
+            }
+        }
+    });
+
     document.querySelectorAll('.option-label').forEach(label => {
         label.addEventListener('click', function() {
             const q = parseInt(this.dataset.q);
@@ -1115,6 +1144,8 @@
             this.classList.add('selected');
             this.querySelector('input').checked = true;
             userAnswers[q] = v;
+            // localStorage에 저장
+            localStorage.setItem('quiz_L2L3_answers', JSON.stringify(userAnswers));
             // mark card
             const card = document.getElementById(`qcard-${q}`);
             card.classList.add('answered');
