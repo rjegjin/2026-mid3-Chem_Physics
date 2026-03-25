@@ -95,13 +95,8 @@ function handleQuizSubmit(data) {
   const questionsData = {
     correct: correct,
     questions: data.questions || [],
-    totalScore: totalScore  // ← 점수도 함께 저장
+    totalScore: totalScore
   };
-      const questionsData = {
-      correct: correct,
-      questions: data.questions || [],
-      totalScore: totalScore
-    };
     const rowData = [timestamp, studentId, name, ...answers, totalScore, token, JSON.stringify(questionsData)];
 
   sheet.appendRow(rowData);
