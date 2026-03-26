@@ -515,8 +515,9 @@
         </div>
         <div style="margin-top:0.5rem; border-top:1px solid #f1f5f9; pt-2 text-center">
             <button onclick="window.scrollTo({top:0, behavior:'smooth'})" style="font-size:0.6rem; font-weight:bold; color:var(--cyan); background:none; border:none; cursor:pointer;">TOP ▲</button>
-        <div style="margin-top:1rem; border-top:1px solid #f1f5f9; pt-3">
-            <button onclick="submitQuiz()" id="omr-submit-btn" style="width:100%; padding:0.75rem; background:#2563eb; color:white; border:none; border-radius:0.5rem; font-weight:bold; cursor:pointer; font-size:0.8rem;">채점/제출 🚀</button>
+        <div style="margin-top:1rem; border-top:1px solid #f1f5f9; pt-3; display:flex; gap:0.5rem;">
+            <button onclick="resetAnswers()" id="omr-reset-btn" style="flex:1; padding:0.75rem; background:#ef4444; color:white; border:none; border-radius:0.5rem; font-weight:bold; cursor:pointer; font-size:0.8rem;">초기화 🔄</button>
+            <button onclick="submitQuiz()" id="omr-submit-btn" style="flex:2; padding:0.75rem; background:#2563eb; color:white; border:none; border-radius:0.5rem; font-weight:bold; cursor:pointer; font-size:0.8rem;">채점/제출 🚀</button>
         </div>
         </div>
     </div>
@@ -1011,9 +1012,14 @@
         </div>
     </div>
 
-    <button id="submit-btn" class="no-print" onclick="submitQuiz()" style="background: #2563eb; padding: 1.5rem; margin-bottom: 4rem;">
-        채점하기 →
-    </button>
+    <div class="no-print" style="display: flex; gap: 1rem; max-width: 400px; margin: 2rem auto 4rem auto;">
+        <button id="reset-btn" onclick="resetAnswers()" style="flex: 1; padding: 1.25rem; background: #ef4444; color: white; border: none; border-radius: 1rem; font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: all 0.2s;">
+            초기화 🔄
+        </button>
+        <button id="submit-btn" onclick="submitQuiz()" style="flex: 1; margin: 0; background: #2563eb; padding: 1.25rem;">
+            채점하기 →
+        </button>
+    </div>
 
     <!-- RETRY -->
     <button id="retry-btn" class="no-print" onclick="retryQuiz()" style="display:none; width:100%; max-width:400px; margin:0.5rem auto 3rem; padding:1rem 2rem; background:#334155; color:white; font-size:1.1rem; font-weight:700; border:none; border-radius:1rem; cursor:pointer;">
@@ -1528,6 +1534,25 @@
         updateOMR();
         document.getElementById('retry-btn').style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetAnswers() {
+        if(confirm("정말로 모든 선택을 초기화하시겠습니까?")) {
+            // 1. 선택된 라디오 버튼 해제
+            document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+            // 2. 시각적 클래스 제거
+            document.querySelectorAll('.option-label').forEach(label => {
+                label.classList.remove('selected', 'show-correct', 'show-wrong', 'show-missed');
+            });
+            // 3. OMR 초기화
+            document.querySelectorAll('.omr-dot').forEach(dot => dot.classList.remove('filled', 'omr-correct', 'omr-wrong'));
+            // 4. 로컬 스토리지 삭제
+            localStorage.removeItem('quiz_L2L3_answers');
+            // 5. 메모리 객체 초기화
+            userAnswers = {};
+            // 6. 스크롤을 맨 위로
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     }
 
     function retryQuiz() {
