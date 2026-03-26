@@ -624,7 +624,7 @@
             <label class="option-label" data-q="3" data-v="3"><input type="radio" name="q3" value="3"><span class="option-badge">③</span>H<sub>2</sub> + 2O<sub>2</sub> → 2H<sub>2</sub>O</label>
             <label class="option-label" data-q="3" data-v="4"><input type="radio" name="q3" value="4"><span class="option-badge">④</span>2H<sub>2</sub> + 2O<sub>2</sub> → 2H<sub>2</sub>O</label>
         </div>
-        <div class="explanation" id="exp-3">②번 확인: 왼쪽 H=4, O=2 / 오른쪽 H=4, O=2 → <strong>성립!</strong><br>①: O가 왼쪽 2, 오른쪽 1로 불일치 / ③: O가 왼쪽 4, 오른쪽 2 불일치 / ④: O가 왼쪽 4, 오른쪽 2 불일치</div>
+        <div class="explanation" id="exp-3">정답 확인: 왼쪽 H=4, O=2 / 오른쪽 H=4, O=2 → <strong>성립!</strong><br>①: O가 왼쪽 2, 오른쪽 1로 불일치 / ③: O가 왼쪽 4, 오른쪽 2 불일치 / ④: O가 왼쪽 4, 오른쪽 2 불일치</div>
     </div>
 
     <!-- Q4 -->
@@ -659,7 +659,7 @@
             <label class="option-label" data-q="4" data-v="3"><input type="radio" name="q4" value="3"><span class="option-badge">③</span>N<sub>2</sub> + 3H<sub>2</sub> → 2NH<sub>3</sub></label>
             <label class="option-label" data-q="4" data-v="4"><input type="radio" name="q4" value="4"><span class="option-badge">④</span>2N<sub>2</sub> + 3H<sub>2</sub> → 2NH<sub>3</sub></label>
         </div>
-        <div class="explanation" id="exp-4">③번 확인: N → 왼쪽 2, 오른쪽 2(NH<sub>3</sub>×2) / H → 왼쪽 6, 오른쪽 6 → <strong>성립!</strong><br>질소 비료 생산에 쓰이는 <strong>하버법(암모니아 합성)</strong>의 반응식입니다.</div>
+        <div class="explanation" id="exp-4">정답 확인: N → 왼쪽 2, 오른쪽 2(NH<sub>3</sub>×2) / H → 왼쪽 6, 오른쪽 6 → <strong>성립!</strong><br>질소 비료 생산에 쓰이는 <strong>하버법(암모니아 합성)</strong>의 반응식입니다.</div>
     </div>
 
     <!-- Q5 -->
@@ -1043,7 +1043,7 @@
     const QUIZ_VERSION = Math.floor(Math.random() * 5); // 0~4 버전
     const optionShuffles = {}; // 각 문제별 선지 순서 저장
 
-    function shuffleOptions() {
+        function shuffleOptions() {
         // Fisher-Yates 섞기 알고리즘
         function shuffle(arr) {
             const result = [...arr];
@@ -1055,54 +1055,24 @@
         }
 
         for(let q = 1; q <= TOTAL; q++) {
-            const optionsGrid = document.querySelector(`.options-grid[data-q="${q}"], div.options-grid:has(.option-label[data-q="${q}"])`);
+            const optionsGrid = document.querySelector(`.options-grid[data-q="${q}"], div.options-grid:has(.option-label[data-q="${q}"]) `);
             if(!optionsGrid) continue;
 
             const labels = Array.from(optionsGrid.querySelectorAll(`.option-label[data-q="${q}"]`));
-            if(labels.length !== 4) continue; // 4개 선지만 처리
+            if(labels.length !== 4) continue;
 
-            // 원본 순서 저장
-            const origOrder = labels.map(l => parseInt(l.dataset.v));
-
-            // 섞인 순서 생성
-            const shuffledOrder = shuffle(origOrder);
-            optionShuffles[q] = shuffledOrder;
-
-            // ANSWERS 조정: 원본 정답이 새로운 몇 번째에 있는지 찾기
-            const origAnswer = ANSWERS[q];
-            const newAnswerPos = shuffledOrder.indexOf(origOrder[origAnswer - 1]);
-            ANSWERS[q] = newAnswerPos + 1;
-
-            // DOM 재배치하기 전에 원본 참조 저장
-            const labelMap = {};
-            labels.forEach(l => {
-                labelMap[parseInt(l.dataset.v)] = l;
-            });
-
-            // DOM 재배치
-            shuffledOrder.forEach((origValue, newIndex) => {
-                const label = labelMap[origValue];
-                if(label) {
-                    // data-v를 새로운 위치로 업데이트
-                    label.dataset.v = newIndex + 1;
-
-                    // 시각적 배지도 업데이트 (예: ① → ③)
-                    const badge = label.querySelector('.option-badge');
-                    if(badge) {
-                        badge.textContent = String.fromCharCode(9312 + newIndex); // ①②③④
-                    }
-
-                    // input name과 value도 유지 (이미 data로 관리하므로 문제 없음)
-                    const input = label.querySelector('input');
-                    if(input) input.value = newIndex + 1;
-
-                    // 부모에 다시 추가해서 순서 정렬
-                    optionsGrid.appendChild(label);
+            // 섞인 라벨 순서 생성
+            const shuffledLabels = shuffle(labels);
+            
+            // DOM 재배치 및 시각적 뱃지만 업데이트 (data-v는 원본 값 유지)
+            shuffledLabels.forEach((label, newIndex) => {
+                const badge = label.querySelector('.option-badge');
+                if(badge) {
+                    badge.textContent = String.fromCharCode(9312 + newIndex); // ①②③④
                 }
+                optionsGrid.appendChild(label);
             });
         }
-
-        console.log(`📋 Quiz Version: ${QUIZ_VERSION}, Option Shuffles:`, optionShuffles);
     }
 
     /* --- 문제 변수화 (Random Generator) --- */
@@ -1421,15 +1391,25 @@
                 questionTexts.push(`Question ${q}`);
             }
 
-            document.querySelectorAll(`.option-label[data-q="${q}"]`).forEach(label => {
+            const labels = Array.from(document.querySelectorAll(`.option-label[data-q="${q}"]`));
+            
+            // "답지 화면도 번호 레이아웃이 1,2,3,4 제대로 된 순서"를 위해 원본 순서로 재정렬
+            const optionsGrid = labels[0].parentElement;
+            labels.sort((a, b) => parseInt(a.dataset.v) - parseInt(b.dataset.v)).forEach((label, idx) => {
                 const v = parseInt(label.dataset.v);
                 label.style.cursor = 'not-allowed';
                 label.querySelector('input').disabled = true;
+                
+                // 뱃지도 원본 번호로 복구
+                const badge = label.querySelector('.option-badge');
+                if(badge) badge.textContent = String.fromCharCode(9312 + idx);
+
                 if (v === correct) {
                     label.classList.add(userAns === correct ? 'show-correct' : 'show-missed');
                 } else if (v === userAns && !isCorrect) {
                     label.classList.add('show-wrong');
                 }
+                optionsGrid.appendChild(label);
             });
 
             // 각 문제에 정오 결과 섹션 추가
