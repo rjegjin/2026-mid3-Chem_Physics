@@ -62,36 +62,16 @@ function handleQuizSubmit(data) {
   let sheet = ss.getSheetByName(SHEET_RESPONSES);
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_RESPONSES);
-    sheet.appendRow([
-      'timestamp', 'studentId', 'name',
-      ...Array.from({ length: 20 }, (_, i) => `Q${i + 1}`),
-      'total_score', 'token', 'questions_data_json'
-    ]);
+    // questionSnapshots 하나에 모든 채점 정보가 담김 — 별개 컬럼 불필요
+    sheet.appendRow(['timestamp', 'studentId', 'name', 'total_score', 'token', 'snapshots_json']);
   }
 
-  const correct       = data.correct || [];
-  const correctCount  = correct.filter(c => c === true).length;
-  const totalScore    = `${correctCount}/${correct.length || 20}`;
-  const token         = Utilities.getUuid();
-  const timestamp     = new Date().toISOString();
+  const snapshots  = data.questionSnapshots || [];
+  const totalScore = data.totalScore || `${snapshots.filter(s => s.isCorrect).length}/${snapshots.length || 20}`;
+  const token      = Utilities.getUuid();
+  const timestamp  = new Date().toISOString();
 
-  // 제출 시점의 모든 정보를 JSON으로 저장 (결과 페이지에서 재현 불가한 값 포함)
-  const questionsData = {
-    correct:            correct,
-    correctAnswers:     data.correctAnswers     || [],  // 셔플 후 정답 위치 번호 (0-indexed)
-    correctAnswerTexts: data.correctAnswerTexts || [],  // 정답 선택지 실제 텍스트
-    userAnswerTexts:    data.userAnswerTexts     || [],  // 학생 선택 선택지 실제 텍스트
-    explanations:       data.explanations       || [],
-    questions:          data.questions          || [],
-    totalScore:         totalScore
-  };
-
-  const answers = data.answers || [];
-  sheet.appendRow([
-    timestamp, data.studentId, data.name,
-    ...answers,
-    totalScore, token, JSON.stringify(questionsData)
-  ]);
+  sheet.appendRow([timestamp, data.studentId, data.name, totalScore, token, JSON.stringify(snapshots)]);
 
   // 피드백 시트가 없으면 초기화
   if (!ss.getSheetByName(SHEET_FEEDBACK)) {
@@ -175,19 +155,16 @@ function findQuizRecord(studentId, token) {
   const data    = sheet.getDataRange().getValues();
   const headers = data[0];
 
-  // 열 인덱스 동적 해석 (헤더 이름 기준, 없으면 위치 기반 fallback)
   const col = (name, fallback) => {
     const idx = headers.indexOf(name);
     return idx !== -1 ? idx : fallback;
   };
-  const studentIdIdx    = col('studentId', 1);
-  const tokenIdx        = col('token', headers.length - 2);
-  const nameIdx         = col('name', 2);
-  const totalScoreIdx   = col('total_score', headers.length - 3);
-  const qDataIdx        = col('questions_data_json', headers.length - 1);
-  const q1Idx           = col('Q1', 3);
+  const studentIdIdx  = col('studentId', 1);
+  const tokenIdx      = col('token', headers.length - 2);
+  const nameIdx       = col('name', 2);
+  const totalScoreIdx = col('total_score', 3);
+  const snapshotsIdx  = col('snapshots_json', headers.length - 1);
 
-  // 가장 최근 제출 기록 탐색 (뒤에서부터)
   let foundRecord = null;
   for (let i = data.length - 1; i > 0; i--) {
     if (String(data[i][studentIdIdx]) === String(studentId) &&
@@ -198,12 +175,11 @@ function findQuizRecord(studentId, token) {
   }
   if (!foundRecord) return null;
 
-  // questions_data_json 파싱
-  let qData = { correct: Array(20).fill(false), correctAnswers: [], explanations: [], questions: [], totalScore: null };
+  let snapshots = [];
   try {
-    const raw = foundRecord[qDataIdx];
-    if (raw && typeof raw === 'string' && raw.startsWith('{')) {
-      qData = { ...qData, ...JSON.parse(raw) };
+    const raw = foundRecord[snapshotsIdx];
+    if (raw && typeof raw === 'string' && raw.startsWith('[')) {
+      snapshots = JSON.parse(raw);
     }
   } catch (e) {}
 
@@ -222,18 +198,12 @@ function findQuizRecord(studentId, token) {
   }
 
   return {
-    studentId:          foundRecord[studentIdIdx],
-    name:               foundRecord[nameIdx],
-    answers:            foundRecord.slice(q1Idx, q1Idx + 20),
-    totalScore:         qData.totalScore         || foundRecord[totalScoreIdx],
-    correct:            qData.correct            || Array(20).fill(false),
-    correctAnswers:     qData.correctAnswers     || [],  // 셔플 후 정답 위치 번호
-    correctAnswerTexts: qData.correctAnswerTexts || [],  // 정답 선택지 실제 텍스트
-    userAnswerTexts:    qData.userAnswerTexts     || [],  // 학생 선택 선택지 실제 텍스트
-    explanations:       qData.explanations       || [],
-    questions:          qData.questions          || [],
-    feedback:           feedback.message,
-    questionComments:   feedback.comments
+    studentId:        foundRecord[studentIdIdx],
+    name:             foundRecord[nameIdx],
+    totalScore:       foundRecord[totalScoreIdx],
+    questionSnapshots: snapshots,
+    feedback:         feedback.message,
+    questionComments: feedback.comments
   };
 }
 
@@ -307,11 +277,9 @@ function handleGetAll() {
   };
   const studentIdIdx  = col('studentId', 1);
   const nameIdx       = col('name', 2);
-  const totalScoreIdx = col('total_score', headers.length - 3);
-  const qDataIdx      = col('questions_data_json', headers.length - 1);
-  const q1Idx         = col('Q1', 3);
+  const totalScoreIdx = col('total_score', 3);
+  const snapshotsIdx  = col('snapshots_json', headers.length - 1);
 
-  // 피드백 맵 생성
   const feedbackMap = {};
   if (fbSheet) {
     const fbData = fbSheet.getDataRange().getValues();
@@ -325,27 +293,22 @@ function handleGetAll() {
 
   const results = [];
   for (let i = 1; i < data.length; i++) {
-    const row  = data[i];
-    const sId  = String(row[studentIdIdx]);
-    let qData  = { correct: Array(20).fill(false), correctAnswers: [], questions: [], totalScore: null };
+    const row = data[i];
+    const sId = String(row[studentIdIdx]);
+    let snapshots = [];
     try {
-      const raw = row[qDataIdx];
-      if (raw && typeof raw === 'string' && raw.startsWith('{')) {
-        qData = { ...qData, ...JSON.parse(raw) };
-      }
+      const raw = row[snapshotsIdx];
+      if (raw && typeof raw === 'string' && raw.startsWith('[')) snapshots = JSON.parse(raw);
     } catch (e) {}
 
     results.push({
-      timestamp:        row[0],
-      studentId:        sId,
-      name:             row[nameIdx],
-      answers:          row.slice(q1Idx, q1Idx + 20),
-      totalScore:       qData.totalScore   || row[totalScoreIdx],
-      correct:          qData.correct      || Array(20).fill(false),
-      correctAnswers:   qData.correctAnswers || [],
-      questions:        qData.questions    || [],
-      feedback:         feedbackMap[sId]?.message  || "",
-      questionComments: feedbackMap[sId]?.comments || Array(20).fill("")
+      timestamp:         row[0],
+      studentId:         sId,
+      name:              row[nameIdx],
+      totalScore:        row[totalScoreIdx],
+      questionSnapshots: snapshots,
+      feedback:          feedbackMap[sId]?.message  || "",
+      questionComments:  feedbackMap[sId]?.comments || Array(20).fill("")
     });
   }
 

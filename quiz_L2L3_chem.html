@@ -1397,9 +1397,7 @@
         let totalScore = 0;
         let scoreA = 0;
         let scoreB = 0;
-        const answers = [];
-        const correctArr = [];
-        const questionTexts = [];
+        const questionSnapshots = [];  // 제출 시점 문제별 완전한 스냅샷
 
         for (let q = 1; q <= TOTAL; q++) {
             const correct = ANSWERS[q];
@@ -1407,12 +1405,17 @@
             const card = document.getElementById(`qcard-${q}`);
             const isCorrect = userAns == correct;
 
+            // 제출 시점 선택지 텍스트 전체 수집 (위치 1~4)
+            const optionTexts = {};
+            document.querySelectorAll(`.option-label[data-q="${q}"]`).forEach(lbl => {
+                const v = parseInt(lbl.dataset.v);
+                const span = lbl.querySelector('span:not(.option-badge)');
+                optionTexts[v] = span ? span.textContent.trim() : `선택지 ${v}`;
+            });
+
             if(card) {
                 card.classList.remove('answered');
                 card.classList.add(isCorrect ? 'correct' : 'wrong');
-                questionTexts.push(card.querySelector('.q-text').innerText);
-            } else {
-                questionTexts.push(`Question ${q}`);
             }
 
             const labels = Array.from(document.querySelectorAll(`.option-label[data-q="${q}"]`));
@@ -1465,52 +1468,38 @@
                 if (q <= 10) scoreA++;
                 else scoreB++;
             }
-            
-            answers.push(userAns ? userAns.toString() : "");
-            correctArr.push(isCorrect);
+
+            // 문제 텍스트
+            const qText = card ? card.querySelector('.q-text')?.innerText || `문제 ${q}` : `문제 ${q}`;
+            // 해설 텍스트 (동적 숫자가 반영된 현재 DOM 내용)
+            const expEl = document.getElementById(`exp-${q}`);
+            const expText = expEl ? expEl.innerText.replace('📖 해설:', '').trim() : "";
+
+            // 제출 시점 스냅샷 저장
+            questionSnapshots.push({
+                qNum:          q,
+                questionText:  qText,
+                options:       optionTexts,          // { 1:"텍스트", 2:"텍스트", 3:"텍스트", 4:"텍스트" }
+                userAnswer:    userAns  || 0,         // 학생 선택 위치 (0=미응답)
+                correctAnswer: correct,               // 정답 위치
+                isCorrect:     isCorrect,
+                explanation:   expText
+            });
         }
 
         try {
-            // 난이도와 소감 수집
             const difficulty = document.querySelector('input[name="difficulty-quiz"]:checked')?.value;
             const feedbackText = document.getElementById('quiz-feedback-text')?.value || '';
 
-            // 제출 시점의 선택지 텍스트를 함께 저장 (결과 페이지에서 재현 불가한 값)
-            const currentExplanations = [];
-            const currentCorrectAnswers = [];
-            const correctAnswerTexts = [];   // 정답 선택지의 실제 텍스트 (예: "12g")
-            const userAnswerTexts = [];       // 학생 선택 선택지의 실제 텍스트
-            for(let i=1; i<=TOTAL; i++) {
-                currentCorrectAnswers.push(ANSWERS[i]);
-                const exp = document.getElementById(`exp-${i}`);
-                currentExplanations.push(exp ? exp.innerText.replace('📖 해설:', '').trim() : "");
-
-                // 정답 선택지 텍스트 (배지 제외 마지막 span)
-                const correctLabel = document.querySelector(`.option-label[data-q="${i}"][data-v="${ANSWERS[i]}"]`);
-                const correctSpan  = correctLabel ? correctLabel.querySelector('span:not(.option-badge)') : null;
-                correctAnswerTexts.push(correctSpan ? correctSpan.textContent.trim() : "");
-
-                // 학생 선택 텍스트
-                const userPos   = userAnswers[i];
-                const userLabel = userPos ? document.querySelector(`.option-label[data-q="${i}"][data-v="${userPos}"]`) : null;
-                const userSpan  = userLabel ? userLabel.querySelector('span:not(.option-badge)') : null;
-                userAnswerTexts.push(userSpan ? userSpan.textContent.trim() : "");
-            }
-
             const payload = {
-                studentId: studentId,
-                name: nameVal,
-                answers: answers,
-                correct: correctArr,
-                correctAnswers: currentCorrectAnswers,
-                correctAnswerTexts: correctAnswerTexts,
-                userAnswerTexts: userAnswerTexts,
-                explanations: currentExplanations,
-                questions: questionTexts,
+                studentId:         studentId,
+                name:              nameVal,
+                questionSnapshots: questionSnapshots,
+                totalScore:        `${totalScore}/${TOTAL}`,
                 feedback: {
-                    difficulty: difficulty ? parseInt(difficulty) : null,
-                    difficultyLabel: difficulty ? ['매우 어려움', '어려움', '적당함', '쉬움', '매우 쉬움'][parseInt(difficulty) - 1] : null,
-                    studentFeedback: feedbackText
+                    difficulty:       difficulty ? parseInt(difficulty) : null,
+                    difficultyLabel:  difficulty ? ['매우 어려움', '어려움', '적당함', '쉬움', '매우 쉬움'][parseInt(difficulty) - 1] : null,
+                    studentFeedback:  feedbackText
                 }
             };
 
