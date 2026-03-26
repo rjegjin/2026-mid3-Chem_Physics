@@ -1220,6 +1220,7 @@
 
     document.querySelectorAll('.option-label').forEach(label => {
         label.addEventListener('click', function() {
+            if (submitted) return;
             const q = parseInt(this.dataset.q);
             const v = parseInt(this.dataset.v);
             // deselect siblings
@@ -1381,7 +1382,7 @@
             const correct = ANSWERS[q];
             const userAns = userAnswers[q];
             const card = document.getElementById(`qcard-${q}`);
-            const isCorrect = userAns === correct;
+            const isCorrect = userAns == correct;
 
             if(card) {
                 card.classList.remove('answered');
@@ -1404,9 +1405,9 @@
                 const badge = label.querySelector('.option-badge');
                 if(badge) badge.textContent = String.fromCharCode(9312 + idx);
 
-                if (v === correct) {
-                    label.classList.add(userAns === correct ? 'show-correct' : 'show-missed');
-                } else if (v === userAns && !isCorrect) {
+                if (v == correct) {
+                    label.classList.add(userAns == correct ? 'show-correct' : 'show-missed');
+                } else if (v == userAns && !isCorrect) {
                     label.classList.add('show-wrong');
                 }
                 optionsGrid.appendChild(label);
@@ -1516,6 +1517,62 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+        function showScore(total, a, b) {
+        const panel = document.getElementById('score-panel');
+        if(!panel) return;
+        panel.classList.add('visible');
+        
+        // Circle animation
+        const ring = document.getElementById('ring-fill-el');
+        if(ring) {
+            const totalLen = 427.26;
+            const offset = totalLen * (1 - total / TOTAL);
+            ring.style.strokeDashoffset = offset;
+        }
+        
+        // Number animation
+        const numEl = document.getElementById('score-number');
+        if(numEl) {
+            let current = 0;
+            const step = Math.max(1, Math.floor(total / 20));
+            const interval = setInterval(() => {
+                if(current >= total) {
+                    numEl.textContent = total;
+                    clearInterval(interval);
+                } else {
+                    current += step;
+                    if(current > total) current = total;
+                    numEl.textContent = current;
+                }
+            }, 30);
+        }
+        
+        // Section breakdown
+        if(document.getElementById('score-a')) document.getElementById('score-a').textContent = `${a} / 10`;
+        if(document.getElementById('score-b')) document.getElementById('score-b').textContent = `${b} / 10`;
+        
+        // Message & Badge
+        const msgEl = document.getElementById('score-msg');
+        const badgeEl = document.getElementById('grade-badge');
+        const percent = (total / TOTAL) * 100;
+        
+        if(badgeEl && msgEl) {
+            if(percent >= 90) {
+                badgeEl.textContent = 'MASTER 🏆';
+                msgEl.textContent = '완벽합니다! 화학의 달인이시군요.';
+            } else if(percent >= 70) {
+                badgeEl.textContent = 'EXCELLENT 🌟';
+                msgEl.textContent = '훌륭합니다! 조금만 더 하면 만점이에요.';
+            } else if(percent >= 40) {
+                badgeEl.textContent = 'GOOD 👍';
+                msgEl.textContent = '수고하셨습니다. 부족한 부분을 복습해보세요.';
+            } else {
+                badgeEl.textContent = 'KEEP GOING 💪';
+                msgEl.textContent = '기본 개념부터 차근차근 다시 살펴봅시다.';
+            }
+        }
+    }
+
     function resetAnswers() {
         if(confirm("정말로 모든 선택을 초기화하시겠습니까?")) {
             // 1. 선택된 라디오 버튼 해제
@@ -1530,6 +1587,16 @@
             localStorage.removeItem('quiz_L2L3_answers');
             // 5. 메모리 객체 초기화
             userAnswers = {};
+            submitted = false;
+            document.getElementById('submit-btn').disabled = false;
+            document.getElementById('submit-btn').innerHTML = '채점하기 →';
+            const omrBtn = document.getElementById('omr-submit-btn');
+            if(omrBtn) {
+                omrBtn.disabled = false;
+                omrBtn.style.background = '#2563eb';
+            }
+            document.getElementById('score-panel').classList.remove('visible');
+            document.getElementById('retry-btn').style.display = 'none';
             // 6. 스크롤을 맨 위로
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
