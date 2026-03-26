@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쪽지시험 | 일정 성분비 &amp; 기체 반응의 법칙</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+
+        :root {
+            --navy: #0f172a;
+            --blue: #1e40af;
+            --cyan: #0891b2;
+            --teal: #0d9488;
+            --correct: #16a34a;
+            --wrong: #dc2626;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+            margin: 0;
+        }
+
+        /* ─── HEADER ─── */
+        .quiz-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);
+            color: white;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        #progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 4px;
+            width: 100%;
+            margin-top: 1rem;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        #progress-fill {
+            background: linear-gradient(90deg, #0891b2, #10b981);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* ─── STUDENT INFO BAR ─── */
+        .student-info-bar {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 1.5rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-field {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-field span {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #64748b;
+            min-width: 40px;
+        }
+
+        .info-field input {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .info-field input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        /* ─── PRINT ─── */
+        @media print {
+            .no-print { display: none !important; }
+            .quiz-header { background: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            body { background: white; }
+        }
+
+        /* ─── PROFESSIONAL QUIZ LAYOUT ─── */
+        .question-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .question-card:hover { border-color: #cbd5e1; }
+        .question-card.answered { border-color: #3b82f6; background: #f8fafc; }
+        .question-card.correct  { border-color: #10b981; background: #f0fdf4; }
+        .question-card.wrong    { border-color: #ef4444; background: #fff1f2; }
+
+        .q-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+            width: 100%;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 1.5rem;
+        }
+        .q-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.8rem;
+            height: 2.8rem;
+            background: #1e293b;
+            color: white;
+            font-weight: 900;
+            font-size: 1.1rem;
+            border-radius: 1rem;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .q-num:hover { transform: translateY(-2px); background: #3b82f6; }
+
+        .q-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.7;
+            color: #334155;
+            margin: 0;
+            flex: 1;
+        }
+
+        .section-header {
+            margin: 3rem 0 1.5rem;
+            padding-left: 1.5rem;
+            border-left: 5px solid #3b82f6;
+        }
+
+        .section-header.teal {
+            border-left-color: #0d9488;
+        }
+
+        /* 선택지 내 화학식 첨자 스타일 */
+        /* 전역 첨자 스타일 */
+        sub {
+            font-size: 0.75em;
+            vertical-align: sub;
+            font-weight: 500;
+        }
+
+        /* 선택지의 첨자 (더 강조) */
+        .option-label sub {
+            font-size: 0.7em;
+            vertical-align: sub;
+            font-weight: 600;
+        }
+
+        /* 문제 제목의 첨자 */
+        .q-text sub {
+            font-size: 0.75em;
+            vertical-align: sub;
+        }
+
+        /* 설명의 첨자 */
+        .explanation sub {
+            font-size: 0.75em;
+            vertical-align: sub;
+        }
+
+        .q-visual-wrapper {
+            background: #fdfdfd;
+            border: 2px dashed #f1f5f9;
+            border-radius: 1.25rem;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 200px;
+        }
+        .visual-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .visual-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            width: 100%;
+            padding-top: 1rem;
+        }
+
+        .random-badge {
+            position: absolute;
+            bottom: 0.6rem;
+            right: 1rem;
+            font-size: 0.55rem;
+            color: #cbd5e1;
+            font-family: monospace;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 640px) {
+            .options-grid { grid-template-columns: 1fr; }
+            .question-card { padding: 1.5rem; gap: 1.5rem; }
+            .q-visual-wrapper { padding: 1.5rem 1rem; }
+            .visual-row { gap: 1.5rem; }
+            .q-text { font-size: 1.1rem; }
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            user-select: none;
+            line-height: 1.5;
+        }
+        .option-label:hover { border-color: #7dd3fc; background: #f0f9ff; }
+        .option-label input[type="radio"] { display: none; }
+        .option-label.selected { border-color: var(--blue); background: #eff6ff; }
+
+        /* After submit */
+        .option-label.show-correct  { border-color: var(--correct); background: #dcfce7; color: #14532d; }
+        .option-label.show-wrong    { border-color: var(--wrong);   background: #fee2e2; color: #7f1d1d; text-decoration: line-through; }
+        .option-label.show-missed   { border-color: var(--correct); background: #dcfce7; color: #14532d; }
+
+        .option-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: #e2e8f0;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: 900;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .show-correct .option-badge { background: var(--correct); color: white; }
+        .show-wrong   .option-badge { background: var(--wrong);   color: white; }
+        .show-missed  .option-badge { background: var(--correct); color: white; }
+
+        /* ─── EXPLANATION ─── */
+        .explanation {
+            display: none;
+            margin-top: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: #fefce8;
+            border-left: 4px solid #eab308;
+            border-radius: 0 0.5rem 0.5rem 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #713f12;
+        }
+        .explanation.visible { display: block; }
+
+        /* ─── SUBMIT BUTTON ─── */
+        #submit-btn {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 1.25rem 2rem;
+            background: var(--navy);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 900;
+            border: none;
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.05em;
+        }
+        #submit-btn:hover { background: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        #submit-btn:disabled { background: #94a3b8; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* ─── SCORE PANEL ─── */
+        #score-panel {
+            display: none;
+            background: var(--navy);
+            color: white;
+            border-radius: 1.5rem;
+            padding: 4rem 2rem;
+            margin: 1rem 0 2rem;
+            text-align: center;
+        }
+        #score-panel.visible { display: block; }
+
+        .score-ring {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+        .score-ring svg { transform: rotate(-90deg); }
+        .score-ring .ring-bg   { stroke: #334155; fill: none; stroke-width: 12; }
+        .score-ring .ring-fill { fill: none; stroke-width: 12; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+        .score-number {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            font-weight: 900;
+        }
+
+        .grade-badge {
+            display: inline-block;
+            padding: 0.5rem 2rem;
+            border-radius: 9999px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .breakdown-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 0.75rem;
+            padding: 1rem;
+        }
+
+        /* ─── WRAPPER ─── */
+        .content-wrapper {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+        }
+
+        /* ─── TIMER ─── */
+        #timer-display {
+            font-size: 1.1rem;
+            font-weight: 900;
+            font-variant-numeric: tabular-nums;
+            color: #7dd3fc;
+        }
+        #timer-display.warning { color: #fbbf24; animation: blink 1s infinite; }
+        #timer-display.danger  { color: #f87171; animation: blink 0.5s infinite; }
+        @keyframes blink { 50% { opacity: 0.4; } }
+
+        /* ─── OMR NAVIGATION ─── */
+        #omr-nav-container {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            z-index: 90;
+            width: 140px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        @media (max-width: 1200px) {
+            #omr-nav-container {
+                position: static;
+                transform: none;
+                width: 100%;
+                max-width: 860px;
+                margin: 1rem auto;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+        .omr-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.4rem;
+        }
+        @media (max-width: 1200px) {
+            .omr-grid { grid-template-columns: repeat(10, 1fr); }
+        }
+        .omr-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 900;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .omr-dot:hover { border-color: var(--cyan); color: var(--cyan); background: #ecfeff; }
+        .omr-dot.filled { background: var(--navy); color: white; border-color: var(--navy); }
+        .omr-dot.correct { background: var(--correct); color: white; border-color: var(--correct); }
+        .omr-dot.wrong { background: var(--wrong); color: white; border-color: var(--wrong); }
+
+        /* ─── VISUAL AIDS ─── */
+        .particle-label {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #94a3b8;
+            text-align: center;
+            margin-top: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── STICKY HEADER ── -->
+<header class="quiz-header no-print">
+    <div style="max-width:860px; margin:0 auto; display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
+        <div>
+            <p style="font-size:0.75rem; letter-spacing:0.15em; color:#94a3b8; text-transform:uppercase; margin:0 0 0.25rem;">
+                2026 중3 과학A · 화학 단원 쪽지시험
+            </p>
+            <h1 style="margin:0; font-size:1.35rem; font-weight:900; line-height:1.3;">
+                일정 성분비 &amp; 기체 반응의 법칙
+                <span style="font-size:0.9rem; background:#1e40af; padding:0.2rem 0.7rem; border-radius:9999px; margin-left:0.5rem; vertical-align:middle;">20문항</span>
+            </h1>
+            <p style="margin:0.25rem 0 0; font-size:0.85rem; color:#93c5fd; font-weight:600;">L4-L5 심화 | 일정 성분비 법칙 + 기체 반응의 법칙</p>
+        </div>
+        <div style="display:flex; gap:0.5rem; align-items:flex-start;">
+            <a href="index.html" style="font-size:0.75rem; background:#94a3b8; color:white; padding:0.4rem 0.8rem; border-radius:0.5rem; text-decoration:none; transition:all 0.2s;">🏠 메인</a>
+            <div style="text-align:right;">
+                <div id="timer-display">⏱ 20:00</div>
+                <div style="font-size:0.75rem; color:#64748b; margin-top:0.25rem;" id="answered-count">0 / 20 답변</div>
+            </div>
+        </div>
+    </div>
+    <div id="progress-bar"><div id="progress-fill"></div></div>
+</header>
+
+<!-- ── STUDENT INFO BAR ── -->
+<div class="student-info-bar no-print">
+    <div class="info-field">
+        <span>반</span>
+        <input type="text" id="info-class" placeholder="예) 3-2" maxlength="5">
+    </div>
+    <div class="info-field">
+        <span>번호</span>
+        <input type="text" id="info-num" placeholder="예) 15" maxlength="3" style="width:60px;">
+    </div>
+    <div class="info-field">
+        <span>이름</span>
+        <input type="text" id="info-name" placeholder="홍길동" maxlength="8">
+    </div>
+    <div style="margin-left:auto; display:flex; gap:0.5rem;">
+        <button onclick="window.print()" style="padding:0.4rem 1rem; background:#334155; color:white; border:none; border-radius:0.5rem; cursor:pointer; font-size:0.85rem; font-weight:700;">🖨 인쇄</button>
+    </div>
+</div>
+
+<!-- ── MAIN CONTENT ── -->
+
+    <!-- OMR Navigation (Sticky) -->
+    <div id="omr-nav-container" class="no-print">
+        <p style="margin:0; font-size:0.7rem; font-weight:900; color:#64748b; text-transform:uppercase; letter-spacing:0.05em; text-align:center;">OMR STATUS</p>
+        <div class="omr-grid" id="omr-grid-main">
+            <!-- Dots generated by JS -->
+        </div>
+        <div style="margin-top:0.5rem; border-top:1px solid #f1f5f9; pt-2 text-center">
+            <button onclick="window.scrollTo({top:0, behavior:'smooth'})" style="font-size:0.6rem; font-weight:bold; color:var(--cyan); background:none; border:none; cursor:pointer;">TOP ▲</button>
+        <div style="margin-top:1rem; border-top:1px solid #f1f5f9; pt-3; display:flex; gap:0.5rem;">
+            <button onclick="resetAnswers()" id="omr-reset-btn" style="flex:1; padding:0.75rem; background:#ef4444; color:white; border:none; border-radius:0.5rem; font-weight:bold; cursor:pointer; font-size:0.8rem;">초기화 🔄</button>
+            <button onclick="submitQuiz()" id="omr-submit-btn" style="flex:2; padding:0.75rem; background:#2563eb; color:white; border:none; border-radius:0.5rem; font-weight:bold; cursor:pointer; font-size:0.8rem;">채점/제출 🚀</button>
+        </div>
+        </div>
+    </div>
+
+<div class="content-wrapper">
+
+    <!-- SCORE PANEL (hidden until submit) -->
+    <div id="score-panel">
+        <div class="score-ring">
+            <svg viewBox="0 0 160 160" width="160" height="160">
+                <circle class="ring-bg" cx="80" cy="80" r="68"/>
+                <circle class="ring-fill" id="ring-fill-el" cx="80" cy="80" r="68"
+                    stroke-dasharray="427.26"
+                    stroke-dashoffset="427.26"
+                    stroke="url(#scoreGrad)"/>
+                <defs>
+                    <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%">
+                        <stop offset="0%" style="stop-color:#22d3ee"/>
+                        <stop offset="100%" style="stop-color:#0d9488"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <div class="score-number" id="score-number">0</div>
+        </div>
+        <div class="grade-badge" id="grade-badge"></div>
+        <p id="score-msg" style="color:#cbd5e1; font-size:1rem; margin:0.5rem 0 0;"></p>
+        <div class="score-breakdown">
+            <div class="breakdown-card">
+                <p style="color:#94a3b8; font-size:0.8rem; margin:0 0 0.25rem;">L4: 일정 성분비 법칙</p>
+                <p style="font-size:1.5rem; font-weight:900; margin:0;" id="score-a">0 / 10</p>
+            </div>
+            <div class="breakdown-card">
+                <p style="color:#94a3b8; font-size:0.8rem; margin:0 0 0.25rem;">L5: 기체 반응의 법칙</p>
+                <p style="font-size:1.5rem; font-weight:900; margin:0;" id="score-b">0 / 10</p>
+            </div>
+        </div>
+        <p style="color:#64748b; font-size:0.85rem; margin-top:1.5rem;">오답은 아래에서 빨간색으로 표시됩니다. 해설을 꼭 확인하세요!</p>
+    </div>
+
+    <!-- ══ SECTION L4 ══ -->
+    <div class="section-header">
+        <p style="margin:0; font-size:0.8rem; color:#3b82f6; font-weight:700; text-transform:uppercase; letter-spacing:0.1em;">Section L4 · 10문항</p>
+        <h2 style="margin:0.25rem 0 0; font-size:1.3rem; font-weight:900;">L4. 일정 성분비 법칙</h2>
+        <p style="margin:0.25rem 0 0; font-size:0.85rem; color:#64748b;">화합물의 성분 원소 질량비, 비례식 계산, 과학자 연결 — 심화 계산 포함</p>
+    </div>
+
+    <!-- Q1 -->
+    <div class="question-card" id="qcard-1">
+        <div class="q-header">
+            <span class="q-num">1</span>
+            <p class="q-text">일정 성분비 법칙에 대한 설명으로 옳은 것은?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="1" data-v="1"><input type="radio" name="q-1" value="1"><span class="option-badge">①</span><span>화합물을 이루는 성분 원소의 질량비는 항상 일정하다</span></label>
+            <label class="option-label" data-q="1" data-v="2"><input type="radio" name="q-1" value="2"><span class="option-badge">②</span><span>모든 화합물에서 두 원소의 질량비는 1:1이다</span></label>
+            <label class="option-label" data-q="1" data-v="3"><input type="radio" name="q-1" value="3"><span class="option-badge">③</span><span>혼합물에서도 성분 원소의 질량비는 일정하다</span></label>
+            <label class="option-label" data-q="1" data-v="4"><input type="radio" name="q-1" value="4"><span class="option-badge">④</span><span>같은 원소로 만들어진 화합물은 모두 같은 질량비를 가진다</span></label>
+        </div>
+        <div class="explanation" id="exp-1">일정 성분비 법칙은 순수한 화합물에만 적용되며, 화합물을 이루는 성분 원소의 질량비는 항상 일정합니다. 혼합물은 해당 없음. CO와 CO₂처럼 같은 원소로 된 화합물도 질량비는 다릅니다.</div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-card" id="qcard-2">
+        <div class="q-header">
+            <span class="q-num">2</span>
+            <p class="q-text">물(H<sub>2</sub>O)에서 수소와 산소의 질량비는? (단, H=1, O=16)</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="2" data-v="1"><input type="radio" name="q-2" value="1"><span class="option-badge">①</span><span>2:16</span></label>
+            <label class="option-label" data-q="2" data-v="2"><input type="radio" name="q-2" value="2"><span class="option-badge">②</span><span>1:8</span></label>
+            <label class="option-label" data-q="2" data-v="3"><input type="radio" name="q-2" value="3"><span class="option-badge">③</span><span>2:1</span></label>
+            <label class="option-label" data-q="2" data-v="4"><input type="radio" name="q-2" value="4"><span class="option-badge">④</span><span>1:16</span></label>
+        </div>
+        <div class="explanation" id="exp-2">H<sub>2</sub>O에서 수소 원자 2개(질량 2)와 산소 원자 1개(질량 16) → 질량비 H:O = 2:16 = <strong>1:8</strong></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-card" id="qcard-3">
+        <div class="q-header">
+            <span class="q-num">3</span>
+            <p class="q-text">이산화탄소(CO<sub>2</sub>)에서 탄소와 산소의 질량비는? (단, C=12, O=16)</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="3" data-v="1"><input type="radio" name="q-3" value="1"><span class="option-badge">①</span><span>1:2</span></label>
+            <label class="option-label" data-q="3" data-v="2"><input type="radio" name="q-3" value="2"><span class="option-badge">②</span><span>1:4</span></label>
+            <label class="option-label" data-q="3" data-v="3"><input type="radio" name="q-3" value="3"><span class="option-badge">③</span><span>3:8</span></label>
+            <label class="option-label" data-q="3" data-v="4"><input type="radio" name="q-3" value="4"><span class="option-badge">④</span><span>6:16</span></label>
+        </div>
+        <div class="explanation" id="exp-3">CO<sub>2</sub>에서 탄소 12, 산소 32(=16×2) → 질량비 C:O = 12:32 = <strong>3:8</strong></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-card" id="qcard-4">
+        <div class="q-header">
+            <span class="q-num">4</span>
+            <p class="q-text">암모니아(NH<sub>3</sub>)에서 질소와 수소의 질량비는? (단, N=14, H=1)</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="4" data-v="1"><input type="radio" name="q-4" value="1"><span class="option-badge">①</span><span>1:3</span></label>
+            <label class="option-label" data-q="4" data-v="2"><input type="radio" name="q-4" value="2"><span class="option-badge">②</span><span>14:3</span></label>
+            <label class="option-label" data-q="4" data-v="3"><input type="radio" name="q-4" value="3"><span class="option-badge">③</span><span>7:1</span></label>
+            <label class="option-label" data-q="4" data-v="4"><input type="radio" name="q-4" value="4"><span class="option-badge">④</span><span>3:14</span></label>
+        </div>
+        <div class="explanation" id="exp-4">NH<sub>3</sub>에서 질소 14, 수소 3(=1×3) → 질량비 N:H = <strong>14:3</strong></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-card" id="qcard-5">
+        <div class="q-header">
+            <span class="q-num">5</span>
+            <p class="q-text">일정 성분비 법칙을 처음 발견한 과학자와 그 내용이 올바르게 연결된 것은?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="5" data-v="1"><input type="radio" name="q-5" value="1"><span class="option-badge">①</span><span>아보가드로 — 같은 온도·압력의 기체는 같은 부피에 같은 수의 분자를 포함한다</span></label>
+            <label class="option-label" data-q="5" data-v="2"><input type="radio" name="q-5" value="2"><span class="option-badge">②</span><span>라부아지에 — 반응 전후 물질의 총 질량은 변하지 않는다</span></label>
+            <label class="option-label" data-q="5" data-v="3"><input type="radio" name="q-5" value="3"><span class="option-badge">③</span><span>게이뤼삭 — 기체가 반응할 때 부피비는 간단한 정수비를 이룬다</span></label>
+            <label class="option-label" data-q="5" data-v="4"><input type="radio" name="q-5" value="4"><span class="option-badge">④</span><span>프루스트 — 화합물을 이루는 성분 원소의 질량비는 항상 일정하다</span></label>
+        </div>
+        <div class="explanation" id="exp-5">일정 성분비 법칙은 프랑스 화학자 <strong>프루스트(Proust)</strong>가 1799년 발견했습니다. ①아보가드로 ②라부아지에(질량보존) ③게이뤼삭(기체반응) 모두 각각 다른 법칙과 연결됩니다.</div>
+    </div>
+
+    <!-- Q6 (동적) -->
+    <div class="question-card" id="qcard-6">
+        <div class="q-header">
+            <span class="q-num">6</span>
+            <p class="q-text">물(H<sub>2</sub>O)에서 수소:산소 = 1:8이다. 수소 <span id="q6-h">2</span>g이 있을 때 결합하는 산소의 질량은?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="6" data-v="1"><input type="radio" name="q-6" value="1"><span class="option-badge">①</span><span><span id="q6-opt1">2g</span></span></label>
+            <label class="option-label" data-q="6" data-v="2"><input type="radio" name="q-6" value="2"><span class="option-badge">②</span><span><span id="q6-opt2">4g</span></span></label>
+            <label class="option-label" data-q="6" data-v="3"><input type="radio" name="q-6" value="3"><span class="option-badge">③</span><span><span id="q6-opt3">16g</span></span></label>
+            <label class="option-label" data-q="6" data-v="4"><input type="radio" name="q-6" value="4"><span class="option-badge">④</span><span><span id="q6-opt4">32g</span></span></label>
+        </div>
+        <div class="explanation" id="exp-6">수소:산소 = 1:8이므로 산소 = 2 × 8 = <strong>16g</strong></div>
+    </div>
+
+    <!-- Q7 (동적) -->
+    <div class="question-card" id="qcard-7">
+        <div class="q-header">
+            <span class="q-num">7</span>
+            <p class="q-text">CO<sub>2</sub>에서 탄소:산소 = 3:8이다. 탄소 <span id="q7-c">3</span>g과 완전히 반응하는 산소의 질량은?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="7" data-v="1"><input type="radio" name="q-7" value="1"><span class="option-badge">①</span><span><span id="q7-opt1">3g</span></span></label>
+            <label class="option-label" data-q="7" data-v="2"><input type="radio" name="q-7" value="2"><span class="option-badge">②</span><span><span id="q7-opt2">8g</span></span></label>
+            <label class="option-label" data-q="7" data-v="3"><input type="radio" name="q-7" value="3"><span class="option-badge">③</span><span><span id="q7-opt3">11g</span></span></label>
+            <label class="option-label" data-q="7" data-v="4"><input type="radio" name="q-7" value="4"><span class="option-badge">④</span><span><span id="q7-opt4">24g</span></span></label>
+        </div>
+        <div class="explanation" id="exp-7">탄소:산소 = 3:8이므로 산소 = 3 × 8/3 = <strong>8g</strong></div>
+    </div>
+
+    <!-- Q8 (동적) -->
+    <div class="question-card" id="qcard-8">
+        <div class="q-header">
+            <span class="q-num">8</span>
+            <p class="q-text">H<sub>2</sub>O에서 산소 <span id="q8-o">16</span>g과 결합하는 수소는? (H:O = 1:8)</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="8" data-v="1"><input type="radio" name="q-8" value="1"><span class="option-badge">①</span><span><span id="q8-opt1">2g</span></span></label>
+            <label class="option-label" data-q="8" data-v="2"><input type="radio" name="q-8" value="2"><span class="option-badge">②</span><span><span id="q8-opt2">4g</span></span></label>
+            <label class="option-label" data-q="8" data-v="3"><input type="radio" name="q-8" value="3"><span class="option-badge">③</span><span><span id="q8-opt3">8g</span></span></label>
+            <label class="option-label" data-q="8" data-v="4"><input type="radio" name="q-8" value="4"><span class="option-badge">④</span><span><span id="q8-opt4">16g</span></span></label>
+        </div>
+        <div class="explanation" id="exp-8">수소:산소 = 1:8이므로 수소 = 16 ÷ 8 = <strong>2g</strong></div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="question-card" id="qcard-9">
+        <div class="q-header">
+            <span class="q-num">9</span>
+            <p class="q-text">어떤 화합물에서 원소 A와 B의 질량비가 A:B = 5:3이다. A 15g을 완전히 반응시키려면 B는 몇 g 필요한가?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="9" data-v="1"><input type="radio" name="q-9" value="1"><span class="option-badge">①</span><span>3g</span></label>
+            <label class="option-label" data-q="9" data-v="2"><input type="radio" name="q-9" value="2"><span class="option-badge">②</span><span>6g</span></label>
+            <label class="option-label" data-q="9" data-v="3"><input type="radio" name="q-9" value="3"><span class="option-badge">③</span><span>9g</span></label>
+            <label class="option-label" data-q="9" data-v="4"><input type="radio" name="q-9" value="4"><span class="option-badge">④</span><span>12g</span></label>
+        </div>
+        <div class="explanation" id="exp-9">비례식: 5:3 = 15:x → x = 15 × 3/5 = <strong>9g</strong></div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="question-card" id="qcard-10">
+        <div class="q-header">
+            <span class="q-num">10</span>
+            <p class="q-text">어떤 화합물에서 원소 X와 Y의 질량비가 X:Y = 5:3이다. X 10g과 Y 9g을 반응시키면 생성물의 질량과 남는 물질은?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="10" data-v="1"><input type="radio" name="q-10" value="1"><span class="option-badge">①</span><span>생성물 19g, 남는 물질 없음</span></label>
+            <label class="option-label" data-q="10" data-v="2"><input type="radio" name="q-10" value="2"><span class="option-badge">②</span><span>생성물 16g, Y가 3g 남음</span></label>
+            <label class="option-label" data-q="10" data-v="3"><input type="radio" name="q-10" value="3"><span class="option-badge">③</span><span>생성물 13g, X가 3g 남음</span></label>
+            <label class="option-label" data-q="10" data-v="4"><input type="radio" name="q-10" value="4"><span class="option-badge">④</span><span>생성물 16g, X가 3g 남음</span></label>
+        </div>
+        <div class="explanation" id="exp-10">X:Y=5:3이므로 X 10g → Y 6g 필요. Y는 9g 중 6g만 반응, <strong>Y 3g 남음</strong>. 생성물 = 10+6 = <strong>16g</strong></div>
+    </div>
+
+    <!-- ══ SECTION L5 ══ -->
+    <div class="section-header teal">
+        <p style="margin:0; font-size:0.8rem; color:#0d9488; font-weight:700; text-transform:uppercase; letter-spacing:0.1em;">Section L5 · 10문항</p>
+        <h2 style="margin:0.25rem 0 0; font-size:1.3rem; font-weight:900;">L5. 기체 반응의 법칙</h2>
+        <p style="margin:0.25rem 0 0; font-size:0.85rem; color:#64748b;">게이뤼삭 법칙, 부피비=계수비, 남는 기체 계산, 두 법칙 비교 — 고난도 종합</p>
+    </div>
+
+    <!-- Q11 -->
+    <div class="question-card" id="qcard-11">
+        <div class="q-header">
+            <span class="q-num">11</span>
+            <p class="q-text">기체 반응의 법칙에 대한 설명으로 옳은 것은?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="11" data-v="1"><input type="radio" name="q-11" value="1"><span class="option-badge">①</span><span>기체의 반응 부피비는 온도에 따라 달라진다</span></label>
+            <label class="option-label" data-q="11" data-v="2"><input type="radio" name="q-11" value="2"><span class="option-badge">②</span><span>같은 온도·압력에서 기체가 반응할 때 부피비는 화학 반응식의 계수비와 같다</span></label>
+            <label class="option-label" data-q="11" data-v="3"><input type="radio" name="q-11" value="3"><span class="option-badge">③</span><span>기체 반응의 법칙은 고체 반응에도 동일하게 적용된다</span></label>
+            <label class="option-label" data-q="11" data-v="4"><input type="radio" name="q-11" value="4"><span class="option-badge">④</span><span>기체 반응의 법칙은 질량 보존 법칙의 특별한 경우이다</span></label>
+        </div>
+        <div class="explanation" id="exp-11">기체 반응의 법칙: 같은 온도·압력에서 기체가 반응할 때 반응·생성 기체의 <strong>부피비는 화학 반응식의 계수비와 같습니다</strong>. 게이뤼삭이 발견했습니다.</div>
+    </div>
+
+    <!-- Q12 -->
+    <div class="question-card" id="qcard-12">
+        <div class="q-header">
+            <span class="q-num">12</span>
+            <p class="q-text">수소와 염소가 반응하여 염화수소가 생성된다: H<sub>2</sub> + Cl<sub>2</sub> → 2HCl. 이 반응에서 H<sub>2</sub>, Cl<sub>2</sub>, HCl의 부피비는?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="12" data-v="1"><input type="radio" name="q-12" value="1"><span class="option-badge">①</span><span>1:2:2</span></label>
+            <label class="option-label" data-q="12" data-v="2"><input type="radio" name="q-12" value="2"><span class="option-badge">②</span><span>1:1:2</span></label>
+            <label class="option-label" data-q="12" data-v="3"><input type="radio" name="q-12" value="3"><span class="option-badge">③</span><span>2:1:2</span></label>
+            <label class="option-label" data-q="12" data-v="4"><input type="radio" name="q-12" value="4"><span class="option-badge">④</span><span>1:1:1</span></label>
+        </div>
+        <div class="explanation" id="exp-12">계수비 = 부피비: H<sub>2</sub>:Cl<sub>2</sub>:HCl = <strong>1:1:2</strong></div>
+    </div>
+
+    <!-- Q13 -->
+    <div class="question-card" id="qcard-13">
+        <div class="q-header">
+            <span class="q-num">13</span>
+            <p class="q-text">질소와 수소가 반응하여 암모니아가 생성된다: N<sub>2</sub> + 3H<sub>2</sub> → 2NH<sub>3</sub>. N<sub>2</sub>, H<sub>2</sub>, NH<sub>3</sub>의 부피비는?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="13" data-v="1"><input type="radio" name="q-13" value="1"><span class="option-badge">①</span><span>1:2:2</span></label>
+            <label class="option-label" data-q="13" data-v="2"><input type="radio" name="q-13" value="2"><span class="option-badge">②</span><span>1:2:3</span></label>
+            <label class="option-label" data-q="13" data-v="3"><input type="radio" name="q-13" value="3"><span class="option-badge">③</span><span>1:3:2</span></label>
+            <label class="option-label" data-q="13" data-v="4"><input type="radio" name="q-13" value="4"><span class="option-badge">④</span><span>2:3:2</span></label>
+        </div>
+        <div class="explanation" id="exp-13">계수비 = 부피비: N<sub>2</sub>:H<sub>2</sub>:NH<sub>3</sub> = <strong>1:3:2</strong></div>
+    </div>
+
+    <!-- Q14 (동적) -->
+    <div class="question-card" id="qcard-14">
+        <div class="q-header">
+            <span class="q-num">14</span>
+            <p class="q-text">H<sub>2</sub> + Cl<sub>2</sub> → 2HCl 반응에서 H<sub>2</sub> <span id="q14-h2">3</span>L를 완전히 반응시키면 생성되는 HCl의 부피는?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="14" data-v="1"><input type="radio" name="q-14" value="1"><span class="option-badge">①</span><span><span id="q14-opt1">6L</span></span></label>
+            <label class="option-label" data-q="14" data-v="2"><input type="radio" name="q-14" value="2"><span class="option-badge">②</span><span><span id="q14-opt2">3L</span></span></label>
+            <label class="option-label" data-q="14" data-v="3"><input type="radio" name="q-14" value="3"><span class="option-badge">③</span><span><span id="q14-opt3">9L</span></span></label>
+            <label class="option-label" data-q="14" data-v="4"><input type="radio" name="q-14" value="4"><span class="option-badge">④</span><span><span id="q14-opt4">1.5L</span></span></label>
+        </div>
+        <div class="explanation" id="exp-14">H<sub>2</sub>:HCl = 1:2(계수비=부피비)이므로 HCl = 3 × 2 = <strong>6L</strong></div>
+    </div>
+
+    <!-- Q15 (동적) -->
+    <div class="question-card" id="qcard-15">
+        <div class="q-header">
+            <span class="q-num">15</span>
+            <p class="q-text">N<sub>2</sub> + 3H<sub>2</sub> → 2NH<sub>3</sub> 반응에서 N<sub>2</sub> <span id="q15-n2">4</span>L가 완전히 반응하면 생성되는 NH<sub>3</sub>의 부피는?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="15" data-v="1"><input type="radio" name="q-15" value="1"><span class="option-badge">①</span><span><span id="q15-opt1">4L</span></span></label>
+            <label class="option-label" data-q="15" data-v="2"><input type="radio" name="q-15" value="2"><span class="option-badge">②</span><span><span id="q15-opt2">8L</span></span></label>
+            <label class="option-label" data-q="15" data-v="3"><input type="radio" name="q-15" value="3"><span class="option-badge">③</span><span><span id="q15-opt3">12L</span></span></label>
+            <label class="option-label" data-q="15" data-v="4"><input type="radio" name="q-15" value="4"><span class="option-badge">④</span><span><span id="q15-opt4">2.0L</span></span></label>
+        </div>
+        <div class="explanation" id="exp-15">N<sub>2</sub>:NH<sub>3</sub> = 1:2(계수비=부피비)이므로 NH<sub>3</sub> = 4 × 2 = <strong>8L</strong></div>
+    </div>
+
+    <!-- Q16 -->
+    <div class="question-card" id="qcard-16">
+        <div class="q-header">
+            <span class="q-num">16</span>
+            <p class="q-text">2CO + O<sub>2</sub> → 2CO<sub>2</sub> 반응에서 CO, O<sub>2</sub>, CO<sub>2</sub>의 부피비는?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="16" data-v="1"><input type="radio" name="q-16" value="1"><span class="option-badge">①</span><span>1:1:1</span></label>
+            <label class="option-label" data-q="16" data-v="2"><input type="radio" name="q-16" value="2"><span class="option-badge">②</span><span>1:2:1</span></label>
+            <label class="option-label" data-q="16" data-v="3"><input type="radio" name="q-16" value="3"><span class="option-badge">③</span><span>2:1:2</span></label>
+            <label class="option-label" data-q="16" data-v="4"><input type="radio" name="q-16" value="4"><span class="option-badge">④</span><span>1:1:2</span></label>
+        </div>
+        <div class="explanation" id="exp-16">계수비 = 부피비: CO:O<sub>2</sub>:CO<sub>2</sub> = <strong>2:1:2</strong></div>
+    </div>
+
+    <!-- Q17 (동적) -->
+    <div class="question-card" id="qcard-17">
+        <div class="q-header">
+            <span class="q-num">17</span>
+            <p class="q-text">H<sub>2</sub> + Cl<sub>2</sub> → 2HCl 반응에서 H<sub>2</sub> <span id="q17-h2">4</span>L와 Cl<sub>2</sub> <span id="q17-cl2">6</span>L를 반응시키면, 남는 기체와 그 부피는?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="17" data-v="1"><input type="radio" name="q-17" value="1"><span class="option-badge">①</span><span>H<sub>2</sub> 2L</span></label>
+            <label class="option-label" data-q="17" data-v="2"><input type="radio" name="q-17" value="2"><span class="option-badge">②</span><span>H<sub>2</sub> 4L</span></label>
+            <label class="option-label" data-q="17" data-v="3"><input type="radio" name="q-17" value="3"><span class="option-badge">③</span><span>Cl<sub>2</sub> 2L</span></label>
+            <label class="option-label" data-q="17" data-v="4"><input type="radio" name="q-17" value="4"><span class="option-badge">④</span><span>Cl<sub>2</sub> <span id="q17-opt4">2L</span></span></label>
+        </div>
+        <div class="explanation" id="exp-17">H<sub>2</sub>:Cl<sub>2</sub>=1:1이므로 H<sub>2</sub> 4L → Cl<sub>2</sub> 4L 필요. Cl<sub>2</sub> 6 − 4 = <strong>Cl<sub>2</sub> 2L 남음</strong></div>
+    </div>
+
+    <!-- Q18 (동적) -->
+    <div class="question-card" id="qcard-18">
+        <div class="q-header">
+            <span class="q-num">18</span>
+            <p class="q-text">N<sub>2</sub> + 3H<sub>2</sub> → 2NH<sub>3</sub> 반응에서 N<sub>2</sub> <span id="q18-n2">2</span>L와 H<sub>2</sub> <span id="q18-h2">9</span>L를 반응시키면, 생성되는 NH<sub>3</sub>의 부피와 남는 기체는?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="18" data-v="1"><input type="radio" name="q-18" value="1"><span class="option-badge">①</span><span>NH<sub>3</sub> <span id="q18-opt1">4L</span> 생성, H<sub>2</sub> <span id="q18-opt1b">3L</span> 남음</span></label>
+            <label class="option-label" data-q="18" data-v="2"><input type="radio" name="q-18" value="2"><span class="option-badge">②</span><span>NH<sub>3</sub> <span id="q18-opt2">6L</span> 생성, H<sub>2</sub> <span id="q18-opt2b">3L</span> 남음</span></label>
+            <label class="option-label" data-q="18" data-v="3"><input type="radio" name="q-18" value="3"><span class="option-badge">③</span><span>NH<sub>3</sub> <span id="q18-opt3">4L</span> 생성, N<sub>2</sub> <span id="q18-opt3b">1L</span> 남음</span></label>
+            <label class="option-label" data-q="18" data-v="4"><input type="radio" name="q-18" value="4"><span class="option-badge">④</span><span>NH<sub>3</sub> <span id="q18-opt4">6L</span> 생성, 남는 기체 없음</span></label>
+        </div>
+        <div class="explanation" id="exp-18">N<sub>2</sub>:H<sub>2</sub>:NH<sub>3</sub> = 1:3:2. N<sub>2</sub> 2L 기준 H<sub>2</sub> 6L 필요. H<sub>2</sub> 9 − 6 = <strong>3L 남음</strong>. NH<sub>3</sub> = <strong>4L</strong></div>
+    </div>
+
+    <!-- Q19 -->
+    <div class="question-card" id="qcard-19">
+        <div class="q-header">
+            <span class="q-num">19</span>
+            <p class="q-text">기체 반응의 법칙과 일정 성분비 법칙의 관계에 대한 설명으로 옳은 것은?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="19" data-v="1"><input type="radio" name="q-19" value="1"><span class="option-badge">①</span><span>두 법칙은 서로 모순되므로 동시에 성립할 수 없다</span></label>
+            <label class="option-label" data-q="19" data-v="2"><input type="radio" name="q-19" value="2"><span class="option-badge">②</span><span>기체 반응의 법칙이 일정 성분비 법칙의 특별한 경우이다</span></label>
+            <label class="option-label" data-q="19" data-v="3"><input type="radio" name="q-19" value="3"><span class="option-badge">③</span><span>기체 반응의 법칙은 부피비, 일정 성분비 법칙은 질량비를 다루므로 관점이 다르다</span></label>
+            <label class="option-label" data-q="19" data-v="4"><input type="radio" name="q-19" value="4"><span class="option-badge">④</span><span>일정 성분비 법칙으로부터 기체 반응의 법칙을 수학적으로 유도할 수 있다</span></label>
+        </div>
+        <div class="explanation" id="exp-19">기체 반응의 법칙은 <strong>부피비(계수비)</strong>를, 일정 성분비 법칙은 <strong>질량비</strong>를 다루는 법칙입니다. 두 법칙은 다른 관점에서 화학 반응을 설명하며 서로 보완적입니다.</div>
+    </div>
+
+    <!-- Q20 -->
+    <div class="question-card" id="qcard-20">
+        <div class="q-header">
+            <span class="q-num">20</span>
+            <p class="q-text">H<sub>2</sub> 2L와 O<sub>2</sub> 1L가 반응하여 H<sub>2</sub>O가 생성되는 반응에서, 일정 성분비 법칙에 따라 물 속 H:O 질량비는? (단, H=1, O=16)</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="20" data-v="1"><input type="radio" name="q-20" value="1"><span class="option-badge">①</span><span>2:1</span></label>
+            <label class="option-label" data-q="20" data-v="2"><input type="radio" name="q-20" value="2"><span class="option-badge">②</span><span>1:16</span></label>
+            <label class="option-label" data-q="20" data-v="3"><input type="radio" name="q-20" value="3"><span class="option-badge">③</span><span>1:8</span></label>
+            <label class="option-label" data-q="20" data-v="4"><input type="radio" name="q-20" value="4"><span class="option-badge">④</span><span>2:16</span></label>
+        </div>
+        <div class="explanation" id="exp-20">분자량을 이용: H<sub>2</sub>O에서 H 2개(질량 2) + O 1개(질량 16) → H:O = 2:16 = <strong>1:8</strong></div>
+    </div>
+
+<!-- SUBMIT -->
+
+    <!-- 서버 제출 영역 (채점 후 표시됨) -->
+    <div id="server-submit-area" class="no-print" style="display:none; max-width: 600px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 2px solid #3b82f6;">
+        <h3 style="margin-top:0; color:#1e293b; font-size:1.5rem; text-align:center;">📡 결과 서버에 제출하기</h3>
+        <p style="color:#64748b; text-align:center; margin-bottom:1.5rem;">선생님께 결과를 전송하려면 아래 버튼을 클릭하세요.</p>
+
+        <!-- 난이도 및 소감 섹션 -->
+        <div style="margin-bottom:2rem; padding: 1.25rem; background: #fffbeb; border: 2px solid #f59e0b; border-radius: 0.75rem;">
+            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem;">
+                <span style="font-size:1.2rem;">⭐</span>
+                <h4 style="margin:0; color:#92400e; font-weight:700;">보너스 포인트: 피드백 남기기</h4>
+            </div>
+
+            <!-- 난이도 리커트 척도 -->
+            <div style="margin-bottom:1rem;">
+                <p style="margin:0 0 0.6rem 0; font-weight:600; color:#b45309; font-size:0.9rem;">🎯 이 시험의 난이도는?</p>
+                <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+                    <label style="display:flex; flex-direction:column; align-items:center; gap:0.3rem; cursor:pointer; padding:0.6rem; background:white; border:2px solid #fde68a; border-radius:0.4rem; transition:all 0.2s; flex:1; min-width:70px;" id="diff-label-1">
+                        <input type="radio" name="difficulty-quiz" value="1" style="cursor:pointer;">
+                        <span style="font-weight:600; color:#b45309; font-size:0.75rem; text-align:center;">매우<br>어려움</span>
+                    </label>
+                    <label style="display:flex; flex-direction:column; align-items:center; gap:0.3rem; cursor:pointer; padding:0.6rem; background:white; border:2px solid #fde68a; border-radius:0.4rem; transition:all 0.2s; flex:1; min-width:70px;" id="diff-label-2">
+                        <input type="radio" name="difficulty-quiz" value="2" style="cursor:pointer;">
+                        <span style="font-weight:600; color:#b45309; font-size:0.75rem; text-align:center;">어려움</span>
+                    </label>
+                    <label style="display:flex; flex-direction:column; align-items:center; gap:0.3rem; cursor:pointer; padding:0.6rem; background:white; border:2px solid #fde68a; border-radius:0.4rem; transition:all 0.2s; flex:1; min-width:70px;" id="diff-label-3">
+                        <input type="radio" name="difficulty-quiz" value="3" style="cursor:pointer;">
+                        <span style="font-weight:600; color:#b45309; font-size:0.75rem; text-align:center;">적당함</span>
+                    </label>
+                    <label style="display:flex; flex-direction:column; align-items:center; gap:0.3rem; cursor:pointer; padding:0.6rem; background:white; border:2px solid #fde68a; border-radius:0.4rem; transition:all 0.2s; flex:1; min-width:70px;" id="diff-label-4">
+                        <input type="radio" name="difficulty-quiz" value="4" style="cursor:pointer;">
+                        <span style="font-weight:600; color:#b45309; font-size:0.75rem; text-align:center;">쉬움</span>
+                    </label>
+                    <label style="display:flex; flex-direction:column; align-items:center; gap:0.3rem; cursor:pointer; padding:0.6rem; background:white; border:2px solid #fde68a; border-radius:0.4rem; transition:all 0.2s; flex:1; min-width:70px;" id="diff-label-5">
+                        <input type="radio" name="difficulty-quiz" value="5" style="cursor:pointer;">
+                        <span style="font-weight:600; color:#b45309; font-size:0.75rem; text-align:center;">매우<br>쉬움</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 주관식 소감 -->
+            <div>
+                <p style="margin:0 0 0.4rem 0; font-weight:600; color:#b45309; font-size:0.9rem;">💭 소감 (선택사항)</p>
+                <textarea id="quiz-feedback-text" placeholder="예: 문제 5번이 어려웠어요 / 시간이 부족했어요 / 재미있었어요" style="width:100%; min-height:80px; padding:0.6rem; border:2px solid #fde68a; border-radius:0.4rem; font-family:'Noto Sans KR', sans-serif; font-size:0.9rem; resize:vertical;"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="no-print" style="display: flex; gap: 1rem; max-width: 400px; margin: 2rem auto 4rem auto;">
+        <button id="reset-btn" onclick="resetAnswers()" style="flex: 1; padding: 1.25rem; background: #ef4444; color: white; border: none; border-radius: 1rem; font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: all 0.2s;">
+            초기화 🔄
+        </button>
+        <button id="submit-btn" onclick="submitQuiz()" style="flex: 1; margin: 0; background: #2563eb; color: white; font-size: 1.3rem; font-weight: 900; border: none; border-radius: 1rem; cursor: pointer; transition: all 0.2s; letter-spacing: 0.05em; padding: 1.25rem;">
+            채점하기 →
+        </button>
+    </div>
+
+    <!-- RETRY -->
+    <button id="retry-btn" class="no-print" onclick="retryQuiz()" style="display:none; width:100%; max-width:400px; margin:0.5rem auto 3rem; padding:1rem 2rem; background:#334155; color:white; font-size:1.1rem; font-weight:700; border:none; border-radius:1rem; cursor:pointer;">
+        다시 풀기
+    </button>
+
+</div><!-- /content-wrapper -->
+
+<script>
+    // ── GOOGLE APPS SCRIPT URL ──
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx25Ev-OkyclLK6LVmSizkYGGLD09N1DOTtszjTBAAmkOyJRUSeh3OSg1MqsQF3QiNA/exec';
+
+    // ── ANSWERS & META ──
+    let ANSWERS = {
+        1:1, 2:2, 3:3, 4:2, 5:4,
+        6:3, 7:2, 8:1, 9:3, 10:2,
+        11:2, 12:2, 13:3, 14:1, 15:2,
+        16:3, 17:4, 18:1, 19:3, 20:3
+    };
+    const TOTAL = 20;
+
+    // ── 선지 순서 무작위화 (버전 시스템) ──
+    let QUIZ_VERSION = localStorage.getItem('chem_quiz_L4L5_version');
+    if(!QUIZ_VERSION) {
+        QUIZ_VERSION = Math.floor(Math.random() * 1000).toString();
+        localStorage.setItem('chem_quiz_L4L5_version', QUIZ_VERSION);
+    }
+
+    function seededShuffle(arr, seed) {
+        let m = arr.length, t, i;
+        const s = parseInt(seed);
+        const result = [...arr];
+        for (let j = 0; j < 10; j++) {
+            for (let k = result.length - 1; k > 0; k--) {
+                i = Math.floor(Math.abs(Math.sin(s + j + k) * 10000) % (k + 1));
+                t = result[k];
+                result[k] = result[i];
+                result[i] = t;
+            }
+        }
+        return result;
+    }
+
+    function shuffleOptions() {
+        for(let q = 1; q <= TOTAL; q++) {
+            const optionsGrid = document.querySelector(`div.options-grid:has(.option-label[data-q="${q}"])`);
+            if(!optionsGrid) continue;
+
+            const labels = Array.from(optionsGrid.querySelectorAll(`.option-label[data-q="${q}"]`));
+            if(labels.length !== 4) continue;
+
+            const origCorrectVal = ANSWERS[q];
+            const shuffledLabels = seededShuffle(labels, parseInt(QUIZ_VERSION) + q);
+
+            shuffledLabels.forEach((label, newIndex) => {
+                const newPos = newIndex + 1;
+                if (parseInt(label.dataset.v) === origCorrectVal) {
+                    ANSWERS[q] = newPos;
+                }
+                label.dataset.v = newPos;
+                const badge = label.querySelector('.option-badge');
+                if(badge) {
+                    badge.textContent = String.fromCharCode(9312 + newIndex); // ①②③④
+                }
+                const input = label.querySelector('input');
+                if(input) input.value = newPos;
+                optionsGrid.appendChild(label);
+            });
+        }
+    }
+
+    /* --- 문제 변수화 (Dynamic Generator) --- */
+    function generateDynamicQuestions() {
+        const QUIZ_VERSION_NUM = parseInt(QUIZ_VERSION);
+
+        // Q6: H2O, 수소 Xg → 산소 8Xg (X: 1,2,4)
+        const q6_bases = [1, 2, 4];
+        const q6_h = q6_bases[QUIZ_VERSION_NUM % 3];
+        const q6_o = q6_h * 8;
+        document.getElementById('q6-h').textContent = q6_h;
+        document.getElementById('q6-opt1').textContent = q6_h + 'g';
+        document.getElementById('q6-opt2').textContent = (q6_h * 2) + 'g';
+        document.getElementById('q6-opt3').textContent = q6_o + 'g';  // 정답
+        document.getElementById('q6-opt4').textContent = (q6_o * 2) + 'g';
+        ANSWERS[6] = 3;
+        document.getElementById('exp-6').innerHTML = `수소:산소 = 1:8이므로 산소 = ${q6_h} × 8 = <strong>${q6_o}g</strong>`;
+
+        // Q7: CO2, 탄소 Xg → 산소 8X/3 g (X: 3,6,9)
+        const q7_bases = [3, 6, 9];
+        const q7_c = q7_bases[QUIZ_VERSION_NUM % 3];
+        const q7_o = q7_c * 8 / 3;
+        document.getElementById('q7-c').textContent = q7_c;
+        document.getElementById('q7-opt1').textContent = q7_c + 'g';
+        document.getElementById('q7-opt2').textContent = q7_o + 'g';  // 정답
+        document.getElementById('q7-opt3').textContent = (q7_c + q7_o) + 'g';
+        document.getElementById('q7-opt4').textContent = (q7_c * 8) + 'g';
+        ANSWERS[7] = 2;
+        document.getElementById('exp-7').innerHTML = `탄소:산소 = 3:8이므로 산소 = ${q7_c} × 8/3 = <strong>${q7_o}g</strong>`;
+
+        // Q8: H2O, 산소 Xg → 수소 X/8 g (X: 8,16,32)
+        const q8_bases = [8, 16, 32];
+        const q8_o = q8_bases[QUIZ_VERSION_NUM % 3];
+        const q8_h = q8_o / 8;
+        document.getElementById('q8-o').textContent = q8_o;
+        document.getElementById('q8-opt1').textContent = q8_h + 'g';  // 정답
+        document.getElementById('q8-opt2').textContent = (q8_h * 2) + 'g';
+        document.getElementById('q8-opt3').textContent = (q8_o / 2) + 'g';
+        document.getElementById('q8-opt4').textContent = q8_o + 'g';
+        ANSWERS[8] = 1;
+        document.getElementById('exp-8').innerHTML = `수소:산소 = 1:8이므로 수소 = ${q8_o} ÷ 8 = <strong>${q8_h}g</strong>`;
+
+        // Q14: H2 + Cl2 → 2HCl, H2 XL → HCl 2XL (X: 3,4,5)
+        const q14_bases = [3, 4, 5];
+        const q14_h2 = q14_bases[QUIZ_VERSION_NUM % 3];
+        const q14_hcl = q14_h2 * 2;
+        document.getElementById('q14-h2').textContent = q14_h2;
+        document.getElementById('q14-opt1').textContent = q14_hcl + 'L';  // 정답
+        document.getElementById('q14-opt2').textContent = q14_h2 + 'L';
+        document.getElementById('q14-opt3').textContent = (q14_h2 * 3) + 'L';
+        document.getElementById('q14-opt4').textContent = (q14_h2 / 2).toFixed(1) + 'L';
+        ANSWERS[14] = 1;
+        document.getElementById('exp-14').innerHTML = `H₂:HCl = 1:2(계수비=부피비)이므로 HCl = ${q14_h2} × 2 = <strong>${q14_hcl}L</strong>`;
+
+        // Q15: N2 + 3H2 → 2NH3, N2 XL → NH3 2XL (X: 2,3,4)
+        const q15_bases = [2, 3, 4];
+        const q15_n2 = q15_bases[QUIZ_VERSION_NUM % 3];
+        const q15_nh3 = q15_n2 * 2;
+        document.getElementById('q15-n2').textContent = q15_n2;
+        document.getElementById('q15-opt1').textContent = q15_n2 + 'L';
+        document.getElementById('q15-opt2').textContent = q15_nh3 + 'L';  // 정답
+        document.getElementById('q15-opt3').textContent = (q15_n2 * 3) + 'L';
+        document.getElementById('q15-opt4').textContent = (q15_n2 / 2).toFixed(1) + 'L';
+        ANSWERS[15] = 2;
+        document.getElementById('exp-15').innerHTML = `N₂:NH₃ = 1:2(계수비=부피비)이므로 NH₃ = ${q15_n2} × 2 = <strong>${q15_nh3}L</strong>`;
+
+        // Q17: H2 + Cl2 → 2HCl, H2 ALと Cl2 BL (B > A)
+        const q17_h2_bases = [3, 4, 5];
+        const q17_h2 = q17_h2_bases[QUIZ_VERSION_NUM % 3];
+        const q17_cl2 = q17_h2 + 2;
+        const q17_remaining = q17_cl2 - q17_h2;
+        document.getElementById('q17-h2').textContent = q17_h2;
+        document.getElementById('q17-cl2').textContent = q17_cl2;
+        document.getElementById('q17-opt4').textContent = q17_remaining + 'L';
+        ANSWERS[17] = 4;
+        document.getElementById('exp-17').innerHTML = `H₂:Cl₂ = 1:1이므로 H₂ ${q17_h2}L → Cl₂ ${q17_h2}L 필요. Cl₂ ${q17_cl2} − ${q17_h2} = <strong>Cl₂ ${q17_remaining}L 남음</strong>`;
+
+        // Q18: N2 + 3H2 → 2NH3
+        const q18_n2_bases = [2, 3, 4];
+        const q18_n2 = q18_n2_bases[QUIZ_VERSION_NUM % 3];
+        const q18_h2_total_bases = [9, 12, 15];
+        const q18_h2 = q18_h2_total_bases[QUIZ_VERSION_NUM % 3];
+        const q18_h2_needed = q18_n2 * 3;
+        const q18_h2_remaining = q18_h2 - q18_h2_needed;
+        const q18_nh3 = q18_n2 * 2;
+        document.getElementById('q18-n2').textContent = q18_n2;
+        document.getElementById('q18-h2').textContent = q18_h2;
+        // opt1: 정답 - NH3 생성량, H2 남는 양
+        document.getElementById('q18-opt1').textContent = q18_nh3 + 'L';
+        document.getElementById('q18-opt1b').textContent = q18_h2_remaining + 'L';
+        document.getElementById('q18-opt2').textContent = (q18_nh3 + 2) + 'L';
+        document.getElementById('q18-opt2b').textContent = q18_h2_remaining + 'L';
+        document.getElementById('q18-opt3').textContent = q18_nh3 + 'L';
+        document.getElementById('q18-opt3b').textContent = (q18_n2 - 1) + 'L';
+        document.getElementById('q18-opt4').textContent = Math.round(q18_h2 * 2 / 3) + 'L';
+        ANSWERS[18] = 1;
+        document.getElementById('exp-18').innerHTML = `N₂:H₂:NH₃ = 1:3:2. N₂ ${q18_n2}L 기준 H₂ ${q18_h2_needed}L 필요. H₂ ${q18_h2} − ${q18_h2_needed} = <strong>${q18_h2_remaining}L 남음</strong>. NH₃ = <strong>${q18_nh3}L</strong>`;
+
+        console.log("🧪 Dynamic questions generated. QUIZ_VERSION:", QUIZ_VERSION_NUM);
+    }
+
+    generateDynamicQuestions();
+
+    // ── TIMER ──
+    let totalSeconds = 20 * 60;
+    let timerInterval = null;
+    let submitted = false;
+
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            totalSeconds--;
+            const m = Math.floor(totalSeconds / 60);
+            const s = totalSeconds % 60;
+            const display = document.getElementById('timer-display');
+            display.textContent = `⏱ ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+            if (totalSeconds <= 60)  display.className = 'danger';
+            else if (totalSeconds <= 300) display.className = 'warning';
+            if (totalSeconds <= 0) { clearInterval(timerInterval); if (!submitted) submitQuiz(); }
+        }, 1000);
+    }
+    startTimer();
+
+    // ── OPTION SELECTION ──
+    let userAnswers = {};
+
+    // localStorage에서 이전 답변 복구
+    window.addEventListener('pageshow', () => {
+        const saved = localStorage.getItem('quiz_L4L5_answers');
+        if(saved) {
+            try {
+                userAnswers = JSON.parse(saved);
+                Object.keys(userAnswers).forEach(q => {
+                    const v = userAnswers[q];
+                    const label = document.querySelector(`.option-label[data-q="${q}"][data-v="${v}"]`);
+                    if(label) {
+                        label.classList.add('selected');
+                        label.querySelector('input').checked = true;
+                        const card = document.getElementById(`qcard-${q}`);
+                        if(card) card.classList.add('answered');
+                    }
+                });
+                updateProgress(); updateOMR();
+                console.log('📥 이전 답변 복구됨:', userAnswers);
+            } catch(e) {
+                console.log('저장된 답변 복구 실패');
+            }
+        }
+    });
+
+    document.querySelectorAll('.option-label').forEach(label => {
+        label.addEventListener('click', function() {
+            if (submitted) return;
+            const q = parseInt(this.dataset.q);
+            const v = parseInt(this.dataset.v);
+            document.querySelectorAll(`.option-label[data-q="${q}"]`).forEach(l => l.classList.remove('selected'));
+            this.classList.add('selected');
+            this.querySelector('input').checked = true;
+            userAnswers[q] = v;
+            localStorage.setItem('quiz_L4L5_answers', JSON.stringify(userAnswers));
+            const card = document.getElementById(`qcard-${q}`);
+            card.classList.add('answered');
+            updateProgress(); updateOMR();
+        });
+    });
+
+    // 난이도와 소감 저장
+    document.querySelectorAll('input[name="difficulty-quiz"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            localStorage.setItem('quiz_L4L5_difficulty', radio.value);
+        });
+    });
+
+    document.getElementById('quiz-feedback-text')?.addEventListener('input', (e) => {
+        localStorage.setItem('quiz_L4L5_feedback', e.target.value);
+    });
+
+    // 페이지 로드/돌아올 때 난이도와 소감 복구
+    window.addEventListener('pageshow', () => {
+        const savedDifficulty = localStorage.getItem('quiz_L4L5_difficulty');
+        if(savedDifficulty) {
+            const radio = document.querySelector(`input[name="difficulty-quiz"][value="${savedDifficulty}"]`);
+            if(radio) radio.checked = true;
+        }
+        const savedFeedback = localStorage.getItem('quiz_L4L5_feedback');
+        if(savedFeedback && document.getElementById('quiz-feedback-text')) {
+            document.getElementById('quiz-feedback-text').value = savedFeedback;
+        }
+    });
+
+    // ── OMR NAV LOGIC ──
+    function initOMR() {
+        const grid = document.getElementById('omr-grid-main');
+        grid.innerHTML = '';
+        for(let i=1; i<=TOTAL; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'omr-dot';
+            dot.id = `omr-dot-${i}`;
+            dot.textContent = i;
+            dot.onclick = () => {
+                const target = document.getElementById(`qcard-${i}`);
+                if(target) {
+                    const headerOffset = 150;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+            };
+            grid.appendChild(dot);
+        }
+    }
+
+    // 선지 순서 무작위화 (페이지 로드 시 한 번만 실행)
+    shuffleOptions();
+
+    initOMR();
+
+    // ── Q-NUM CLICK LOGIC ──
+    document.querySelectorAll('.q-num').forEach(el => {
+        el.title = "클릭하면 OMR 현황판으로 이동합니다";
+        el.addEventListener('click', () => {
+            const nav = document.getElementById('omr-nav-container');
+            nav.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            nav.classList.add('ring-4', 'ring-cyan-400');
+            setTimeout(() => nav.classList.remove('ring-4', 'ring-cyan-400'), 1500);
+        });
+    });
+
+    function updateOMR() {
+        for(let i=1; i<=TOTAL; i++) {
+            const dot = document.getElementById(`omr-dot-${i}`);
+            if(userAnswers[i]) {
+                dot.classList.add('filled');
+            } else {
+                dot.classList.remove('filled');
+            }
+            if(submitted) {
+                const isCorrect = userAnswers[i] === ANSWERS[i];
+                dot.classList.remove('filled');
+                dot.classList.add(isCorrect ? 'correct' : 'wrong');
+            }
+        }
+    }
+
+    function updateProgress() {
+        const count = Object.keys(userAnswers).length;
+        document.getElementById('answered-count').textContent = `${count} / ${TOTAL} 답변`;
+        document.getElementById('progress-fill').style.width = `${(count / TOTAL) * 100}%`;
+    }
+
+    // ── CONSOLIDATED SUBMIT & GRADE ──
+    async function submitQuiz() {
+        if (submitted) return;
+
+        // 1. Validation: 학번/이름 체크
+        const classVal = document.getElementById('info-class').value;
+        const numVal = document.getElementById('info-num').value;
+        const nameVal = document.getElementById('info-name').value;
+
+        if(!classVal || !numVal || !nameVal) {
+            alert('⚠️ 상단에서 학번(반/번호)과 이름을 먼저 입력해주세요!');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            if(!classVal) document.getElementById('info-class').focus();
+            else if(!numVal) document.getElementById('info-num').focus();
+            else document.getElementById('info-name').focus();
+            return;
+        }
+
+        const classNums = classVal.match(/\d+/g);
+        let studentId = "";
+        if (classNums && classNums.length >= 2) {
+            studentId = classNums[0] + classNums[1].padStart(2, '0') + numVal.padStart(2, '0');
+        } else if (classNums && classNums.length === 1) {
+            studentId = "3" + classNums[0].padStart(2, '0') + numVal.padStart(2, '0');
+        } else {
+            studentId = classVal + numVal.padStart(2, '0');
+        }
+
+        if(!confirm('채점을 진행하고 결과를 서버에 제출하시겠습니까?')) return;
+
+        submitted = true;
+        clearInterval(timerInterval);
+
+        const btn = document.getElementById('submit-btn');
+        const omrBtn = document.getElementById('omr-submit-btn');
+        btn.disabled = true;
+        btn.innerHTML = '데이터 처리 및 제출 중... ⏳';
+        if(omrBtn) {
+            omrBtn.disabled = true;
+            omrBtn.style.background = '#94a3b8';
+        }
+
+        let totalScore = 0;
+        let scoreA = 0;
+        let scoreB = 0;
+        const questionSnapshots = [];
+
+        for (let q = 1; q <= TOTAL; q++) {
+            const correct = ANSWERS[q];
+            const userAns = userAnswers[q];
+            const card = document.getElementById(`qcard-${q}`);
+            const isCorrect = userAns == correct;
+
+            // 제출 시점 선택지 텍스트 전체 수집
+            const optionTexts = {};
+            document.querySelectorAll(`.option-label[data-q="${q}"]`).forEach(lbl => {
+                const v = parseInt(lbl.dataset.v);
+                const span = lbl.querySelector('span:not(.option-badge)');
+                optionTexts[v] = span ? span.textContent.trim() : `선택지 ${v}`;
+            });
+
+            if(card) {
+                card.classList.remove('answered');
+                card.classList.add(isCorrect ? 'correct' : 'wrong');
+            }
+
+            const labels = Array.from(document.querySelectorAll(`.option-label[data-q="${q}"]`));
+
+            labels.forEach((label) => {
+                const v = parseInt(label.dataset.v);
+                label.style.cursor = 'not-allowed';
+                label.querySelector('input').disabled = true;
+
+                if (v == correct) {
+                    label.classList.add(userAns == correct ? 'show-correct' : 'show-missed');
+                } else if (v == userAns && !isCorrect) {
+                    label.classList.add('show-wrong');
+                }
+            });
+
+            // 각 문제에 정오 결과 섹션 추가
+            const resultDiv = document.createElement('div');
+            resultDiv.style.cssText = 'margin-top:1rem; padding:1rem; background:' + (isCorrect ? '#ecfdf5' : '#fef2f2') + '; border:2px solid ' + (isCorrect ? '#10b981' : '#ef4444') + '; border-radius:0.5rem; font-weight:700; color:' + (isCorrect ? '#065f46' : '#991b1b') + ';';
+            const badgeEmoji = isCorrect ? '✅' : '❌';
+            let resultHTML = `${badgeEmoji} <strong>${isCorrect ? '정답!' : '오답'}</strong>`;
+            if (!isCorrect) {
+                const userAnsText = ['(선택 안 함)', '①', '②', '③', '④'][userAns || 0];
+                const correctAnsText = ['', '①', '②', '③', '④'][correct];
+                resultHTML += `<br><span style="font-size:0.9rem; opacity:0.9;">
+                    당신의 답: <strong>${userAnsText}</strong>
+                    &nbsp; • &nbsp;
+                    정답: <strong>${correctAnsText}</strong>
+                </span>`;
+            }
+            resultDiv.innerHTML = resultHTML;
+            if(card) card.appendChild(resultDiv);
+
+            const exp = document.getElementById(`exp-${q}`);
+            if(exp) {
+                exp.classList.add('visible');
+                if (!exp.querySelector('.explanation-label')) {
+                    const label = document.createElement('div');
+                    label.className = 'explanation-label';
+                    label.style.cssText = 'font-weight:700; color:#1e40af; margin-bottom:0.5rem; font-size:0.95rem;';
+                    label.textContent = '📖 해설:';
+                    exp.insertAdjacentElement('beforebegin', label);
+                }
+            }
+
+            if (isCorrect) {
+                totalScore++;
+                if (q <= 10) scoreA++;
+                else scoreB++;
+            }
+
+            const qText = card ? card.querySelector('.q-text')?.innerText || `문제 ${q}` : `문제 ${q}`;
+            const expEl = document.getElementById(`exp-${q}`);
+            const expText = expEl ? expEl.innerText.replace('📖 해설:', '').trim() : "";
+
+            questionSnapshots.push({
+                qNum:          q,
+                questionText:  qText,
+                options:       optionTexts,
+                userAnswer:    userAns  || 0,
+                correctAnswer: correct,
+                isCorrect:     isCorrect,
+                explanation:   expText
+            });
+        }
+
+        try {
+            const difficulty = document.querySelector('input[name="difficulty-quiz"]:checked')?.value;
+            const feedbackText = document.getElementById('quiz-feedback-text')?.value || '';
+
+            const payload = {
+                studentId:         studentId,
+                name:              nameVal,
+                assessmentType:    'quiz_L4L5',
+                questionSnapshots: questionSnapshots,
+                totalScore:        `${totalScore}/${TOTAL}`,
+                feedback: {
+                    difficulty:       difficulty ? parseInt(difficulty) : null,
+                    difficultyLabel:  difficulty ? ['매우 어려움', '어려움', '적당함', '쉬움', '매우 쉬움'][parseInt(difficulty) - 1] : null,
+                    studentFeedback:  feedbackText
+                }
+            };
+
+            const response = await fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8',
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await response.json();
+
+            if(result.success) {
+                document.getElementById('server-submit-area').innerHTML = `
+                    <div style="text-align:center; padding:1.5rem; background:#ecfdf5; border-radius:1rem; border:2px solid #10b981; margin-bottom:2rem;">
+                        <h3 style="color:#065f46; margin-bottom:0.5rem; font-size:1.4rem;">✅ 서버 제출 성공!</h3>
+                        <p style="font-size:1rem; color:#065f46;">나의 고유 토큰: <strong style="font-family:monospace; background:white; padding:2px 6px; border-radius:4px;">${result.token}</strong></p>
+                        <p style="font-size:0.8rem; color:#059669; mt-1">(토큰이 클립보드에 복사되었습니다.)</p>
+                        <a href="student_result.html" target="_blank" style="display:inline-block; margin-top:1rem; background:#10b981; color:white; padding:1rem 3rem; border-radius:1rem; font-size:1.2rem; text-decoration:none; font-weight:bold; box-shadow:0 4px 6px rgba(16,185,129,0.3);">결과 상세 대시보드 보기 ➡️</a>
+                    </div>
+                `;
+                navigator.clipboard.writeText(result.token).catch(e => {});
+                localStorage.setItem('chem_quiz_student_id', studentId);
+                localStorage.setItem('chem_quiz_token', result.token);
+            } else {
+                throw new Error(result.error);
+            }
+        } catch(e) {
+            console.error('Submission failed:', e);
+            alert('채점은 완료되었으나 서버 제출에 실패했습니다. (네트워크 오류)');
+            document.getElementById('server-submit-area').innerHTML = `
+                <div style="text-align:center; padding:1.5rem; background:#fef2f2; border-radius:1rem; border:2px solid #ef4444; margin-bottom:2rem;">
+                    <h3 style="color:#991b1b; margin-bottom:0.5rem;">❌ 서버 제출 실패</h3>
+                    <p style="font-size:0.9rem; color:#991b1b;">데이터가 저장되지 않았습니다. 인터넷 연결을 확인하세요.</p>
+                    <button onclick="location.reload()" style="margin-top:1rem; background:#ef4444; color:white; border:none; padding:0.6rem 1.5rem; border-radius:0.5rem; cursor:pointer; font-weight:bold;">새로고침 후 다시 풀기</button>
+                </div>
+            `;
+        }
+
+        btn.textContent = `제출 완료 — ${totalScore} / ${TOTAL}점`;
+        document.getElementById('server-submit-area').style.display = 'block';
+        showScore(totalScore, scoreA, scoreB);
+        updateOMR();
+        document.getElementById('retry-btn').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showScore(total, a, b) {
+        const panel = document.getElementById('score-panel');
+        if(!panel) return;
+        panel.classList.add('visible');
+
+        const ring = document.getElementById('ring-fill-el');
+        if(ring) {
+            const totalLen = 427.26;
+            const offset = totalLen * (1 - total / TOTAL);
+            ring.style.strokeDashoffset = offset;
+        }
+
+        const numEl = document.getElementById('score-number');
+        if(numEl) {
+            let current = 0;
+            const step = Math.max(1, Math.floor(total / 20));
+            const interval = setInterval(() => {
+                if(current >= total) {
+                    numEl.textContent = total;
+                    clearInterval(interval);
+                } else {
+                    current += step;
+                    if(current > total) current = total;
+                    numEl.textContent = current;
+                }
+            }, 30);
+        }
+
+        if(document.getElementById('score-a')) document.getElementById('score-a').textContent = `${a} / 10`;
+        if(document.getElementById('score-b')) document.getElementById('score-b').textContent = `${b} / 10`;
+
+        const msgEl = document.getElementById('score-msg');
+        const badgeEl = document.getElementById('grade-badge');
+        const percent = (total / TOTAL) * 100;
+
+        if(badgeEl && msgEl) {
+            if(percent >= 90) {
+                badgeEl.textContent = 'MASTER 🏆';
+                msgEl.textContent = '완벽합니다! 화학의 달인이시군요.';
+            } else if(percent >= 70) {
+                badgeEl.textContent = 'EXCELLENT 🌟';
+                msgEl.textContent = '훌륭합니다! 조금만 더 하면 만점이에요.';
+            } else if(percent >= 40) {
+                badgeEl.textContent = 'GOOD 👍';
+                msgEl.textContent = '수고하셨습니다. 부족한 부분을 복습해보세요.';
+            } else {
+                badgeEl.textContent = 'KEEP GOING 💪';
+                msgEl.textContent = '기본 개념부터 차근차근 다시 살펴봅시다.';
+            }
+        }
+    }
+
+    function resetAnswers() {
+        if(confirm("정말로 모든 선택을 초기화하시겠습니까?")) {
+            document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+            document.querySelectorAll('.option-label').forEach(label => {
+                label.classList.remove('selected', 'show-correct', 'show-wrong', 'show-missed');
+            });
+            document.querySelectorAll('.omr-dot').forEach(dot => dot.classList.remove('filled', 'correct', 'wrong'));
+            localStorage.removeItem('quiz_L4L5_answers');
+            userAnswers = {};
+            submitted = false;
+            document.getElementById('submit-btn').disabled = false;
+            document.getElementById('submit-btn').innerHTML = '채점하기 →';
+            const omrBtn = document.getElementById('omr-submit-btn');
+            if(omrBtn) {
+                omrBtn.disabled = false;
+                omrBtn.style.background = '#2563eb';
+            }
+            document.getElementById('score-panel').classList.remove('visible');
+            document.getElementById('retry-btn').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    function retryQuiz() {
+        window.location.reload();
+    }
+</script>
+</body>
+</html>
