@@ -1039,21 +1039,30 @@
     };
     const TOTAL = 20;
 
-    // ── 선지 순서 무작위화 (버전 시스템) ──
-    const QUIZ_VERSION = Math.floor(Math.random() * 5); // 0~4 버전
-    const optionShuffles = {}; // 각 문제별 선지 순서 저장
+        // ── 선지 순서 무작위화 (버전 시스템) ──
+    let QUIZ_VERSION = localStorage.getItem('chem_quiz_version');
+    if(!QUIZ_VERSION) {
+        QUIZ_VERSION = Math.floor(Math.random() * 1000).toString();
+        localStorage.setItem('chem_quiz_version', QUIZ_VERSION);
+    }
+    const optionShuffles = {}; 
 
-        function shuffleOptions() {
-        // Fisher-Yates 섞기 알고리즘
-        function shuffle(arr) {
-            const result = [...arr];
-            for(let i = result.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [result[i], result[j]] = [result[j], result[i]];
+    function seededShuffle(arr, seed) {
+        let m = arr.length, t, i;
+        const s = parseInt(seed);
+        const result = [...arr];
+        for (let j = 0; j < 10; j++) { // 10 times mix
+            for (let k = result.length - 1; k > 0; k--) {
+                i = Math.floor(Math.abs(Math.sin(s + j + k) * 10000) % (k + 1));
+                t = result[k];
+                result[k] = result[i];
+                result[i] = t;
             }
-            return result;
         }
+        return result;
+    }
 
+    function shuffleOptions() {
         for(let q = 1; q <= TOTAL; q++) {
             const optionsGrid = document.querySelector(`.options-grid[data-q="${q}"], div.options-grid:has(.option-label[data-q="${q}"]) `);
             if(!optionsGrid) continue;
@@ -1061,15 +1070,23 @@
             const labels = Array.from(optionsGrid.querySelectorAll(`.option-label[data-q="${q}"]`));
             if(labels.length !== 4) continue;
 
-            // 섞인 라벨 순서 생성
-            const shuffledLabels = shuffle(labels);
+            const origCorrectVal = ANSWERS[q];
+            const shuffledLabels = seededShuffle(labels, parseInt(QUIZ_VERSION) + q);
             
-            // DOM 재배치 및 시각적 뱃지만 업데이트 (data-v는 원본 값 유지)
             shuffledLabels.forEach((label, newIndex) => {
+                const newPos = newIndex + 1;
+                // Update internal ANSWER mapping to the new position
+                if (parseInt(label.dataset.v) === origCorrectVal) {
+                    ANSWERS[q] = newPos;
+                }
+                // Assign new position-based value
+                label.dataset.v = newPos;
                 const badge = label.querySelector('.option-badge');
                 if(badge) {
                     badge.textContent = String.fromCharCode(9312 + newIndex); // ①②③④
                 }
+                const input = label.querySelector('input');
+                if(input) input.value = newPos;
                 optionsGrid.appendChild(label);
             });
         }
@@ -1394,23 +1411,17 @@
 
             const labels = Array.from(document.querySelectorAll(`.option-label[data-q="${q}"]`));
             
-            // "답지 화면도 번호 레이아웃이 1,2,3,4 제대로 된 순서"를 위해 원본 순서로 재정렬
             const optionsGrid = labels[0].parentElement;
-            labels.sort((a, b) => parseInt(a.dataset.v) - parseInt(b.dataset.v)).forEach((label, idx) => {
+            labels.forEach((label, idx) => {
                 const v = parseInt(label.dataset.v);
                 label.style.cursor = 'not-allowed';
                 label.querySelector('input').disabled = true;
                 
-                // 뱃지도 원본 번호로 복구
-                const badge = label.querySelector('.option-badge');
-                if(badge) badge.textContent = String.fromCharCode(9312 + idx);
-
                 if (v == correct) {
                     label.classList.add(userAns == correct ? 'show-correct' : 'show-missed');
                 } else if (v == userAns && !isCorrect) {
                     label.classList.add('show-wrong');
                 }
-                optionsGrid.appendChild(label);
             });
 
             // 각 문제에 정오 결과 섹션 추가
@@ -1458,11 +1469,22 @@
             const difficulty = document.querySelector('input[name="difficulty-quiz"]:checked')?.value;
             const feedbackText = document.getElementById('quiz-feedback-text')?.value || '';
 
+            // Collect explanations and correct answers to sync with result page
+            const currentExplanations = [];
+            const currentCorrectAnswers = [];
+            for(let i=1; i<=TOTAL; i++) {
+                currentCorrectAnswers.push(ANSWERS[i]);
+                const exp = document.getElementById(`exp-${i}`);
+                currentExplanations.push(exp ? exp.innerText.replace('📖 해설:', '').trim() : "");
+            }
+
             const payload = {
                 studentId: studentId,
                 name: nameVal,
                 answers: answers,
                 correct: correctArr,
+                correctAnswers: currentCorrectAnswers,
+                explanations: currentExplanations,
                 questions: questionTexts,
                 feedback: {
                     difficulty: difficulty ? parseInt(difficulty) : null,
