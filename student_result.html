@@ -253,10 +253,11 @@
         }
 
         function renderQuizResult(data) {
-            // Use data from server, fallback to hardcoded only if missing
-            const SERVER_ANSWERS = data.correctAnswers || [0, 3, 2, 2, 3, 2, 3, 3, 2, 2, 3, 3, 3, 3, 2, 2, 3, 2, 1, 4, 2];
-            const SERVER_EXPLANATIONS = data.explanations || [];
-            
+            // correctAnswers: 서버에서 반환한 0-indexed 배열 (셔플 반영됨)
+            // HARDCODED_ANSWERS: 셔플이 없을 때 fallback (1-indexed 객체)
+            const SERVER_CORRECT_ANSWERS = data.correctAnswers || [];  // [Q1정답, Q2정답, ...]
+            const SERVER_EXPLANATIONS    = data.explanations   || [];
+
             const HARDCODED_ANSWERS = {
                 1:3, 2:2, 3:2, 4:3, 5:2, 6:3, 7:3, 8:2, 9:2, 10:3,
                 11:3, 12:3, 13:3, 14:2, 15:2, 16:3, 17:2, 18:1, 19:4, 20:2
@@ -309,8 +310,12 @@
                 const myAns = badgeText(parseInt(myAnsRaw)) || "미응답";
                 const isCorrect = correct[i];
                 const qText = questions[i] || `화학 반응과 질량 보존 관련 문제 ${qNum}`;
-                const correctAns = badgeText(SERVER_ANSWERS[qNum-1] || HARDCODED_ANSWERS[qNum]);
-                const explanation = SERVER_EXPLANATIONS[qNum-1] || HARDCODED_EXPLANATIONS[qNum];
+                // 서버에 저장된 정답(셔플 반영) 우선, 없으면 하드코딩 fallback
+                const correctAnsNum = SERVER_CORRECT_ANSWERS.length > 0
+                    ? SERVER_CORRECT_ANSWERS[i]           // 0-indexed (i = qNum-1)
+                    : HARDCODED_ANSWERS[qNum];            // 1-indexed key
+                const correctAns  = badgeText(correctAnsNum);
+                const explanation = SERVER_EXPLANATIONS[i] || HARDCODED_EXPLANATIONS[qNum];
 
                 // OMR 맵 버튼
                 const omrBtn = document.createElement('div');
