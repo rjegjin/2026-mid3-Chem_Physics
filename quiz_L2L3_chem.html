@@ -1067,12 +1067,17 @@
             const newAnswerPos = shuffledOrder.indexOf(origOrder[origAnswer - 1]);
             ANSWERS[q] = newAnswerPos + 1;
 
+            // DOM 재배치하기 전에 원본 참조 저장
+            const labelMap = {};
+            labels.forEach(l => {
+                labelMap[parseInt(l.dataset.v)] = l;
+            });
+
             // DOM 재배치
             shuffledOrder.forEach((origValue, newIndex) => {
-                const label = labels.find(l => parseInt(l.dataset.v) === origValue);
+                const label = labelMap[origValue];
                 if(label) {
                     // data-v를 새로운 위치로 업데이트
-                    const oldV = label.dataset.v;
                     label.dataset.v = newIndex + 1;
 
                     // 시각적 배지도 업데이트 (예: ① → ③)
