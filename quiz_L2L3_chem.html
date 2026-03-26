@@ -1120,6 +1120,7 @@
         document.getElementById('q6-opt2').textContent = (q6_base * 0.75).toFixed(0) + '개';
         document.getElementById('q6-opt3').textContent = q6_base + '개';
         document.getElementById('q6-opt4').textContent = (q6_base * 2) + '개';
+        document.getElementById('exp-6').innerHTML = `계수 비 = 분자 수 비: H<sub>2</sub> : H<sub>2</sub>O = 2 : 2 = <strong>1 : 1</strong><br>따라서 수소 분자 <strong>${q6_base}개</strong> → 물 분자 <strong>${q6_base}개</strong> 생성 (산소 분자는 <strong>${q6_base / 2}개</strong> 필요)`;
 
         // Q13: H2 + O2 -> H2O (Mass 2:16:18 or scaled)
         const q13_scale = [1, 2, 3, 4, 5, 0.5][Math.floor(Math.random() * 6)];
@@ -1133,6 +1134,7 @@
         document.getElementById('q13-opt2').textContent = v13_2 + 'g';
         document.getElementById('q13-opt3').textContent = v13_ans + 'g';
         document.getElementById('q13-opt4').textContent = (v13_2 * 2) + 'g';
+        document.getElementById('exp-13').innerHTML = `질량 보존의 법칙: 반응 전 총 질량 = 반응 후 총 질량<br>${v13_1}g + ${v13_2}g = <strong>${v13_ans}g</strong><br>(수소와 산소가 결합해 물이 생성될 때 질량은 보존됩니다.)`;
 
         // Q14: CaCO3 + 2HCl -> CaCl2 + H2O + CO2
         const q14_scale = [1, 2, 0.5, 1.5][Math.floor(Math.random() * 4)];
@@ -1152,6 +1154,7 @@
         document.getElementById('q14-opt2').textContent = formatNum(v14_ans) + 'g';
         document.getElementById('q14-opt3').textContent = formatNum(parseFloat((v14_ans + 1).toFixed(1))) + 'g';
         document.getElementById('q14-opt4').textContent = formatNum(parseFloat((v14_ans * 1.5).toFixed(1))) + 'g';
+        document.getElementById('exp-14').innerHTML = `반응 전 총 질량 = ${formatNum(v14_1)} + ${formatNum(v14_2)} = <strong>${formatNum(parseFloat((v14_1 + v14_2).toFixed(1)))}g</strong><br>CO<sub>2</sub> 질량 = ${formatNum(parseFloat((v14_1 + v14_2).toFixed(1)))} &minus; ${formatNum(v14_3)} &minus; ${formatNum(v14_4)} = <strong>${formatNum(v14_ans)}g</strong><br>(반응 전 = 반응 후 → 질량 보존 적용!)`;
 
         // Q18: Fe + O2
         const v18_2 = [40, 80, 20, 60][Math.floor(Math.random() * 4)];
@@ -1164,16 +1167,19 @@
         document.getElementById('q18-opt2').textContent = v18_1.toFixed(1) + 'g';
         document.getElementById('q18-opt3').textContent = v18_2.toFixed(1) + 'g';
         document.getElementById('q18-opt4').textContent = (v18_1 + v18_2).toFixed(1) + 'g';
+        document.getElementById('exp-18').innerHTML = `질량 보존: 철 + 산소 = 산화철<br>${v18_1.toFixed(1)}g + 산소 = ${v18_2.toFixed(1)}g<br>산소 = ${v18_2.toFixed(1)} &minus; ${v18_1.toFixed(1)} = <strong>${v18_ans.toFixed(1)}g</strong><br>(철은 공기 중 산소와 결합해 질량이 증가한다는 것도 기억!)`;
 
         // Q19: Mg + O -> MgO
         const q19_base = [3, 6, 9, 12, 15, 30][Math.floor(Math.random() * 6)];
         const v19_ans = (q19_base * 5 / 3);
         document.getElementById('q19-val').textContent = q19_base + 'g';
+        const v19_o = parseFloat((q19_base * 2 / 3).toFixed(1));
         ANSWERS[19] = 4;
         document.getElementById('q19-opt1').textContent = (q19_base * 2 / 3) + 'g';
         document.getElementById('q19-opt2').textContent = q19_base + 'g';
         document.getElementById('q19-opt3').textContent = (q19_base * 4 / 3) + 'g';
         document.getElementById('q19-opt4').textContent = v19_ans + 'g';
+        document.getElementById('exp-19').innerHTML = `Mg : O = 3 : 2이므로 Mg <strong>${q19_base}g</strong>에 필요한 O = <strong>${v19_o}g</strong><br>생성된 산화마그네슘 = ${q19_base} + ${v19_o} = <strong>${v19_ans}g</strong><br>※ 마그네슘 연소는 공기 중 산소를 흡수하므로 <strong>고체 질량이 증가</strong>합니다.`;
 
         // Visual indicator update
         const randomSeed = Math.random().toString(36).substring(7).toUpperCase();

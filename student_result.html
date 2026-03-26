@@ -307,14 +307,24 @@
             for(let i=0; i<totalQ; i++) {
                 const qNum = i + 1;
                 const myAnsRaw = answers[i];
-                const myAns = badgeText(parseInt(myAnsRaw)) || "미응답";
-                const isCorrect = correct[i];
+                const myAnsNum = parseInt(myAnsRaw) || 0;
+                const myAns = badgeText(myAnsNum) || "미응답";
                 const qText = questions[i] || `화학 반응과 질량 보존 관련 문제 ${qNum}`;
-                // 서버에 저장된 정답(셔플 반영) 우선, 없으면 하드코딩 fallback
+
+                // 정답 번호: 서버 correctAnswers(셔플 반영) 우선, 없으면 하드코딩 fallback
                 const correctAnsNum = SERVER_CORRECT_ANSWERS.length > 0
                     ? SERVER_CORRECT_ANSWERS[i]           // 0-indexed (i = qNum-1)
                     : HARDCODED_ANSWERS[qNum];            // 1-indexed key
-                const correctAns  = badgeText(correctAnsNum);
+                const correctAns = badgeText(correctAnsNum);
+
+                // 정오 판별: 서버 correct[] 우선, 없으면 정답번호와 직접 비교
+                let isCorrect;
+                if (i < correct.length && typeof correct[i] === 'boolean') {
+                    isCorrect = correct[i];
+                } else {
+                    isCorrect = myAnsNum > 0 && myAnsNum === correctAnsNum;
+                }
+
                 const explanation = SERVER_EXPLANATIONS[i] || HARDCODED_EXPLANATIONS[qNum];
 
                 // OMR 맵 버튼
