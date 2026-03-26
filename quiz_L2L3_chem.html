@@ -1475,13 +1475,26 @@
             const difficulty = document.querySelector('input[name="difficulty-quiz"]:checked')?.value;
             const feedbackText = document.getElementById('quiz-feedback-text')?.value || '';
 
-            // Collect explanations and correct answers to sync with result page
+            // 제출 시점의 선택지 텍스트를 함께 저장 (결과 페이지에서 재현 불가한 값)
             const currentExplanations = [];
             const currentCorrectAnswers = [];
+            const correctAnswerTexts = [];   // 정답 선택지의 실제 텍스트 (예: "12g")
+            const userAnswerTexts = [];       // 학생 선택 선택지의 실제 텍스트
             for(let i=1; i<=TOTAL; i++) {
                 currentCorrectAnswers.push(ANSWERS[i]);
                 const exp = document.getElementById(`exp-${i}`);
                 currentExplanations.push(exp ? exp.innerText.replace('📖 해설:', '').trim() : "");
+
+                // 정답 선택지 텍스트 (배지 제외 마지막 span)
+                const correctLabel = document.querySelector(`.option-label[data-q="${i}"][data-v="${ANSWERS[i]}"]`);
+                const correctSpan  = correctLabel ? correctLabel.querySelector('span:not(.option-badge)') : null;
+                correctAnswerTexts.push(correctSpan ? correctSpan.textContent.trim() : "");
+
+                // 학생 선택 텍스트
+                const userPos   = userAnswers[i];
+                const userLabel = userPos ? document.querySelector(`.option-label[data-q="${i}"][data-v="${userPos}"]`) : null;
+                const userSpan  = userLabel ? userLabel.querySelector('span:not(.option-badge)') : null;
+                userAnswerTexts.push(userSpan ? userSpan.textContent.trim() : "");
             }
 
             const payload = {
@@ -1490,6 +1503,8 @@
                 answers: answers,
                 correct: correctArr,
                 correctAnswers: currentCorrectAnswers,
+                correctAnswerTexts: correctAnswerTexts,
+                userAnswerTexts: userAnswerTexts,
                 explanations: currentExplanations,
                 questions: questionTexts,
                 feedback: {

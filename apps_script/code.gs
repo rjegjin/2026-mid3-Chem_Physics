@@ -75,13 +75,15 @@ function handleQuizSubmit(data) {
   const token         = Utilities.getUuid();
   const timestamp     = new Date().toISOString();
 
-  // correctAnswers, explanations, questions를 JSON으로 함께 저장
+  // 제출 시점의 모든 정보를 JSON으로 저장 (결과 페이지에서 재현 불가한 값 포함)
   const questionsData = {
-    correct:        correct,
-    correctAnswers: data.correctAnswers || [],   // 셔플 후 실제 정답 번호 (0-indexed)
-    explanations:   data.explanations   || [],
-    questions:      data.questions      || [],
-    totalScore:     totalScore
+    correct:            correct,
+    correctAnswers:     data.correctAnswers     || [],  // 셔플 후 정답 위치 번호 (0-indexed)
+    correctAnswerTexts: data.correctAnswerTexts || [],  // 정답 선택지 실제 텍스트
+    userAnswerTexts:    data.userAnswerTexts     || [],  // 학생 선택 선택지 실제 텍스트
+    explanations:       data.explanations       || [],
+    questions:          data.questions          || [],
+    totalScore:         totalScore
   };
 
   const answers = data.answers || [];
@@ -220,16 +222,18 @@ function findQuizRecord(studentId, token) {
   }
 
   return {
-    studentId:       foundRecord[studentIdIdx],
-    name:            foundRecord[nameIdx],
-    answers:         foundRecord.slice(q1Idx, q1Idx + 20),
-    totalScore:      qData.totalScore || foundRecord[totalScoreIdx],
-    correct:         qData.correct         || Array(20).fill(false),
-    correctAnswers:  qData.correctAnswers  || [],   // 0-indexed, 셔플 반영
-    explanations:    qData.explanations    || [],
-    questions:       qData.questions       || [],
-    feedback:        feedback.message,
-    questionComments: feedback.comments
+    studentId:          foundRecord[studentIdIdx],
+    name:               foundRecord[nameIdx],
+    answers:            foundRecord.slice(q1Idx, q1Idx + 20),
+    totalScore:         qData.totalScore         || foundRecord[totalScoreIdx],
+    correct:            qData.correct            || Array(20).fill(false),
+    correctAnswers:     qData.correctAnswers     || [],  // 셔플 후 정답 위치 번호
+    correctAnswerTexts: qData.correctAnswerTexts || [],  // 정답 선택지 실제 텍스트
+    userAnswerTexts:    qData.userAnswerTexts     || [],  // 학생 선택 선택지 실제 텍스트
+    explanations:       qData.explanations       || [],
+    questions:          qData.questions          || [],
+    feedback:           feedback.message,
+    questionComments:   feedback.comments
   };
 }
 
