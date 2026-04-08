@@ -17,5 +17,6 @@
 
 
 # 현재 상태
+- [x] quiz_L4L5_chem.html 선지 중복(Q2, Q3, Q17, Q20) 수정
 - [x] Implement parameterized quiz system with student/teacher dashboards and index linking
 - [x] Redesign 5_gas_reaction.html with bright theme and hotel analogy
