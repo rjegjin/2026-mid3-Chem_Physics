@@ -66,7 +66,7 @@ window.SlideEngine = {
             const filename = window.location.pathname.split('/').pop();
             if (filename.startsWith('adv_inorganic')) {
                 homeLink = "index.html?tab=adv";
-            } else if (filename.startsWith('7_')) {
+            } else if (/^(7_|8_|9_|10_|11_|12_|13_|14_|15_|eval_A1)/.test(filename)) {
                 homeLink = "index.html?tab=phys";
             }
 
