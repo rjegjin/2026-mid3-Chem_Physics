@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>15차시: 단원 정리 — 운동과 에너지 총정리</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="css/common.css" rel="stylesheet"/>
+  <link href="css/presentation_mode.css" rel="stylesheet"/>
+  <link href="css/chem_style.css" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+   .hero-bg-review {
+     background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f4c75 100%);
+   }
+   .formula-box-dark {
+     background: linear-gradient(135deg, #1e293b, #334155);
+     color: white; border-radius: 1.5rem; padding: 2rem 3rem; text-align: center;
+     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+   }
+   .lesson-pill {
+     display: inline-block; padding: 0.3rem 0.9rem; border-radius: 999px; font-size: 0.75rem; font-weight: 900;
+   }
+   .formula-card {
+     background: white; border-radius: 1.2rem; padding: 1.2rem 1.5rem;
+     box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid #e2e8f0;
+   }
+   .quiz-mini { background: white; border-radius: 1rem; padding: 1rem 1.2rem; border: 1px solid #e2e8f0; }
+  </style>
+ </head>
+ <body class="presentation-mode">
+  <main>
+
+   <!-- Slide 1: Cover -->
+   <section class="hero-bg-review" data-slide-index="0" data-slide-num="1" data-title="Cover" id="slide-1">
+    <div class="slide-content">
+     <p class="text-sm font-bold text-blue-300 uppercase tracking-widest mb-4">2026학년도 중학교 3학년 과학 &bull; 물리 III·VI 단원 총정리</p>
+     <h1 class="text-4xl md:text-6xl font-black mb-6 text-white leading-tight">
+      운동과 에너지<br/><span class="text-blue-400">완전 정복</span>
+     </h1>
+     <div class="w-20 h-1 bg-blue-400 mx-auto my-8"></div>
+     <p class="text-2xl text-blue-200 font-medium">제 15강: 단원 총정리</p>
+     <p class="text-lg text-slate-400 mt-4">L8 등속 운동 · L9 자유 낙하 · L10~12 일·에너지 · L13~14 역학적 에너지</p>
+    </div>
+   </section>
+
+   <!-- Slide 2: 단원 개요 맵 -->
+   <section data-slide-index="1" data-slide-num="2" data-title="단원 개요 맵" id="slide-2">
+    <div class="slide-content">
+     <h2 class="text-slate-800">이번 단원에서 배운 것 — 한눈에 보기</h2>
+     <div class="max-w-5xl w-full mt-6">
+      <div class="grid grid-cols-2 gap-6">
+       <div class="p-5 bg-teal-50 rounded-2xl border-2 border-teal-300">
+        <p class="font-black text-teal-700 text-lg mb-3">III-1 물체의 운동</p>
+        <div class="space-y-2 text-sm">
+         <div class="flex gap-2 items-center">
+          <span class="lesson-pill bg-teal-100 text-teal-800">L8</span>
+          <span>등속 운동 — v = d/t, 시간-거리 그래프</span>
+         </div>
+         <div class="flex gap-2 items-center">
+          <span class="lesson-pill bg-blue-100 text-blue-800">L9</span>
+          <span>자유 낙하 — v = gt, d = ½gt², g = 9.8</span>
+         </div>
+         <div class="flex gap-2 items-center">
+          <span class="lesson-pill bg-indigo-100 text-indigo-800">실험</span>
+          <span>등속 운동 실험 설계 및 그래프 [10%]</span>
+         </div>
+        </div>
+       </div>
+       <div class="p-5 bg-green-50 rounded-2xl border-2 border-green-300">
+        <p class="font-black text-green-700 text-lg mb-3">III-2 일과 에너지</p>
+        <div class="space-y-2 text-sm">
+         <div class="flex gap-2 items-center">
+          <span class="lesson-pill bg-green-100 text-green-800">L10</span>
+          <span>일 — W = Fd, 일의 조건</span>
+         </div>
+         <div class="flex gap-2 items-center">
+          <span class="lesson-pill bg-purple-100 text-purple-800">L11</span>
+          <span>위치 에너지 — E<sub>p</sub> = mgh</span>
+         </div>
+         <div class="flex gap-2 items-center">
+          <span class="lesson-pill bg-orange-100 text-orange-800">L12</span>
+          <span>운동 에너지 — E<sub>k</sub> = ½mv²</span>
+         </div>
+        </div>
+       </div>
+       <div class="p-5 bg-blue-50 rounded-2xl border-2 border-blue-300 col-span-2">
+        <p class="font-black text-blue-700 text-lg mb-3">VI-1 역학적 에너지 전환과 보존</p>
+        <div class="grid grid-cols-2 gap-3 text-sm">
+         <div class="flex gap-2 items-center">
+          <span class="lesson-pill bg-teal-100 text-teal-800">L13</span>
+          <span>역학적 에너지 전환·보존 — E = E<sub>p</sub> + E<sub>k</sub> = 일정</span>
+         </div>
+         <div class="flex gap-2 items-center">
+          <span class="lesson-pill bg-blue-100 text-blue-800">L14</span>
+          <span>에너지 보존 일상 사례 — 진자, 발전, 브레이크</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 3: 공식 총정리 카드 -->
+   <section data-slide-index="2" data-slide-num="3" data-title="공식 총정리" id="slide-3">
+    <div class="slide-content">
+     <h2 class="text-slate-800">공식 총정리 카드</h2>
+     <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl mt-6 w-full text-center">
+      <div class="formula-card border-t-4 border-teal-500">
+       <span class="lesson-pill bg-teal-100 text-teal-800 mb-2">L8 등속 운동</span>
+       <p class="text-2xl font-black text-teal-700 mt-2">v = d/t</p>
+       <p class="text-xs text-slate-500 mt-1">v: 속력(m/s) d: 거리(m) t: 시간(s)</p>
+      </div>
+      <div class="formula-card border-t-4 border-blue-500">
+       <span class="lesson-pill bg-blue-100 text-blue-800 mb-2">L9 자유 낙하</span>
+       <p class="text-xl font-black text-blue-700 mt-2">v = gt<br/>d = ½gt²</p>
+       <p class="text-xs text-slate-500 mt-1">g = 9.8 m/s²</p>
+      </div>
+      <div class="formula-card border-t-4 border-green-500">
+       <span class="lesson-pill bg-green-100 text-green-800 mb-2">L10 일</span>
+       <p class="text-2xl font-black text-green-700 mt-2">W = Fd</p>
+       <p class="text-xs text-slate-500 mt-1">W: 일(J) F: 힘(N) d: 이동거리(m)</p>
+      </div>
+      <div class="formula-card border-t-4 border-purple-500">
+       <span class="lesson-pill bg-purple-100 text-purple-800 mb-2">L11 위치 에너지</span>
+       <p class="text-2xl font-black text-purple-700 mt-2">E<sub>p</sub> = mgh</p>
+       <p class="text-xs text-slate-500 mt-1">m: 질량(kg) g: 9.8 h: 높이(m)</p>
+      </div>
+      <div class="formula-card border-t-4 border-orange-500">
+       <span class="lesson-pill bg-orange-100 text-orange-800 mb-2">L12 운동 에너지</span>
+       <p class="text-2xl font-black text-orange-700 mt-2">E<sub>k</sub> = ½mv²</p>
+       <p class="text-xs text-slate-500 mt-1">v: 속력(m/s) — v² 비례!</p>
+      </div>
+      <div class="formula-card border-t-4 border-teal-600">
+       <span class="lesson-pill bg-teal-100 text-teal-800 mb-2">L13~14 역학적 에너지</span>
+       <p class="text-xl font-black text-teal-700 mt-2">E = E<sub>p</sub>+E<sub>k</sub></p>
+       <p class="text-xs text-slate-500 mt-1">마찰 없을 때 일정 (보존)</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 4: 개념 연결 흐름도 -->
+   <section data-slide-index="3" data-slide-num="4" data-title="개념 연결 흐름도" id="slide-4">
+    <div class="slide-content">
+     <h2 class="text-slate-800">개념 연결 — 운동과 에너지의 관계</h2>
+     <div class="max-w-4xl w-full mt-6 space-y-3">
+      <div class="flex items-center gap-4">
+       <div class="w-1/3 p-4 bg-teal-50 rounded-xl text-center border-2 border-teal-300">
+        <p class="font-black text-teal-700">등속 운동</p>
+        <p class="text-sm text-slate-600">v = 일정<br/>가속도 = 0</p>
+       </div>
+       <div class="text-2xl text-slate-400">←→</div>
+       <div class="w-1/3 p-4 bg-blue-50 rounded-xl text-center border-2 border-blue-300">
+        <p class="font-black text-blue-700">자유 낙하</p>
+        <p class="text-sm text-slate-600">v = gt (증가)<br/>가속도 = g</p>
+       </div>
+       <div class="text-2xl text-slate-400">→</div>
+       <div class="w-1/4 p-3 bg-orange-50 rounded-xl text-center border-2 border-orange-300">
+        <p class="font-black text-orange-700 text-sm">E<sub>k</sub> 증가</p>
+        <p class="text-xs text-slate-600">½mv²</p>
+       </div>
+      </div>
+      <div class="text-center text-2xl text-slate-400">↕</div>
+      <div class="flex items-center gap-4">
+       <div class="w-1/3 p-4 bg-purple-50 rounded-xl text-center border-2 border-purple-300">
+        <p class="font-black text-purple-700">위치 에너지</p>
+        <p class="text-sm text-slate-600">E<sub>p</sub> = mgh<br/>높이에 비례</p>
+       </div>
+       <div class="text-2xl text-slate-400 font-black">⇄</div>
+       <div class="w-1/3 p-4 bg-orange-50 rounded-xl text-center border-2 border-orange-300">
+        <p class="font-black text-orange-700">운동 에너지</p>
+        <p class="text-sm text-slate-600">E<sub>k</sub> = ½mv²<br/>속력²에 비례</p>
+       </div>
+       <div class="text-2xl text-slate-400">→</div>
+       <div class="w-1/4 p-3 bg-teal-50 rounded-xl text-center border-2 border-teal-300">
+        <p class="font-black text-teal-700 text-sm">역학적 에너지</p>
+        <p class="text-xs text-slate-600">합 = 일정</p>
+       </div>
+      </div>
+      <div class="text-center text-2xl text-slate-400">↓</div>
+      <div class="p-4 bg-green-50 rounded-2xl border-2 border-green-400 text-center">
+       <p class="font-black text-green-700 text-lg">에너지 보존 법칙</p>
+       <p class="text-slate-600 text-sm mt-1">에너지는 형태만 바뀔 뿐 총량은 항상 일정 — 우주의 기본 법칙</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 5: 그래프 정리 -->
+   <section data-slide-index="4" data-slide-num="5" data-title="그래프 총정리" id="slide-5">
+    <div class="slide-content">
+     <h2 class="text-slate-800">그래프 총정리 — 시험에 자주 나오는 4가지</h2>
+     <div class="grid grid-cols-2 gap-5 max-w-5xl mt-6 w-full">
+      <div>
+       <p class="font-black text-teal-700 text-center mb-2">① 등속 운동 — 시간-거리</p>
+       <canvas id="g1" height="150"></canvas>
+       <p class="text-xs text-center text-slate-500 mt-1">직선 / 기울기 = 속력</p>
+      </div>
+      <div>
+       <p class="font-black text-blue-700 text-center mb-2">② 자유 낙하 — 시간-속력</p>
+       <canvas id="g2" height="150"></canvas>
+       <p class="text-xs text-center text-slate-500 mt-1">우상향 직선 / 기울기 = g</p>
+      </div>
+      <div>
+       <p class="font-black text-blue-600 text-center mb-2">③ 자유 낙하 — 시간-거리</p>
+       <canvas id="g3" height="150"></canvas>
+       <p class="text-xs text-center text-slate-500 mt-1">포물선 (가속) / d = ½gt²</p>
+      </div>
+      <div>
+       <p class="font-black text-orange-700 text-center mb-2">④ 운동 에너지 — 속력-Ek</p>
+       <canvas id="g4" height="150"></canvas>
+       <p class="text-xs text-center text-slate-500 mt-1">포물선 (v² 비례) / E<sub>k</sub> = ½mv²</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 6: 비교 정리표 -->
+   <section data-slide-index="5" data-slide-num="6" data-title="핵심 비교 정리표" id="slide-6">
+    <div class="slide-content">
+     <h2 class="text-slate-800">한 눈에 비교 — 위치 에너지 vs 운동 에너지</h2>
+     <div class="max-w-4xl w-full mt-6">
+      <table class="w-full text-center rounded-2xl overflow-hidden shadow-lg">
+       <thead>
+        <tr>
+         <th class="p-4 bg-slate-700 text-white">구분</th>
+         <th class="p-4 bg-purple-600 text-white">위치 에너지 E<sub>p</sub></th>
+         <th class="p-4 bg-orange-500 text-white">운동 에너지 E<sub>k</sub></th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr class="bg-slate-50"><td class="p-3 font-bold">공식</td><td class="p-3">mgh</td><td class="p-3">½mv²</td></tr>
+        <tr class="bg-white"><td class="p-3 font-bold">단위</td><td class="p-3" colspan="2">J (줄)</td></tr>
+        <tr class="bg-slate-50"><td class="p-3 font-bold">질량 관계</td><td class="p-3">비례</td><td class="p-3">비례</td></tr>
+        <tr class="bg-white"><td class="p-3 font-bold">다른 변수</td><td class="p-3 text-purple-700 font-bold">h에 비례</td><td class="p-3 text-red-600 font-bold">v²에 비례 ⭐</td></tr>
+        <tr class="bg-slate-50"><td class="p-3 font-bold">2배 효과</td><td class="p-3">h 2배 → 2배</td><td class="p-3 text-red-600 font-bold">v 2배 → 4배!</td></tr>
+        <tr class="bg-white"><td class="p-3 font-bold">최대인 곳</td><td class="p-3">높은 위치<br/>(롤러코스터 최고점)</td><td class="p-3">빠른 속력<br/>(롤러코스터 최저점)</td></tr>
+       </tbody>
+      </table>
+      <div class="mt-4 p-4 bg-teal-50 border-2 border-teal-400 rounded-2xl text-center">
+       <p class="font-black text-teal-700 text-xl">역학적 에너지 = E<sub>p</sub> + E<sub>k</sub> = 일정 (마찰 없을 때)</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 7: 종합 퀴즈 1 -->
+   <section data-slide-index="6" data-slide-num="7" data-title="종합 퀴즈 1" id="slide-7">
+    <div class="slide-content">
+     <h2 class="text-slate-800">종합 퀴즈 1 — 계산</h2>
+     <div class="quiz-container max-w-3xl mt-8 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">질량 2 kg인 물체가 10 m 높이에서 정지 상태로 자유 낙하한다.<br/>지면에 닿는 순간의 속력은? (g = 9.8 m/s², 마찰 무시)</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 9.8 m/s</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">② 12 m/s</button>
+       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">③ 14 m/s</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 19.6 m/s</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">✅ 정답! ③ 14 m/s</p>
+       <p class="text-slate-600 mt-1">에너지 보존: E<sub>p</sub> = E<sub>k</sub> → mgh = ½mv² → v = √(2gh) = √(2×9.8×10) = √196 = 14 m/s</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 8: 종합 퀴즈 2 -->
+   <section data-slide-index="7" data-slide-num="8" data-title="종합 퀴즈 2" id="slide-8">
+    <div class="slide-content">
+     <h2 class="text-slate-800">종합 퀴즈 2 — 그래프</h2>
+     <div class="quiz-container max-w-3xl mt-8 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">등속 운동하는 물체의 시간-속력 그래프 모양으로 옳은 것은?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 우상향 직선 (기울기 양수)</button>
+       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">② 수평 직선 (기울기 0)</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">③ 우상향 포물선</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 우하향 직선</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">✅ 정답! ② 수평 직선</p>
+       <p class="text-slate-600 mt-1">등속 운동 = 속력이 일정 → 시간-속력 그래프에서 기울기 = 0 → 수평선</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 9: 종합 퀴즈 3 -->
+   <section data-slide-index="8" data-slide-num="9" data-title="종합 퀴즈 3" id="slide-9">
+    <div class="slide-content">
+     <h2 class="text-slate-800">종합 퀴즈 3 — 에너지 전환</h2>
+     <div class="quiz-container max-w-3xl mt-8 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">롤러코스터가 가장 높은 곳에서 가장 낮은 곳으로 내려올 때,<br/>가장 빠른 시점은 언제인가?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 가장 높은 곳</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">② 중간 지점</button>
+       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">③ 가장 낮은 곳</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 어디서나 속력이 같다</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">✅ 정답! ③ 가장 낮은 곳</p>
+       <p class="text-slate-600 mt-1">최저점: h=0 → E<sub>p</sub>=0 → 역학적 에너지 전부가 E<sub>k</sub>로 전환 → 속력 최대!</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 10: 종합 퀴즈 4 -->
+   <section data-slide-index="9" data-slide-num="10" data-title="종합 퀴즈 4" id="slide-10">
+    <div class="slide-content">
+     <h2 class="text-slate-800">종합 퀴즈 4 — 속력의 제곱</h2>
+     <div class="quiz-container max-w-3xl mt-8 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">자동차 속력이 20 m/s일 때 운동 에너지가 200,000 J이었다.<br/>속력이 40 m/s가 되면 운동 에너지는?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 400,000 J</button>
+       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">② 800,000 J</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">③ 200,000 J</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 100,000 J</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">✅ 정답! ② 800,000 J</p>
+       <p class="text-slate-600 mt-1">속력 2배(20→40) → E<sub>k</sub>는 v² 비례이므로 4배 → 200,000 × 4 = 800,000 J</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 11: 종합 퀴즈 5 -->
+   <section data-slide-index="10" data-slide-num="11" data-title="종합 퀴즈 5" id="slide-11">
+    <div class="slide-content">
+     <h2 class="text-slate-800">종합 퀴즈 5 — 자유 낙하</h2>
+     <div class="quiz-container max-w-3xl mt-8 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">자유 낙하 운동에 대한 설명으로 옳지 <strong>않은</strong> 것은?<br/>(g = 9.8 m/s², 마찰 무시)</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 시간에 비례하여 속력이 증가한다.</button>
+       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">② 무거운 물체가 가벼운 물체보다 빠르게 낙하한다.</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">③ 낙하 거리는 시간의 제곱에 비례한다.</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 가속도는 질량에 관계없이 g = 9.8 m/s²이다.</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">✅ 정답! ②</p>
+       <p class="text-slate-600 mt-1">갈릴레이의 발견: 진공에서 모든 물체는 질량에 관계없이 같은 가속도(g)로 자유 낙하한다!</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 12: 중간고사 대비 전략 -->
+   <section data-slide-index="11" data-slide-num="12" data-title="중간고사 대비 전략" id="slide-12">
+    <div class="slide-content">
+     <h2 class="text-slate-800">중간고사 대비 체크리스트</h2>
+     <div class="max-w-4xl w-full mt-6 grid grid-cols-2 gap-5">
+      <div class="p-5 bg-teal-50 rounded-2xl">
+       <p class="font-black text-teal-700 text-lg mb-3">✅ 반드시 암기할 공식</p>
+       <ul class="space-y-2 text-sm text-slate-700">
+        <li>□ v = d/t (등속 운동)</li>
+        <li>□ v = gt, d = ½gt² (자유 낙하)</li>
+        <li>□ W = Fd (일)</li>
+        <li>□ E<sub>p</sub> = mgh (위치 에너지)</li>
+        <li>□ E<sub>k</sub> = ½mv² (운동 에너지)</li>
+        <li>□ E = E<sub>p</sub> + E<sub>k</sub> = 일정 (보존)</li>
+       </ul>
+      </div>
+      <div class="p-5 bg-orange-50 rounded-2xl">
+       <p class="font-black text-orange-700 text-lg mb-3">⭐ 시험 포인트</p>
+       <ul class="space-y-2 text-sm text-slate-700">
+        <li>□ 등속 시간-거리: 직선, 기울기=속력</li>
+        <li>□ 등속 시간-속력: 수평선</li>
+        <li>□ 자유낙하 시간-속력: 우상향 직선</li>
+        <li>□ 속력 2배 → E<sub>k</sub> 4배 (v² 비례)</li>
+        <li>□ 질량 무관 자유낙하 (진공에서)</li>
+        <li>□ 최고점: E<sub>k</sub>=0 / 최저점: E<sub>p</sub>=0</li>
+       </ul>
+      </div>
+      <div class="p-5 bg-red-50 rounded-2xl">
+       <p class="font-black text-red-700 text-lg mb-3">❌ 자주 틀리는 함정</p>
+       <ul class="space-y-2 text-sm text-slate-700">
+        <li>□ 벽 밀기 → 이동 없으면 W = 0!</li>
+        <li>□ 속력 2배 → Ep도 2배? ❌ (Ek는 4배)</li>
+        <li>□ 마찰 있으면 역학적 에너지 감소</li>
+        <li>□ 기준면 위치에 따라 Ep 값 달라짐</li>
+       </ul>
+      </div>
+      <div class="p-5 bg-purple-50 rounded-2xl">
+       <p class="font-black text-purple-700 text-lg mb-3">🔑 핵심 숫자</p>
+       <ul class="space-y-2 text-sm text-slate-700">
+        <li>□ g = 9.8 m/s²</li>
+        <li>□ 1 J = 1 N·m = 1 kg·m²/s²</li>
+        <li>□ 속력 1 m/s = 3.6 km/h</li>
+        <li>□ 진공 낙하: 질량 무관!</li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 13: 마무리 -->
+   <section data-slide-index="12" data-slide-num="13" data-title="마무리" id="slide-13">
+    <div class="slide-content">
+     <div class="hero-bg-review rounded-3xl p-10 max-w-3xl w-full text-center" style="background: linear-gradient(135deg,#0f172a,#1e3a5f);">
+      <p class="text-blue-300 font-bold text-lg mb-4">2026학년도 중학교 3학년 과학</p>
+      <h2 class="text-4xl font-black text-white mb-6">물리 단원 완주!</h2>
+      <div class="w-16 h-1 bg-blue-400 mx-auto mb-8"></div>
+      <div class="space-y-3 text-left">
+       <div class="flex gap-3 items-center p-3 bg-white bg-opacity-10 rounded-xl">
+        <span class="text-2xl">🏃</span>
+        <p class="text-white text-sm">L8·L9: 등속 운동과 자유 낙하 — 운동의 수학적 표현</p>
+       </div>
+       <div class="flex gap-3 items-center p-3 bg-white bg-opacity-10 rounded-xl">
+        <span class="text-2xl">⚡</span>
+        <p class="text-white text-sm">L10~12: 일·위치 에너지·운동 에너지 — W=Fd, Ep=mgh, Ek=½mv²</p>
+       </div>
+       <div class="flex gap-3 items-center p-3 bg-white bg-opacity-10 rounded-xl">
+        <span class="text-2xl">♻️</span>
+        <p class="text-white text-sm">L13·14: 역학적 에너지 전환과 보존 — 에너지는 형태만 바뀐다</p>
+       </div>
+      </div>
+      <div class="mt-8 p-5 bg-blue-900 rounded-2xl">
+       <p class="text-2xl font-black text-white">E<sub>p</sub> + E<sub>k</sub> = 일정</p>
+       <p class="text-blue-300 mt-2">에너지는 사라지지 않는다 — 우주의 법칙!</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+  </main>
+
+  <script>
+   function checkAnswer(btn) {
+    const container = btn.closest('.quiz-container');
+    if (container.querySelector('.quiz-btn.selected')) return;
+    btn.classList.add('selected');
+    const isCorrect = btn.dataset.correct === 'true';
+    btn.classList.add(isCorrect ? 'correct' : 'wrong');
+    container.querySelector('.quiz-feedback').style.display = 'block';
+    container.querySelectorAll('.quiz-btn').forEach(b => b.disabled = true);
+   }
+
+   window.addEventListener('load', function() {
+    const opts = { responsive: true, plugins: { legend: { display: false } } };
+
+    // g1: 등속 시간-거리
+    new Chart(document.getElementById('g1').getContext('2d'), {
+     type: 'line',
+     data: {
+      labels: ['0','1','2','3','4'],
+      datasets: [{ data: [0,2,4,6,8], borderColor:'#0d9488', borderWidth:3, tension:0, pointRadius:4, pointBackgroundColor:'#0d9488' }]
+     },
+     options: { ...opts, scales: { x:{title:{display:true,text:'시간(s)'}}, y:{beginAtZero:true,title:{display:true,text:'거리(m)'}} } }
+    });
+
+    // g2: 자유낙하 시간-속력
+    new Chart(document.getElementById('g2').getContext('2d'), {
+     type: 'line',
+     data: {
+      labels: ['0','1','2','3'],
+      datasets: [{ data: [0,9.8,19.6,29.4], borderColor:'#2563eb', borderWidth:3, tension:0, pointRadius:4, pointBackgroundColor:'#2563eb' }]
+     },
+     options: { ...opts, scales: { x:{title:{display:true,text:'시간(s)'}}, y:{beginAtZero:true,title:{display:true,text:'속력(m/s)'}} } }
+    });
+
+    // g3: 자유낙하 시간-거리
+    new Chart(document.getElementById('g3').getContext('2d'), {
+     type: 'line',
+     data: {
+      labels: ['0','1','2','3'],
+      datasets: [{ data: [0,4.9,19.6,44.1], borderColor:'#7c3aed', borderWidth:3, tension:0.4, pointRadius:4, pointBackgroundColor:'#7c3aed', fill:true, backgroundColor:'rgba(124,58,237,0.1)' }]
+     },
+     options: { ...opts, scales: { x:{title:{display:true,text:'시간(s)'}}, y:{beginAtZero:true,title:{display:true,text:'거리(m)'}} } }
+    });
+
+    // g4: 속력-Ek
+    new Chart(document.getElementById('g4').getContext('2d'), {
+     type: 'line',
+     data: {
+      labels: ['0','1','2','3','4','5'],
+      datasets: [{ data: [0,1,4,9,16,25], borderColor:'#ea580c', borderWidth:3, tension:0.3, pointRadius:4, pointBackgroundColor:'#ea580c', fill:true, backgroundColor:'rgba(234,88,12,0.1)' }]
+     },
+     options: { ...opts, scales: { x:{title:{display:true,text:'속력(m/s)'}}, y:{beginAtZero:true,title:{display:true,text:'Ek(J)'}} } }
+    });
+   });
+  </script>
+  <script src="js/slide_engine.js"></script>
+ </body>
+</html>
