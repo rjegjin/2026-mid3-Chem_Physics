@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>과학A 실험평가1 — 등속 운동 실험 설계 및 그래프 해석</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="css/common.css" rel="stylesheet"/>
+  <link href="css/presentation_mode.css" rel="stylesheet"/>
+  <link href="css/chem_style.css" rel="stylesheet"/>
+  <style>
+   @media print { .no-print { display: none; } body { background: white; } }
+   .eval-header { background: linear-gradient(135deg, #0f172a, #1e3a5f); color: white; padding: 2rem; text-align: center; border-radius: 1rem; margin-bottom: 2rem; }
+   .section-box { background: white; border: 2px solid #e2e8f0; border-radius: 1rem; padding: 2rem; margin-bottom: 1.5rem; }
+   .section-title { font-size: 1.1rem; font-weight: 900; color: #0f172a; border-bottom: 2px solid #0d9488; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+   .data-table { width: 100%; border-collapse: collapse; }
+   .data-table th { background: #0d9488; color: white; padding: 0.6rem; font-size: 0.85rem; }
+   .data-table td { border: 1px solid #e2e8f0; padding: 0.6rem; text-align: center; font-size: 0.85rem; }
+   .data-table tr:nth-child(even) { background: #f0fdfa; }
+   .input-line { border: none; border-bottom: 1px solid #94a3b8; width: 100%; outline: none; padding: 0.25rem 0; font-size: 0.9rem; background: transparent; }
+   .graph-area { border: 2px solid #94a3b8; border-radius: 0.5rem; background: #fafafa; position: relative; }
+   .rubric-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+   .rubric-table th { background: #1e293b; color: white; padding: 0.5rem; }
+   .rubric-table td { border: 1px solid #e2e8f0; padding: 0.5rem; vertical-align: top; }
+   .badge-eval { display: inline-block; background: #ef4444; color: white; padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 900; }
+   .badge-weight { display: inline-block; background: #f59e0b; color: white; padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 900; }
+  </style>
+ </head>
+ <body style="background:#f1f5f9; font-family: 'Noto Sans KR', sans-serif; padding: 2rem 1rem;">
+
+  <!-- Print Button -->
+  <div class="no-print text-right max-w-4xl mx-auto mb-4">
+   <button onclick="window.print()" class="px-5 py-2 bg-slate-800 text-white rounded-lg font-bold hover:bg-slate-700">🖨️ 인쇄 / PDF 저장</button>
+   <a href="index.html" class="ml-3 px-5 py-2 bg-teal-600 text-white rounded-lg font-bold hover:bg-teal-700">← 대시보드</a>
+  </div>
+
+  <div class="max-w-4xl mx-auto">
+
+   <!-- Header -->
+   <div class="eval-header">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+     <div class="text-left">
+      <p class="text-teal-300 text-sm font-bold uppercase tracking-widest">2026학년도 1학기 &bull; 과학 실험 평가</p>
+      <h1 class="text-3xl md:text-4xl font-black mt-2">등속 운동 실험 설계 및 그래프 해석</h1>
+      <p class="text-slate-300 mt-2 text-sm">III-1-01 물체의 운동 | 과학A 실험평가 1회</p>
+     </div>
+     <div class="text-right">
+      <span class="badge-eval">실험 평가</span>
+      <span class="badge-weight ml-2">반영 10%</span>
+     </div>
+    </div>
+   </div>
+
+   <!-- 학생 정보 -->
+   <div class="section-box">
+    <div class="grid grid-cols-3 gap-4">
+     <div>
+      <p class="text-xs text-slate-500 font-bold mb-1">학년 / 반 / 번호</p>
+      <input class="input-line" type="text" placeholder="예) 3학년 2반 15번"/>
+     </div>
+     <div>
+      <p class="text-xs text-slate-500 font-bold mb-1">이름</p>
+      <input class="input-line" type="text" placeholder="홍길동"/>
+     </div>
+     <div>
+      <p class="text-xs text-slate-500 font-bold mb-1">실험 일시</p>
+      <input class="input-line" type="text" placeholder="2026.  ."/>
+     </div>
+    </div>
+   </div>
+
+   <!-- 1. 실험 목표 & 가설 -->
+   <div class="section-box">
+    <div class="section-title">1. 실험 목표 및 가설 설정</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+     <div>
+      <p class="text-sm font-bold text-slate-700 mb-2">【 실험 목표 】</p>
+      <div class="p-4 bg-teal-50 rounded-lg border border-teal-200 text-sm text-slate-700">
+       기록 타이머를 이용하여 등속 운동하는 물체의 시간-거리, 시간-속력 그래프를 그리고, 그래프의 특징을 설명할 수 있다.
+      </div>
+     </div>
+     <div>
+      <p class="text-sm font-bold text-slate-700 mb-2">【 나의 가설 】 (직접 작성)</p>
+      <div style="border: 1px dashed #94a3b8; border-radius: 0.5rem; padding: 1rem; min-height: 80px;">
+       <p class="text-xs text-slate-400">등속 운동에서 시간이 지남에 따라 거리는 _____________ 하게 증가하고, 속력은 _____________ 할 것이다.</p>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <!-- 2. 실험 설계 -->
+   <div class="section-box">
+    <div class="section-title">2. 실험 설계</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+     <div>
+      <p class="text-sm font-bold text-slate-700 mb-2">【 준비물 】</p>
+      <ul class="text-sm text-slate-600 space-y-1">
+       <li>• 기록 타이머 (60 Hz) — 점 간격: 1/60 s</li>
+       <li>• 기록 테이프 (충분한 길이)</li>
+       <li>• 수레 (또는 나무 도막)</li>
+       <li>• 경사면 (약 5~10° 경사)</li>
+       <li>• 자 (mm 단위), 연필, 계산기</li>
+      </ul>
+     </div>
+     <div>
+      <p class="text-sm font-bold text-slate-700 mb-2">【 실험 방법 】</p>
+      <ol class="text-sm text-slate-600 space-y-1">
+       <li>① 경사면에 수레를 올리고 기록 테이프를 연결한다.</li>
+       <li>② 기록 타이머를 켜고 수레를 놓는다.</li>
+       <li>③ 테이프를 회수하여 5타점(0.05 s)씩 구간을 자른다.</li>
+       <li>④ 각 구간의 길이를 자로 측정한다.</li>
+       <li>⑤ 속력 = 구간 길이 ÷ 0.05 s 로 계산한다.</li>
+       <li>⑥ 데이터를 표에 기록하고 그래프를 그린다.</li>
+      </ol>
+     </div>
+    </div>
+    <div class="mt-4 p-4 bg-amber-50 rounded-lg border border-amber-200">
+     <p class="text-xs font-bold text-amber-800">【 조작 변인 / 통제 변인 / 측정 변인 】</p>
+     <div class="grid grid-cols-3 gap-3 mt-2">
+      <div>
+       <p class="text-xs text-slate-500 font-bold">조작 변인</p>
+       <p class="text-xs text-slate-700">시간 (타점 구간)</p>
+      </div>
+      <div>
+       <p class="text-xs text-slate-500 font-bold">통제 변인</p>
+       <p class="text-xs text-slate-700">경사각, 수레 질량</p>
+      </div>
+      <div>
+       <p class="text-xs text-slate-500 font-bold">측정 변인</p>
+       <p class="text-xs text-slate-700">구간 거리 → 속력</p>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <!-- 3. 데이터 수집 -->
+   <div class="section-box">
+    <div class="section-title">3. 데이터 수집 및 계산</div>
+    <p class="text-xs text-slate-500 mb-3">※ 각 구간: 5타점 = 0.05 s | 누적 시간: 구간 번호 × 0.05 s</p>
+    <div class="overflow-x-auto">
+     <table class="data-table">
+      <thead>
+       <tr>
+        <th>구간</th>
+        <th>누적 시간 (s)</th>
+        <th>구간 거리 (cm)</th>
+        <th>누적 거리 (cm)</th>
+        <th>속력 (cm/s)</th>
+        <th>비고</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr><td>1</td><td>0.05</td><td></td><td></td><td></td><td></td></tr>
+       <tr><td>2</td><td>0.10</td><td></td><td></td><td></td><td></td></tr>
+       <tr><td>3</td><td>0.15</td><td></td><td></td><td></td><td></td></tr>
+       <tr><td>4</td><td>0.20</td><td></td><td></td><td></td><td></td></tr>
+       <tr><td>5</td><td>0.25</td><td></td><td></td><td></td><td></td></tr>
+       <tr><td>6</td><td>0.30</td><td></td><td></td><td></td><td></td></tr>
+       <tr><td>7</td><td>0.35</td><td></td><td></td><td></td><td></td></tr>
+       <tr><td>8</td><td>0.40</td><td></td><td></td><td></td><td></td></tr>
+       <tr style="background:#f0fdfa; font-weight:bold;"><td colspan="2">평균 속력</td><td colspan="4"></td></tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+
+   <!-- 4. 그래프 그리기 -->
+   <div class="section-box">
+    <div class="section-title">4. 그래프 그리기</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+     <div>
+      <p class="text-sm font-bold text-slate-700 mb-2">【 시간-거리 그래프 】</p>
+      <div class="graph-area" style="height:250px; padding: 1rem;">
+       <!-- 격자 -->
+       <div style="position:absolute; left:50px; right:10px; top:10px; bottom:40px; border-left:2px solid #475569; border-bottom:2px solid #475569;">
+        <div style="position:absolute; bottom:-25px; right:0; font-size:11px; color:#475569; font-weight:bold;">시간 (s)</div>
+        <div style="position:absolute; top:0; left:-35px; font-size:11px; color:#475569; font-weight:bold; writing-mode:vertical-rl; transform:rotate(180deg);">거리 (cm)</div>
+       </div>
+      </div>
+      <p class="text-xs text-slate-400 mt-2">※ 측정값을 점으로 표시하고 직선(추세선)으로 연결하세요.</p>
+     </div>
+     <div>
+      <p class="text-sm font-bold text-slate-700 mb-2">【 시간-속력 그래프 】</p>
+      <div class="graph-area" style="height:250px; padding: 1rem;">
+       <div style="position:absolute; left:50px; right:10px; top:10px; bottom:40px; border-left:2px solid #475569; border-bottom:2px solid #475569;">
+        <div style="position:absolute; bottom:-25px; right:0; font-size:11px; color:#475569; font-weight:bold;">시간 (s)</div>
+        <div style="position:absolute; top:0; left:-35px; font-size:11px; color:#475569; font-weight:bold; writing-mode:vertical-rl; transform:rotate(180deg);">속력 (cm/s)</div>
+       </div>
+      </div>
+      <p class="text-xs text-slate-400 mt-2">※ 각 구간의 평균 속력을 점으로 표시하고 추세선을 그리세요.</p>
+     </div>
+    </div>
+   </div>
+
+   <!-- 5. 분석 및 결론 -->
+   <div class="section-box">
+    <div class="section-title">5. 분석 및 결론</div>
+    <div class="space-y-4">
+     <div>
+      <p class="text-sm font-bold text-slate-700 mb-1">[분석 1] 시간-거리 그래프의 모양은 어떠한가? 이것이 의미하는 것은?</p>
+      <div style="border: 1px dashed #94a3b8; border-radius: 0.5rem; padding: 0.8rem; min-height: 60px;"></div>
+     </div>
+     <div>
+      <p class="text-sm font-bold text-slate-700 mb-1">[분석 2] 시간-속력 그래프의 모양은 어떠한가? 이것이 의미하는 것은?</p>
+      <div style="border: 1px dashed #94a3b8; border-radius: 0.5rem; padding: 0.8rem; min-height: 60px;"></div>
+     </div>
+     <div>
+      <p class="text-sm font-bold text-slate-700 mb-1">[분석 3] 시간-거리 그래프의 기울기를 구하고, 이것이 나타내는 물리량은 무엇인가?</p>
+      <div style="border: 1px dashed #94a3b8; border-radius: 0.5rem; padding: 0.8rem; min-height: 60px;">
+       <p class="text-xs text-slate-400">기울기 = ____________ ÷ ____________ = ____________ (단위: ______) → 이것은 ____________</p>
+      </div>
+     </div>
+     <div>
+      <p class="text-sm font-bold text-slate-700 mb-1">[결론] 가설을 확인하고 이번 실험의 결론을 서술하시오.</p>
+      <div style="border: 1px dashed #94a3b8; border-radius: 0.5rem; padding: 0.8rem; min-height: 80px;"></div>
+     </div>
+    </div>
+   </div>
+
+   <!-- 6. 오차 분석 -->
+   <div class="section-box">
+    <div class="section-title">6. 오차 분석 및 개선 방안</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+     <div>
+      <p class="text-sm font-bold text-slate-700 mb-2">예상되는 오차 원인</p>
+      <div class="space-y-2">
+       <label class="flex items-center gap-2 text-sm"><input type="checkbox"/> 기록 타이머 마찰</label>
+       <label class="flex items-center gap-2 text-sm"><input type="checkbox"/> 테이프 측정 시 눈금 오차</label>
+       <label class="flex items-center gap-2 text-sm"><input type="checkbox"/> 경사면 기울기 일정하지 않음</label>
+       <label class="flex items-center gap-2 text-sm"><input type="checkbox"/> 수레와 경사면 마찰</label>
+       <label class="flex items-center gap-2 text-sm"><input type="checkbox"/> 기타: <input class="input-line" style="width:120px;" type="text"/></label>
+      </div>
+     </div>
+     <div>
+      <p class="text-sm font-bold text-slate-700 mb-2">개선 방안 (자유 서술)</p>
+      <div style="border: 1px dashed #94a3b8; border-radius: 0.5rem; padding: 0.8rem; min-height: 100px;"></div>
+     </div>
+    </div>
+   </div>
+
+   <!-- 채점 기준 -->
+   <div class="section-box no-print">
+    <div class="section-title" style="border-color:#ef4444; color:#ef4444;">📋 채점 기준표 (교사용)</div>
+    <table class="rubric-table">
+     <thead>
+      <tr>
+       <th style="width:20%">평가 항목</th>
+       <th style="width:25%">우수 (4점)</th>
+       <th style="width:25%">보통 (2~3점)</th>
+       <th style="width:20%">미흡 (0~1점)</th>
+       <th style="width:10%">배점</th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td class="font-bold">가설 설정</td>
+       <td>과학적 근거와 함께 명확한 예측 서술</td>
+       <td>예측은 있으나 근거 부족</td>
+       <td>가설 미설정 또는 논리 부재</td>
+       <td class="text-center font-bold">4</td>
+      </tr>
+      <tr>
+       <td class="font-bold">데이터 수집</td>
+       <td>8구간 측정값 모두 기록, 계산 정확</td>
+       <td>5~7구간 기록, 일부 오류</td>
+       <td>4구간 이하 또는 계산 오류 다수</td>
+       <td class="text-center font-bold">6</td>
+      </tr>
+      <tr>
+       <td class="font-bold">그래프 작성</td>
+       <td>두 그래프 모두 축·단위·추세선 포함, 정확</td>
+       <td>한 그래프만 완성하거나 일부 누락</td>
+       <td>그래프 미작성 또는 오류 다수</td>
+       <td class="text-center font-bold">6</td>
+      </tr>
+      <tr>
+       <td class="font-bold">분석 및 결론</td>
+       <td>그래프 특징·기울기 의미 정확히 서술, 결론 논리적</td>
+       <td>분석 일부 정확, 결론 불완전</td>
+       <td>분석 미흡, 결론과 데이터 불일치</td>
+       <td class="text-center font-bold">4</td>
+      </tr>
+      <tr style="background:#fef2f2; font-weight:bold;">
+       <td colspan="4" class="text-right pr-4">총점</td>
+       <td class="text-center text-red-600">/ 20</td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+
+  </div><!-- max-w-4xl -->
+ </body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>11차시: 중력 위치 에너지 — 질량과 높이의 관계</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="css/common.css" rel="stylesheet"/>
+  <link href="css/presentation_mode.css" rel="stylesheet"/>
+  <link href="css/chem_style.css" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+   .hero-bg-pe {
+     background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+     background-size: cover; background-position: center;
+   }
+   .bg-overlay { background: rgba(255,255,255,0.88); padding: 3rem; border-radius: 2rem; backdrop-filter: blur(12px); }
+   .formula-box-purple {
+     background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+     color: white; border-radius: 1.5rem; padding: 2rem 3rem; text-align: center;
+     box-shadow: 0 10px 30px rgba(124,58,237,0.3);
+   }
+   .concept-card { background: white; border-radius: 1.2rem; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.07); border: 1px solid #e2e8f0; transition: all 0.3s; }
+   .concept-card:hover { transform: translateY(-4px); }
+   .var-box { background: #f5f3ff; border: 2px solid #8b5cf6; border-radius: 1rem; padding: 1rem 1.5rem; text-align: center; }
+  </style>
+ </head>
+ <body class="presentation-mode">
+  <main>
+
+   <!-- Slide 1: Cover -->
+   <section class="hero-bg-pe" data-slide-index="0" data-slide-num="1" data-title="Cover" id="slide-1">
+    <div class="slide-content bg-overlay">
+     <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">2026학년도 중학교 3학년 과학 &bull; 물리 III-2-02</p>
+     <h1 class="text-4xl md:text-6xl font-black mb-6 text-slate-900 leading-tight">
+      높을수록 <span style="color:#7c3aed">더 많은 에너지</span>?
+     </h1>
+     <div class="w-20 h-1 bg-purple-600 mx-auto my-8"></div>
+     <p class="text-2xl text-slate-600 font-medium">제 11강: 중력 위치 에너지</p>
+     <p class="text-xl text-slate-500 font-bold mt-4">📖 비상 교과서 III단원 2장</p>
+    </div>
+   </section>
+
+   <!-- Slide 2: 도입 — 높이에 따른 위험 -->
+   <section data-slide-index="1" data-slide-num="2" data-title="도입: 높이와 에너지" id="slide-2">
+    <div class="slide-content">
+     <h2 style="color:#7c3aed">같은 돌인데 왜 높이에서 떨어지면 더 위험할까?</h2>
+     <div class="flex flex-col md:flex-row gap-8 items-center max-w-5xl mt-8 w-full">
+      <div class="w-full md:w-1/2">
+       <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80"
+            alt="높은 산" class="rounded-2xl shadow-2xl w-full object-cover" style="max-height:300px;"/>
+      </div>
+      <div class="w-full md:w-1/2 space-y-4 text-left">
+       <div class="p-5 bg-purple-50 border-l-4 border-purple-500 rounded-xl">
+        <p class="font-black text-purple-700 text-lg">1 m 높이에서 돌 낙하 → 살짝 아픔</p>
+        <p class="text-slate-600 mt-1">충돌 전 속력이 작다 → 에너지가 작다</p>
+       </div>
+       <div class="p-5 bg-red-50 border-l-4 border-red-500 rounded-xl">
+        <p class="font-black text-red-700 text-lg">10 m 높이에서 돌 낙하 → 매우 위험</p>
+        <p class="text-slate-600 mt-1">충돌 전 속력이 크다 → 에너지가 크다</p>
+       </div>
+       <div class="p-5 bg-amber-50 border-l-4 border-amber-400 rounded-xl">
+        <p class="font-black text-amber-700">높이에 저장된 에너지 → <strong>중력 위치 에너지</strong></p>
+        <p class="text-slate-600 mt-1">높이 ↑ → 위치 에너지 ↑ → 떨어질 때 운동 에너지 ↑</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 3: 위치 에너지 정의 -->
+   <section data-slide-index="2" data-slide-num="3" data-title="중력 위치 에너지 정의" id="slide-3">
+    <div class="slide-content">
+     <h2 style="color:#7c3aed">중력 위치 에너지 (Ep)</h2>
+     <div class="max-w-4xl w-full mt-8 space-y-6">
+      <div class="formula-box-purple">
+       <p class="text-xl mb-2 opacity-80">중력 위치 에너지</p>
+       <p class="text-5xl font-black tracking-wide">E<sub>p</sub> = mgh</p>
+       <p class="text-lg mt-3 opacity-90">단위: J (줄)</p>
+      </div>
+      <div class="grid grid-cols-3 gap-4">
+       <div class="var-box">
+        <p class="text-2xl font-black text-purple-700">m</p>
+        <p class="text-sm font-bold text-slate-600">질량 (kg)</p>
+       </div>
+       <div class="var-box">
+        <p class="text-2xl font-black text-purple-700">g</p>
+        <p class="text-sm font-bold text-slate-600">중력 가속도<br/>= 9.8 m/s²</p>
+       </div>
+       <div class="var-box">
+        <p class="text-2xl font-black text-purple-700">h</p>
+        <p class="text-sm font-bold text-slate-600">기준면으로부터<br/>높이 (m)</p>
+       </div>
+      </div>
+      <div class="p-5 bg-yellow-50 border-2 border-yellow-400 rounded-2xl text-center">
+       <p class="text-slate-700 font-bold">⚠️ 기준면: 위치 에너지를 0으로 잡는 면 (보통 지면)</p>
+       <p class="text-slate-600 mt-1">같은 물체라도 기준면을 어디로 잡느냐에 따라 E<sub>p</sub> 값이 달라진다!</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 4: 질량과 Ep 관계 -->
+   <section data-slide-index="3" data-slide-num="4" data-title="질량과 위치 에너지 관계" id="slide-4">
+    <div class="slide-content">
+     <h2 style="color:#7c3aed">높이가 같을 때 — 질량이 클수록 Ep가 크다</h2>
+     <div class="flex flex-col md:flex-row gap-8 items-center max-w-5xl mt-6 w-full">
+      <div class="w-full md:w-1/2">
+       <canvas id="chart-mass-ep" height="280"></canvas>
+      </div>
+      <div class="w-full md:w-1/2 space-y-4 text-left">
+       <p class="text-slate-600 text-lg">높이 h = 5 m 고정, g = 9.8 m/s²</p>
+       <table class="w-full text-center rounded-xl overflow-hidden shadow">
+        <thead class="bg-purple-600 text-white">
+         <tr><th class="p-3">질량 (kg)</th><th class="p-3">Ep = mgh (J)</th></tr>
+        </thead>
+        <tbody>
+         <tr class="bg-purple-50"><td class="p-3">1</td><td class="p-3 font-bold">49</td></tr>
+         <tr class="bg-white"><td class="p-3">2</td><td class="p-3 font-bold">98</td></tr>
+         <tr class="bg-purple-50"><td class="p-3">3</td><td class="p-3 font-bold">147</td></tr>
+         <tr class="bg-white"><td class="p-3">4</td><td class="p-3 font-bold">196</td></tr>
+         <tr class="bg-purple-50"><td class="p-3">5</td><td class="p-3 font-bold">245</td></tr>
+        </tbody>
+       </table>
+       <div class="p-4 bg-purple-50 border-l-4 border-purple-500 rounded-xl">
+        <p class="font-black text-purple-700">E<sub>p</sub> ∝ m (질량에 비례)</p>
+        <p class="text-sm text-slate-600 mt-1">질량이 2배 → E<sub>p</sub> 2배</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 5: 높이와 Ep 관계 -->
+   <section data-slide-index="4" data-slide-num="5" data-title="높이와 위치 에너지 관계" id="slide-5">
+    <div class="slide-content">
+     <h2 style="color:#7c3aed">질량이 같을 때 — 높이가 클수록 Ep가 크다</h2>
+     <div class="flex flex-col md:flex-row gap-8 items-center max-w-5xl mt-6 w-full">
+      <div class="w-full md:w-1/2">
+       <canvas id="chart-height-ep" height="280"></canvas>
+      </div>
+      <div class="w-full md:w-1/2 space-y-4 text-left">
+       <p class="text-slate-600 text-lg">질량 m = 2 kg 고정, g = 9.8 m/s²</p>
+       <table class="w-full text-center rounded-xl overflow-hidden shadow">
+        <thead class="bg-purple-600 text-white">
+         <tr><th class="p-3">높이 (m)</th><th class="p-3">Ep = mgh (J)</th></tr>
+        </thead>
+        <tbody>
+         <tr class="bg-purple-50"><td class="p-3">1</td><td class="p-3 font-bold">19.6</td></tr>
+         <tr class="bg-white"><td class="p-3">2</td><td class="p-3 font-bold">39.2</td></tr>
+         <tr class="bg-purple-50"><td class="p-3">3</td><td class="p-3 font-bold">58.8</td></tr>
+         <tr class="bg-white"><td class="p-3">4</td><td class="p-3 font-bold">78.4</td></tr>
+         <tr class="bg-purple-50"><td class="p-3">5</td><td class="p-3 font-bold">98.0</td></tr>
+        </tbody>
+       </table>
+       <div class="p-4 bg-purple-50 border-l-4 border-purple-500 rounded-xl">
+        <p class="font-black text-purple-700">E<sub>p</sub> ∝ h (높이에 비례)</p>
+        <p class="text-sm text-slate-600 mt-1">높이가 3배 → E<sub>p</sub> 3배</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 6: 탐구 실험 — 낙하 흔적 -->
+   <section data-slide-index="5" data-slide-num="6" data-title="탐구: 낙하 흔적으로 Ep 비교" id="slide-6">
+    <div class="slide-content">
+     <h2 style="color:#7c3aed">탐구 — 모래 위 낙하 흔적으로 위치 에너지 비교</h2>
+     <div class="max-w-5xl w-full mt-6 space-y-5">
+      <div class="grid grid-cols-2 gap-6">
+       <div class="p-5 bg-purple-50 rounded-2xl">
+        <p class="font-black text-purple-700 text-lg mb-3">실험 방법</p>
+        <ol class="text-slate-700 space-y-2 text-sm list-decimal list-inside">
+         <li>모래가 담긴 쟁반 준비</li>
+         <li>질량이 다른 쇠공(50g, 100g, 150g) 준비</li>
+         <li>같은 높이(1 m)에서 각각 낙하</li>
+         <li>흔적의 깊이·넓이 측정 → Ep 비교</li>
+        </ol>
+       </div>
+       <div class="p-5 bg-blue-50 rounded-2xl">
+        <p class="font-black text-blue-700 text-lg mb-3">같은 질량, 높이 변경</p>
+        <ol class="text-slate-700 space-y-2 text-sm list-decimal list-inside">
+         <li>100g 쇠공 사용</li>
+         <li>높이를 0.5 m / 1 m / 2 m로 변경</li>
+         <li>각 높이에서 낙하</li>
+         <li>흔적 깊이 측정 → 높이와 Ep 관계 확인</li>
+        </ol>
+       </div>
+      </div>
+      <table class="w-full text-center rounded-xl overflow-hidden shadow">
+       <thead class="bg-purple-600 text-white">
+        <tr>
+         <th class="p-3">질량 (g)</th>
+         <th class="p-3">높이 (m)</th>
+         <th class="p-3">이론적 Ep (J)</th>
+         <th class="p-3">흔적 깊이 (예상)</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr class="bg-purple-50"><td class="p-3">50</td><td class="p-3">1</td><td class="p-3 font-bold">0.49</td><td class="p-3">얕음</td></tr>
+        <tr class="bg-white"><td class="p-3">100</td><td class="p-3">1</td><td class="p-3 font-bold">0.98</td><td class="p-3">중간</td></tr>
+        <tr class="bg-purple-50"><td class="p-3">150</td><td class="p-3">1</td><td class="p-3 font-bold">1.47</td><td class="p-3">깊음</td></tr>
+        <tr class="bg-blue-50"><td class="p-3">100</td><td class="p-3">2</td><td class="p-3 font-bold">1.96</td><td class="p-3">더 깊음</td></tr>
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 7: 실생활 사례 -->
+   <section data-slide-index="6" data-slide-num="7" data-title="실생활 속 위치 에너지" id="slide-7">
+    <div class="slide-content">
+     <h2 style="color:#7c3aed">실생활 속 중력 위치 에너지</h2>
+     <div class="grid grid-cols-2 md:grid-cols-3 gap-5 max-w-5xl mt-6 w-full">
+      <div class="concept-card border-t-4 border-purple-500">
+       <p class="text-3xl mb-2">💧</p>
+       <p class="font-black text-purple-700">댐/수력발전</p>
+       <p class="text-sm text-slate-600 mt-1">높은 곳의 물 → E<sub>p</sub> 저장<br/>낙하 시 E<sub>p</sub> → 전기 에너지 전환</p>
+      </div>
+      <div class="concept-card border-t-4 border-blue-500">
+       <p class="text-3xl mb-2">🎿</p>
+       <p class="font-black text-blue-700">스키 점프</p>
+       <p class="text-sm text-slate-600 mt-1">높은 출발점의 E<sub>p</sub><br/>→ 빠른 속도(Ek)로 전환</p>
+      </div>
+      <div class="concept-card border-t-4 border-green-500">
+       <p class="text-3xl mb-2">🎡</p>
+       <p class="font-black text-green-700">롤러코스터</p>
+       <p class="text-sm text-slate-600 mt-1">최고점 E<sub>p</sub> 최대<br/>최저점 E<sub>k</sub> 최대</p>
+      </div>
+      <div class="concept-card border-t-4 border-red-500">
+       <p class="text-3xl mb-2">⚓</p>
+       <p class="font-black text-red-700">크레인 무거운 추</p>
+       <p class="text-sm text-slate-600 mt-1">높이 올릴수록 E<sub>p</sub> 증가<br/>무거울수록 E<sub>p</sub> 증가</p>
+      </div>
+      <div class="concept-card border-t-4 border-amber-500">
+       <p class="text-3xl mb-2">🏋️</p>
+       <p class="font-black text-amber-700">역도 바벨 들기</p>
+       <p class="text-sm text-slate-600 mt-1">일(W=Fh)을 해서<br/>E<sub>p</sub>를 증가시킴</p>
+      </div>
+      <div class="concept-card border-t-4 border-indigo-500">
+       <p class="text-3xl mb-2">🌊</p>
+       <p class="font-black text-indigo-700">파도</p>
+       <p class="text-sm text-slate-600 mt-1">파도 마루 → E<sub>p</sub> 저장<br/>→ E<sub>k</sub>로 해안 타격</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 8: 계산 연습 -->
+   <section data-slide-index="7" data-slide-num="8" data-title="계산 연습" id="slide-8">
+    <div class="slide-content">
+     <h2 style="color:#7c3aed">E<sub>p</sub> = mgh 계산 연습</h2>
+     <div class="grid grid-cols-2 gap-6 max-w-5xl mt-6 w-full">
+      <div class="p-6 bg-purple-50 rounded-2xl border-2 border-purple-200">
+       <p class="font-black text-purple-700 text-lg">문제 1</p>
+       <p class="text-slate-700 mt-2">질량 3 kg인 물체가 지면으로부터 4 m 높이에 있다. 이 물체의 중력 위치 에너지는? (g = 9.8 m/s²)</p>
+       <div class="mt-4 p-3 bg-white rounded-xl">
+        <p class="font-bold text-slate-600">풀이:</p>
+        <p class="text-slate-700 mt-1">E<sub>p</sub> = mgh = 3 × 9.8 × 4</p>
+        <p class="text-purple-700 font-black text-xl mt-1">= 117.6 J</p>
+       </div>
+      </div>
+      <div class="p-6 bg-indigo-50 rounded-2xl border-2 border-indigo-200">
+       <p class="font-black text-indigo-700 text-lg">문제 2</p>
+       <p class="text-slate-700 mt-2">어떤 물체의 위치 에너지가 196 J이고 높이가 5 m일 때, 이 물체의 질량은? (g = 9.8 m/s²)</p>
+       <div class="mt-4 p-3 bg-white rounded-xl">
+        <p class="font-bold text-slate-600">풀이:</p>
+        <p class="text-slate-700 mt-1">m = E<sub>p</sub> ÷ (gh) = 196 ÷ (9.8 × 5)</p>
+        <p class="text-indigo-700 font-black text-xl mt-1">= 4 kg</p>
+       </div>
+      </div>
+      <div class="p-6 bg-violet-50 rounded-2xl border-2 border-violet-200">
+       <p class="font-black text-violet-700 text-lg">문제 3</p>
+       <p class="text-slate-700 mt-2">5 kg 물체를 2 m 높이까지 들어 올렸다. 이때 위치 에너지 증가량은?</p>
+       <div class="mt-4 p-3 bg-white rounded-xl">
+        <p class="font-bold text-slate-600">풀이:</p>
+        <p class="text-slate-700 mt-1">ΔE<sub>p</sub> = mgh = 5 × 9.8 × 2</p>
+        <p class="text-violet-700 font-black text-xl mt-1">= 98 J</p>
+       </div>
+      </div>
+      <div class="p-6 bg-fuchsia-50 rounded-2xl border-2 border-fuchsia-200">
+       <p class="font-black text-fuchsia-700 text-lg">문제 4</p>
+       <p class="text-slate-700 mt-2">E<sub>p</sub> = 490 J, m = 5 kg일 때 높이는?</p>
+       <div class="mt-4 p-3 bg-white rounded-xl">
+        <p class="font-bold text-slate-600">풀이:</p>
+        <p class="text-slate-700 mt-1">h = E<sub>p</sub> ÷ (mg) = 490 ÷ (5 × 9.8)</p>
+        <p class="text-fuchsia-700 font-black text-xl mt-1">= 10 m</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 9: 개념 정리 -->
+   <section data-slide-index="8" data-slide-num="9" data-title="개념 정리" id="slide-9">
+    <div class="slide-content">
+     <h2 style="color:#7c3aed">핵심 개념 정리</h2>
+     <div class="max-w-4xl w-full mt-6 space-y-4">
+      <div class="formula-box-purple">
+       <p class="text-3xl font-black">E<sub>p</sub> = mgh (단위: J)</p>
+       <p class="text-lg mt-2 opacity-90">m: 질량(kg) &nbsp;/&nbsp; g: 9.8 m/s² &nbsp;/&nbsp; h: 높이(m)</p>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+       <div class="p-5 bg-purple-50 border-l-4 border-purple-500 rounded-xl">
+        <p class="font-black text-purple-700">질량과의 관계</p>
+        <p class="text-slate-700 mt-1">높이가 같을 때<br/>질량 ↑ → E<sub>p</sub> ↑ (비례)</p>
+       </div>
+       <div class="p-5 bg-indigo-50 border-l-4 border-indigo-500 rounded-xl">
+        <p class="font-black text-indigo-700">높이와의 관계</p>
+        <p class="text-slate-700 mt-1">질량이 같을 때<br/>높이 ↑ → E<sub>p</sub> ↑ (비례)</p>
+       </div>
+       <div class="p-5 bg-yellow-50 border-l-4 border-yellow-400 rounded-xl">
+        <p class="font-black text-yellow-700">기준면</p>
+        <p class="text-slate-700 mt-1">E<sub>p</sub> = 0으로 정하는 면<br/>기준면 위: E<sub>p</sub> > 0</p>
+       </div>
+       <div class="p-5 bg-green-50 border-l-4 border-green-500 rounded-xl">
+        <p class="font-black text-green-700">에너지 전환</p>
+        <p class="text-slate-700 mt-1">낙하 시: E<sub>p</sub> → E<sub>k</sub><br/>(위치 → 운동 에너지)</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 10: 형성평가 1 -->
+   <section data-slide-index="9" data-slide-num="10" data-title="형성평가 1" id="slide-10">
+    <div class="slide-content">
+     <h2 style="color:#7c3aed">형성평가 1</h2>
+     <div class="quiz-container max-w-3xl mt-8 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">질량 2 kg인 물체를 지면으로부터 5 m 높이까지 들어올렸다.<br/>이 물체의 중력 위치 에너지는? (g = 9.8 m/s²)</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 49 J</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">② 78.4 J</button>
+       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">③ 98 J</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 196 J</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">✅ 정답! ③ 98 J</p>
+       <p class="text-slate-600 mt-1">E<sub>p</sub> = mgh = 2 × 9.8 × 5 = 98 J</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 11: 형성평가 2 -->
+   <section data-slide-index="10" data-slide-num="11" data-title="형성평가 2" id="slide-11">
+    <div class="slide-content">
+     <h2 style="color:#7c3aed">형성평가 2</h2>
+     <div class="quiz-container max-w-3xl mt-8 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">중력 위치 에너지에 대한 설명으로 <strong>옳지 않은</strong> 것은?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 높이가 높을수록 위치 에너지가 크다.</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">② 질량이 클수록 위치 에너지가 크다.</button>
+       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">③ 기준면에서의 위치 에너지는 항상 최대이다.</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ E<sub>p</sub> = mgh로 계산한다.</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">✅ 정답! ③</p>
+       <p class="text-slate-600 mt-1">기준면에서의 위치 에너지는 <strong>최소(0)</strong>이다. 기준면 위로 올라갈수록 E<sub>p</sub>가 증가한다.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 12: 형성평가 3 -->
+   <section data-slide-index="11" data-slide-num="12" data-title="형성평가 3" id="slide-12">
+    <div class="slide-content">
+     <h2 style="color:#7c3aed">형성평가 3</h2>
+     <div class="quiz-container max-w-3xl mt-8 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">같은 높이에서 질량이 2배인 물체를 떨어뜨리면<br/>중력 위치 에너지는 몇 배가 되는가?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 같다</button>
+       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">② 2배</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">③ 4배</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ ½배</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">✅ 정답! ② 2배</p>
+       <p class="text-slate-600 mt-1">E<sub>p</sub> = mgh에서 h, g가 일정할 때 E<sub>p</sub> ∝ m (비례). 질량 2배 → E<sub>p</sub> 2배</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 13: 마무리 -->
+   <section data-slide-index="12" data-slide-num="13" data-title="마무리" id="slide-13">
+    <div class="slide-content">
+     <h2 style="color:#7c3aed">오늘 배운 것</h2>
+     <div class="max-w-3xl w-full mt-8 space-y-5">
+      <div class="flex items-start gap-4 p-5 bg-purple-50 rounded-2xl border-l-4 border-purple-500">
+       <span class="text-3xl">①</span>
+       <div>
+        <p class="font-black text-purple-700 text-lg">중력 위치 에너지</p>
+        <p class="text-slate-600">높이에 따라 물체가 저장하는 에너지 → E<sub>p</sub> = mgh (J)</p>
+       </div>
+      </div>
+      <div class="flex items-start gap-4 p-5 bg-indigo-50 rounded-2xl border-l-4 border-indigo-500">
+       <span class="text-3xl">②</span>
+       <div>
+        <p class="font-black text-indigo-700 text-lg">질량·높이 비례 관계</p>
+        <p class="text-slate-600">질량↑ → E<sub>p</sub>↑ &nbsp;/&nbsp; 높이↑ → E<sub>p</sub>↑ (모두 비례)</p>
+       </div>
+      </div>
+      <div class="flex items-start gap-4 p-5 bg-green-50 rounded-2xl border-l-4 border-green-500">
+       <span class="text-3xl">③</span>
+       <div>
+        <p class="font-black text-green-700 text-lg">다음 시간 예고</p>
+        <p class="text-slate-600">12강: 운동 에너지 (E<sub>k</sub> = ½mv²) — 속력의 제곱에 비례!</p>
+       </div>
+      </div>
+      <div class="formula-box-purple mt-4">
+       <p class="text-3xl font-black">E<sub>p</sub> = mgh</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+  </main>
+
+  <script>
+   function checkAnswer(btn) {
+    const container = btn.closest('.quiz-container');
+    if (container.querySelector('.quiz-btn.selected')) return;
+    btn.classList.add('selected');
+    const isCorrect = btn.dataset.correct === 'true';
+    btn.classList.add(isCorrect ? 'correct' : 'wrong');
+    container.querySelector('.quiz-feedback').style.display = 'block';
+    container.querySelectorAll('.quiz-btn').forEach(b => b.disabled = true);
+   }
+
+   window.addEventListener('load', function() {
+    // Chart 1: 질량 vs Ep
+    const ctx1 = document.getElementById('chart-mass-ep');
+    if (ctx1) {
+     new Chart(ctx1.getContext('2d'), {
+      type: 'bar',
+      data: {
+       labels: ['1 kg','2 kg','3 kg','4 kg','5 kg'],
+       datasets: [{
+        label: 'Ep (J)',
+        data: [49, 98, 147, 196, 245],
+        backgroundColor: ['#c4b5fd','#a78bfa','#8b5cf6','#7c3aed','#6d28d9'],
+        borderRadius: 8
+       }]
+      },
+      options: {
+       responsive: true,
+       plugins: { legend: { display: false },
+        title: { display: true, text: '높이 5m 고정, 질량에 따른 Ep', font: { size: 14 } }
+       },
+       scales: { y: { beginAtZero: true, title: { display: true, text: 'Ep (J)' } } }
+      }
+     });
+    }
+
+    // Chart 2: 높이 vs Ep
+    const ctx2 = document.getElementById('chart-height-ep');
+    if (ctx2) {
+     new Chart(ctx2.getContext('2d'), {
+      type: 'line',
+      data: {
+       labels: ['1 m','2 m','3 m','4 m','5 m'],
+       datasets: [{
+        label: 'Ep (J)',
+        data: [19.6, 39.2, 58.8, 78.4, 98.0],
+        borderColor: '#7c3aed',
+        backgroundColor: 'rgba(124,58,237,0.1)',
+        borderWidth: 3,
+        pointRadius: 6,
+        pointBackgroundColor: '#7c3aed',
+        tension: 0,
+        fill: true
+       }]
+      },
+      options: {
+       responsive: true,
+       plugins: { legend: { display: false },
+        title: { display: true, text: '질량 2kg 고정, 높이에 따른 Ep', font: { size: 14 } }
+       },
+       scales: { y: { beginAtZero: true, title: { display: true, text: 'Ep (J)' } } }
+      }
+     });
+    }
+   });
+  </script>
+  <script src="js/slide_engine.js"></script>
+ </body>
+</html>

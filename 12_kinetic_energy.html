@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>12차시: 운동 에너지 — 질량과 속력의 관계</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="css/common.css" rel="stylesheet"/>
+  <link href="css/presentation_mode.css" rel="stylesheet"/>
+  <link href="css/chem_style.css" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+   .hero-bg-ke {
+     background-image: url('https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+     background-size: cover; background-position: center;
+   }
+   .bg-overlay { background: rgba(255,255,255,0.88); padding: 3rem; border-radius: 2rem; backdrop-filter: blur(12px); }
+   .formula-box-orange {
+     background: linear-gradient(135deg, #c2410c, #ea580c);
+     color: white; border-radius: 1.5rem; padding: 2rem 3rem; text-align: center;
+     box-shadow: 0 10px 30px rgba(234,88,12,0.3);
+   }
+   .concept-card { background: white; border-radius: 1.2rem; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.07); border: 1px solid #e2e8f0; transition: all 0.3s; }
+   .concept-card:hover { transform: translateY(-4px); }
+   .var-box { background: #fff7ed; border: 2px solid #ea580c; border-radius: 1rem; padding: 1rem 1.5rem; text-align: center; }
+  </style>
+ </head>
+ <body class="presentation-mode">
+  <main>
+
+   <!-- Slide 1: Cover -->
+   <section class="hero-bg-ke" data-slide-index="0" data-slide-num="1" data-title="Cover" id="slide-1">
+    <div class="slide-content bg-overlay">
+     <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">2026학년도 중학교 3학년 과학 &bull; 물리 III-2-03</p>
+     <h1 class="text-4xl md:text-6xl font-black mb-6 text-slate-900 leading-tight">
+      빠를수록 <span style="color:#ea580c">더 강한 에너지</span>?
+     </h1>
+     <div class="w-20 h-1 bg-orange-600 mx-auto my-8"></div>
+     <p class="text-2xl text-slate-600 font-medium">제 12강: 운동 에너지</p>
+     <p class="text-xl text-slate-500 font-bold mt-4">📖 비상 교과서 III단원 2장</p>
+    </div>
+   </section>
+
+   <!-- Slide 2: 도입 — 충돌 비교 -->
+   <section data-slide-index="1" data-slide-num="2" data-title="도입: 충돌 비교" id="slide-2">
+    <div class="slide-content">
+     <h2 style="color:#ea580c">왜 빠른 자동차의 충돌이 더 위험할까?</h2>
+     <div class="flex flex-col md:flex-row gap-8 items-center max-w-5xl mt-6 w-full">
+      <div class="w-full md:w-1/2">
+       <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80"
+            alt="자동차" class="rounded-2xl shadow-2xl w-full object-cover" style="max-height:300px;"/>
+      </div>
+      <div class="w-full md:w-1/2 space-y-4 text-left">
+       <div class="p-5 bg-yellow-50 border-l-4 border-yellow-400 rounded-xl">
+        <p class="font-black text-yellow-700 text-lg">30 km/h 충돌</p>
+        <p class="text-slate-600 mt-1">운동 에너지가 작다 → 충격이 작다<br/>→ 경상</p>
+       </div>
+       <div class="p-5 bg-red-50 border-l-4 border-red-500 rounded-xl">
+        <p class="font-black text-red-700 text-lg">100 km/h 충돌</p>
+        <p class="text-slate-600 mt-1">운동 에너지가 크다 → 충격이 크다<br/>→ 심각한 피해</p>
+       </div>
+       <div class="p-5 bg-orange-50 border-l-4 border-orange-500 rounded-xl">
+        <p class="font-black text-orange-700">운동하는 물체가 가진 에너지 → <strong>운동 에너지</strong></p>
+        <p class="text-slate-600 mt-1">속력의 <strong>제곱</strong>에 비례 — 속력이 2배이면 Ek는 4배!</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 3: 운동 에너지 정의 -->
+   <section data-slide-index="2" data-slide-num="3" data-title="운동 에너지 정의" id="slide-3">
+    <div class="slide-content">
+     <h2 style="color:#ea580c">운동 에너지 (E<sub>k</sub>)</h2>
+     <div class="max-w-4xl w-full mt-8 space-y-6">
+      <div class="formula-box-orange">
+       <p class="text-xl mb-2 opacity-80">운동 에너지</p>
+       <p class="text-5xl font-black tracking-wide">E<sub>k</sub> = ½mv²</p>
+       <p class="text-lg mt-3 opacity-90">단위: J (줄)</p>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+       <div class="var-box">
+        <p class="text-2xl font-black text-orange-600">m</p>
+        <p class="text-sm font-bold text-slate-600">질량 (kg)</p>
+       </div>
+       <div class="var-box">
+        <p class="text-2xl font-black text-orange-600">v</p>
+        <p class="text-sm font-bold text-slate-600">속력 (m/s)<br/><span class="text-red-600">제곱에 비례!</span></p>
+       </div>
+      </div>
+      <div class="p-5 bg-red-50 border-2 border-red-300 rounded-2xl">
+       <p class="font-black text-red-700 text-lg text-center">🔑 핵심: 속력이 2배 → E<sub>k</sub>는 <u>4배</u></p>
+       <p class="text-slate-600 text-center mt-1">속력이 3배 → E<sub>k</sub>는 9배 &nbsp;|&nbsp; 속력이 ½배 → E<sub>k</sub>는 ¼배</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 4: 질량과 Ek 관계 -->
+   <section data-slide-index="3" data-slide-num="4" data-title="질량과 운동 에너지 관계" id="slide-4">
+    <div class="slide-content">
+     <h2 style="color:#ea580c">속력이 같을 때 — 질량이 클수록 E<sub>k</sub>가 크다</h2>
+     <div class="flex flex-col md:flex-row gap-8 items-center max-w-5xl mt-6 w-full">
+      <div class="w-full md:w-1/2">
+       <canvas id="chart-mass-ek" height="280"></canvas>
+      </div>
+      <div class="w-full md:w-1/2 space-y-4 text-left">
+       <p class="text-slate-600 text-lg">속력 v = 4 m/s 고정</p>
+       <table class="w-full text-center rounded-xl overflow-hidden shadow">
+        <thead class="bg-orange-500 text-white">
+         <tr><th class="p-3">질량 (kg)</th><th class="p-3">E<sub>k</sub> = ½mv² (J)</th></tr>
+        </thead>
+        <tbody>
+         <tr class="bg-orange-50"><td class="p-3">1</td><td class="p-3 font-bold">8</td></tr>
+         <tr class="bg-white"><td class="p-3">2</td><td class="p-3 font-bold">16</td></tr>
+         <tr class="bg-orange-50"><td class="p-3">3</td><td class="p-3 font-bold">24</td></tr>
+         <tr class="bg-white"><td class="p-3">4</td><td class="p-3 font-bold">32</td></tr>
+         <tr class="bg-orange-50"><td class="p-3">5</td><td class="p-3 font-bold">40</td></tr>
+        </tbody>
+       </table>
+       <div class="p-4 bg-orange-50 border-l-4 border-orange-500 rounded-xl">
+        <p class="font-black text-orange-700">E<sub>k</sub> ∝ m (질량에 비례)</p>
+        <p class="text-sm text-slate-600 mt-1">질량 2배 → E<sub>k</sub> 2배</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 5: 속력과 Ek 관계 (핵심!) -->
+   <section data-slide-index="4" data-slide-num="5" data-title="속력과 운동 에너지 관계" id="slide-5">
+    <div class="slide-content">
+     <h2 style="color:#ea580c">질량이 같을 때 — 속력의 <u>제곱</u>에 비례!</h2>
+     <div class="flex flex-col md:flex-row gap-8 items-center max-w-5xl mt-6 w-full">
+      <div class="w-full md:w-1/2">
+       <canvas id="chart-speed-ek" height="280"></canvas>
+      </div>
+      <div class="w-full md:w-1/2 space-y-4 text-left">
+       <p class="text-slate-600 text-lg">질량 m = 2 kg 고정</p>
+       <table class="w-full text-center rounded-xl overflow-hidden shadow">
+        <thead class="bg-orange-500 text-white">
+         <tr><th class="p-3">속력 (m/s)</th><th class="p-3">E<sub>k</sub> = ½mv² (J)</th></tr>
+        </thead>
+        <tbody>
+         <tr class="bg-orange-50"><td class="p-3">1</td><td class="p-3 font-bold">1</td></tr>
+         <tr class="bg-white"><td class="p-3">2</td><td class="p-3 font-bold">4</td></tr>
+         <tr class="bg-orange-50"><td class="p-3">3</td><td class="p-3 font-bold">9</td></tr>
+         <tr class="bg-white"><td class="p-3">4</td><td class="p-3 font-bold">16</td></tr>
+         <tr class="bg-orange-50"><td class="p-3">5</td><td class="p-3 font-bold">25</td></tr>
+        </tbody>
+       </table>
+       <div class="p-4 bg-red-50 border-l-4 border-red-500 rounded-xl">
+        <p class="font-black text-red-700">E<sub>k</sub> ∝ v² (속력 제곱에 비례)</p>
+        <p class="text-sm text-slate-600 mt-1">속력 2배 → E<sub>k</sub> <strong>4배</strong><br/>속력 3배 → E<sub>k</sub> <strong>9배</strong></p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 6: 비교표 — Ep vs Ek -->
+   <section data-slide-index="5" data-slide-num="6" data-title="위치 에너지 vs 운동 에너지 비교" id="slide-6">
+    <div class="slide-content">
+     <h2 style="color:#ea580c">위치 에너지 vs 운동 에너지</h2>
+     <div class="max-w-4xl w-full mt-6">
+      <table class="w-full text-center rounded-2xl overflow-hidden shadow-lg">
+       <thead>
+        <tr>
+         <th class="p-4 bg-slate-700 text-white">구분</th>
+         <th class="p-4 bg-purple-600 text-white">중력 위치 에너지 E<sub>p</sub></th>
+         <th class="p-4 bg-orange-500 text-white">운동 에너지 E<sub>k</sub></th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr class="bg-slate-50">
+         <td class="p-4 font-bold">공식</td>
+         <td class="p-4">E<sub>p</sub> = mgh</td>
+         <td class="p-4">E<sub>k</sub> = ½mv²</td>
+        </tr>
+        <tr class="bg-white">
+         <td class="p-4 font-bold">단위</td>
+         <td class="p-4" colspan="2">J (줄)</td>
+        </tr>
+        <tr class="bg-slate-50">
+         <td class="p-4 font-bold">질량 관계</td>
+         <td class="p-4">m에 비례</td>
+         <td class="p-4">m에 비례</td>
+        </tr>
+        <tr class="bg-white">
+         <td class="p-4 font-bold">다른 변수</td>
+         <td class="p-4">높이(h)에 <strong>비례</strong></td>
+         <td class="p-4">속력²(v²)에 <strong>비례</strong></td>
+        </tr>
+        <tr class="bg-slate-50">
+         <td class="p-4 font-bold">2배 효과</td>
+         <td class="p-4">h 2배 → E<sub>p</sub> 2배</td>
+         <td class="p-4 text-red-600 font-bold">v 2배 → E<sub>k</sub> 4배!</td>
+        </tr>
+        <tr class="bg-white">
+         <td class="p-4 font-bold">클 때</td>
+         <td class="p-4">높은 곳의 물체</td>
+         <td class="p-4">빠르게 움직이는 물체</td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 7: 계산 연습 -->
+   <section data-slide-index="6" data-slide-num="7" data-title="계산 연습" id="slide-7">
+    <div class="slide-content">
+     <h2 style="color:#ea580c">E<sub>k</sub> = ½mv² 계산 연습</h2>
+     <div class="grid grid-cols-2 gap-6 max-w-5xl mt-6 w-full">
+      <div class="p-6 bg-orange-50 rounded-2xl border-2 border-orange-200">
+       <p class="font-black text-orange-700 text-lg">문제 1</p>
+       <p class="text-slate-700 mt-2">질량 4 kg인 물체가 3 m/s로 운동할 때<br/>운동 에너지는?</p>
+       <div class="mt-4 p-3 bg-white rounded-xl">
+        <p class="font-bold text-slate-600">풀이:</p>
+        <p class="text-slate-700 mt-1">E<sub>k</sub> = ½ × 4 × 3² = ½ × 4 × 9</p>
+        <p class="text-orange-700 font-black text-xl mt-1">= 18 J</p>
+       </div>
+      </div>
+      <div class="p-6 bg-red-50 rounded-2xl border-2 border-red-200">
+       <p class="font-black text-red-700 text-lg">문제 2</p>
+       <p class="text-slate-700 mt-2">질량 2 kg인 공이 5 m/s로 날아온다.<br/>운동 에너지는?</p>
+       <div class="mt-4 p-3 bg-white rounded-xl">
+        <p class="font-bold text-slate-600">풀이:</p>
+        <p class="text-slate-700 mt-1">E<sub>k</sub> = ½ × 2 × 5² = ½ × 2 × 25</p>
+        <p class="text-red-700 font-black text-xl mt-1">= 25 J</p>
+       </div>
+      </div>
+      <div class="p-6 bg-amber-50 rounded-2xl border-2 border-amber-200">
+       <p class="font-black text-amber-700 text-lg">문제 3</p>
+       <p class="text-slate-700 mt-2">E<sub>k</sub> = 50 J, m = 4 kg일 때 속력은?</p>
+       <div class="mt-4 p-3 bg-white rounded-xl">
+        <p class="font-bold text-slate-600">풀이:</p>
+        <p class="text-slate-700 mt-1">v² = 2E<sub>k</sub>/m = 100/4 = 25<br/>v = √25</p>
+        <p class="text-amber-700 font-black text-xl mt-1">= 5 m/s</p>
+       </div>
+      </div>
+      <div class="p-6 bg-rose-50 rounded-2xl border-2 border-rose-200">
+       <p class="font-black text-rose-700 text-lg">문제 4 (도전)</p>
+       <p class="text-slate-700 mt-2">속력이 2배가 되면 E<sub>k</sub>는 몇 배?<br/>질량은 동일하다고 가정.</p>
+       <div class="mt-4 p-3 bg-white rounded-xl">
+        <p class="font-bold text-slate-600">풀이:</p>
+        <p class="text-slate-700 mt-1">E<sub>k</sub>' = ½m(2v)² = ½m·4v² = 4 × (½mv²)</p>
+        <p class="text-rose-700 font-black text-xl mt-1">= 4배</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 8: 실생활 사례 -->
+   <section data-slide-index="7" data-slide-num="8" data-title="실생활 속 운동 에너지" id="slide-8">
+    <div class="slide-content">
+     <h2 style="color:#ea580c">실생활 속 운동 에너지</h2>
+     <div class="grid grid-cols-2 md:grid-cols-3 gap-5 max-w-5xl mt-6 w-full">
+      <div class="concept-card border-t-4 border-orange-500">
+       <p class="text-3xl mb-2">🚗</p>
+       <p class="font-black text-orange-700">자동차 충돌</p>
+       <p class="text-sm text-slate-600 mt-1">속력 2배 → 충격 에너지 4배<br/>→ 안전벨트 필수!</p>
+      </div>
+      <div class="concept-card border-t-4 border-blue-500">
+       <p class="text-3xl mb-2">⚾</p>
+       <p class="font-black text-blue-700">야구공</p>
+       <p class="text-sm text-slate-600 mt-1">145 km/h 강속구 ≈ 146 J<br/>→ 빠를수록 E<sub>k</sub> 급증</p>
+      </div>
+      <div class="concept-card border-t-4 border-green-500">
+       <p class="text-3xl mb-2">🌊</p>
+       <p class="font-black text-green-700">태풍/폭풍</p>
+       <p class="text-sm text-slate-600 mt-1">바람 속력 2배 → 파괴력 4배<br/>→ 속력²에 비례</p>
+      </div>
+      <div class="concept-card border-t-4 border-purple-500">
+       <p class="text-3xl mb-2">🚄</p>
+       <p class="font-black text-purple-700">고속열차</p>
+       <p class="text-sm text-slate-600 mt-1">KTX 300 km/h → 막대한 E<sub>k</sub><br/>→ 제동 거리가 매우 길다</p>
+      </div>
+      <div class="concept-card border-t-4 border-red-500">
+       <p class="text-3xl mb-2">🔫</p>
+       <p class="font-black text-red-700">총알</p>
+       <p class="text-sm text-slate-600 mt-1">가볍지만 속력이 매우 빠름<br/>→ v²의 효과로 큰 E<sub>k</sub></p>
+      </div>
+      <div class="concept-card border-t-4 border-teal-500">
+       <p class="text-3xl mb-2">💨</p>
+       <p class="font-black text-teal-700">풍력 발전</p>
+       <p class="text-sm text-slate-600 mt-1">바람(공기) E<sub>k</sub> → 전기 에너지<br/>속력이 클수록 발전량 증가</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 9: 개념 정리 -->
+   <section data-slide-index="8" data-slide-num="9" data-title="개념 정리" id="slide-9">
+    <div class="slide-content">
+     <h2 style="color:#ea580c">핵심 개념 정리</h2>
+     <div class="max-w-4xl w-full mt-6 space-y-4">
+      <div class="formula-box-orange">
+       <p class="text-3xl font-black">E<sub>k</sub> = ½mv² (단위: J)</p>
+       <p class="text-lg mt-2 opacity-90">m: 질량(kg) &nbsp;/&nbsp; v: 속력(m/s)</p>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+       <div class="p-5 bg-orange-50 border-l-4 border-orange-500 rounded-xl">
+        <p class="font-black text-orange-700">질량과의 관계</p>
+        <p class="text-slate-700 mt-1">속력이 같을 때<br/>m ↑ → E<sub>k</sub> ↑ (비례)</p>
+       </div>
+       <div class="p-5 bg-red-50 border-l-4 border-red-500 rounded-xl">
+        <p class="font-black text-red-700">속력과의 관계 ⭐</p>
+        <p class="text-slate-700 mt-1">질량이 같을 때<br/>v ↑ → E<sub>k</sub> ↑↑ (<strong>속력² 비례</strong>)</p>
+       </div>
+       <div class="p-5 bg-yellow-50 border-l-4 border-yellow-400 rounded-xl">
+        <p class="font-black text-yellow-700">위치 에너지와의 차이</p>
+        <p class="text-slate-700 mt-1">E<sub>p</sub>: 높이에 비례<br/>E<sub>k</sub>: 속력 <strong>제곱</strong>에 비례</p>
+       </div>
+       <div class="p-5 bg-green-50 border-l-4 border-green-500 rounded-xl">
+        <p class="font-black text-green-700">다음 단계</p>
+        <p class="text-slate-700 mt-1">E<sub>p</sub>와 E<sub>k</sub>의 합 = 역학적 에너지<br/>→ 다음 시간!</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 10: 형성평가 1 -->
+   <section data-slide-index="9" data-slide-num="10" data-title="형성평가 1" id="slide-10">
+    <div class="slide-content">
+     <h2 style="color:#ea580c">형성평가 1</h2>
+     <div class="quiz-container max-w-3xl mt-8 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">질량 3 kg인 물체가 4 m/s로 운동하고 있다.<br/>이 물체의 운동 에너지는?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 12 J</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">② 18 J</button>
+       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">③ 24 J</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 48 J</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">✅ 정답! ③ 24 J</p>
+       <p class="text-slate-600 mt-1">E<sub>k</sub> = ½mv² = ½ × 3 × 4² = ½ × 3 × 16 = 24 J</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 11: 형성평가 2 -->
+   <section data-slide-index="10" data-slide-num="11" data-title="형성평가 2" id="slide-11">
+    <div class="slide-content">
+     <h2 style="color:#ea580c">형성평가 2</h2>
+     <div class="quiz-container max-w-3xl mt-8 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">어떤 물체의 속력이 3배로 증가했을 때,<br/>운동 에너지는 몇 배가 되는가?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 3배</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">② 6배</button>
+       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">③ 9배</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 27배</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">✅ 정답! ③ 9배</p>
+       <p class="text-slate-600 mt-1">E<sub>k</sub> = ½mv² → v가 3배이면 v² = 9v₀² → E<sub>k</sub>는 9배</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 12: 형성평가 3 -->
+   <section data-slide-index="11" data-slide-num="12" data-title="형성평가 3" id="slide-12">
+    <div class="slide-content">
+     <h2 style="color:#ea580c">형성평가 3</h2>
+     <div class="quiz-container max-w-3xl mt-8 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">운동 에너지에 대한 설명으로 <strong>옳은</strong> 것은?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 정지한 물체도 운동 에너지를 가진다.</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">② 속력이 2배이면 운동 에너지도 2배이다.</button>
+       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">③ 질량이 같을 때 속력이 클수록 운동 에너지가 크다.</button>
+       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 운동 에너지의 단위는 m/s이다.</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">✅ 정답! ③</p>
+       <p class="text-slate-600 mt-1">① 정지 → v=0 → E<sub>k</sub>=0 &nbsp;/&nbsp; ② v 2배 → E<sub>k</sub> 4배 &nbsp;/&nbsp; ④ 단위는 J(줄)</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 13: 마무리 -->
+   <section data-slide-index="12" data-slide-num="13" data-title="마무리" id="slide-13">
+    <div class="slide-content">
+     <h2 style="color:#ea580c">오늘 배운 것</h2>
+     <div class="max-w-3xl w-full mt-8 space-y-5">
+      <div class="flex items-start gap-4 p-5 bg-orange-50 rounded-2xl border-l-4 border-orange-500">
+       <span class="text-3xl">①</span>
+       <div>
+        <p class="font-black text-orange-700 text-lg">운동 에너지 공식</p>
+        <p class="text-slate-600">E<sub>k</sub> = ½mv² &nbsp;&nbsp; 단위: J</p>
+       </div>
+      </div>
+      <div class="flex items-start gap-4 p-5 bg-red-50 rounded-2xl border-l-4 border-red-500">
+       <span class="text-3xl">②</span>
+       <div>
+        <p class="font-black text-red-700 text-lg">속력 제곱 비례 — 핵심!</p>
+        <p class="text-slate-600">속력이 2배 → E<sub>k</sub> 4배 &nbsp;/&nbsp; 속력 3배 → E<sub>k</sub> 9배</p>
+       </div>
+      </div>
+      <div class="flex items-start gap-4 p-5 bg-green-50 rounded-2xl border-l-4 border-green-500">
+       <span class="text-3xl">③</span>
+       <div>
+        <p class="font-black text-green-700 text-lg">다음 시간 예고</p>
+        <p class="text-slate-600">13강: 역학적 에너지 전환과 보존 — E<sub>p</sub> + E<sub>k</sub> = 일정!</p>
+       </div>
+      </div>
+      <div class="formula-box-orange mt-4">
+       <p class="text-3xl font-black">E<sub>k</sub> = ½mv²</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+  </main>
+
+  <script>
+   function checkAnswer(btn) {
+    const container = btn.closest('.quiz-container');
+    if (container.querySelector('.quiz-btn.selected')) return;
+    btn.classList.add('selected');
+    const isCorrect = btn.dataset.correct === 'true';
+    btn.classList.add(isCorrect ? 'correct' : 'wrong');
+    container.querySelector('.quiz-feedback').style.display = 'block';
+    container.querySelectorAll('.quiz-btn').forEach(b => b.disabled = true);
+   }
+
+   window.addEventListener('load', function() {
+    // Chart 1: 질량 vs Ek
+    const ctx1 = document.getElementById('chart-mass-ek');
+    if (ctx1) {
+     new Chart(ctx1.getContext('2d'), {
+      type: 'bar',
+      data: {
+       labels: ['1 kg','2 kg','3 kg','4 kg','5 kg'],
+       datasets: [{
+        label: 'Ek (J)',
+        data: [8, 16, 24, 32, 40],
+        backgroundColor: ['#fed7aa','#fdba74','#fb923c','#f97316','#ea580c'],
+        borderRadius: 8
+       }]
+      },
+      options: {
+       responsive: true,
+       plugins: { legend: { display: false },
+        title: { display: true, text: '속력 4m/s 고정, 질량에 따른 Ek', font: { size: 14 } }
+       },
+       scales: { y: { beginAtZero: true, title: { display: true, text: 'Ek (J)' } } }
+      }
+     });
+    }
+
+    // Chart 2: 속력 vs Ek (곡선!)
+    const ctx2 = document.getElementById('chart-speed-ek');
+    if (ctx2) {
+     new Chart(ctx2.getContext('2d'), {
+      type: 'line',
+      data: {
+       labels: ['1','2','3','4','5'],
+       datasets: [{
+        label: 'Ek (J)',
+        data: [1, 4, 9, 16, 25],
+        borderColor: '#ea580c',
+        backgroundColor: 'rgba(234,88,12,0.1)',
+        borderWidth: 3,
+        pointRadius: 6,
+        pointBackgroundColor: '#ea580c',
+        tension: 0.4,
+        fill: true
+       }]
+      },
+      options: {
+       responsive: true,
+       plugins: { legend: { display: false },
+        title: { display: true, text: '질량 2kg 고정, 속력에 따른 Ek (곡선!)', font: { size: 14 } }
+       },
+       scales: {
+        x: { title: { display: true, text: '속력 (m/s)' } },
+        y: { beginAtZero: true, title: { display: true, text: 'Ek (J)' } }
+       }
+      }
+     });
+    }
+   });
+  </script>
+  <script src="js/slide_engine.js"></script>
+ </body>
+</html>
