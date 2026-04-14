@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+ <meta charset="utf-8"/>
+ <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+ <title>강의 노트 — 물리 단원 (운동과 에너지)</title>
+ <script src="https://cdn.tailwindcss.com"></script>
+ <style>
+  body { background: #0f172a; font-family: 'Noto Sans KR', 'Segoe UI', sans-serif; color: #e2e8f0; }
+  .hero { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #0d9488 100%); padding: 3rem 2rem 2rem; text-align: center; border-bottom: 1px solid #334155; }
+  .tab-row { display: flex; gap: 0.5rem; flex-wrap: wrap; padding: 1rem 2rem; background: #1e293b; border-bottom: 1px solid #334155; position: sticky; top: 0; z-index: 50; }
+  .tab-btn { padding: 0.4rem 1rem; border-radius: 9999px; font-size: 0.78rem; font-weight: 700; cursor: pointer; border: none; transition: all 0.2s; background: #334155; color: #94a3b8; }
+  .tab-btn:hover { background: #475569; color: #e2e8f0; }
+  .tab-btn.active { background: #0d9488; color: #fff; }
+  .lesson-panel { display: none; max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .lesson-panel.active { display: block; }
+
+  /* Card styles */
+  .note-card { background: #1e293b; border-radius: 1rem; padding: 1.5rem; margin-bottom: 1.25rem; border-left: 4px solid #0d9488; }
+  .note-card.blue { border-left-color: #3b82f6; }
+  .note-card.purple { border-left-color: #8b5cf6; }
+  .note-card.orange { border-left-color: #f97316; }
+  .note-card.red { border-left-color: #ef4444; }
+  .note-card.green { border-left-color: #22c55e; }
+  .note-card.yellow { border-left-color: #eab308; }
+  .note-card.slate { border-left-color: #64748b; }
+
+  .card-label { font-size: 0.7rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; color: #64748b; margin-bottom: 0.5rem; }
+  .card-title { font-size: 1.1rem; font-weight: 800; color: #f1f5f9; margin-bottom: 0.75rem; }
+  .slide-num-badge { display: inline-block; background: #334155; color: #94a3b8; font-size: 0.7rem; font-weight: 700; padding: 0.1rem 0.5rem; border-radius: 9999px; margin-right: 0.4rem; }
+
+  ul.note-list { list-style: none; padding: 0; margin: 0; }
+  ul.note-list li { padding: 0.3rem 0; color: #cbd5e1; font-size: 0.9rem; display: flex; gap: 0.5rem; }
+  ul.note-list li::before { content: '›'; color: #0d9488; font-weight: 900; flex-shrink: 0; }
+
+  .formula-tag { display: inline-block; background: #0f2340; border: 1px solid #1e4080; color: #93c5fd; font-family: monospace; font-size: 0.9rem; padding: 0.2rem 0.6rem; border-radius: 0.4rem; margin: 0.15rem; }
+  .warn-box { background: #431407; border: 1px solid #7c2d12; border-radius: 0.5rem; padding: 0.75rem 1rem; margin-top: 0.75rem; }
+  .warn-box p { color: #fb923c; font-size: 0.85rem; }
+  .tip-box { background: #052e16; border: 1px solid #14532d; border-radius: 0.5rem; padding: 0.75rem 1rem; margin-top: 0.75rem; }
+  .tip-box p { color: #86efac; font-size: 0.85rem; }
+  .q-box { background: #1e1b4b; border: 1px solid #3730a3; border-radius: 0.5rem; padding: 0.75rem 1rem; margin-top: 0.5rem; }
+  .q-box p { color: #c7d2fe; font-size: 0.85rem; }
+
+  .lesson-header { margin-bottom: 2rem; }
+  .lesson-header h2 { font-size: 1.8rem; font-weight: 900; color: #f1f5f9; margin-bottom: 0.5rem; }
+  .lesson-header p { color: #94a3b8; font-size: 0.9rem; }
+  .objectives { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.5rem; }
+  .obj-item { background: #1e293b; border-radius: 0.75rem; padding: 0.75rem 1rem; font-size: 0.85rem; color: #cbd5e1; border: 1px solid #334155; }
+  .obj-item strong { display: block; color: #f1f5f9; font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; color: #0d9488; }
+  @media (max-width: 640px) { .objectives { grid-template-columns: 1fr; } }
+  .divider { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+ </style>
+</head>
+<body>
+
+ <div class="hero">
+  <p class="text-teal-400 text-xs font-bold uppercase tracking-widest mb-2">2026학년도 중3 과학A &bull; 교사 참고자료</p>
+  <h1 class="text-3xl font-black text-white mb-2">강의 노트</h1>
+  <p class="text-slate-400 text-sm">물리 단원 (운동과 에너지) — 슬라이드별 교수 포인트 · 핵심 개념 · 오개념 교정</p>
+  <div class="mt-4">
+   <a href="index.html?tab=phys" class="text-xs bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full border border-white/20 transition-all mr-2">← 물리 단원 대시보드</a>
+   <a href="teacher_dashboard.html" class="text-xs bg-red-500/20 hover:bg-red-500/40 px-3 py-1 rounded-full border border-red-400/30 transition-all text-red-200">🔐 교사용 대시보드</a>
+  </div>
+ </div>
+
+ <!-- Tabs -->
+ <div class="tab-row" id="tab-row">
+  <button class="tab-btn active" onclick="showLesson('L8')">L8 등속</button>
+  <button class="tab-btn" onclick="showLesson('L9')">L9 자유낙하</button>
+  <button class="tab-btn" onclick="showLesson('L10')">L10 일·에너지</button>
+  <button class="tab-btn" onclick="showLesson('L11')">L11 위치에너지</button>
+  <button class="tab-btn" onclick="showLesson('L12')">L12 운동에너지</button>
+  <button class="tab-btn" onclick="showLesson('L13')">L13 역학적E</button>
+  <button class="tab-btn" onclick="showLesson('L14')">L14 에너지보존</button>
+  <button class="tab-btn" onclick="showLesson('L15')">L15 총정리</button>
+ </div>
+
+ <!-- ===================== L8 ===================== -->
+ <div class="lesson-panel active" id="panel-L8">
+  <div class="lesson-header">
+   <h2>L8 — 물체의 운동: 등속 운동</h2>
+   <p>대응 파일: <code>8_uniform_motion.html</code> &nbsp;|&nbsp; 총 18슬라이드</p>
+  </div>
+  <div class="objectives">
+   <div class="obj-item"><strong>학습 목표</strong>속력의 정의와 단위 변환을 설명할 수 있다.</div>
+   <div class="obj-item"><strong>학습 목표</strong>시간-거리·시간-속력 그래프의 차이를 해석한다.</div>
+   <div class="obj-item"><strong>핵심 공식</strong><span class="formula-tag">v = d / t</span></div>
+   <div class="obj-item"><strong>단위 변환</strong><span class="formula-tag">1 m/s = 3.6 km/h</span></div>
+  </div>
+
+  <div class="note-card">
+   <p class="card-label">슬라이드 1–2 &nbsp;|&nbsp; 도입 · 속력 정의</p>
+   <p class="card-title">속력이란 무엇인가</p>
+   <ul class="note-list">
+    <li>일상에서 "빠르다"는 표현과 과학적 '속력'의 차이를 강조 — 방향 없는 크기(스칼라)임을 먼저 짚기</li>
+    <li>v = d/t 공식: 분자/분모를 바꾸면 틀린다는 점을 반복 확인</li>
+    <li>단위 환산은 곱하기/나누기 3.6 — "m/s → km/h 는 ×3.6" 손암기 유도</li>
+   </ul>
+   <div class="tip-box"><p>💡 도입 질문: "100m 달리기 9.58초의 속력은 몇 km/h?" — 학생이 직접 계산하게 한 뒤 슬라이드로 확인</p></div>
+  </div>
+
+  <div class="note-card blue">
+   <p class="card-label">슬라이드 4–7 &nbsp;|&nbsp; 그래프 해석</p>
+   <p class="card-title">시간-거리 vs 시간-속력 그래프</p>
+   <ul class="note-list">
+    <li>시간-거리: 기울기 = 속력. 등속이면 직선, 기울기가 클수록 빠름</li>
+    <li>시간-속력: 등속이면 수평선. 그래프 <strong>아래 면적 = 이동 거리</strong> (고난도 핵심)</li>
+    <li>두 그래프를 나란히 그려 비교하게 하면 이해가 빠름</li>
+   </ul>
+   <div class="warn-box"><p>⚠️ 오개념: "기울기가 높으면 거리가 길다"고 혼동 — 기울기는 속력이지 거리가 아님을 강조</p></div>
+   <div class="q-box"><p>❓ 토론: "같은 시간에 A는 경사진 직선, B는 수평선 — 누가 더 빠른가? 누가 더 멀리 갔나?"</p></div>
+  </div>
+
+  <div class="note-card green">
+   <p class="card-label">슬라이드 10–12 &nbsp;|&nbsp; 기록 타이머</p>
+   <p class="card-title">기록 타이머 분석법</p>
+   <ul class="note-list">
+    <li>60Hz 교류: 1타점 = 1/60 s &nbsp;|&nbsp; 5타점 간격 = 5/60 ≈ 0.083 s</li>
+    <li>타점 간격 일정 → 등속. 간격 증가 → 가속</li>
+    <li>구간별 평균 속력 = 구간 거리 ÷ 시간 간격</li>
+   </ul>
+   <div class="tip-box"><p>💡 실물 기록 테이프가 있으면 자로 직접 재보는 활동 추천</p></div>
+  </div>
+
+  <div class="note-card red">
+   <p class="card-label">형성 평가 포인트</p>
+   <p class="card-title">자주 틀리는 문제 유형</p>
+   <ul class="note-list">
+    <li>단위 변환 혼동 (km/h ↔ m/s) — 연습 반복 필수</li>
+    <li>시간-속력 그래프에서 "넓이 = 거리" 미인지</li>
+    <li>타점 간격이 같으면 등속이라고 인식 못하는 경우</li>
+   </ul>
+  </div>
+ </div>
+
+ <!-- ===================== L9 ===================== -->
+ <div class="lesson-panel" id="panel-L9">
+  <div class="lesson-header">
+   <h2>L9 — 자유 낙하 운동</h2>
+   <p>대응 파일: <code>9_free_fall.html</code> &nbsp;|&nbsp; 총 16슬라이드</p>
+  </div>
+  <div class="objectives">
+   <div class="obj-item"><strong>학습 목표</strong>자유 낙하의 특징(질량 무관, 등가속)을 설명할 수 있다.</div>
+   <div class="obj-item"><strong>학습 목표</strong>v=gt, d=½gt² 공식을 이용해 값을 계산한다.</div>
+   <div class="obj-item"><strong>핵심 공식</strong><span class="formula-tag">v = gt</span> <span class="formula-tag">d = ½gt²</span></div>
+   <div class="obj-item"><strong>중력 가속도</strong><span class="formula-tag">g = 9.8 m/s²</span></div>
+  </div>
+
+  <div class="note-card">
+   <p class="card-label">슬라이드 1–3 &nbsp;|&nbsp; 도입 · 갈릴레이</p>
+   <p class="card-title">갈릴레이의 사고실험</p>
+   <ul class="note-list">
+    <li>아리스토텔레스(무거운 것이 먼저 낙하) → 갈릴레이(질량 무관) 역사적 전환점 강조</li>
+    <li>공기 저항 제거 시 깃털과 쇳덩이가 동시에 낙하 — 진공 영상 활용 추천</li>
+    <li>"왜 질량이 달라도 같은 가속도?"를 F=ma, F=mg로 유도 가능 (심화)</li>
+   </ul>
+   <div class="tip-box"><p>💡 유튜브: NASA 진공 챔버 깃털-망치 실험 영상 도입에 효과적</p></div>
+  </div>
+
+  <div class="note-card blue">
+   <p class="card-label">슬라이드 5–8 &nbsp;|&nbsp; 공식 전개</p>
+   <p class="card-title">v = gt &nbsp;|&nbsp; d = ½gt²</p>
+   <ul class="note-list">
+    <li>v=gt: 1초마다 9.8 m/s씩 증가 — 표로 만들어 규칙성 확인</li>
+    <li>d=½gt²: t가 2배 → d가 4배 (제곱 비례) — Ek와 연결 복선</li>
+    <li>그래프: 시간-속력(직선), 시간-거리(포물선) — 두 그래프 동시 판서</li>
+   </ul>
+   <div class="warn-box"><p>⚠️ 오개념: d=gt² 으로 쓰는 학생 다수. ½ 누락 반복 강조</p></div>
+   <div class="q-box"><p>❓ 계산: "3초 낙하 후 속력? 낙하 거리?" → v=29.4 m/s, d=44.1 m</p></div>
+  </div>
+
+  <div class="note-card purple">
+   <p class="card-label">슬라이드 11–13 &nbsp;|&nbsp; PhET 연결</p>
+   <p class="card-title">탐구 활동 가이드</p>
+   <ul class="note-list">
+    <li>PhET 포사체 운동 — 공기저항 ON/OFF 비교로 자유낙하 조건 확인</li>
+    <li>초기 속도 0, 수직 방향만 = 자유 낙하</li>
+    <li>슬라이드 내 데이터표: 1~5초 v, d 계산 후 PhET 값과 비교</li>
+   </ul>
+  </div>
+
+  <div class="note-card red">
+   <p class="card-label">형성 평가 포인트</p>
+   <p class="card-title">자주 틀리는 문제 유형</p>
+   <ul class="note-list">
+    <li>½ 누락 (d = gt² 오류)</li>
+    <li>"질량이 크면 더 빠리 낙하" 오개념 — 반드시 교정</li>
+    <li>시간-거리 그래프를 직선으로 그리는 오류 (포물선이어야 함)</li>
+   </ul>
+  </div>
+ </div>
+
+ <!-- ===================== L10 ===================== -->
+ <div class="lesson-panel" id="panel-L10">
+  <div class="lesson-header">
+   <h2>L10 — 일과 에너지</h2>
+   <p>대응 파일: <code>10_work_energy.html</code> &nbsp;|&nbsp; 총 12슬라이드</p>
+  </div>
+  <div class="objectives">
+   <div class="obj-item"><strong>학습 목표</strong>과학에서 '일'의 정의와 조건을 설명한다.</div>
+   <div class="obj-item"><strong>학습 목표</strong>W=Fd 공식으로 일의 양을 계산한다.</div>
+   <div class="obj-item"><strong>핵심 공식</strong><span class="formula-tag">W = F × d</span></div>
+   <div class="obj-item"><strong>단위</strong><span class="formula-tag">1 J = 1 N·m</span></div>
+  </div>
+
+  <div class="note-card">
+   <p class="card-label">슬라이드 1–3 &nbsp;|&nbsp; 도입 · 일의 정의</p>
+   <p class="card-title">과학의 '일'과 일상의 '일'은 다르다</p>
+   <ul class="note-list">
+    <li>일상: 힘들면 일한 것 → 과학: W=Fd, 이동 거리 없으면 일=0</li>
+    <li>일의 두 조건: ① 힘이 작용 ② 힘의 방향으로 이동</li>
+    <li>벽 미는 예시: 힘은 있지만 d=0 → W=0</li>
+    <li>수직으로 들고 수평 이동: 힘과 이동 방향이 수직 → 중력이 한 일=0</li>
+   </ul>
+   <div class="tip-box"><p>💡 "역기를 들고 제자리에 서 있기"와 "역기를 들고 한 걸음 이동" — 어느 쪽이 과학적으로 일을 했나?</p></div>
+  </div>
+
+  <div class="note-card blue">
+   <p class="card-label">슬라이드 5–8 &nbsp;|&nbsp; W=Fd 계산</p>
+   <p class="card-title">일 계산 실습</p>
+   <ul class="note-list">
+    <li>10 N으로 5 m 밀면 W = 50 J — 단위 N×m = J 확인</li>
+    <li>일-에너지 정리: 물체에 한 일 = 물체의 에너지 변화량</li>
+    <li>바닥에서 5 kg 물체를 2 m 들어올리면: W = 5×9.8×2 = 98 J</li>
+   </ul>
+   <div class="warn-box"><p>⚠️ 오개념: 단위를 N으로 쓰거나 J와 N을 혼동하는 학생 다수</p></div>
+  </div>
+
+  <div class="note-card green">
+   <p class="card-label">슬라이드 9–11 &nbsp;|&nbsp; 도구의 이점</p>
+   <p class="card-title">일의 원리 — 기계는 일을 줄이지 못한다</p>
+   <ul class="note-list">
+    <li>경사면, 도르래: 힘은 줄어들지만 거리가 늘어나 총 일량은 동일</li>
+    <li>에너지 보존과 연결되는 복선 — L13/14에서 심화</li>
+   </ul>
+   <div class="q-box"><p>❓ "경사면으로 상자를 올리는 것이 바로 들어올리는 것보다 쉬운 이유는? 일의 총량은 같은가?"</p></div>
+  </div>
+
+  <div class="note-card red">
+   <p class="card-label">형성 평가 포인트</p>
+   <p class="card-title">자주 틀리는 문제 유형</p>
+   <ul class="note-list">
+    <li>"힘을 썼으니 일을 했다" — 이동 조건 누락 오류</li>
+    <li>힘 방향 ≠ 이동 방향인 경우 일=0 이해 부족</li>
+    <li>단위 N, J, N·m 혼용</li>
+   </ul>
+  </div>
+ </div>
+
+ <!-- ===================== L11 ===================== -->
+ <div class="lesson-panel" id="panel-L11">
+  <div class="lesson-header">
+   <h2>L11 — 중력 위치 에너지</h2>
+   <p>대응 파일: <code>11_potential_energy.html</code> &nbsp;|&nbsp; 총 13슬라이드</p>
+  </div>
+  <div class="objectives">
+   <div class="obj-item"><strong>학습 목표</strong>Ep=mgh 공식을 이용해 위치 에너지를 계산한다.</div>
+   <div class="obj-item"><strong>학습 목표</strong>기준면 개념과 상대적 위치 에너지를 이해한다.</div>
+   <div class="obj-item"><strong>핵심 공식</strong><span class="formula-tag">E<sub>p</sub> = mgh</span></div>
+   <div class="obj-item"><strong>단위</strong><span class="formula-tag">m(kg) × g(9.8) × h(m) = J</span></div>
+  </div>
+
+  <div class="note-card">
+   <p class="card-label">슬라이드 1–4 &nbsp;|&nbsp; 도입 · 공식 유도</p>
+   <p class="card-title">Ep = mgh 유도</p>
+   <ul class="note-list">
+    <li>높이 h까지 들어올리는 데 한 일 = mgh = 위치 에너지 (W=Fd에서 F=mg, d=h)</li>
+    <li>기준면(h=0)은 문제마다 다름 — "기준면 아래면 Ep가 음수일 수도 있다"는 심화 언급 가능</li>
+    <li>L10의 일과 직결: 일한 만큼 에너지로 저장</li>
+   </ul>
+   <div class="tip-box"><p>💡 "같은 높이에 있는 깃털과 쇳덩이 — 위치 에너지가 같은가?" → 질량이 달라 다름</p></div>
+  </div>
+
+  <div class="note-card purple">
+   <p class="card-label">슬라이드 6–8 &nbsp;|&nbsp; 그래프 분석</p>
+   <p class="card-title">질량·높이 vs Ep 비례 그래프</p>
+   <ul class="note-list">
+    <li>질량 vs Ep: 높이 고정 → 직선 비례 (기울기 = gh)</li>
+    <li>높이 vs Ep: 질량 고정 → 직선 비례 (기울기 = mg)</li>
+    <li>두 그래프 모두 원점을 지나는 직선 — 비례 관계 확인</li>
+   </ul>
+   <div class="warn-box"><p>⚠️ 오개념: "높이가 2배면 Ep가 4배" — Ep는 h에 선형 비례, 제곱 아님</p></div>
+  </div>
+
+  <div class="note-card red">
+   <p class="card-label">형성 평가 포인트</p>
+   <p class="card-title">자주 틀리는 문제 유형</p>
+   <ul class="note-list">
+    <li>g=9.8 대입 누락 또는 g=10으로 계산 (시험에서는 g=9.8 사용)</li>
+    <li>기준면 혼동 — 문제에서 기준면을 명시하면 그것 기준으로 h 측정</li>
+    <li>질량 2배 → Ep 4배 오류 (실제로 2배)</li>
+   </ul>
+  </div>
+ </div>
+
+ <!-- ===================== L12 ===================== -->
+ <div class="lesson-panel" id="panel-L12">
+  <div class="lesson-header">
+   <h2>L12 — 운동 에너지</h2>
+   <p>대응 파일: <code>12_kinetic_energy.html</code> &nbsp;|&nbsp; 총 13슬라이드</p>
+  </div>
+  <div class="objectives">
+   <div class="obj-item"><strong>학습 목표</strong>Ek=½mv² 공식으로 운동 에너지를 계산한다.</div>
+   <div class="obj-item"><strong>학습 목표</strong>속력 제곱 비례 관계를 그래프로 해석한다.</div>
+   <div class="obj-item"><strong>핵심 공식</strong><span class="formula-tag">E<sub>k</sub> = ½mv²</span></div>
+   <div class="obj-item"><strong>핵심 관계</strong><span class="formula-tag">v 2배 → E<sub>k</sub> 4배</span></div>
+  </div>
+
+  <div class="note-card orange">
+   <p class="card-label">슬라이드 1–4 &nbsp;|&nbsp; 도입 · 공식</p>
+   <p class="card-title">Ek = ½mv² 핵심 포인트</p>
+   <ul class="note-list">
+    <li>½ 계수: 일-에너지 정리에서 유도됨 (F=ma, d=v²/2a → W = ½mv²)</li>
+    <li>속력의 제곱에 비례 — v가 3배면 Ek는 9배</li>
+    <li>정지 시 v=0 → Ek=0, 움직이기만 하면 Ek>0</li>
+   </ul>
+   <div class="tip-box"><p>💡 자동차 충돌 안전: 속력 2배면 에너지 4배 → 제동거리·충격량 4배 실생활 연결</p></div>
+  </div>
+
+  <div class="note-card blue">
+   <p class="card-label">슬라이드 6–9 &nbsp;|&nbsp; 그래프 분석</p>
+   <p class="card-title">질량 vs Ek (직선) / 속력 vs Ek (포물선)</p>
+   <ul class="note-list">
+    <li>질량 vs Ek: 속력 고정 → 직선 비례</li>
+    <li>속력 vs Ek: 질량 고정 → 포물선 (y=kx²) — 제곱 비례 시각화</li>
+    <li>두 그래프의 차이를 명확히 비교 → 이후 그래프 문제 대비</li>
+   </ul>
+   <div class="warn-box"><p>⚠️ 오개념: "질량과 속력이 같은 비율로 커지면 Ek도 같은 비율로 커진다" — 질량은 선형, 속력은 제곱 비례</p></div>
+  </div>
+
+  <div class="note-card red">
+   <p class="card-label">형성 평가 포인트</p>
+   <p class="card-title">자주 틀리는 문제 유형</p>
+   <ul class="note-list">
+    <li>½ 누락 (Ek = mv²로 계산)</li>
+    <li>속력 3배 → Ek 3배 오류 (실제로 9배)</li>
+    <li>Ep와 Ek 공식 혼용 (mgh vs ½mv²)</li>
+   </ul>
+  </div>
+ </div>
+
+ <!-- ===================== L13 ===================== -->
+ <div class="lesson-panel" id="panel-L13">
+  <div class="lesson-header">
+   <h2>L13 — 역학적 에너지 전환과 보존</h2>
+   <p>대응 파일: <code>13_mechanical_energy.html</code> &nbsp;|&nbsp; 총 13슬라이드</p>
+  </div>
+  <div class="objectives">
+   <div class="obj-item"><strong>학습 목표</strong>역학적 에너지(E=Ep+Ek)를 정의하고 계산한다.</div>
+   <div class="obj-item"><strong>학습 목표</strong>마찰 없을 때 역학적 에너지가 보존됨을 설명한다.</div>
+   <div class="obj-item"><strong>핵심 공식</strong><span class="formula-tag">E = E<sub>p</sub> + E<sub>k</sub> = 일정</span></div>
+   <div class="obj-item"><strong>조건</strong><span class="formula-tag">마찰 없을 때만 성립</span></div>
+  </div>
+
+  <div class="note-card">
+   <p class="card-label">슬라이드 2–5 &nbsp;|&nbsp; 에너지 전환 원리</p>
+   <p class="card-title">Ep ↔ Ek 전환 — 합은 항상 일정</p>
+   <ul class="note-list">
+    <li>자유 낙하: 높이 내려올수록 Ep↓, Ek↑, 합은 일정</li>
+    <li>위로 던진 물체: 올라갈 때 Ek→Ep, 내려올 때 Ep→Ek</li>
+    <li>최고점: Ek=0 (순간 정지), Ep=최대</li>
+    <li>최저점: Ep=0 (기준면), Ek=최대</li>
+   </ul>
+   <div class="tip-box"><p>💡 롤러코스터: 꼭대기에서 천천히, 바닥에서 빠름 — Ep↔Ek 전환의 최적 예시</p></div>
+  </div>
+
+  <div class="note-card green">
+   <p class="card-label">슬라이드 7–9 &nbsp;|&nbsp; 마찰이 있을 때</p>
+   <p class="card-title">마찰 → 열에너지 발생 → 역학적 에너지 감소</p>
+   <ul class="note-list">
+    <li>마찰 있을 때: E = Ep + Ek + 열에너지 = 전체 에너지 보존 (열역학적 에너지 보존)</li>
+    <li>역학적 에너지만 보면 줄어드는 것처럼 보이지만 열로 전환된 것</li>
+    <li>실생활: 브레이크, 마찰 스키, 공기저항 모두 동일</li>
+   </ul>
+   <div class="warn-box"><p>⚠️ 오개념: "마찰이 있으면 에너지가 사라진다" — 에너지는 보존, 형태만 전환됨</p></div>
+  </div>
+
+  <div class="note-card red">
+   <p class="card-label">형성 평가 포인트</p>
+   <p class="card-title">자주 틀리는 문제 유형</p>
+   <ul class="note-list">
+    <li>최고점에서 Ek가 0이 아니라고 생각하는 오류</li>
+    <li>Ep+Ek=일정인데 어느 지점의 Ek를 구하는 계산 실수</li>
+    <li>마찰 있을 때도 역학적 에너지 보존이라고 쓰는 오류</li>
+   </ul>
+   <div class="q-box"><p>❓ "10 m 높이에서 2 kg 공이 낙하. 5 m 높이에서 Ek=? (마찰 없음)" → Ep 감소량 = Ek 증가량 = 2×9.8×5 = 98 J</p></div>
+  </div>
+ </div>
+
+ <!-- ===================== L14 ===================== -->
+ <div class="lesson-panel" id="panel-L14">
+  <div class="lesson-header">
+   <h2>L14 — 에너지 보존 법칙의 일상 사례</h2>
+   <p>대응 파일: <code>14_energy_conservation.html</code> &nbsp;|&nbsp; 총 13슬라이드</p>
+  </div>
+  <div class="objectives">
+   <div class="obj-item"><strong>학습 목표</strong>에너지 보존 법칙을 일상 사례에 적용한다.</div>
+   <div class="obj-item"><strong>학습 목표</strong>에너지 효율의 개념과 의미를 설명한다.</div>
+   <div class="obj-item"><strong>핵심 개념</strong><span class="formula-tag">에너지 총량 불변, 형태만 전환</span></div>
+   <div class="obj-item"><strong>효율</strong><span class="formula-tag">효율 = 유용에너지 / 투입에너지 × 100%</span></div>
+  </div>
+
+  <div class="note-card blue">
+   <p class="card-label">슬라이드 2–5 &nbsp;|&nbsp; 진자·수력발전</p>
+   <p class="card-title">진자: Ep ↔ Ek 주기적 전환</p>
+   <ul class="note-list">
+    <li>끝점(A, C): Ep 최대, Ek=0 (순간 정지)</li>
+    <li>중간점(B): Ep=0, Ek 최대 (가장 빠름)</li>
+    <li>수력발전: 높은 곳의 물(Ep) → 낙하(Ek) → 터빈 회전(전기 에너지)</li>
+    <li>에너지 전환 단계가 많을수록 손실도 증가</li>
+   </ul>
+   <div class="tip-box"><p>💡 놀이터 그네로 진자 운동 직접 경험 연결 — A에서 잠깐 멈추는 느낌</p></div>
+  </div>
+
+  <div class="note-card yellow">
+   <p class="card-label">슬라이드 6–8 &nbsp;|&nbsp; 자동차 브레이크·에너지 효율</p>
+   <p class="card-title">Ek → 열에너지 · LED vs 백열전구</p>
+   <ul class="note-list">
+    <li>브레이크: Ek → 마찰열. 속력 2배면 열 4배 발생 — 브레이크 패드 소모 이유</li>
+    <li>LED 효율 ≈ 85% (빛), 백열전구 효율 ≈ 5% (빛) / 나머지는 열</li>
+    <li>에너지 효율이 100%가 될 수 없는 이유: 불가피한 열 손실 (열역학 2법칙 맛보기)</li>
+   </ul>
+   <div class="q-box"><p>❓ "전기차 회생 제동은 어떤 에너지 전환인가?" → Ek → 전기에너지 (배터리 충전)</p></div>
+  </div>
+
+  <div class="note-card red">
+   <p class="card-label">형성 평가 포인트</p>
+   <p class="card-title">자주 틀리는 문제 유형</p>
+   <ul class="note-list">
+    <li>진자 최고점에서 Ek=0 인지 모르는 오류</li>
+    <li>"에너지 보존 = 에너지가 변하지 않는다"는 오해 — 총량 불변, 형태는 변함</li>
+    <li>효율 계산에서 분모·분자 혼동</li>
+   </ul>
+  </div>
+ </div>
+
+ <!-- ===================== L15 ===================== -->
+ <div class="lesson-panel" id="panel-L15">
+  <div class="lesson-header">
+   <h2>L15 — 단원 총정리</h2>
+   <p>대응 파일: <code>15_unit_review.html</code> &nbsp;|&nbsp; 총 13슬라이드</p>
+  </div>
+  <div class="objectives">
+   <div class="obj-item"><strong>목표</strong>물리 단원(L8~L14) 전체 내용을 체계적으로 복습한다.</div>
+   <div class="obj-item"><strong>목표</strong>중간고사 출제 범위·유형을 점검한다.</div>
+   <div class="obj-item"><strong>핵심 공식 6개</strong><span class="formula-tag">v=d/t</span> <span class="formula-tag">v=gt</span> <span class="formula-tag">d=½gt²</span> <span class="formula-tag">W=Fd</span> <span class="formula-tag">Ep=mgh</span> <span class="formula-tag">Ek=½mv²</span></div>
+   <div class="obj-item"><strong>에너지 보존</strong><span class="formula-tag">Ep + Ek = 일정 (마찰 없을 때)</span></div>
+  </div>
+
+  <div class="note-card slate">
+   <p class="card-label">슬라이드 2–4 &nbsp;|&nbsp; 단원 개요 · 공식 카드</p>
+   <p class="card-title">6개 공식 카드 — 총정리 전략</p>
+   <ul class="note-list">
+    <li>속력, 자유낙하 2개 + 일 1개 + 에너지 3개 (Ep, Ek, 역학적) 분류 제시</li>
+    <li>공식 카드를 직접 손으로 써보게 하는 것이 효과적</li>
+    <li>개념 연결 흐름: 운동 → 일 → Ep → Ek → 역학적 E → 보존</li>
+   </ul>
+  </div>
+
+  <div class="note-card blue">
+   <p class="card-label">슬라이드 5–6 &nbsp;|&nbsp; 그래프 총정리</p>
+   <p class="card-title">4종 그래프 비교 (g1~g4)</p>
+   <ul class="note-list">
+    <li>g1: 등속 시간-거리 → 직선 (기울기=속력)</li>
+    <li>g2: 자유낙하 시간-속력 → 직선 (기울기=g)</li>
+    <li>g3: 자유낙하 시간-거리 → 포물선 (y=½gt²)</li>
+    <li>g4: 속력-Ek → 포물선 (y=½mv²)</li>
+   </ul>
+   <div class="warn-box"><p>⚠️ 시험 빈출: g1(직선)과 g3(포물선)을 혼동하는 오류 — 어떤 축이 무엇인지 확인 습관화</p></div>
+  </div>
+
+  <div class="note-card">
+   <p class="card-label">슬라이드 8–12 &nbsp;|&nbsp; 종합 퀴즈 5문제</p>
+   <p class="card-title">시험 대비 핵심 문제 해설 포인트</p>
+   <ul class="note-list">
+    <li>Q1 (에너지 보존): 10 m 낙하 → 최저점 속력 = √(2×9.8×10) ≈ 14 m/s</li>
+    <li>Q2 (역학적E 그래프): 마찰 없을 때 합은 수평선</li>
+    <li>Q3 (최대 Ek): 최저점에서 Ek 최대 — 롤러코스터·진자 공통</li>
+    <li>Q4 (Ek 비교): 질량 2배+속력 2배 → Ek는 2×4=8배? → Ek=½×2m×(2v)²=4mv²=8×(½mv²) → 8배</li>
+    <li>Q5 (자유낙하): 질량과 낙하 속력은 무관</li>
+   </ul>
+  </div>
+
+  <div class="note-card yellow">
+   <p class="card-label">슬라이드 13 &nbsp;|&nbsp; 중간고사 체크리스트</p>
+   <p class="card-title">시험 전 최종 점검 항목</p>
+   <ul class="note-list">
+    <li>☐ v=d/t 단위 변환 (m/s ↔ km/h)</li>
+    <li>☐ v=gt, d=½gt² (½ 절대 누락 금지)</li>
+    <li>☐ W=Fd — 일의 두 조건 암기</li>
+    <li>☐ Ep=mgh vs Ek=½mv² — 혼용 주의</li>
+    <li>☐ 역학적 에너지 보존 — 마찰 없을 때만</li>
+    <li>☐ 그래프 4종 — 직선/포물선 구분</li>
+   </ul>
+  </div>
+ </div>
+
+ <script>
+  function showLesson(id) {
+   document.querySelectorAll('.lesson-panel').forEach(p => p.classList.remove('active'));
+   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+   document.getElementById('panel-' + id).classList.add('active');
+   event.target.classList.add('active');
+   window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // URL hash navigation
+  const hash = window.location.hash.replace('#', '');
+  if (hash && document.getElementById('panel-' + hash)) {
+   document.querySelectorAll('.lesson-panel').forEach(p => p.classList.remove('active'));
+   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+   document.getElementById('panel-' + hash).classList.add('active');
+   document.querySelector(`[onclick="showLesson('${hash}')"]`).classList.add('active');
+  }
+ </script>
+</body>
+</html>
