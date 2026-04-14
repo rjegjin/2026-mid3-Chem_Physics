@@ -114,45 +114,70 @@
     </div>
    </section>
 
-   <!-- Slide 4: 던져 올린 물체 -->
+   <!-- Slide 4: 던져 올린 물체 — redesigned -->
    <section data-slide-index="3" data-slide-num="4" data-title="위로 던진 물체의 에너지 전환" id="slide-4">
-    <div class="slide-content">
-     <h2 style="color:#0d9488">위로 던진 물체 — 올라갈 때 E<sub>k</sub>→E<sub>p</sub>, 내려올 때 E<sub>p</sub>→E<sub>k</sub></h2>
-     <div class="max-w-5xl w-full mt-4 space-y-2">
-      <div class="grid grid-cols-3 gap-4">
-       <div class="p-3 bg-orange-50 rounded-2xl text-center border-2 border-orange-300">
-        <p class="text-2xl mb-1">🚀</p>
-        <p class="font-black text-orange-700">출발점 (h=0)</p>
-        <div class="mt-2 space-y-1 text-sm">
-         <div class="energy-bar-ek" style="width:100%">E<sub>k</sub> 최대</div>
-         <div class="energy-bar-ep" style="width:4%; min-width:4px">.</div>
-        </div>
-        <p class="text-xs text-slate-500 mt-1">E<sub>p</sub>=0, E<sub>k</sub>=최대</p>
+    <div class="slide-content" style="align-items:flex-start; text-align:left; padding-top:2rem; padding-bottom:2rem;">
+
+     <!-- Header -->
+     <div class="w-full max-w-5xl">
+      <p class="stat-label">에너지 전환</p>
+      <h2 style="border:none; text-align:left; color:#0f172a; margin-bottom:0.3rem !important; display:block;">위로 던진 물체</h2>
+      <div class="accent-line"></div>
+     </div>
+
+     <!-- Timeline: three states -->
+     <div class="timeline-row max-w-5xl w-full mt-5">
+
+      <!-- 출발점 -->
+      <div class="timeline-node" style="border-top:3px solid #0f172a; text-align:center;">
+       <p class="stat-label" style="margin-bottom:0.4rem;">출발점</p>
+       <p style="font-family:'Times New Roman',serif; font-style:italic; font-size:1rem; color:#0f172a; line-height:1.2 !important; margin:0 0 0.75rem !important;">h = 0</p>
+       <div style="padding:0 0.5rem;">
+        <div class="energy-bar-ek" style="width:100%; margin-bottom:4px;">E<sub>k</sub> 최대</div>
+        <div class="energy-bar-ep" style="width:4%; min-width:8px;">&nbsp;</div>
        </div>
-       <div class="p-3 bg-purple-50 rounded-2xl text-center border-2 border-purple-300">
-        <p class="text-2xl mb-1">🏔️</p>
-        <p class="font-black text-purple-700">최고점 (h=최대)</p>
-        <div class="mt-2 space-y-1 text-sm">
-         <div class="energy-bar-ep" style="width:100%">E<sub>p</sub> 최대</div>
-         <div class="energy-bar-ek" style="width:4%; min-width:4px">.</div>
-        </div>
-        <p class="text-xs text-slate-500 mt-1">E<sub>p</sub>=최대, E<sub>k</sub>=0</p>
-       </div>
-       <div class="p-3 bg-teal-50 rounded-2xl text-center border-2 border-teal-300">
-        <p class="text-2xl mb-1">💥</p>
-        <p class="font-black text-teal-700">지면 도달</p>
-        <div class="mt-2 space-y-1 text-sm">
-         <div class="energy-bar-ek" style="width:100%">E<sub>k</sub> 최대</div>
-         <div class="energy-bar-ep" style="width:4%; min-width:4px">.</div>
-        </div>
-        <p class="text-xs text-slate-500 mt-1">처음과 같은 E<sub>k</sub></p>
+       <div class="info-line" style="text-align:center;">
+        <p class="slide-caption">E<sub>k</sub> 최대 / E<sub>p</sub> ≈ 0</p>
        </div>
       </div>
-      <div class="p-3 bg-yellow-50 border-2 border-yellow-400 rounded-2xl text-center">
-       <p class="font-black text-yellow-700 text-xl">올라갈 때: E<sub>k</sub> → E<sub>p</sub> &nbsp;&nbsp;|&nbsp;&nbsp; 내려올 때: E<sub>p</sub> → E<sub>k</sub></p>
-       <p class="text-slate-600 mt-1">언제나 E<sub>p</sub> + E<sub>k</sub> = 일정 (마찰 없을 때)</p>
+
+      <div class="timeline-arrow">→</div>
+
+      <!-- 최고점 -->
+      <div class="timeline-node" style="border-top:3px solid #0d9488; text-align:center;">
+       <p class="stat-label" style="color:#0d9488; margin-bottom:0.4rem;">최고점</p>
+       <p style="font-family:'Times New Roman',serif; font-style:italic; font-size:1rem; color:#0f172a; line-height:1.2 !important; margin:0 0 0.75rem !important;">h = 최대</p>
+       <div style="padding:0 0.5rem;">
+        <div class="energy-bar-ep" style="width:100%; margin-bottom:4px;">E<sub>p</sub> 최대</div>
+        <div class="energy-bar-ek" style="width:4%; min-width:8px;">&nbsp;</div>
+       </div>
+       <div class="info-line" style="text-align:center;">
+        <p class="slide-caption">E<sub>p</sub> 최대 / E<sub>k</sub> = 0</p>
+       </div>
+      </div>
+
+      <div class="timeline-arrow">→</div>
+
+      <!-- 지면 귀환 -->
+      <div class="timeline-node" style="border-top:3px solid #0f172a; text-align:center;">
+       <p class="stat-label" style="margin-bottom:0.4rem;">지면 귀환</p>
+       <p style="font-family:'Times New Roman',serif; font-style:italic; font-size:1rem; color:#0f172a; line-height:1.2 !important; margin:0 0 0.75rem !important;">h = 0</p>
+       <div style="padding:0 0.5rem;">
+        <div class="energy-bar-ek" style="width:100%; margin-bottom:4px;">E<sub>k</sub> 최대</div>
+        <div class="energy-bar-ep" style="width:4%; min-width:8px;">&nbsp;</div>
+       </div>
+       <div class="info-line" style="text-align:center;">
+        <p class="slide-caption">처음과 같은 E<sub>k</sub> — 보존</p>
+       </div>
       </div>
      </div>
+
+     <!-- Formula footer — typography only, no box -->
+     <div class="w-full max-w-5xl mt-5" style="border-top:1px solid #e2e8f0; padding-top:1.2rem; display:flex; align-items:center; justify-content:space-between;">
+      <p class="formula-display" style="margin-bottom:0 !important;">E<sub>p</sub> + E<sub>k</sub> = 일정</p>
+      <p class="slide-caption" style="text-align:right; margin-bottom:0 !important;">마찰이 없을 때<br/>역학적 에너지는 보존된다</p>
+     </div>
+
     </div>
    </section>
 
