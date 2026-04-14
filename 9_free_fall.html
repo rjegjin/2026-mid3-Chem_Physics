@@ -15,11 +15,6 @@
      background-size: cover; background-position: center;
    }
    .bg-overlay { background: rgba(255,255,255,0.88); padding: 3rem; border-radius: 2rem; backdrop-filter: blur(12px); }
-   .formula-box-blue {
-     background: linear-gradient(135deg, #1d4ed8, #2563eb);
-     color: white; border-radius: 1.5rem; padding: 2rem 3rem; text-align: center;
-     box-shadow: 0 10px 30px rgba(37,99,235,0.3);
-   }
    .concept-card { background: white; border-radius: 1.2rem; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.07); border: 1px solid #e2e8f0; transition: all 0.3s; }
    .concept-card:hover { transform: translateY(-4px); }
    .fall-ball { width:24px; height:24px; background:#2563eb; border-radius:50%; display:inline-block; }
@@ -44,7 +39,7 @@
    <!-- Slide 2: 도입 — 갈릴레이 실험 -->
    <section data-slide-index="1" data-slide-num="2" data-title="도입: 무거운 것이 더 빨리 떨어질까?" id="slide-2">
     <div class="slide-content">
-     <h2 style="color:#2563eb">무거운 것이 더 빨리 떨어질까요?</h2>
+     <h2>무거운 것이 더 빨리 떨어질까요?</h2>
      <div class="flex flex-col md:flex-row gap-6 items-center max-w-6xl mt-6 w-full">
       <div class="w-full md:w-1/2">
        <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80"
@@ -71,7 +66,7 @@
    <!-- Slide 3: 자유 낙하 운동 정의 -->
    <section data-slide-index="2" data-slide-num="3" data-title="자유 낙하 운동의 정의" id="slide-3">
     <div class="slide-content">
-     <h2 style="color:#2563eb">자유 낙하 운동이란?</h2>
+     <h2>자유 낙하 운동이란?</h2>
      <div class="w-full max-w-5xl space-y-6 mt-6">
       <div class="p-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-3xl border-2 border-blue-200 shadow-xl text-center">
        <p class="text-lg font-bold text-slate-400 uppercase tracking-widest mb-4">정의</p>
@@ -82,18 +77,15 @@
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
        <div class="concept-card border-t-4 border-blue-500">
-        <p class="text-3xl mb-3">🎯</p>
-        <h3 class="font-black text-blue-700 mb-2">방향</h3>
+        <h3 class="font-bold text-slate-800 mb-2">방향</h3>
         <p class="text-sm text-slate-600">항상 <strong>연직 아래</strong> 방향 (지구 중심 방향)</p>
        </div>
        <div class="concept-card border-t-4 border-indigo-500">
-        <p class="text-3xl mb-3">📈</p>
-        <h3 class="font-black text-indigo-700 mb-2">속력 변화</h3>
+        <h3 class="font-bold text-slate-800 mb-2">속력 변화</h3>
         <p class="text-sm text-slate-600">매 초마다 <strong>9.8 m/s씩 증가</strong> (일정하게 빨라짐)</p>
        </div>
        <div class="concept-card border-t-4 border-purple-500">
-        <p class="text-3xl mb-3">⚖️</p>
-        <h3 class="font-black text-purple-700 mb-2">질량 관계</h3>
+        <h3 class="font-bold text-slate-800 mb-2">질량 관계</h3>
         <p class="text-sm text-slate-600">질량에 <strong>관계없이</strong> 동일한 운동</p>
        </div>
       </div>
@@ -104,12 +96,12 @@
    <!-- Slide 4: 중력 가속도 g -->
    <section data-slide-index="3" data-slide-num="4" data-title="중력 가속도 g = 9.8 m/s²" id="slide-4">
     <div class="slide-content">
-     <h2 style="color:#2563eb">중력 가속도 g</h2>
+     <h2>중력 가속도 g</h2>
      <div class="w-full max-w-5xl space-y-6 mt-6">
-      <div class="formula-box-blue">
-       <p class="text-blue-200 text-sm uppercase tracking-widest mb-3">중력 가속도 (지구 표면)</p>
+      <div style="border-bottom:3px solid #2563eb; padding-bottom:1.2rem; margin-bottom:0.5rem; text-align:center;">
+       <p class="text-slate-500 text-sm uppercase tracking-widest mb-3">중력 가속도 (지구 표면)</p>
        <p class="text-6xl font-black">g = 9.8 m/s²</p>
-       <p class="text-blue-200 text-base mt-3">매 초마다 속력이 9.8 m/s씩 증가</p>
+       <p class="text-slate-600 text-base mt-3">매 초마다 속력이 9.8 m/s씩 증가</p>
       </div>
       <div class="overflow-x-auto">
        <table class="w-full text-center text-sm border-collapse rounded-2xl overflow-hidden shadow">
@@ -121,11 +113,11 @@
          </tr>
         </thead>
         <tbody>
-         <tr class="bg-blue-50"><td class="p-3 font-bold">0</td><td class="p-3">0</td><td class="p-3">0</td></tr>
-         <tr class="bg-white"><td class="p-3 font-bold">1</td><td class="p-3 text-blue-700 font-bold">9.8</td><td class="p-3">4.9</td></tr>
-         <tr class="bg-blue-50"><td class="p-3 font-bold">2</td><td class="p-3 text-blue-700 font-bold">19.6</td><td class="p-3">19.6</td></tr>
-         <tr class="bg-white"><td class="p-3 font-bold">3</td><td class="p-3 text-blue-700 font-bold">29.4</td><td class="p-3">44.1</td></tr>
-         <tr class="bg-blue-50"><td class="p-3 font-bold">4</td><td class="p-3 text-blue-700 font-bold">39.2</td><td class="p-3">78.4</td></tr>
+         <tr class="bg-white"><td class="p-3 font-bold">0</td><td class="p-3">0</td><td class="p-3">0</td></tr>
+         <tr class="bg-white"><td class="p-3 font-bold">1</td><td class="p-3 font-bold text-slate-700">9.8</td><td class="p-3">4.9</td></tr>
+         <tr class="bg-white"><td class="p-3 font-bold">2</td><td class="p-3 font-bold text-slate-700">19.6</td><td class="p-3">19.6</td></tr>
+         <tr class="bg-white"><td class="p-3 font-bold">3</td><td class="p-3 font-bold text-slate-700">29.4</td><td class="p-3">44.1</td></tr>
+         <tr class="bg-white"><td class="p-3 font-bold">4</td><td class="p-3 font-bold text-slate-700">39.2</td><td class="p-3">78.4</td></tr>
         </tbody>
        </table>
       </div>
@@ -140,28 +132,28 @@
    <!-- Slide 5: 속력 공식 v = gt -->
    <section data-slide-index="4" data-slide-num="5" data-title="자유 낙하 속력 공식" id="slide-5">
     <div class="slide-content">
-     <h2 style="color:#2563eb">자유 낙하 속력 공식</h2>
+     <h2>자유 낙하 속력 공식</h2>
      <div class="w-full max-w-5xl space-y-6 mt-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-       <div class="formula-box-blue">
-        <p class="text-blue-200 text-sm uppercase tracking-widest mb-2">낙하 속력</p>
+       <div style="border-bottom:3px solid #2563eb; padding-bottom:1.2rem; margin-bottom:0.5rem; text-align:center;">
+        <p class="text-slate-500 text-sm uppercase tracking-widest mb-2">낙하 속력</p>
         <p class="text-5xl font-black">v = g × t</p>
-        <p class="text-blue-100 text-sm mt-3">속력 = 9.8 × 시간</p>
+        <p class="text-slate-600 text-sm mt-3">속력 = 9.8 × 시간</p>
        </div>
-       <div class="p-8 bg-gradient-to-br from-indigo-700 to-purple-700 text-white rounded-2xl text-center shadow-xl">
-        <p class="text-indigo-200 text-sm uppercase tracking-widest mb-2">낙하 거리</p>
+       <div class="p-8 rounded-2xl text-center shadow-xl">
+        <p class="text-slate-500 text-sm uppercase tracking-widest mb-2">낙하 거리</p>
         <p class="text-5xl font-black">d = ½gt²</p>
-        <p class="text-indigo-100 text-sm mt-3">거리 = ½ × 9.8 × 시간²</p>
+        <p class="text-slate-600 text-sm mt-3">거리 = ½ × 9.8 × 시간²</p>
        </div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-       <div class="p-5 bg-blue-50 rounded-2xl border border-blue-200 text-left">
-        <p class="font-bold text-blue-800 mb-2">예제 1: 3초 후 속력은?</p>
-        <p class="text-slate-700 text-sm">v = 9.8 × 3 = <strong class="text-xl text-blue-700">29.4 m/s</strong></p>
+       <div class="p-5 rounded-2xl text-left">
+        <p class="font-bold text-slate-700 mb-2">예제 1: 3초 후 속력은?</p>
+        <p class="text-slate-700 text-sm">v = 9.8 × 3 = <strong class="text-xl text-slate-700">29.4 m/s</strong></p>
        </div>
-       <div class="p-5 bg-indigo-50 rounded-2xl border border-indigo-200 text-left">
-        <p class="font-bold text-indigo-800 mb-2">예제 2: 3초 동안 낙하 거리는?</p>
-        <p class="text-slate-700 text-sm">d = ½ × 9.8 × 3² = ½ × 9.8 × 9 = <strong class="text-xl text-indigo-700">44.1 m</strong></p>
+       <div class="p-5 rounded-2xl text-left">
+        <p class="font-bold text-slate-700 mb-2">예제 2: 3초 동안 낙하 거리는?</p>
+        <p class="text-slate-700 text-sm">d = ½ × 9.8 × 3² = ½ × 9.8 × 9 = <strong class="text-xl text-slate-700">44.1 m</strong></p>
        </div>
       </div>
      </div>
@@ -171,28 +163,28 @@
    <!-- Slide 6: 시간-속력 그래프 -->
    <section data-slide-index="5" data-slide-num="6" data-title="자유 낙하 시간-속력 그래프" id="slide-6">
     <div class="slide-content">
-     <h2 style="color:#2563eb">자유 낙하: 시간-속력 그래프</h2>
+     <h2>자유 낙하: 시간-속력 그래프</h2>
      <div class="flex flex-col md:flex-row gap-8 items-center w-full max-w-6xl mt-6">
       <div class="w-full md:w-1/2" style="max-width:420px;">
        <canvas id="chartFallSpeed" width="400" height="350"></canvas>
       </div>
       <div class="w-full md:w-1/2 text-left space-y-4">
-       <div class="p-5 bg-blue-50 rounded-xl border border-blue-200">
-        <p class="font-black text-blue-800 mb-2">그래프 특징</p>
+       <div class="p-5 rounded-xl">
+        <p class="font-bold text-slate-800 mb-2">그래프 특징</p>
         <ul class="text-sm text-slate-700 space-y-1">
          <li>• 원점을 지나는 <strong>우상향 직선</strong></li>
          <li>• 기울기 = 중력 가속도 g = 9.8 m/s²</li>
          <li>• 속력이 일정하게 증가 → <strong>등가속도 운동</strong></li>
         </ul>
        </div>
-       <div class="p-5 bg-amber-50 rounded-xl border border-amber-200">
-        <p class="font-black text-amber-800 mb-2">등속 운동과 비교</p>
+       <div class="p-5 rounded-xl">
+        <p class="font-bold text-slate-800 mb-2">등속 운동과 비교</p>
         <div class="text-sm text-slate-700 space-y-1">
          <p>• 등속 운동: 속력 <strong>수평선(일정)</strong></p>
          <p>• 자유 낙하: 속력 <strong>직선(증가)</strong></p>
         </div>
        </div>
-       <div class="p-5 bg-slate-50 rounded-xl border border-slate-200">
+       <div class="p-5 rounded-xl">
         <p class="font-bold text-slate-700 mb-1 text-sm">면적 = 이동 거리</p>
         <p class="text-sm text-slate-600">그래프 아래 삼각형 면적 = ½ × t × v = ½gt² = 낙하 거리</p>
        </div>
@@ -204,22 +196,22 @@
    <!-- Slide 7: 시간-거리 그래프 -->
    <section data-slide-index="6" data-slide-num="7" data-title="자유 낙하 시간-거리 그래프" id="slide-7">
     <div class="slide-content">
-     <h2 style="color:#2563eb">자유 낙하: 시간-거리 그래프</h2>
+     <h2>자유 낙하: 시간-거리 그래프</h2>
      <div class="flex flex-col md:flex-row gap-8 items-center w-full max-w-6xl mt-6">
       <div class="w-full md:w-1/2" style="max-width:420px;">
        <canvas id="chartFallDist" width="400" height="350"></canvas>
       </div>
       <div class="w-full md:w-1/2 text-left space-y-4">
-       <div class="p-5 bg-indigo-50 rounded-xl border border-indigo-200">
-        <p class="font-black text-indigo-800 mb-2">그래프 특징</p>
+       <div class="p-5 rounded-xl">
+        <p class="font-bold text-slate-800 mb-2">그래프 특징</p>
         <ul class="text-sm text-slate-700 space-y-1">
          <li>• 원점을 지나는 <strong>위로 굽은 곡선</strong></li>
          <li>• d = ½gt² (t의 제곱에 비례)</li>
          <li>• 시간이 갈수록 기울기(속력) 증가</li>
         </ul>
        </div>
-       <div class="p-5 bg-blue-50 rounded-xl border border-blue-200">
-        <p class="font-black text-blue-800 mb-2">등속 운동과 비교</p>
+       <div class="p-5 rounded-xl">
+        <p class="font-bold text-slate-800 mb-2">등속 운동과 비교</p>
         <div class="text-sm text-slate-700 space-y-1">
          <p>• 등속 운동: 거리-시간 그래프 → <strong>직선</strong></p>
          <p>• 자유 낙하: 거리-시간 그래프 → <strong>포물선</strong></p>
@@ -233,7 +225,7 @@
    <!-- Slide 8: 질량 무관 낙하 -->
    <section data-slide-index="7" data-slide-num="8" data-title="질량에 무관한 자유 낙하" id="slide-8">
     <div class="slide-content">
-     <h2 style="color:#2563eb">질량에 관계없이 같이 떨어진다</h2>
+     <h2>질량에 관계없이 같이 떨어진다</h2>
      <div class="w-full max-w-5xl space-y-6 mt-6">
       <div class="flex flex-col md:flex-row gap-8 items-center">
        <div class="w-full md:w-1/2">
@@ -241,15 +233,15 @@
              alt="진공 실험" class="rounded-2xl shadow-xl w-full object-cover" style="height:260px;"/>
        </div>
        <div class="w-full md:w-1/2 text-left space-y-4">
-        <div class="p-5 bg-blue-50 rounded-xl border border-blue-200">
-         <p class="font-black text-blue-800 mb-2">공기 중 실험</p>
+        <div class="p-5 rounded-xl">
+         <p class="font-bold text-slate-800 mb-2">공기 중 실험</p>
          <p class="text-sm text-slate-700">깃털과 쇠공 → 공기 저항 때문에 쇠공이 먼저 떨어짐<br/>(공기 저항 크기 차이)</p>
         </div>
-        <div class="p-5 bg-emerald-50 rounded-xl border border-emerald-200">
-         <p class="font-black text-emerald-800 mb-2">진공 중 실험</p>
+        <div class="p-5 rounded-xl">
+         <p class="font-bold text-slate-800 mb-2">진공 중 실험</p>
          <p class="text-sm text-slate-700">깃털과 쇠공 → <strong>동시에 떨어짐!</strong><br/>공기 저항이 없으면 질량에 관계없이 g = 9.8 m/s²</p>
         </div>
-        <div class="p-5 bg-slate-50 rounded-xl border border-slate-200">
+        <div class="p-5 rounded-xl">
          <p class="font-bold text-slate-700 mb-1 text-sm">이유</p>
          <p class="text-sm text-slate-600">중력 F = mg 이고, 가속도 a = F/m = mg/m = g<br/>→ 질량이 약분되어 항상 g = 9.8 m/s²</p>
         </div>
@@ -262,7 +254,7 @@
    <!-- Slide 9: 탐구 — 질량 비교 -->
    <section data-slide-index="8" data-slide-num="9" data-title="탐구: 질량에 따른 낙하 비교" id="slide-9">
     <div class="slide-content">
-     <h2 style="color:#2563eb">탐구: 질량에 따른 자유 낙하 비교</h2>
+     <h2>탐구: 질량에 따른 자유 낙하 비교</h2>
      <div class="w-full max-w-5xl space-y-5 mt-5">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
        <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow text-left">
@@ -279,15 +271,15 @@
         </ul>
        </div>
       </div>
-      <div class="p-6 bg-blue-50 rounded-2xl border border-blue-200">
-       <p class="font-black text-blue-800 mb-3">탐구 결과표</p>
+      <div class="p-6 rounded-2xl">
+       <p class="font-bold text-slate-800 mb-3">탐구 결과표</p>
        <table class="w-full text-center text-sm border-collapse">
-        <thead><tr class="bg-blue-200"><th class="p-2">물체</th><th class="p-2">질량</th><th class="p-2">낙하 높이</th><th class="p-2">낙하 시간</th><th class="p-2">결과</th></tr></thead>
+        <thead><tr class="bg-slate-800 text-white"><th class="p-2">물체</th><th class="p-2">질량</th><th class="p-2">낙하 높이</th><th class="p-2">낙하 시간</th><th class="p-2">결과</th></tr></thead>
         <tbody>
-         <tr class="bg-white"><td class="p-2">쇠공 A</td><td class="p-2">50 g</td><td class="p-2">1 m</td><td class="p-2 text-blue-700 font-bold">약 0.45 s</td><td class="p-2">동시 도달</td></tr>
-         <tr class="bg-blue-50"><td class="p-2">쇠공 B</td><td class="p-2">200 g</td><td class="p-2">1 m</td><td class="p-2 text-blue-700 font-bold">약 0.45 s</td><td class="p-2">동시 도달</td></tr>
-         <tr class="bg-white"><td class="p-2">펴진 종이</td><td class="p-2">5 g</td><td class="p-2">1 m</td><td class="p-2 text-amber-700 font-bold">더 오래</td><td class="p-2">공기 저항↑</td></tr>
-         <tr class="bg-blue-50"><td class="p-2">구긴 종이</td><td class="p-2">5 g</td><td class="p-2">1 m</td><td class="p-2 text-blue-700 font-bold">약 0.45 s</td><td class="p-2">공기 저항↓</td></tr>
+         <tr class="bg-white"><td class="p-2">쇠공 A</td><td class="p-2">50 g</td><td class="p-2">1 m</td><td class="p-2 font-bold text-slate-700">약 0.45 s</td><td class="p-2">동시 도달</td></tr>
+         <tr class="bg-white"><td class="p-2">쇠공 B</td><td class="p-2">200 g</td><td class="p-2">1 m</td><td class="p-2 font-bold text-slate-700">약 0.45 s</td><td class="p-2">동시 도달</td></tr>
+         <tr class="bg-white"><td class="p-2">펴진 종이</td><td class="p-2">5 g</td><td class="p-2">1 m</td><td class="p-2 font-bold text-slate-700">더 오래</td><td class="p-2">공기 저항↑</td></tr>
+         <tr class="bg-white"><td class="p-2">구긴 종이</td><td class="p-2">5 g</td><td class="p-2">1 m</td><td class="p-2 font-bold text-slate-700">약 0.45 s</td><td class="p-2">공기 저항↓</td></tr>
         </tbody>
        </table>
       </div>
@@ -301,7 +293,7 @@
    <!-- Slide 10: 실생활 사례 -->
    <section data-slide-index="9" data-slide-num="10" data-title="자유 낙하 실생활 사례" id="slide-10">
     <div class="slide-content">
-     <h2 style="color:#2563eb">자유 낙하 운동, 실생활에서 찾기</h2>
+     <h2>자유 낙하 운동, 실생활에서 찾기</h2>
      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 w-full max-w-6xl mt-8">
       <div class="concept-card border-t-4 border-blue-500 text-center">
        <img src="https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
@@ -332,29 +324,25 @@
    <!-- Slide 11: 개념 정리 -->
    <section data-slide-index="10" data-slide-num="11" data-title="개념 정리" id="slide-11">
     <div class="slide-content">
-     <h2 style="color:#2563eb">오늘 배운 것 정리</h2>
+     <h2>오늘 배운 것 정리</h2>
      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full max-w-5xl mt-6">
       <div class="concept-card border-t-4 border-blue-500">
-       <p class="text-3xl mb-2">🌍</p>
-       <h3 class="font-black text-blue-700 text-lg mb-2">자유 낙하 운동</h3>
+       <h3 class="font-bold text-slate-800 text-lg mb-2">자유 낙하 운동</h3>
        <p class="text-slate-600 text-sm">중력만 받는 낙하 운동. 공기 저항 무시, 초기 속력 0.</p>
       </div>
       <div class="concept-card border-t-4 border-indigo-500">
-       <p class="text-3xl mb-2">📐</p>
-       <h3 class="font-black text-indigo-700 text-lg mb-2">중력 가속도</h3>
+       <h3 class="font-bold text-slate-800 text-lg mb-2">중력 가속도</h3>
        <p class="text-slate-600 text-sm">g = 9.8 m/s² (지구 표면). 매 초마다 속력이 9.8 m/s씩 증가.</p>
       </div>
       <div class="concept-card border-t-4 border-purple-500">
-       <p class="text-3xl mb-2">📈</p>
-       <h3 class="font-black text-purple-700 text-lg mb-2">시간-속력 그래프</h3>
+       <h3 class="font-bold text-slate-800 text-lg mb-2">시간-속력 그래프</h3>
        <p class="text-slate-600 text-sm">원점 지나는 우상향 직선. 기울기 = g.</p>
-       <p class="text-sm font-bold text-purple-600 mt-1">v = g × t</p>
+       <p class="text-sm font-bold text-slate-700 mt-1">v = g × t</p>
       </div>
       <div class="concept-card border-t-4 border-blue-400">
-       <p class="text-3xl mb-2">📊</p>
-       <h3 class="font-black text-blue-600 text-lg mb-2">시간-거리 그래프</h3>
+       <h3 class="font-bold text-slate-800 text-lg mb-2">시간-거리 그래프</h3>
        <p class="text-slate-600 text-sm">원점 지나는 위로 굽은 곡선(포물선).</p>
-       <p class="text-sm font-bold text-blue-600 mt-1">d = ½ × g × t²</p>
+       <p class="text-sm font-bold text-slate-700 mt-1">d = ½ × g × t²</p>
       </div>
      </div>
      <div class="mt-5 p-5 bg-blue-50 rounded-2xl border border-blue-200 w-full max-w-5xl">
@@ -366,27 +354,27 @@
    <!-- Slide 12: 공식 카드 -->
    <section data-slide-index="11" data-slide-num="12" data-title="공식 카드" id="slide-12">
     <div class="slide-content">
-     <h2 style="color:#2563eb">공식 카드</h2>
+     <h2>공식 카드</h2>
      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl mt-8">
-      <div class="formula-box-blue">
-       <p class="text-blue-200 text-sm uppercase tracking-widest mb-2">낙하 속력</p>
+      <div style="border-bottom:3px solid #2563eb; padding-bottom:1.2rem; margin-bottom:0.5rem; text-align:center;">
+       <p class="text-slate-500 text-sm uppercase tracking-widest mb-2">낙하 속력</p>
        <p class="text-5xl font-black">v = g·t</p>
-       <p class="text-blue-100 text-sm mt-3">v = 9.8 × t (m/s)</p>
+       <p class="text-slate-600 text-sm mt-3">v = 9.8 × t (m/s)</p>
       </div>
-      <div class="p-8 bg-gradient-to-br from-indigo-700 to-purple-700 text-white rounded-2xl text-center shadow-xl">
-       <p class="text-indigo-200 text-sm uppercase tracking-widest mb-2">낙하 거리</p>
+      <div class="p-8 rounded-2xl text-center shadow-xl">
+       <p class="text-slate-500 text-sm uppercase tracking-widest mb-2">낙하 거리</p>
        <p class="text-5xl font-black">d = ½gt²</p>
-       <p class="text-indigo-100 text-sm mt-3">d = 4.9 × t² (m)</p>
+       <p class="text-slate-600 text-sm mt-3">d = 4.9 × t² (m)</p>
       </div>
-      <div class="p-8 bg-gradient-to-br from-slate-700 to-slate-800 text-white rounded-2xl text-center shadow-xl">
-       <p class="text-slate-300 text-sm uppercase tracking-widest mb-2">중력 가속도</p>
+      <div class="p-8 rounded-2xl text-center shadow-xl">
+       <p class="text-slate-500 text-sm uppercase tracking-widest mb-2">중력 가속도</p>
        <p class="text-5xl font-black">g = 9.8</p>
-       <p class="text-slate-300 text-sm mt-3">단위: m/s² (지구 표면)</p>
+       <p class="text-slate-600 text-sm mt-3">단위: m/s² (지구 표면)</p>
       </div>
-      <div class="p-8 bg-gradient-to-br from-blue-500 to-cyan-600 text-white rounded-2xl text-center shadow-xl">
-       <p class="text-blue-100 text-sm uppercase tracking-widest mb-2">속력-거리 관계</p>
+      <div class="p-8 rounded-2xl text-center shadow-xl">
+       <p class="text-slate-500 text-sm uppercase tracking-widest mb-2">속력-거리 관계</p>
        <p class="text-4xl font-black">v² = 2gd</p>
-       <p class="text-blue-100 text-sm mt-3">시간 t를 소거한 공식</p>
+       <p class="text-slate-600 text-sm mt-3">시간 t를 소거한 공식</p>
       </div>
      </div>
     </div>
@@ -395,7 +383,7 @@
    <!-- Slide 13: 형성 평가 01 -->
    <section data-slide-index="12" data-slide-num="13" data-title="형성 평가 01" id="slide-13">
     <div class="slide-content">
-     <h2 style="color:#2563eb">형성 평가 01</h2>
+     <h2>형성 평가 01</h2>
      <div class="quiz-container w-full max-w-5xl">
       <p class="quiz-question">물체를 자유 낙하시켰을 때 3초 후의 속력은? (g = 9.8 m/s²)</p>
       <div class="quiz-options grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -404,7 +392,7 @@
        <button class="quiz-btn" data-correct="true">③ 29.4 m/s</button>
        <button class="quiz-btn" data-correct="false">④ 39.2 m/s</button>
       </div>
-      <div class="quiz-feedback font-bold text-2xl mt-6 text-center" style="color:#2563eb">
+      <div class="quiz-feedback font-bold text-2xl mt-6 text-center">
        v = g × t = 9.8 × 3 = <strong>29.4 m/s</strong> ✓
       </div>
      </div>
@@ -414,7 +402,7 @@
    <!-- Slide 14: 형성 평가 02 -->
    <section data-slide-index="13" data-slide-num="14" data-title="형성 평가 02" id="slide-14">
     <div class="slide-content">
-     <h2 style="color:#2563eb">형성 평가 02</h2>
+     <h2>형성 평가 02</h2>
      <div class="quiz-container w-full max-w-5xl">
       <p class="quiz-question">자유 낙하 운동에서 시간-속력 그래프의 모양으로 옳은 것은?</p>
       <div class="quiz-options grid grid-cols-1 gap-4">
@@ -433,7 +421,7 @@
    <!-- Slide 15: 형성 평가 03 -->
    <section data-slide-index="14" data-slide-num="15" data-title="형성 평가 03" id="slide-15">
     <div class="slide-content">
-     <h2 style="color:#2563eb">형성 평가 03</h2>
+     <h2>형성 평가 03</h2>
      <div class="quiz-container w-full max-w-5xl">
       <p class="quiz-question">공기 저항을 무시할 때, 질량이 다른 두 물체를 같은 높이에서 동시에 떨어뜨리면?</p>
       <div class="quiz-options grid grid-cols-1 gap-4">
@@ -452,7 +440,7 @@
    <!-- Slide 16: 마무리 -->
    <section data-slide-index="15" data-slide-num="16" data-title="마무리 & 다음 차시" id="slide-16">
     <div class="slide-content">
-     <h2 style="color:#2563eb">오늘 수업 마무리</h2>
+     <h2>오늘 수업 마무리</h2>
      <div class="w-full max-w-5xl space-y-6 mt-6">
       <div class="p-6 bg-blue-50 rounded-2xl border border-blue-200 text-left">
        <p class="font-bold text-blue-800 text-lg mb-3">오늘 배운 핵심 3가지</p>
@@ -490,7 +478,7 @@
    <!-- PhET -->
    <section data-slide-index="99" data-slide-num="17" data-title="PhET: 포사체 운동" id="slide-phet">
     <div class="slide-content">
-     <h2 style="color:#2563eb">PhET 시뮬레이션: 포사체 운동</h2>
+     <h2>PhET 시뮬레이션: 포사체 운동</h2>
      <p class="text-slate-500 mb-4">자유 낙하와 포사체 운동을 직접 시뮬레이션해 보세요</p>
      <div class="w-full" style="max-width:900px;">
       <iframe src="https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion_ko.html"

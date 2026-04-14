@@ -24,12 +24,10 @@
      backdrop-filter: blur(12px);
    }
    .formula-box {
-     background: linear-gradient(135deg, #0f766e, #0d9488);
-     color: white;
-     border-radius: 1.5rem;
-     padding: 2rem 3rem;
+     border-bottom: 3px solid #0d9488;
+     padding-bottom: 1.2rem;
+     margin-bottom: 0.5rem;
      text-align: center;
-     box-shadow: 0 10px 30px rgba(13,148,136,0.3);
    }
    .graph-label {
      font-size: 0.85rem;
@@ -84,20 +82,20 @@
    <!-- Slide 2: 도입 — 빠르다? 느리다? -->
    <section data-slide-index="1" data-slide-num="2" data-title="도입: 속력이란?" id="slide-2">
     <div class="slide-content">
-     <h2 class="text-teal-700">어떤 것이 더 빠를까요?</h2>
+     <h2>어떤 것이 더 빠를까요?</h2>
      <div class="flex flex-col md:flex-row gap-6 items-center max-w-6xl mt-8 w-full">
       <div class="w-full md:w-1/2">
        <img src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80"
             alt="KTX 열차" class="rounded-2xl shadow-2xl w-full object-cover" style="max-height:320px;"/>
       </div>
       <div class="w-full md:w-1/2 text-left space-y-5">
-       <div class="p-5 bg-teal-50 border-l-4 border-teal-500 rounded-xl">
-        <p class="text-lg font-bold text-teal-800">KTX</p>
+       <div class="p-5 rounded-xl">
+        <p class="text-lg font-bold text-slate-700">KTX</p>
         <p class="text-3xl font-black text-slate-800">300 km/h</p>
         <p class="text-sm text-slate-500">서울 → 부산 2시간 10분</p>
        </div>
-       <div class="p-5 bg-amber-50 border-l-4 border-amber-500 rounded-xl">
-        <p class="text-lg font-bold text-amber-800">사람 걷기</p>
+       <div class="p-5 rounded-xl">
+        <p class="text-lg font-bold text-slate-700">사람 걷기</p>
         <p class="text-3xl font-black text-slate-800">5 km/h</p>
         <p class="text-sm text-slate-500">서울 → 부산 80시간</p>
        </div>
@@ -123,18 +121,18 @@
        <p class="text-xl text-teal-100 mt-4">속력 = <span class="text-yellow-300">이동 거리</span> ÷ <span class="text-pink-300">걸린 시간</span></p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
-       <div class="p-5 bg-teal-50 rounded-2xl border border-teal-200">
-        <p class="text-2xl font-black text-teal-700 mb-1">v</p>
+       <div class="p-5 rounded-2xl">
+        <p class="text-2xl font-bold text-slate-800 mb-1">v</p>
         <p class="font-bold text-slate-700">속력</p>
         <p class="text-sm text-slate-500">단위: m/s, km/h</p>
        </div>
-       <div class="p-5 bg-yellow-50 rounded-2xl border border-yellow-200">
-        <p class="text-2xl font-black text-yellow-700 mb-1">d (또는 s)</p>
+       <div class="p-5 rounded-2xl">
+        <p class="text-2xl font-bold text-slate-800 mb-1">d (또는 s)</p>
         <p class="font-bold text-slate-700">이동 거리</p>
         <p class="text-sm text-slate-500">단위: m, km</p>
        </div>
-       <div class="p-5 bg-pink-50 rounded-2xl border border-pink-200">
-        <p class="text-2xl font-black text-pink-700 mb-1">t</p>
+       <div class="p-5 rounded-2xl">
+        <p class="text-2xl font-bold text-slate-800 mb-1">t</p>
         <p class="font-bold text-slate-700">걸린 시간</p>
         <p class="text-sm text-slate-500">단위: s (초), h (시간)</p>
        </div>
@@ -154,23 +152,23 @@
      <h2 class="text-teal-700">속력 단위 변환</h2>
      <div class="w-full max-w-5xl space-y-6 mt-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-       <div class="p-8 bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl border-2 border-teal-300 text-center shadow">
+       <div class="p-8 rounded-2xl text-center shadow">
         <p class="text-slate-500 font-bold mb-3 uppercase tracking-widest text-sm">km/h → m/s</p>
         <p class="text-3xl font-black text-slate-800">÷ 3.6</p>
         <div class="mt-4 p-3 bg-white rounded-xl">
-         <p class="text-base text-slate-600">72 km/h ÷ 3.6 = <strong class="text-teal-700">20 m/s</strong></p>
+         <p class="text-base text-slate-600">72 km/h ÷ 3.6 = <strong class="text-slate-700">20 m/s</strong></p>
         </div>
        </div>
-       <div class="p-8 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl border-2 border-blue-300 text-center shadow">
+       <div class="p-8 rounded-2xl text-center shadow">
         <p class="text-slate-500 font-bold mb-3 uppercase tracking-widest text-sm">m/s → km/h</p>
         <p class="text-3xl font-black text-slate-800">× 3.6</p>
         <div class="mt-4 p-3 bg-white rounded-xl">
-         <p class="text-base text-slate-600">20 m/s × 3.6 = <strong class="text-blue-700">72 km/h</strong></p>
+         <p class="text-base text-slate-600">20 m/s × 3.6 = <strong class="text-slate-700">72 km/h</strong></p>
         </div>
        </div>
       </div>
-      <div class="p-6 bg-amber-50 border-l-4 border-amber-400 rounded-xl text-left">
-       <p class="font-bold text-amber-800 mb-2">왜 3.6인가요?</p>
+      <div class="p-6 rounded-xl text-left">
+       <p class="font-bold text-slate-800 mb-2">왜 3.6인가요?</p>
        <p class="text-base text-slate-600">
         1 km/h = 1000 m ÷ 3600 s = 1/3.6 m/s 이므로,<br/>
         km/h를 m/s로 바꾸려면 3.6으로 나눕니다.
@@ -249,25 +247,25 @@
        <canvas id="chartDistTime" width="400" height="350"></canvas>
       </div>
       <div class="w-full md:w-1/2 text-left space-y-4">
-       <div class="p-5 bg-teal-50 rounded-xl border border-teal-200">
-        <p class="font-black text-teal-800 text-lg mb-2">📈 그래프 특징</p>
+       <div class="p-5 rounded-xl">
+        <p class="font-bold text-slate-800 text-lg mb-2">📈 그래프 특징</p>
         <ul class="space-y-2 text-slate-700 text-sm">
          <li>• <strong>원점을 지나는 직선</strong></li>
          <li>• 기울기가 클수록 속력이 빠름</li>
          <li>• 기울기 = 속력</li>
         </ul>
        </div>
-       <div class="p-5 bg-yellow-50 rounded-xl border border-yellow-200">
-        <p class="font-black text-yellow-800 mb-2">기울기 = 속력</p>
+       <div class="p-5 rounded-xl">
+        <p class="font-bold text-slate-800 mb-2">기울기 = 속력</p>
         <p class="text-slate-700 text-sm">
          기울기 = (거리 변화) ÷ (시간 변화)<br/>
          = Δd ÷ Δt = <strong>속력 v</strong>
         </p>
        </div>
-       <div class="p-5 bg-slate-50 rounded-xl border border-slate-200">
+       <div class="p-5 rounded-xl">
         <p class="font-bold text-slate-700 mb-1 text-sm">그래프 읽기 연습</p>
         <p class="text-sm text-slate-600">위 그래프에서 4초 동안 이동한 거리는?</p>
-        <p class="text-lg font-black text-teal-700 mt-1">→ 80 m (기울기 = 20 m/s)</p>
+        <p class="text-lg font-black text-slate-700 mt-1">→ 80 m (기울기 = 20 m/s)</p>
        </div>
       </div>
      </div>
@@ -279,10 +277,10 @@
     <div class="slide-content">
      <h2 class="text-teal-700">그래프에서 속력 구하기</h2>
      <div class="w-full max-w-5xl space-y-6 mt-4">
-      <div class="p-6 bg-teal-50 rounded-2xl border border-teal-200 text-center">
-       <p class="text-lg font-bold text-teal-800 mb-2">시간-거리 그래프의 기울기 = 속력</p>
+      <div class="p-6 rounded-2xl text-center">
+       <p class="text-lg font-bold text-slate-800 mb-2">시간-거리 그래프의 기울기 = 속력</p>
        <p class="text-2xl font-black text-slate-800">
-        기울기 = <span class="text-yellow-600">Δ거리</span> ÷ <span class="text-pink-600">Δ시간</span> = v
+        기울기 = Δ거리 ÷ Δ시간 = v
        </p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5 text-left">
@@ -308,8 +306,8 @@
         </div>
        </div>
       </div>
-      <div class="p-5 bg-amber-50 border-l-4 border-amber-400 rounded-xl text-left">
-       <p class="font-bold text-amber-800 mb-1">핵심 정리</p>
+      <div class="p-5 rounded-xl text-left">
+       <p class="font-bold text-slate-800 mb-1">핵심 정리</p>
        <p class="text-sm text-slate-700">
         기울기가 가파를수록 속력이 빠릅니다.<br/>
         기울기가 0이면 물체는 정지한 상태입니다.<br/>
@@ -329,25 +327,25 @@
        <canvas id="chartSpeedTime" width="400" height="350"></canvas>
       </div>
       <div class="w-full md:w-1/2 text-left space-y-4">
-       <div class="p-5 bg-blue-50 rounded-xl border border-blue-200">
-        <p class="font-black text-blue-800 text-lg mb-2">📊 그래프 특징</p>
+       <div class="p-5 rounded-xl">
+        <p class="font-bold text-slate-800 text-lg mb-2">📊 그래프 특징</p>
         <ul class="space-y-2 text-slate-700 text-sm">
          <li>• <strong>시간축에 평행한 수평선</strong></li>
          <li>• 속력이 항상 일정함을 나타냄</li>
          <li>• 선이 높을수록 속력이 빠름</li>
         </ul>
        </div>
-       <div class="p-5 bg-emerald-50 rounded-xl border border-emerald-200">
-        <p class="font-black text-emerald-800 mb-2">그래프 아래 면적 = 이동 거리</p>
+       <div class="p-5 rounded-xl">
+        <p class="font-bold text-slate-800 mb-2">그래프 아래 면적 = 이동 거리</p>
         <p class="text-sm text-slate-700">
          면적 = 속력 × 시간 = v × t = <strong>이동 거리 d</strong><br/>
          그래프 아래 직사각형의 넓이가 곧 이동 거리!
         </p>
        </div>
-       <div class="p-5 bg-slate-50 rounded-xl border border-slate-200">
+       <div class="p-5 rounded-xl">
         <p class="font-bold text-slate-700 mb-1 text-sm">예시</p>
         <p class="text-sm text-slate-600">속력 20 m/s로 5초 이동 시 거리는?</p>
-        <p class="text-lg font-black text-blue-700 mt-1">→ 면적 = 20 × 5 = 100 m</p>
+        <p class="text-lg font-black text-slate-700 mt-1">→ 면적 = 20 × 5 = 100 m</p>
        </div>
       </div>
      </div>
@@ -411,36 +409,36 @@
         </tr>
        </thead>
        <tbody>
-        <tr class="bg-teal-50">
+        <tr class="bg-white">
          <td class="p-4 font-bold text-left text-slate-700">속력</td>
-         <td class="p-4 text-teal-700 font-bold">일정</td>
-         <td class="p-4 text-red-600 font-bold">변함</td>
+         <td class="p-4 font-bold text-slate-700">일정</td>
+         <td class="p-4 font-bold text-slate-700">변함</td>
         </tr>
         <tr class="bg-white">
          <td class="p-4 font-bold text-left text-slate-700">같은 시간 동안 이동 거리</td>
-         <td class="p-4 text-teal-700 font-bold">동일</td>
-         <td class="p-4 text-red-600 font-bold">다름</td>
+         <td class="p-4 font-bold text-slate-700">동일</td>
+         <td class="p-4 font-bold text-slate-700">다름</td>
         </tr>
-        <tr class="bg-teal-50">
+        <tr class="bg-white">
          <td class="p-4 font-bold text-left text-slate-700">시간-거리 그래프</td>
-         <td class="p-4 text-teal-700 font-bold">기울기 일정한 직선</td>
-         <td class="p-4 text-red-600 font-bold">곡선 또는 꺾인 선</td>
+         <td class="p-4 font-bold text-slate-700">기울기 일정한 직선</td>
+         <td class="p-4 font-bold text-slate-700">곡선 또는 꺾인 선</td>
         </tr>
         <tr class="bg-white">
          <td class="p-4 font-bold text-left text-slate-700">시간-속력 그래프</td>
-         <td class="p-4 text-teal-700 font-bold">수평선 (flat)</td>
-         <td class="p-4 text-red-600 font-bold">기울어진 선 또는 곡선</td>
+         <td class="p-4 font-bold text-slate-700">수평선 (flat)</td>
+         <td class="p-4 font-bold text-slate-700">기울어진 선 또는 곡선</td>
         </tr>
-        <tr class="bg-teal-50">
+        <tr class="bg-white">
          <td class="p-4 font-bold text-left text-slate-700">기록 타이머 점 간격</td>
-         <td class="p-4 text-teal-700 font-bold">일정</td>
-         <td class="p-4 text-red-600 font-bold">점점 벌어지거나 좁아짐</td>
+         <td class="p-4 font-bold text-slate-700">일정</td>
+         <td class="p-4 font-bold text-slate-700">점점 벌어지거나 좁아짐</td>
         </tr>
        </tbody>
       </table>
       <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-       <div class="p-5 bg-teal-50 rounded-xl border border-teal-200 text-left">
-        <p class="font-bold text-teal-800 mb-2">등속 운동 기록 테이프</p>
+       <div class="p-5 rounded-xl text-left">
+        <p class="font-bold text-slate-700 mb-2">등속 운동 기록 테이프</p>
         <div class="ticker-tape">
          <span class="ticker-dot"></span>
          <div style="width:36px; height:2px; background:#e2e8f0;"></div>
@@ -454,18 +452,18 @@
         </div>
         <p class="text-xs text-slate-500 mt-2">점 간격 일정 → 등속 운동</p>
        </div>
-       <div class="p-5 bg-red-50 rounded-xl border border-red-200 text-left">
-        <p class="font-bold text-red-700 mb-2">가속 운동 기록 테이프</p>
+       <div class="p-5 rounded-xl text-left">
+        <p class="font-bold text-slate-700 mb-2">가속 운동 기록 테이프</p>
         <div class="ticker-tape">
-         <span class="ticker-dot" style="background:#ef4444;"></span>
+         <span class="ticker-dot"></span>
          <div style="width:12px; height:2px; background:#e2e8f0;"></div>
-         <span class="ticker-dot" style="background:#ef4444;"></span>
+         <span class="ticker-dot"></span>
          <div style="width:22px; height:2px; background:#e2e8f0;"></div>
-         <span class="ticker-dot" style="background:#ef4444;"></span>
+         <span class="ticker-dot"></span>
          <div style="width:34px; height:2px; background:#e2e8f0;"></div>
-         <span class="ticker-dot" style="background:#ef4444;"></span>
+         <span class="ticker-dot"></span>
          <div style="width:48px; height:2px; background:#e2e8f0;"></div>
-         <span class="ticker-dot" style="background:#ef4444;"></span>
+         <span class="ticker-dot"></span>
         </div>
         <p class="text-xs text-slate-500 mt-2">점 간격 증가 → 가속 운동</p>
        </div>
@@ -498,8 +496,8 @@
        <p class="text-sm text-slate-500 mt-1">원형 궤도: 속력 일정, 방향만 변화</p>
       </div>
      </div>
-     <div class="mt-6 p-5 bg-amber-50 border-l-4 border-amber-400 rounded-xl text-left max-w-6xl w-full">
-      <p class="font-bold text-amber-800 mb-1">참고: 인공위성은 완전한 등속 운동인가?</p>
+     <div class="mt-6 p-5 rounded-xl text-left max-w-6xl w-full">
+      <p class="font-bold text-slate-800 mb-1">참고: 인공위성은 완전한 등속 운동인가?</p>
       <p class="text-sm text-slate-600">원형 궤도에서 속력은 일정하나 방향이 계속 변하므로 <strong>등속 원운동</strong>입니다. 중학교 수준에서는 속력이 일정한 경우로 배웁니다.</p>
      </div>
     </div>
@@ -516,8 +514,8 @@
              alt="실험 장치" class="rounded-2xl shadow-xl w-full object-cover" style="height:230px;"/>
        </div>
        <div class="text-left space-y-4">
-        <div class="p-5 bg-teal-50 rounded-xl border border-teal-200">
-         <p class="font-black text-teal-800 mb-2">기록 타이머란?</p>
+        <div class="p-5 rounded-xl">
+         <p class="font-bold text-slate-800 mb-2">기록 타이머란?</p>
          <p class="text-sm text-slate-700">
           1초에 <strong>60번</strong> (60 Hz) 점을 찍는 장치.<br/>
           점 사이 시간 간격 = 1/60 s ≈ <strong>0.017 s</strong>
@@ -569,26 +567,22 @@
      <h2 class="text-teal-700">오늘 배운 것 정리</h2>
      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full max-w-5xl mt-6">
       <div class="concept-card border-t-4 border-teal-500">
-       <p class="text-3xl mb-2">📐</p>
-       <h3 class="font-black text-teal-700 text-lg mb-2">속력</h3>
+       <h3 class="font-bold text-slate-800 text-lg mb-2">속력</h3>
        <p class="text-slate-600 text-sm">v = d ÷ t (이동 거리 ÷ 걸린 시간)</p>
        <p class="text-slate-500 text-xs mt-1">단위: m/s, km/h (×3.6 변환)</p>
       </div>
       <div class="concept-card border-t-4 border-blue-500">
-       <p class="text-3xl mb-2">🚃</p>
-       <h3 class="font-black text-blue-700 text-lg mb-2">등속 운동</h3>
+       <h3 class="font-bold text-slate-800 text-lg mb-2">등속 운동</h3>
        <p class="text-slate-600 text-sm">속력과 방향이 모두 일정한 운동</p>
        <p class="text-slate-500 text-xs mt-1">같은 시간 동안 항상 같은 거리 이동</p>
       </div>
       <div class="concept-card border-t-4 border-emerald-500">
-       <p class="text-3xl mb-2">📈</p>
-       <h3 class="font-black text-emerald-700 text-lg mb-2">시간-거리 그래프</h3>
+       <h3 class="font-bold text-slate-800 text-lg mb-2">시간-거리 그래프</h3>
        <p class="text-slate-600 text-sm">등속 운동 = 원점 지나는 직선</p>
        <p class="text-slate-500 text-xs mt-1">기울기 = 속력</p>
       </div>
       <div class="concept-card border-t-4 border-indigo-500">
-       <p class="text-3xl mb-2">📊</p>
-       <h3 class="font-black text-indigo-700 text-lg mb-2">시간-속력 그래프</h3>
+       <h3 class="font-bold text-slate-800 text-lg mb-2">시간-속력 그래프</h3>
        <p class="text-slate-600 text-sm">등속 운동 = 시간축에 평행한 수평선</p>
        <p class="text-slate-500 text-xs mt-1">그래프 아래 면적 = 이동 거리</p>
       </div>
@@ -605,24 +599,24 @@
      <h2 class="text-teal-700">공식 카드 — 외워두세요!</h2>
      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl mt-8">
       <div class="formula-box">
-       <p class="text-teal-200 text-sm uppercase tracking-widest mb-2">속력</p>
+       <p class="text-slate-500 text-sm uppercase tracking-widest mb-2">속력</p>
        <p class="text-5xl font-black">v = d / t</p>
-       <p class="text-teal-200 text-sm mt-3">속력 = 거리 ÷ 시간</p>
+       <p class="text-slate-600 text-sm mt-3">속력 = 거리 ÷ 시간</p>
       </div>
-      <div class="p-8 bg-gradient-to-br from-blue-700 to-indigo-800 text-white rounded-2xl text-center shadow-xl">
-       <p class="text-blue-200 text-sm uppercase tracking-widest mb-2">이동 거리</p>
+      <div class="p-8 rounded-2xl text-center shadow-xl">
+       <p class="text-slate-500 text-sm uppercase tracking-widest mb-2">이동 거리</p>
        <p class="text-5xl font-black">d = v × t</p>
-       <p class="text-blue-200 text-sm mt-3">거리 = 속력 × 시간</p>
+       <p class="text-slate-600 text-sm mt-3">거리 = 속력 × 시간</p>
       </div>
-      <div class="p-8 bg-gradient-to-br from-emerald-600 to-teal-700 text-white rounded-2xl text-center shadow-xl">
-       <p class="text-emerald-200 text-sm uppercase tracking-widest mb-2">걸린 시간</p>
+      <div class="p-8 rounded-2xl text-center shadow-xl">
+       <p class="text-slate-500 text-sm uppercase tracking-widest mb-2">걸린 시간</p>
        <p class="text-5xl font-black">t = d / v</p>
-       <p class="text-emerald-200 text-sm mt-3">시간 = 거리 ÷ 속력</p>
+       <p class="text-slate-600 text-sm mt-3">시간 = 거리 ÷ 속력</p>
       </div>
-      <div class="p-8 bg-gradient-to-br from-amber-500 to-orange-600 text-white rounded-2xl text-center shadow-xl">
-       <p class="text-amber-100 text-sm uppercase tracking-widest mb-2">단위 변환</p>
+      <div class="p-8 rounded-2xl text-center shadow-xl">
+       <p class="text-slate-500 text-sm uppercase tracking-widest mb-2">단위 변환</p>
        <p class="text-3xl font-black">km/h ÷ 3.6 = m/s</p>
-       <p class="text-amber-100 text-sm mt-3">m/s × 3.6 = km/h</p>
+       <p class="text-slate-600 text-sm mt-3">m/s × 3.6 = km/h</p>
       </div>
      </div>
     </div>
