@@ -3,32 +3,106 @@ import {
   AlertTriangle,
   Archive,
   Backpack,
-  CheckCircle2,
+ CheckCircle2,
   FlaskConical,
   Lock,
   Send,
+  ShieldAlert,
   Siren,
+  TestTubeDiagonal,
   Timer,
 } from 'lucide-react'
 
 const TOTAL_TIME = 600
-const FINAL_PASSWORD = '427'
 const SUBMIT_ENDPOINT = window.__ZOMBIE_ESCAPE_SUBMIT_ENDPOINT ?? ''
 
 const questOrder = [
-  { step: 1, title: '어둠 속의 불빛', label: '양초 관찰실' },
-  { step: 2, title: '기계실 암호', label: '반응식 제어반' },
-  { step: 3, title: '약품 창고 A', label: '질량 보존' },
-  { step: 4, title: '약품 창고 B', label: '기체 반응' },
-  { step: 5, title: '탈출 자물쇠', label: '최종 제어실' },
+  { step: 1, title: '정전 복도', label: '오염 복도' },
+  { step: 2, title: '혼합 제어반', label: '반응식 패널' },
+  { step: 3, title: '약품 창고', label: '질량 검문' },
+  { step: 4, title: '환기 터널', label: '기체 밸브' },
+  { step: 5, title: '백신 금고', label: '최종 금고' },
 ]
 
+const difficultyConfigs = {
+  easy: {
+    label: '쉬움',
+    intro: '핵심 개념을 바로 적용하는 구조입니다.',
+    equationAnswer: 2,
+    massQuestion: {
+      reactants: [
+        ['마그네슘', 6],
+        ['산소', 4],
+      ],
+      answer: '10',
+      prompt: '마그네슘 6g과 산소 4g이 완전히 반응해 산화마그네슘을 만들었다.',
+      memoText: '보존된 총질량의 십의 자리를 첫 숫자로 사용한다.',
+    },
+    gasOptions: [
+      ['A', '수소 1L + 산소 1L → 수증기 2L'],
+      ['B', '수소 2L + 산소 1L → 수증기 2L'],
+      ['C', '수소 2L + 산소 2L → 수증기 4L'],
+    ],
+    gasAnswer: 'B',
+    gasMemoText: '수소 2, 산소 1, 생성물 2. 부피비의 마지막 숫자가 둘째 숫자다.',
+    cureMemoText: '백신 혼합 패널에서 맞춘 계수가 마지막 숫자다.',
+    finalPassword: '122',
+  },
+  normal: {
+    label: '보통',
+    intro: '숫자 계산과 단서 해석이 함께 섞입니다.',
+    equationAnswer: 2,
+    massQuestion: {
+      reactants: [
+        ['철', 14],
+        ['황', 8],
+      ],
+      answer: '22',
+      prompt: '철 14g과 황 8g이 완전히 반응해 황화철을 만들었다.',
+      memoText: '보존된 총질량의 일의 자리가 첫 숫자다.',
+    },
+    gasOptions: [
+      ['A', '질소 1L + 수소 3L → 암모니아 2L'],
+      ['B', '질소 1L + 수소 2L → 암모니아 3L'],
+      ['C', '질소 2L + 수소 3L → 암모니아 2L'],
+    ],
+    gasAnswer: 'A',
+    gasMemoText: '맞는 기체 반응식에서 생성물 부피의 일의 자리가 둘째 숫자다.',
+    cureMemoText: '제어반에서 선택한 계수를 마지막 숫자로 사용한다.',
+    finalPassword: '222',
+  },
+  hard: {
+    label: '도전',
+    intro: '오염된 기록에서 진짜 단서를 골라 계산해야 합니다.',
+    equationAnswer: 3,
+    massQuestion: {
+      reactants: [
+        ['구리', 16],
+        ['산소', 4],
+      ],
+      answer: '20',
+      prompt:
+        '복구 로그에는 “구리 16g과 산소 4g이 완전히 반응했다. 일부 연구원이 12g이라고 오기했지만 기록은 손상되었다.”라고 적혀 있다.',
+      memoText: '실제 생성물 전체 질량의 십의 자리가 첫 숫자다.',
+    },
+    gasOptions: [
+      ['A', '수소 2L + 염소 2L → 염화수소 2L'],
+      ['B', '수소 1L + 염소 1L → 염화수소 2L'],
+      ['C', '수소 1L + 염소 2L → 염화수소 1L'],
+    ],
+    gasAnswer: 'B',
+    gasMemoText: '정답 보기의 생성물 부피를 읽으면 둘째 숫자가 된다.',
+    cureMemoText: '반응식 패널에서 맞춘 계수의 값이 마지막 숫자다.',
+    finalPassword: '123',
+  },
+}
+
 const inventoryLabels = {
-  H2: '[수소 캡슐 H₂]',
-  O2: '[산소 밸브 O₂]',
-  MASS: '[질량 보존 메모 4]',
-  GAS: '[기체 반응 메모 7]',
-  CURE: '[백신 조합 키 2]',
+  LOGBOOK: '[감염 복도 기록지]',
+  VALVE: '[혼합 밸브 키]',
+  MASS: '[붉은 메모 조각]',
+  GAS: '[푸른 메모 조각]',
+  CURE: '[황금 메모 조각]',
 }
 
 function useSoundEffects() {
@@ -136,6 +210,8 @@ const buildResultPayload = ({
   inventory,
   notes,
   submissionStatus,
+  difficulty,
+  finalPassword,
 }) => ({
   project: 'zombie-factory-escape',
   submittedAt: new Date().toISOString(),
@@ -145,9 +221,10 @@ const buildResultPayload = ({
   },
   playSummary: {
     cleared: true,
+    difficulty,
     timeSpentSeconds: timeSpent,
     inventory,
-    finalPassword: FINAL_PASSWORD,
+    finalPassword,
     submissionStatus,
   },
   wrongAnswerNotes: notes,
@@ -156,6 +233,7 @@ const buildResultPayload = ({
 function App() {
   const [step, setStep] = useState(0)
   const [studentInfo, setStudentInfo] = useState({ id: '', name: '' })
+  const [difficulty, setDifficulty] = useState('normal')
   const [inventory, setInventory] = useState([])
   const [password, setPassword] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
@@ -163,14 +241,31 @@ function App() {
   const [timer, setTimer] = useState(TOTAL_TIME)
   const [isGameOver, setIsGameOver] = useState(false)
   const [massAnswer, setMassAnswer] = useState('')
-  const [gasChoice, setGasChoice] = useState('')
   const [submissionStatus, setSubmissionStatus] = useState('idle')
   const [submissionJson, setSubmissionJson] = useState('')
   const [wrongAnswerNotes, setWrongAnswerNotes] = useState([])
+  const [memoKeys, setMemoKeys] = useState([])
 
   const previousStepRef = useRef(0)
   const timeoutRef = useRef(null)
   const { unlockSound, playByName } = useSoundEffects()
+
+  const config = difficultyConfigs[difficulty]
+
+  const memoFragments = {
+    MASS: {
+      title: '붉은 메모 조각',
+      text: config.massQuestion.memoText,
+    },
+    GAS: {
+      title: '푸른 메모 조각',
+      text: config.gasMemoText,
+    },
+    CURE: {
+      title: '황금 메모 조각',
+      text: config.cureMemoText,
+    },
+  }
 
   useEffect(() => {
     let interval
@@ -213,6 +308,10 @@ function App() {
     )
   }
 
+  const addMemo = (memoKey) => {
+    setMemoKeys((current) => (current.includes(memoKey) ? current : [...current, memoKey]))
+  }
+
   const triggerError = (message, note) => {
     if (timeoutRef.current) {
       window.clearTimeout(timeoutRef.current)
@@ -236,7 +335,7 @@ function App() {
     timeoutRef.current = window.setTimeout(() => {
       setShake(false)
       setErrorMsg('')
-    }, 2200)
+    }, 2400)
   }
 
   const moveToStep = (nextStep, itemKey) => {
@@ -248,7 +347,7 @@ function App() {
 
   const handleStart = async () => {
     if (!studentInfo.id.trim() || !studentInfo.name.trim()) {
-      triggerError('학번과 이름을 모두 입력해야 출입문이 열립니다.', '학생 정보 미입력')
+      triggerError('학번과 이름을 모두 입력해야 출입문이 해제됩니다.', '학생 정보 미입력')
       return
     }
 
@@ -256,39 +355,55 @@ function App() {
     moveToStep(1)
   }
 
+  const handleEquationChoice = (choice) => {
+    if (choice === config.equationAnswer) {
+      addInventoryItem('VALVE')
+      addMemo('CURE')
+      moveToStep(3, 'LOGBOOK')
+      return
+    }
+
+    triggerError(
+      '제어반은 원자 수가 정확히 보존될 때만 반응합니다. 반응 전후의 H와 O 개수를 다시 맞춰 보세요.',
+      `반응식 계수 답안: ${choice}`,
+    )
+  }
+
   const handleMassSubmit = () => {
-    if (massAnswer.trim() === '4') {
+    if (massAnswer.trim() === config.massQuestion.answer) {
+      addMemo('MASS')
       moveToStep(4, 'MASS')
       return
     }
 
     triggerError(
-      '마그네슘 2g과 산소 2g이 반응하면 산화마그네슘은 총 4g입니다.',
+      '질량 보존 법칙은 반응 전 전체 질량과 반응 후 전체 질량이 같다는 뜻입니다. 손상된 로그의 오기 정보에 흔들리지 마세요.',
       `질량 보존 답안: ${massAnswer || '(빈칸)'}`,
     )
   }
 
-  const handleGasSubmit = () => {
-    if (gasChoice === 'B') {
-      moveToStep(5, 'GAS')
-      addInventoryItem('CURE')
+  const handleGasChoice = (choice) => {
+    if (choice === config.gasAnswer) {
+      addMemo('GAS')
+      addInventoryItem('GAS')
+      moveToStep(5, 'CURE')
       return
     }
 
     triggerError(
-      '기체 반응 법칙은 부피비가 간단한 정수비가 되는지 살피면 됩니다. 수소 2L와 산소 1L가 물 2L를 만듭니다.',
-      `기체 반응 선택: ${gasChoice || '(선택 없음)'}`,
+      '기체 반응은 간단한 정수비를 이룹니다. 각 보기에서 반응물과 생성물의 부피가 어떤 정수비를 이루는지 다시 읽어 보세요.',
+      `기체 반응 선택: ${choice}`,
     )
   }
 
   const handleFinalUnlock = () => {
-    if (password.trim() === FINAL_PASSWORD) {
+    if (password.trim() === config.finalPassword) {
       setStep(6)
       return
     }
 
     triggerError(
-      '수집한 세 개의 숫자 메모를 순서대로 조합해 보세요. 질량 보존, 백신 조합, 기체 반응 메모입니다.',
+      '붉은 메모, 푸른 메모, 황금 메모의 문장을 순서대로 읽어 자리수를 조합해 보세요.',
       `최종 암호 시도: ${password || '(빈칸)'}`,
     )
   }
@@ -300,6 +415,8 @@ function App() {
       inventory,
       notes: wrongAnswerNotes,
       submissionStatus: SUBMIT_ENDPOINT ? 'pending-api' : 'json-only',
+      difficulty,
+      finalPassword: config.finalPassword,
     })
 
     setSubmissionJson(JSON.stringify(payload, null, 2))
@@ -329,7 +446,7 @@ function App() {
     } catch (error) {
       setSubmissionStatus(`api-error: ${error.message}`)
       triggerError(
-        'API 전송에는 실패했지만, 아래 JSON 결과는 그대로 복사하거나 저장할 수 있습니다.',
+        'API 전송에는 실패했습니다. 다만 아래 JSON 결과는 그대로 확인할 수 있습니다.',
         `API 제출 실패: ${error.message}`,
       )
     }
@@ -338,6 +455,7 @@ function App() {
   const resetGame = () => {
     setStep(0)
     setStudentInfo({ id: '', name: '' })
+    setDifficulty('normal')
     setInventory([])
     setPassword('')
     setErrorMsg('')
@@ -345,14 +463,14 @@ function App() {
     setTimer(TOTAL_TIME)
     setIsGameOver(false)
     setMassAnswer('')
-    setGasChoice('')
     setSubmissionStatus('idle')
     setSubmissionJson('')
     setWrongAnswerNotes([])
+    setMemoKeys([])
   }
 
   const statusPanel = step > 0 && step < 6 && (
-    <div className="mb-6 grid gap-3 md:grid-cols-3">
+    <div className="mb-6 grid gap-3 md:grid-cols-4">
       <div className="rounded-2xl border border-emerald-400/20 bg-white/10 p-4 backdrop-blur">
         <p className="flex items-center gap-2 text-sm uppercase tracking-[0.18em] text-emerald-100/70">
           <Timer size={16} />
@@ -362,11 +480,18 @@ function App() {
       </div>
       <div className="rounded-2xl border border-emerald-400/20 bg-white/10 p-4 backdrop-blur">
         <p className="flex items-center gap-2 text-sm uppercase tracking-[0.18em] text-emerald-100/70">
+          <ShieldAlert size={16} />
+          난이도
+        </p>
+        <p className="mt-2 text-sm font-bold text-emerald-50">{config.label}</p>
+      </div>
+      <div className="rounded-2xl border border-emerald-400/20 bg-white/10 p-4 backdrop-blur">
+        <p className="flex items-center gap-2 text-sm uppercase tracking-[0.18em] text-emerald-100/70">
           <Backpack size={16} />
-          인벤토리
+          회수 물품
         </p>
         <p className="mt-2 text-sm text-emerald-50">
-          {inventory.length > 0 ? inventory.join(' ') : '아직 확보한 단서가 없습니다.'}
+          {inventory.length > 0 ? inventory.join(' ') : '아직 회수한 물품이 없습니다.'}
         </p>
       </div>
       <div className="rounded-2xl border border-emerald-400/20 bg-white/10 p-4 backdrop-blur">
@@ -376,6 +501,20 @@ function App() {
         </p>
         <p className="mt-2 text-sm text-emerald-50">{wrongAnswerNotes.length}개 기록됨</p>
       </div>
+    </div>
+  )
+
+  const memoPanel = memoKeys.length > 0 && (
+    <div className="mb-6 grid gap-3 lg:grid-cols-3">
+      {memoKeys.map((key) => (
+        <div
+          key={key}
+          className="rounded-2xl border border-amber-300/20 bg-amber-200/10 p-4 text-sm text-amber-50"
+        >
+          <p className="font-bold text-amber-100">{memoFragments[key].title}</p>
+          <p className="mt-2 leading-6 text-amber-50/85">{memoFragments[key].text}</p>
+        </div>
+      ))}
     </div>
   )
 
@@ -417,12 +556,13 @@ function App() {
               좀비 공장
             </h1>
             <p className="mt-2 max-w-2xl text-sm text-emerald-50/75 md:text-base">
-              화학 반응의 규칙을 풀어 백신 성분을 모으고 공장 밖으로 탈출하세요.
+              바이러스가 백신 공장을 장악했습니다. 봉쇄 10분 전, 마지막 실험팀인 당신이 손상된
+              화학 기록을 복구해 자가백신 제조기를 재가동해야 합니다.
             </p>
           </div>
           <div className="hidden rounded-3xl border border-lime-200/15 bg-black/20 px-5 py-4 text-right shadow-reactor backdrop-blur md:block">
-            <p className="text-xs uppercase tracking-[0.25em] text-emerald-100/60">Class Mode</p>
-            <p className="mt-2 font-mono text-lg text-amber-100">React + Vite + Tailwind</p>
+            <p className="text-xs uppercase tracking-[0.25em] text-emerald-100/60">Emergency Mode</p>
+            <p className="mt-2 font-mono text-lg text-amber-100">Science Escape Protocol</p>
           </div>
         </header>
 
@@ -436,52 +576,50 @@ function App() {
 
           {step > 0 && step !== 6 && step !== -1 && questRail}
           {statusPanel}
+          {memoPanel}
 
           {step === 0 && (
-            <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
               <div className="animate-fade-in">
                 <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-3xl border border-lime-200/20 bg-lime-300/10 text-5xl animate-drift">
                   🧟
                 </div>
                 <h2 className="font-display text-3xl font-black text-amber-100 md:text-5xl">
-                  화학 반응식 퀘스트
+                  화학 반응식 생존 미션
                 </h2>
                 <p className="mt-4 max-w-xl text-base leading-7 text-emerald-50/80">
-                  정전이 난 백신 공장에서 좀비 바이러스가 퍼졌습니다. 제한 시간은 10분.
-                  화학 지식을 이용해 창고의 조합 단서를 회수하고 최종 제어실의 잠금을 해제하세요.
+                  감염된 연구원들이 실험동을 배회하고 있습니다. 이번에는 단순한 문제풀이가 아니라
+                  손상된 실험 로그, 오염된 보고서, 긴급 조작 패널을 해석해야 합니다.
                 </p>
                 <div className="mt-6 grid gap-3 text-sm text-emerald-50/80 md:grid-cols-3">
                   <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <p className="font-bold text-amber-100">단원</p>
-                    <p className="mt-2">화학 반응의 규칙</p>
+                    <p className="font-bold text-amber-100">핵심 단원</p>
+                    <p className="mt-2">화학 변화와 반응의 규칙</p>
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <p className="font-bold text-amber-100">형식</p>
-                    <p className="mt-2">방탈출 + 오답 노트</p>
+                    <p className="font-bold text-amber-100">플레이 방식</p>
+                    <p className="mt-2">로그 판독 + 계산 + 암호 조합</p>
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <p className="font-bold text-amber-100">완료 시</p>
-                    <p className="mt-2">JSON 결과 제출</p>
+                    <p className="font-bold text-amber-100">현재 모드</p>
+                    <p className="mt-2">{config.label} / {config.intro}</p>
                   </div>
                 </div>
               </div>
 
               <div className="animate-fade-in rounded-[1.75rem] border border-amber-200/15 bg-white/95 p-6 text-stone-900">
                 <p className="text-sm font-bold uppercase tracking-[0.25em] text-emerald-700">
-                  대원 등록
+                  대원 인증
                 </p>
                 <div className="mt-5 space-y-4">
                   <label className="block">
                     <span className="mb-2 block text-sm font-semibold text-stone-700">학번</span>
                     <input
                       className="w-full rounded-2xl border border-stone-300 bg-stone-50 px-4 py-3 font-semibold outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200"
-                      placeholder="예: 30501"
+                      placeholder="학번 입력"
                       value={studentInfo.id}
                       onChange={(event) =>
-                        setStudentInfo((current) => ({
-                          ...current,
-                          id: event.target.value,
-                        }))
+                        setStudentInfo((current) => ({ ...current, id: event.target.value }))
                       }
                     />
                   </label>
@@ -489,21 +627,36 @@ function App() {
                     <span className="mb-2 block text-sm font-semibold text-stone-700">이름</span>
                     <input
                       className="w-full rounded-2xl border border-stone-300 bg-stone-50 px-4 py-3 font-semibold outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200"
-                      placeholder="이름"
+                      placeholder="이름 입력"
                       value={studentInfo.name}
                       onChange={(event) =>
-                        setStudentInfo((current) => ({
-                          ...current,
-                          name: event.target.value,
-                        }))
+                        setStudentInfo((current) => ({ ...current, name: event.target.value }))
                       }
                     />
                   </label>
+                  <div>
+                    <p className="mb-2 block text-sm font-semibold text-stone-700">난이도 선택</p>
+                    <div className="grid gap-2 md:grid-cols-3">
+                      {Object.entries(difficultyConfigs).map(([key, item]) => (
+                        <button
+                          key={key}
+                          className={`rounded-2xl border px-3 py-3 text-sm font-bold transition ${
+                            difficulty === key
+                              ? 'border-emerald-600 bg-emerald-600 text-white'
+                              : 'border-stone-300 bg-stone-50 text-stone-700 hover:bg-stone-100'
+                          }`}
+                          onClick={() => setDifficulty(key)}
+                        >
+                          {item.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                   <button
                     className="w-full rounded-2xl bg-red-600 px-4 py-4 text-lg font-black text-white transition hover:bg-red-500 active:scale-[0.99]"
                     onClick={handleStart}
                   >
-                    공장 진입
+                    격리 구역 진입
                   </button>
                 </div>
               </div>
@@ -512,95 +665,93 @@ function App() {
 
           {step === 1 && (
             <div className="animate-fade-in space-y-6">
-              <h2 className="font-display text-3xl font-black text-amber-100">Step 1. 어둠 속의 불빛</h2>
+              <h2 className="font-display text-3xl font-black text-amber-100">Step 1. 정전 복도</h2>
               <div className="rounded-[1.75rem] border border-blue-200/10 bg-blue-300/10 p-5 text-emerald-50">
-                공장이 너무 어두워 양초에 불을 붙였습니다. 양초가 타며 빛과 열이 나오고 길이가
-                짧아졌습니다. 이 핵심 변화는 무엇일까요?
+                손전등으로 비춘 복도 기록에는 세 문장이 남아 있습니다. 이 중 화학 변화의 근거가 되는
+                로그를 선택해야 다음 문이 열립니다.
               </div>
-              <div className="grid gap-4 md:grid-cols-2">
-                <button
-                  className="rounded-[1.5rem] border border-white/10 bg-white/5 p-6 text-left transition hover:bg-white/10"
-                  onClick={() =>
-                    triggerError(
-                      '촛농이 녹는 것은 물리 변화일 수 있지만, 양초가 타는 중심 현상은 새로운 물질이 생기는 화학 변화입니다.',
-                      '양초 변화 문제에서 물리 변화 선택',
-                    )
-                  }
-                >
-                  <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-200/70">선택 A</p>
-                  <p className="mt-3 text-2xl font-black text-stone-50">물리 변화</p>
-                </button>
-                <button
-                  className="rounded-[1.5rem] border border-emerald-300/30 bg-emerald-300/15 p-6 text-left transition hover:bg-emerald-300/20"
-                  onClick={() => moveToStep(2, 'H2')}
-                >
-                  <p className="text-sm font-bold uppercase tracking-[0.2em] text-amber-200">선택 B</p>
-                  <p className="mt-3 text-2xl font-black text-stone-50">화학 변화</p>
-                </button>
+              <div className="grid gap-4 md:grid-cols-3">
+                {[
+                  ['A', '얼음이 녹아 바닥에 물이 고였다.', '상태 변화 기록'],
+                  ['B', '양초가 타며 빛과 열이 발생하고 재가 남았다.', '연소 기록'],
+                  ['C', '에탄올 냄새가 퍼지며 액체가 증발했다.', '증발 기록'],
+                ].map(([key, title, description]) => (
+                  <button
+                    key={key}
+                    className="rounded-[1.5rem] border border-white/10 bg-white/5 p-6 text-left transition hover:bg-white/10"
+                    onClick={() => {
+                      if (key === 'B') {
+                        moveToStep(2, 'LOGBOOK')
+                        return
+                      }
+                      triggerError(
+                        '상태만 바뀐 것인지, 새로운 물질이 생긴 것인지 구분해 보세요.',
+                        `복도 로그 판정: ${title}`,
+                      )
+                    }}
+                  >
+                    <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-200/70">{key}</p>
+                    <p className="mt-3 text-xl font-black text-stone-50">{title}</p>
+                    <p className="mt-2 text-sm leading-6 text-emerald-50/70">{description}</p>
+                  </button>
+                ))}
               </div>
             </div>
           )}
 
           {step === 2 && (
             <div className="animate-fade-in space-y-6">
-              <h2 className="font-display text-3xl font-black text-amber-100">Step 2. 기계실 암호</h2>
+              <h2 className="font-display text-3xl font-black text-amber-100">Step 2. 혼합 제어반</h2>
               <div className="rounded-[1.75rem] border border-white/10 bg-stone-900/70 p-6">
-                <p className="text-sm uppercase tracking-[0.25em] text-emerald-100/65">물의 합성 반응식</p>
+                <p className="text-sm uppercase tracking-[0.25em] text-emerald-100/65">백신수 합성 패널</p>
                 <p className="mt-4 font-mono text-3xl font-bold text-emerald-50">
-                  2H₂ + O₂ → <span className="text-red-400">a</span>H₂O
+                  2H₂ + O₂ → aH₂O
                 </p>
                 <p className="mt-4 text-sm leading-7 text-emerald-50/75">
-                  수소 원자 4개와 산소 원자 2개가 반응물에 있으므로 생성물에서도 같아야 합니다.
+                  제어반은 원자 수가 보존되어야만 열립니다. 오염된 패널에서 계수 `a`를 맞춰 밸브 키를
+                  회수하세요.
                 </p>
               </div>
-              <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
-                <label className="block">
-                  <span className="mb-3 block text-sm font-semibold text-amber-100">계수 a 입력</span>
-                  <input
-                    className="w-full rounded-2xl border border-emerald-200/15 bg-stone-950/70 px-4 py-4 text-center font-mono text-3xl font-bold text-lime-100 outline-none transition focus:border-emerald-400"
-                    inputMode="numeric"
-                    placeholder="2"
-                    onChange={(event) => {
-                      const value = event.target.value
-                      if (value === '2') {
-                        addInventoryItem('O2')
-                        moveToStep(3)
-                      } else if (value.length > 0 && value !== '2') {
-                        triggerError(
-                          '생성물 H₂O가 2개 있어야 수소 4개와 산소 2개가 맞춰집니다.',
-                          `반응식 계수 답안: ${value}`,
-                        )
-                      }
-                    }}
-                  />
-                </label>
+              <div className="grid gap-4 md:grid-cols-4">
+                {[1, 2, 3, 4].map((choice) => (
+                  <button
+                    key={choice}
+                    className="rounded-2xl border border-white/10 bg-white/5 px-4 py-6 text-center font-mono text-3xl font-black text-lime-100 transition hover:bg-white/10"
+                    onClick={() => handleEquationChoice(choice)}
+                  >
+                    {choice}
+                  </button>
+                ))}
               </div>
             </div>
           )}
 
           {step === 3 && (
             <div className="animate-fade-in space-y-6">
-              <h2 className="font-display text-3xl font-black text-amber-100">Step 3. 약품 창고 A</h2>
+              <h2 className="font-display text-3xl font-black text-amber-100">Step 3. 약품 창고</h2>
               <div className="rounded-[1.75rem] border border-amber-200/10 bg-amber-300/10 p-6">
-                <p className="text-sm uppercase tracking-[0.25em] text-amber-100/70">질량 보존 법칙</p>
+                <p className="text-sm uppercase tracking-[0.25em] text-amber-100/70">손상된 실험 보고서</p>
                 <p className="mt-4 leading-8 text-emerald-50/85">
-                  창고 기록지에 다음 내용이 적혀 있습니다. “마그네슘 2g과 산소 2g이 완전히
-                  반응하여 산화마그네슘이 생성되었다.” 생성물의 질량은 몇 g일까요?
+                  {config.massQuestion.prompt} 보고서 일부가 훼손되어 오기 정보가 섞여 있을 수 있습니다.
+                  질량 보존 법칙을 기준으로 실제 생성물 전체 질량을 입력하세요.
                 </p>
+                <div className="mt-4 rounded-2xl border border-white/10 bg-stone-950/40 p-4 text-sm text-amber-50/85">
+                  반응 전 기록: {config.massQuestion.reactants.map(([name, value]) => `${name} ${value}g`).join(' + ')}
+                </div>
               </div>
               <div className="flex flex-col gap-4 md:flex-row">
                 <input
                   className="flex-1 rounded-2xl border border-white/10 bg-stone-950/70 px-4 py-4 text-center font-mono text-2xl font-bold text-lime-100 outline-none"
                   inputMode="numeric"
-                  placeholder="정답 입력"
+                  placeholder="질량 입력"
                   value={massAnswer}
-                  onChange={(event) => setMassAnswer(event.target.value)}
+                  onChange={(event) => setMassAnswer(event.target.value.replace(/[^0-9]/g, ''))}
                 />
                 <button
                   className="rounded-2xl bg-amber-400 px-6 py-4 font-black text-stone-950 transition hover:bg-amber-300"
                   onClick={handleMassSubmit}
                 >
-                  창고 개방
+                  창고 해제
                 </button>
               </div>
             </div>
@@ -608,27 +759,19 @@ function App() {
 
           {step === 4 && (
             <div className="animate-fade-in space-y-6">
-              <h2 className="font-display text-3xl font-black text-amber-100">Step 4. 약품 창고 B</h2>
+              <h2 className="font-display text-3xl font-black text-amber-100">Step 4. 환기 터널</h2>
               <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6">
-                <p className="text-sm uppercase tracking-[0.25em] text-emerald-100/65">기체 반응 법칙</p>
+                <p className="text-sm uppercase tracking-[0.25em] text-emerald-100/65">기체 반응 밸브</p>
                 <p className="mt-4 leading-8 text-emerald-50/85">
-                  같은 온도와 압력에서 수소 2L와 산소 1L가 반응하면 수증기 2L가 생성됩니다.
-                  다음 보기 중 올바른 부피 관계를 고르세요.
+                  환기 터널은 맞는 부피비를 선택한 사람만 통과시킵니다. 다음 세 밸브 기록 중 정상 로그를
+                  고르세요.
                 </p>
                 <div className="mt-5 grid gap-3">
-                  {[
-                    ['A', '수소 1L + 산소 1L → 수증기 3L'],
-                    ['B', '수소 2L + 산소 1L → 수증기 2L'],
-                    ['C', '수소 2L + 산소 2L → 수증기 1L'],
-                  ].map(([choice, label]) => (
+                  {config.gasOptions.map(([choice, label]) => (
                     <button
                       key={choice}
-                      className={`rounded-2xl border px-4 py-4 text-left transition ${
-                        gasChoice === choice
-                          ? 'border-amber-300 bg-amber-300 text-stone-950'
-                          : 'border-white/10 bg-stone-950/50 text-emerald-50 hover:bg-white/10'
-                      }`}
-                      onClick={() => setGasChoice(choice)}
+                      className="rounded-2xl border border-white/10 bg-stone-950/50 px-4 py-4 text-left text-emerald-50 transition hover:bg-white/10"
+                      onClick={() => handleGasChoice(choice)}
                     >
                       <span className="mr-3 font-mono text-sm font-bold">{choice}</span>
                       {label}
@@ -636,47 +779,40 @@ function App() {
                   ))}
                 </div>
               </div>
-              <button
-                className="rounded-2xl bg-emerald-400 px-6 py-4 font-black text-stone-950 transition hover:bg-emerald-300"
-                onClick={handleGasSubmit}
-              >
-                백신 조합 확보
-              </button>
             </div>
           )}
 
           {step === 5 && (
             <div className="animate-fade-in space-y-6">
-              <h2 className="font-display text-3xl font-black text-amber-100">Step 5. 최종 제어실</h2>
-              <div className="grid gap-4 md:grid-cols-[1.1fr_0.9fr]">
+              <h2 className="font-display text-3xl font-black text-amber-100">Step 5. 백신 금고</h2>
+              <div className="grid gap-4 md:grid-cols-[1.05fr_0.95fr]">
                 <div className="rounded-[1.75rem] border border-white/10 bg-stone-900/80 p-6">
                   <p className="flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-emerald-100/65">
                     <Lock size={16} />
-                    최종 자물쇠 힌트
+                    금고 해제 규칙
                   </p>
-                  <ul className="mt-4 space-y-3 text-sm leading-7 text-emerald-50/80">
-                    <li>질량 보존 메모에서 첫 번째 숫자를 읽습니다.</li>
-                    <li>백신 조합 키 숫자를 두 번째에 둡니다.</li>
-                    <li>기체 반응 메모 숫자를 세 번째에 둡니다.</li>
-                  </ul>
-                  <p className="mt-4 rounded-2xl border border-amber-300/20 bg-amber-300/10 px-4 py-3 text-sm text-amber-100">
-                    인벤토리에 저장된 숫자 메모를 순서대로 조합하면 암호가 됩니다.
+                  <p className="mt-4 text-sm leading-7 text-emerald-50/80">
+                    지금까지 회수한 메모 조각 세 장이 암호를 설명합니다. 숫자를 직접 보여주지 않으므로,
+                    메모의 문장을 읽고 어떤 자리수를 뽑아야 하는지 스스로 복원해야 합니다.
                   </p>
+                  <div className="mt-4 rounded-2xl border border-amber-300/20 bg-amber-300/10 px-4 py-3 text-sm text-amber-100">
+                    순서: 붉은 메모 → 푸른 메모 → 황금 메모
+                  </div>
                 </div>
                 <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6">
-                  <p className="text-sm font-semibold text-amber-100">암호 입력</p>
+                  <p className="text-sm font-semibold text-amber-100">금고 암호 입력</p>
                   <input
                     className="mt-4 w-full rounded-2xl border border-white/10 bg-stone-950/80 px-4 py-4 text-center font-mono text-4xl font-bold tracking-[0.35em] text-lime-100 outline-none"
                     maxLength={3}
                     value={password}
                     onChange={(event) => setPassword(event.target.value.replace(/[^0-9]/g, ''))}
-                    placeholder="427"
+                    placeholder="세 자리 숫자"
                   />
                   <button
                     className="mt-4 w-full rounded-2xl bg-red-500 px-4 py-4 font-black text-white transition hover:bg-red-400"
                     onClick={handleFinalUnlock}
                   >
-                    탈출 문 열기
+                    금고 개방
                   </button>
                 </div>
               </div>
@@ -691,7 +827,8 @@ function App() {
                   MISSION CLEAR
                 </h2>
                 <p className="mt-3 text-lg text-emerald-50/85">
-                  {studentInfo.name} 대원, 백신 회수와 탈출에 성공했습니다.
+                  {studentInfo.name} 대원, {config.label} 난이도로 백신 금고를 열고 자가백신 제조기를
+                  재가동했습니다.
                 </p>
                 <p className="mt-2 font-mono text-xl text-amber-100">
                   클리어 타임 {formatTime(TOTAL_TIME - timer)}
@@ -702,9 +839,8 @@ function App() {
                 <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6">
                   <p className="text-sm uppercase tracking-[0.25em] text-emerald-100/65">제출 패널</p>
                   <p className="mt-4 text-sm leading-7 text-emerald-50/80">
-                    결과 제출 버튼을 누르면 이름, 학번, 소요 시간, 오답 노트가 JSON으로
-                    출력됩니다. `window.__ZOMBIE_ESCAPE_SUBMIT_ENDPOINT`가 설정되어 있으면 해당
-                    API로도 전송을 시도합니다.
+                    결과 제출을 누르면 이름, 학번, 소요 시간, 난이도, 오답 노트가 JSON으로 출력됩니다.
+                    설정이 있으면 API 전송도 시도합니다.
                   </p>
                   <div className="mt-5 flex flex-col gap-3">
                     <button
@@ -739,8 +875,8 @@ function App() {
               <AlertTriangle className="mx-auto h-16 w-16 text-red-300" />
               <h2 className="font-display text-4xl font-black text-red-200">TIME OVER</h2>
               <p className="mx-auto max-w-xl text-emerald-50/75">
-                좀비가 기계실까지 도달했습니다. 오답 노트를 다시 확인하고 질량 보존, 반응식 계수,
-                기체 반응 부피비를 복습한 뒤 재도전하세요.
+                환기 시스템이 멈추고 감염 구역이 완전히 봉쇄되었습니다. 오답 노트와 메모 조각을 검토한
+                뒤 다시 시도하세요.
               </p>
               <button
                 className="mx-auto rounded-2xl bg-red-500 px-6 py-4 font-black text-white transition hover:bg-red-400"
@@ -761,9 +897,9 @@ function App() {
           )}
 
           <div className="mt-8 flex items-center gap-3 rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-xs text-emerald-50/60">
-            <FlaskConical size={15} />
-            다른 AI 도구에 전달할 때는 앱 폴더 안의 `RAW_SPEC.md`를 함께 넘기면 구조와 전체 흐름을 바로
-            이해할 수 있습니다.
+            <TestTubeDiagonal size={15} />
+            이번 버전은 난이도별 문제 수치와 최종 암호가 달라지고, 손상된 실험 로그를 판독하는 서사형
+            문제 흐름을 사용합니다.
           </div>
         </section>
       </div>
