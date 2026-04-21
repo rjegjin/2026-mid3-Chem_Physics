@@ -32,6 +32,51 @@
 
 `index.html` 파일을 브라우저로 열면 전체 강의 목록을 확인할 수 있는 메인 페이지로 진입합니다.
 
+화학 방탈출 앱은 메인 페이지의 Chemistry 섹션에서 `🧟 좀비 공장 방탈출` 카드로 진입하거나, 직접 `apps/zombie-factory-escape/dist/index.html`을 열면 됩니다.
+
+## ✅ 품질 점검 루틴
+
+HTML 슬라이드 수정 후에는 아래 순서로 점검합니다.
+
+```bash
+make check
+```
+
+물리 파트만 빠르게 다시 보고 싶다면:
+
+```bash
+make check-phys
+```
+
+실제 렌더링까지 자동으로 보려면:
+
+```bash
+make render-check FILE=8_uniform_motion.html
+```
+
+이 명령은 다음을 자동 수행합니다.
+
+- 임시 로컬 서버 기동
+- Chromium 헤드리스 렌더링
+- 데스크톱/모바일 스크린샷 저장
+- `?view=all` 전체 문서 스크린샷 저장
+- DOM 기준 이미지 깨짐, 가로 오버플로, 레이아웃 이상 징후를 JSON으로 기록
+
+결과물은 `tmp_checks/` 아래에 저장됩니다.
+
+커밋 전에 자동으로 막히게 하려면 한 번만 실행합니다.
+
+```bash
+make install-hooks
+```
+
+이후 `git commit` 시 `check_html_quality.py`가 자동 실행되어 다음 항목을 검사합니다.
+
+- 깨진 로컬/원격 `src`, `href`
+- 슬라이드 `data-slide-num`, `data-title`
+- 수식 표기 토큰 누락 및 자주 나는 오기 패턴
+- 닫히지 않은 `sub`, `sup` 태그
+
 ## 📝 업데이트 기록 (Changelog)
 
 ### [2026-03-09] 2차시 자료 고도화 및 가독성 개선

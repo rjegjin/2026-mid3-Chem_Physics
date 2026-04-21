@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Pretendard Variable', 'SUIT Variable', system-ui, sans-serif;
+  color: #f7f7ef;
+  background:
+    radial-gradient(circle at top, rgba(27, 94, 72, 0.32), transparent 40%),
+    linear-gradient(180deg, #07130f 0%, #091a15 45%, #030806 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: auto;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::before {
+  top: 4rem;
+  left: 4rem;
+  width: 16rem;
+  height: 16rem;
+  border-radius: 9999px;
+  background: rgba(190, 242, 100, 0.08);
+  filter: blur(30px);
+}
+
+body::after {
+  right: 2rem;
+  bottom: 5rem;
+  width: 20rem;
+  height: 20rem;
+  border-radius: 9999px;
+  background: rgba(251, 191, 36, 0.08);
+  filter: blur(40px);
+}
+
+#root {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(187, 247, 208, 0.24);
+  color: #fefce8;
+}
