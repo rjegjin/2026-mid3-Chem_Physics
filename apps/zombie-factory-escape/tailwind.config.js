@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Trebuchet MS', 'Verdana', 'sans-serif'],
-        body: ['Pretendard Variable', 'SUIT Variable', 'system-ui', 'sans-serif'],
+        display: ['"Black Han Sans"', 'sans-serif'],
+        body: ['Rajdhani', '"Pretendard Variable"', '"SUIT Variable"', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Consolas', 'monospace'],
       },
       animation: {
