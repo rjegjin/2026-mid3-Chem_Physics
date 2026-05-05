@@ -138,27 +138,11 @@ window.SlideEngine = {
         if (isViewAll) {
             btn.innerHTML = '📽️ 슬라이드';
             btn.title = '슬라이드 모드 (V)';
-            this.revealAllQuizzes();
         } else {
             btn.innerHTML = '📋 전체';
             btn.title = '전체 보기 (V)';
             this.updateView();
         }
-    },
-
-    revealAllQuizzes: function() {
-        const quizButtons = document.querySelectorAll('.quiz-btn');
-        quizButtons.forEach(btn => {
-            if (btn.dataset.correct === 'true') {
-                btn.classList.add('correct', 'ring-4', 'ring-green-200');
-            }
-        });
-        const feedbacks = document.querySelectorAll('.quiz-feedback');
-        feedbacks.forEach(fb => {
-            if (!fb.innerHTML.trim()) {
-                fb.innerHTML = '<span class="text-green-600 font-bold">정답 공개됨</span>';
-            }
-        });
     },
 
     updateView: function() {
