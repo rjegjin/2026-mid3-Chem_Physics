@@ -20,6 +20,28 @@
             border-radius: 2rem;
             backdrop-filter: blur(10px);
         }
+        .summary-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+        }
+        .unit-label {
+            display: inline-block;
+            padding: 0.3rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 900;
+            background: #ccfbf1;
+            color: #0f766e;
+            margin-bottom: 0.75rem;
+        }
+        .flow-arrow {
+            color: #94a3b8;
+            font-size: 1.8rem;
+            font-weight: 900;
+        }
   </style>
  </head>
  <body class="presentation-mode">
@@ -28,42 +50,97 @@
    <section class="hero-bg" data-slide-index="0" data-slide-num="1" data-title="Physics Intro" id="slide-1">
     <div class="slide-content bg-overlay">
      <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">2026학년도 중학교 3학년 과학 &bull; 물리</p>
-     <h1 class="text-4xl md:text-6xl font-black mb-6 text-slate-90 leading-tight">
-      <span style="color:var(--accent-teal)">운동과 에너지</span><br/>세상을 움직이는 법칙
+     <h1 class="text-4xl md:text-6xl font-black mb-6 text-slate-900 leading-tight">
+      <span style="color:var(--accent-teal)">운동과 에너지</span><br/>움직임을 기록하고 에너지로 설명하기
      </h1>
      <div class="w-20 h-1 bg-slate-800 mx-auto my-8"></div>
-     <p class="text-2xl text-slate-600">보이지 않는 힘이 만드는 역동적인 변화</p>
+     <p class="text-2xl text-slate-600">등속 운동, 자유 낙하, 일과 에너지를 하나의 흐름으로 정리합니다.</p>
     </div>
    </section>
-   <!-- Slide 2: Roadmap -->
-   <section data-slide-index="1" data-slide-num="2" data-title="물리 로드맵" id="slide-2">
+   <!-- Slide 2: Unit Questions -->
+   <section data-slide-index="1" data-slide-num="2" data-title="핵심 질문" id="slide-2">
     <div class="slide-content">
-     <h2 class="text-teal-700">물리 단원 학습 로드맵</h2>
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl mt-8 text-left">
-      <div class="p-8 bg-teal-50 border-t-8 border-teal-500 rounded-2xl">
-       <h3 class="text-2xl font-bold mb-4">1. 물체의 운동</h3>
-       <p class="text-lg">속력과 방향, 그리고 시간에 따른 위치 변화를 탐구합니다.</p>
+     <h2 class="text-teal-700">이 단원은 두 질문에서 출발합니다</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl mt-8 text-left">
+      <div class="summary-card border-t-8 border-teal-500">
+       <span class="unit-label">운동</span>
+       <h3 class="text-2xl font-black text-slate-800 mb-4">자이로 드롭은 올라갈 때와 떨어질 때 어떻게 다를까?</h3>
+       <p class="text-lg text-slate-600">시간에 따른 거리와 속력 변화를 기록하여 <strong>등속 운동</strong>과 <strong>자유 낙하 운동</strong>의 차이를 비교합니다.</p>
       </div>
-      <div class="p-8 bg-amber-50 border-t-8 border-amber-500 rounded-2xl">
-       <h3 class="text-2xl font-bold mb-4">2. 에너지의 전환과 보존</h3>
-       <p class="text-lg">운동 에너지와 위치 에너지, 그리고 에너지는 왜 사라지지 않는지 배웁니다.</p>
+      <div class="summary-card border-t-8 border-amber-500">
+       <span class="unit-label" style="background:#fef3c7;color:#b45309;">에너지</span>
+       <h3 class="text-2xl font-black text-slate-800 mb-4">처마에서 떨어지는 빗방울의 에너지는 어디에서 생길까?</h3>
+       <p class="text-lg text-slate-600">중력이 한 일과 중력에 대해 한 일을 바탕으로 <strong>위치 에너지</strong>와 <strong>운동 에너지</strong>를 연결합니다.</p>
       </div>
      </div>
     </div>
    </section>
-   <!-- Slide 3: Start -->
-   <section data-slide-index="2" data-slide-num="3" data-title="수업 시작" id="slide-3">
+   <!-- Slide 3: Roadmap -->
+   <section data-slide-index="2" data-slide-num="3" data-title="단원 구조" id="slide-3">
+    <div class="slide-content">
+     <h2 class="text-teal-700">학습 흐름 요약</h2>
+     <div class="w-full max-w-6xl mt-8">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center text-center">
+       <div class="summary-card">
+        <span class="unit-label">L8</span>
+        <h3 class="text-xl font-black text-slate-800 mb-2">등속 운동</h3>
+        <p class="text-base text-slate-600">속력이 일정한 운동을 시간-거리, 시간-속력 그래프로 해석</p>
+       </div>
+       <div class="flow-arrow hidden md:block">→</div>
+       <div class="summary-card">
+        <span class="unit-label">L9</span>
+        <h3 class="text-xl font-black text-slate-800 mb-2">자유 낙하</h3>
+        <p class="text-base text-slate-600">중력이 일정하게 작용할 때 속력이 일정하게 증가함을 분석</p>
+       </div>
+       <div class="flow-arrow hidden md:block">→</div>
+       <div class="summary-card">
+        <span class="unit-label">L10~14</span>
+        <h3 class="text-xl font-black text-slate-800 mb-2">일과 에너지</h3>
+        <p class="text-base text-slate-600">일, 위치 에너지, 운동 에너지, 역학적 에너지 보존으로 확장</p>
+       </div>
+      </div>
+      <div class="mt-6 p-5 bg-slate-50 border border-slate-200 rounded-2xl text-left">
+       <p class="text-lg text-slate-700 mb-0"><strong>핵심 연결:</strong> 운동을 그래프로 분석하고, 그 변화의 원인을 중력과 일, 에너지 전환으로 설명합니다.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 4: Learning Goals -->
+   <section data-slide-index="3" data-slide-num="4" data-title="학습 목표" id="slide-4">
+    <div class="slide-content">
+     <h2 class="text-teal-700">이번 단원에서 할 수 있어야 하는 것</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full max-w-5xl mt-8 text-left">
+      <div class="summary-card">
+       <h3 class="text-xl font-black text-slate-800 mb-3">1. 운동을 기록하고 해석하기</h3>
+       <p class="text-base text-slate-600">물체의 위치 변화를 여러 방법으로 기록하고, 자료에서 속력 변화를 설명합니다.</p>
+      </div>
+      <div class="summary-card">
+       <h3 class="text-xl font-black text-slate-800 mb-3">2. 두 운동의 차이 비교하기</h3>
+       <p class="text-base text-slate-600">등속 운동은 속력이 일정하고, 자유 낙하는 속력이 일정하게 증가한다는 점을 구분합니다.</p>
+      </div>
+      <div class="summary-card">
+       <h3 class="text-xl font-black text-slate-800 mb-3">3. 과학적 일 계산하기</h3>
+       <p class="text-base text-slate-600">힘이 물체를 이동시킬 때의 일을 정량적으로 구하고, 중력과 연결해 해석합니다.</p>
+      </div>
+      <div class="summary-card">
+       <h3 class="text-xl font-black text-slate-800 mb-3">4. 에너지 전환 설명하기</h3>
+       <p class="text-base text-slate-600">중력에 대해 한 일은 위치 에너지로, 중력이 한 일은 운동 에너지로 표현합니다.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Slide 5: Start -->
+   <section data-slide-index="4" data-slide-num="5" data-title="수업 시작" id="slide-5">
     <div class="slide-content">
       <div class="text-center max-w-2xl">
-        <span class="text-6xl mb-6 block">🚀</span>
-        <h2 class="text-3xl font-black mb-4 text-teal-700">물리 단원을 시작합니다!</h2>
-        <p class="text-xl text-slate-600 mb-8">L8 ~ L15 — 운동과 에너지의 법칙을 단계별로 정복합니다.</p>
+        <h2 class="text-3xl font-black mb-4 text-teal-700">첫 번째 관찰: 속력이 일정한 운동</h2>
+        <p class="text-xl text-slate-600 mb-8">다음 강의에서는 이동 거리와 시간이 함께 변할 때, 운동을 어떻게 수치와 그래프로 읽는지 시작합니다.</p>
         <div class="flex gap-4 justify-center flex-wrap">
          <a class="btn-enter" href="8_uniform_motion.html" style="font-size: 1.1rem; padding: 0.8rem 2rem; background: #0d9488;">
           첫 강의 시작: 8강 등속 운동 →
          </a>
          <a class="btn-enter" href="index.html?tab=phys" style="font-size: 1.1rem; padding: 0.8rem 2rem; background: #475569;">
-          🏠 물리 단원 대시보드
+          물리 단원 대시보드
          </a>
         </div>
       </div>

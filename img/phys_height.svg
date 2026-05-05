@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ede9fe"/>
+      <stop offset="100%" stop-color="#e0e7ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <path d="M100 650l240-360 200 250 150-210 170 320z" fill="#64748b"/>
+  <circle cx="520" cy="380" r="42" fill="#f59e0b"/>
+  <path d="M940 150v430" stroke="#7c3aed" stroke-width="16" stroke-linecap="round"/>
+  <path d="M910 200l30-50 30 50" fill="none" stroke="#7c3aed" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M910 530l30 50 30-50" fill="none" stroke="#7c3aed" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="90" y="110" font-family="Noto Sans KR, sans-serif" font-size="64" font-weight="700" fill="#312e81">높이와 위치 에너지</text>
+  <text x="90" y="180" font-family="Noto Sans KR, sans-serif" font-size="34" fill="#4338ca">같은 물체라도 높이가 클수록 저장된 에너지가 커진다</text>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <rect width="1200" height="800" fill="#f8fafc"/>
+  <path d="M70 620c120-40 220-220 350-220s170 230 300 230 180-260 410-260" fill="none" stroke="#0f766e" stroke-width="22" stroke-linecap="round"/>
+  <path d="M120 620v-110M220 620V420M320 620V380M420 620V470M520 620V520M620 620V470M720 620V350M820 620V390M920 620V300M1020 620V270" stroke="#94a3b8" stroke-width="12"/>
+  <rect x="250" y="360" width="130" height="70" rx="22" fill="#f59e0b"/>
+  <circle cx="285" cy="435" r="18" fill="#334155"/>
+  <circle cx="345" cy="435" r="18" fill="#334155"/>
+  <text x="90" y="110" font-family="Noto Sans KR, sans-serif" font-size="64" font-weight="700" fill="#0f172a">롤러코스터와 역학적 에너지</text>
+  <text x="90" y="180" font-family="Noto Sans KR, sans-serif" font-size="34" fill="#334155">높이 에너지와 운동 에너지가 서로 전환되는 대표 사례</text>
+</svg>

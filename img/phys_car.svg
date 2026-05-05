@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="roadSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dbeafe"/>
+      <stop offset="100%" stop-color="#eff6ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#roadSky)"/>
+  <rect x="0" y="560" width="1200" height="240" fill="#334155"/>
+  <path d="M0 680h1200" stroke="#f8fafc" stroke-width="12" stroke-dasharray="44 28"/>
+  <path d="M260 470h390l110 90h90v80H210v-70z" fill="#ea580c"/>
+  <circle cx="350" cy="640" r="52" fill="#0f172a"/>
+  <circle cx="730" cy="640" r="52" fill="#0f172a"/>
+  <rect x="340" y="500" width="170" height="65" rx="18" fill="#e0f2fe"/>
+  <rect x="530" y="500" width="120" height="65" rx="18" fill="#e0f2fe"/>
+  <path d="M940 430h130" stroke="#ef4444" stroke-width="20" stroke-linecap="round"/>
+  <path d="M1035 390l55 40-55 40" fill="none" stroke="#ef4444" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="90" y="110" font-family="Noto Sans KR, sans-serif" font-size="64" font-weight="700" fill="#7c2d12">운동 에너지와 충돌</text>
+  <text x="90" y="180" font-family="Noto Sans KR, sans-serif" font-size="34" fill="#9a3412">속력이 커질수록 에너지가 급격히 증가한다</text>
+</svg>

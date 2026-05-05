@@ -6,8 +6,6 @@
   <title>8차시: 물체의 운동 — 등속 운동 분석</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script async id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <link href="css/common.css" rel="stylesheet"/>
   <link href="css/presentation_mode.css" rel="stylesheet"/>
   <link href="css/chem_style.css" rel="stylesheet"/>
@@ -75,33 +73,33 @@
      </h1>
      <div class="w-20 h-1 bg-teal-600 mx-auto my-8"></div>
      <p class="text-2xl text-slate-600 font-medium">제 8강: 물체의 운동 — 등속 운동 분석</p>
-     <p class="text-xl text-slate-500 font-bold mt-4">📖 비상 교과서 III단원 1장</p>
+     <p class="text-xl text-slate-500 font-bold mt-4">비상 교과서 III단원 1장: 속력이 일정한 운동</p>
     </div>
    </section>
 
-   <!-- Slide 2: 도입 — 빠르다? 느리다? -->
-   <section data-slide-index="1" data-slide-num="2" data-title="도입: 속력이란?" id="slide-2">
+   <!-- Slide 2: 도입 — 지도서 핵심 질문 -->
+   <section data-slide-index="1" data-slide-num="2" data-title="도입: 자이로 드롭의 올라가는 운동" id="slide-2">
     <div class="slide-content">
-     <h2>어떤 것이 더 빠를까요?</h2>
+     <h2>자이로 드롭이 올라갈 때, 운동은 어떻게 기록할까요?</h2>
      <div class="flex flex-col md:flex-row gap-6 items-center max-w-6xl mt-8 w-full">
       <div class="w-full md:w-1/2">
-       <img src="https://images.unsplash.com/FZskpOfuX0k?auto=format&fit=crop&w=700&q=80"
-            alt="KTX 열차" class="rounded-2xl shadow-2xl w-full object-cover" style="max-height:320px;"/>
+       <img src="img/phys_transport.svg"
+            alt="일정하게 움직이는 교통수단" class="rounded-2xl shadow-2xl w-full object-cover" style="max-height:320px;"/>
       </div>
       <div class="w-full md:w-1/2 text-left space-y-5">
-       <div class="p-5 rounded-xl">
-        <p class="text-lg font-bold text-slate-700">KTX</p>
-        <p class="text-3xl font-black text-slate-800">300 km/h</p>
-        <p class="text-sm text-slate-500">서울 → 부산 2시간 10분</p>
+       <div class="p-5 rounded-xl border border-slate-200">
+        <p class="text-lg font-bold text-slate-700">지도서 핵심 질문</p>
+        <p class="text-2xl font-black text-slate-800">자이로 드롭이 올라갈 때와 떨어질 때의 운동은 어떻게 다를까?</p>
+        <p class="text-sm text-slate-500">이번 차시는 먼저 올라갈 때의 운동을 시간과 거리로 기록합니다.</p>
        </div>
-       <div class="p-5 rounded-xl">
-        <p class="text-lg font-bold text-slate-700">사람 걷기</p>
-        <p class="text-3xl font-black text-slate-800">5 km/h</p>
-        <p class="text-sm text-slate-500">서울 → 부산 80시간</p>
+       <div class="p-5 rounded-xl border border-slate-200">
+        <p class="text-lg font-bold text-slate-700">오늘의 판단 기준</p>
+        <p class="text-base text-slate-600">같은 시간 동안 같은 거리를 이동하면 <strong>속력이 일정한 운동</strong>입니다.</p>
+        <p class="text-sm text-slate-500 mt-1">시간-거리 그래프는 직선, 시간-속력 그래프는 수평선으로 나타납니다.</p>
        </div>
        <div class="p-5 bg-slate-50 border-l-4 border-slate-400 rounded-xl">
-        <p class="text-lg font-bold text-slate-700 mb-1">그렇다면 — 속력이란?</p>
-        <p class="text-base text-slate-600"><strong>단위 시간</strong>에 물체가 이동한 <strong>거리</strong>입니다.</p>
+        <p class="text-lg font-bold text-slate-700 mb-1">학습 목표</p>
+        <p class="text-base text-slate-600">운동 자료를 그래프로 바꾸고, 그래프에서 속력 변화를 설명합니다.</p>
        </div>
       </div>
      </div>
@@ -478,19 +476,19 @@
      <h2 class="text-teal-700">등속 운동, 우리 주변에서 찾기</h2>
      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full max-w-6xl mt-8">
       <div class="concept-card border-t-4 border-teal-400 text-center">
-       <img src="https://images.unsplash.com/iAw0rR82XkE?auto=format&fit=crop&w=400&q=80"
+       <img src="img/phys_transport.svg"
             alt="에스컬레이터" class="rounded-xl mb-4 w-full object-cover" style="height:160px;"/>
        <p class="font-black text-slate-800">에스컬레이터</p>
        <p class="text-sm text-slate-500 mt-1">일정한 속력으로 계속 이동</p>
       </div>
       <div class="concept-card border-t-4 border-blue-400 text-center">
-       <img src="https://images.unsplash.com/zCjpx3N2whw?auto=format&fit=crop&w=400&q=80"
+       <img src="img/phys_transport.svg"
             alt="컨베이어벨트" class="rounded-xl mb-4 w-full object-cover" style="height:160px;"/>
        <p class="font-black text-slate-800">컨베이어 벨트</p>
        <p class="text-sm text-slate-500 mt-1">공장·공항 수하물 처리에 사용</p>
       </div>
       <div class="concept-card border-t-4 border-indigo-400 text-center">
-       <img src="https://images.unsplash.com/63eIRNS-hHc?auto=format&fit=crop&w=400&q=80"
+       <img src="img/phys_satellite.svg"
             alt="인공위성" class="rounded-xl mb-4 w-full object-cover" style="height:160px;"/>
        <p class="font-black text-slate-800">인공위성</p>
        <p class="text-sm text-slate-500 mt-1">원형 궤도: 속력 일정, 방향만 변화</p>
@@ -739,12 +737,14 @@
     <div class="slide-content">
      <h2 class="text-teal-700">PhET 시뮬레이션: 이동하는 사람</h2>
      <p class="text-slate-500 mb-4">아래 시뮬레이션으로 등속 운동을 직접 실험해보세요</p>
-     <div class="w-full" style="max-width:900px;">
-      <iframe src="https://phet.colorado.edu/sims/html/moving-man/latest/moving-man_ko.html"
-              width="100%" height="500" style="border:0; border-radius:1rem; box-shadow:0 8px 30px rgba(0,0,0,0.15);"
-              allowfullscreen></iframe>
+     <div class="w-full rounded-3xl border border-slate-200 bg-white/80 p-8 text-left" style="max-width:900px;">
+      <p class="font-bold text-slate-800 text-lg">임베드 점검 결과</p>
+      <p class="text-slate-600 mt-2">기존 HTML 임베드 주소는 현재 404입니다. 직접 실행 링크로 전환해 두었습니다.</p>
+      <a class="btn-enter mt-5 inline-block" href="https://phet.colorado.edu/ko/simulations/moving-man" target="_blank" rel="noopener noreferrer" style="background:#0d9488;">
+       PhET 이동하는 사람 열기 →
+      </a>
+      <p class="text-xs text-slate-400 mt-4">PhET Interactive Simulations, University of Colorado Boulder</p>
      </div>
-     <p class="text-xs text-slate-400 mt-3">PhET Interactive Simulations, University of Colorado Boulder</p>
     </div>
    </section>
 

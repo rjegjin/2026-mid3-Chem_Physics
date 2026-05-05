@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <rect width="1200" height="800" fill="#f8fafc"/>
+  <rect x="0" y="620" width="1200" height="180" fill="#cbd5e1"/>
+  <rect x="630" y="430" width="230" height="190" rx="28" fill="#94a3b8"/>
+  <path d="M430 305c0-47 38-85 85-85s85 38 85 85" fill="none" stroke="#0f172a" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="430" cy="280" r="24" fill="#0f172a"/>
+  <path d="M430 308v135" stroke="#0f172a" stroke-width="14" stroke-linecap="round"/>
+  <path d="M430 350l85 52" stroke="#0f172a" stroke-width="14" stroke-linecap="round"/>
+  <path d="M430 350l-70 60" stroke="#0f172a" stroke-width="14" stroke-linecap="round"/>
+  <path d="M430 442l-48 92" stroke="#0f172a" stroke-width="14" stroke-linecap="round"/>
+  <path d="M430 442l55 92" stroke="#0f172a" stroke-width="14" stroke-linecap="round"/>
+  <path d="M530 510h170" stroke="#ef4444" stroke-width="18" stroke-linecap="round"/>
+  <path d="M664 470l56 40-56 40" fill="none" stroke="#ef4444" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="90" y="110" font-family="Noto Sans KR, sans-serif" font-size="64" font-weight="700" fill="#0f172a">일과 힘의 방향</text>
+  <text x="90" y="180" font-family="Noto Sans KR, sans-serif" font-size="34" fill="#475569">힘을 주고 실제로 이동시킬 때만 과학에서의 일이 성립</text>
+</svg>
