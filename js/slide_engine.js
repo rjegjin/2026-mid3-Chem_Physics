@@ -199,9 +199,23 @@ window.SlideEngine = {
         quizzes.forEach(quiz => {
             const options = quiz.querySelectorAll('.quiz-btn');
             const feedback = quiz.querySelector('.quiz-feedback');
+            if (!feedback) return;
+
+            const defaultFeedback = feedback.innerHTML.trim();
+            feedback.dataset.defaultFeedback = defaultFeedback;
+            feedback.style.display = 'none';
+
+            // Some physics slides define their own inline checkAnswer() handler.
+            // Let those handlers own the click behavior after the shared initial hide.
+            if (Array.from(options).some(option => option.hasAttribute('onclick'))) {
+                return;
+            }
             
             options.forEach(option => {
                 option.addEventListener('click', () => {
+                    if (quiz.querySelector('.quiz-btn.selected')) return;
+                    option.classList.add('selected');
+
                     // Disable all options in this quiz
                     options.forEach(opt => {
                         opt.disabled = true;
@@ -211,8 +225,9 @@ window.SlideEngine = {
                     });
                     
                     const isCorrect = option.dataset.correct === 'true';
+                    feedback.style.display = 'block';
                     if (isCorrect) {
-                        feedback.innerHTML = '<span class="text-green-600 font-bold animate-bounce text-xl">정답입니다! 🎉</span>';
+                        feedback.innerHTML = defaultFeedback || '<span class="text-green-600 font-bold animate-bounce text-xl">정답입니다! 🎉</span>';
                     } else {
                         option.classList.add('wrong', 'ring-4', 'ring-red-200');
                         feedback.innerHTML = '<span class="text-red-500 font-bold text-xl">아쉬워요! 다음엔 꼭! 😢</span>';
