@@ -119,6 +119,42 @@ header = """<!DOCTYPE html>
 footer = """
         </div>
     </div>
+    <script>
+        async function replaceImage(event, filename, oldUrl) {
+            event.preventDefault();
+            const form = event.target;
+            const newUrl = form.new_url.value;
+            const btn = form.querySelector('button');
+            const originalText = btn.innerText;
+            
+            btn.innerText = 'Wait...';
+            btn.disabled = true;
+            
+            try {
+                // Assuming asset_server.py is running on port 5005
+                const res = await fetch('http://localhost:5005/api/replace_image', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ filename, old_url: oldUrl, new_url: newUrl })
+                });
+                
+                const data = await res.json();
+                if (data.status === 'success') {
+                    btn.innerText = 'OK!';
+                    btn.classList.replace('bg-blue-600', 'bg-green-600');
+                    setTimeout(() => window.location.reload(), 1000);
+                } else {
+                    alert('Error: ' + data.message);
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                alert('Network error. Is asset_server.py running?');
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        }
+    </script>
 </body>
 </html>
 """
@@ -154,8 +190,15 @@ for category, files in categorized_assets.items():
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
                             {preview}
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="{url}" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="{url}" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '{filename}', '{url}')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 """

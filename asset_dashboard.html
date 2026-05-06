@@ -5,14 +5,14 @@
     <title>2026 Asset Dashboard (AST Powered)</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-50 text-slate-90 font-sans p-8">
+<body class="bg-slate-50 text-slate-900 font-sans p-8">
     <div class="max-w-7xl mx-auto">
-        <header class="flex justify-between items-end mb-12 border-b-4 border-slate-90 pb-6">
+        <header class="flex justify-between items-end mb-12 border-b-4 border-slate-900 pb-6">
             <div>
-                <h1 class="text-5xl font-black tracking-tighter text-slate-90">Asset Dashboard</h1>
+                <h1 class="text-5xl font-black tracking-tighter text-slate-900">Asset Dashboard</h1>
                 <p class="text-slate-500 mt-2 font-bold">Powered by BeautifulSoup AST Parsing</p>
             </div>
-            <a href="index.html" class="bg-slate-90 text-white px-8 py-3 rounded-full font-black hover:bg-blue-600 transition-all shadow-lg">Home</a>
+            <a href="index.html" class="bg-slate-900 text-white px-8 py-3 rounded-full font-black hover:bg-blue-600 transition-all shadow-lg">Home</a>
         </header>
         <div class="space-y-20">
 
@@ -33,17 +33,15 @@
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
                             <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80" class="max-h-full object-contain mx-auto" />
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="wordcloud_3d.html" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="wordcloud_3d.html" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '0_chemistry_ot.html', 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 
@@ -51,8 +49,31 @@
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
                             <img src="https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80" class="max-h-full object-contain mx-auto" />
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '0_chemistry_ot.html', 'https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="wordcloud_3d.html" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="wordcloud_3d.html" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '0_chemistry_ot.html', 'wordcloud_3d.html')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 
@@ -60,8 +81,15 @@
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
                             <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80" class="max-h-full object-contain mx-auto" />
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '0_chemistry_ot.html', 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 </div></div></div></div>
@@ -90,35 +118,15 @@
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s" class="max-h-full object-contain mx-auto" />
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 
@@ -126,53 +134,15 @@
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
                             <img src="https://images.nagwa.com/figures/explainers/146165392424/9.svg" class="max-h-full object-contain mx-auto" />
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://images.nagwa.com/figures/explainers/146165392424/9.svg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.nagwa.com/figures/explainers/146165392424/9.svg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://images.nagwa.com/figures/explainers/146165392424/9.svg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 
@@ -180,8 +150,31 @@
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
                             <iframe src="https://phet.colorado.edu/sims/html/states-of-matter-basics/latest/states-of-matter-basics_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://phet.colorado.edu/sims/html/states-of-matter-basics/latest/states-of-matter-basics_all.html?locale=ko" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://phet.colorado.edu/sims/html/states-of-matter-basics/latest/states-of-matter-basics_all.html?locale=ko" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://phet.colorado.edu/sims/html/states-of-matter-basics/latest/states-of-matter-basics_all.html?locale=ko')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 
@@ -189,62 +182,15 @@
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
                             <img src="https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg" class="max-h-full object-contain mx-auto" />
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 
@@ -252,8 +198,175 @@
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
                             <img src="https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg" class="max-h-full object-contain mx-auto" />
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 
@@ -261,8 +374,63 @@
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s" class="max-h-full object-contain mx-auto" />
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 </div></div>
@@ -285,17 +453,31 @@
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
                             <iframe src="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '2_chemical_equation.html', 'https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 
                     <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/J%C3%B6ns_Jacob_Berzelius.jpg/220px-J%C3%B6ns_Jacob_Berzelius.jpg" class="max-h-full object-contain mx-auto" />
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3Fc1tTiGKKWs_RGKddcGLSmpZMK4SpfZ9qA&s" class="max-h-full object-contain mx-auto" />
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/J%C3%B6ns_Jacob_Berzelius.jpg/220px-J%C3%B6ns_Jacob_Berzelius.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3Fc1tTiGKKWs_RGKddcGLSmpZMK4SpfZ9qA&s" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '2_chemical_equation.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3Fc1tTiGKKWs_RGKddcGLSmpZMK4SpfZ9qA&s')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 </div></div>
@@ -316,10 +498,17 @@
 
                     <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <iframe src="https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
+                            <img src="https://m.media-amazon.com/images/I/81kQ8phdWRL.jpg" class="max-h-full object-contain mx-auto" />
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_all.html?locale=ko" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://m.media-amazon.com/images/I/81kQ8phdWRL.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '3_mass_conservation.html', 'https://m.media-amazon.com/images/I/81kQ8phdWRL.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 
@@ -327,35 +516,31 @@
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
                             <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="max-h-full object-contain mx-auto" />
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '3_mass_conservation.html', 'https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 
                     <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Portrait_of_Antoine-Laurent_Lavoisier_and_his_wife_by_Jacques-Louis_David_crop.jpg/300px-Portrait_of_Antoine-Laurent_Lavoisier_and_his_wife_by_Jacques-Louis_David_crop.jpg" class="max-h-full object-contain mx-auto" />
+                            <iframe src="https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Portrait_of_Antoine-Laurent_Lavoisier_and_his_wife_by_Jacques-Louis_David_crop.jpg/300px-Portrait_of_Antoine-Laurent_Lavoisier_and_his_wife_by_Jacques-Louis_David_crop.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://images.unsplash.com/photo-1518152006812-edab29b069ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://images.unsplash.com/photo-1518152006812-edab29b069ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://images.unsplash.com/photo-1542332213-31f87348057f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://images.unsplash.com/photo-1542332213-31f87348057f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_all.html?locale=ko" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '3_mass_conservation.html', 'https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_all.html?locale=ko')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 </div></div>
@@ -376,19 +561,17 @@
 
                     <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Magnesium_ribbon_burning.jpg" class="max-h-full object-contain mx-auto" />
+                            <img src="https://media.gettyimages.com/id/137187401/video/magnesium-ribbon-burning-in-a-bunsen-flame.jpg?s=640x640&k=20&c=-dpSnPpLsZ9r34xWA53_P2dxksMeegKxD3g-aeNzxw8=" class="max-h-full object-contain mx-auto" />
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/d/d0/Magnesium_ribbon_burning.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://media.gettyimages.com/id/137187401/video/magnesium-ribbon-burning-in-a-bunsen-flame.jpg?s=640x640&k=20&c=-dpSnPpLsZ9r34xWA53_P2dxksMeegKxD3g-aeNzxw8=" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '4_definite_proportions.html', 'https://media.gettyimages.com/id/137187401/video/magnesium-ribbon-burning-in-a-bunsen-flame.jpg?s=640x640&k=20&c=-dpSnPpLsZ9r34xWA53_P2dxksMeegKxD3g-aeNzxw8=')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 
@@ -396,17 +579,15 @@
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
                             <iframe src="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Joseph_Louis_Proust.jpg" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/d/d2/Joseph_Louis_Proust.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '4_definite_proportions.html', 'https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 
@@ -414,8 +595,47 @@
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
                             <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="max-h-full object-contain mx-auto" />
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '4_definite_proportions.html', 'https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '4_definite_proportions.html', 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Portrait_of_Louis_Proust._Wellcome_L0006972.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/6/65/Portrait_of_Louis_Proust._Wellcome_L0006972.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '4_definite_proportions.html', 'https://upload.wikimedia.org/wikipedia/commons/6/65/Portrait_of_Louis_Proust._Wellcome_L0006972.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 </div></div>
@@ -436,46 +656,33 @@
 
                     <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
                             <iframe src="https://phet.colorado.edu/sims/html/gas-properties/latest/gas-properties_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://phet.colorado.edu/sims/html/gas-properties/latest/gas-properties_all.html?locale=ko" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://phet.colorado.edu/sims/html/gas-properties/latest/gas-properties_all.html?locale=ko" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '5_gas_reaction.html', 'https://phet.colorado.edu/sims/html/gas-properties/latest/gas-properties_all.html?locale=ko')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 
                     <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="max-h-full object-contain mx-auto" />
+                            <img src="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="max-h-full object-contain mx-auto" />
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '5_gas_reaction.html', 'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 </div></div>
@@ -496,28 +703,49 @@
 
                     <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="max-h-full object-contain mx-auto" />
+                            <img src="https://images.stockcake.com/public/e/0/e/e0eaaf3b-ecc0-43fe-92c8-4f51fe99883b_large/rusty-gear-close-up-stockcake.jpg" class="max-h-full object-contain mx-auto" />
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
-                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="max-h-full object-contain mx-auto" />
-                        </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.stockcake.com/public/e/0/e/e0eaaf3b-ecc0-43fe-92c8-4f51fe99883b_large/rusty-gear-close-up-stockcake.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'https://images.stockcake.com/public/e/0/e/e0eaaf3b-ecc0-43fe-92c8-4f51fe99883b_large/rusty-gear-close-up-stockcake.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 
                     <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="max-h-full object-contain mx-auto" />
+                            <img src="img/exothermic.jpg" class="max-h-full object-contain mx-auto" />
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="img/exothermic.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'img/exothermic.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="img/endothermic.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="img/endothermic.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'img/endothermic.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 
@@ -525,21 +753,382 @@
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
                             <iframe src="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 
                     <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
                         <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
-                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="max-h-full object-contain mx-auto" />
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8kWlOk5HEAv_-4_3nW2d76lCl6P5cwdZug&s" class="max-h-full object-contain mx-auto" />
                         </div>
-                        <div class="p-3">
-                            <input type="text" readonly value="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-full text-[10px] p-2 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8kWlOk5HEAv_-4_3nW2d76lCl6P5cwdZug&s" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8kWlOk5HEAv_-4_3nW2d76lCl6P5cwdZug&s')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://pds.joongang.co.kr/news/FbMetaImage/202312/71b4d760-77e9-4452-af9a-76ba50590c50.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://pds.joongang.co.kr/news/FbMetaImage/202312/71b4d760-77e9-4452-af9a-76ba50590c50.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'https://pds.joongang.co.kr/news/FbMetaImage/202312/71b4d760-77e9-4452-af9a-76ba50590c50.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&w=400&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&w=400&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=500&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=500&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=500&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://www.shutterstock.com/image-vector/cellular-respiration-diagram-science-education-600nw-2544439641.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://www.shutterstock.com/image-vector/cellular-respiration-diagram-science-education-600nw-2544439641.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'https://www.shutterstock.com/image-vector/cellular-respiration-diagram-science-education-600nw-2544439641.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div></div></div>
+    <div>
+        <h2 class="text-3xl font-black text-blue-800 mb-8 flex items-center gap-4">
+            <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm">📁</span> 3. Others
+        </h2>
+        <div class="space-y-12">
+
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">10_work_energy.html</h3>
+                    
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="img/phys_work.svg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="img/phys_work.svg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '10_work_energy.html', 'img/phys_work.svg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">11_potential_energy.html</h3>
+                    
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="img/phys_height.svg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="img/phys_height.svg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '11_potential_energy.html', 'img/phys_height.svg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">12_kinetic_energy.html</h3>
+                    
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="img/phys_car.svg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="img/phys_car.svg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '12_kinetic_energy.html', 'img/phys_car.svg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">13_mechanical_energy.html</h3>
+                    
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="img/phys_rollercoaster.svg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="img/phys_rollercoaster.svg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '13_mechanical_energy.html', 'img/phys_rollercoaster.svg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">14_energy_conservation.html</h3>
+                    
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '14_energy_conservation.html', 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="img/phys_dam.svg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="img/phys_dam.svg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '14_energy_conservation.html', 'img/phys_dam.svg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">8_uniform_motion.html</h3>
+                    
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="img/phys_satellite.svg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="img/phys_satellite.svg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '8_uniform_motion.html', 'img/phys_satellite.svg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1581092160562-40aa08e78837?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '8_uniform_motion.html', 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="img/phys_transport.svg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="img/phys_transport.svg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '8_uniform_motion.html', 'img/phys_transport.svg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">9_free_fall.html</h3>
+                    
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <iframe src="https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion_ko.html" class="w-full h-full pointer-events-none"></iframe>
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion_ko.html" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '9_free_fall.html', 'https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion_ko.html')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="img/phys_gravity.svg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="img/phys_gravity.svg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '9_free_fall.html', 'img/phys_gravity.svg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1614313913007-2b4ae8ce32d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1614313913007-2b4ae8ce32d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '9_free_fall.html', 'https://images.unsplash.com/photo-1614313913007-2b4ae8ce32d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
                         </div>
                     </div>
 </div></div></div></div>
         </div>
     </div>
+    <script>
+        async function replaceImage(event, filename, oldUrl) {
+            event.preventDefault();
+            const form = event.target;
+            const newUrl = form.new_url.value;
+            const btn = form.querySelector('button');
+            const originalText = btn.innerText;
+            
+            btn.innerText = 'Wait...';
+            btn.disabled = true;
+            
+            try {
+                // Assuming asset_server.py is running on port 5005
+                const res = await fetch('http://localhost:5005/api/replace_image', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ filename, old_url: oldUrl, new_url: newUrl })
+                });
+                
+                const data = await res.json();
+                if (data.status === 'success') {
+                    btn.innerText = 'OK!';
+                    btn.classList.replace('bg-blue-600', 'bg-green-600');
+                    setTimeout(() => window.location.reload(), 1000);
+                } else {
+                    alert('Error: ' + data.message);
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                alert('Network error. Is asset_server.py running?');
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        }
+    </script>
 </body>
 </html>

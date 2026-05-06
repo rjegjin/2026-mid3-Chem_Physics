@@ -1,8 +1,11 @@
 import os
 import json
+import subprocess
 from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # 상태 저장용 변수
 CURRENT_STATE = {
@@ -10,11 +13,45 @@ CURRENT_STATE = {
     "last_updated": 0
 }
 
-IMAGE_DIR = "/home/rjegj/projects/2026-mid3-Chem_Physics/generator/data/bank/images"
+PROJECT_ROOT = "/home/rjegj/projects/2026-mid3-Chem_Physics"
+IMAGE_DIR = os.path.join(PROJECT_ROOT, "generator/data/bank/images")
 
 @app.route('/')
 def index():
     return "Science Asset Remote Server is Running."
+
+@app.route('/api/replace_image', methods=['POST'])
+def replace_image():
+    data = request.json
+    filename = data.get('filename')
+    old_url = data.get('old_url')
+    new_url = data.get('new_url')
+    
+    if not filename or not old_url or not new_url:
+        return jsonify({"status": "error", "message": "Missing parameters"}), 400
+        
+    filepath = os.path.join(PROJECT_ROOT, filename)
+    if not os.path.exists(filepath):
+        return jsonify({"status": "error", "message": f"File {filename} not found"}), 404
+        
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            content = f.read()
+            
+        if old_url not in content:
+            return jsonify({"status": "error", "message": "Old URL not found in the file"}), 404
+            
+        content = content.replace(old_url, new_url)
+        
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(content)
+            
+        # Regenerate dashboard
+        subprocess.run(["/home/rjegj/projects/unified_venv/bin/python", os.path.join(PROJECT_ROOT, "generate_dashboard.py")], check=True)
+        
+        return jsonify({"status": "success", "message": "Image replaced successfully"})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 @app.route('/api/state', methods=['GET', 'POST'])
 def handle_state():
