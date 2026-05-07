@@ -8,7 +8,7 @@
 - [x] `asset_server.py` 기반의 안정적인 미디어 자산 공급 체계 수립
 - [x] 고급 무기화학(Advanced Inorganic) 심화 과정 로드맵 연계
 - [ ] `Project-SCOPE` 빌드 결과물(units/dist)과의 실시간 파일 동기화
-- [ ] `image_manifest.json`을 통한 GitHub AI 및 외부 에셋 참조 최적화
+- [x] `image_manifest.json`을 통한 GitHub AI 및 외부 에셋 참조 최적화
 
 ## 🛠️ 기술적 과제 (Roadmap)
 1. **에셋 버전 관리**: 수업 자료 수정 시 에셋 경로가 깨지지 않도록 하는 해시 기반 매니페스트 관리.
@@ -17,6 +17,7 @@
 
 
 # 현재 상태
+- [x] MathJax 적용 및 CSS 단위 표시(uppercase) 충돌 문제 해결
 - [x] quiz_L4L5_chem.html 선지 중복(Q2, Q3, Q17, Q20) 수정
 - [x] Implement parameterized quiz system with student/teacher dashboards and index linking
 - [x] Redesign 5_gas_reaction.html with bright theme and hotel analogy

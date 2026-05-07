@@ -1,0 +1,87 @@
+{
+  "ok": true,
+  "target": "/13_mechanical_energy.html?view=all",
+  "title": "13차시: 역학적 에너지 전환과 보존",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "imageCount": 1,
+  "sectionCount": 13,
+  "brokenImages": [],
+  "oversizedImages": [],
+  "overflowing": [],
+  "backgroundImages": [
+    {
+      "path": "section#slide-1",
+      "backgroundImage": "url(\"https://images.unsplash.com/AsDYiy6N_6k?auto=format&fit=crop&w=1200&q=80\")"
+    }
+  ],
+  "sections": [
+    {
+      "id": "slide-1",
+      "slideNum": "1",
+      "title": "Cover"
+    },
+    {
+      "id": "slide-2",
+      "slideNum": "2",
+      "title": "역학적 에너지란?"
+    },
+    {
+      "id": "slide-3",
+      "slideNum": "3",
+      "title": "자유낙하: Ep → Ek 전환"
+    },
+    {
+      "id": "slide-4",
+      "slideNum": "4",
+      "title": "위로 던진 물체의 에너지 전환"
+    },
+    {
+      "id": "slide-5",
+      "slideNum": "5",
+      "title": "롤러코스터와 역학적 에너지"
+    },
+    {
+      "id": "slide-6",
+      "slideNum": "6",
+      "title": "탐구: 역학적 에너지 데이터 분석"
+    },
+    {
+      "id": "slide-7",
+      "slideNum": "7",
+      "title": "마찰이 있을 때"
+    },
+    {
+      "id": "slide-8",
+      "slideNum": "8",
+      "title": "에너지 막대 그래프"
+    },
+    {
+      "id": "slide-9",
+      "slideNum": "9",
+      "title": "개념 정리"
+    },
+    {
+      "id": "slide-10",
+      "slideNum": "10",
+      "title": "형성평가 1"
+    },
+    {
+      "id": "slide-11",
+      "slideNum": "11",
+      "title": "형성평가 2"
+    },
+    {
+      "id": "slide-12",
+      "slideNum": "12",
+      "title": "형성평가 3"
+    },
+    {
+      "id": "slide-13",
+      "slideNum": "13",
+      "title": "마무리"
+    }
+  ]
+}

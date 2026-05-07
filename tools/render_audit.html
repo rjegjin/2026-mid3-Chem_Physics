@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Render Audit</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+    #status {
+      padding: 16px 20px;
+      border-bottom: 1px solid #334155;
+      white-space: pre-wrap;
+    }
+    #result {
+      margin: 0;
+      padding: 20px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    iframe {
+      width: 1280px;
+      height: 720px;
+      border: 0;
+      position: absolute;
+      left: -10000px;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="status">render-audit booting...</div>
+  <pre id="result"></pre>
+  <iframe id="audit-frame" title="render-audit-target"></iframe>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const target = params.get('target');
+    const delayMs = Number(params.get('delay_ms') || 1800);
+    const statusEl = document.getElementById('status');
+    const resultEl = document.getElementById('result');
+    const frame = document.getElementById('audit-frame');
+
+    function shortText(el) {
+      return (el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 120);
+    }
+
+    function cssPath(el) {
+      if (!el || el.nodeType !== 1) return '';
+      const parts = [];
+      while (el && el.nodeType === 1 && parts.length < 6) {
+        let part = el.tagName.toLowerCase();
+        if (el.id) {
+          part += `#${el.id}`;
+          parts.unshift(part);
+          break;
+        }
+        if (el.classList && el.classList.length) {
+          part += '.' + Array.from(el.classList).slice(0, 2).join('.');
+        }
+        const parent = el.parentElement;
+        if (parent) {
+          const siblings = Array.from(parent.children).filter(node => node.tagName === el.tagName);
+          if (siblings.length > 1) {
+            part += `:nth-of-type(${siblings.indexOf(el) + 1})`;
+          }
+        }
+        parts.unshift(part);
+        el = el.parentElement;
+      }
+      return parts.join(' > ');
+    }
+
+    function visible(el, win) {
+      const style = win.getComputedStyle(el);
+      return style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
+    }
+
+    function collectBackgroundUrls(doc, win) {
+      const urls = [];
+      const nodes = doc.querySelectorAll('*');
+      nodes.forEach((el) => {
+        const bg = win.getComputedStyle(el).backgroundImage;
+        if (bg && bg !== 'none' && bg.includes('url(')) {
+          urls.push({ path: cssPath(el), backgroundImage: bg });
+        }
+      });
+      return urls;
+    }
+
+    async function audit() {
+      if (!target) {
+        statusEl.textContent = 'missing ?target=...';
+        resultEl.textContent = JSON.stringify({ ok: false, error: 'missing target' }, null, 2);
+        return;
+      }
+
+      statusEl.textContent = `loading ${target}`;
+      frame.src = target;
+
+      frame.addEventListener('load', () => {
+        setTimeout(() => {
+          try {
+            const win = frame.contentWindow;
+            const doc = frame.contentDocument;
+            const images = Array.from(doc.images);
+            const brokenImages = images
+              .filter((img) => img.complete && img.naturalWidth === 0)
+              .map((img) => ({
+                src: img.getAttribute('src'),
+                alt: img.getAttribute('alt') || '',
+                path: cssPath(img)
+              }));
+
+            const oversizedImages = images
+              .filter((img) => {
+                if (!visible(img, win)) return false;
+                const rect = img.getBoundingClientRect();
+                return rect.width > win.innerWidth + 2;
+              })
+              .map((img) => {
+                const rect = img.getBoundingClientRect();
+                return {
+                  src: img.getAttribute('src'),
+                  path: cssPath(img),
+                  width: Math.round(rect.width),
+                  viewportWidth: win.innerWidth
+                };
+              });
+
+            const overflowing = Array.from(doc.querySelectorAll('body *'))
+              .filter((el) => {
+                if (!visible(el, win)) return false;
+                if (el.children.length > 8) return false;
+                const rect = el.getBoundingClientRect();
+                if (rect.width === 0 || rect.height === 0) return false;
+                return el.scrollWidth > el.clientWidth + 4;
+              })
+              .slice(0, 50)
+              .map((el) => ({
+                path: cssPath(el),
+                scrollWidth: el.scrollWidth,
+                clientWidth: el.clientWidth,
+                text: shortText(el)
+              }));
+
+            const sections = Array.from(doc.querySelectorAll('main > section')).map((sec) => ({
+              id: sec.id || '',
+              slideNum: sec.getAttribute('data-slide-num') || '',
+              title: sec.getAttribute('data-title') || ''
+            }));
+
+            const report = {
+              ok: brokenImages.length === 0 && oversizedImages.length === 0 && overflowing.length === 0,
+              target,
+              title: doc.title,
+              viewport: { width: win.innerWidth, height: win.innerHeight },
+              imageCount: images.length,
+              sectionCount: sections.length,
+              brokenImages,
+              oversizedImages,
+              overflowing,
+              backgroundImages: collectBackgroundUrls(doc, win),
+              sections
+            };
+
+            statusEl.textContent = `audit complete: ${target}`;
+            resultEl.textContent = JSON.stringify(report, null, 2);
+          } catch (error) {
+            statusEl.textContent = `audit failed: ${target}`;
+            resultEl.textContent = JSON.stringify({
+              ok: false,
+              target,
+              error: String(error)
+            }, null, 2);
+          }
+        }, delayMs);
+      }, { once: true });
+    }
+
+    audit();
+  </script>
+</body>
+</html>

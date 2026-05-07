@@ -1,0 +1,82 @@
+{
+  "ok": true,
+  "target": "/15_unit_review.html",
+  "title": "15차시: 단원 정리 — 운동과 에너지 총정리",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "imageCount": 0,
+  "sectionCount": 13,
+  "brokenImages": [],
+  "oversizedImages": [],
+  "overflowing": [],
+  "backgroundImages": [],
+  "sections": [
+    {
+      "id": "slide-1",
+      "slideNum": "1",
+      "title": "Cover"
+    },
+    {
+      "id": "slide-2",
+      "slideNum": "2",
+      "title": "단원 개요 맵"
+    },
+    {
+      "id": "slide-3",
+      "slideNum": "3",
+      "title": "공식 총정리"
+    },
+    {
+      "id": "slide-4",
+      "slideNum": "4",
+      "title": "개념 연결 흐름도"
+    },
+    {
+      "id": "slide-5",
+      "slideNum": "5",
+      "title": "그래프 총정리"
+    },
+    {
+      "id": "slide-6",
+      "slideNum": "6",
+      "title": "핵심 비교 정리표"
+    },
+    {
+      "id": "slide-7",
+      "slideNum": "7",
+      "title": "종합 퀴즈 1"
+    },
+    {
+      "id": "slide-8",
+      "slideNum": "8",
+      "title": "종합 퀴즈 2"
+    },
+    {
+      "id": "slide-9",
+      "slideNum": "9",
+      "title": "종합 퀴즈 3"
+    },
+    {
+      "id": "slide-10",
+      "slideNum": "10",
+      "title": "종합 퀴즈 4"
+    },
+    {
+      "id": "slide-11",
+      "slideNum": "11",
+      "title": "종합 퀴즈 5"
+    },
+    {
+      "id": "slide-12",
+      "slideNum": "12",
+      "title": "중간고사 대비 전략"
+    },
+    {
+      "id": "slide-13",
+      "slideNum": "13",
+      "title": "마무리"
+    }
+  ]
+}

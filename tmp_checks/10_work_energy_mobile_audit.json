@@ -1,0 +1,82 @@
+{
+  "ok": true,
+  "target": "/10_work_energy.html?view=all",
+  "title": "10차시: 일과 에너지 — 과학에서의 일의 정의",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "imageCount": 1,
+  "sectionCount": 12,
+  "brokenImages": [],
+  "oversizedImages": [],
+  "overflowing": [],
+  "backgroundImages": [
+    {
+      "path": "section#slide-1",
+      "backgroundImage": "url(\"https://images.unsplash.com/h4i9G-de7Po?auto=format&fit=crop&w=1200&q=80\")"
+    }
+  ],
+  "sections": [
+    {
+      "id": "slide-1",
+      "slideNum": "1",
+      "title": "Cover"
+    },
+    {
+      "id": "slide-2",
+      "slideNum": "2",
+      "title": "도입: 빗방울과 과학적 일"
+    },
+    {
+      "id": "slide-3",
+      "slideNum": "3",
+      "title": "일의 정의와 공식"
+    },
+    {
+      "id": "slide-4",
+      "slideNum": "4",
+      "title": "일의 단위: 줄(J)"
+    },
+    {
+      "id": "slide-5",
+      "slideNum": "5",
+      "title": "일을 한 경우 vs 아닌 경우"
+    },
+    {
+      "id": "slide-6",
+      "slideNum": "6",
+      "title": "일과 에너지의 관계"
+    },
+    {
+      "id": "slide-7",
+      "slideNum": "7",
+      "title": "계산 연습"
+    },
+    {
+      "id": "slide-8",
+      "slideNum": "8",
+      "title": "개념 정리"
+    },
+    {
+      "id": "slide-9",
+      "slideNum": "9",
+      "title": "형성 평가 01"
+    },
+    {
+      "id": "slide-10",
+      "slideNum": "10",
+      "title": "형성 평가 02"
+    },
+    {
+      "id": "slide-11",
+      "slideNum": "11",
+      "title": "형성 평가 03"
+    },
+    {
+      "id": "slide-12",
+      "slideNum": "12",
+      "title": "마무리 & 다음 차시"
+    }
+  ]
+}
