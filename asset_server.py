@@ -15,6 +15,36 @@ CURRENT_STATE = {
 
 PROJECT_ROOT = "/home/rjegj/projects/2026-mid3-Chem_Physics"
 IMAGE_DIR = os.path.join(PROJECT_ROOT, "generator/data/bank/images")
+PYTHON_BIN = "/home/rjegj/projects/unified_venv/bin/python"
+
+def run_project_command(command):
+    return subprocess.run(
+        command,
+        cwd=PROJECT_ROOT,
+        check=True,
+        text=True,
+        capture_output=True
+    )
+
+def commit_and_push_asset_change(filename):
+    paths = [filename, "asset_dashboard.html", "image_manifest.json"]
+    run_project_command(["git", "add", *paths])
+
+    diff_check = subprocess.run(
+        ["git", "diff", "--cached", "--quiet"],
+        cwd=PROJECT_ROOT
+    )
+    if diff_check.returncode == 0:
+        return "No committed changes; files were already up to date."
+
+    commit = run_project_command([
+        "git",
+        "commit",
+        "-m",
+        f"Update assets for {filename}"
+    ])
+    push = run_project_command(["git", "push"])
+    return (commit.stdout + push.stdout + push.stderr).strip()
 
 @app.route('/')
 def index():
@@ -46,10 +76,15 @@ def replace_image():
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)
             
-        # Regenerate dashboard
-        subprocess.run(["/home/rjegj/projects/unified_venv/bin/python", os.path.join(PROJECT_ROOT, "generate_dashboard.py")], check=True)
+        # Regenerate dashboard and publish the same asset state to the server.
+        run_project_command([PYTHON_BIN, os.path.join(PROJECT_ROOT, "generate_dashboard.py")])
+        publish_log = commit_and_push_asset_change(filename)
         
-        return jsonify({"status": "success", "message": "Image replaced successfully"})
+        return jsonify({
+            "status": "success",
+            "message": "Image replaced, dashboard regenerated, and changes pushed",
+            "publish_log": publish_log
+        })
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 

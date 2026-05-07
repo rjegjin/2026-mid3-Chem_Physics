@@ -31,12 +31,18 @@ for html in html_files:
         with open(path, 'r', encoding='utf-8') as f:
             soup = BeautifulSoup(f.read(), 'html.parser')
             
-            extracted_urls = set()
+            extracted_urls = []
+            seen_urls = set()
+
+            def add_url(url):
+                if url and url not in seen_urls:
+                    seen_urls.add(url)
+                    extracted_urls.append(url)
             
             # 1. <img> 태그 추출
             for img in soup.find_all('img'):
                 if img.get('src'):
-                    extracted_urls.add(img['src'])
+                    add_url(img['src'])
             
             # 2. 인라인 CSS background-image 추출 (제한적이지만 유용)
             for tag in soup.find_all(style=True):
@@ -47,15 +53,15 @@ for html in html_files:
                     end = style.find(")", start)
                     if start > 3 and end > 0:
                         url = style[start:end].strip("'\"")
-                        extracted_urls.add(url)
+                        add_url(url)
                         
             # 3. <iframe> (PhET 시뮬레이션 등) 추출
             for iframe in soup.find_all('iframe'):
                 if iframe.get('src'):
-                    extracted_urls.add(iframe['src'])
+                    add_url(iframe['src'])
             
             if extracted_urls:
-                assets[html] = list(extracted_urls)
+                assets[html] = extracted_urls
                 manifest[html] = {}
                 for i, url in enumerate(assets[html]):
                     asset_id = f"{html.replace('.html', '')}_asset_{i+1}"

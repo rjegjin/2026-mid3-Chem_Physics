@@ -23,3 +23,11 @@
 - 원인: CSS `text-transform: uppercase` 속성은 자식 요소의 텍스트까지 일괄적으로 대문자로 변경해버린다. 단위와 텍스트를 DOM 상에서 명확히 분리하지 않았다.
 - 결론: 과학/수학 단위가 포함될 수 있는 텍스트 요소에는 무분별한 `uppercase` 적용을 지양해야 한다.
 - 다음에는 이렇게: 수학적 공식이나 단위는 철저하게 `MathJax`를 통해 렌더링되도록 분리하여 CSS text-transform의 영향을 받지 않게 보호하고, 영문 대문자화가 필요한 라벨(Label)에만 제한적으로 CSS 클래스를 적용한다.
+
+## 2026-05-07 - HTML 이미지 변경 후 asset board/manifest 미동기화
+
+- 시도: `8_uniform_motion.html`의 슬라이드 이미지를 외부 사진 URL로 교체하고 해당 HTML만 commit/push했다.
+- 문제: `asset_dashboard.html`과 `image_manifest.json`이 예전 이미지 참조를 유지하여, 서버의 asset board가 실제 수업 HTML과 다른 상태가 되었다.
+- 원인: 이미지 참조 변경을 단일 HTML 수정으로만 처리했고, asset board가 HTML에서 파생되는 산출물이라는 점을 같은 작업 단위에 포함하지 않았다.
+- 결론: 이미지 URL을 바꾸는 작업은 HTML, `image_manifest.json`, `asset_dashboard.html`을 하나의 publish 단위로 보아야 한다.
+- 다음에는 이렇게: 이미지 변경 직후 `generate_dashboard.py`를 실행해 asset board/manifest를 재생성하고, 관련 파일을 함께 commit/push한다. 대시보드의 Change API도 로컬 치환 후 재생성, commit, push까지 수행해야 한다.
