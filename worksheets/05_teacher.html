@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>심화 학습지: 03. 일정한 부피비로 반응하는 기체 (심화)</title>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        
+        @page { size: A4; margin: 15mm 20mm; }
+        body { margin: 0; padding: 0; font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif; background: #eee; color: #000; line-height: 1.7; }
+        
+        .document-wrapper { width: 210mm; margin: 0 auto; background: white; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+        @media print { body { background: white; } .document-wrapper { width: 100%; box-shadow: none; margin: 0; } .no-print { display: none !important; } }
+
+        .page-border { border: 1.2px solid #000; padding: 20px 25px; min-height: 250mm; display: flex; flex-direction: column; margin-bottom: 30px; position: relative; box-sizing: border-box; }
+        .header-table { width: 100%; border-collapse: collapse; border: 2px solid #000; margin-bottom: 20px; }
+        .header-table td { border: 1px solid #000; text-align: center; padding: 8px; font-size: 13px; }
+        .bg-blue-light { background-color: #b4c6e7; font-weight: bold; }
+        .bg-gray-light { background-color: #f2f2f2; }
+        .title-text { font-size: 20px; font-weight: 700; line-height: 1.4; }
+
+        .section-container { margin-bottom: 25px; break-inside: avoid; }
+        .section-header { display: flex; align-items: center; margin-bottom: 10px; }
+        .sec-num { background: #4dc0b5; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; font-weight: bold; margin-right: 8px; font-size: 13px; }
+        .sec-title { background: #4dc0b5; color: white; border-radius: 12px; padding: 2px 15px; font-weight: bold; font-size: 14px; }
+
+        .content-body { font-size: 14.5px; padding-left: 10px; text-align: justify; }
+        .indent-row { display: flex; margin-bottom: 6px; align-items: flex-start; }
+        .bullet { width: 20px; flex-shrink: 0; font-weight: bold; text-align: center; }
+
+        .ans-text { color: red; font-weight: bold; border-bottom: 1.2px solid #000; min-width: 60px; display: inline-block; text-align: center; }
+        
+        /* [일원화된 정답 박스] */
+        .teacher-answer-box {
+            margin: 15px 0 10px 25px;
+            padding: 12px 18px;
+            background-color: #fffafa;
+            border: 1px dashed #b91c1c;
+            color: #b91c1c;
+            font-size: 14px;
+            border-radius: 6px;
+            line-height: 1.6;
+            display: block;
+            break-inside: avoid;
+        }
+        .teacher-answer-box b { color: #b91c1c; margin-bottom: 3px; display: block; font-size: 13px; }
+
+        .graph-container { text-align: center; margin: 15px 0; border: 1px solid #f0f0f0; padding: 10px; background: #fafafa; border-radius: 5px; }
+        .compare-table { width: 100%; border-collapse: collapse; margin: 12px 0; border: 1.2px solid #000; font-size: 13.5px; }
+        .compare-table th, .compare-table td { border: 1px solid #000; padding: 8px; text-align: center; }
+        .compare-table th { background: #f1f5f9; }
+
+        .problem-area { border-top: 1.5px solid #000; padding-top: 25px; margin-top: 20px; }
+        .problem-header { font-weight: bold; font-size: 17px; margin-bottom: 25px; border-left: 6px solid #000; padding-left: 15px; }
+        .problem-item { margin-bottom: 45px; position: relative; font-size: 14.5px; break-inside: avoid; }
+        .choice-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 8px; margin-top: 12px; padding-left: 25px; }
+        .bog-box { border: 1px solid #000; margin: 15px 25px; padding: 12px 18px; position: relative; background: #fff; font-size: 14px; }
+        .bog-label { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: #fff; padding: 0 10px; font-weight: bold; font-size: 13px; }
+
+        .page-num { position: absolute; bottom: 8mm; left: 0; width: 100%; text-align: center; font-size: 12px; color: #333; }
+        .force-page-break { break-before: page; }
+    </style>
+</head>
+<body>
+    <div class="document-wrapper">
+        <!-- 1페이지: 이론 -->
+        <div class="page-border">
+            <table class="header-table">
+                <tr>
+                    <td rowspan="2" style="width: 12%; border-right: none; border-bottom: none;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzhjY2VmYyIgc3Ryb2tlPSIjMGI3NmI2IiBzdHJva2Utd2lkdGg9IjEuNSI+PHBhdGggZD0iTTE3LjUgMTkuMmMtMi4xIDAtMy44LTEuNy0zLjgtMy44bDAtLjFjLTEuNS43LTMuMy40LTQuNC0xLS40LjEtLjguMS0xLjIuMWEzLjggMy44IDAgMCAxIDAtNy42YzEuOC0xLjggNC45LTIgNy0uNWwxLS4xYTMuOCAzLjggMCAwIDEgMy44IDMuOGMwIC40LS4xLjgtLjEgMS4yIDEuMSAxLjEgMS41IDIuOSAxIDQuNC4xIDAgLjIgMCAuMyAwIDIuMSAwIDMuOCAxLjcgMy44IDMuOHMtMS43IDMuOC0zLjggMy44eiIvPjwvc3ZnPg==" style="width: 35px;"></td>
+                    <td rowspan="2" style="width: 38%; border-left: none; border-bottom: none;"><div class="title-text">I. 화학 반응의 규칙과 에너지 변화</div></td>
+                    <td colspan="4" class="bg-blue-light">2. 화학 반응의 규칙<br>03. 일정한 부피비로 반응하는 기체 (심화)</td>
+                </tr>
+                <tr><td class="bg-gray-light">학번</td><td>3학년 &nbsp;&nbsp;&nbsp;&nbsp;반 &nbsp;&nbsp;&nbsp;&nbsp;번</td><td class="bg-gray-light">이름</td><td></td></tr>
+                <tr><td colspan="5" style="text-align: left; padding: 10px 15px; border-right: none;"><span style="font-weight: bold;">✔ 학습 목표</span> &nbsp;&nbsp; ✿ 기체 반응에서 부피비가 성립하는 이유를 아보가드로 법칙으로 설명하고, 반응 후 남는 기체의 부피를 계산할 수 있다.</td><td style="font-weight: bold; border-left: 1.5px solid #000;">교사 확인</td></tr>
+            </table>
+
+            
+            <div class="section-container">
+                <div class="section-header"><div class="sec-num">1</div><div class="sec-title">기체 반응 법칙과 분자설</div></div>
+                <div class="content-body">
+                    <div class="indent-row"><div class="bullet">:</div><div>온도와 압력이 같을 때, 기체들이 반응하여 새로운 기체를 생성할 때 부피 사이에는 간단한 정수비가 성립한다.</div></div>
+                    
+                    <div class="indent-row">
+                        <div class="bullet">•</div>
+                        <div style="flex-grow:1;">
+                            게이뤼삭이 제안한 부피비는 화학 반응식의 ( <span class="ans-text">계수비</span> ) 및 분자 수의 비와 항상 일치한다.
+                            <div class="graph-container"><svg width='300' height='120' viewBox='0 0 300 120'><rect x='20' y='40' width='40' height='40' fill='#bfdbfe' stroke='#3b82f6'/><rect x='65' y='40' width='40' height='40' fill='#bfdbfe' stroke='#3b82f6'/><text x='110' y='65' font-size='20'>+</text><rect x='135' y='40' width='40' height='40' fill='#fef08a' stroke='#eab308'/><text x='185' y='65' font-size='20'>→</text><rect x='210' y='40' width='40' height='40' fill='#bbf7d0' stroke='#22c55e'/><rect x='255' y='40' width='40' height='40' fill='#bbf7d0' stroke='#22c55e'/><text x='40' y='100' font-size='10' text-anchor='middle'>수소(2)</text><text x='155' y='100' font-size='10' text-anchor='middle'>산소(1)</text><text x='255' y='100' font-size='10' text-anchor='middle'>수증기(2)</text></svg></div>
+                            
+                            
+                            <div style="margin-top: 5px;"><div class="indent-row" style="font-size: 0.95em;"><div style="width: 15px;">-</div><div>주의: 기체 반응 법칙은 반응물과 생성물이 모두 ( <span class="ans-text">기체</span> ) 상태일 때만 적용된다.</div></div></div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="section-container">
+                <div class="section-header"><div class="sec-num">2</div><div class="sec-title">아보가드로 법칙 (Avogadro's Law)</div></div>
+                <div class="content-body">
+                    
+                    
+                    <div class="indent-row">
+                        <div class="bullet">•</div>
+                        <div style="flex-grow:1;">
+                            모든 기체는 같은 온도, 압력에서 같은 ( <span class="ans-text">부피</span> ) 속에 같은 수의 입자를 포함한다.
+                            
+                            
+                            
+                            <div style="margin-top: 5px;"><div class="indent-row" style="font-size: 0.95em;"><div style="width: 15px;">-</div><div>기체의 종류에 상관없이 입자의 개수는 부피에 비례한다.</div></div><div class="indent-row" style="font-size: 0.95em;"><div style="width: 15px;">-</div><div>아보가드로는 원자가 쪼개지지 않음을 증명하기 위해 ( <span class="ans-text">분자</span> ) 개념을 도입했다.</div></div></div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="page-num">- 1 -</div>
+        </div>
+
+        <!-- 2페이지 이후: 실전 문제 -->
+        <div class="page-border force-page-break">
+            <div class="problem-area">
+                <div class="problem-header">실전 역량 강화 문제 (심화 탐구)</div>
+                
+                <div class="problem-item">
+                    <div class="indent-row">
+                        <div class="bullet" style="width: 25px;">1.</div>
+                        <div style="flex-grow:1; font-weight: 500;">
+                            온도와 압력이 일정할 때, 질소 기체 10L와 수소 기체 40L를 반응시켜 암모니아 기체를 최대로 생성하였다. 반응 후 남은 기체의 종류와 부피, 그리고 생성된 암모니아의 부피를 바르게 짝지은 것은? ($ \rm N_2 + 3H_2 \rightarrow 2NH_3 $)
+                            
+                            
+                            
+                            
+                            <div class="choice-grid"><div>1) 남은 수소 10L, 암모니아 20L</div><div>2) 남은 수소 10L, 암모니아 30L</div><div>3) 남은 질소 5L, 암모니아 20L</div><div>4) 남은 질소 5L, 암모니아 10L</div><div>5) 남은 기체 없음, 암모니아 20L</div></div>
+                            
+                            <div class="teacher-answer-box"><b>[정답 및 해설]</b> 1 (질소 10L는 수소 30L와 반응하여 암모니아 20L를 생성함. 수소 10L가 남음)</div>
+                            
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="problem-item">
+                    <div class="indent-row">
+                        <div class="bullet" style="width: 25px;">2.</div>
+                        <div style="flex-grow:1; font-weight: 500;">
+                            [데이터 분석] 수소 기체 2부피와 산소 기체 1부피가 반응하여 수증기 2부피를 형성한다. 만약 수소 원자와 산소 원자가 독립적으로 존재한다고 가정(돌턴의 원자설)할 경우 발생하는 모순점을 '원자의 분할' 관점에서 논리적으로 설명하시오.
+                            
+                            
+                            
+                            
+                            
+                            <div class="teacher-answer-box"><b>[모범 답안]</b> 수증기 2부피가 만들어지려면 산소 1부피 내의 산소 원자들이 반으로 쪼개져서 각각의 수증기 입자에 들어가야 한다. 이는 '원자는 더 이상 쪼개지지 않는다'는 돌턴의 원자설에 정면으로 위배되는 모순을 발생시킨다.</div>
+                            
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px; margin-top: 15px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="problem-item">
+                    <div class="indent-row">
+                        <div class="bullet" style="width: 25px;">3.</div>
+                        <div style="flex-grow:1; font-weight: 500;">
+                            [사고력 확장] 온도와 압력이 같을 때 산소 기체 1L의 질량은 수소 기체 1L의 질량보다 약 16배 무겁다. 이 사실과 아보가드로 법칙을 결합하여, 산소 분자와 수소 분자 한 개의 질량비를 추론하고 그 과정을 서술하시오.
+                            
+                            
+                            
+                            
+                            
+                            <div class="teacher-answer-box"><b>[모범 답안]</b> 아보가드로 법칙에 따라 같은 부피(1L) 속에는 산소 분자와 수소 분자의 개수가 같다. 따라서 1L의 총질량비가 16:1이라는 것은 분자 한 개의 질량비 또한 16:1임을 의미한다. 즉, 산소 분자 한 개가 수소 분자 한 개보다 16배 무겁다는 결론을 얻을 수 있다.</div>
+                            
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px; margin-top: 15px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="page-num">- 2 -</div></div></div><div class="a4-page"><div class="page-border"><div class="problem-area" style="border-top:none; margin-top:0;">
+                
+                
+                <div class="problem-item">
+                    <div class="indent-row">
+                        <div class="bullet" style="width: 25px;">4.</div>
+                        <div style="flex-grow:1; font-weight: 500;">
+                            [실험 비판] 목일이는 '액체인 물 20mL를 분해하면 수소 기체 20mL와 산소 기체 10mL가 정확히 얻어지므로 기체 반응 법칙이 액체에서도 성립한다'고 주장했다. 이 주장의 오류를 '상태 변화에 따른 부피 변화' 관점에서 비판하시오.
+                            
+                            
+                            
+                            
+                            
+                            <div class="teacher-answer-box"><b>[모범 답안]</b> 기체 반응 법칙은 기체 상태 입자들 사이의 부피 비를 다루는 법칙이다. 액체인 물 20mL의 부피는 기체인 수소/산소와는 비교할 수 없을 정도로 작으며(기체화되면 약 1700배 팽창), 단순히 액체 부피 수치와 기체 생성 부피 수치가 비례하는 것은 우연일 뿐 기체 반응 법칙의 적용 사례가 아니다.</div>
+                            
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px; margin-top: 15px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="problem-item">
+                    <div class="indent-row">
+                        <div class="bullet" style="width: 25px;">5.</div>
+                        <div style="flex-grow:1; font-weight: 500;">
+                            [창의적 응용] 미래의 화성 기지에서 인간이 호흡할 산소를 얻기 위해 물을 전기 분해한다. 생성된 수소와 산소를 각각 별도의 탱크에 보관할 때, 동일한 온도와 압력 조건이라면 어느 탱크의 부피가 더 커야 하며 그 비율은 얼마가 적당할지 기체 반응 법칙을 활용하여 설계안을 제시하시오.
+                            
+                            
+                            
+                            
+                            
+                            <div class="teacher-answer-box"><b>[모범 답안]</b> 수소 탱크의 부피가 산소 탱크보다 2배 더 커야 한다. 물의 분해 반응식($ \rm 2H_2O \rightarrow 2H_2 + O_2 $)에 따라 생성되는 수소와 산소의 부피비는 항상 2:1이기 때문이다. 따라서 효율적인 보관을 위해 수소 탱크와 산소 탱크의 용량비를 2:1로 설계하는 것이 가장 경제적이다.</div>
+                            
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px; margin-top: 15px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+            <div class="page-num">- 3 -</div>
+        </div>
+    </div>
+</body>
+</html>

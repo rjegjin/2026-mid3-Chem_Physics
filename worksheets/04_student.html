@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>심화 학습지: 02. 일정 성분비 법칙 (최고난도 심화 탐구)</title>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        
+        @page { size: A4; margin: 15mm 20mm; }
+        body { margin: 0; padding: 0; font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif; background: #eee; color: #000; line-height: 1.7; }
+        
+        .document-wrapper { width: 210mm; margin: 0 auto; background: white; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+        @media print { body { background: white; } .document-wrapper { width: 100%; box-shadow: none; margin: 0; } .no-print { display: none !important; } }
+
+        .page-border { border: 1.2px solid #000; padding: 20px 25px; min-height: 250mm; display: flex; flex-direction: column; margin-bottom: 30px; position: relative; box-sizing: border-box; }
+        .header-table { width: 100%; border-collapse: collapse; border: 2px solid #000; margin-bottom: 20px; }
+        .header-table td { border: 1px solid #000; text-align: center; padding: 8px; font-size: 13px; }
+        .bg-blue-light { background-color: #b4c6e7; font-weight: bold; }
+        .bg-gray-light { background-color: #f2f2f2; }
+        .title-text { font-size: 20px; font-weight: 700; line-height: 1.4; }
+
+        .section-container { margin-bottom: 25px; break-inside: avoid; }
+        .section-header { display: flex; align-items: center; margin-bottom: 10px; }
+        .sec-num { background: #4dc0b5; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; font-weight: bold; margin-right: 8px; font-size: 13px; }
+        .sec-title { background: #4dc0b5; color: white; border-radius: 12px; padding: 2px 15px; font-weight: bold; font-size: 14px; }
+
+        .content-body { font-size: 14.5px; padding-left: 10px; text-align: justify; }
+        .indent-row { display: flex; margin-bottom: 6px; align-items: flex-start; }
+        .bullet { width: 20px; flex-shrink: 0; font-weight: bold; text-align: center; }
+
+        .ans-text { color: transparent; font-weight: bold; border-bottom: 1.2px solid #000; min-width: 60px; display: inline-block; text-align: center; }
+        
+        /* [일원화된 정답 박스] */
+        .teacher-answer-box {
+            margin: 15px 0 10px 25px;
+            padding: 12px 18px;
+            background-color: #fffafa;
+            border: 1px dashed #b91c1c;
+            color: #b91c1c;
+            font-size: 14px;
+            border-radius: 6px;
+            line-height: 1.6;
+            display: none;
+            break-inside: avoid;
+        }
+        .teacher-answer-box b { color: #b91c1c; margin-bottom: 3px; display: block; font-size: 13px; }
+
+        .graph-container { text-align: center; margin: 15px 0; border: 1px solid #f0f0f0; padding: 10px; background: #fafafa; border-radius: 5px; }
+        .compare-table { width: 100%; border-collapse: collapse; margin: 12px 0; border: 1.2px solid #000; font-size: 13.5px; }
+        .compare-table th, .compare-table td { border: 1px solid #000; padding: 8px; text-align: center; }
+        .compare-table th { background: #f1f5f9; }
+
+        .problem-area { border-top: 1.5px solid #000; padding-top: 25px; margin-top: 20px; }
+        .problem-header { font-weight: bold; font-size: 17px; margin-bottom: 25px; border-left: 6px solid #000; padding-left: 15px; }
+        .problem-item { margin-bottom: 45px; position: relative; font-size: 14.5px; break-inside: avoid; }
+        .choice-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 8px; margin-top: 12px; padding-left: 25px; }
+        .bog-box { border: 1px solid #000; margin: 15px 25px; padding: 12px 18px; position: relative; background: #fff; font-size: 14px; }
+        .bog-label { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: #fff; padding: 0 10px; font-weight: bold; font-size: 13px; }
+
+        .page-num { position: absolute; bottom: 8mm; left: 0; width: 100%; text-align: center; font-size: 12px; color: #333; }
+        .force-page-break { break-before: page; }
+    </style>
+</head>
+<body>
+    <div class="document-wrapper">
+        <!-- 1페이지: 이론 -->
+        <div class="page-border">
+            <table class="header-table">
+                <tr>
+                    <td rowspan="2" style="width: 12%; border-right: none; border-bottom: none;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzhjY2VmYyIgc3Ryb2tlPSIjMGI3NmI2IiBzdHJva2Utd2lkdGg9IjEuNSI+PHBhdGggZD0iTTE3LjUgMTkuMmMtMi4xIDAtMy44LTEuNy0zLjgtMy44bDAtLjFjLTEuNS43LTMuMy40LTQuNC0xLS40LjEtLjguMS0xLjIuMWEzLjggMy44IDAgMCAxIDAtNy42YzEuOC0xLjggNC45LTIgNy0uNWwxLS4xYTMuOCAzLjggMCAwIDEgMy44IDMuOGMwIC40LS4xLjgtLjEgMS4yIDEuMSAxLjEgMS41IDIuOSAxIDQuNC4xIDAgLjIgMCAuMyAwIDIuMSAwIDMuOCAxLjcgMy44IDMuOHMtMS43IDMuOC0zLjggMy44eiIvPjwvc3ZnPg==" style="width: 35px;"></td>
+                    <td rowspan="2" style="width: 38%; border-left: none; border-bottom: none;"><div class="title-text">I. 화학 반응의 규칙과 에너지 변화</div></td>
+                    <td colspan="4" class="bg-blue-light">2. 화학 반응의 규칙<br>02. 일정 성분비 법칙 (최고난도 심화 탐구)</td>
+                </tr>
+                <tr><td class="bg-gray-light">학번</td><td>3학년 &nbsp;&nbsp;&nbsp;&nbsp;반 &nbsp;&nbsp;&nbsp;&nbsp;번</td><td class="bg-gray-light">이름</td><td></td></tr>
+                <tr><td colspan="5" style="text-align: left; padding: 10px 15px; border-right: none;"><span style="font-weight: bold;">✔ 학습 목표</span> &nbsp;&nbsp; ✿ 화합물의 정량적 성분비를 그래프로 해석하고, 한계 반응물과 수득률의 관점에서 화학 변화를 분석할 수 있다.</td><td style="font-weight: bold; border-left: 1.5px solid #000;">교사 확인</td></tr>
+            </table>
+
+            
+            <div class="section-container">
+                <div class="section-header"><div class="sec-num">1</div><div class="sec-title">일정 성분비 법칙의 미시적·거시적 통합 이해</div></div>
+                <div class="content-body">
+                    
+                    
+                    <div class="indent-row">
+                        <div class="bullet">•</div>
+                        <div style="flex-grow:1;">
+                            성분 원소 사이의 일정한 ( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> )는 결합하는 원자의 ( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> )가 일정하기 때문에 나타나는 결과이다.
+                            
+                            
+                            <table class="compare-table"><thead><tr><th>화합물</th><th>성분 원소</th><th>개수비(A:B)</th><th>질량비(A:B)</th></tr></thead>
+                            <tbody><tr><td>물($ \rm H_2O $)</td><td>수소 : 산소</td><td>2 : 1</td><td>( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> )</td></tr><tr><td>암모니아($ \rm NH_3 $)</td><td>질소 : 수소</td><td>1 : 3</td><td>( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> )</td></tr><tr><td>이산화 탄소($ \rm CO_2 $)</td><td>탄소 : 산소</td><td>1 : 2</td><td>( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> )</td></tr></tbody></table>
+                            
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="section-container">
+                <div class="section-header"><div class="sec-num">2</div><div class="sec-title">실험 데이터의 정량적 해석 (그래프 분석)</div></div>
+                <div class="content-body">
+                    
+                    
+                    <div class="indent-row">
+                        <div class="bullet">•</div>
+                        <div style="flex-grow:1;">
+                            구리($ \rm Cu $) 가루를 가열하여 산소($ \rm O_2 $)와 반응시킬 때의 질량 관계 그래프를 분석하시오.
+                            <div class="graph-container"><svg width='300' height='200' viewBox='0 0 300 200' style='background:#fff;'><line x1='40' y1='170' x2='280' y2='170' stroke='black' stroke-width='2'/><line x1='40' y1='170' x2='40' y2='20' stroke='black' stroke-width='2'/><path d='M 40 170 L 240 50' stroke='red' stroke-width='3' fill='none'/><text x='240' y='185' font-size='12'>구리의 질량(g)</text><text x='10' y='30' font-size='12' transform='rotate(-90, 10, 30)'>산소의 질량(g)</text><circle cx='140' cy='110' r='3' fill='blue'/><text x='145' y='115' font-size='10'>(4.0, 1.0)</text><circle cx='240' cy='50' r='3' fill='blue'/><text x='245' y='55' font-size='10'>(8.0, 2.0)</text></svg></div>
+                            
+                            
+                            <div style="margin-top: 5px;"><div class="indent-row" style="font-size: 0.95em;"><div style="width: 15px;">-</div><div>그래프의 기울기는 ( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> )와 ( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> )의 질량비를 의미한다.</div></div><div class="indent-row" style="font-size: 0.95em;"><div style="width: 15px;">-</div><div>구리 10g을 완전히 반응시키는 데 필요한 산소는 ( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> )g이며, 생성된 산화 구리(II)는 ( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> )g이다.</div></div></div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="page-num">- 1 -</div>
+        </div>
+
+        <!-- 2페이지 이후: 실전 문제 -->
+        <div class="page-border force-page-break">
+            <div class="problem-area">
+                <div class="problem-header">실전 역량 강화 문제 (심화 탐구)</div>
+                
+                <div class="problem-item">
+                    <div class="indent-row">
+                        <div class="bullet" style="width: 25px;">1.</div>
+                        <div style="flex-grow:1; font-weight: 500;">
+                            마그네슘($ \rm Mg $)과 산소의 질량비는 3:2이다. 마그네슘 15g을 열린 도가니에서 완전히 연소시켰을 때, 생성된 산화 마그네슘($ \rm MgO $)의 질량과 도가니 내부의 질량 변화에 대한 설명으로 옳은 것은?
+                            
+                            
+                            
+                            
+                            <div class="choice-grid"><div>1) 생성물은 20g이며, 질량 보존 법칙에 의해 반응 전후 도가니 질량은 같다.</div><div>2) 생성물은 25g이며, 산소와 결합했으므로 도가니 내부 질량은 증가한다.</div><div>3) 생성물은 25g이며, 질량 보존 법칙은 성립하지 않는다.</div><div>4) 생성물은 10g이며, 반응물이 고체이므로 질량은 일정하다.</div><div>5) 생성물은 30g이며, 결합한 산소의 질량만큼 도가니 질량이 감소한다.</div></div>
+                            
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="problem-item">
+                    <div class="indent-row">
+                        <div class="bullet" style="width: 25px;">2.</div>
+                        <div style="flex-grow:1; font-weight: 500;">
+                            [창의/사고력] 볼트(B)의 질량이 5g, 너트(N)의 질량이 2g일 때 화합물 $ \rm BN_2 $를 만든다. 목일이가 볼트 50g과 너트 30g을 준비하여 최대한 많은 화합물을 만들었다면, (1) 반응 후 남는 부품의 종류와 질량, (2) 생성된 화합물의 총질량을 각각 논리적으로 서술하시오.
+                            
+                            
+                            
+                            
+                            
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px; margin-top: 15px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="problem-item">
+                    <div class="indent-row">
+                        <div class="bullet" style="width: 25px;">3.</div>
+                        <div style="flex-grow:1; font-weight: 500;">
+                            [데이터 분석] 이산화 탄소($ \rm CO_2 $)를 구성하는 탄소(C)와 산소(O)의 질량비는 3:8이다. 만약 탄소 12g을 산소 24g이 들어있는 닫힌 용기에서 연소시킨다면, 용기 내부의 최종 생성물의 구성과 전체 질량을 질량 보존 법칙과 일정 성분비 법칙을 모두 활용하여 설명하시오.
+                            
+                            
+                            
+                            
+                            
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px; margin-top: 15px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="page-num">- 2 -</div></div></div><div class="a4-page"><div class="page-border"><div class="problem-area" style="border-top:none; margin-top:0;">
+                
+                
+                <div class="problem-item">
+                    <div class="indent-row">
+                        <div class="bullet" style="width: 25px;">4.</div>
+                        <div style="flex-grow:1; font-weight: 500;">
+                            [실험 비판] 목일이는 '산화 구리 생성 실험에서 구리 가루를 얇게 펴지 않고 뭉쳐서 가열해도 질량비 4:1이 항상 정확하게 측정될 것'이라고 예측했다. 이 예측의 문제점을 화학 반응의 속도 및 반응의 완결성 관점에서 비판하시오.
+                            
+                            
+                            
+                            
+                            
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px; margin-top: 15px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="problem-item">
+                    <div class="indent-row">
+                        <div class="bullet" style="width: 25px;">5.</div>
+                        <div style="flex-grow:1; font-weight: 500;">
+                            [실생활 응용] 의약품 제조 공정에서 일정 성분비 법칙을 무시하고 원료를 무작위로 섞었을 때 발생할 수 있는 경제적·환경적 손실을 '한계 반응물'과 '정제 비용'의 관점에서 창의적으로 서술하시오.
+                            
+                            
+                            
+                            
+                            
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px; margin-top: 15px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+            <div class="page-num">- 3 -</div>
+        </div>
+    </div>
+</body>
+</html>

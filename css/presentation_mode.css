@@ -30,21 +30,31 @@ body.presentation-mode section.active-slide {
 /* --- Content Styling --- */
 .slide-content {
     background: var(--bg-main);
-    max-width: 1300px; 
+    max-width: 1500px; 
     width: 95%;
-    max-height: 88vh; /* Tighten height limit */
-    padding: 1.2rem 2.5rem;
+    max-height: 92vh; /* 높이 제한 완화 */
+    padding: 2.5rem 4rem; /* 패딩을 넓혀 여유로운 배치 */
     border: 1px solid var(--border-light);
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    overflow-y: auto; /* Allow internal scrolling for outliers */
+    overflow: auto !important; /* 가로/세로 스크롤 모두 허용 */
+    -webkit-overflow-scrolling: touch; /* 모바일 터치 스크롤 부드럽게 */
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 transparent;
+    touch-action: auto; /* 터치 액션 허용 */
+}
+
+/* 모바일 대응 패딩 조정 */
+@media (max-width: 768px) {
+    .slide-content {
+        padding: 1.5rem 1rem;
+        width: 98%;
+    }
 }
 
 /* Custom scrollbar for Webkit */
@@ -69,26 +79,26 @@ body.presentation-mode section.active-slide {
 }
 
 body.presentation-mode h2 {
-    font-size: 2.2rem !important; /* Slightly smaller to save vertical space */
+    font-size: clamp(1.6rem, 2.2vw, 2.2rem) !important;
     font-family: var(--font-heading);
     font-weight: 700;
     margin-bottom: 1rem !important;
     color: var(--primary-blue);
     text-align: center;
-    border-bottom: 4px solid var(--accent-cyan);
+    border-bottom: 3px solid var(--primary-blue);
     padding-bottom: 0.4rem;
     display: inline-block;
     letter-spacing: -0.04em;
     flex-shrink: 0;
 }
 
-body.presentation-mode p, 
+body.presentation-mode p,
 body.presentation-mode li {
-    font-size: 1.35rem !important; /* Reduced for better fit */
+    font-size: clamp(0.9rem, 1.4vw, 1.5rem);
     font-weight: 500;
-    line-height: 1.4 !important;
+    line-height: 1.6;
     color: #1e293b;
-    margin-bottom: 0.6rem;
+    margin-bottom: 1.2rem;
     letter-spacing: -0.02em;
 }
 
@@ -127,8 +137,8 @@ body.presentation-mode li {
 }
 
 /* Specific Atoms */
-.atom-h { width: 30px; height: 30px; background: #94a3b8; border: 1px solid #64748b; } /* 수소 (흰색/회색) */
-.atom-o { width: 45px; height: 45px; background: #ef4444; border: 1px solid #b91c1c; } /* 산소 (빨강) */
+.atom-h { width: 25px; height: 25px; font-size: 0.7rem; background: #3b82f6; border: 1px solid #1d4ed8;} /* 수소 (파랑) */
+.atom-o { width: 35px; height: 35px; font-size: 0.8rem; background: #ef4444; border: 1px solid #b91c1c;} /* 산소 (빨강) */
 .atom-n { width: 42px; height: 42px; background: #3b82f6; border: 1px solid #1d4ed8; } /* 질소 (파랑) */
 .atom-c { width: 40px; height: 40px; background: #334155; border: 1px solid #0f172a; } /* 탄소 (검정) */
 .atom-mg { width: 42px; height: 42px; background: #cbd5e1; border: 1px solid #94a3b8; } /* 마그네슘 (은색) */
@@ -173,11 +183,6 @@ body.presentation-mode li {
     --prestige-navy: #0f172a;
     --prestige-gold: #a47764; /* Muted Bronze/Gold */
     --prestige-silver: #cbd5e1;
-}
-
-body.presentation-mode h2 {
-    border-bottom: 4px solid var(--prestige-navy);
-    text-transform: none; 
 }
 
 .math-font {
@@ -301,3 +306,208 @@ thead.bg-slate-900 th { color: #ffffff !important; }
     transition: transform 0.1s;
 }
 #prev-btn:hover, #next-btn:hover { color: var(--accent-cyan); transform: scale(1.2); }
+
+/* --- View All Mode --- */
+body.view-all-mode {
+    overflow: auto !important;
+    background-color: var(--bg-secondary) !important;
+}
+
+body.view-all-mode main {
+    display: block !important;
+    overflow: visible !important;
+}
+
+body.view-all-mode section {
+    position: relative !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    height: auto !important;
+    min-height: auto !important;
+    margin-bottom: 2rem !important;
+    padding: 2rem 0 !important;
+    z-index: 1 !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+}
+
+body.view-all-mode .slide-content {
+    max-height: none !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+    margin: 0 auto !important;
+    width: 90% !important;
+    border: 1px solid var(--border-light) !important;
+    background: white !important;
+}
+
+body.view-all-mode .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+body.view-all-mode #slide-controls {
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(5px) !important;
+}
+
+body.view-all-mode .progress-bar-container {
+    display: none !important;
+}
+
+/* --- Molecular Animations --- */
+@keyframes vibrate {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(1px, 1px) rotate(0.5deg); }
+    50% { transform: translate(-1px, -1px) rotate(-0.5deg); }
+    75% { transform: translate(1px, -1px) rotate(0.5deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes erratic-fly {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(40px, -30px); }
+    50% { transform: translate(-20px, 50px); }
+    75% { transform: translate(-50px, -20px); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes blink-red {
+    0%, 100% { color: #94a3b8; opacity: 0.3; }
+    50% { color: #ef4444; opacity: 1; transform: scale(1.2); }
+}
+
+.animate-vibrate { animation: vibrate 0.15s infinite linear; }
+.animate-fly-erratic { animation: erratic-fly 4s infinite ease-in-out; }
+.animate-heating { animation: blink-red 1s infinite; }
+
+/* Granular Chemical Reaction (Slide 15) - Reality Refined */
+@keyframes atom-h1 { 
+    0%, 20% { transform: translate(-230px, -80px); } /* H2-1 left */
+    35%, 45% { transform: translate(-100px, -40px) rotate(10deg); } /* Broken */
+    65%, 100% { transform: translate(-175px, 25px); } /* H2O-1 Bottom Left */
+}
+@keyframes atom-h2 { 
+    0%, 20% { transform: translate(-195px, -80px); } /* H2-1 right */
+    35%, 45% { transform: translate(-40px, -90px) rotate(-15deg); } /* Broken */
+    65%, 100% { transform: translate(-125px, 25px); } /* H2O-1 Bottom Right */
+}
+@keyframes atom-h3 { 
+    0%, 20% { transform: translate(-230px, 80px); } /* H2-2 left */
+    35%, 45% { transform: translate(40px, 90px) rotate(20deg); } /* Broken */
+    65%, 100% { transform: translate(125px, 25px); } /* H2O-2 Bottom Left */
+}
+@keyframes atom-h4 { 
+    0%, 20% { transform: translate(-195px, 80px); } /* H2-2 right */
+    35%, 45% { transform: translate(100px, 40px) rotate(-10deg); } /* Broken */
+    65%, 100% { transform: translate(175px, 25px); } /* H2O-2 Bottom Right */
+}
+@keyframes atom-o1 { 
+    0%, 20% { transform: translate(190px, -23px); } /* O2 Top */
+    35%, 45% { transform: translate(-20px, 20px) scale(1.1); } /* Broken center-left */
+    65%, 100% { transform: translate(-150px, -10px); } /* H2O-1 Center O */
+}
+@keyframes atom-o2 { 
+    0%, 20% { transform: translate(190px, 23px); } /* O2 Bottom */
+    35%, 45% { transform: translate(20px, -20px) scale(1.1); } /* Broken center-right */
+    65%, 100% { transform: translate(150px, -10px); } /* H2O-2 Center O */
+}
+
+@keyframes label-reactants { 0%, 45% { opacity: 1; } 55%, 100% { opacity: 0; } }
+@keyframes label-products { 0%, 45% { opacity: 0; } 55%, 100% { opacity: 1; } }
+
+.reaction-stage {
+    position: relative;
+    width: 800px;
+    height: 350px;
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 2px solid #fee2e2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ── Design Standard Utilities ── */
+/* Restrained accent — teal only */
+.accent-line {
+    width: 3rem;
+    height: 3px;
+    background: var(--accent-teal);
+    margin: 0.75rem 0;
+    border-radius: 2px;
+}
+
+/* Stat display — large number hero */
+.stat-hero {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: var(--primary-blue);
+    line-height: 1;
+}
+
+/* Clean label above a stat */
+.stat-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #64748b;
+}
+
+/* Restrained info block — replaces colored border-l-4 cards */
+.info-line {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+/* Key formula — no colored box, just typography */
+.formula-display {
+    font-family: 'Times New Roman', Georgia, serif;
+    font-style: italic;
+    font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+    font-weight: 700;
+    color: var(--primary-blue);
+    letter-spacing: 0.02em;
+}
+
+/* Muted caption */
+.slide-caption {
+    font-size: 0.8rem !important;
+    color: #94a3b8;
+    line-height: 1.4 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Timeline row — horizontal flow */
+.timeline-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+}
+
+.timeline-node {
+    flex: 1;
+    text-align: center;
+    padding: 1rem 0.5rem;
+}
+
+.timeline-arrow {
+    color: #cbd5e1;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+/* Asymmetric split — 40/60 */
+.split-40 {
+    flex: 0 0 40%;
+}
+
+.split-60 {
+    flex: 0 0 60%;
+}

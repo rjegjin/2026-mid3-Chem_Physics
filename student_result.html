@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학생 결과 확인 - 2026 화학 쪽지시험</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #f1f5f9; }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1); width: 36px; height: 36px; border-radius: 50%;
+            border-left-color: #3b82f6; animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .correct-box { background-color: #ecfdf5; border-color: #10b981; color: #065f46; }
+        .wrong-box { background-color: #fef2f2; border-color: #ef4444; color: #991b1b; }
+        .omr-dot { transition: all 0.2s; }
+        .omr-dot:hover { transform: scale(1.1); z-index: 10; }
+        .q-card-res { transition: all 0.3s; border-left-width: 8px; }
+        .q-card-res.correct { border-left-color: #10b981; background: #f0fdf4; }
+        .q-card-res.wrong { border-left-color: #ef4444; background: #fef2f2; }
+    </style>
+</head>
+<body class="text-slate-800 p-4 md:p-8">
+
+    <div class="max-w-3xl mx-auto">
+        <!-- 헤더 -->
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-black text-slate-90 mb-2">나의 쪽지시험 결과 📊</h1>
+            <p class="text-slate-500">학번과 토큰을 입력하여 선생님의 피드백을 확인하세요.</p>
+        </header>
+
+        <!-- 로그인 섹션 -->
+        <div id="login-section" class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8 max-w-md mx-auto">
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">학번 (예: 30101)</label>
+                    <input type="text" id="login-id" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none transition" placeholder="학번 입력">
+                </div>
+                <button onclick="verifyStudent()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition shadow-md flex justify-center items-center gap-2 mt-2">
+                    <span id="btn-text">결과 확인하기</span>
+                    <div id="btn-spinner" class="spinner" style="display:none; width:20px; height:20px; border-width:2px; border-left-color:white;"></div>
+                </button>
+            </div>
+            <p class="text-xs text-slate-400 mt-4 text-center">💡 퀴즈나 논술형 평가를 제출했다면 결과를 확인할 수 있습니다.</p>
+        </div>
+
+        <!-- 결과 표시 섹션 (숨김 처리됨) -->
+        <div id="result-section" class="hidden space-y-6">
+
+            <!-- 상단 요약 -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-center md:text-left">
+                    <p class="text-slate-500 font-bold mb-1">반가워요!</p>
+                    <h2 class="text-2xl font-black text-slate-90"><span id="res-name" class="text-blue-600">홍길동</span> 학생 (<span id="res-id">30101</span>)</h2>
+                </div>
+            </div>
+
+            <!-- 탭 네비게이션 -->
+            <div class="flex gap-2 border-b border-slate-200">
+                <button onclick="switchTab('quiz')" id="quiz-tab" class="px-6 py-3 font-bold text-slate-700 border-b-2 border-blue-600 bg-blue-50">
+                    📝 객관식 (2-3단원)
+                </button>
+                <button onclick="switchTab('essay')" id="essay-tab" class="px-6 py-3 font-bold text-slate-500 border-b-2 border-transparent hover:text-slate-700">
+                    ✍️ 논술형 (3단원)
+                </button>
+            </div>
+
+            <!-- 객관식 콘텐츠 -->
+            <div id="quiz-content" class="space-y-6">
+                <!-- 객관식 점수 -->
+                <div class="bg-slate-50 px-8 py-4 rounded-xl border border-slate-100 text-center">
+                    <p class="text-sm font-bold text-slate-500 mb-1 uppercase tracking-widest">객관식 점수</p>
+                    <p class="text-4xl font-black text-slate-800" id="quiz-score">15 / 20</p>
+                </div>
+
+                <!-- 교사 피드백 -->
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-6xl opacity-10">💬</div>
+                    <h3 class="text-lg font-bold text-blue-800 mb-3 flex items-center gap-2">👨‍🏫 선생님의 피드백</h3>
+                    <div class="bg-white/60 p-4 rounded-xl text-slate-700 leading-relaxed font-medium" id="quiz-feedback">
+                        피드백이 아직 등록되지 않았습니다.
+                    </div>
+                </div>
+
+                <!-- 문항별 결과 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-90 text-white p-4">
+                        <h3 class="font-bold text-lg">문항별 상세 분석</h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-8">
+                            <p class="text-sm font-bold text-slate-500 mb-3">정오표 한눈에 보기</p>
+                            <div class="flex flex-wrap gap-2" id="omr-map">
+                            </div>
+                        </div>
+                        <div class="space-y-4" id="questions-list">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="window.location.href='quiz_L2L3_chem.html'" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-xl transition">
+                        📝 퀴즈 다시 풀어보기
+                    </button>
+                </div>
+            </div>
+
+            <!-- 논술형 콘텐츠 -->
+            <div id="essay-content" class="hidden space-y-6">
+                <!-- 교사 피드백 -->
+                <div class="bg-gradient-to-r from-amber-50 to-orange-50 p-6 rounded-2xl border border-amber-200 shadow-sm relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-6xl opacity-10">💬</div>
+                    <h3 class="text-lg font-bold text-amber-800 mb-3 flex items-center gap-2">👨‍🏫 선생님의 평가</h3>
+                    <div class="bg-white/60 p-4 rounded-xl text-slate-700 leading-relaxed font-medium" id="essay-feedback">
+                        평가가 아직 완료되지 않았습니다.
+                    </div>
+                </div>
+
+                <!-- 문항별 평가 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-amber-900 text-white p-4">
+                        <h3 class="font-bold text-lg">문항별 평가 의견</h3>
+                    </div>
+                    <div class="p-6 space-y-6" id="essay-questions-list">
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="window.location.href='essay_unit3_conservation.html'" class="bg-amber-200 hover:bg-amber-300 text-amber-900 font-bold py-3 px-6 rounded-xl transition">
+                        ✍️ 논술형 다시 풀어보기
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx25Ev-OkyclLK6LVmSizkYGGLD09N1DOTtszjTBAAmkOyJRUSeh3OSg1MqsQF3QiNA/exec';
+
+        let quizData = null;
+        let essayData = null;
+
+        // 페이지 로드 시 로컬 스토리지 확인
+        window.onload = () => {
+            const savedId = localStorage.getItem('chem_quiz_student_id');
+            if(savedId) document.getElementById('login-id').value = savedId;
+        };
+
+        async function verifyStudent() {
+            const studentId = document.getElementById('login-id').value.trim();
+
+            if(!studentId) {
+                alert('학번을 입력해주세요.');
+                return;
+            }
+
+            // 로딩 상태
+            const btnText = document.getElementById('btn-text');
+            const btnSpinner = document.getElementById('btn-spinner');
+            btnText.style.display = 'none';
+            btnSpinner.style.display = 'block';
+
+            try {
+                // 객관식 조회
+                const quizToken = localStorage.getItem('chem_quiz_token');
+                if(quizToken) {
+                    const quizResponse = await fetch(`${APPS_SCRIPT_URL}?action=verify&studentId=${encodeURIComponent(studentId)}&token=${encodeURIComponent(quizToken)}`);
+                    const quizResult = await quizResponse.json();
+                    if(quizResult.success && quizResult.assessmentType === 'quiz') {
+                        quizData = quizResult;
+                    }
+                }
+
+                // 논술형 조회
+                const essayToken = localStorage.getItem('essay_unit3_token');
+                if(essayToken) {
+                    const essayResponse = await fetch(`${APPS_SCRIPT_URL}?action=verify&studentId=${encodeURIComponent(studentId)}&token=${encodeURIComponent(essayToken)}`);
+                    const essayResult = await essayResponse.json();
+                    if(essayResult.success && essayResult.assessmentType === 'essay') {
+                        essayData = essayResult;
+                    }
+                }
+
+                if(!quizData && !essayData) {
+                    alert('제출된 평가가 없습니다. 학번과 평가 결과를 다시 확인하세요.');
+                    return;
+                }
+
+                renderResults();
+                localStorage.setItem('chem_quiz_student_id', studentId);
+
+            } catch(error) {
+                console.error(error);
+                alert('서버와 통신 중 오류가 발생했습니다.');
+            } finally {
+                btnText.style.display = 'block';
+                btnSpinner.style.display = 'none';
+            }
+        }
+
+        function switchTab(tab) {
+            if(tab === 'quiz') {
+                if(!quizData) {
+                    alert('제출된 객관식 평가가 없습니다.');
+                    return;
+                }
+                document.getElementById('quiz-content').classList.remove('hidden');
+                document.getElementById('essay-content').classList.add('hidden');
+                document.getElementById('quiz-tab').classList.add('border-blue-600', 'bg-blue-50');
+                document.getElementById('quiz-tab').classList.remove('border-transparent', 'text-slate-500');
+                document.getElementById('essay-tab').classList.add('border-transparent', 'text-slate-500');
+                document.getElementById('essay-tab').classList.remove('border-blue-600', 'bg-blue-50');
+            } else {
+                if(!essayData) {
+                    alert('제출된 논술형 평가가 없습니다.');
+                    return;
+                }
+                document.getElementById('essay-content').classList.remove('hidden');
+                document.getElementById('quiz-content').classList.add('hidden');
+                document.getElementById('essay-tab').classList.add('border-amber-600', 'bg-amber-50');
+                document.getElementById('essay-tab').classList.remove('border-transparent', 'text-slate-500');
+                document.getElementById('quiz-tab').classList.add('border-transparent', 'text-slate-500');
+                document.getElementById('quiz-tab').classList.remove('border-blue-600', 'bg-blue-50');
+            }
+        }
+
+        function renderResults() {
+            document.getElementById('login-section').classList.add('hidden');
+            document.getElementById('result-section').classList.remove('hidden');
+
+            // 학생 정보
+            const name = quizData?.name || essayData?.name || '학생';
+            const id = quizData?.studentId || essayData?.studentId;
+            document.getElementById('res-name').textContent = name;
+            document.getElementById('res-id').textContent = id;
+
+            if(quizData) {
+                renderQuizResult(quizData);
+            }
+            if(essayData) {
+                renderEssayResult(essayData);
+            }
+
+            // 첫 번째 탭 선택
+            if(quizData) {
+                switchTab('quiz');
+            } else if(essayData) {
+                switchTab('essay');
+            }
+        }
+
+        function renderQuizResult(data) {
+            const scoreParts = data.totalScore ? data.totalScore.split('/') : [0, 20];
+            document.getElementById('quiz-score').textContent = `${scoreParts[0]} / ${scoreParts[1]}`;
+
+            if (data.feedback && data.feedback.trim() !== "") {
+                document.getElementById('quiz-feedback').textContent = data.feedback;
+            }
+
+            const snapshots = data.questionSnapshots || [];
+            const omrMap = document.getElementById('omr-map');
+            const qList  = document.getElementById('questions-list');
+            omrMap.innerHTML = '';
+            qList.innerHTML  = '';
+
+            const badge = (n) => ['', '①', '②', '③', '④'][n] || n;
+
+            for (let i = 0; i < snapshots.length; i++) {
+                const s       = snapshots[i];
+                const qNum    = s.qNum || (i + 1);
+                const isCorrect    = s.isCorrect;
+                const qText        = s.questionText || `문제 ${qNum}`;
+                const correctNum   = s.correctAnswer;
+                const correctText  = s.options?.[correctNum] || "";
+                const userNum      = s.userAnswer || 0;
+                const userText     = userNum > 0 ? (s.options?.[userNum] || "") : "";
+                const explanation  = s.explanation || "";
+
+                const myAns      = userNum > 0
+                    ? badge(userNum) + (userText  ? ` <span class="font-normal text-base">(${userText})</span>`  : "")
+                    : "미응답";
+                const correctAns = badge(correctNum)
+                    + (correctText ? ` <span class="font-normal text-base">(${correctText})</span>` : "");
+
+                // OMR 맵 버튼
+                const omrBtn = document.createElement('div');
+                omrBtn.className = `omr-dot w-10 h-10 flex items-center justify-center rounded-lg font-bold text-sm border cursor-pointer transition-all ${
+                    isCorrect ? 'bg-green-500 border-green-600 text-white shadow-sm' : 'bg-red-500 border-red-600 text-white shadow-sm'
+                }`;
+                omrBtn.textContent = qNum;
+                omrBtn.onclick = () => {
+                    const target = document.getElementById(`qcard-${qNum}`);
+                    if(target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        target.classList.add('ring-4', 'ring-blue-400');
+                        setTimeout(() => target.classList.remove('ring-4', 'ring-blue-400'), 2000);
+                    }
+                };
+                omrMap.appendChild(omrBtn);
+
+                // 상세 카드
+                const qCard = document.createElement('div');
+                qCard.id = `qcard-${qNum}`;
+                qCard.className = `q-card-res p-6 rounded-2xl border shadow-sm flex flex-col gap-4 ${isCorrect ? 'correct' : 'wrong'}`;
+
+                const statusLabel = isCorrect ? 
+                    '<span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold border border-green-200">✅ 정답</span>' :
+                    '<span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-bold border border-red-200">❌ 오답</span>';
+
+                qCard.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-slate-800 text-white px-3 py-1 rounded-lg text-sm font-black">Q${qNum}</span>
+                            ${statusLabel}
+                        </div>
+                    </div>
+                    
+                    <p class="text-lg font-bold text-slate-800 leading-snug">${qText}</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mt-2">
+                        <div class="p-4 bg-white/60 rounded-xl border border-slate-200/50">
+                            <p class="text-xs font-bold text-slate-400 mb-1 uppercase">나의 선택</p>
+                            <p class="text-xl font-black ${isCorrect ? 'text-green-600' : 'text-red-600'}">${myAns}</p>
+                        </div>
+                        <div class="p-4 bg-white/60 rounded-xl border border-slate-200/50">
+                            <p class="text-xs font-bold text-slate-400 mb-1 uppercase">정답</p>
+                            <p class="text-xl font-black text-blue-600">${correctAns}</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400 -mt-2">※ 선택지 번호와 내용은 제출 당시 기준입니다.</p>
+
+                    <div class="mt-2 p-4 bg-blue-50/50 rounded-xl border border-blue-100">
+                        <p class="text-sm font-bold text-blue-800 mb-1 flex items-center gap-1">
+                            <span>📖 문제 해설</span>
+                        </p>
+                        <p class="text-sm text-slate-600 leading-relaxed">${explanation}</p>
+                    </div>
+                `;
+                qList.appendChild(qCard);
+            }
+        }
+
+        function renderEssayResult(data) {
+            if(data.feedback && data.feedback.trim() !== "") {
+                document.getElementById('essay-feedback').textContent = data.feedback;
+            }
+
+            const answers = data.answers || [];
+            const comments = data.questionComments || ["", "", ""];
+
+            const essayList = document.getElementById('essay-questions-list');
+            essayList.innerHTML = '';
+
+            const questionTitles = ["Q1: 실험 설계 & 관찰", "Q2: 실험 결과 분석 & 추론", "Q3: 문제해결 & 실제 적용"];
+
+            for(let i=0; i<3; i++) {
+                const qNum = i + 1;
+                const answer = answers[i]?.content || "(제출되지 않음)";
+                const answerLength = answers[i]?.content?.length || 0;
+                const comment = comments[i];
+
+                const qCard = document.createElement('div');
+                qCard.className = "p-5 rounded-xl border border-amber-200 bg-amber-50 flex flex-col gap-3";
+
+                let commentHtml = '';
+                if(comment && comment.trim() !== '') {
+                    commentHtml = `<div class="mt-3 text-sm text-amber-800 bg-white px-4 py-3 rounded-lg border border-amber-100">👨‍🏫 평가 의견: ${comment}</div>`;
+                }
+
+                qCard.innerHTML = `
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-amber-900 text-white px-2.5 py-1 rounded-md text-xs font-black">${questionTitles[i]}</span>
+                            <span class="text-xs text-amber-700 font-bold">${answerLength}자</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border border-amber-100 text-slate-800 leading-relaxed">
+                            ${answer}
+                        </div>
+                        ${commentHtml}
+                    </div>
+                `;
+                essayList.appendChild(qCard);
+            }
+        }
+    </script>
+</body>
+</html>

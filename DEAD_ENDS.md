@@ -1,0 +1,33 @@
+# DEAD_ENDS - 2026-mid3-Chem_Physics
+
+## 2026-05-05 - 전체 보기에서 형성평가 정답 자동 공개
+
+- 시도: `js/slide_engine.js`의 `toggleViewAll()`에서 전체 보기 모드 진입 시 `revealAllQuizzes()`를 호출하여 모든 정답 버튼과 빈 피드백을 자동 공개했다.
+- 문제: 수업 자료를 `?view=all` 또는 전체 보기로 열면 형성평가 아래에 정답 표시가 먼저 나타나 학생용 화면에서 평가 기능이 깨진다.
+- 원인: 전체 보기 모드는 교사용 정답지 모드가 아니라 문서 전체를 훑어보는 표시 모드인데, 여기에 정답 공개 기능을 섞었다.
+- 결론: 전체 보기 전환은 레이아웃 표시만 바꾸고, 퀴즈 정답/피드백 상태를 변경하면 안 된다.
+- 다음에는 이렇게: 정답 공개가 필요하면 별도 URL 파라미터나 명시적 교사용 버튼처럼 의도가 분명한 기능으로 분리한다. `view=all`에서는 `.quiz-btn[data-correct="true"]`에 정답 스타일을 자동 부여하지 않고, `.quiz-feedback`도 자동 채우지 않는다.
+
+## 2026-05-05 - 형성평가 피드백 HTML 자체가 초기 노출됨
+
+- 시도: 공통 엔진의 전체 보기 정답 공개만 제거하고 문제가 해결됐다고 판단했다.
+- 문제: `8_uniform_motion.html`, `9_free_fall.html`, `10_work_energy.html`에는 정답 풀이가 들어 있는 `.quiz-feedback`가 `display:none` 없이 작성되어 있어, 전체 보기와 슬라이드 보기 모두에서 형성평가 아래 정답 풀이가 먼저 보였다.
+- 원인: 문제를 `view=all` 자동 공개 로직으로만 좁혀 보고, 각 단원 HTML의 초기 DOM/CSS 상태를 전수 확인하지 않았다.
+- 결론: 퀴즈 정답 노출 문제는 공통 엔진과 개별 HTML markup 양쪽을 모두 확인해야 한다.
+- 다음에는 이렇게: `8~15` 같은 범위 수정 후에는 `rg 'quiz-feedback'`로 모든 피드백 div가 초기 숨김 상태인지 확인하고, 공통 엔진에서도 `.quiz-feedback`를 클릭 전 `display:none`으로 초기화한다.
+
+## 2026-05-05 - Tailwind `uppercase` 클래스와 물리 단위의 충돌
+
+- 시도: 시각적인 강조나 타이포그래피 정리를 위해 CSS 유틸리티 클래스(예: Tailwind의 `uppercase`, `tracking-widest`)를 레이아웃 컨테이너(예: 제목이나 공식 박스)에 적용했다.
+- 문제: 해당 컨테이너 내부에 `m/s`, `km/h`와 같은 단위가 텍스트로 포함되어 있을 경우, 화면에 강제로 `M/S`, `KM/H`로 렌더링되어 올바른 국제단위계(SI) 표기법을 위반하고 디자인적으로 어색하게 보였다.
+- 원인: CSS `text-transform: uppercase` 속성은 자식 요소의 텍스트까지 일괄적으로 대문자로 변경해버린다. 단위와 텍스트를 DOM 상에서 명확히 분리하지 않았다.
+- 결론: 과학/수학 단위가 포함될 수 있는 텍스트 요소에는 무분별한 `uppercase` 적용을 지양해야 한다.
+- 다음에는 이렇게: 수학적 공식이나 단위는 철저하게 `MathJax`를 통해 렌더링되도록 분리하여 CSS text-transform의 영향을 받지 않게 보호하고, 영문 대문자화가 필요한 라벨(Label)에만 제한적으로 CSS 클래스를 적용한다.
+
+## 2026-05-07 - HTML 이미지 변경 후 asset board/manifest 미동기화
+
+- 시도: `8_uniform_motion.html`의 슬라이드 이미지를 외부 사진 URL로 교체하고 해당 HTML만 commit/push했다.
+- 문제: `asset_dashboard.html`과 `image_manifest.json`이 예전 이미지 참조를 유지하여, 서버의 asset board가 실제 수업 HTML과 다른 상태가 되었다.
+- 원인: 이미지 참조 변경을 단일 HTML 수정으로만 처리했고, asset board가 HTML에서 파생되는 산출물이라는 점을 같은 작업 단위에 포함하지 않았다.
+- 결론: 이미지 URL을 바꾸는 작업은 HTML, `image_manifest.json`, `asset_dashboard.html`을 하나의 publish 단위로 보아야 한다.
+- 다음에는 이렇게: 이미지 변경 직후 `generate_dashboard.py`를 실행해 asset board/manifest를 재생성하고, 관련 파일을 함께 commit/push한다. 대시보드의 Change API도 로컬 치환 후 재생성, commit, push까지 수행해야 한다.

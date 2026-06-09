@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Inorganic Chemistry Bonus: Mathematical Foundations of Representation Theory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['$$', '$$']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'style', 'textarea', 'pre', 'code']
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/presentation_mode.css">
+    <link rel="stylesheet" href="css/chem_style.css">
+    <style>
+        body { background-color: #ffffff; color: #0f172a; font-family: 'Inter', system-ui, sans-serif; }
+        .slide-content { background: #ffffff; border: 1px solid #e2e8f0; color: #0f172a; box-shadow: none; }
+        .math-proof { background: #f8fafc; border-left: 6px solid #1e40af; padding: 2.5rem; margin: 2rem 0; font-family: 'Times New Roman', serif; line-height: 1.8; color: #0f172a; }
+        .axiom-box { border: 2px solid #3b82f6; border-radius: 1.5rem; padding: 2rem; background: #eff6ff; margin: 2rem 0; color: #0f172a; }
+        .theorem-title { font-weight: 900; color: #1e40af; text-transform: uppercase; font-size: 1.2rem; margin-bottom: 1.5rem; display: block; border-bottom: 2px solid #bfdbfe; padding-bottom: 0.5rem; }
+        .chapter-header { font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.4em; margin-bottom: 1rem; font-weight: bold;}
+        h2 { color: #0f172a; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; border-bottom: 3px solid #0f172a; padding-bottom: 0.5rem; margin-bottom: 2rem; }
+    </style>
+</head>
+<body class="presentation-mode">
+<main>
+
+    <section id="s1">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 01 | Slide 1</div>
+            <h2 class="mb-8 border-none text-slate-500 text-xl tracking-[0.2em]">Module Special Supplement</h2>
+            
+            <div class="text-center py-20">
+                <h1 class="text-6xl font-black text-slate-90 mb-10 leading-tight">Mathematical Foundations <br>of Representation Theory</h1>
+                <div class="w-40 h-2 bg-blue-600 mx-auto mb-10"></div>
+                <p class="text-2xl text-slate-700 font-medium italic">Hilbert Spaces, Linear Algebra, and Quantum Symmetry</p>
+                <p class="mt-20 font-bold text-blue-800 uppercase tracking-widest">Rigorous Proofs and Derivations</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="s2">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 01 | Slide 2</div>
+            <h2 class="mb-8">The Algebraic Structure: "Group"</h2>
+            
+            <p class='text-xl leading-relaxed font-medium text-slate-800'>Symmetry is not merely a visual intuition; it is strictly defined by an algebraic structure known as a <b>Group</b>.</p>
+            <div class='axiom-box shadow-sm'>
+                <span class='theorem-title'>Axioms of a Group $(G, \cdot)$</span>
+                <ul class='list-disc pl-10 space-y-4 font-medium'>
+                    <li><b>Closure:</b> $\forall a, b \in G$, $a \cdot b \in G$</li>
+                    <li><b>Associativity:</b> $\forall a, b, c \in G$, $(a \cdot b) \cdot c = a \cdot (b \cdot c)$</li>
+                    <li><b>Identity:</b> $\exists e \in G$ such that $a \cdot e = e \cdot a = a$</li>
+                    <li><b>Inverse:</b> $\forall a \in G$, $\exists a^{-1} \in G$ such that $a \cdot a^{-1} = e$</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <section id="s3">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 01 | Slide 3</div>
+            <h2 class="mb-8">Subgroups</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>When a subset $H$ of a group $G$ satisfies the group axioms under the same operation, $H$ is called a subgroup of $G$ ($H \leq G$).</p>
+            <div class='math-proof shadow-inner'>
+                <span class='theorem-title'>Subgroup Test</span>
+                <p class="mb-4">The necessary and sufficient condition for $H$ to be a subgroup is summarized in one line:</p>
+                $$ \forall a, b \in H \implies a \cdot b^{-1} \in H $$
+            </div>
+            <p class='mt-6 text-slate-600 font-bold'>Example: Within the $C_{3v}$ molecular point group, there exists a subgroup $C_3 = \{E, C_3, C_3^2\}$ consisting solely of rotational operations.</p>
+        </div>
+    </section>
+    
+    <section id="s4">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 01 | Slide 4</div>
+            <h2 class="mb-8">Cosets</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>We can use a subgroup $H$ to partition the entire group $G$ into non-overlapping regions.</p>
+            <div class='axiom-box'>
+                <p class="font-bold mb-4">The <b>Left Coset</b> of $H$ with respect to an element $g \in G$:</p>
+                $$ gH = \{g \cdot h \mid h \in H\} $$
+            </div>
+            <p class='mt-6 text-lg leading-relaxed text-slate-700'><b>Property:</b> Two cosets are either identical or completely disjoint ($aH \cap bH = \emptyset$). Therefore, cosets form a perfect <b>Partition</b> of $G$.</p>
+        </div>
+    </section>
+    
+    <section id="s5">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 01 | Slide 5</div>
+            <h2 class="mb-8">Lagrange's Theorem</h2>
+            
+            <div class='math-proof'>
+                <span class='theorem-title'>Lagrange's Theorem</span>
+                <p class="mb-4 font-bold">For any finite group $G$ and subgroup $H$, the order (number of elements) of $H$, $|H|$, must perfectly divide the order of $G$, $|G|$.</p>
+                $$ |G| = [G:H] \cdot |H| $$
+            </div>
+            <p class='mt-6 text-base leading-relaxed text-slate-600'><b>Proof Sketch:</b> Every left coset $gH$ has exactly the same number of elements as $H$ (via the bijection $f: h \mapsto gh$). Since $G$ is the union of these disjoint cosets, the total number of elements in $G$ must be a multiple of $|H|$.</p>
+        </div>
+    </section>
+    
+    <section id="s6">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 01 | Slide 6</div>
+            <h2 class="mb-8">Conjugacy Classes</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>This is the algebraic definition of a <b>Class</b>, which groups symmetry operations in Character Tables.</p>
+            <div class='axiom-box bg-white border-slate-300'>
+                <p class="mb-4 text-lg">For two elements $a, b \in G$, if there exists an $x \in G$ such that:</p>
+                $$ b = x^{-1} \cdot a \cdot x $$
+                <p class="mt-4 font-bold text-indigo-800">Then we say "$a$ and $b$ are conjugate to each other."</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="s7">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 01 | Slide 7</div>
+            <h2 class="mb-8">Equivalence Relations</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>Conjugacy mathematically forms an <b>Equivalence Relation</b>.</p>
+            <div class='math-proof text-base'>
+                <ul class='list-decimal pl-10 space-y-4 font-bold'>
+                    <li><b>Reflexive:</b> $a = e^{-1} a e$ (An element is conjugate to itself)</li>
+                    <li><b>Symmetric:</b> $b = x^{-1}ax \implies a = (x^{-1})^{-1}bx^{-1}$</li>
+                    <li><b>Transitive:</b> $b = x^{-1}ax, \text{ and } c = y^{-1}by \implies c = (xy)^{-1}a(xy)$</li>
+                </ul>
+            </div>
+            <p class='mt-6 font-black text-red-700 uppercase tracking-widest text-sm'>Conclusion: The entire group $G$ perfectly fractures into disjoint Conjugacy Classes.</p>
+        </div>
+    </section>
+    
+    <section id="s8">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 01 | Slide 8</div>
+            <h2 class="mb-8">Normal Subgroups</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>A special subgroup where the left coset equals the right coset for every $g \in G$.</p>
+            <div class='axiom-box text-center py-10'>
+                $$ gH = Hg \quad \text{or equivalently} \quad g^{-1}Hg = H \quad \forall g \in G $$
+            </div>
+            <p class='mt-6 text-base leading-relaxed text-slate-700'>A normal subgroup $H$ is an invariant space under the conjugacy operation of $G$. This becomes the core tool for "dividing" a group into smaller structural components.</p>
+        </div>
+    </section>
+    
+    <section id="s9">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 01 | Slide 9</div>
+            <h2 class="mb-8">Quotient Groups</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>When $H$ is a normal subgroup of $G$, we can construct a new group where the <b>elements are the cosets themselves</b>.</p>
+            <div class='math-proof'>
+                <span class='theorem-title'>Quotient Group $G/H$</span>
+                <p class="font-bold text-lg mb-4">Operation Definition: $(aH) \cdot (bH) = (ab)H$</p>
+                <p class="text-slate-600 italic">This operation is only well-defined if and only if $H$ is a normal subgroup.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="s10">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 01 | Slide 10</div>
+            <h2 class="mb-8">Isomorphisms</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>Two groups $G$ and $G'$ may look different (different letters, different geometric actions), but possess the exact same mathematical structure.</p>
+            <div class='axiom-box border-emerald-500 bg-emerald-50'>
+                <p class="mb-4 text-emerald-900 font-bold">A bijection $\phi: G \to G'$ is an isomorphism ($G \cong G'$) if:</p>
+                $$ \phi(a \cdot_G b) = \phi(a) \cdot_{G'} \phi(b) $$
+            </div>
+            <p class='mt-6 font-bold text-slate-500 text-sm'>Note: By Cayley's Theorem, every finite point group is essentially isomorphic to a subgroup of a symmetric group.</p>
+        </div>
+    </section>
+    
+    <section id="s11">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 02 | Slide 11</div>
+            <h2 class="mb-8">Hilbert Space ($\mathcal{H}$)</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>In quantum mechanics, a wavefunction $\psi$ is an element (a 'Ket', $|\psi\rangle$) residing in an infinite-dimensional complex vector space.</p>
+            <div class='math-proof'>
+                <span class='theorem-title'>Inner Product Axioms $\langle \phi | \psi \rangle$</span>
+                <ul class='list-decimal pl-10 space-y-3 font-bold'>
+                    <li>$\langle \phi | \psi \rangle = \langle \psi | \phi \rangle^*$ (Conjugate symmetry)</li>
+                    <li>$\langle \phi | a\psi_1 + b\psi_2 \rangle = a\langle \phi | \psi_1 \rangle + b\langle \phi | \psi_2 \rangle$ (Linearity in ket)</li>
+                    <li>$\langle \psi | \psi \rangle \geq 0$ (Equals 0 iff $|\psi\rangle = 0$)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <section id="s12">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 02 | Slide 12</div>
+            <h2 class="mb-8">Linear Operators</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>A symmetry operation $\hat{R}$ is a linear mapping that moves points within this Hilbert space to other points.</p>
+            <div class='axiom-box text-center py-10 shadow-md border-indigo-300'>
+                $$ \hat{R}(c_1|\psi_1\rangle + c_2|\psi_2\rangle) = c_1\hat{R}|\psi_1\rangle + c_2\hat{R}|\psi_2\rangle $$
+            </div>
+            <p class='mt-6 text-base leading-relaxed text-slate-700'>Because of this <b>Linearity</b>, we do not need to track infinitely many states. We only need to know how a finite set of <b>Basis Vectors</b> transforms to completely define the operator.</p>
+        </div>
+    </section>
+    
+    <section id="s13">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 02 | Slide 13</div>
+            <h2 class="mb-8">Matrix Representations</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>Given an orthonormal basis $\{|e_i\rangle\}$, the action of an operator $\hat{R}$ is perfectly described by a matrix.</p>
+            <div class='math-proof text-center'>
+                $$ \hat{R} |e_j\rangle = \sum_{i=1}^n \Gamma(R)_{ij} |e_i\rangle $$
+                <p class='mt-8 text-sm font-bold text-left uppercase text-slate-400'>Deriving Matrix Elements via Bra-Ket:</p>
+                $$ \Gamma(R)_{ij} = \langle e_i | \hat{R} | e_j \rangle $$
+            </div>
+        </div>
+    </section>
+    
+    <section id="s14">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 02 | Slide 14</div>
+            <h2 class="mb-8">Adjoint Operators ($\hat{R}^\dagger$)</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>The most important symmetric partner of an operator in physics.</p>
+            <div class='axiom-box bg-slate-50 border-slate-800'>
+                <p class="font-bold mb-4">The adjoint $\hat{R}^\dagger$ is defined such that for any $|\phi\rangle, |\psi\rangle$:</p>
+                $$ \langle \phi | \hat{R} \psi \rangle = \langle \hat{R}^\dagger \phi | \psi \rangle $$
+            </div>
+            <p class='mt-6 text-lg text-slate-600'>In matrix notation, this corresponds to the Conjugate Transpose: $\Gamma_{ij}^\dagger = \Gamma_{ji}^*$.</p>
+        </div>
+    </section>
+    
+    <section id="s15">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 02 | Slide 15</div>
+            <h2 class="mb-8">Unitary Operators</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>Physical symmetry operations must preserve the 'magnitude' (total probability = 1) and 'angles' (relative phase) of states.</p>
+            <div class='math-proof'>
+                $$ \langle \hat{R}\phi | \hat{R}\psi \rangle = \langle \phi | \hat{R}^\dagger \hat{R} | \psi \rangle = \langle \phi | \psi \rangle $$
+                <p class='text-center mt-8 font-black text-red-700 text-2xl'>$\implies \hat{R}^\dagger \hat{R} = \hat{I} \quad \text{and} \quad \hat{R}^\dagger = \hat{R}^{-1}$</p>
+            </div>
+            <p class='mt-6 font-bold text-indigo-900'>Therefore, the matrix representation of any physical symmetry operation is always a <b>Unitary Matrix</b>.</p>
+        </div>
+    </section>
+    
+    <section id="s16">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 02 | Slide 16</div>
+            <h2 class="mb-8">Hermitian Operators</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>An operator that is equal to its own adjoint ($\hat{H}^\dagger = \hat{H}$). In quantum mechanics, all Observables (e.g., Energy, Momentum) are Hermitian operators.</p>
+            <div class='axiom-box border-rose-500 bg-rose-50'>
+                <span class='theorem-title text-rose-800'>The Spectral Theorem</span>
+                <ul class='list-disc pl-10 space-y-4 font-bold text-rose-900'>
+                    <li>The eigenvalues of a Hermitian operator are <b>always real numbers</b>.</li>
+                    <li>Eigenvectors corresponding to different eigenvalues are <b>strictly orthogonal</b>.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <section id="s17">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 02 | Slide 17</div>
+            <h2 class="mb-8">Change of Basis</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>The exact same symmetry operation will look like a different matrix depending on the coordinate system (basis) the observer chooses.</p>
+            <div class='math-proof'>
+                <p class="font-bold mb-4">When shifting to a new basis $|f_i\rangle = \sum P_{ji} |e_j\rangle$, the matrix representation transforms as:</p>
+                $$ \Gamma'(R) = P^{-1} \Gamma(R) P $$
+            </div>
+            <p class='mt-6 font-black uppercase text-sm tracking-widest text-slate-500'>This is defined as a <b>Similarity Transformation</b>.</p>
+        </div>
+    </section>
+    
+    <section id="s18">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 02 | Slide 18</div>
+            <h2 class="mb-8">Invariance of the Trace</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>Certain properties of matrices survive similarity transformations unscathed. The most crucial one is the <b>Trace</b> (sum of diagonals).</p>
+            <div class='axiom-box text-center py-10 shadow-lg border-slate-90'>
+                $$ \text{Tr}(P^{-1} \Gamma P) = \text{Tr}(P P^{-1} \Gamma) = \text{Tr}(\Gamma) $$
+            </div>
+            <p class='mt-6 text-lg leading-relaxed text-slate-700'>In Group Theory, this invariant trace is called the <b>Character ($\chi$)</b>. It is a pure mathematical invariant, completely liberated from the arbitrary choice of basis vectors.</p>
+        </div>
+    </section>
+    
+    <section id="s19">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 02 | Slide 19</div>
+            <h2 class="mb-8">Direct Sum ($\oplus$)</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>Combining two vector spaces $V$ and $W$ to create a larger space $V \oplus W$.</p>
+            <div class='math-proof text-center py-10'>
+                $$
+                \Gamma_{V \oplus W} = 
+                \begin{pmatrix}
+                \Gamma_V & 0 \\
+                0 & \Gamma_W
+                \end{pmatrix}
+                $$
+            </div>
+            <p class='mt-6 font-bold text-slate-600'>From a matrix perspective, this forms a Block Diagonal structure. The characters sum trivially: $\chi_{V \oplus W} = \chi_V + \chi_W$.</p>
+        </div>
+    </section>
+    
+    <section id="s20">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 02 | Slide 20</div>
+            <h2 class="mb-8">Tensor Product ($\otimes$)</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>A more complex union where dimensions multiply. Essential for describing multi-electron interactions.</p>
+            <div class='axiom-box text-center overflow-x-auto'>
+                $$ A \otimes B = \begin{pmatrix} a_{11}B & a_{12}B & \cdots \\ a_{21}B & a_{22}B & \cdots \\ \vdots & \vdots & \ddots \end{pmatrix} $$
+            </div>
+            <p class='mt-6 font-black text-red-700 text-lg'>Crucial Theorem: The trace of a tensor product matrix is the product of the individual traces.</p>
+            <div class="text-center mt-4 font-bold text-xl">
+                $$ \chi_{V \otimes W}(R) = \chi_V(R) \cdot \chi_W(R) $$
+            </div>
+        </div>
+    </section>
+    
+    <section id="s21">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 03 | Slide 21</div>
+            <h2 class="mb-8">Mathematical Definition of a Representation</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>A function that maps each element $g$ of a group $G$ to a matrix $\Gamma(g)$ in the General Linear group $GL(V)$, while preserving the group structure.</p>
+            <div class='math-proof'>
+                <span class='theorem-title'>Homomorphism Condition</span>
+                $$ \Gamma(g_1 \cdot g_2) = \Gamma(g_1) \Gamma(g_2) \quad \forall g_1, g_2 \in G $$
+                $$ \Gamma(e) = I, \quad \Gamma(g^{-1}) = \Gamma(g)^{-1} $$
+            </div>
+        </div>
+    </section>
+    
+    <section id="s22">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 03 | Slide 22</div>
+            <h2 class="mb-8">Faithful Representations</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>If different elements of the group map strictly to <b>different matrices</b> (a 1:1 mapping), the representation is called 'Faithful'.</p>
+            <div class='axiom-box'>
+                <p class="font-bold mb-4">Injective function condition:</p>
+                $$ \Gamma(g_1) = \Gamma(g_2) \implies g_1 = g_2 $$
+            </div>
+            <p class='mt-6 text-sm font-bold text-slate-500'>Example: The 'Totally Symmetric Representation' ($A_1$), where every element maps to the number 1, is trivial and unfaithful.</p>
+        </div>
+    </section>
+    
+    <section id="s23">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 03 | Slide 23</div>
+            <h2 class="mb-8">Equivalent Representations</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>Two representations $\Gamma^{(1)}$ and $\Gamma^{(2)}$ of the same dimension are 'Equivalent' if there exists a fixed invertible matrix $P$ such that:</p>
+            <div class='math-proof text-center py-10'>
+                $$ \Gamma^{(1)}(g) = P^{-1} \Gamma^{(2)}(g) P \quad \forall g \in G $$
+            </div>
+            <p class='mt-6 text-lg text-indigo-900 font-bold'>Physically, this implies they represent the <b>exact same physical system, merely viewed from a different coordinate system</b>.</p>
+        </div>
+    </section>
+    
+    <section id="s24">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 03 | Slide 24</div>
+            <h2 class="mb-8">Invariant Subspaces</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>A subspace $W$ of the total vector space $V$ is invariant if symmetry operations never push vectors outside of $W$.</p>
+            <div class='axiom-box border-emerald-400 bg-emerald-50 text-center py-10'>
+                $$ \forall g \in G, \quad \vec{w} \in W \implies \Gamma(g)\vec{w} \in W $$
+            </div>
+            <p class='mt-6 text-base leading-relaxed text-slate-700'>Example: If the $p_z$ orbital in a molecule never mixes with $x$ or $y$ orbitals under any symmetry operation, the 1D space spanned by $p_z$ is an invariant subspace.</p>
+        </div>
+    </section>
+    
+    <section id="s25">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 03 | Slide 25</div>
+            <h2 class="mb-8">Reducibility</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>If a non-trivial invariant subspace $W$ exists (neither $\{0\}$ nor $V$), the representation is defined as a <b>Reducible Representation</b>.</p>
+            <div class='math-proof'>
+                <p class="font-bold mb-4">Through a suitable basis change $P$, all matrices $\Gamma(g)$ can be brought into a block upper-triangular form:</p>
+                $$ P^{-1} \Gamma(g) P = \begin{pmatrix} \Gamma_1(g) & M(g) \\ 0 & \Gamma_2(g) \end{pmatrix} $$
+            </div>
+        </div>
+    </section>
+    
+    <section id="s26">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 03 | Slide 26</div>
+            <h2 class="mb-8">Complete Reducibility</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>For unitary representations of finite groups, if $W$ is invariant, its orthogonal complement $W^\perp$ is also invariant.</p>
+            <div class='axiom-box shadow-xl border-slate-90'>
+                <span class='theorem-title text-slate-90'>Maschke's Theorem</span>
+                <p class="mb-4 font-bold text-lg">Every finite-dimensional representation of a finite group can be completely decomposed into a <b>Direct Sum of Irreducible Representations</b>.</p>
+                <div class="text-center font-bold text-xl">
+                    $$ \Gamma(g) \sim \begin{pmatrix} \Gamma_1(g) & 0 \\ 0 & \Gamma_2(g) \end{pmatrix} \implies \Gamma = \Gamma_1 \oplus \Gamma_2 $$
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="s27">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 03 | Slide 27</div>
+            <h2 class="mb-8">Irreducible Representation (IR)</h2>
+            
+            <div class='math-proof text-center py-16 bg-slate-90 text-white border-none shadow-2xl'>
+                <h2 class='text-5xl text-cyan-400 font-black mb-8 border-none'>The Fundamental Building Blocks</h2>
+                <p class='text-2xl font-light'>A representation that possesses NO non-trivial invariant subspaces. It cannot be broken down any further.</p>
+            </div>
+            <p class='mt-10 text-xl leading-relaxed font-medium text-slate-800'>IRs define the minimum allowable spatial dimensions permitted by nature's symmetry. In particle physics, they classify elementary particles. In chemistry, they represent <b>the degenerate energy levels themselves</b>.</p>
+        </div>
+    </section>
+    
+    <section id="s28">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 03 | Slide 28</div>
+            <h2 class="mb-8">Restriction on the Number of IRs</h2>
+            
+            <p class='text-xl font-medium text-slate-800 mb-8'>A finite group $G$ cannot have an infinite number of non-equivalent irreducible representations.</p>
+            <div class='axiom-box border-rose-400 bg-rose-50 text-center py-10 shadow-inner'>
+                <p class='text-3xl font-black text-rose-900'>Number of IRs = Number of Conjugacy Classes</p>
+            </div>
+            <p class='mt-8 text-base font-bold text-slate-500'>Because of this theorem, the Character Table is always forced to be a <b>Square Matrix</b>, with the number of rows (IRs) exactly matching the number of columns (Classes).</p>
+        </div>
+    </section>
+    
+    <section id="s29">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 03 | Slide 29</div>
+            <h2 class="mb-8">The Special Case of 1D IRs</h2>
+            
+            <p class='text-xl font-medium text-slate-800 mb-6'>For Abelian groups (where commutative law holds), ALL irreducible representations are strictly 1-Dimensional.</p>
+            <div class='math-proof'>
+                <p class="mb-4">If operations commute ($ab = ba$), their matrices must commute: $\Gamma(a)\Gamma(b) = \Gamma(b)\Gamma(a)$.</p>
+                <p class="font-bold text-indigo-800">By Linear Algebra, a set of commuting unitary matrices can be <b>Simultaneously Diagonalized</b>.</p>
+            </div>
+            <p class='mt-6 text-slate-700'>Being fully diagonalized means the space fractures into 1D blocks. Thus, no IR can be larger than 1D.</p>
+        </div>
+    </section>
+    
+    <section id="s30">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 03 | Slide 30</div>
+            <h2 class="mb-8">Chapter 3 Summary: Structure of Reps</h2>
+            
+            <div class='grid grid-cols-2 gap-10 mt-10'>
+                <div class='p-8 bg-slate-50 border-2 border-slate-200 rounded-3xl'>
+                    <ul class='space-y-6 font-bold text-slate-700'>
+                        <li>● <b>Abstract Group $\to$ Matrices</b> (Homomorphism)</li>
+                        <li>● <b>Basis Change $\to$ Similarity Transform</b></li>
+                        <li>● <b>Trace $\to$ Character</b> (Absolute Invariant)</li>
+                    </ul>
+                </div>
+                <div class='p-8 bg-indigo-50 border-2 border-indigo-200 rounded-3xl'>
+                    <ul class='space-y-6 font-bold text-indigo-900'>
+                        <li>● All representations decompose into IRs.</li>
+                        <li>● IRs mathematically map 1:1 with Quantum Mechanical <b>Degenerate Energy Spaces</b>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="s31">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 04 | Slide 31</div>
+            <h2 class="mb-8">Entering Schur's Lemmas</h2>
+            
+            <p class='text-xl leading-relaxed font-medium text-slate-800'>These two lemmas act as the <b>Mathematical Bridge</b> connecting basic group axioms to the Great Orthogonality Theorem (GOT). Proven by Issai Schur in 1905.</p>
+            <div class='axiom-box mt-10 bg-white border-slate-90 border-dashed'>
+                <p class='text-center text-slate-600 italic font-serif text-2xl'>"Without these lemmas, we could not compute a single number inside any Character Table."</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="s32">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 04 | Slide 32</div>
+            <h2 class="mb-8">Schur's Lemma I: The Proposition</h2>
+            
+            <div class='math-proof border-red-600 bg-red-50'>
+                <span class='theorem-title text-red-800'>Schur's Lemma I</span>
+                <p class="mb-4 text-lg">Let $\Gamma(g)$ be an <b>Irreducible Representation</b> over a complex vector space $V$. If a linear operator $M$ commutes with $\Gamma(g)$ for all $g \in G$:</p>
+                $$ M \Gamma(g) = \Gamma(g) M \quad \forall g \in G $$
+                <p class='mt-6 font-black text-xl text-red-900'>Then $M$ MUST be a scalar multiple of the identity matrix.</p>
+                $$ M = c \cdot I \quad (c \in \mathbb{C}) $$
+            </div>
+        </div>
+    </section>
+    
+    <section id="s33">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 04 | Slide 33</div>
+            <h2 class="mb-8">Schur's Lemma I: Proof Part 1</h2>
+            
+            <p class='text-xl font-medium text-slate-800'>Over the field of complex numbers, any matrix $M$ must have at least one eigenvalue $\lambda$ and corresponding eigenvector $\vec{v}$ ($M\vec{v} = \lambda\vec{v}$).</p>
+            <p class='mt-6 text-lg'>Let us define a new matrix: $M - \lambda I$. <br>The null space (kernel, $N$) of this matrix is non-trivial because $\vec{v} \in N$.</p>
+            <div class='math-box mt-8 text-center text-2xl font-black shadow-inner'>
+                $$ \forall \vec{w} \in N, \quad (M - \lambda I)\vec{w} = \vec{0} $$
+            </div>
+        </div>
+    </section>
+    
+    <section id="s34">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 04 | Slide 34</div>
+            <h2 class="mb-8">Schur's Lemma I: Proof Part 2</h2>
+            
+            <p class='text-xl font-medium text-slate-800 mb-6'>Now, apply $\Gamma(g)$ to any arbitrary vector $\vec{w} \in N$.</p>
+            <div class='math-proof'>
+                \begin{align}
+                (M - \lambda I) \Gamma(g) \vec{w} &= (M \Gamma(g) - \lambda \Gamma(g)) \vec{w} \\
+                &= (\Gamma(g) M - \Gamma(g) \lambda I) \vec{w} \quad (\because M \text{ commutes with } \Gamma) \\
+                &= \Gamma(g) (M - \lambda I) \vec{w} \\
+                &= \Gamma(g) \vec{0} = \vec{0}
+                \end{align}
+            </div>
+            <p class='mt-6 text-lg font-bold text-indigo-800'>This proves that $\Gamma(g)\vec{w}$ is also in the kernel $N$. <br>Thus, the kernel $N$ is an <b>Invariant Subspace</b> under $\Gamma$!</p>
+        </div>
+    </section>
+    
+    <section id="s35">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 04 | Slide 35</div>
+            <h2 class="mb-8">Schur's Lemma I: Conclusion</h2>
+            
+            <p class='text-xl font-medium text-slate-800 mb-6'>But recall our premise: $\Gamma$ is an <b>Irreducible Representation</b>. IRs cannot possess non-trivial invariant subspaces.</p>
+            <div class='axiom-box border-emerald-600 bg-emerald-50'>
+                <p class="font-bold text-lg mb-2 text-emerald-900">Therefore, the kernel $N$ must be either $\{\vec{0}\}$ or the entire space $V$.</p>
+                <p class="text-slate-700">Since we already established that the eigenvector $\vec{v} \neq \vec{0}$ resides in $N$, $N$ cannot be zero. It must be the whole space $V$.</p>
+            </div>
+            <p class='mt-8 text-2xl font-black text-center text-slate-90'>Since $(M - \lambda I)\vec{x} = \vec{0}$ for all $\vec{x}$, <br><span class="text-blue-600">$M = \lambda I$</span> $\quad \blacksquare$</p>
+        </div>
+    </section>
+    
+    <section id="s36">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 04 | Slide 36</div>
+            <h2 class="mb-8">Schur's Lemma II: The Proposition</h2>
+            
+            <div class='math-proof border-blue-600 bg-blue-50'>
+                <span class='theorem-title text-blue-800'>Schur's Lemma II</span>
+                <p class="text-lg mb-4">Let $\Gamma^{(1)}$ (dim $l_1$) and $\Gamma^{(2)}$ (dim $l_2$) be two IRs. If a matrix $M$ satisfies the following relation:</p>
+                $$ M \Gamma^{(1)}(g) = \Gamma^{(2)}(g) M \quad \forall g \in G $$
+                <p class='mt-6 font-black text-xl'>Then, ONLY ONE of the following is true:</p>
+                <ol class='list-decimal pl-10 mt-4 space-y-2 font-bold'>
+                    <li>$M = 0$ (The zero matrix)</li>
+                    <li>$\Gamma^{(1)}$ and $\Gamma^{(2)}$ are equivalent ($l_1 = l_2$), and $M$ is an invertible matrix.</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+    
+    <section id="s37">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 04 | Slide 37</div>
+            <h2 class="mb-8">Schur's Lemma II: Proof Structure</h2>
+            
+            <p class='text-xl font-medium text-slate-800 mb-6'>This proof also hinges on the logic of invariant subspaces.</p>
+            <div class='axiom-box'>
+                <p class="font-bold mb-4">It can be shown that:</p>
+                <ul class="list-disc pl-10 space-y-2">
+                    <li>The <b>Kernel</b> of matrix $M$ forms an invariant subspace in the domain of $\Gamma^{(1)}$.</li>
+                    <li>The <b>Image</b> (range) of matrix $M$ forms an invariant subspace in the domain of $\Gamma^{(2)}$.</li>
+                </ul>
+            </div>
+            <p class='mt-6 text-lg text-slate-700'>Because both representations are <b>Irreducible</b>, these spaces must force an all-or-nothing scenario (either zero or full space), directly proving the proposition.</p>
+        </div>
+    </section>
+    
+    <section id="s38">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 04 | Slide 38</div>
+            <h2 class="mb-8">From Pure Math to Physics</h2>
+            
+            <p class='text-xl leading-relaxed font-medium text-slate-800'>Schur’s Lemmas are products of pure algebra, but when applied to quantum mechanics, the implications are profound.</p>
+            <div class='p-10 border-4 border-slate-90 rounded-3xl mt-10 shadow-2xl bg-white'>
+                <p class='italic font-serif text-2xl leading-relaxed text-slate-800'>"If the Hamiltonian $\hat{H}$ commutes with all symmetry operators $\hat{R}$ ($[\hat{H}, \hat{R}]=0$), then by Schur's Lemma I, within the space of a specific Irreducible Representation, $\hat{H}$ must act as a constant matrix ($E \cdot I$)."</p>
+            </div>
+            <p class='mt-10 font-black text-rose-700 text-2xl text-center uppercase tracking-widest'>This is the fundamental origin of Energy Degeneracy.</p>
+        </div>
+    </section>
+    
+    <section id="s41">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 05 | Slide 41</div>
+            <h2 class="mb-8">Unveiling the GOT</h2>
+            
+            <p class='text-xl font-medium text-slate-800 mb-6'>Armed with Schur's Lemmas, we can now prove the Great Orthogonality Theorem (GOT), the bridge connecting math to physical observables.</p>
+            <div class='axiom-box shadow-2xl border-cyan-500 bg-cyan-50'>
+                <span class='theorem-title text-cyan-900'>The Great Orthogonality Theorem</span>
+                <div class='text-3xl text-center py-6 font-black'>
+                    $$ \sum_{R} \Gamma_i(R)_{mn}^* \Gamma_j(R)_{m'n'} = \frac{h}{\sqrt{l_i l_j}} \delta_{ij} \delta_{mm'} \delta_{nn'} $$
+                </div>
+            </div>
+            <p class='mt-6 text-lg text-slate-600 font-bold'>This equation states that the individual matrix elements of Irreducible Representations act as mutually orthogonal vectors in an $h$-dimensional space.</p>
+        </div>
+    </section>
+    
+    <section id="s42">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 05 | Slide 42</div>
+            <h2 class="mb-8">GOT Proof 1: Constructing Invariance</h2>
+            
+            <p class='text-xl font-medium text-slate-800 mb-6'>The crux of the proof involves artificially creating an <b>Invariant Matrix</b> by averaging over all group operations.</p>
+            <div class='math-proof'>
+                <p class="mb-4">For any arbitrary matrix $X$, construct matrix $M$ as follows:</p>
+                $$ M = \sum_{R} \Gamma_i(R) X \Gamma_j(R^{-1}) $$
+                <p class='mt-6 text-indigo-800 font-black text-lg'>Through group rearrangement, one can prove that this matrix $M$ satisfies $\Gamma_i(S) M = M \Gamma_j(S)$ for any operation $S \in G$!</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="s43">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 05 | Slide 43</div>
+            <h2 class="mb-8">GOT Proof 2: Invoking Schur</h2>
+            
+            <p class='text-xl font-medium text-slate-800 mb-6'>We now apply <b>Schur's Lemma II</b> to this engineered matrix $M$.</p>
+            <div class='axiom-box'>
+                <p class="mb-4 text-lg">If $i \neq j$ (they are non-equivalent IRs), Lemma II dictates that $M$ MUST be $0$.</p>
+                $$ \sum_{R} \Gamma_i(R) X \Gamma_j(R^{-1}) = 0 $$
+            </div>
+            <p class='mt-6 text-slate-700 leading-relaxed'>If we set the arbitrary matrix $X$ such that only one element $X_{pq}=1$ and the rest are 0, this immediately derives the $\delta_{ij}$ (orthogonality between different representations) part of the GOT.</p>
+        </div>
+    </section>
+    
+    <section id="s44">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 05 | Slide 44</div>
+            <h2 class="mb-8">Invariance of Character (Class Function)</h2>
+            
+            <p class='text-xl font-medium text-slate-800 mb-6'>Let's revisit the property of the Trace ($\chi$).</p>
+            <div class='math-proof'>
+                <p class="mb-4">If two operations $A$ and $B$ belong to the same Conjugacy Class, then $B = X^{-1} A X$.</p>
+                \begin{align}
+                \chi(B) &= \text{Tr}(\Gamma(B)) = \text{Tr}(\Gamma(X^{-1} A X)) \\
+                &= \text{Tr}(\Gamma(X)^{-1} \Gamma(A) \Gamma(X)) \\
+                &= \text{Tr}(\Gamma(X) \Gamma(X)^{-1} \Gamma(A)) \quad (\because \text{Cyclic property of Trace})\\
+                &= \text{Tr}(\Gamma(A)) = \chi(A)
+                \end{align}
+            </div>
+            <p class='mt-6 font-black text-rose-700 uppercase tracking-widest text-center'>Conclusion: Operations in the same class ALWAYS share the exact same character.</p>
+        </div>
+    </section>
+    
+    <section id="s45">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 05 | Slide 45</div>
+            <h2 class="mb-8">Character Orthogonality</h2>
+            
+            <p class='text-xl font-medium text-slate-800 mb-6'>By taking only the diagonal elements ($m=n, m'=n'$) from the GOT equation and summing them up ($\text{Trace}$):</p>
+            <div class='axiom-box text-center py-10 shadow-md'>
+                $$ \sum_{R} \chi_i(R)^* \chi_j(R) = h \delta_{ij} $$
+            </div>
+            <p class='mt-6 text-lg'>Rewriting this using the number of elements in each class ($g_c$), we yield the famous Rule 3 of Character Table construction:</p>
+            <div class='math-box text-center mt-4 border-dashed'>
+                $$ \sum_{c} g_c \chi_i(c)^* \chi_j(c) = h \delta_{ij} $$
+            </div>
+        </div>
+    </section>
+    
+    <section id="s51">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 06 | Slide 51</div>
+            <h2 class="mb-8">The Projection Operator</h2>
+            
+            <p class='text-xl leading-relaxed font-medium text-slate-800'>Mathematically, a <b>Projection Operator</b> maps the entire vector space $V$ onto a specific target subspace $W$. It must satisfy idempotency ($\hat{P}^2 = \hat{P}$).</p>
+            <div class='math-proof'>
+                <span class='theorem-title'>Character Projection Operator</span>
+                $$ \hat{P}^{(i)} = \frac{l_i}{h} \sum_{R} \chi^{(i)}(R)^* \hat{R} $$
+            </div>
+            <p class='mt-6 text-lg text-slate-700'>Applying this operator to any arbitrary function $f$ systematically strips away all parts except those conforming exactly to the symmetry of the $i$-th Irreducible Representation, yielding the <b>SALC</b>.</p>
+        </div>
+    </section>
+    
+    <section id="s52">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 06 | Slide 52</div>
+            <h2 class="mb-8">Tensor Product Spaces</h2>
+            
+            <p class='text-xl font-medium text-slate-800 mb-6'>When dealing with multi-electron systems or Polarizability tensors, we must use the <b>Kronecker Product</b>.</p>
+            <div class='axiom-box text-center overflow-x-auto py-10'>
+                $$ A \otimes B = \begin{pmatrix} a_{11}B & a_{12}B & \cdots \\ a_{21}B & a_{22}B & \cdots \\ \vdots & \vdots & \ddots \end{pmatrix} $$
+            </div>
+            <p class='mt-6 text-xl font-black text-center text-indigo-900'>Trace Property: $\chi_{A \otimes B} = \chi_A \cdot \chi_B$</p>
+        </div>
+    </section>
+    
+    <section id="s53">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 06 | Slide 53</div>
+            <h2 class="mb-8">Decomposition of Direct Products</h2>
+            
+            <p class='text-xl font-medium text-slate-800 mb-6'>The tensor product of two IRs, $\Gamma_i \otimes \Gamma_j$, is generally a <b>Reducible Representation</b>.</p>
+            <div class='math-proof'>
+                <p class="mb-4 text-slate-700">We use the reduction formula to decompose it into a direct sum of IRs (Clebsch-Gordan series):</p>
+                $$ \Gamma_i \otimes \Gamma_j = \sum_{k} c_{ij}^k \Gamma_k $$
+            </div>
+            <p class='mt-6 text-lg leading-relaxed text-slate-600'>The process of finding the coefficients $c_{ij}^k$ is mathematically identical to the <b>Addition of Angular Momentum</b> in quantum mechanics.</p>
+        </div>
+    </section>
+    
+    <section id="s61">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 07 | Slide 61</div>
+            <h2 class="mb-8">Symmetry of the Hamiltonian</h2>
+            
+            <p class='text-xl font-medium text-slate-800 mb-6'>Saying a physical system is invariant under an operation $\hat{R}$ means the potential energy configuration is unaffected by that operation.</p>
+            <div class='axiom-box text-center py-12 shadow-inner border-rose-400 bg-rose-50'>
+                $$ \hat{R}^\dagger \hat{H} \hat{R} = \hat{H} \iff [\hat{H}, \hat{R}] = 0 $$
+            </div>
+            <p class='mt-8 text-xl font-bold text-slate-700 leading-relaxed'>This <b>Commutativity</b> algebraically guarantees that the Hamiltonian $\hat{H}$ and the symmetry operator $\hat{R}$ can share a set of <b>Simultaneous Eigenfunctions</b>.</p>
+        </div>
+    </section>
+    
+    <section id="s62">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 07 | Slide 62</div>
+            <h2 class="mb-8">The Group Theoretic Origin of Degeneracy</h2>
+            
+            <p class='text-xl font-medium text-slate-800 mb-6'>Let $\psi_n$ be a solution to the Schrödinger equation $\hat{H}\psi_n = E\psi_n$. Apply a symmetry operation $\hat{R}$ to it:</p>
+            <div class='math-proof text-center text-2xl font-black py-10 text-slate-800'>
+                $$ \hat{H}(\hat{R}\psi_n) = \hat{R}\hat{H}\psi_n = \hat{R}(E\psi_n) = E(\hat{R}\psi_n) $$
+            </div>
+            <p class='mt-6 text-xl'>Thus, $\hat{R}\psi_n$ is also a valid eigenfunction with the <b>exact same energy $E$</b>.</p>
+            <p class='mt-6 font-black text-indigo-700 text-lg leading-relaxed'>Conclusion: All wavefunctions belonging to the energy level $E$ form an invariant subspace under group $G$. This subspace is an <b>Irreducible Representation</b>. The dimension ($l_i$) of this IR is the exact <b>Degeneracy</b> of the energy level!</p>
+        </div>
+    </section>
+    
+    <section id="s71">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 08 | Slide 71</div>
+            <h2 class="mb-8">The Vanishing Integral Theorem</h2>
+            
+            <p class='text-xl font-medium text-slate-800 mb-6'>Consider an integral over all space: $I = \int f(x,y,z) d\tau$.</p>
+            <div class='axiom-box border-slate-800'>
+                <p class="text-xl font-bold text-slate-90 leading-relaxed">If the integrand $f$ does not contain the <b>Totally Symmetric Representation ($A_1$ or $A_g$)</b> of the group, the value of this integral is mathematically, rigorously <b>Zero</b>.</p>
+            </div>
+            <p class='mt-6 text-lg text-slate-600 leading-relaxed'>Reasoning: Lacking total symmetry implies the function changes sign under certain operations (e.g., inversion). Integrating across symmetric space guarantees perfect cancellation of positive and negative regions.</p>
+        </div>
+    </section>
+    
+    <section id="s72">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 08 | Slide 72</div>
+            <h2 class="mb-8">Transition Probability & Selection Rules</h2>
+            
+            <p class='text-xl font-medium text-slate-800 mb-6'>The probability of an electronic transition via photon absorption is proportional to the transition dipole moment integral.</p>
+            <div class='math-proof text-center py-8 text-2xl'>
+                $$ I = \langle \psi_{final} | \hat{\mu} | \psi_{initial} \rangle = \int \psi_{final}^* \hat{\mu} \psi_{initial} d\tau $$
+            </div>
+            <p class='mt-6 text-lg'>For this integral to be non-zero (an <b>Allowed Transition</b>), the direct product of the symmetries of the initial state, the dipole operator, and the final state must span $A_1$.</p>
+            <div class='text-center mt-8 p-6 bg-rose-50 border-2 border-rose-300 rounded-2xl font-black text-rose-800 text-3xl'>
+                $$ \Gamma(\psi_f) \otimes \Gamma(\mu) \otimes \Gamma(\psi_i) \supset A_1 $$
+            </div>
+        </div>
+    </section>
+    
+    <section id="s80">
+        <div class="slide-content text-left px-16">
+            <div class="chapter-header">Chapter 08 | Slide 80</div>
+            <h2 class="mb-8">Epilogue: Previewing Wigner-Eckart</h2>
+            
+            <div class='p-12 border-4 border-slate-90 bg-white rounded-3xl text-center shadow-2xl'>
+                <h2 class='text-4xl font-black mb-10 text-indigo-900 border-none uppercase tracking-widest'>The Pinnacle of Symmetry</h2>
+                <div class='math-box text-left text-sm mb-10 border-none bg-slate-50'>
+                    <span class='theorem-title'>The Wigner-Eckart Theorem</span>
+                    $$ \langle \alpha, j, m | T_q^{(k)} | \alpha', j', m' \rangle = \langle j' k ; m' q | j' k ; j m \rangle \frac{\langle \alpha, j || T^{(k)} || \alpha', j' \rangle}{\sqrt{2j+1}} $$
+                </div>
+                <p class='text-xl italic mb-10 leading-relaxed text-slate-700 font-serif'>"Group theory allows us to factorize the integral of a physical interaction into a <b>pure geometric component (Clebsch-Gordan coefficient)</b> and a <b>dynamical component (Reduced matrix element)</b>. We evaluate the former to bypass the intractable complexities of the latter."</p>
+                <div class="w-full h-1 bg-slate-200 my-8"></div>
+                <p class='font-black text-2xl text-slate-90 tracking-widest'>- END OF RIGOROUS SUPPLEMENT -</p>
+            </div>
+        </div>
+    </section>
+    </main>
+<script src='js/chem_sim.js'></script>
+<script src='js/slide_engine.js'></script>
+</body>
+</html>

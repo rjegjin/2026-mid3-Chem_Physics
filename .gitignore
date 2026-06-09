@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Windows
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+*:Zone.Identifier
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# Project Specific - 대용량 미디어
+*.pdf
+*.mp4
+
+# Backup files
+*.bak

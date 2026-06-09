@@ -1,75 +1,60 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3차시: 질량 보존 법칙</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>3차시: 질량 보존 법칙 (Master Spec)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/presentation_mode.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="css/common.css" rel="stylesheet"/>
+    <link href="css/presentation_mode.css" rel="stylesheet"/>
     <style>
-        .hero-bg-mass {
-            background-image: url('https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-        }
-        .scale-display {
-            background: #1e293b;
-            color: #10b981;
-            font-family: 'Fira Code', monospace;
-            padding: 1rem 2rem;
-            border-radius: 0.5rem;
-            font-size: 2.5rem;
-            border: 4px solid #334155;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        .experiment-card {
-            background: white;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-            border: 1px solid #e2e8f0;
-        }
+        :root { --primary-teal: #0f766e; --bg-main: #ffffff; --text-dark: #0f172a; }
+        body { line-height: 1.6; color: var(--text-dark); font-family: 'Pretendard', sans-serif; background: var(--bg-main); }
+        .slide-content h2 { font-size: 3.5rem; font-weight: 900; color: #0f172a; border-bottom: 4px solid #0d9488; display: inline-block; padding-bottom: 0.5rem; margin-bottom: 2rem; }
+        .equation-display { background: #f8fafc; padding: 2.5rem; border-radius: 2rem; font-family: 'Fira Code', monospace; font-size: 3.5rem; color: #1e293b; border: 3px solid #e2e8f0; margin: 2rem 0; display: flex; justify-content: center; align-items: center; gap: 1rem; text-shadow: 0 0 10px rgba(13, 148, 136, 0.1); }
+        .think-card { background: #ffffff; border-radius: 2.5rem; padding: 3rem; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; }
+        .trap-box { background: #fff1f2; border: 4px solid #fb7185; padding: 2.5rem; border-radius: 2rem; position: relative; margin-top: 3rem; }
+        .trap-badge { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); background: #e11d48; color: white; padding: 0.5rem 1.5rem; border-radius: 9999px; font-weight: 900; font-size: 1rem; box-shadow: 0 4px 10px rgba(225, 29, 72, 0.3); }
+        .quiz-option { width: 100%; padding: 1.5rem; background: white; border: 2px solid #e2e8f0; border-radius: 1rem; text-align: left; font-weight: 700; transition: all 0.2s; font-size: 1.2rem; }
+        .quiz-option:hover { border-color: #0d9488; background: #f0fdfa; }
+        .quiz-feedback { height: 3rem; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.5rem; margin-top: 1.5rem; }
+        .scale-display { background: #f8fafc; color: #0f172a; font-family: 'Fira Code', monospace; padding: 1.5rem 3rem; border-radius: 1rem; font-size: 4rem; font-weight: 900; border: 4px solid #cbd5e1; box-shadow: inset 0 4px 6px rgba(0,0,0,0.1); display: inline-block; }
+        .scale-display span { font-size: 1.5rem; color: #64748b; margin-left: 0.5rem; }
+        .atom { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; font-size: 1.2rem; box-shadow: inset -3px -3px 10px rgba(0,0,0,0.2); }
     </style>
 </head>
 <body class="presentation-mode">
-
 <main>
-    
     <!-- Slide 1: Cover -->
-    <section id="s1" class="hero-bg-mass">
-        <div class="slide-content bg-overlay">
-            <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">중학교 3학년 과학 • 화학 1단원</p>
-            <h1 class="text-6xl font-black mb-6 text-slate-900 leading-tight">
-                반응 전후의<br><span style="color:var(--accent-teal)">질량 변화</span>
-            </h1>
-            <div class="w-20 h-1 bg-slate-800 mx-auto my-8"></div>
-            <p class="text-2xl text-slate-600 font-medium">제 3강: 질량 보존 법칙</p>
+    <section id="s1">
+        <div class="slide-content text-center">
+            <p class="text-sm font-black text-teal-600 uppercase tracking-[0.3em] mb-6">Middle School Science • Chemistry</p>
+            <h1 class="text-7xl font-black text-slate-90 mb-8 leading-tight">절대 사라지지 않는<br><span class="text-teal-600">물질의 총 질량</span></h1>
+            <div class="w-32 h-2 bg-teal-600 mx-auto my-10 rounded-full"></div>
+            <p class="text-2xl text-slate-500 font-bold italic">"Law of Conservation of Mass"</p>
         </div>
     </section>
 
-    <!-- Slide 2: Intro (Rocket) -->
+    <!-- Slide 2: Intro (Rocket Metaphor) -->
     <section id="s2">
         <div class="slide-content">
             <h2>도입: 로켓 발사의 비밀</h2>
-            <div class="flex gap-12 items-center max-w-6xl mt-8">
-                <div class="w-1/2 relative group">
-                    <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="rounded-2xl shadow-2xl transition-transform duration-500 group-hover:scale-105">
-                    <div class="absolute bottom-4 right-4 bg-black/70 text-white p-3 rounded text-sm backdrop-blur-sm">
-                        연료 + 산소의 정밀한 계산
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-6xl mt-8">
+                <div class="flex flex-col items-center">
+                    <img class="w-full h-96 rounded-3xl border-8 border-white shadow-2xl mb-6 object-cover" src="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Rocket Launch"/>
                 </div>
-                <div class="w-1/2 text-left space-y-6">
-                    <p class="text-2xl font-bold text-slate-800 leading-tight">
-                        로켓이 날아가기 위해서는 수소 연료와 산소의 비율을 **완벽하게** 맞춰야 합니다.
-                    </p>
-                    <p class="text-xl text-slate-600 leading-relaxed">
-                        만약 반응 전후의 무게가 제멋대로 변한다면, 우리는 로켓에 얼마나 많은 연료를 실어야 할지 결코 알 수 없을 것입니다.
-                    </p>
-                    <div class="p-6 bg-teal-50 border-l-4 border-teal-500 rounded">
-                        <p class="text-xl font-bold text-teal-800">화학 반응 전과 후, 물질의 총 질량은 변할까요?</p>
+                <div class="text-left space-y-8">
+                    <p class="text-4xl font-black text-slate-800 leading-tight">우주를 향한 궤도에는<br><span class="text-teal-600">단 1g의 오차</span>도 허용되지 않습니다.</p>
+                    <p class="text-xl text-slate-600 leading-relaxed font-medium">만약 연료가 폭발(화학 반응)할 때마다 질량이 제멋대로 사라지거나 늘어난다면, 로켓에 연료를 얼마나 실어야 할지 결코 계산할 수 없을 것입니다.</p>
+                    <div class="p-6 bg-teal-50 border-l-8 border-teal-500 rounded-xl">
+                        <p class="text-xl font-black text-teal-900">Q. 세상의 모든 화학 반응은 정말 일정한 질량을 유지할까요?</p>
                     </div>
                 </div>
             </div>
@@ -80,314 +65,375 @@
     <section id="s3">
         <div class="slide-content">
             <h2>학습 목표</h2>
-            <div class="w-full max-w-4xl bg-white p-10 border-l-8 border-teal-600 shadow-sm text-left">
-                <ul class="space-y-8 text-2xl">
-                    <li class="reveal-item flex items-start gap-4">
-                        <span class="bg-teal-600 text-white w-10 h-10 rounded-full flex items-center justify-center shrink-0">1</span>
-                        <span>다양한 화학 반응에서 **질량 변화**를 측정하고 비교할 수 있다.</span>
-                    </li>
-                    <li class="reveal-item flex items-start gap-4">
-                        <span class="bg-teal-600 text-white w-10 h-10 rounded-full flex items-center justify-center shrink-0">2</span>
-                        <span>**질량 보존 법칙**이 성립하는 이유를 원자 모형으로 설명할 수 있다.</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 3-1: Think Before Class -->
-    <section id="s3-1">
-        <div class="slide-content">
-            <h2>💡 수업 전 생각하기</h2>
-            <div class="p-10 bg-amber-50 rounded-2xl border-2 border-amber-200 text-left max-w-4xl shadow-lg">
-                <p class="text-3xl font-bold text-amber-900 mb-8 italic">"사라진 질량은 어디로 갔을까요?"</p>
-                <div class="space-y-6 text-xl leading-relaxed">
-                    <p>1. 나무 10kg을 태우면 한 줌의 재(약 1kg)만 남습니다. 나머지 9kg은 연기가 되어 사라진 걸까요, 아니면 소멸된 걸까요?</p>
-                    <p>2. 강철 솜을 가열하면 신기하게도 처음보다 더 무거워집니다. 질량은 창조될 수도 있는 걸까요?</p>
-                    <div class="mt-10 p-6 bg-white/80 rounded-xl border border-amber-100">
-                        <p class="text-slate-700 font-bold text-center">눈에 보이지 않는 '기체'의 존재를 생각해 봅시다.</p>
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-12 max-w-5xl mx-auto">
+                <div class="p-10 bg-white border-b-8 border-teal-500 rounded-3xl shadow-xl hover:-translate-y-2 transition-transform">
+                    <span class="text-6xl mb-6 block">⚖️</span>
+                    <p class="text-2xl font-black mb-4 text-slate-800">질량의 변화 측정</p>
+                    <p class="text-lg text-slate-600 leading-relaxed">앙금 생성, 기체 발생, 연소 반응 등 다양한 조건에서 질량 변화를 실험적으로 비교할 수 있다.</p>
+                </div>
+                <div class="p-10 bg-white border-b-8 border-blue-500 rounded-3xl shadow-xl hover:-translate-y-2 transition-transform">
+                    <span class="text-6xl mb-6 block">⚛️</span>
+                    <p class="text-2xl font-black mb-4 text-slate-800">입자적 원리 이해</p>
+                    <p class="text-lg text-slate-600 leading-relaxed">질량 보존 법칙이 항상 성립하는 근본적인 이유를 <b>원자의 재배열</b> 개념으로 완벽히 설명할 수 있다.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 4: Exp 1 Intro -->
+    <!-- Slide 4: Think Before Class -->
     <section id="s4">
         <div class="slide-content">
-            <div class="step-badge" style="background: var(--accent-teal);">Exp 01</div>
-            <h2>앙금 생성 반응과 질량</h2>
-            <p class="text-2xl text-slate-500 mb-12">액체와 액체가 만나 고체가 생길 때의 변화</p>
-            <div class="grid grid-cols-2 gap-12 w-full max-w-5xl">
-                <div class="experiment-card p-8 bg-blue-50">
-                    <img src="https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="img-card" style="height:200px">
-                    <h3 class="text-xl font-bold mb-2">반응물</h3>
-                    <p class="text-slate-600 leading-tight">염화 나트륨 수용액<br>+<br>질산 은 수용액</p>
-                </div>
-                <div class="experiment-card p-8 bg-teal-50">
-                    <div class="h-[200px] flex items-center justify-center text-6xl">🧪</div>
-                    <h3 class="text-xl font-bold mb-2 text-teal-800">생성물</h3>
-                    <p class="text-slate-600 leading-tight">**흰색 앙금**<br>(염화 은)<br>+<br>질산 나트륨 수용액</p>
+            <h2>💡 수업 전 생각해보기</h2>
+            <div class="think-card text-left max-w-6xl mx-auto">
+                <p class="text-4xl font-black text-slate-90 mb-12">"우리 눈앞에서 사라진 질량은 <span class="text-amber-500 underline underline-offset-8">어디로</span> 갔을까요?"</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="p-8 bg-amber-50 rounded-2xl border-2 border-amber-200">
+                        <p class="text-2xl font-black text-amber-800 mb-4 flex items-center gap-3"><span>🪵</span> 나무의 연소</p>
+                        <p class="text-lg text-slate-700 leading-relaxed">무거운 장작 10kg을 활활 태우고 나면 가벼운 재(1kg)만 남습니다. 나머지 9kg은 이 세상에서 완전히 소멸된 걸까요?</p>
+                    </div>
+                    <div class="p-8 bg-slate-50 rounded-2xl border-2 border-slate-300">
+                        <p class="text-2xl font-black text-slate-800 mb-4 flex items-center gap-3"><span>🧽</span> 강철 솜의 가열</p>
+                        <p class="text-lg text-slate-700 leading-relaxed">반대로 강철 솜을 가열하면 오히려 처음보다 더 무거워집니다. 아무것도 없던 곳에서 질량이 창조될 수도 있는 걸까요?</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 5: Exp 1 Result -->
+    <!-- Slide 5: Experiment 1 - Precipitation -->
     <section id="s5">
         <div class="slide-content">
-            <h2>실험 결과 분석: 앙금</h2>
-            <div class="flex flex-col items-center gap-8 mt-8">
-                <div class="flex items-center gap-12">
-                    <div class="text-center">
-                        <p class="mb-4 font-bold text-slate-500">반응 전</p>
-                        <div class="scale-display">150.45 g</div>
-                    </div>
-                    <div class="text-5xl text-teal-500 font-black">＝</div>
-                    <div class="text-center">
-                        <p class="mb-4 font-bold text-teal-600">반응 후</p>
-                        <div class="scale-display">150.45 g</div>
-                    </div>
+            <p class="text-teal-600 font-black tracking-widest uppercase mb-2">Case Study 01</p>
+            <h2>앙금 생성 반응과 질량</h2>
+            <p class="text-2xl text-slate-600 mb-10 font-bold">두 투명한 액체가 섞여 <b>무거운 고체(앙금)</b>가 만들어질 때 질량은 어떻게 될까요?</p>
+            <div class="equation-display">$NaCl + AgNO_3 \rightarrow AgCl\downarrow + NaNO_3$</div>
+            <div class="flex items-center justify-center gap-8 mt-12 max-w-5xl mx-auto text-left">
+                <div class="flex-1 p-8 bg-white rounded-3xl border-2 border-slate-100 shadow-lg text-center">
+                    <p class="font-black text-blue-700 text-xl mb-4">반응 전 (Reactants)</p>
+                    <p class="text-lg font-bold">염화 나트륨 수용액<br>+<br>질산 은 수용액</p>
                 </div>
-                <div class="mt-8 p-8 bg-white border-2 border-teal-500 rounded-2xl shadow-xl max-w-3xl">
-                    <p class="text-2xl font-bold text-slate-800">
-                        "새로운 고체(앙금)가 형성되었음에도 불구하고,<br>전체 질량은 **소수점 끝자리까지** 동일합니다."
-                    </p>
+                <div class="text-6xl font-black text-slate-300">→</div>
+                <div class="flex-1 p-8 bg-white rounded-3xl border-2 border-slate-100 shadow-lg text-center">
+                    <p class="font-black text-teal-700 text-xl mb-4">반응 후 (Products)</p>
+                    <p class="text-lg font-bold"><b class="text-teal-600 bg-teal-50 px-2 rounded">염화 은(흰색 앙금)</b><br>+<br>질산 나트륨 수용액</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 6: Exp 2 Intro -->
+    <!-- Slide 6: Result 1 -->
     <section id="s6">
         <div class="slide-content">
-            <div class="step-badge" style="background: var(--accent-orange);">Exp 02</div>
-            <h2>기체 발생 반응과 질량</h2>
-            <p class="text-2xl text-slate-500 mb-12">기체가 발생하여 탈출할 수 있는 상황이라면?</p>
-            <div class="p-10 experiment-card bg-orange-50 border-orange-200 w-full max-w-4xl">
-                <p class="text-2xl font-bold text-orange-900 mb-6">탄산 칼슘 + 묽은 염산 → 염화 칼슘 + 물 + **이산화 탄소(↑)**</p>
-                <div class="grid grid-cols-2 gap-8 mt-8">
-                    <div class="p-6 bg-white rounded-lg shadow-sm border-t-4 border-red-500">
-                        <h3 class="font-bold text-xl mb-4 text-red-600">Case A: 뚜껑 열기</h3>
-                        <p class="text-lg">기체가 밖으로 나감<br>➡ 질량 **감소**</p>
+            <h2>실험 결과: 정밀한 보존</h2>
+            <div class="flex flex-col items-center gap-12 mt-16 w-full max-w-6xl mx-auto">
+                <div class="flex items-center justify-around w-full bg-white p-16 rounded-[3rem] shadow-2xl border border-slate-100">
+                    <div class="text-center">
+                        <p class="mb-6 font-black text-slate-400 uppercase tracking-widest">반응 전 총 질량</p>
+                        <div class="scale-display">150.45<span>g</span></div>
                     </div>
-                    <div class="p-6 bg-white rounded-lg shadow-sm border-t-4 border-blue-500">
-                        <h3 class="font-bold text-xl mb-4 text-blue-600">Case B: 뚜껑 닫기</h3>
-                        <p class="text-lg">기체가 갇혀있음<br>➡ 질량 **변화 없음**</p>
+                    <div class="text-7xl text-teal-500 font-black">=</div>
+                    <div class="text-center">
+                        <p class="mb-6 font-black text-teal-600 uppercase tracking-widest">반응 후 총 질량</p>
+                        <div class="scale-display border-teal-500">150.45<span>g</span></div>
                     </div>
+                </div>
+                <div class="p-8 bg-teal-50 border-2 border-teal-200 text-teal-900 font-black text-3xl rounded-3xl w-full text-center shadow-sm">
+                    ✨ 새로운 고체가 생겨도 전체 질량은 단 0.01g의 오차도 없습니다.
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 7: Law Definition -->
+    <!-- Slide 7: Experiment 2 (The Trap) -->
     <section id="s7">
         <div class="slide-content">
-            <h2>질량 보존 법칙</h2>
-            <div class="flex gap-12 items-center max-w-6xl mt-8">
-                <div class="w-1/3">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Antoine_lavoisier.jpg/440px-Antoine_lavoisier.jpg" class="rounded-xl shadow-2xl border-4 border-slate-800">
-                    <p class="mt-4 font-bold">앙투안 라부아지에</p>
-                </div>
-                <div class="w-2/3 text-left">
-                    <div class="bg-slate-900 text-white p-12 rounded-3xl shadow-2xl relative">
-                        <span class="absolute top-4 left-6 text-6xl text-slate-700 font-serif">“</span>
-                        <p class="text-3xl font-light leading-relaxed mb-6">
-                            화학 반응이 일어날 때,<br>
-                            **반응물의 총 질량**은<br>
-                            **생성물의 총 질량**과 같다.
-                        </p>
-                        <p class="text-xl text-cyan-400 font-bold">- Law of Conservation of Mass -</p>
+            <p class="text-rose-600 font-black tracking-widest uppercase mb-2">Case Study 02</p>
+            <h2>기체 발생 반응의 진실</h2>
+            <div class="equation-display text-4xl">$CaCO_3 + 2HCl \rightarrow CaCl_2 + H_2O + \mathbf{CO_2\uparrow}$</div>
+            
+            <div class="trap-box max-w-6xl mx-auto mt-16">
+                <span class="trap-badge">⚠️ OPEN SYSTEM TRAP (함정)</span>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="bg-white p-10 rounded-3xl shadow-inner text-left border border-rose-100">
+                        <div class="text-5xl mb-4">💨</div>
+                        <p class="text-2xl font-black text-rose-700 mb-4">뚜껑을 열었을 때 (Open)</p>
+                        <p class="text-lg text-slate-700 font-bold leading-relaxed">발생한 기체가 공기 중으로 도망갑니다. 도망간 기체만큼 저울의 눈금은 <b class="text-rose-600">감소</b>합니다.</p>
+                    </div>
+                    <div class="bg-white p-10 rounded-3xl shadow-inner text-left border border-blue-100">
+                        <div class="text-5xl mb-4">🔒</div>
+                        <p class="text-2xl font-black text-blue-700 mb-4">뚜껑을 닫았을 때 (Closed)</p>
+                        <p class="text-lg text-slate-700 font-bold leading-relaxed">기체가 도망가지 못하고 병 안에 갇힙니다. 저울의 눈금은 반응 전후로 완벽하게 <b class="text-blue-600">일치</b>합니다.</p>
                     </div>
                 </div>
+                <p class="mt-8 text-xl font-black text-rose-800 text-center">※ 질량이 보존되지 않는 것이 아니라, 날아간 기체의 측정을 놓친 것뿐입니다!</p>
             </div>
         </div>
     </section>
 
-    <!-- Slide 8: Particle Reason -->
+    <!-- Slide 8: Lavoisier -->
     <section id="s8">
         <div class="slide-content">
-            <h2>왜 질량은 보존될까요?</h2>
-            <p class="text-xl mb-10 text-slate-500">원자 수준에서 그 이유를 확인해 봅시다.</p>
-            <div class="grid grid-cols-2 gap-12 w-full mt-4">
-                <div class="text-center p-10 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-300">
-                    <p class="mb-6 font-bold text-slate-400">반응 전 원자</p>
-                    <div class="molecule-container bg-white">
-                        <div class="atom atom-a">A</div><div class="atom atom-a">A</div>
-                        <span class="mx-4 text-2xl">+</span>
-                        <div class="atom atom-b">B</div><div class="atom atom-b">B</div>
-                    </div>
+            <h2>위대한 발견: 라부아지에</h2>
+            <div class="think-card max-w-6xl mx-auto mt-12 flex flex-col md:flex-row gap-12 items-center">
+                <img class="w-64 h-64 rounded-full border-8 border-slate-100 shadow-2xl object-cover" src="https://m.media-amazon.com/images/I/81kQ8phdWRL.jpg" alt="Lavoisier"/>
+                <div class="text-left space-y-6">
+                    <p class="text-4xl font-black text-slate-90 leading-tight">"반응물의 총 질량은<br>생성물의 총 질량과 항상 같다."</p>
+                    <p class="text-2xl text-teal-600 font-black">- 질량 보존 법칙 (1774년) -</p>
+                    <p class="text-xl text-slate-600 leading-relaxed font-medium">수많은 정밀한 측정 실험(닫힌 용기)을 통해, 물질이 타거나 형태가 변해도 질량은 결코 창조되거나 소멸하지 않음을 역사상 최초로 증명해 냈습니다.</p>
                 </div>
-                <div class="text-center p-10 bg-teal-50 rounded-3xl border-2 border-teal-200">
-                    <p class="mb-6 font-bold text-teal-600">반응 후 원자</p>
-                    <div class="molecule-container bg-white">
-                        <div class="atom atom-a">A</div><div class="atom atom-b">B</div>
-                        <span class="mx-4 text-2xl">+</span>
-                        <div class="atom atom-a">A</div><div class="atom atom-b">B</div>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-12 p-8 bg-slate-800 text-white rounded-2xl w-full max-w-4xl text-center">
-                <p class="text-2xl font-bold">
-                    "원자의 **배열**은 달라지지만,<br>원자의 **종류와 개수**는 절대로 변하지 않기 때문입니다!"
-                </p>
             </div>
         </div>
     </section>
 
-    <!-- Slide 9: Combustion Deep Dive (Wood) -->
+    <!-- Slide 9: Particle Reason -->
     <section id="s9">
         <div class="slide-content">
-            <h2>심화: 나무의 연소 (질량 감소?)</h2>
-            <div class="flex gap-12 items-center max-w-5xl mt-8">
-                <div class="w-1/2">
-                    <img src="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="rounded-2xl shadow-xl">
-                </div>
-                <div class="w-1/2 text-left space-y-6">
-                    <h3 class="text-2xl font-bold text-red-700">날아간 범인들</h3>
-                    <p class="text-xl leading-relaxed">
-                        나무가 타면 산소와 결합하여 **이산화 탄소**와 **수증기**가 됩니다.<br><br>
-                        열린 공간에서는 이 기체들이 하늘로 날아가 버리기 때문에 남은 재의 무게만 측정하면 줄어든 것처럼 보입니다.
+            <h2>왜 질량은 영원히 보존될까요?</h2>
+            <p class="text-3xl text-slate-600 mb-12 font-bold">보이지 않는 입자의 세계로 들어가면 답은 매우 단순합니다.</p>
+            <div class="p-12 bg-slate-50 text-white rounded-[3rem] shadow-2xl max-w-6xl mx-auto border-4 border-slate-80">
+                <div class="text-center font-bold">
+                    <p class="text-4xl leading-relaxed">
+                        화학 반응이 일어날 때 원자들의 <span class="text-yellow-400 font-black">배열</span>만 달라질 뿐,<br>
+                        원자의 <span class="text-cyan-400 font-black underline decoration-4 underline-offset-8">종류와 개수</span>는 절대로 변하지 않기 때문입니다!
                     </p>
-                    <div class="p-4 bg-slate-100 border-l-4 border-slate-400 font-mono">
-                        (나무 + 산소) = (재 + 날아간 기체)
-                    </div>
                 </div>
+            </div>
+            <div class="mt-12 text-center">
+                <p class="text-2xl font-black text-slate-500">"레고 블록을 무너뜨려 다른 모양으로 조립해도, 전체 레고 블록의 무게는 똑같은 것과 같습니다."</p>
             </div>
         </div>
     </section>
 
-    <!-- Slide 10: Combustion Deep Dive (Steel Wool) -->
+    <!-- Slide 10: Interactive Quiz 1 -->
     <section id="s10">
         <div class="slide-content">
-            <h2>심화: 강철 솜의 연소 (질량 증가?)</h2>
-            <div class="flex flex-row-reverse gap-12 items-center max-w-5xl mt-8">
-                <div class="w-1/2">
-                    <img src="https://images.unsplash.com/photo-1536633132051-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="rounded-2xl shadow-xl">
+            <h2 class="text-teal-600">형성 평가 01</h2>
+            <div class="think-card max-w-5xl mx-auto">
+                <p class="text-3xl font-black mb-12">질량 보존 법칙이 화학 반응에서 항상 성립하는 <b>근본적인 원인</b>은 무엇인가요?</p>
+                <div class="grid grid-cols-1 gap-4">
+                    <button class="quiz-option" data-correct="false" onclick="checkQuiz(this, '반응을 하면 상태(고체, 기체 등)는 변할 수 있습니다.')">A) 반응 시 물질의 상태가 변하지 않기 때문에</button>
+                    <button class="quiz-option" data-correct="false" onclick="checkQuiz(this, '원자들이 재배열되므로 분자의 종류는 완전히 달라집니다!')">B) 반응 전후 분자의 종류와 개수가 일정하기 때문에</button>
+                    <button class="quiz-option" data-correct="true" onclick="checkQuiz(this, '정답! 레고 블록을 다시 조립해도 전체 블록의 종류와 개수는 그대로인 것과 같습니다.')">C) 반응 전후 원자의 종류와 개수가 절대 변하지 않기 때문에</button>
                 </div>
-                <div class="w-1/2 text-left space-y-6">
-                    <h3 class="text-2xl font-bold text-blue-700">합류한 산소</h3>
-                    <p class="text-xl leading-relaxed">
-                        강철 솜(철)이 타면 공기 중의 **산소**가 철과 결합하여 고체 상태의 **산화 철**이 됩니다.<br><br>
-                        외부에서 들어온 산소의 무게가 더해졌기 때문에 질량이 늘어나는 것입니다.
-                    </p>
-                    <div class="p-4 bg-blue-50 border-l-4 border-blue-400 font-mono">
-                        산화 철의 질량 = (철 + 결합한 산소)
+                <div class="quiz-feedback"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: Interactive Quiz 2 -->
+    <section id="s11">
+        <div class="slide-content">
+            <h2 class="text-blue-600">형성 평가 02</h2>
+            <div class="think-card max-w-5xl mx-auto">
+                <p class="text-3xl font-black mb-12"><b>닫힌 병 속</b>에서 나무 5g을 완전히 태웠을 때, 병 안에 들어있는 <b>모든 물질의 총 질량</b>은 어떻게 될까요?</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <button class="quiz-option" data-correct="false" onclick="checkQuiz(this, '연소하려면 공기 중의 산소가 결합해야 합니다. 산소의 질량도 포함해야죠!')">A) 딱 5g이다.</button>
+                    <button class="quiz-option" data-correct="false" onclick="checkQuiz(this, '재만 남은 게 아니라 닫힌 병 속에 기체도 모두 갇혀 있습니다.')">B) 5g보다 가볍다.</button>
+                    <button class="quiz-option" data-correct="true" onclick="checkQuiz(this, '정답! 연소에는 산소가 필요하므로 [나무 5g + 결합한 산소 질량]이 되어 처음 나무 무게인 5g보다는 무겁습니다.')">C) 5g보다 무겁다.</button>
+                    <button class="quiz-option" data-correct="false" onclick="checkQuiz(this, '과학은 원리만 알면 유추할 수 있습니다!')">D) 알 수 없다.</button>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 12: PhET Simulation -->
+    <section id="s12">
+        <div class="slide-content">
+            <h2 class="text-teal-700">🔬 디지털 탐구: 가상 실험</h2>
+            <div class="w-full max-w-6xl aspect-video rounded-[3rem] overflow-hidden shadow-2xl border-8 border-slate-100 mt-8 mx-auto">
+                <iframe src="https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_all.html?locale=ko" class="w-full h-full" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 13: Phlogiston Theory -->
+    <section id="s13">
+        <div class="slide-content">
+            <p class="text-amber-600 font-black tracking-widest uppercase mb-2">History of Science</p>
+            <h2>플로지스톤 설 — 80년간의 정답</h2>
+            <p class="text-xl text-slate-500 font-bold mb-8">라부아지에가 틀렸다고 증명하기 전까지, 이것이 유럽 화학계의 공식 이론이었다.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto mt-4">
+                <div class="think-card text-left">
+                    <p class="text-2xl font-black text-slate-800 mb-6">플로지스톤 설의 주장 (1703)</p>
+                    <div class="p-6 bg-amber-50 border-l-4 border-amber-400 rounded-xl mb-4">
+                        <p class="font-black text-amber-900 text-lg">모든 가연성 물질에는 <span class="underline">플로지스톤</span>이라는 불 원소가 들어 있다.</p>
+                    </div>
+                    <div class="space-y-3 mt-4">
+                        <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-xl">
+                            <span class="text-2xl">🪵</span>
+                            <div><p class="font-black text-slate-800">나무가 타면 재만 남는다</p><p class="text-slate-600 text-sm">→ 플로지스톤이 공기 중으로 방출됐으므로</p></div>
+                        </div>
+                        <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-xl">
+                            <span class="text-2xl">🕯️</span>
+                            <div><p class="font-black text-slate-800">밀폐 공간에서 불이 꺼진다</p><p class="text-slate-600 text-sm">→ 공기가 플로지스톤으로 포화됐으므로</p></div>
+                        </div>
+                        <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-xl">
+                            <span class="text-2xl">🌿</span>
+                            <div><p class="font-black text-slate-800">식물이 공기를 "정화"한다</p><p class="text-slate-600 text-sm">→ 플로지스톤을 흡수하므로</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="think-card text-left flex flex-col justify-between">
+                    <div>
+                        <p class="text-2xl font-black text-slate-800 mb-4">치명적 반례와 임시방편</p>
+                        <div class="trap-box">
+                            <span class="trap-badge">반례 발견</span>
+                            <p class="text-lg font-bold text-slate-800 mt-4">금속을 태우면 오히려 더 <span class="text-rose-600 font-black">무거워진다!</span></p>
+                            <p class="text-slate-600 mt-2">플로지스톤이 방출되면 가벼워야 하는데...</p>
+                        </div>
+                        <div class="mt-6 p-6 bg-slate-800 text-white rounded-2xl">
+                            <p class="font-black text-yellow-400 mb-2">당시 과학자들의 대응</p>
+                            <p class="text-lg">"플로지스톤은 <span class="text-cyan-400 font-black">음(-)의 질량</span>을 가진다."</p>
+                            <p class="text-slate-400 text-sm mt-2">→ 이론을 지키기 위한 임시방편 수정</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 p-5 bg-amber-50 border-2 border-amber-200 rounded-2xl">
+                        <p class="font-black text-amber-900">산소를 직접 발견한 프리스틀리조차<br>죽을 때까지 플로지스톤 설을 포기하지 않았다.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 11: Summary Table -->
-    <section id="s11">
-        <div class="slide-content">
-            <h2>연소 반응 질량 변화 완벽 정리</h2>
-            <div class="w-full max-w-5xl overflow-hidden rounded-2xl border-2 border-slate-200 shadow-xl mt-8">
-                <table class="w-full text-center text-xl">
-                    <thead class="bg-slate-900 text-white">
-                        <tr>
-                            <th class="p-6">구분</th>
-                            <th class="p-6">나무의 연소</th>
-                            <th class="p-6">강철 솜의 연소</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white text-lg">
-                        <tr class="border-b">
-                            <td class="p-6 font-bold bg-slate-50">질량 변화<br>(열린 용기)</td>
-                            <td class="p-6 text-red-600 font-bold">감소 (기체 탈출)</td>
-                            <td class="p-6 text-blue-600 font-bold">증가 (산소 결합)</td>
-                        </tr>
-                        <tr>
-                            <td class="p-6 font-bold bg-slate-50">질량 보존<br>(닫힌 용기)</td>
-                            <td class="p-6 text-emerald-600 font-black">성립 (일정함)</td>
-                            <td class="p-6 text-emerald-600 font-black">성립 (일정함)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 12: Quiz 1 -->
-    <section id="q1">
-        <div class="slide-content">
-            <h2>형성 평가 01</h2>
-            <div class="quiz-container w-full max-w-3xl">
-                <p class="text-2xl font-bold mb-8 text-slate-800">
-                    질량 보존 법칙이 성립하는 **근본적인 원인**은?
-                </p>
-                <div class="quiz-options grid grid-cols-1 gap-4 text-left">
-                    <button class="quiz-btn" data-correct="false">1. 반응 시 물질의 상태가 변하지 않아서</button>
-                    <button class="quiz-btn" data-correct="false">2. 분자의 종류와 개수가 일정하게 유지되어서</button>
-                    <button class="quiz-btn" data-correct="true">3. 원자의 종류와 개수가 변하지 않아서</button>
-                    <button class="quiz-btn" data-correct="false">4. 물질의 성질이 그대로 유지되어서</button>
-                </div>
-                <div class="quiz-feedback font-bold text-2xl mt-6 text-center"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 13: Quiz 2 -->
-    <section id="q2">
-        <div class="slide-content">
-            <h2>형성 평가 02</h2>
-            <div class="quiz-container w-full max-w-3xl">
-                <p class="text-2xl font-bold mb-8 text-slate-800">
-                    닫힌 용기에서 나무 5g을 태웠을 때, 생성된 모든 물질의 총 질량은?
-                </p>
-                <div class="quiz-options grid grid-cols-4 gap-4">
-                    <button class="quiz-btn text-center" data-correct="false">5g 미만</button>
-                    <button class="quiz-btn text-center" data-correct="false">딱 5g</button>
-                    <button class="quiz-btn text-center" data-correct="true">5g 초과</button>
-                    <button class="quiz-btn text-center" data-correct="false">알 수 없음</button>
-                </div>
-                <div class="quiz-feedback font-bold text-lg mt-6 text-slate-500">
-                    힌트: 나무뿐만 아니라 반응에 참여한 **산소**의 질량도 합쳐야 합니다!
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 14: Advanced Thinking -->
+    <!-- Slide 14: Lavoisier's Experiment Deep Dive -->
     <section id="s14">
         <div class="slide-content">
-            <h2>🤔 심화 탐구 및 토론</h2>
-            <div class="grid grid-cols-2 gap-12 w-full max-w-6xl mt-8 text-left">
-                <div class="p-10 bg-indigo-50 border-t-8 border-indigo-500 rounded-xl shadow-lg">
-                    <h3 class="text-2xl font-bold mb-6 text-indigo-700">심화 질문</h3>
-                    <p class="text-xl leading-relaxed">
-                        "핵반응(태양의 에너지 생성)에서도 질량 보존 법칙이 엄격하게 성립할까요? \(E=mc^2\)과 관련지어 생각해 봅시다."
-                    </p>
+            <p class="text-teal-600 font-black tracking-widest uppercase mb-2">The Turning Point</p>
+            <h2>라부아지에의 무기: 정밀한 저울</h2>
+            <div class="max-w-6xl mx-auto mt-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="p-8 bg-white rounded-3xl shadow-lg border-t-8 border-blue-400 text-center">
+                        <p class="text-5xl mb-4">1️⃣</p>
+                        <p class="font-black text-xl text-slate-800 mb-3">주석(Sn) + 밀폐 용기</p>
+                        <p class="text-slate-600 font-bold">용기 전체 질량 측정<br><span class="text-blue-600 font-black text-2xl">M₁</span></p>
+                    </div>
+                    <div class="p-8 bg-white rounded-3xl shadow-lg border-t-8 border-amber-400 text-center">
+                        <p class="text-5xl mb-4">2️⃣</p>
+                        <p class="font-black text-xl text-slate-800 mb-3">가열 → 연소</p>
+                        <p class="text-slate-600 font-bold">밀폐 상태 유지<br><span class="text-amber-600 font-black">기체 이동 없음</span></p>
+                    </div>
+                    <div class="p-8 bg-white rounded-3xl shadow-lg border-t-8 border-teal-400 text-center">
+                        <p class="text-5xl mb-4">3️⃣</p>
+                        <p class="font-black text-xl text-slate-800 mb-3">냉각 후 재측정</p>
+                        <p class="text-slate-600 font-bold">용기 전체 질량<br><span class="text-teal-600 font-black text-2xl">M₂</span></p>
+                    </div>
                 </div>
-                <div class="p-10 bg-emerald-50 border-t-8 border-emerald-500 rounded-xl shadow-lg">
-                    <h3 class="text-2xl font-bold mb-6 text-emerald-700">발표 및 토론</h3>
-                    <p class="text-xl leading-relaxed">
-                        '라부아지에'가 질량 보존 법칙을 증명하기 위해 어떤 정밀한 노력을 했을지 상상하여 발표해 봅시다. (밀폐 용기의 중요성 등)
-                    </p>
+                <div class="flex items-center justify-around bg-white p-10 rounded-[2rem] shadow-2xl border border-slate-100 mb-6">
+                    <div class="text-center">
+                        <p class="font-black text-slate-400 uppercase tracking-widest mb-3">반응 전</p>
+                        <div class="scale-display">M₁<span>= 일정</span></div>
+                    </div>
+                    <div class="text-7xl text-teal-500 font-black">=</div>
+                    <div class="text-center">
+                        <p class="font-black text-teal-600 uppercase tracking-widest mb-3">반응 후</p>
+                        <div class="scale-display border-teal-500">M₂<span>= 일정</span></div>
+                    </div>
                 </div>
-            </div>
-            <div class="mt-12 p-6 bg-yellow-50 rounded-xl text-lg text-slate-600 border border-yellow-200">
-                **Tip:** 물리 변화(얼음이 녹을 때)에서도 질량 보존 법칙이 성립할까요? 토론해 봅시다.
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-6 bg-teal-50 border-2 border-teal-200 rounded-2xl">
+                        <p class="font-black text-teal-900 text-lg">라부아지에의 해석</p>
+                        <p class="text-teal-800 mt-2">주석이 산화될 때 증가한 질량 = 용기 안 공기에서 <span class="font-black">흡수한 산소의 질량</span></p>
+                        <p class="text-teal-700 font-black mt-3">연소 = 플로지스톤 방출이 아니라 <span class="underline">산소와의 결합</span></p>
+                    </div>
+                    <div class="p-6 bg-slate-800 text-white rounded-2xl">
+                        <p class="font-black text-yellow-400 text-lg mb-3">혁명의 본질</p>
+                        <p class="text-slate-300">특별한 이론이 아니었다.<br>달랐던 것은 오직 <span class="text-white font-black text-xl">정밀한 저울</span>과<br><span class="text-white font-black text-xl">밀폐 용기라는 발상</span>뿐이었다.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 15: Outro -->
-    <section id="end">
-        <div class="slide-content" style="border:none; box-shadow:none;">
-            <p class="text-slate-400 font-bold mb-4 uppercase tracking-widest">Next Lesson</p>
-            <h2 class="text-6xl mb-10 border-none">일정 성분비 법칙</h2>
-            <p class="text-3xl text-slate-600 font-light mb-12 italic leading-relaxed">
-                "화합물을 구성하는 성분 원소 사이에는<br>
-                자연이 정한 **완벽한 레시피(질량비)**가 있습니다."
+    <!-- Slide 15: Nature of Science -->
+    <section id="s15">
+        <div class="slide-content">
+            <p class="text-purple-600 font-black tracking-widest uppercase mb-2">Nature of Science</p>
+            <h2>이 이야기에서 읽어야 할 것들</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto mt-6">
+                <div class="think-card text-left hover:-translate-y-1 transition-transform cursor-pointer" onclick="toggleNOS(this)">
+                    <div class="flex items-center gap-4 mb-0">
+                        <span class="text-4xl">🔄</span>
+                        <p class="text-xl font-black text-slate-800">과학적 지식은 잠정적이다</p>
+                    </div>
+                    <div class="nos-detail hidden mt-5 pt-5 border-t-2 border-slate-100">
+                        <p class="text-slate-700 font-bold leading-relaxed">플로지스톤 설은 <span class="text-amber-600 font-black">틀린 이론이 아니었다. 당시의 최선이었다.</span> 오늘 우리가 배우는 내용도 미래에 수정될 수 있다. 과학은 "영원한 진리"가 아닌 "지금까지 가장 잘 설명하는 모델"이다.</p>
+                    </div>
+                </div>
+                <div class="think-card text-left hover:-translate-y-1 transition-transform cursor-pointer" onclick="toggleNOS(this)">
+                    <div class="flex items-center gap-4 mb-0">
+                        <span class="text-4xl">⚖️</span>
+                        <p class="text-xl font-black text-slate-800">실험이 이론을 바꾼다</p>
+                    </div>
+                    <div class="nos-detail hidden mt-5 pt-5 border-t-2 border-slate-100">
+                        <p class="text-slate-700 font-bold leading-relaxed">데이터가 이론과 맞지 않을 때 두 선택이 있다. A) 이론을 지키려 데이터를 비틀거나 B) 데이터를 존중해 이론을 폐기하거나. 라부아지에는 B를 택했다. 이것이 <span class="text-teal-600 font-black">과학적 태도</span>다.</p>
+                    </div>
+                </div>
+                <div class="think-card text-left hover:-translate-y-1 transition-transform cursor-pointer" onclick="toggleNOS(this)">
+                    <div class="flex items-center gap-4 mb-0">
+                        <span class="text-4xl">🏛️</span>
+                        <p class="text-xl font-black text-slate-800">과학은 사회·문화 속에 있다</p>
+                    </div>
+                    <div class="nos-detail hidden mt-5 pt-5 border-t-2 border-slate-100">
+                        <p class="text-slate-700 font-bold leading-relaxed">프리스틀리는 산소를 먼저 발견하고도 플로지스톤 틀 안에서 해석했다. 라부아지에는 같은 현상을 <span class="text-purple-600 font-black">다른 개념 틀</span>로 바라봐 혁명을 일으켰다. 어떤 질문을 하느냐가 어떤 답을 발견하느냐를 결정한다.</p>
+                    </div>
+                </div>
+                <div class="think-card text-left hover:-translate-y-1 transition-transform cursor-pointer" onclick="toggleNOS(this)">
+                    <div class="flex items-center gap-4 mb-0">
+                        <span class="text-4xl">💬</span>
+                        <p class="text-xl font-black text-slate-800">토론: 당신이라면?</p>
+                    </div>
+                    <div class="nos-detail hidden mt-5 pt-5 border-t-2 border-slate-100">
+                        <div class="space-y-3">
+                            <p class="text-slate-700 font-bold">Q1. 플로지스톤을 믿었던 과학자들은 나쁜 과학자였을까?</p>
+                            <p class="text-slate-700 font-bold">Q2. 라부아지에가 저울이 없었다면 이 법칙을 발견할 수 있었을까?</p>
+                            <p class="text-slate-700 font-bold">Q3. 지금 교과서 내용 중 100년 후에 수정될 것이 있다면?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center text-slate-400 font-bold mt-6 text-sm">카드를 클릭하면 내용이 펼쳐집니다</p>
+        </div>
+    </section>
+
+    <!-- Slide 16: Outro -->
+    <section id="s16" class="end">
+        <div class="slide-content text-center">
+            <p class="text-slate-400 font-bold mb-4 tracking-widest uppercase">Next Chapter</p>
+            <h2 class="border-none text-6xl font-black mb-10">일정 성분비 법칙</h2>
+            <p class="text-3xl text-slate-700 font-bold mb-16 italic leading-relaxed">
+                "화합물을 구성하는 성분 원소 사이에는<br>자연이 정한 <span class="text-teal-600 underline decoration-4 underline-offset-8">완벽한 질량의 레시피</span>가 존재합니다."
             </p>
-            <a href="4_definite_proportions.html" class="btn-enter" style="font-size: 1.8rem; padding: 1.2rem 3rem; background: var(--accent-teal);">다음 강의 시작 →</a>
+            <a href="4_definite_proportions.html" class="inline-block bg-teal-600 text-white px-12 py-5 rounded-full text-2xl font-black hover:bg-teal-700 transition-all shadow-xl">다음 연구 시작 →</a>
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                                <a href="quiz_L2L3_chem.html" class="inline-block bg-slate-700 text-white px-10 py-4 rounded-full text-xl font-bold hover:bg-slate-800 transition-all shadow-lg">📝 2·3차시 복습 퀴즈</a>
+                <a href="student_result.html" class="inline-block bg-emerald-600 text-white px-10 py-4 rounded-full text-xl font-bold hover:bg-emerald-700 transition-all shadow-lg">📊 나의 피드백 확인</a>
+                <a href="reading_chem_world.html" class="inline-block bg-amber-600 text-white px-10 py-4 rounded-full text-xl font-bold hover:bg-amber-700 transition-all shadow-lg">📖 읽기 자료: 화학이 보이는 세상</a>
+            </div>
         </div>
     </section>
-
 </main>
 
+<script>
+    function toggleNOS(card) {
+        const detail = card.querySelector('.nos-detail');
+        detail.classList.toggle('hidden');
+    }
+
+    function checkQuiz(btn, message) {
+        const feedback = btn.closest('.think-card').querySelector('.quiz-feedback');
+        const isCorrect = btn.getAttribute('data-correct') === 'true';
+        btn.closest('.grid').querySelectorAll('button').forEach(b => { b.style.borderColor = '#e2e8f0'; b.style.background = 'white'; });
+        if (isCorrect) {
+            btn.style.borderColor = '#0d9488'; btn.style.background = '#f0fdfa';
+            feedback.innerHTML = `<span class="text-teal-600">✅ ${message}</span>`;
+        } else {
+            btn.style.borderColor = '#e11d48'; btn.style.background = '#fff1f2';
+            feedback.innerHTML = `<span class="text-rose-600">❌ ${message}</span>`;
+        }
+    }
+</script>
+<script src="js/chem_sim.js"></script>
 <script src="js/slide_engine.js"></script>
 </body>
 </html>

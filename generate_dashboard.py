@@ -1,87 +1,163 @@
 import os
-import re
+import json
+from bs4 import BeautifulSoup
 
 root_dir = "/home/rjegj/projects/2026-mid3-Chem_Physics"
 html_files = sorted([f for f in os.listdir(root_dir) if f.endswith('.html') and f not in ['index.html', 'asset_dashboard.html']])
 
-assets = {}
+CATEGORIES = {
+    "0. Orientation & Intro": ["0_", "7_", "syllabus"],
+    "1. Middle School Chemistry": ["1_", "2_", "3_", "4_", "5_", "6_"],
+    "2. Advanced Inorganic": ["adv_inorganic"],
+    "3. Others": []
+}
 
+def get_category(filename):
+    for cat, keywords in CATEGORIES.items():
+        for kw in keywords:
+            if filename.startswith(kw):
+                return cat
+    return "3. Others"
+
+assets = {}
+manifest = {}
+
+print("🔍 AST 파싱(BeautifulSoup)으로 에셋을 스캔합니다...")
+
+# BeautifulSoup을 이용한 강건한 파싱
 for html in html_files:
     path = os.path.join(root_dir, html)
     try:
         with open(path, 'r', encoding='utf-8') as f:
-            content = f.read()
-            img_tags = re.findall(r'<img [^>]*src="([^"]+)"', content)
-            bg_images = re.findall(r"background-image:\s*url\(['\"]?([^'\")]+)['\"]?\)", content)
-            assets[html] = list(set(img_tags + bg_images))
+            soup = BeautifulSoup(f.read(), 'html.parser')
+            
+            extracted_urls = []
+            seen_urls = set()
+
+            def add_url(url):
+                if url and url not in seen_urls:
+                    seen_urls.add(url)
+                    extracted_urls.append(url)
+            
+            # 1. <img> 태그 추출
+            for img in soup.find_all('img'):
+                if img.get('src'):
+                    add_url(img['src'])
+            
+            # 2. 인라인 CSS background-image 추출 (제한적이지만 유용)
+            for tag in soup.find_all(style=True):
+                style = tag['style']
+                if 'background-image' in style:
+                    # 간단한 문자열 파싱으로 url 추출
+                    start = style.find("url(") + 4
+                    end = style.find(")", start)
+                    if start > 3 and end > 0:
+                        url = style[start:end].strip("'\"")
+                        add_url(url)
+                        
+            # 3. <iframe> (PhET 시뮬레이션 등) 추출
+            for iframe in soup.find_all('iframe'):
+                if iframe.get('src'):
+                    add_url(iframe['src'])
+            
+            if extracted_urls:
+                assets[html] = extracted_urls
+                manifest[html] = {}
+                for i, url in enumerate(assets[html]):
+                    asset_id = f"{html.replace('.html', '')}_asset_{i+1}"
+                    manifest[html][asset_id] = url
+                    
     except Exception as e:
-        print(f"Error reading {html}: {e}")
+        print(f"⚠️ {html} 파싱 중 오류: {e}")
+
+# Tinkerbell 데이터 로드
+tinker_manifest = {}
+tinker_path = os.path.join(root_dir, 'tinkerbell_manifest.json')
+if os.path.exists(tinker_path):
+    with open(tinker_path, 'r', encoding='utf-8') as f:
+        tinker_manifest = json.load(f)
+
+def get_tinkerbell_button(filename):
+    import re
+    match = re.search(r'(\d+)', filename)
+    if match:
+        lesson_num = f"{match.group(1)}차시"
+        if lesson_num in tinker_manifest:
+            info = tinker_manifest[lesson_num]
+            return f"""
+            <div class="p-3 bg-cyan-50 border border-cyan-200 rounded-lg flex items-center justify-between shadow-sm">
+                <div>
+                    <span class="text-[10px] font-black text-cyan-600">Tinkerbell Quiz</span>
+                    <p class="text-sm font-bold text-slate-800">{lesson_num} 퀴즈 ({info['count']}문제)</p>
+                </div>
+                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" class="bg-cyan-600 text-white px-4 py-2 rounded-md text-xs font-black hover:bg-cyan-700 transition-colors">Start</a>
+            </div>
+            """
+    return ""
+
+categorized_assets = {cat: {} for cat in CATEGORIES.keys()}
+for html, urls in assets.items():
+    cat = get_category(html)
+    categorized_assets[cat][html] = urls
+
+with open(os.path.join(root_dir, 'image_manifest.json'), 'w', encoding='utf-8') as f:
+    json.dump(manifest, f, indent=2, ensure_ascii=False)
 
 header = """<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>이미지 리소스 라이브 관리자</title>
+    <title>2026 Asset Dashboard (AST Powered)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .asset-card { transition: all 0.2s; border: 2px solid transparent; }
-        .asset-card:hover { transform: translateY(-5px); border-color: #06b6d4; }
-        .img-container { height: 150px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; overflow: hidden; position: relative; }
-        .img-container img { max-height: 100%; object-fit: contain; z-index: 1; }
-        .loading-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.8); display: none; align-items: center; justify-content: center; z-index: 10; }
-    </style>
 </head>
-<body class="bg-slate-50 p-10 font-[Pretendard]">
+<body class="bg-slate-50 text-slate-900 font-sans p-8">
     <div class="max-w-7xl mx-auto">
-        <header class="flex justify-between items-end mb-12">
+        <header class="flex justify-between items-end mb-12 border-b-4 border-slate-900 pb-6">
             <div>
-                <h1 class="text-4xl font-black text-slate-900">Live Asset Manager</h1>
-                <p class="text-slate-500 mt-2">이미지 주소를 수정하고 [저장]을 누르면 즉시 파일에 반영됩니다.</p>
+                <h1 class="text-5xl font-black tracking-tighter text-slate-900">Asset Dashboard</h1>
+                <p class="text-slate-500 mt-2 font-bold">Powered by BeautifulSoup AST Parsing</p>
             </div>
-            <div class="flex gap-4">
-                <span class="flex items-center gap-2 text-xs font-bold text-emerald-600 bg-emerald-50 px-4 py-2 rounded-full border border-emerald-200">
-                    <span class="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span> Server Connected (Port 8000)
-                </span>
-                <a href="index.html" class="bg-slate-900 text-white px-6 py-2 rounded-full font-bold hover:bg-slate-700 transition-colors">Home</a>
-            </div>
+            <a href="index.html" class="bg-slate-900 text-white px-8 py-3 rounded-full font-black hover:bg-blue-600 transition-all shadow-lg">Home</a>
         </header>
-        <div class="space-y-16">
+        <div class="space-y-20">
 """
 
 footer = """
         </div>
     </div>
     <script>
-        async function updateAsset(filename, oldSrc, inputId) {
-            const input = document.getElementById(inputId);
-            const newSrc = input.value.trim();
-            const card = input.closest('.asset-card');
-            const overlay = card.querySelector('.loading-overlay');
+        async function replaceImage(event, filename, oldUrl) {
+            event.preventDefault();
+            const form = event.target;
+            const newUrl = form.new_url.value;
+            const btn = form.querySelector('button');
+            const originalText = btn.innerText;
             
-            if (oldSrc === newSrc) {
-                alert('변경사항이 없습니다.');
-                return;
-            }
-
-            overlay.style.display = 'flex';
+            btn.innerText = 'Wait...';
+            btn.disabled = true;
             
             try {
-                const response = await fetch('http://localhost:8000/update-asset', {
+                // Assuming asset_server.py is running on port 5005
+                const res = await fetch('http://localhost:5005/api/replace_image', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ filename, old_src: oldSrc, new_src: newSrc })
+                    body: JSON.stringify({ filename, old_url: oldUrl, new_url: newUrl })
                 });
-
-                if (response.ok) {
-                    alert('성공적으로 수정되었습니다! 페이지를 새로고침하면 반영된 이미지를 볼 수 있습니다.');
-                    location.reload();
+                
+                const data = await res.json();
+                if (data.status === 'success') {
+                    btn.innerText = 'OK!';
+                    btn.classList.replace('bg-blue-600', 'bg-green-600');
+                    setTimeout(() => window.location.reload(), 1000);
                 } else {
-                    alert('수정 실패: 서버 오류가 발생했습니다.');
+                    alert('Error: ' + data.message);
+                    btn.innerText = originalText;
+                    btn.disabled = false;
                 }
             } catch (err) {
-                alert('서버와 연결할 수 없습니다. asset_server.py가 실행 중인지 확인하세요.');
-            } finally {
-                overlay.style.display = 'none';
+                alert('Network error. Is asset_server.py running?');
+                btn.innerText = originalText;
+                btn.disabled = false;
             }
         }
     </script>
@@ -90,41 +166,52 @@ footer = """
 """
 
 body = ""
-card_id = 0
-for filename, urls in assets.items():
-    if not urls: continue
+for category, files in categorized_assets.items():
+    if not files: continue
+    
     body += f"""
-<section>
-    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
-        <span class="w-2 h-8 bg-cyan-500 rounded-full"></span> {filename}
-    </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div>
+        <h2 class="text-3xl font-black text-blue-800 mb-8 flex items-center gap-4">
+            <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm">📁</span> {category}
+        </h2>
+        <div class="space-y-12">
 """
-    for url in urls:
-        inputId = f"input_{card_id}"
+    
+    for filename, urls in files.items():
+        tk_btn = get_tinkerbell_button(filename)
         body += f"""
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="{url}" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="{inputId}" type="text" value="{url}" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">{filename}</h3>
+                    {tk_btn}
                 </div>
-                <button onclick="updateAsset('{filename}', '{url}', '{inputId}')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 """
-        card_id += 1
-    body += "    </div></section>"
+        for url in urls:
+            is_iframe = url.startswith('http') and 'phet' in url
+            preview = f'<iframe src="{url}" class="w-full h-full pointer-events-none"></iframe>' if is_iframe else f'<img src="{url}" class="max-h-full object-contain mx-auto" />'
+            
+            body += f"""
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            {preview}
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="{url}" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '{filename}', '{url}')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+"""
+        body += "</div></div>"
+    body += "</div></div>"
 
 with open(os.path.join(root_dir, 'asset_dashboard.html'), 'w', encoding='utf-8') as f:
     f.write(header + body + footer)
 
-print("Direct-edit Dashboard generated: asset_dashboard.html")
+print("✅ BeautifulSoup 파싱 기반 대시보드 생성이 완료되었습니다.")

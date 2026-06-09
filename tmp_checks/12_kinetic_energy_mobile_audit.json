@@ -1,0 +1,87 @@
+{
+  "ok": true,
+  "target": "/12_kinetic_energy.html?view=all",
+  "title": "12차시: 운동 에너지 — 질량과 속력의 관계",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "imageCount": 1,
+  "sectionCount": 13,
+  "brokenImages": [],
+  "oversizedImages": [],
+  "overflowing": [],
+  "backgroundImages": [
+    {
+      "path": "section#slide-1",
+      "backgroundImage": "url(\"https://images.unsplash.com/d2oajBs3n4Q?auto=format&fit=crop&w=1200&q=80\")"
+    }
+  ],
+  "sections": [
+    {
+      "id": "slide-1",
+      "slideNum": "1",
+      "title": "Cover"
+    },
+    {
+      "id": "slide-2",
+      "slideNum": "2",
+      "title": "도입: 중력이 한 일과 운동 에너지"
+    },
+    {
+      "id": "slide-3",
+      "slideNum": "3",
+      "title": "운동 에너지 정의"
+    },
+    {
+      "id": "slide-4",
+      "slideNum": "4",
+      "title": "질량과 운동 에너지 관계"
+    },
+    {
+      "id": "slide-5",
+      "slideNum": "5",
+      "title": "속력과 운동 에너지 관계"
+    },
+    {
+      "id": "slide-6",
+      "slideNum": "6",
+      "title": "위치 에너지 vs 운동 에너지 비교"
+    },
+    {
+      "id": "slide-7",
+      "slideNum": "7",
+      "title": "계산 연습"
+    },
+    {
+      "id": "slide-8",
+      "slideNum": "8",
+      "title": "실생활 속 운동 에너지"
+    },
+    {
+      "id": "slide-9",
+      "slideNum": "9",
+      "title": "개념 정리"
+    },
+    {
+      "id": "slide-10",
+      "slideNum": "10",
+      "title": "형성평가 1"
+    },
+    {
+      "id": "slide-11",
+      "slideNum": "11",
+      "title": "형성평가 2"
+    },
+    {
+      "id": "slide-12",
+      "slideNum": "12",
+      "title": "형성평가 3"
+    },
+    {
+      "id": "slide-13",
+      "slideNum": "13",
+      "title": "마무리"
+    }
+  ]
+}

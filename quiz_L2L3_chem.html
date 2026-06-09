@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쪽지시험 | 화학 반응식 & 질량 보존의 법칙</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+
+        :root {
+            --navy: #0f172a;
+            --blue: #1e40af;
+            --cyan: #0891b2;
+            --teal: #0d9488;
+            --correct: #16a34a;
+            --wrong: #dc2626;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+            margin: 0;
+        }
+
+        /* ─── HEADER ─── */
+        .quiz-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);
+            color: white;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        #progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 4px;
+            width: 100%;
+            margin-top: 1rem;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        #progress-fill {
+            background: linear-gradient(90deg, #0891b2, #10b981);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* ─── STUDENT INFO BAR ─── */
+        .student-info-bar {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 1.5rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-field {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-field span {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #64748b;
+            min-width: 40px;
+        }
+
+        .info-field input {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .info-field input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        /* ─── PRINT ─── */
+        @media print {
+            .no-print { display: none !important; }
+            .quiz-header { background: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            body { background: white; }
+        }
+
+        /* ─── PROFESSIONAL QUIZ LAYOUT ─── */
+        .question-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .question-card:hover { border-color: #cbd5e1; }
+        .question-card.answered { border-color: #3b82f6; background: #f8fafc; }
+        .question-card.correct  { border-color: #10b981; background: #f0fdf4; }
+        .question-card.wrong    { border-color: #ef4444; background: #fff1f2; }
+
+        .q-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+            width: 100%;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 1.5rem;
+        }
+        .q-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.8rem;
+            height: 2.8rem;
+            background: #1e293b;
+            color: white;
+            font-weight: 900;
+            font-size: 1.1rem;
+            border-radius: 1rem;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .q-num:hover { transform: translateY(-2px); background: #3b82f6; }
+        
+        .q-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.7;
+            color: #334155;
+            margin: 0;
+            flex: 1;
+        }
+
+        .section-header {
+            margin: 3rem 0 1.5rem;
+            padding-left: 1.5rem;
+            border-left: 5px solid #3b82f6;
+        }
+
+        .section-header.teal {
+            border-left-color: #0d9488;
+        }
+
+        /* 선택지 내 화학식 첨자 스타일 */
+        /* 전역 첨자 스타일 */
+        sub {
+            font-size: 0.75em;
+            vertical-align: sub;  /* baseline 대신 sub 사용 */
+            font-weight: 500;
+        }
+
+        /* 선택지의 첨자 (더 강조) */
+        .option-label sub {
+            font-size: 0.7em;
+            vertical-align: sub;  /* baseline 대신 sub 사용 */
+            font-weight: 600;
+        }
+
+        /* 문제 제목의 첨자 */
+        .q-text sub {
+            font-size: 0.75em;
+            vertical-align: sub;  /* baseline 대신 sub 사용 */
+        }
+
+        /* 설명의 첨자 */
+        .explanation sub {
+            font-size: 0.75em;
+            vertical-align: sub;  /* baseline 대신 sub 사용 */
+        }
+
+        .q-visual-wrapper {
+            background: #fdfdfd;
+            border: 2px dashed #f1f5f9;
+            border-radius: 1.25rem;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 200px;
+        }
+        .visual-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .visual-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            width: 100%;
+            padding-top: 1rem;
+        }
+
+        .random-badge {
+            position: absolute;
+            bottom: 0.6rem;
+            right: 1rem;
+            font-size: 0.55rem;
+            color: #cbd5e1;
+            font-family: monospace;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 640px) {
+            .options-grid { grid-template-columns: 1fr; }
+            .question-card { padding: 1.5rem; gap: 1.5rem; }
+            .q-visual-wrapper { padding: 1.5rem 1rem; }
+            .visual-row { gap: 1.5rem; }
+            .q-text { font-size: 1.1rem; }
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            user-select: none;
+            line-height: 1.5;
+        }
+        .option-label:hover { border-color: #7dd3fc; background: #f0f9ff; }
+        .option-label input[type="radio"] { display: none; }
+        .option-label.selected { border-color: var(--blue); background: #eff6ff; }
+
+        /* After submit */
+        .option-label.show-correct  { border-color: var(--correct); background: #dcfce7; color: #14532d; }
+        .option-label.show-wrong    { border-color: var(--wrong);   background: #fee2e2; color: #7f1d1d; text-decoration: line-through; }
+        .option-label.show-missed   { border-color: var(--correct); background: #dcfce7; color: #14532d; } /* right answer user missed */
+
+        .option-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: #e2e8f0;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: 900;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .show-correct .option-badge { background: var(--correct); color: white; }
+        .show-wrong   .option-badge { background: var(--wrong);   color: white; }
+        .show-missed  .option-badge { background: var(--correct); color: white; }
+
+        /* ─── EXPLANATION ─── */
+        .explanation {
+            display: none;
+            margin-top: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: #fefce8;
+            border-left: 4px solid #eab308;
+            border-radius: 0 0.5rem 0.5rem 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #713f12;
+        }
+        .explanation.visible { display: block; }
+
+        /* ─── SUBMIT BUTTON ─── */
+        #submit-btn {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 1.25rem 2rem;
+            background: var(--navy);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 900;
+            border: none;
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.05em;
+        }
+        #submit-btn:hover { background: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        #submit-btn:disabled { background: #94a3b8; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* ─── SCORE PANEL ─── */
+        #score-panel {
+            display: none;
+            background: var(--navy);
+            color: white;
+            border-radius: 1.5rem;
+            padding: 4rem 2rem;
+            margin: 1rem 0 2rem;
+            text-align: center;
+        }
+        #score-panel.visible { display: block; }
+
+        .score-ring {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+        .score-ring svg { transform: rotate(-90deg); }
+        .score-ring .ring-bg   { stroke: #334155; fill: none; stroke-width: 12; }
+        .score-ring .ring-fill { fill: none; stroke-width: 12; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+        .score-number {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            font-weight: 900;
+        }
+
+        .grade-badge {
+            display: inline-block;
+            padding: 0.5rem 2rem;
+            border-radius: 9999px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .breakdown-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 0.75rem;
+            padding: 1rem;
+        }
+
+        /* ─── WRAPPER ─── */
+        .content-wrapper {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+        }
+
+        /* ─── TIMER ─── */
+        #timer-display {
+            font-size: 1.1rem;
+            font-weight: 900;
+            font-variant-numeric: tabular-nums;
+            color: #7dd3fc;
+        }
+        #timer-display.warning { color: #fbbf24; animation: blink 1s infinite; }
+        #timer-display.danger  { color: #f87171; animation: blink 0.5s infinite; }
+        @keyframes blink { 50% { opacity: 0.4; } }
+
+        /* ─── OMR NAVIGATION ─── */
+        #omr-nav-container {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            z-index: 90;
+            width: 140px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        @media (max-width: 1200px) {
+            #omr-nav-container {
+                position: static;
+                transform: none;
+                width: 100%;
+                max-width: 860px;
+                margin: 1rem auto;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+        .omr-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.4rem;
+        }
+        @media (max-width: 1200px) {
+            .omr-grid { grid-template-columns: repeat(10, 1fr); }
+        }
+        .omr-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 900;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .omr-dot:hover { border-color: var(--cyan); color: var(--cyan); background: #ecfeff; }
+        .omr-dot.filled { background: var(--navy); color: white; border-color: var(--navy); }
+        .omr-dot.correct { background: var(--correct); color: white; border-color: var(--correct); }
+        .omr-dot.wrong { background: var(--wrong); color: white; border-color: var(--wrong); }
+
+
+        /* ─── VISUAL AIDS ─── */
+
+        .particle-label {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #94a3b8;
+            text-align: center;
+            margin-top: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<!-- ── STICKY HEADER ── -->
+<header class="quiz-header no-print">
+    <div style="max-width:860px; margin:0 auto; display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
+        <div>
+            <p style="font-size:0.75rem; letter-spacing:0.15em; color:#94a3b8; text-transform:uppercase; margin:0 0 0.25rem;">
+                2026 중3 과학A · 화학 단원 쪽지시험
+            </p>
+            <h1 style="margin:0; font-size:1.35rem; font-weight:900; line-height:1.3;">
+                화학 반응식 &amp; 질량 보존의 법칙
+                <span style="font-size:0.9rem; background:#1e40af; padding:0.2rem 0.7rem; border-radius:9999px; margin-left:0.5rem; vertical-align:middle;">20문항</span>
+            </h1>
+        </div>
+        <div style="display:flex; gap:0.5rem; align-items:flex-start;">
+            <a href="index.html" style="font-size:0.75rem; background:#94a3b8; color:white; padding:0.4rem 0.8rem; border-radius:0.5rem; text-decoration:none; transition:all 0.2s; hover:background:#64748b;">🏠 메인</a>
+            <div style="text-align:right;">
+                <div id="timer-display">⏱ 20:00</div>
+                <div style="font-size:0.75rem; color:#64748b; margin-top:0.25rem;" id="answered-count">0 / 20 답변</div>
+            </div>
+        </div>
+    </div>
+    <div id="progress-bar"><div id="progress-fill"></div></div>
+</header>
+
+<!-- ── STUDENT INFO BAR ── -->
+<div class="student-info-bar no-print">
+    <div class="info-field">
+        <span>반</span>
+        <input type="text" id="info-class" placeholder="예) 3-2" maxlength="5">
+    </div>
+    <div class="info-field">
+        <span>번호</span>
+        <input type="text" id="info-num" placeholder="예) 15" maxlength="3" style="width:60px;">
+    </div>
+    <div class="info-field">
+        <span>이름</span>
+        <input type="text" id="info-name" placeholder="홍길동" maxlength="8">
+    </div>
+    <div style="margin-left:auto; display:flex; gap:0.5rem;">
+        <button onclick="window.print()" style="padding:0.4rem 1rem; background:#334155; color:white; border:none; border-radius:0.5rem; cursor:pointer; font-size:0.85rem; font-weight:700;">🖨 인쇄</button>
+    </div>
+</div>
+
+<!-- ── MAIN CONTENT ── -->
+
+    <!-- OMR Navigation (Sticky) -->
+    <div id="omr-nav-container" class="no-print">
+        <p style="margin:0; font-size:0.7rem; font-weight:900; color:#64748b; text-transform:uppercase; letter-spacing:0.05em; text-align:center;">OMR STATUS</p>
+        <div class="omr-grid" id="omr-grid-main">
+            <!-- Dots generated by JS -->
+        </div>
+        <div style="margin-top:0.5rem; border-top:1px solid #f1f5f9; pt-2 text-center">
+            <button onclick="window.scrollTo({top:0, behavior:'smooth'})" style="font-size:0.6rem; font-weight:bold; color:var(--cyan); background:none; border:none; cursor:pointer;">TOP ▲</button>
+        <div style="margin-top:1rem; border-top:1px solid #f1f5f9; pt-3; display:flex; gap:0.5rem;">
+            <button onclick="resetAnswers()" id="omr-reset-btn" style="flex:1; padding:0.75rem; background:#ef4444; color:white; border:none; border-radius:0.5rem; font-weight:bold; cursor:pointer; font-size:0.8rem;">초기화 🔄</button>
+            <button onclick="submitQuiz()" id="omr-submit-btn" style="flex:2; padding:0.75rem; background:#2563eb; color:white; border:none; border-radius:0.5rem; font-weight:bold; cursor:pointer; font-size:0.8rem;">채점/제출 🚀</button>
+        </div>
+        </div>
+    </div>
+
+<div class="content-wrapper">
+
+    <!-- SCORE PANEL (hidden until submit) -->
+    <div id="score-panel">
+        <div class="score-ring">
+            <svg viewBox="0 0 160 160" width="160" height="160">
+                <circle class="ring-bg" cx="80" cy="80" r="68"/>
+                <circle class="ring-fill" id="ring-fill-el" cx="80" cy="80" r="68"
+                    stroke-dasharray="427.26"
+                    stroke-dashoffset="427.26"
+                    stroke="url(#scoreGrad)"/>
+                <defs>
+                    <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%">
+                        <stop offset="0%" style="stop-color:#22d3ee"/>
+                        <stop offset="100%" style="stop-color:#0d9488"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <div class="score-number" id="score-number">0</div>
+        </div>
+        <div class="grade-badge" id="grade-badge"></div>
+        <p id="score-msg" style="color:#cbd5e1; font-size:1rem; margin:0.5rem 0 0;"></p>
+        <div class="score-breakdown">
+            <div class="breakdown-card">
+                <p style="color:#94a3b8; font-size:0.8rem; margin:0 0 0.25rem;">섹션 A: 화학 반응식</p>
+                <p style="font-size:1.5rem; font-weight:900; margin:0;" id="score-a">0 / 10</p>
+            </div>
+            <div class="breakdown-card">
+                <p style="color:#94a3b8; font-size:0.8rem; margin:0 0 0.25rem;">섹션 B: 질량 보존의 법칙</p>
+                <p style="font-size:1.5rem; font-weight:900; margin:0;" id="score-b">0 / 10</p>
+            </div>
+        </div>
+        <p style="color:#64748b; font-size:0.85rem; margin-top:1.5rem;">오답은 아래에서 빨간색으로 표시됩니다. 해설을 꼭 확인하세요!</p>
+    </div>
+
+        <!-- ══ SECTION A ══ -->
+    <div class="section-header">
+        <p style="margin:0; font-size:0.8rem; color:#3b82f6; font-weight:700; text-transform:uppercase; letter-spacing:0.1em;">Section A · 10문항</p>
+        <h2 style="margin:0.25rem 0 0; font-size:1.3rem; font-weight:900;">화학 반응식</h2>
+    </div>
+
+    <!-- Q1 -->
+    <div class="question-card" id="qcard-1">
+        <div class="q-header">
+            <span class="q-num">1</span>
+            <p class="q-text">화학 반응식에서 화살표(→) <strong>왼쪽</strong>에 쓰는 물질을 무엇이라고 하는가?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="1" data-v="1"><input type="radio" name="q1" value="1"><span class="option-badge">①</span>생성물</label>
+            <label class="option-label" data-q="1" data-v="2"><input type="radio" name="q1" value="2"><span class="option-badge">②</span>촉매</label>
+            <label class="option-label" data-q="1" data-v="3"><input type="radio" name="q1" value="3"><span class="option-badge">③</span>반응물</label>
+            <label class="option-label" data-q="1" data-v="4"><input type="radio" name="q1" value="4"><span class="option-badge">④</span>화합물</label>
+        </div>
+        <div class="explanation" id="exp-1">화학 반응식은 <strong>반응물 → 생성물</strong> 형태로 표현합니다. 화살표 왼쪽은 반응에 참여하는 <strong>반응물</strong>, 오른쪽은 반응 결과 생기는 <strong>생성물</strong>입니다.</div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-card" id="qcard-2">
+        <div class="q-header">
+            <span class="q-num">2</span>
+            <p class="q-text">화학 반응식에서 계수를 맞추는 가장 중요한 이유는?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="2" data-v="1"><input type="radio" name="q2" value="1"><span class="option-badge">①</span>식을 보기 좋게 나타내기 위해</label>
+            <label class="option-label" data-q="2" data-v="2"><input type="radio" name="q2" value="2"><span class="option-badge">②</span>반응 전후 원자의 종류와 수가 같아야 하기 때문에</label>
+            <label class="option-label" data-q="2" data-v="3"><input type="radio" name="q2" value="3"><span class="option-badge">③</span>물질의 질량을 늘리기 위해</label>
+            <label class="option-label" data-q="2" data-v="4"><input type="radio" name="q2" value="4"><span class="option-badge">④</span>생성물의 수를 맞추기 위해</label>
+        </div>
+        <div class="explanation" id="exp-2">화학 반응에서 원자는 새로 생기거나 없어지지 않습니다. 따라서 화학 반응식에서 <strong>반응 전후 원자의 종류와 수가 반드시 같아야</strong> 하며, 이를 위해 계수를 조정합니다.</div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-card" id="qcard-3">
+        <div class="q-header">
+            <span class="q-num">3</span>
+            <p class="q-text">H<sub>2</sub> + O<sub>2</sub> → H<sub>2</sub>O 의 계수를 <strong>올바르게</strong> 맞춘 것은?</p>
+        </div>
+        <div class="q-visual-wrapper">
+
+            <div class="visual-row">
+                <div class="visual-item">
+                    <svg width="140" height="70" viewBox="0 0 80 40" style="max-width:100%">
+                        <circle cx="15" cy="20" r="8" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="27" cy="20" r="8" fill="#cbd5e1" stroke="#94a3b8"/>
+                        <circle cx="53" cy="20" r="8" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="65" cy="20" r="8" fill="#cbd5e1" stroke="#94a3b8"/>
+                    </svg>
+                    <div class="particle-label">수소(H₂) 2분자</div>
+                </div>
+                <div style="font-size: 2rem; font-weight:bold; color:#e2e8f0">+</div>
+                <div class="visual-item">
+                    <svg width="70" height="70" viewBox="0 0 40 40" style="max-width:100%">
+                        <circle cx="14" cy="20" r="10" fill="#f87171" stroke="#dc2626"/><circle cx="26" cy="20" r="10" fill="#f87171" stroke="#dc2626"/>
+                    </svg>
+                    <div class="particle-label">산소(O₂) 1분자</div>
+                </div>
+            </div>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="3" data-v="1"><input type="radio" name="q3" value="1"><span class="option-badge">①</span>H<sub>2</sub> + O<sub>2</sub> → H<sub>2</sub>O</label>
+            <label class="option-label" data-q="3" data-v="2"><input type="radio" name="q3" value="2"><span class="option-badge">②</span>2H<sub>2</sub> + O<sub>2</sub> → 2H<sub>2</sub>O</label>
+            <label class="option-label" data-q="3" data-v="3"><input type="radio" name="q3" value="3"><span class="option-badge">③</span>H<sub>2</sub> + 2O<sub>2</sub> → 2H<sub>2</sub>O</label>
+            <label class="option-label" data-q="3" data-v="4"><input type="radio" name="q3" value="4"><span class="option-badge">④</span>2H<sub>2</sub> + 2O<sub>2</sub> → 2H<sub>2</sub>O</label>
+        </div>
+        <div class="explanation" id="exp-3">정답 확인: 왼쪽 H=4, O=2 / 오른쪽 H=4, O=2 → <strong>성립!</strong><br>①: O가 왼쪽 2, 오른쪽 1로 불일치 / ③: O가 왼쪽 4, 오른쪽 2 불일치 / ④: O가 왼쪽 4, 오른쪽 2 불일치</div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-card" id="qcard-4">
+        <div class="q-header">
+            <span class="q-num">4</span>
+            <p class="q-text">N<sub>2</sub> + H<sub>2</sub> → NH<sub>3</sub> 의 계수를 <strong>올바르게</strong> 맞춘 것은?</p>
+        </div>
+        <div class="q-visual-wrapper">
+
+            <div class="visual-row">
+                <div class="visual-item">
+                    <svg width="70" height="70" viewBox="0 0 40 40" style="max-width:100%">
+                        <circle cx="14" cy="20" r="10" fill="#818cf8" stroke="#4f46e5"/><circle cx="26" cy="20" r="10" fill="#818cf8" stroke="#4f46e5"/>
+                    </svg>
+                    <div class="particle-label">질소(N₂) 1분자</div>
+                </div>
+                <div style="font-size: 2rem; font-weight:bold; color:#e2e8f0">+</div>
+                <div class="visual-item">
+                    <svg width="180" height="70" viewBox="0 0 100 40" style="max-width:100%">
+                        <circle cx="12" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="22" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/>
+                        <circle cx="45" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="55" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/>
+                        <circle cx="78" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="88" cy="20" r="7" fill="#cbd5e1" stroke="#94a3b8"/>
+                    </svg>
+                    <div class="particle-label">수소(H₂) 3분자</div>
+                </div>
+            </div>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="4" data-v="1"><input type="radio" name="q4" value="1"><span class="option-badge">①</span>N<sub>2</sub> + H<sub>2</sub> → NH<sub>3</sub></label>
+            <label class="option-label" data-q="4" data-v="2"><input type="radio" name="q4" value="2"><span class="option-badge">②</span>N<sub>2</sub> + 2H<sub>2</sub> → 2NH<sub>3</sub></label>
+            <label class="option-label" data-q="4" data-v="3"><input type="radio" name="q4" value="3"><span class="option-badge">③</span>N<sub>2</sub> + 3H<sub>2</sub> → 2NH<sub>3</sub></label>
+            <label class="option-label" data-q="4" data-v="4"><input type="radio" name="q4" value="4"><span class="option-badge">④</span>2N<sub>2</sub> + 3H<sub>2</sub> → 2NH<sub>3</sub></label>
+        </div>
+        <div class="explanation" id="exp-4">정답 확인: N → 왼쪽 2, 오른쪽 2(NH<sub>3</sub>×2) / H → 왼쪽 6, 오른쪽 6 → <strong>성립!</strong><br>질소 비료 생산에 쓰이는 <strong>하버법(암모니아 합성)</strong>의 반응식입니다.</div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-card" id="qcard-5">
+        <div class="q-header">
+            <span class="q-num">5</span>
+            <p class="q-text">CH<sub>4</sub> + ☐O<sub>2</sub> → CO<sub>2</sub> + 2H<sub>2</sub>O 에서 ☐에 들어갈 계수는?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="5" data-v="1"><input type="radio" name="q5" value="1"><span class="option-badge">①</span>1</label>
+            <label class="option-label" data-q="5" data-v="2"><input type="radio" name="q5" value="2"><span class="option-badge">②</span>2</label>
+            <label class="option-label" data-q="5" data-v="3"><input type="radio" name="q5" value="3"><span class="option-badge">③</span>3</label>
+            <label class="option-label" data-q="5" data-v="4"><input type="radio" name="q5" value="4"><span class="option-badge">④</span>4</label>
+        </div>
+        <div class="explanation" id="exp-5">오른쪽 O 개수: CO<sub>2</sub>에서 2개 + 2H<sub>2</sub>O에서 2개 = <strong>총 4개</strong><br>왼쪽 O<sub>2</sub>가 4개를 제공하려면 계수는 <strong>2</strong> → CH<sub>4</sub> + <strong>2</strong>O<sub>2</sub> → CO<sub>2</sub> + 2H<sub>2</sub>O (천연가스 연소반응)</div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question-card" id="qcard-6">
+        <div class="q-header">
+            <span class="q-num">6</span>
+            <p class="q-text">화학 반응식 2H<sub>2</sub> + O<sub>2</sub> → 2H<sub>2</sub>O 에서 수소 분자 <strong id="q6-val">6개</strong>가 반응할 때 생성되는 물 분자는 몇 개인가?</p>
+        </div>
+        <div class="q-visual-wrapper">
+
+            <div id="q6-visual-container" class="visual-row">
+                <!-- Dynamically generated SVG -->
+            </div>
+            <div class="particle-label" id="q6-visual-label">수소 분자가 반응 중...</div>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="6" data-v="1"><input type="radio" name="q6" value="1"><span class="option-badge">①</span><span id="q6-opt1">3개</span></label>
+            <label class="option-label" data-q="6" data-v="2"><input type="radio" name="q6" value="2"><span class="option-badge">②</span><span id="q6-opt2">4개</span></label>
+            <label class="option-label" data-q="6" data-v="3"><input type="radio" name="q6" value="3"><span class="option-badge">③</span><span id="q6-opt3">6개</span></label>
+            <label class="option-label" data-q="6" data-v="4"><input type="radio" name="q6" value="4"><span class="option-badge">④</span><span id="q6-opt4">12개</span></label>
+        </div>
+        <div class="explanation" id="exp-6">계수 비 = 분자 수 비: H<sub>2</sub> : H<sub>2</sub>O = 2 : 2 = <strong>1 : 1</strong><br>따라서 수소 분자 6개 → 물 분자 <strong>6개</strong> 생성 (산소 분자는 3개 필요)</div>
+        <div id="q6-random-badge" class="random-badge">RC-6</div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="question-card" id="qcard-7">
+        <div class="q-header">
+            <span class="q-num">7</span>
+            <p class="q-text">다음 중 화학 반응식으로 <strong>알 수 없는</strong> 정보는?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="7" data-v="1"><input type="radio" name="q7" value="1"><span class="option-badge">①</span>반응에 참여하는 물질의 종류</label>
+            <label class="option-label" data-q="7" data-v="2"><input type="radio" name="q7" value="2"><span class="option-badge">②</span>분자 수의 비(계수의 비)</label>
+            <label class="option-label" data-q="7" data-v="3"><input type="radio" name="q7" value="3"><span class="option-badge">③</span>반응이 일어나는 속도</label>
+            <label class="option-label" data-q="7" data-v="4"><input type="radio" name="q7" value="4"><span class="option-badge">④</span>원자의 개수비</label>
+        </div>
+        <div class="explanation" id="exp-7">화학 반응식으로 알 수 있는 것: 물질의 종류, 분자(원자) 개수비, 질량비, 부피비(기체).<br><strong>반응 속도</strong>는 온도·압력·촉매 등 조건에 따라 다르며, 화학식만으로는 알 수 없습니다.</div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="question-card" id="qcard-8">
+        <div class="q-header">
+            <span class="q-num">8</span>
+            <p class="q-text">4Fe + 3O<sub>2</sub> → 2Fe<sub>2</sub>O<sub>3</sub> 에서 <strong>O<sub>2</sub>의 계수</strong>는?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="8" data-v="1"><input type="radio" name="q8" value="1"><span class="option-badge">①</span>2</label>
+            <label class="option-label" data-q="8" data-v="2"><input type="radio" name="q8" value="2"><span class="option-badge">②</span>3</label>
+            <label class="option-label" data-q="8" data-v="3"><input type="radio" name="q8" value="3"><span class="option-badge">③</span>4</label>
+            <label class="option-label" data-q="8" data-v="4"><input type="radio" name="q8" value="4"><span class="option-badge">④</span>6</label>
+        </div>
+        <div class="explanation" id="exp-8">오른쪽 O 수: Fe<sub>2</sub>O<sub>3</sub> × 2 = O가 6개<br>왼쪽 O<sub>2</sub>가 6개를 제공하려면 계수 = 6 ÷ 2 = <strong>3</strong><br>확인 → 왼쪽: Fe 4, O 6 / 오른쪽: Fe 4, O 6 ✓ (철의 녹슬기 반응식)</div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="question-card" id="qcard-9">
+        <div class="q-header">
+            <span class="q-num">9</span>
+            <p class="q-text">다음 화학 반응식이 <strong>올바르지 않은</strong> 이유는?<br><span style="font-family:monospace; font-size:1.1rem; font-weight:900; color:#1e40af; background:#eff6ff; padding:0.3rem 0.8rem; border-radius:0.5rem; display:inline-block; margin-top:0.5rem;">H₂O → H₂ + O₂</span></p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="9" data-v="1"><input type="radio" name="q9" value="1"><span class="option-badge">①</span>수소 원자의 수가 다르다</label>
+            <label class="option-label" data-q="9" data-v="2"><input type="radio" name="q9" value="2"><span class="option-badge">②</span>산소 원자의 수가 다르다</label>
+            <label class="option-label" data-q="9" data-v="3"><input type="radio" name="q9" value="3"><span class="option-badge">③</span>원자의 종류가 다르다</label>
+            <label class="option-label" data-q="9" data-v="4"><input type="radio" name="q9" value="4"><span class="option-badge">④</span>화살표 방향이 잘못되었다</label>
+        </div>
+        <div class="explanation" id="exp-9">왼쪽: H=2, <strong>O=1</strong> / 오른쪽: H=2, <strong>O=2</strong><br>산소 원자 수가 불일치 → 올바른 식은 <strong>2H<sub>2</sub>O → 2H<sub>2</sub> + O<sub>2</sub></strong><br>이는 물의 전기분해 반응식입니다.</div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="question-card" id="qcard-10">
+        <div class="q-header">
+            <span class="q-num">10</span>
+            <p class="q-text">화학 반응식에서 <strong>계수의 비</strong>가 직접적으로 나타내는 것은?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="10" data-v="1"><input type="radio" name="q10" value="1"><span class="option-badge">①</span>물질의 질량비</label>
+            <label class="option-label" data-q="10" data-v="2"><input type="radio" name="q10" value="2"><span class="option-badge">②</span>원자량의 비</label>
+            <label class="option-label" data-q="10" data-v="3"><input type="radio" name="q10" value="3"><span class="option-badge">③</span>반응하는 분자 수의 비</label>
+            <label class="option-label" data-q="10" data-v="4"><input type="radio" name="q10" value="4"><span class="option-badge">④</span>물질의 녹는점의 비</label>
+        </div>
+        <div class="explanation" id="exp-10">계수의 비 = <strong>분자(입자) 수의 비</strong>가 직접적인 의미입니다.<br>질량비는 계수 × 분자량으로 계산해야 하며, 계수 비와 질량비는 다를 수 있습니다.</div>
+    </div>
+
+
+    <!-- ══ SECTION B ══ -->
+    <div class="section-header teal" style="margin-top:3rem;">
+        <p style="margin:0; font-size:0.8rem; color:#0d9488; font-weight:700; text-transform:uppercase; letter-spacing:0.1em;">Section B · 10문항</p>
+        <h2 style="margin:0.25rem 0 0; font-size:1.3rem; font-weight:900;">질량 보존의 법칙</h2>
+    </div>
+
+    <!-- Q11 -->
+    <div class="question-card" id="qcard-11">
+        <div class="q-header">
+            <span class="q-num">11</span>
+            <p class="q-text">질량 보존의 법칙을 최초로 발견한 과학자는 누구인가?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="11" data-v="1"><input type="radio" name="q11" value="1"><span class="option-badge">①</span>돌턴</label>
+            <label class="option-label" data-q="11" data-v="2"><input type="radio" name="q11" value="2"><span class="option-badge">②</span>아보가드로</label>
+            <label class="option-label" data-q="11" data-v="3"><input type="radio" name="q11" value="3"><span class="option-badge">③</span>라부아지에</label>
+            <label class="option-label" data-q="11" data-v="4"><input type="radio" name="q11" value="4"><span class="option-badge">④</span>프루스트</label>
+        </div>
+        <div class="explanation" id="exp-11"><strong>라부아지에(Lavoisier, 1743~1794)</strong>: 정밀한 저울 실험으로 질량 보존의 법칙을 확립한 프랑스 화학자.<br>돌턴 = 원자설, 아보가드로 = 분자설, 프루스트 = 일정 성분비 법칙</div>
+    </div>
+
+    <!-- Q12 -->
+    <div class="question-card" id="qcard-12">
+        <div class="q-header">
+            <span class="q-num">12</span>
+            <p class="q-text">질량 보존의 법칙에 대한 설명으로 <strong>옳은</strong> 것은?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="12" data-v="1"><input type="radio" name="q12" value="1"><span class="option-badge">①</span>화학 변화에서만 성립한다</label>
+            <label class="option-label" data-q="12" data-v="2"><input type="radio" name="q12" value="2"><span class="option-badge">②</span>물리 변화에서만 성립한다</label>
+            <label class="option-label" data-q="12" data-v="3"><input type="radio" name="q12" value="3"><span class="option-badge">③</span>물리 변화와 화학 변화 모두에서 성립한다</label>
+            <label class="option-label" data-q="12" data-v="4"><input type="radio" name="q12" value="4"><span class="option-badge">④</span>질량이 큰 물질끼리 반응할 때만 성립한다</label>
+        </div>
+        <div class="explanation" id="exp-12">질량 보존의 법칙은 <strong>물리 변화(예: 얼음이 녹기)와 화학 변화(예: 연소) 모두에서 성립</strong>합니다.<br>어떤 변화에서도 원자 자체는 생기거나 없어지지 않으므로 총 질량은 항상 보존됩니다.</div>
+    </div>
+
+    <!-- Q13 -->
+    <div class="question-card" id="qcard-13">
+        <div class="q-header">
+            <span class="q-num">13</span>
+            <p class="q-text">수소 <strong id="q13-v1">2g</strong>과 산소 <strong id="q13-v2">16g</strong>이 완전히 반응하여 물이 생성될 때, 생성된 물의 질량은?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="13" data-v="1"><input type="radio" name="q13" value="1"><span class="option-badge">①</span><span id="q13-opt1">14g</span></label>
+            <label class="option-label" data-q="13" data-v="2"><input type="radio" name="q13" value="2"><span class="option-badge">②</span><span id="q13-opt2">16g</span></label>
+            <label class="option-label" data-q="13" data-v="3"><input type="radio" name="q13" value="3"><span class="option-badge">③</span><span id="q13-opt3">18g</span></label>
+            <label class="option-label" data-q="13" data-v="4"><input type="radio" name="q13" value="4"><span class="option-badge">④</span><span id="q13-opt4">32g</span></label>
+        </div>
+        <div class="explanation" id="exp-13">질량 보존의 법칙: 반응 전 총 질량 = 반응 후 총 질량<br>2g + 16g = <strong>18g</strong><br>(이는 물 H<sub>2</sub>O의 분자량 18과도 일치합니다!)</div>
+        <div id="q13-random-badge" class="random-badge">RC-13</div>
+    </div>
+
+    <!-- Q14 -->
+    <div class="question-card" id="qcard-14">
+        <div class="q-header">
+            <span class="q-num">14</span>
+            <p class="q-text">탄산칼슘 <strong id="q14-v1">10g</strong>과 염산 <strong id="q14-v2">6.4g</strong>을 반응시켰더니 염화칼슘 <span id="q14-v3">11.1g</span>, 물 <span id="q14-v4">0.9g</span>, 이산화탄소가 생성되었다. 이산화탄소의 질량은? (단, 닫힌 용기)</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="14" data-v="1"><input type="radio" name="q14" value="1"><span class="option-badge">①</span><span id="q14-opt1">3.4g</span></label>
+            <label class="option-label" data-q="14" data-v="2"><input type="radio" name="q14" value="2"><span class="option-badge">②</span><span id="q14-opt2">4.4g</span></label>
+            <label class="option-label" data-q="14" data-v="3"><input type="radio" name="q14" value="3"><span class="option-badge">③</span><span id="q14-opt3">5.0g</span></label>
+            <label class="option-label" data-q="14" data-v="4"><input type="radio" name="q14" value="4"><span class="option-badge">④</span><span id="q14-opt4">6.4g</span></label>
+        </div>
+        <div class="explanation" id="exp-14">반응 전 총 질량 = 10 + 6.4 = <strong>16.4g</strong><br>CO<sub>2</sub> 질량 = 16.4 − 11.1 − 0.9 = <strong>4.4g</strong><br>(반응 전 = 반응 후 → 질량 보존 적용!)</div>
+        <div id="q14-random-badge" class="random-badge">RC-14</div>
+    </div>
+
+    <!-- Q15 -->
+    <div class="question-card" id="qcard-15">
+        <div class="q-header">
+            <span class="q-num">15</span>
+            <p class="q-text"><strong>열린 용기</strong>에서 탄산칼슘과 염산을 반응시켰을 때 반응 후 측정한 질량이 줄어든 이유로 옳은 것은?</p>
+        </div>
+        <div class="q-visual-wrapper">
+
+            <div class="visual-row">
+                <svg width="220" height="183" viewBox="0 0 120 100" style="max-width:100%">
+                    <path d="M40 20 L40 40 L20 80 A10 10 0 0 0 30 90 L90 90 A10 10 0 0 0 100 80 L80 40 L80 20 Z" fill="none" stroke="#475569" stroke-width="3"/>
+                    <circle cx="60" cy="60" r="3" fill="#cbd5e1"/><circle cx="50" cy="75" r="4" fill="#cbd5e1"/><circle cx="75" cy="70" r="3" fill="#cbd5e1"/>
+                    <path d="M55 15 Q60 5 70 10 M65 25 Q75 15 85 20" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 2">
+                        <animate attributeName="stroke-dashoffset" from="20" to="0" dur="2s" repeatCount="indefinite" />
+                    </path>
+                    <text x="85" y="15" font-size="10" font-weight="bold" fill="#64748b">CO₂ ↑</text>
+                </svg>
+                <div class="text-sm text-slate-500 font-bold" style="max-width:100px;">뚜껑이 없는<br>열린 용기</div>
+            </div>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="15" data-v="1"><input type="radio" name="q15" value="1"><span class="option-badge">①</span>물이 증발하기 때문에</label>
+            <label class="option-label" data-q="15" data-v="2"><input type="radio" name="q15" value="2"><span class="option-badge">②</span>이산화탄소 기체가 공기 중으로 빠져나가기 때문에</label>
+            <label class="option-label" data-q="15" data-v="3"><input type="radio" name="q15" value="3"><span class="option-badge">③</span>질량 보존의 법칙이 성립하지 않기 때문에</label>
+            <label class="option-label" data-q="15" data-v="4"><input type="radio" name="q15" value="4"><span class="option-badge">④</span>반응이 불완전하게 일어나기 때문에</label>
+        </div>
+        <div class="explanation" id="exp-15">질량 보존의 법칙은 항상 성립합니다. 다만 열린 용기에서 <strong>CO<sub>2</sub> 기체가 대기 중으로 날아가</strong> 저울 위에서 측정되지 않아 질량이 감소한 것처럼 보일 뿐입니다.<br>기체를 포함하면 반응 전후 질량은 같습니다.</div>
+    </div>
+
+    <!-- Q16 -->
+    <div class="question-card" id="qcard-16">
+        <div class="q-header">
+            <span class="q-num">16</span>
+            <p class="q-text"><strong>닫힌 용기</strong>에서 탄산칼슘과 염산을 반응시켰을 때, 반응 전후 전체 질량의 변화는?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="16" data-v="1"><input type="radio" name="q16" value="1"><span class="option-badge">①</span>반응 전보다 감소한다</label>
+            <label class="option-label" data-q="16" data-v="2"><input type="radio" name="q16" value="2"><span class="option-badge">②</span>반응 전보다 증가한다</label>
+            <label class="option-label" data-q="16" data-v="3"><input type="radio" name="q16" value="3"><span class="option-badge">③</span>변하지 않는다</label>
+            <label class="option-label" data-q="16" data-v="4"><input type="radio" name="q16" value="4"><span class="option-badge">④</span>두 배로 늘어난다</label>
+        </div>
+        <div class="explanation" id="exp-16">닫힌 용기에서는 발생한 CO<sub>2</sub>가 빠져나가지 못하므로 반응 전후 측정 질량이 <strong>변하지 않습니다.</strong><br>이것이 질량 보존의 법칙을 가장 명확하게 확인하는 방법입니다.</div>
+    </div>
+
+    <!-- Q17 -->
+    <div class="question-card" id="qcard-17">
+        <div class="q-header">
+            <span class="q-num">17</span>
+            <p class="q-text">질량 보존의 법칙이 성립하는 <strong>가장 근본적인 이유</strong>는?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="17" data-v="1"><input type="radio" name="q17" value="1"><span class="option-badge">①</span>반응이 완전히 일어나기 때문에</label>
+            <label class="option-label" data-q="17" data-v="2"><input type="radio" name="q17" value="2"><span class="option-badge">②</span>반응 전후 원자의 종류와 수가 변하지 않기 때문에</label>
+            <label class="option-label" data-q="17" data-v="3"><input type="radio" name="q17" value="3"><span class="option-badge">③</span>반응 속도가 일정하기 때문에</label>
+            <label class="option-label" data-q="17" data-v="4"><input type="radio" name="q17" value="4"><span class="option-badge">④</span>촉매가 반응에 참여하지 않기 때문에</label>
+        </div>
+        <div class="explanation" id="exp-17">화학 반응에서 원자는 새로 생기거나 없어지지 않고 재배열만 됩니다.<br>즉, <strong>반응 전후 원자의 종류와 수가 동일</strong>하기 때문에 총 질량이 보존됩니다.<br>이것이 화학 반응식의 계수를 맞추는 근거이기도 합니다.</div>
+    </div>
+
+    <!-- Q18 -->
+    <div class="question-card" id="qcard-18">
+        <div class="q-header">
+            <span class="q-num">18</span>
+            <p class="q-text">철 <strong id="q18-v1">28g</strong>을 완전히 산화시켰더니 산화철 <strong id="q18-v2">40g</strong>이 생성되었다. 반응한 산소의 질량은?</p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="18" data-v="1"><input type="radio" name="q18" value="1"><span class="option-badge">①</span><span id="q18-opt1">12g</span></label>
+            <label class="option-label" data-q="18" data-v="2"><input type="radio" name="q18" value="2"><span class="option-badge">②</span><span id="q18-opt2">28g</span></label>
+            <label class="option-label" data-q="18" data-v="3"><input type="radio" name="q18" value="3"><span class="option-badge">③</span><span id="q18-opt3">40g</span></label>
+            <label class="option-label" data-q="18" data-v="4"><input type="radio" name="q18" value="4"><span class="option-badge">④</span><span id="q18-opt4">68g</span></label>
+        </div>
+        <div class="explanation" id="exp-18">질량 보존: 철 + 산소 = 산화철<br>28g + 산소 = 40g<br>산소 = 40 − 28 = <strong>12g</strong><br>(철은 공기 중 산소와 결합해 질량이 증가한다는 것도 기억!)</div>
+        <div id="q18-random-badge" class="random-badge">RC-18</div>
+    </div>
+
+    <!-- Q19 -->
+    <div class="question-card" id="qcard-19">
+        <div class="q-header">
+            <span class="q-num">19</span>
+            <p class="q-text">열린 용기에서 마그네슘 <strong id="q19-val">6g</strong>을 완전히 연소시켰다.<br>생성된 산화마그네슘의 질량은? <span style="font-size:0.85rem; color:#64748b;">(단, Mg : O 질량비 = 3 : 2)</span></p>
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="19" data-v="1"><input type="radio" name="q19" value="1"><span class="option-badge">①</span><span id="q19-opt1">4g</span></label>
+            <label class="option-label" data-q="19" data-v="2"><input type="radio" name="q19" value="2"><span class="option-badge">②</span><span id="q19-opt2">6g</span></label>
+            <label class="option-label" data-q="19" data-v="3"><input type="radio" name="q19" value="3"><span class="option-badge">③</span><span id="q19-opt3">8g</span></label>
+            <label class="option-label" data-q="19" data-v="4"><input type="radio" name="q19" value="4"><span class="option-badge">④</span><span id="q19-opt4">10g</span></label>
+        </div>
+        <div class="explanation" id="exp-19">Mg : O = 3 : 2이므로 Mg 6g에 필요한 O = 4g<br>생성된 산화마그네슘 = Mg + O = 6 + 4 = <strong>10g</strong><br>※ 마그네슘 연소는 공기 중 산소를 흡수하므로 <strong>고체 질량이 증가</strong>합니다.</div>
+        <div id="q19-random-badge" class="random-badge">RC-19</div>
+    </div>
+
+    <!-- Q20 -->
+    <div class="question-card" id="qcard-20">
+        <div class="q-header">
+            <span class="q-num">20</span>
+            <p class="q-text">다음 실험 중 반응 전후 저울로 측정한 질량이 <strong>변하지 않는</strong> 경우를 모두 고른 것은?</p>
+        </div>
+
+        <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:1rem; padding:1.5rem; margin:0; font-size:1.05rem; line-height:1.8; color: #334155; font-weight: 600;">
+            ㄱ. 물이 얼음으로 변하는 실험 (닫힌 계)<br>
+            ㄴ. 앙금 생성 반응 — 질산 납 + 아이오딘화 칼륨 혼합 (비커 위에서)<br>
+            ㄷ. 열린 삼각 플라스크에서 탄산 음료를 개봉하기<br>
+            ㄹ. 철 + 황산 구리 용액 반응 (닫힌 용기)
+        </div>
+        <div class="options-grid">
+            <label class="option-label" data-q="20" data-v="1"><input type="radio" name="q20" value="1"><span class="option-badge">①</span>ㄱ, ㄴ</label>
+            <label class="option-label" data-q="20" data-v="2"><input type="radio" name="q20" value="2"><span class="option-badge">②</span>ㄱ, ㄴ, ㄹ</label>
+            <label class="option-label" data-q="20" data-v="3"><input type="radio" name="q20" value="3"><span class="option-badge">③</span>ㄴ, ㄷ, ㄹ</label>
+            <label class="option-label" data-q="20" data-v="4"><input type="radio" name="q20" value="4"><span class="option-badge">④</span>ㄱ, ㄴ, ㄷ, ㄹ</label>
+        </div>
+        <div class="explanation" id="exp-20">ㄱ. 물→얼음: 물리 변화, 닫힌 계 → 질량 <strong>변하지 않음</strong> ✓<br>ㄴ. 앙금 생성: 기체 미발생, 액상 반응 → 질량 <strong>변하지 않음</strong> ✓<br>ㄷ. 탄산 음료 개봉: CO<sub>2</sub>가 대기 중으로 날아감 → <strong>질량 감소</strong> ✗<br>ㄹ. 닫힌 용기 반응 → 질량 <strong>변하지 않음</strong> ✓<br>→ 정답: <strong>ㄱ, ㄴ, ㄹ</strong></div>
+    </div>
+
+<!-- SUBMIT -->
+
+    <!-- 서버 제출 영역 (채점 후 표시됨) -->
+    <div id="server-submit-area" class="no-print" style="display:none; max-width: 600px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 2px solid #3b82f6;">
+        <h3 style="margin-top:0; color:#1e293b; font-size:1.5rem; text-align:center;">📡 결과 서버에 제출하기</h3>
+        <p style="color:#64748b; text-align:center; margin-bottom:1.5rem;">선생님께 결과를 전송하려면 아래 버튼을 클릭하세요.</p>
+
+        <!-- 난이도 및 소감 섹션 -->
+        <div style="margin-bottom:2rem; padding: 1.25rem; background: #fffbeb; border: 2px solid #f59e0b; border-radius: 0.75rem;">
+            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem;">
+                <span style="font-size:1.2rem;">⭐</span>
+                <h4 style="margin:0; color:#92400e; font-weight:700;">보너스 포인트: 피드백 남기기</h4>
+            </div>
+
+            <!-- 난이도 리커트 척도 -->
+            <div style="margin-bottom:1rem;">
+                <p style="margin:0 0 0.6rem 0; font-weight:600; color:#b45309; font-size:0.9rem;">🎯 이 시험의 난이도는?</p>
+                <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+                    <label style="display:flex; flex-direction:column; align-items:center; gap:0.3rem; cursor:pointer; padding:0.6rem; background:white; border:2px solid #fde68a; border-radius:0.4rem; transition:all 0.2s; flex:1; min-width:70px;" id="diff-label-1">
+                        <input type="radio" name="difficulty-quiz" value="1" style="cursor:pointer;">
+                        <span style="font-weight:600; color:#b45309; font-size:0.75rem; text-align:center;">매우<br>어려움</span>
+                    </label>
+                    <label style="display:flex; flex-direction:column; align-items:center; gap:0.3rem; cursor:pointer; padding:0.6rem; background:white; border:2px solid #fde68a; border-radius:0.4rem; transition:all 0.2s; flex:1; min-width:70px;" id="diff-label-2">
+                        <input type="radio" name="difficulty-quiz" value="2" style="cursor:pointer;">
+                        <span style="font-weight:600; color:#b45309; font-size:0.75rem; text-align:center;">어려움</span>
+                    </label>
+                    <label style="display:flex; flex-direction:column; align-items:center; gap:0.3rem; cursor:pointer; padding:0.6rem; background:white; border:2px solid #fde68a; border-radius:0.4rem; transition:all 0.2s; flex:1; min-width:70px;" id="diff-label-3">
+                        <input type="radio" name="difficulty-quiz" value="3" style="cursor:pointer;">
+                        <span style="font-weight:600; color:#b45309; font-size:0.75rem; text-align:center;">적당함</span>
+                    </label>
+                    <label style="display:flex; flex-direction:column; align-items:center; gap:0.3rem; cursor:pointer; padding:0.6rem; background:white; border:2px solid #fde68a; border-radius:0.4rem; transition:all 0.2s; flex:1; min-width:70px;" id="diff-label-4">
+                        <input type="radio" name="difficulty-quiz" value="4" style="cursor:pointer;">
+                        <span style="font-weight:600; color:#b45309; font-size:0.75rem; text-align:center;">쉬움</span>
+                    </label>
+                    <label style="display:flex; flex-direction:column; align-items:center; gap:0.3rem; cursor:pointer; padding:0.6rem; background:white; border:2px solid #fde68a; border-radius:0.4rem; transition:all 0.2s; flex:1; min-width:70px;" id="diff-label-5">
+                        <input type="radio" name="difficulty-quiz" value="5" style="cursor:pointer;">
+                        <span style="font-weight:600; color:#b45309; font-size:0.75rem; text-align:center;">매우<br>쉬움</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 주관식 소감 -->
+            <div>
+                <p style="margin:0 0 0.4rem 0; font-weight:600; color:#b45309; font-size:0.9rem;">💭 소감 (선택사항)</p>
+                <textarea id="quiz-feedback-text" placeholder="예: 문제 5번이 어려웠어요 / 시간이 부족했어요 / 재미있었어요" style="width:100%; min-height:80px; padding:0.6rem; border:2px solid #fde68a; border-radius:0.4rem; font-family:'Noto Sans KR', sans-serif; font-size:0.9rem; resize:vertical;"></textarea>
+            </div>
+        </div>
+
+        <div id="submitFormArea">
+            <button id="submitResultBtn" onclick="sendQuizDataToServer()" style="width: 100%; background: #3b82f6; color: white; border: none; padding: 1rem; border-radius: 0.75rem; font-size: 1.2rem; font-weight: 800; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(59,130,246,0.3);">
+                내 점수 전송하기 🚀
+            </button>
+            <div id="submitLoading" style="display: none; margin-top: 1rem; color: #64748b; text-align:center; font-weight:bold;">
+                데이터를 전송하는 중입니다... ⏳
+            </div>
+        </div>
+        
+        <div id="submitSuccessArea" style="display: none; text-align:center;">
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎉</div>
+            <h4 style="color: #10b981; margin-bottom: 1rem; font-size:1.2rem;">제출 완료!</h4>
+            <div style="background: #f1f5f9; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+                <p style="font-weight: bold; margin-bottom: 0.5rem; color: #334155; font-size:0.9rem;">나의 확인 토큰 (자동 복사됨)</p>
+                <div id="studentTokenDisplay" style="font-family: monospace; font-size: 1rem; background: white; padding: 0.5rem; border: 2px dashed #94a3b8; letter-spacing: 1px; word-break: break-all;"></div>
+            </div>
+            <a href="student_result.html" target="_blank" style="display:inline-block; background: #10b981; color: white; text-decoration:none; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-size: 1rem; font-weight: bold;">
+                내 결과 상세보기 ➡️
+            </a>
+        </div>
+    </div>
+
+    <div class="no-print" style="display: flex; gap: 1rem; max-width: 400px; margin: 2rem auto 4rem auto;">
+        <button id="reset-btn" onclick="resetAnswers()" style="flex: 1; padding: 1.25rem; background: #ef4444; color: white; border: none; border-radius: 1rem; font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: all 0.2s;">
+            초기화 🔄
+        </button>
+        <button id="submit-btn" onclick="submitQuiz()" style="flex: 1; margin: 0; background: #2563eb; padding: 1.25rem;">
+            채점하기 →
+        </button>
+    </div>
+
+    <!-- RETRY -->
+    <button id="retry-btn" class="no-print" onclick="retryQuiz()" style="display:none; width:100%; max-width:400px; margin:0.5rem auto 3rem; padding:1rem 2rem; background:#334155; color:white; font-size:1.1rem; font-weight:700; border:none; border-radius:1rem; cursor:pointer;">
+        다시 풀기
+    </button>
+
+</div><!-- /content-wrapper -->
+
+<script>
+    // ── GOOGLE APPS SCRIPT URL ──
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx25Ev-OkyclLK6LVmSizkYGGLD09N1DOTtszjTBAAmkOyJRUSeh3OSg1MqsQF3QiNA/exec';
+
+    // ── ANSWERS & META ──
+    let ANSWERS = {
+        1:3, 2:2, 3:2, 4:3, 5:2, 6:3, 7:3, 8:2, 9:2, 10:3,
+        11:3, 12:3, 13:3, 14:2, 15:2, 16:3, 17:2, 18:1, 19:4, 20:2
+    };
+    const TOTAL = 20;
+
+        // ── 선지 순서 무작위화 (버전 시스템) ──
+    let QUIZ_VERSION = localStorage.getItem('chem_quiz_version');
+    if(!QUIZ_VERSION) {
+        QUIZ_VERSION = Math.floor(Math.random() * 1000).toString();
+        localStorage.setItem('chem_quiz_version', QUIZ_VERSION);
+    }
+    const optionShuffles = {}; 
+
+    function seededShuffle(arr, seed) {
+        let m = arr.length, t, i;
+        const s = parseInt(seed);
+        const result = [...arr];
+        for (let j = 0; j < 10; j++) { // 10 times mix
+            for (let k = result.length - 1; k > 0; k--) {
+                i = Math.floor(Math.abs(Math.sin(s + j + k) * 10000) % (k + 1));
+                t = result[k];
+                result[k] = result[i];
+                result[i] = t;
+            }
+        }
+        return result;
+    }
+
+    function shuffleOptions() {
+        for(let q = 1; q <= TOTAL; q++) {
+            const optionsGrid = document.querySelector(`.options-grid[data-q="${q}"], div.options-grid:has(.option-label[data-q="${q}"]) `);
+            if(!optionsGrid) continue;
+
+            const labels = Array.from(optionsGrid.querySelectorAll(`.option-label[data-q="${q}"]`));
+            if(labels.length !== 4) continue;
+
+            const origCorrectVal = ANSWERS[q];
+            const shuffledLabels = seededShuffle(labels, parseInt(QUIZ_VERSION) + q);
+            
+            shuffledLabels.forEach((label, newIndex) => {
+                const newPos = newIndex + 1;
+                // Update internal ANSWER mapping to the new position
+                if (parseInt(label.dataset.v) === origCorrectVal) {
+                    ANSWERS[q] = newPos;
+                }
+                // Assign new position-based value
+                label.dataset.v = newPos;
+                const badge = label.querySelector('.option-badge');
+                if(badge) {
+                    badge.textContent = String.fromCharCode(9312 + newIndex); // ①②③④
+                }
+                const input = label.querySelector('input');
+                if(input) input.value = newPos;
+                optionsGrid.appendChild(label);
+            });
+        }
+    }
+
+    /* --- 문제 변수화 (Random Generator) --- */
+    function generateDynamicQuestions() {
+        // Q6: 2H2 + O2 -> 2H2O (Ratio 2:1:2)
+        // q6_base=2 제거 (선택지 2번, 3번이 같아지는 버그 방지)
+        const q6_base = [4, 6, 8, 10, 12, 20][Math.floor(Math.random() * 6)];
+        document.getElementById('q6-val').textContent = q6_base + '개';
+
+        // Q6 Visual update
+        const q6_container = document.getElementById('q6-visual-container');
+        q6_container.innerHTML = '';
+        for(let i=0; i<q6_base; i++) {
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("width", "60"); svg.setAttribute("height", "60");
+            svg.setAttribute("viewBox", "0 0 60 60");
+            svg.setAttribute("style", "max-width:100%");
+            svg.innerHTML = '<circle cx="20" cy="30" r="15" fill="#cbd5e1" stroke="#94a3b8"/><circle cx="45" cy="30" r="15" fill="#cbd5e1" stroke="#94a3b8"/>';
+            q6_container.appendChild(svg);
+            if(i === 4 && q6_base > 6) { // Line break for many particles
+                const br = document.createElement('div'); br.style.width = '100%'; q6_container.appendChild(br);
+            }
+        }
+        document.getElementById('q6-visual-label').textContent = `수소 분자(H₂) ${q6_base}개가 모두 반응한다면?`;
+
+        ANSWERS[6] = 3;
+        document.getElementById('q6-opt1').textContent = (q6_base / 2) + '개';
+        document.getElementById('q6-opt2').textContent = (q6_base * 0.75).toFixed(0) + '개';
+        document.getElementById('q6-opt3').textContent = q6_base + '개';
+        document.getElementById('q6-opt4').textContent = (q6_base * 2) + '개';
+        document.getElementById('exp-6').innerHTML = `계수 비 = 분자 수 비: H<sub>2</sub> : H<sub>2</sub>O = 2 : 2 = <strong>1 : 1</strong><br>따라서 수소 분자 <strong>${q6_base}개</strong> → 물 분자 <strong>${q6_base}개</strong> 생성 (산소 분자는 <strong>${q6_base / 2}개</strong> 필요)`;
+
+        // Q13: H2 + O2 -> H2O (Mass 2:16:18 or scaled)
+        const q13_scale = [1, 2, 3, 4, 5, 0.5][Math.floor(Math.random() * 6)];
+        const v13_1 = 2 * q13_scale;
+        const v13_2 = 16 * q13_scale;
+        const v13_ans = v13_1 + v13_2;
+        document.getElementById('q13-v1').textContent = v13_1 + 'g';
+        document.getElementById('q13-v2').textContent = v13_2 + 'g';
+        ANSWERS[13] = 3;
+        document.getElementById('q13-opt1').textContent = Math.abs(v13_2 - v13_1) + 'g';
+        document.getElementById('q13-opt2').textContent = v13_2 + 'g';
+        document.getElementById('q13-opt3').textContent = v13_ans + 'g';
+        document.getElementById('q13-opt4').textContent = (v13_2 * 2) + 'g';
+        document.getElementById('exp-13').innerHTML = `질량 보존의 법칙: 반응 전 총 질량 = 반응 후 총 질량<br>${v13_1}g + ${v13_2}g = <strong>${v13_ans}g</strong><br>(수소와 산소가 결합해 물이 생성될 때 질량은 보존됩니다.)`;
+
+        // Q14: CaCO3 + 2HCl -> CaCl2 + H2O + CO2
+        const q14_scale = [1, 2, 0.5, 1.5][Math.floor(Math.random() * 4)];
+        const v14_1 = parseFloat((10 * q14_scale).toFixed(1));
+        const v14_2 = parseFloat((6.4 * q14_scale).toFixed(1));
+        const v14_3 = parseFloat((11.1 * q14_scale).toFixed(1));
+        const v14_4 = parseFloat((0.9 * q14_scale).toFixed(1));
+        const v14_ans = parseFloat((v14_1 + v14_2 - v14_3 - v14_4).toFixed(1));
+        // 정수일 경우 소수점 제거, 소수일 경우만 소수점 표시
+        const formatNum = (n) => n % 1 === 0 ? n.toFixed(0) : n.toFixed(1);
+        document.getElementById('q14-v1').textContent = formatNum(v14_1) + 'g';
+        document.getElementById('q14-v2').textContent = formatNum(v14_2) + 'g';
+        document.getElementById('q14-v3').textContent = formatNum(v14_3) + 'g';
+        document.getElementById('q14-v4').textContent = formatNum(v14_4) + 'g';
+        ANSWERS[14] = 2;
+        document.getElementById('q14-opt1').textContent = formatNum(parseFloat((v14_ans * 0.8).toFixed(1))) + 'g';
+        document.getElementById('q14-opt2').textContent = formatNum(v14_ans) + 'g';
+        document.getElementById('q14-opt3').textContent = formatNum(parseFloat((v14_ans + 1).toFixed(1))) + 'g';
+        document.getElementById('q14-opt4').textContent = formatNum(parseFloat((v14_ans * 1.5).toFixed(1))) + 'g';
+        document.getElementById('exp-14').innerHTML = `반응 전 총 질량 = ${formatNum(v14_1)} + ${formatNum(v14_2)} = <strong>${formatNum(parseFloat((v14_1 + v14_2).toFixed(1)))}g</strong><br>CO<sub>2</sub> 질량 = ${formatNum(parseFloat((v14_1 + v14_2).toFixed(1)))} &minus; ${formatNum(v14_3)} &minus; ${formatNum(v14_4)} = <strong>${formatNum(v14_ans)}g</strong><br>(반응 전 = 반응 후 → 질량 보존 적용!)`;
+
+        // Q18: Fe + O2
+        const v18_2 = [40, 80, 20, 60][Math.floor(Math.random() * 4)];
+        const v18_1 = v18_2 * 0.7;
+        const v18_ans = v18_2 - v18_1;
+        document.getElementById('q18-v1').textContent = v18_1.toFixed(1) + 'g';
+        document.getElementById('q18-v2').textContent = v18_2.toFixed(1) + 'g';
+        ANSWERS[18] = 1;
+        document.getElementById('q18-opt1').textContent = v18_ans.toFixed(1) + 'g';
+        document.getElementById('q18-opt2').textContent = v18_1.toFixed(1) + 'g';
+        document.getElementById('q18-opt3').textContent = v18_2.toFixed(1) + 'g';
+        document.getElementById('q18-opt4').textContent = (v18_1 + v18_2).toFixed(1) + 'g';
+        document.getElementById('exp-18').innerHTML = `질량 보존: 철 + 산소 = 산화철<br>${v18_1.toFixed(1)}g + 산소 = ${v18_2.toFixed(1)}g<br>산소 = ${v18_2.toFixed(1)} &minus; ${v18_1.toFixed(1)} = <strong>${v18_ans.toFixed(1)}g</strong><br>(철은 공기 중 산소와 결합해 질량이 증가한다는 것도 기억!)`;
+
+        // Q19: Mg + O -> MgO
+        const q19_base = [3, 6, 9, 12, 15, 30][Math.floor(Math.random() * 6)];
+        const v19_ans = (q19_base * 5 / 3);
+        document.getElementById('q19-val').textContent = q19_base + 'g';
+        const v19_o = parseFloat((q19_base * 2 / 3).toFixed(1));
+        ANSWERS[19] = 4;
+        document.getElementById('q19-opt1').textContent = (q19_base * 2 / 3) + 'g';
+        document.getElementById('q19-opt2').textContent = q19_base + 'g';
+        document.getElementById('q19-opt3').textContent = (q19_base * 4 / 3) + 'g';
+        document.getElementById('q19-opt4').textContent = v19_ans + 'g';
+        document.getElementById('exp-19').innerHTML = `Mg : O = 3 : 2이므로 Mg <strong>${q19_base}g</strong>에 필요한 O = <strong>${v19_o}g</strong><br>생성된 산화마그네슘 = ${q19_base} + ${v19_o} = <strong>${v19_ans}g</strong><br>※ 마그네슘 연소는 공기 중 산소를 흡수하므로 <strong>고체 질량이 증가</strong>합니다.`;
+
+        // Visual indicator update
+        const randomSeed = Math.random().toString(36).substring(7).toUpperCase();
+        [6, 13, 14, 18, 19].forEach(id => {
+            const badge = document.getElementById(`q${id}-random-badge`);
+            if(badge) badge.textContent = `Random Code: ${randomSeed}-${id}`;
+        });
+        console.log("🧪 Dynamic questions generated with seed:", randomSeed);
+    }
+    
+    generateDynamicQuestions();
+
+
+
+    // ── TIMER ──
+    let totalSeconds = 20 * 60;
+    let timerInterval = null;
+    let submitted = false;
+
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            totalSeconds--;
+            const m = Math.floor(totalSeconds / 60);
+            const s = totalSeconds % 60;
+            const display = document.getElementById('timer-display');
+            display.textContent = `⏱ ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+            if (totalSeconds <= 60)  display.className = 'danger';
+            else if (totalSeconds <= 300) display.className = 'warning';
+            if (totalSeconds <= 0) { clearInterval(timerInterval); if (!submitted) submitQuiz(); }
+        }, 1000);
+    }
+    startTimer();
+
+    // ── OPTION SELECTION ──
+    let userAnswers = {};
+
+    // localStorage에서 이전 답변 복구
+    window.addEventListener('pageshow', () => {
+        const saved = localStorage.getItem('quiz_L2L3_answers');
+        if(saved) {
+            try {
+                userAnswers = JSON.parse(saved);
+                // UI에 복구된 답변 반영
+                Object.keys(userAnswers).forEach(q => {
+                    const v = userAnswers[q];
+                    const label = document.querySelector(`.option-label[data-q="${q}"][data-v="${v}"]`);
+                    if(label) {
+                        label.classList.add('selected');
+                        label.querySelector('input').checked = true;
+                        const card = document.getElementById(`qcard-${q}`);
+                        if(card) card.classList.add('answered');
+                    }
+                });
+                updateProgress(); updateOMR();
+                console.log('📥 이전 답변 복구됨:', userAnswers);
+            } catch(e) {
+                console.log('저장된 답변 복구 실패');
+            }
+        }
+    });
+
+    document.querySelectorAll('.option-label').forEach(label => {
+        label.addEventListener('click', function() {
+            if (submitted) return;
+            const q = parseInt(this.dataset.q);
+            const v = parseInt(this.dataset.v);
+            // deselect siblings
+            document.querySelectorAll(`.option-label[data-q="${q}"]`).forEach(l => l.classList.remove('selected'));
+            this.classList.add('selected');
+            this.querySelector('input').checked = true;
+            userAnswers[q] = v;
+            // localStorage에 저장
+            localStorage.setItem('quiz_L2L3_answers', JSON.stringify(userAnswers));
+            // mark card
+            const card = document.getElementById(`qcard-${q}`);
+            card.classList.add('answered');
+            // update progress
+            updateProgress(); updateOMR();
+        });
+    });
+
+    // 난이도와 소감 저장
+    document.querySelectorAll('input[name="difficulty-quiz"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            localStorage.setItem('quiz_L2L3_difficulty', radio.value);
+        });
+    });
+
+    document.getElementById('quiz-feedback-text')?.addEventListener('input', (e) => {
+        localStorage.setItem('quiz_L2L3_feedback', e.target.value);
+    });
+
+    // 페이지 로드/돌아올 때 난이도와 소감 복구
+    window.addEventListener('pageshow', () => {
+        const savedDifficulty = localStorage.getItem('quiz_L2L3_difficulty');
+        if(savedDifficulty) {
+            const radio = document.querySelector(`input[name="difficulty-quiz"][value="${savedDifficulty}"]`);
+            if(radio) radio.checked = true;
+        }
+        const savedFeedback = localStorage.getItem('quiz_L2L3_feedback');
+        if(savedFeedback && document.getElementById('quiz-feedback-text')) {
+            document.getElementById('quiz-feedback-text').value = savedFeedback;
+        }
+    });
+
+
+    // ── OMR NAV LOGIC ──
+    function initOMR() {
+        const grid = document.getElementById('omr-grid-main');
+        grid.innerHTML = '';
+        for(let i=1; i<=TOTAL; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'omr-dot';
+            dot.id = `omr-dot-${i}`;
+            dot.textContent = i;
+            dot.onclick = () => {
+                const target = document.getElementById(`qcard-${i}`);
+                if(target) {
+                    const headerOffset = 150;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+            };
+            grid.appendChild(dot);
+        }
+    }
+
+    // 선지 순서 무작위화 (페이지 로드 시 한 번만 실행)
+    shuffleOptions();
+
+    initOMR();
+
+    // ── Q-NUM CLICK LOGIC ──
+    document.querySelectorAll('.q-num').forEach(el => {
+        el.title = "클릭하면 OMR 현황판으로 이동합니다";
+        el.addEventListener('click', () => {
+            const nav = document.getElementById('omr-nav-container');
+            nav.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            nav.classList.add('ring-4', 'ring-cyan-400');
+            setTimeout(() => nav.classList.remove('ring-4', 'ring-cyan-400'), 1500);
+        });
+    });
+
+
+    function updateOMR() {
+        for(let i=1; i<=TOTAL; i++) {
+            const dot = document.getElementById(`omr-dot-${i}`);
+            if(userAnswers[i]) {
+                dot.classList.add('filled');
+            } else {
+                dot.classList.remove('filled');
+            }
+            
+            // If already submitted, show color
+            if(submitted) {
+                const isCorrect = userAnswers[i] === ANSWERS[i];
+                dot.classList.remove('filled');
+                dot.classList.add(isCorrect ? 'correct' : 'wrong');
+            }
+        }
+    }
+
+
+    function updateProgress() {
+        const count = Object.keys(userAnswers).length;
+        document.getElementById('answered-count').textContent = `${count} / ${TOTAL} 답변`;
+        document.getElementById('progress-fill').style.width = `${(count / TOTAL) * 100}%`;
+    }
+
+    // ── SUBMIT ──
+    
+    // ── CONSOLIDATED SUBMIT & GRADE ──
+    async function submitQuiz() {
+        if (submitted) return;
+
+        // 1. Validation: 학번/이름 체크
+        const classVal = document.getElementById('info-class').value;
+        const numVal = document.getElementById('info-num').value;
+        const nameVal = document.getElementById('info-name').value;
+        
+        if(!classVal || !numVal || !nameVal) {
+            alert('⚠️ 상단에서 학번(반/번호)과 이름을 먼저 입력해주세요!');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            if(!classVal) document.getElementById('info-class').focus();
+            else if(!numVal) document.getElementById('info-num').focus();
+            else document.getElementById('info-name').focus();
+            return;
+        }
+
+        const classNums = classVal.match(/\d+/g);
+        let studentId = "";
+        if (classNums && classNums.length >= 2) {
+            studentId = classNums[0] + classNums[1].padStart(2, '0') + numVal.padStart(2, '0');
+        } else if (classNums && classNums.length === 1) {
+            studentId = "3" + classNums[0].padStart(2, '0') + numVal.padStart(2, '0');
+        } else {
+            studentId = classVal + numVal.padStart(2, '0');
+        }
+
+        if(!confirm('채점을 진행하고 결과를 서버에 제출하시겠습니까?')) return;
+
+        submitted = true;
+        clearInterval(timerInterval);
+
+        const btn = document.getElementById('submit-btn');
+        const omrBtn = document.getElementById('omr-submit-btn');
+        btn.disabled = true;
+        btn.innerHTML = '데이터 처리 및 제출 중... ⏳';
+        if(omrBtn) {
+            omrBtn.disabled = true;
+            omrBtn.style.background = '#94a3b8';
+        }
+
+        let totalScore = 0;
+        let scoreA = 0;
+        let scoreB = 0;
+        const questionSnapshots = [];  // 제출 시점 문제별 완전한 스냅샷
+
+        for (let q = 1; q <= TOTAL; q++) {
+            const correct = ANSWERS[q];
+            const userAns = userAnswers[q];
+            const card = document.getElementById(`qcard-${q}`);
+            const isCorrect = userAns == correct;
+
+            // 제출 시점 선택지 텍스트 전체 수집 (위치 1~4)
+            const optionTexts = {};
+            document.querySelectorAll(`.option-label[data-q="${q}"]`).forEach(lbl => {
+                const v = parseInt(lbl.dataset.v);
+                const span = lbl.querySelector('span:not(.option-badge)');
+                optionTexts[v] = span ? span.textContent.trim() : `선택지 ${v}`;
+            });
+
+            if(card) {
+                card.classList.remove('answered');
+                card.classList.add(isCorrect ? 'correct' : 'wrong');
+            }
+
+            const labels = Array.from(document.querySelectorAll(`.option-label[data-q="${q}"]`));
+            
+            const optionsGrid = labels[0].parentElement;
+            labels.forEach((label, idx) => {
+                const v = parseInt(label.dataset.v);
+                label.style.cursor = 'not-allowed';
+                label.querySelector('input').disabled = true;
+                
+                if (v == correct) {
+                    label.classList.add(userAns == correct ? 'show-correct' : 'show-missed');
+                } else if (v == userAns && !isCorrect) {
+                    label.classList.add('show-wrong');
+                }
+            });
+
+            // 각 문제에 정오 결과 섹션 추가
+            const resultDiv = document.createElement('div');
+            resultDiv.style.cssText = 'margin-top:1rem; padding:1rem; background:' + (isCorrect ? '#ecfdf5' : '#fef2f2') + '; border:2px solid ' + (isCorrect ? '#10b981' : '#ef4444') + '; border-radius:0.5rem; font-weight:700; color:' + (isCorrect ? '#065f46' : '#991b1b') + ';';
+            const badgeEmoji = isCorrect ? '✅' : '❌';
+            let resultHTML = `${badgeEmoji} <strong>${isCorrect ? '정답!' : '오답'}</strong>`;
+            if (!isCorrect) {
+                const userAnsText = ['(선택 안 함)', '①', '②', '③', '④'][userAns || 0];
+                const correctAnsText = ['', '①', '②', '③', '④'][correct];
+                resultHTML += `<br><span style="font-size:0.9rem; opacity:0.9;">
+                    당신의 답: <strong>${userAnsText}</strong>
+                    &nbsp; • &nbsp;
+                    정답: <strong>${correctAnsText}</strong>
+                </span>`;
+            }
+            resultDiv.innerHTML = resultHTML;
+            if(card) card.appendChild(resultDiv);
+
+            const exp = document.getElementById(`exp-${q}`);
+            if(exp) {
+                exp.classList.add('visible');
+                // 해설 앞에 "📖 해설:" 라벨 추가 (없으면)
+                if (!exp.querySelector('.explanation-label')) {
+                    const label = document.createElement('div');
+                    label.className = 'explanation-label';
+                    label.style.cssText = 'font-weight:700; color:#1e40af; margin-bottom:0.5rem; font-size:0.95rem;';
+                    label.textContent = '📖 해설:';
+                    exp.insertAdjacentElement('beforebegin', label);
+                }
+            }
+
+            if (isCorrect) {
+                totalScore++;
+                if (q <= 10) scoreA++;
+                else scoreB++;
+            }
+
+            // 문제 텍스트
+            const qText = card ? card.querySelector('.q-text')?.innerText || `문제 ${q}` : `문제 ${q}`;
+            // 해설 텍스트 (동적 숫자가 반영된 현재 DOM 내용)
+            const expEl = document.getElementById(`exp-${q}`);
+            const expText = expEl ? expEl.innerText.replace('📖 해설:', '').trim() : "";
+
+            // 제출 시점 스냅샷 저장
+            questionSnapshots.push({
+                qNum:          q,
+                questionText:  qText,
+                options:       optionTexts,          // { 1:"텍스트", 2:"텍스트", 3:"텍스트", 4:"텍스트" }
+                userAnswer:    userAns  || 0,         // 학생 선택 위치 (0=미응답)
+                correctAnswer: correct,               // 정답 위치
+                isCorrect:     isCorrect,
+                explanation:   expText
+            });
+        }
+
+        try {
+            const difficulty = document.querySelector('input[name="difficulty-quiz"]:checked')?.value;
+            const feedbackText = document.getElementById('quiz-feedback-text')?.value || '';
+
+            const payload = {
+                studentId:         studentId,
+                name:              nameVal,
+                questionSnapshots: questionSnapshots,
+                totalScore:        `${totalScore}/${TOTAL}`,
+                feedback: {
+                    difficulty:       difficulty ? parseInt(difficulty) : null,
+                    difficultyLabel:  difficulty ? ['매우 어려움', '어려움', '적당함', '쉬움', '매우 쉬움'][parseInt(difficulty) - 1] : null,
+                    studentFeedback:  feedbackText
+                }
+            };
+
+            const response = await fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8',
+                },
+                body: JSON.stringify(payload)
+            });
+            
+            const result = await response.json();
+            
+            if(result.success) {
+                document.getElementById('server-submit-area').innerHTML = `
+                    <div style="text-align:center; padding:1.5rem; background:#ecfdf5; border-radius:1rem; border:2px solid #10b981; margin-bottom:2rem;">
+                        <h3 style="color:#065f46; margin-bottom:0.5rem; font-size:1.4rem;">✅ 서버 제출 성공!</h3>
+                        <p style="font-size:1rem; color:#065f46;">나의 고유 토큰: <strong style="font-family:monospace; background:white; padding:2px 6px; border-radius:4px;">${result.token}</strong></p>
+                        <p style="font-size:0.8rem; color:#059669; mt-1">(토큰이 클립보드에 복사되었습니다.)</p>
+                        <a href="student_result.html" target="_blank" style="display:inline-block; margin-top:1rem; background:#10b981; color:white; padding:1rem 3rem; border-radius:1rem; font-size:1.2rem; text-decoration:none; font-weight:bold; box-shadow:0 4px 6px rgba(16,185,129,0.3);">결과 상세 대시보드 보기 ➡️</a>
+                    </div>
+                `;
+                navigator.clipboard.writeText(result.token).catch(e => {});
+                localStorage.setItem('chem_quiz_student_id', studentId);
+                localStorage.setItem('chem_quiz_token', result.token);
+            } else {
+                throw new Error(result.error);
+            }
+        } catch(e) {
+            console.error('Submission failed:', e);
+            alert('채점은 완료되었으나 서버 제출에 실패했습니다. (네트워크 오류)');
+            document.getElementById('server-submit-area').innerHTML = `
+                <div style="text-align:center; padding:1.5rem; background:#fef2f2; border-radius:1rem; border:2px solid #ef4444; margin-bottom:2rem;">
+                    <h3 style="color:#991b1b; margin-bottom:0.5rem;">❌ 서버 제출 실패</h3>
+                    <p style="font-size:0.9rem; color:#991b1b;">데이터가 저장되지 않았습니다. 인터넷 연결을 확인하세요.</p>
+                    <button onclick="location.reload()" style="margin-top:1rem; background:#ef4444; color:white; border:none; padding:0.6rem 1.5rem; border-radius:0.5rem; cursor:pointer; font-weight:bold;">새로고침 후 다시 풀기</button>
+                </div>
+            `;
+        }
+
+        btn.textContent = `제출 완료 — ${totalScore} / ${TOTAL}점`;
+        document.getElementById('server-submit-area').style.display = 'block';
+        showScore(totalScore, scoreA, scoreB);
+        updateOMR();
+        document.getElementById('retry-btn').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+        function showScore(total, a, b) {
+        const panel = document.getElementById('score-panel');
+        if(!panel) return;
+        panel.classList.add('visible');
+        
+        // Circle animation
+        const ring = document.getElementById('ring-fill-el');
+        if(ring) {
+            const totalLen = 427.26;
+            const offset = totalLen * (1 - total / TOTAL);
+            ring.style.strokeDashoffset = offset;
+        }
+        
+        // Number animation
+        const numEl = document.getElementById('score-number');
+        if(numEl) {
+            let current = 0;
+            const step = Math.max(1, Math.floor(total / 20));
+            const interval = setInterval(() => {
+                if(current >= total) {
+                    numEl.textContent = total;
+                    clearInterval(interval);
+                } else {
+                    current += step;
+                    if(current > total) current = total;
+                    numEl.textContent = current;
+                }
+            }, 30);
+        }
+        
+        // Section breakdown
+        if(document.getElementById('score-a')) document.getElementById('score-a').textContent = `${a} / 10`;
+        if(document.getElementById('score-b')) document.getElementById('score-b').textContent = `${b} / 10`;
+        
+        // Message & Badge
+        const msgEl = document.getElementById('score-msg');
+        const badgeEl = document.getElementById('grade-badge');
+        const percent = (total / TOTAL) * 100;
+        
+        if(badgeEl && msgEl) {
+            if(percent >= 90) {
+                badgeEl.textContent = 'MASTER 🏆';
+                msgEl.textContent = '완벽합니다! 화학의 달인이시군요.';
+            } else if(percent >= 70) {
+                badgeEl.textContent = 'EXCELLENT 🌟';
+                msgEl.textContent = '훌륭합니다! 조금만 더 하면 만점이에요.';
+            } else if(percent >= 40) {
+                badgeEl.textContent = 'GOOD 👍';
+                msgEl.textContent = '수고하셨습니다. 부족한 부분을 복습해보세요.';
+            } else {
+                badgeEl.textContent = 'KEEP GOING 💪';
+                msgEl.textContent = '기본 개념부터 차근차근 다시 살펴봅시다.';
+            }
+        }
+    }
+
+    function resetAnswers() {
+        if(confirm("정말로 모든 선택을 초기화하시겠습니까?")) {
+            // 1. 선택된 라디오 버튼 해제
+            document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+            // 2. 시각적 클래스 제거
+            document.querySelectorAll('.option-label').forEach(label => {
+                label.classList.remove('selected', 'show-correct', 'show-wrong', 'show-missed');
+            });
+            // 3. OMR 초기화
+            document.querySelectorAll('.omr-dot').forEach(dot => dot.classList.remove('filled', 'omr-correct', 'omr-wrong'));
+            // 4. 로컬 스토리지 삭제
+            localStorage.removeItem('quiz_L2L3_answers');
+            // 5. 메모리 객체 초기화
+            userAnswers = {};
+            submitted = false;
+            document.getElementById('submit-btn').disabled = false;
+            document.getElementById('submit-btn').innerHTML = '채점하기 →';
+            const omrBtn = document.getElementById('omr-submit-btn');
+            if(omrBtn) {
+                omrBtn.disabled = false;
+                omrBtn.style.background = '#2563eb';
+            }
+            document.getElementById('score-panel').classList.remove('visible');
+            document.getElementById('retry-btn').style.display = 'none';
+            // 6. 스크롤을 맨 위로
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    function retryQuiz() {
+        window.location.reload();
+    }
+</script>
+</body>
+</html>

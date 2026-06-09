@@ -1,278 +1,541 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>고급 무기화학 01: 분자 대칭성 (Interactive)</title>
+    <title>Advanced Inorganic Chemistry 01: Molecular Symmetry & Group Theory</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- MathJax for LaTeX -->
     <script>
         window.MathJax = {
-            tex: { inlineMath: [['\(', '\)'], ['\\(', '\\)']], displayMath: [['$\(', '\)$']] },
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
             svg: { fontCache: 'global' }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/presentation_mode.css">
+    <link rel="stylesheet" href="css/chem_style.css">
     <style>
-        /* 3D Simulation Styles */
-        .stage-3d {
-            perspective: 800px;
-            width: 300px; height: 300px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 1rem;
-            position: relative;
-            display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
-        }
-        .molecule-3d {
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 100px; height: 100px;
-        }
-        .axis-line {
-            position: absolute;
-            background: rgba(14, 165, 233, 0.4);
-            z-index: 0;
-        }
-        .axis-z { width: 2px; height: 250px; top: -75px; left: 50%; transform: translateX(-50%); }
-        
-        .mirror-plane {
-            position: absolute;
-            background: rgba(34, 211, 238, 0.2);
-            border: 2px solid var(--accent-cyan);
-            backdrop-filter: blur(2px);
-            display: none;
-            z-index: 5;
-        }
-        
-        /* Animation Classes */
-        .rotating { transform: rotateY(180deg); }
-        .reflecting { transform: scaleX(-1); }
-        .inverting { transform: scale(-1); }
+        body { background-color: #ffffff; color: #0f172a; font-family: 'Inter', sans-serif; }
+        .slide-content { background: #ffffff; border: 1px solid #e2e8f0; color: #0f172a; box-shadow: none; }
+        .math-box { background: #f8fafc; color: #0f172a; padding: 1.5rem; border: 2px solid #0f172a; border-radius: 0.5rem; margin: 1rem 0; }
+        .info-card { border-left: 6px solid #0f172a; padding: 1.25rem; background: #f1f5f9; margin-bottom: 1.5rem; }
+        .logic-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 900; font-size: 0.7rem; text-transform: uppercase; border: 1px solid #0f172a; }
+        h2 { color: #0f172a; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; border-bottom: 3px solid #0f172a; padding-bottom: 0.5rem; margin-bottom: 2rem; }
+        h3 { color: #334155; font-weight: 800; margin-top: 1.5rem; }
+        .step-box { background: #ffffff; border: 2px solid #e2e8f0; padding: 1rem; border-radius: 1rem; transition: all 0.2s; }
+        .step-box:hover { border-color: #0f172a; background: #f8fafc; }
     </style>
 </head>
 <body class="presentation-mode">
 
 <main>
-    
-    <!-- Slide 1: Cover -->
+    <!-- Slide 1: Title -->
     <section id="s1">
-        <div class="slide-content" style="border:none; background:transparent; box-shadow:none;">
-            <p class="text-sm font-bold text-slate-500 uppercase tracking-[0.3em] mb-4">Advanced Inorganic Chemistry Series</p>
-            <h1 class="text-5xl font-black mb-6 text-slate-900 leading-tight">
-                Module 1. 분자 대칭성과 군론<br>
-                <span class="text-2xl font-light text-slate-500">(Molecular Symmetry and Group Theory)</span>
-            </h1>
-            <div class="w-32 h-1 bg-slate-900 mx-auto my-10"></div>
-            <p class="text-xl font-medium text-slate-700 uppercase tracking-widest">제 1강: 대칭 요소와 대칭 조작</p>
+        <div class="slide-content text-center">
+            <p class="text-xs font-black text-slate-400 uppercase tracking-[0.5em] mb-4">Inorganic Chemistry Graduate Module</p>
+            <h1 class="text-6xl font-black text-slate-90 mb-6 tracking-tighter leading-none">Molecular Symmetry <br>& Group Theory</h1>
+            <div class="w-24 h-2 bg-slate-90 mx-auto my-10"></div>
+            <p class="text-xl text-slate-600 font-bold uppercase tracking-widest">Part 1: The Geometry of Electronic Structure</p>
         </div>
     </section>
 
-    <!-- Slide 2: Prerequisite -->
+    <!-- Slide 2: Selection Rules -->
     <section id="s2">
-        <div class="slide-content">
-            <h2>학습 전 확인 사항</h2>
-            <div class="w-full max-w-4xl bg-white p-10 border border-slate-200">
-                <p class="text-left text-lg mb-6">본 강의의 모든 수식은 <strong>MathJax</strong>를 통해 렌더링됩니다.</p>
-                <div class="p-6 bg-slate-50 rounded font-serif text-2xl mb-8">
-                    $\( \hat{H}\psi = E\psi \)$
-                    <p class="text-sm text-center text-slate-400 mt-2">(위 수식이 아름답게 보인다면 준비 완료!)</p>
-                </div>
-                <p class="text-left text-slate-600 italic">"Symmetry is the key to simplifying the Schrödinger equation."</p>
+        <div class="slide-content text-left px-20">
+            <h2>1. Prerequisite: The Hamiltonian</h2>
+            <div class="info-card">
+                <p class="font-black text-slate-90">Quantum Mechanical Invariance</p>
+                <p class="text-sm text-slate-600 mt-2">Molecular symmetry is not just about aesthetics; it defines the mathematical constraints of the Schrödinger equation. A symmetry operation $\hat{R}$ must commute with the Hamiltonian $\hat{H}$.</p>
             </div>
+            <div class="math-box">
+                $$ [\hat{H}, \hat{R}] = 0 \implies \hat{H}\hat{R}\psi = \hat{R}\hat{H}\psi $$
+            </div>
+            <p class="mt-6 text-slate-800 font-medium">This leads to the <b>vanishing integral theorem</b>: if two states have different symmetries, their interaction energy is strictly zero.</p>
         </div>
     </section>
 
     <!-- Slide 3: Definitions -->
     <section id="s3">
-        <div class="slide-content text-left px-16">
-            <h2>대칭 조작 vs 대칭 요소</h2>
-            <div class="space-y-10 w-full mt-8">
-                <div class="reveal-item">
-                    <h3 class="text-2xl font-bold mb-4 text-slate-900">1. 대칭 조작 (Symmetry Operation)</h3>
-                    <p class="text-xl pl-6 border-l-4 border-slate-800">
-                        분자를 원래 모습과 <strong>구별 불가능(Indistinguishable)</strong>하게 만드는 동작.
-                    </p>
+        <div class="slide-content text-left px-20">
+            <h2>2. Operation vs Element</h2>
+            <div class="grid grid-cols-2 gap-10 mt-10">
+                <div class="step-box">
+                    <span class="logic-tag mb-4">Operation</span>
+                    <p class="font-bold text-lg">A physical movement (rotation, reflection) that leaves the molecule in an <b>indistinguishable</b> state.</p>
                 </div>
-                <div class="reveal-item">
-                    <h3 class="text-2xl font-bold mb-4 text-slate-400">2. 대칭 요소 (Symmetry Element)</h3>
-                    <p class="text-xl pl-6 border-l-4 border-slate-300">
-                        조작의 기준이 되는 점, 선, 면. (기하학적 추상체)
-                    </p>
+                <div class="step-box">
+                    <span class="logic-tag mb-4">Element</span>
+                    <p class="font-bold text-lg">The geometric reference (point, line, or plane) about which the operation is performed.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 4: Proper Rotation (Interactive) -->
+    <!-- Slide 4: Identity -->
     <section id="s4">
         <div class="slide-content">
-            <h2>고유 회전 축 (\(C_n\))</h2>
-            <p class="mb-8">\(360^\circ / n\) 만큼 회전시키는 조작</p>
-            
-            <div class="flex gap-12 items-center justify-center w-full">
-                <div class="stage-3d" id="rotation-stage">
-                    <div class="axis-line axis-z"></div>
-                    <div class="molecule-3d" id="water-molecule">
-                        <div class="atom atom-o" style="position:absolute; top:25px; left:27px;">O</div>
-                        <div class="atom atom-h" style="position:absolute; bottom:15px; left:0;">H1</div>
-                        <div class="atom atom-h" style="position:absolute; bottom:15px; right:0;">H2</div>
-                    </div>
-                </div>
-                
-                <div class="text-left space-y-6">
-                    <div class="p-6 bg-blue-50 border border-blue-200 rounded-xl">
-                        <h3 class="font-bold text-blue-800 mb-2">물 분자 (\(H_2O\)) 시뮬레이션</h3>
-                        <p class="text-sm text-slate-600">주축인 \(C_2\) 축을 따라 \(180^\circ\) 회전합니다.</p>
-                    </div>
-                    <button onclick="simulateRotation()" class="w-full py-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-all shadow-lg">
-                        \(C_2\) 조작 실행 (180°)
-                    </button>
-                    <p id="rotation-log" class="font-mono text-xs text-slate-400 text-center">Ready...</p>
-                </div>
+            <h2>3. Identity ( $E$ )</h2>
+            <p class="text-lg font-medium mb-10">The "do nothing" operation. Every molecule has at least this symmetry.</p>
+            <div class="math-box">
+                $$ \hat{E}\psi = \psi $$
+            </div>
+            <div class="info-card bg-slate-50 border-slate-300">
+                <p class="text-sm text-slate-700"><b>Why is it needed?</b> For a set of operations to form a mathematical <b>Group</b>, an identity element is mandatory (similar to '0' in addition or '1' in multiplication).</p>
             </div>
         </div>
     </section>
 
-    <!-- Slide 5: Reflection (Interactive) -->
+    <!-- Slide 5: Proper Rotation -->
     <section id="s5">
         <div class="slide-content">
-            <h2>반사 면 (\(\sigma\))</h2>
-            <p class="mb-8">거울면(Mirror Plane)에 의한 조작</p>
-            
-            <div class="flex gap-12 items-center justify-center w-full">
-                <div class="stage-3d">
-                    <div id="mirror" class="mirror-plane" style="width:2px; height:200px; left:50%; top:50px; display:block;"></div>
-                    <div class="molecule-3d" id="reflect-molecule">
-                        <div class="atom atom-o" style="position:absolute; top:25px; left:27px;">O</div>
-                        <div class="atom atom-h" style="position:absolute; bottom:15px; left:0;">H</div>
-                        <div class="atom atom-h" style="position:absolute; bottom:15px; right:0;">H</div>
-                    </div>
+            <h2>4. Proper Rotation ( $C_n$ )</h2>
+            <p class="text-lg mb-6">Rotation by an angle $\theta = 360^\circ/n$ around an axis.</p>
+            <div class="grid grid-cols-2 gap-10 px-10 text-left">
+                <div class="step-box">
+                    <h3 class="mt-0 text-cyan-700">$C_2$ Axis</h3>
+                    <p class="text-sm">180° rotation. <br>Example: $H_2O$ (bisecting H-O-H angle).</p>
                 </div>
-                
-                <div class="text-left space-y-6">
-                    <div class="p-6 bg-cyan-50 border border-cyan-200 rounded-xl">
-                        <h3 class="font-bold text-cyan-800 mb-2">\(\sigma_v\) (수직 거울면)</h3>
-                        <p class="text-sm text-slate-600">분자의 면을 이등분하거나 포함합니다.</p>
-                    </div>
-                    <button onclick="simulateReflection()" class="w-full py-4 bg-cyan-600 text-white font-bold rounded-lg hover:bg-cyan-700 transition-all shadow-lg">
-                        \(\sigma\) 반사 실행
-                    </button>
+                <div class="step-box">
+                    <h3 class="mt-0 text-cyan-700">$C_3$ Axis</h3>
+                    <p class="text-sm">120° rotation. <br>Example: $NH_3$ (perpendicular to the H3 plane).</p>
                 </div>
             </div>
+            <p class="mt-10 font-black text-slate-400 uppercase tracking-widest text-xs">Mathematical check: $C_n^n = E$</p>
         </div>
     </section>
 
-    <!-- Slide 6: Inversion (Interactive) -->
+    <!-- Slide 6: Principal Axis -->
     <section id="s6">
-        <div class="slide-content">
-            <h2>반전 중심 (\(i\))</h2>
-            <p class="mb-8">\((x, y, z) \to (-x, -y, -z)\)</p>
-            
-            <div class="flex gap-12 items-center justify-center w-full">
-                <div class="stage-3d">
-                    <div class="w-4 h-4 bg-red-500 rounded-full z-50"></div> <!-- Center -->
-                    <div class="molecule-3d" id="invert-molecule">
-                        <div class="atom atom-o" style="position:absolute; top:0; left:0; background:#334155;">Cl1</div>
-                        <div class="atom atom-o" style="position:absolute; bottom:0; right:0; background:#334155;">Cl2</div>
-                    </div>
-                </div>
-                
-                <div class="text-left space-y-6">
-                    <button onclick="simulateInversion()" class="w-full py-4 bg-slate-800 text-white font-bold rounded-lg hover:bg-slate-900 transition-all shadow-lg">
-                        반전 (\(i\)) 조작 실행
-                    </button>
-                    <p class="text-sm text-slate-500 italic">"반대편으로 점대칭 이동합니다."</p>
-                </div>
+        <div class="slide-content text-left px-20">
+            <h2>5. The Principal Axis</h2>
+            <p class="text-lg mb-8">When multiple rotation axes exist, the one with the <b>highest value of $n$</b> is the Principal Axis.</p>
+            <div class="info-card">
+                <p class="font-bold">The z-axis Convention</p>
+                <p class="text-sm mt-2">By convention, the Principal Axis is assigned as the **z-axis** in the Cartesian coordinate system. This is crucial for interpreting Character Tables.</p>
             </div>
+            <p class="font-medium">Example: Benzene ($C_6H_6$) has one $C_6$ and six $C_2$ axes. The $C_6$ is the principal axis.</p>
         </div>
     </section>
 
-    <!-- Slide 7: Sn Definition -->
+    <!-- Slide 7: Reflection -->
     <section id="s7">
         <div class="slide-content">
-            <h2>회전-반사 (\(S_n\))</h2>
-            <div class="bg-slate-900 text-white p-10 rounded-xl w-full max-w-4xl text-center">
-                <p class="text-4xl font-serif mb-8">
-                    \(\hat{S}_n = \hat{\sigma}_h \hat{C}_n\)
-                </p>
-                <div class="grid grid-cols-3 items-center gap-4 text-lg">
-                    <div class="p-4 border border-slate-700 rounded">1단계: \(C_n\) 회전</div>
-                    <div class="text-2xl">➔</div>
-                    <div class="p-4 border border-slate-700 rounded">2단계: 수직면 \(\sigma_h\) 반사</div>
-                </div>
+            <h2>6. Reflection ( $\sigma$ )</h2>
+            <p class="text-lg mb-6">Reflection through a mirror plane. $\sigma^2 = E$.</p>
+            <div class="math-box">
+                $$ \sigma_{xy} (x, y, z) = (x, y, -z) $$
             </div>
-            <p class="mt-8 text-slate-500">※ 각각의 조작은 대칭 조작이 아닐 수 있지만, 그 조합은 대칭 조작이어야 합니다.</p>
+            <div class="grid grid-cols-3 gap-4 px-10 text-xs font-black uppercase">
+                <div class="p-4 border-2 border-slate-90 rounded bg-blue-50">$\sigma_h$ (Horizontal)<br>Perp to Principal Axis</div>
+                <div class="p-4 border-2 border-slate-90 rounded bg-red-50">$\sigma_v$ (Vertical)<br>Contains Principal Axis</div>
+                <div class="p-4 border-2 border-slate-90 rounded bg-green-50">$\sigma_d$ (Dihedral)<br>Bisects $C_2$ axes</div>
+            </div>
         </div>
     </section>
 
-    <!-- Slide 8: Character Table Teaser -->
+    <!-- Slide 8: Inversion -->
     <section id="s8">
         <div class="slide-content">
-            <h2>미리보기: 지표표 (Character Table)</h2>
-            <p class="mb-6">군론의 최종 목적지입니다.</p>
-            <div class="w-full max-w-2xl overflow-hidden border border-slate-200 rounded">
-                <table class="w-full text-center text-sm font-mono">
-                    <thead class="bg-slate-100">
-                        <tr><th>\(C_{2v}\)</th><th>\(E\)</th><th>\(C_2\)</th><th>\(\sigma_v(xz)\)</th><th>\(\sigma_v'(yz)\)</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>\(A_1\)</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
-                        <tr><td>\(A_2\)</td><td>1</td><td>1</td><td>-1</td><td>-1</td></tr>
-                        <tr><td>\(B_1\)</td><td>1</td><td>-1</td><td>1</td><td>-1</td></tr>
-                        <tr><td>\(B_2\)</td><td>1</td><td>-1</td><td>-1</td><td>1</td></tr>
-                    </tbody>
-                </table>
+            <h2>7. Inversion ( $i$ )</h2>
+            <p class="text-lg mb-6">Reflection through a center of symmetry $(0,0,0)$.</p>
+            <div class="math-box">
+                $$ \hat{i} (x, y, z) = (-x, -y, -z) $$
             </div>
-            <p class="mt-6 text-sm">위 표의 숫자들은 대칭 조작에 따른 <strong>오비탈의 변환성</strong>을 나타냅니다.</p>
+            <p class="font-bold text-slate-600 mt-6">Present in "Centrosymmetric" molecules such as $SF_6$, $CO_2$, or staggered Ethane.</p>
         </div>
     </section>
 
-    <!-- ... (이후 퀴즈 및 정리 슬라이드 12개 추가) ... -->
-    <!-- (사용자 편의를 위해 중간 생략하고 핵심 로직 스크립트로 이동) -->
-
-    <section id="end">
-        <div class="slide-content" style="border:none; box-shadow:none;">
-            <h2 class="border-none mb-10">제 1강을 마칩니다</h2>
-            <div class="p-8 bg-prestige-navy text-white rounded shadow-xl">
-                <p class="text-xl italic">"Symmetry is a vast subject, significant in art and nature. Mathematics lies at its root."</p>
+    <!-- Slide 9: Improper Rotation -->
+    <section id="s9">
+        <div class="slide-content">
+            <h2>8. Improper Rotation ( $S_n$ )</h2>
+            <p class="text-xl font-black mb-8">A two-step composite operation: <br>Rotation ($C_n$) followed by perpendicular Reflection ($\sigma_h$).</p>
+            <div class="math-box bg-slate-90 text-white border-none shadow-2xl">
+                $$ \hat{S}_n = \hat{\sigma}_h \times \hat{C}_n $$
             </div>
-            <p class="mt-10">다음 시간: <strong>점군(Point Groups) 결정 알고리즘</strong></p>
+            <div class="info-card mt-8 text-left">
+                <p class="text-sm font-bold">Important Distinction:</p>
+                <p class="text-xs mt-1">Neither $\sigma_h$ nor $C_n$ needs to be a symmetry operation on its own; only the result of the combined action must be.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: Sn Mathematics -->
+    <section id="s10">
+        <div class="slide-content text-left px-20">
+            <h2>9. $S_n$ Redundancies</h2>
+            <p class="mb-8">Low-order Improper Rotations are equivalent to other fundamental operations:</p>
+            <ul class="space-y-6">
+                <li class="step-box">
+                    <span class="logic-tag bg-cyan-100">$S_1$ Case</span>
+                    <p class="font-bold mt-2">$\hat{S}_1 = \hat{\sigma}_h \hat{C}_1 = \hat{\sigma} \times \hat{E} = \sigma$</p>
+                </li>
+                <li class="step-box">
+                    <span class="logic-tag bg-red-100">$S_2$ Case</span>
+                    <p class="font-bold mt-2">$\hat{S}_2 = \hat{\sigma}_h \hat{C}_2 = i$ (The mathematical definition of Inversion)</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 11: Even vs Odd n -->
+    <section id="s11">
+        <div class="slide-content text-left px-20">
+            <h2>10. $S_n$ Persistence</h2>
+            <div class="grid grid-cols-2 gap-10 mt-10">
+                <div class="p-6 border-2 border-slate-90 rounded-3xl">
+                    <h3 class="mt-0">If $n$ is Odd</h3>
+                    <p class="text-sm leading-relaxed">The existence of $S_n$ **requires** that both $C_n$ and $\sigma_h$ exist independently in the point group.</p>
+                </div>
+                <div class="p-6 border-2 border-slate-90 rounded-3xl bg-slate-50">
+                    <h3 class="mt-0">If $n$ is Even</h3>
+                    <p class="text-sm leading-relaxed">The $S_n$ axis can exist **without** $C_n$ or $\sigma_h$ being present. Example: Methane ($CH_4$) has $S_4$ axes but no $C_4$.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 12: Group Axioms -->
+    <section id="s12">
+        <div class="slide-content text-left px-20">
+            <h2>11. Mathematical Group Axioms</h2>
+            <p class="mb-6">The set of all symmetry operations of a molecule forms a <b>Group</b> under the operation of composition.</p>
+            <div class="space-y-3">
+                <div class="p-3 bg-slate-50 border rounded text-sm"><b>1. Closure:</b> $A, B \in G \implies A \cdot B \in G$</div>
+                <div class="p-3 bg-slate-50 border rounded text-sm"><b>2. Identity:</b> $E \in G$ such that $A \cdot E = A$</div>
+                <div class="p-3 bg-slate-50 border rounded text-sm"><b>3. Associativity:</b> $(A \cdot B) \cdot C = A \cdot (B \cdot C)$</div>
+                <div class="p-3 bg-slate-50 border rounded text-sm"><b>4. Inverse:</b> For every $A \in G$, there exists $A^{-1}$ such that $A \cdot A^{-1} = E$</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 13: Point Groups -->
+    <section id="s13">
+        <div class="slide-content">
+            <h2>12. Point Groups Classification</h2>
+            <p class="text-lg mb-10">We use **Schoenflies Notation** to categorize molecules into specific Point Groups.</p>
+            <div class="grid grid-cols-4 gap-4 px-10">
+                <div class="p-6 border-2 border-slate-200 rounded-xl font-serif text-3xl font-black">$C_{nv}$</div>
+                <div class="p-6 border-2 border-slate-200 rounded-xl font-serif text-3xl font-black">$D_{nh}$</div>
+                <div class="p-6 border-2 border-slate-200 rounded-xl font-serif text-3xl font-black">$O_h$</div>
+                <div class="p-6 border-2 border-slate-200 rounded-xl font-serif text-3xl font-black">$T_d$</div>
+            </div>
+            <p class="mt-8 text-slate-500 font-medium">"Point" refers to the fact that the center of mass remains fixed during all operations.</p>
+        </div>
+    </section>
+
+    <!-- Slide 14: Low Symmetry -->
+    <section id="s14">
+        <div class="slide-content text-left px-20">
+            <h2>13. Low Symmetry Groups</h2>
+            <div class="grid grid-cols-3 gap-6 mt-10">
+                <div class="p-6 bg-slate-50 border rounded-2xl text-center">
+                    <h3 class="mt-0 text-3xl font-serif">$C_1$</h3>
+                    <p class="text-xs font-bold">Only Identity ($E$). <br>Asymmetric.</p>
+                </div>
+                <div class="p-6 bg-slate-50 border rounded-2xl text-center">
+                    <h3 class="mt-0 text-3xl font-serif">$C_s$</h3>
+                    <p class="text-xs font-bold">Only $E$ and one $\sigma$.</p>
+                </div>
+                <div class="p-6 bg-slate-50 border rounded-2xl text-center">
+                    <h3 class="mt-0 text-3xl font-serif">$C_i$</h3>
+                    <p class="text-xs font-bold">Only $E$ and Inversion ($i$).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 15: High Symmetry -->
+    <section id="s15">
+        <div class="slide-content text-left px-20">
+            <h2>14. High Symmetry (Platonic)</h2>
+            <div class="grid grid-cols-2 gap-10 mt-10">
+                <div class="step-box">
+                    <h3 class="mt-0">$T_d$ (Tetrahedral)</h3>
+                    <p class="text-sm">4 $C_3$ axes, 3 $C_2$ axes, 6 $\sigma_d$ planes. <br>Example: $CH_4, SiCl_4$</p>
+                </div>
+                <div class="step-box">
+                    <h3 class="mt-0">$O_h$ (Octahedral)</h3>
+                    <p class="text-sm">Highest symmetry for most complexes. Includes Inversion. <br>Example: $SF_6, [Co(NH_3)_6]^{3+}$</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 16: Linear Groups -->
+    <section id="s16">
+        <div class="slide-content">
+            <h2>15. Linear Molecules</h2>
+            <p class="mb-10">Linear molecules possess an infinite rotation axis $C_\infty$.</p>
+            <div class="grid grid-cols-2 gap-10 px-20 text-left">
+                <div class="p-8 bg-cyan-50 border-2 border-cyan-900 rounded-3xl">
+                    <h3 class="mt-0 text-cyan-900">$C_{\infty v}$</h3>
+                    <p class="text-sm font-bold">No Inversion. <br>Example: $HCl, CO, HCN$</p>
+                </div>
+                <div class="p-8 bg-red-50 border-2 border-red-900 rounded-3xl">
+                    <h3 class="mt-0 text-red-900">$D_{\infty h}$</h3>
+                    <p class="text-sm font-bold">Has Inversion ($i$). <br>Example: $H_2, O_2, CO_2$</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 17: C vs D decision -->
+    <section id="s17">
+        <div class="slide-content text-left px-20">
+            <h2>16. The C vs D Bifurcation</h2>
+            <div class="math-box text-center text-xl font-black">
+                Does the molecule have $n$ perpendicular $C_2$ axes?
+            </div>
+            <div class="grid grid-cols-2 gap-10 mt-10">
+                <div class="p-6 border-2 border-cyan-800 rounded-xl">
+                    <span class="logic-tag branch-no">NO</span>
+                    <h3 class="mt-2 text-cyan-800">C Family</h3>
+                    <p class="text-xs">Based solely on the Principal Axis $C_n$.</p>
+                </div>
+                <div class="p-6 border-2 border-red-800 rounded-xl">
+                    <span class="logic-tag branch-yes">YES</span>
+                    <h3 class="mt-2 text-red-800">D Family</h3>
+                    <p class="text-xs">"D" stands for Dihedral. High symmetry rotational set.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 18: Decision Tree Step 1 -->
+    <section id="s18">
+        <div class="slide-content text-left px-20">
+            <h2>17. Decision Tree: Part 1</h2>
+            <div class="space-y-4">
+                <div class="p-4 bg-white border-2 border-slate-90 rounded-xl flex items-center gap-6">
+                    <span class="font-black text-2xl">Q1</span>
+                    <div>
+                        <p class="font-black">Is it Linear or Highly Symmetric?</p>
+                        <p class="text-xs text-slate-500">Yes $\rightarrow$ $C_{\infty v}, D_{\infty h}, T_d, O_h, I_h$</p>
+                    </div>
+                </div>
+                <div class="p-4 bg-white border-2 border-slate-90 rounded-xl flex items-center gap-6">
+                    <span class="font-black text-2xl">Q2</span>
+                    <div>
+                        <p class="font-black">Is there a Proper Rotation axis $C_n$ ($n > 1$)?</p>
+                        <p class="text-xs text-slate-500">No $\rightarrow$ $C_s, C_i, C_1$</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 19: Decision Tree Step 2 -->
+    <section id="s19">
+        <div class="slide-content text-left px-20">
+            <h2>18. Decision Tree: Part 2</h2>
+            <div class="p-6 bg-slate-90 text-white rounded-3xl mb-8">
+                <p class="font-black text-xl">Are there $n$ $C_2$ axes perpendicular to $C_n$?</p>
+            </div>
+            <div class="grid grid-cols-2 gap-10">
+                <div class="p-6 border-2 border-slate-200 rounded-xl">
+                    <p class="font-black text-cyan-700 underline mb-4">No $\rightarrow$ C Series</p>
+                    <ul class="text-sm space-y-2 font-bold">
+                        <li>$\sigma_h$ present? $\rightarrow C_{nh}$</li>
+                        <li>$n \sigma_v$ present? $\rightarrow C_{nv}$</li>
+                        <li>Else $\rightarrow C_n$</li>
+                    </ul>
+                </div>
+                <div class="p-6 border-2 border-slate-200 rounded-xl">
+                    <p class="font-black text-red-700 underline mb-4">Yes $\rightarrow$ D Series</p>
+                    <ul class="text-sm space-y-2 font-bold">
+                        <li>$\sigma_h$ present? $\rightarrow D_{nh}$</li>
+                        <li>$n \sigma_d$ present? $\rightarrow D_{nd}$</li>
+                        <li>Else $\rightarrow D_n$</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 20: Polarity Criteria -->
+    <section id="s20">
+        <div class="slide-content text-left px-20">
+            <h2>19. Symmetry & Polarity</h2>
+            <p class="text-lg font-bold mb-10">A molecule is **Non-Polar** if its point group forces the dipole moment $\mu$ to be zero.</p>
+            <div class="info-card border-red-600 bg-red-50">
+                <p class="font-black text-red-900">Symmetry Forbidden Polarity:</p>
+                <ul class="text-sm list-disc pl-6 mt-2 space-y-2 font-bold">
+                    <li>Any group with Inversion ($i$)</li>
+                    <li>Any D group (has perp $C_2$ axes)</li>
+                    <li>The high symmetry groups ($T_d, O_h$)</li>
+                </ul>
+            </div>
+            <p class="text-sm">Only $C_1, C_s, C_n, C_{nv}$ groups can be polar.</p>
+        </div>
+    </section>
+
+    <!-- Slide 21: Chirality Criteria -->
+    <section id="s21">
+        <div class="slide-content text-left px-20">
+            <h2>20. Symmetry & Chirality</h2>
+            <div class="math-box text-center">
+                <p class="text-2xl font-black">A molecule is Chiral if and only if it lacks any Improper Rotation axis ( $S_n$ ).</p>
+            </div>
+            <div class="grid grid-cols-2 gap-10 mt-10">
+                <div class="step-box">
+                    <p class="font-black text-cyan-800">$S_1 = \sigma$</p>
+                    <p class="text-xs">Mirror planes forbid chirality.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black text-cyan-800">$S_2 = i$</p>
+                    <p class="text-xs">Inversion centers forbid chirality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 22: Example: Water -->
+    <section id="s22">
+        <div class="slide-content">
+            <h2>21. Case Study: Water ( $H_2O$ )</h2>
+            <div class="grid grid-cols-2 gap-10 px-20 text-left mt-10">
+                <div class="p-6 bg-slate-50 border rounded-2xl">
+                    <h3 class="mt-0">Symmetry Elements</h3>
+                    <ul class="text-sm list-disc pl-6 font-bold space-y-2">
+                        <li>$E$ (Identity)</li>
+                        <li>$C_2$ (Principal Axis)</li>
+                        <li>$\sigma_v(xz)$ (Molecular plane)</li>
+                        <li>$\sigma_v'(yz)$ (Bisecting plane)</li>
+                    </ul>
+                </div>
+                <div class="flex flex-col justify-center">
+                    <p class="text-4xl font-black text-slate-90">Point Group: $C_{2v}$</p>
+                    <p class="mt-4 text-emerald-600 font-bold">Status: Polar, Achiral</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 23: Example: Ammonia -->
+    <section id="s23">
+        <div class="slide-content">
+            <h2>22. Case Study: Ammonia ( $NH_3$ )</h2>
+            <div class="grid grid-cols-2 gap-10 px-20 text-left mt-10">
+                <div class="p-6 bg-slate-50 border rounded-2xl">
+                    <h3 class="mt-0">Symmetry Elements</h3>
+                    <ul class="text-sm list-disc pl-6 font-bold space-y-2">
+                        <li>$E$ (Identity)</li>
+                        <li>$C_3$ (Principal Axis)</li>
+                        <li>3 $\sigma_v$ (Containing N-H bonds)</li>
+                    </ul>
+                </div>
+                <div class="flex flex-col justify-center">
+                    <p class="text-4xl font-black text-slate-90">Point Group: $C_{3v}$</p>
+                    <p class="mt-4 text-emerald-600 font-bold">Status: Polar, Achiral</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 24: Example: Benzene -->
+    <section id="s24">
+        <div class="slide-content">
+            <h2>23. Case Study: Benzene ( $C_6H_6$ )</h2>
+            <div class="grid grid-cols-2 gap-10 px-20 text-left mt-10">
+                <div class="p-6 bg-slate-50 border rounded-2xl">
+                    <h3 class="mt-0">Symmetry Elements</h3>
+                    <ul class="text-sm list-disc pl-6 font-bold space-y-1">
+                        <li>$C_6$ (Principal Axis)</li>
+                        <li>6 $C_2$ (Perpendicular to $C_6$)</li>
+                        <li>$\sigma_h$ (Molecular plane)</li>
+                        <li>$i$ (Inversion center)</li>
+                    </ul>
+                </div>
+                <div class="flex flex-col justify-center">
+                    <p class="text-4xl font-black text-slate-90">Point Group: $D_{6h}$</p>
+                    <p class="mt-4 text-red-600 font-bold">Status: Non-Polar, Achiral</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 25: Example: Allene -->
+    <section id="s25">
+        <div class="slide-content">
+            <h2>24. Advanced Case: Allene ( $C_3H_4$ )</h2>
+            <p class="text-sm mb-6">A classic example where $S_4$ exists but $C_4$ does not.</p>
+            <div class="grid grid-cols-2 gap-10 px-20 text-left">
+                <div class="p-6 border-2 border-slate-90 rounded-3xl">
+                    <ul class="text-xs list-disc pl-6 font-black space-y-2">
+                        <li>$C_2$ Principal Axis (thru central C)</li>
+                        <li>2 Perpendicular $C_2$ axes</li>
+                        <li>2 $\sigma_d$ planes</li>
+                        <li class="text-red-600">Has $S_4$ axis!</li>
+                    </ul>
+                </div>
+                <div class="flex flex-col justify-center">
+                    <p class="text-4xl font-black text-slate-90">Point Group: $D_{2d}$</p>
+                    <p class="mt-4 text-red-600 font-bold">Status: Non-Polar, Achiral</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 26: Example: XeF4 -->
+    <section id="s26">
+        <div class="slide-content">
+            <h2>25. Challenge: $XeF_4$</h2>
+            <div class="grid grid-cols-2 gap-10 px-20 text-left mt-10">
+                <div class="step-box">
+                    <p class="text-xs font-black">1. High Symmetry? No.</p>
+                    <p class="text-xs font-black">2. Principal Axis? $C_4$ (thru Xe).</p>
+                    <p class="text-xs font-black">3. 4 perp $C_2$? Yes (D-family).</p>
+                    <p class="text-xs font-black">4. $\sigma_h$ present? Yes (Molecular plane).</p>
+                </div>
+                <div class="flex flex-col justify-center text-center">
+                    <p class="text-5xl font-black text-indigo-900">Result: $D_{4h}$</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 27: Matrix Representations -->
+    <section id="s27">
+        <div class="slide-content text-left px-20">
+            <h2>26. Transition: Matrix Forms</h2>
+            <p class="mb-6">Every operation can be represented by a **$3 \times 3$ Transformation Matrix**.</p>
+            <div class="math-box">
+                $$ C_n(z) = \begin{pmatrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{pmatrix} $$
+            </div>
+            <p class="text-xs font-bold text-slate-500">The Trace (Sum of diagonals) of these matrices leads to the "Characters" used in Character Tables.</p>
+        </div>
+    </section>
+
+    <!-- Slide 28: Summary Checklist -->
+    <section id="s28">
+        <div class="slide-content">
+            <h2>27. Key Learnings Checklist</h2>
+            <div class="grid grid-cols-2 gap-4 px-20 text-left">
+                <div class="p-4 bg-slate-50 border rounded text-xs font-bold">Symmetry Operation vs Element distinction.</div>
+                <div class="p-4 bg-slate-50 border rounded text-xs font-bold">Principal Axis assignment (High $n$).</div>
+                <div class="p-4 bg-slate-50 border rounded text-xs font-bold">$S_n$ as the definitive test for Chirality.</div>
+                <div class="p-4 bg-slate-50 border rounded text-xs font-bold">C vs D point group differentiation logic.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 40: End -->
+    <section id="s40" class="end">
+        <div class="slide-content text-center">
+            <h2 class="border-none text-5xl font-black mb-10">Module 1-1 Complete</h2>
+            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest">Next Lecture:</p>
+            <p class="text-3xl font-black text-slate-90 mt-4">Reducible & Irreducible Representations</p>
+            <div class="mt-20 p-8 border-t-2 border-slate-100 italic font-serif text-slate-400">
+                "In symmetry, we find the language of nature's laws."
+            </div>
         </div>
     </section>
 
 </main>
 
-<!-- Simulation Scripts -->
-<script>
-    let rotationAngle = 0;
-    function simulateRotation() {
-        const mol = document.getElementById('water-molecule');
-        const log = document.getElementById('rotation-log');
-        rotationAngle += 180;
-        mol.style.transform = `rotateZ(${rotationAngle}deg)`;
-        log.innerText = `Operation: C2 executed (${rotationAngle % 360}° total)`;
-    }
-
-    let isReflected = false;
-    function simulateReflection() {
-        const mol = document.getElementById('reflect-molecule');
-        isReflected = !isReflected;
-        mol.style.transform = isReflected ? 'scaleX(-1)' : 'scaleX(1)';
-    }
-
-    let isInverted = false;
-    function simulateInversion() {
-        const mol = document.getElementById('invert-molecule');
-        isInverted = !isInverted;
-        mol.style.transform = isInverted ? 'scale(-1)' : 'scale(1)';
-    }
-</script>
-
+<script src="js/chem_sim.js"></script>
 <script src="js/slide_engine.js"></script>
 </body>
 </html>

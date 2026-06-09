@@ -2,803 +2,1163 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>이미지 리소스 라이브 관리자</title>
+    <title>2026 Asset Dashboard (AST Powered)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .asset-card { transition: all 0.2s; border: 2px solid transparent; }
-        .asset-card:hover { transform: translateY(-5px); border-color: #06b6d4; }
-        .img-container { height: 150px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; overflow: hidden; position: relative; }
-        .img-container img { max-height: 100%; object-fit: contain; z-index: 1; }
-        .loading-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.8); display: none; align-items: center; justify-content: center; z-index: 10; }
-    </style>
 </head>
-<body class="bg-slate-50 p-10 font-[Pretendard]">
+<body class="bg-slate-50 text-slate-900 font-sans p-8">
     <div class="max-w-7xl mx-auto">
-        <header class="flex justify-between items-end mb-12">
+        <header class="flex justify-between items-end mb-12 border-b-4 border-slate-900 pb-6">
             <div>
-                <h1 class="text-4xl font-black text-slate-900">Live Asset Manager</h1>
-                <p class="text-slate-500 mt-2">이미지 주소를 수정하고 [저장]을 누르면 즉시 파일에 반영됩니다.</p>
+                <h1 class="text-5xl font-black tracking-tighter text-slate-900">Asset Dashboard</h1>
+                <p class="text-slate-500 mt-2 font-bold">Powered by BeautifulSoup AST Parsing</p>
             </div>
-            <div class="flex gap-4">
-                <span class="flex items-center gap-2 text-xs font-bold text-emerald-600 bg-emerald-50 px-4 py-2 rounded-full border border-emerald-200">
-                    <span class="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span> Server Connected (Port 8000)
-                </span>
-                <a href="index.html" class="bg-slate-900 text-white px-6 py-2 rounded-full font-bold hover:bg-slate-700 transition-colors">Home</a>
-            </div>
+            <a href="index.html" class="bg-slate-900 text-white px-8 py-3 rounded-full font-black hover:bg-blue-600 transition-all shadow-lg">Home</a>
         </header>
-        <div class="space-y-16">
+        <div class="space-y-20">
 
-<section>
-    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
-        <span class="w-2 h-8 bg-cyan-500 rounded-full"></span> 1_chemical_change.html
-    </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div>
+        <h2 class="text-3xl font-black text-blue-800 mb-8 flex items-center gap-4">
+            <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm">📁</span> 0. Orientation & Intro
+        </h2>
+        <div class="space-y-12">
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1548813796-981d34a6dc3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_0" type="text" value="https://images.unsplash.com/photo-1548813796-981d34a6dc3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">0_chemistry_ot.html</h3>
+                    
                 </div>
-                <button onclick="updateAsset('1_chemical_change.html', 'https://images.unsplash.com/photo-1548813796-981d34a6dc3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80', 'input_0')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_1" type="text" value="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('1_chemical_change.html', 'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', 'input_1')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '0_chemistry_ot.html', 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1578319439584-104c94d37305?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_2" type="text" value="https://images.unsplash.com/photo-1578319439584-104c94d37305?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('1_chemical_change.html', 'https://images.unsplash.com/photo-1578319439584-104c94d37305?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', 'input_2')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '0_chemistry_ot.html', 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1581646741691-6ce169c27dec?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_3" type="text" value="https://images.unsplash.com/photo-1581646741691-6ce169c27dec?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('1_chemical_change.html', 'https://images.unsplash.com/photo-1581646741691-6ce169c27dec?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'input_3')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '0_chemistry_ot.html', 'https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=400&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_4" type="text" value="https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('1_chemical_change.html', 'https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', 'input_4')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="wordcloud_3d.html" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="wordcloud_3d.html" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '0_chemistry_ot.html', 'wordcloud_3d.html')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div></div></div>
+    <div>
+        <h2 class="text-3xl font-black text-blue-800 mb-8 flex items-center gap-4">
+            <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm">📁</span> 1. Middle School Chemistry
+        </h2>
+        <div class="space-y-12">
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1551727041-5b347d65b633?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">1_chemical_change.html</h3>
+                    
+            <div class="p-3 bg-cyan-50 border border-cyan-200 rounded-lg flex items-center justify-between shadow-sm">
                 <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_5" type="text" value="https://images.unsplash.com/photo-1551727041-5b347d65b633?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                    <span class="text-[10px] font-black text-cyan-600">Tinkerbell Quiz</span>
+                    <p class="text-sm font-bold text-slate-800">1차시 퀴즈 (10문제)</p>
                 </div>
-                <button onclick="updateAsset('1_chemical_change.html', 'https://images.unsplash.com/photo-1551727041-5b347d65b633?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80', 'input_5')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
+                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" class="bg-cyan-600 text-white px-4 py-2 rounded-md text-xs font-black hover:bg-cyan-700 transition-colors">Start</a>
             </div>
-        </div>
+            
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_6" type="text" value="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('1_chemical_change.html', 'https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', 'input_6')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://st2.depositphotos.com/1799455/11897/i/450/depositphotos_118977092-stock-photo-person-tearing-paper.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_7" type="text" value="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('1_chemical_change.html', 'https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'input_7')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://media.istockphoto.com/id/1471501598/photo/burning-cutting-from-a-newspaper-with-blank-space-for-your-copy.jpg?s=612x612&w=0&k=20&c=-t9MrbvZLVP7xXUdN1n7dpvugkHQ1nysdKx6WJ31qXA=')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_8" type="text" value="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('1_chemical_change.html', 'https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', 'input_8')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.nagwa.com/figures/explainers/146165392424/9.svg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.nagwa.com/figures/explainers/146165392424/9.svg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://images.nagwa.com/figures/explainers/146165392424/9.svg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_9" type="text" value="https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('1_chemical_change.html', 'https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'input_9')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://media.istockphoto.com/id/177131518/photo/ice-cubes.jpg?s=612x612&w=0&k=20&c=pUWWdEDWq_nFigrfEfMM0e7ikjaYSOi8EGedHJZqZCU=')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_10" type="text" value="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('1_chemical_change.html', 'https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'input_10')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://d2eehagpk5cl65.cloudfront.net/img/c800x450-w800-q80/uploads/2021/05/zumaamericasthirteen736874-scaled-e1622236877438-800x450.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_11" type="text" value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('1_chemical_change.html', 'https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_11')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzyQJs_-XMrBSZXPSa0mBray2hIOxJJklIQ&s')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_12" type="text" value="https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('1_chemical_change.html', 'https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80', 'input_12')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://images.stockcake.com/public/6/1/5/61559323-db84-4d75-b2b0-8eaf8c9a7763_large/school-cafeteria-busy-stockcake.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1603484477859-abe6a73f9366?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_13" type="text" value="https://images.unsplash.com/photo-1603484477859-abe6a73f9366?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('1_chemical_change.html', 'https://images.unsplash.com/photo-1603484477859-abe6a73f9366?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', 'input_13')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
-    </div></section>
-<section>
-    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
-        <span class="w-2 h-8 bg-cyan-500 rounded-full"></span> 2_chemical_equation.html
-    </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://thumbs.dreamstime.com/b/boiling-water-bubbles-steam-cooking-pot-illustration-releasing-featuring-vigorous-against-simple-background-use-373990100.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_14" type="text" value="https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('2_chemical_equation.html', 'https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80', 'input_14')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://img.freepik.com/premium-vector/group-people-scattered_3482-1022.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1532634922-8fe0b757fb13?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_15" type="text" value="https://images.unsplash.com/photo-1532634922-8fe0b757fb13?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('2_chemical_equation.html', 'https://images.unsplash.com/photo-1532634922-8fe0b757fb13?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_15')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://static.vecteezy.com/system/resources/previews/017/655/969/large_2x/broken-glass-bottle-sharp-shards-of-clear-glass-photo.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/J%C3%B6ns_Jacob_Berzelius.jpg/440px-J%C3%B6ns_Jacob_Berzelius.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_16" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/J%C3%B6ns_Jacob_Berzelius.jpg/440px-J%C3%B6ns_Jacob_Berzelius.jpg" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('2_chemical_equation.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/J%C3%B6ns_Jacob_Berzelius.jpg/440px-J%C3%B6ns_Jacob_Berzelius.jpg', 'input_16')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://media.istockphoto.com/id/537401439/photo/crumpled-empty-can.jpg?s=612x612&w=0&k=20&c=pTKiu6ccE3slp-iBumE0rZJfMG3neb8bICo9J_w7J5U=')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_17" type="text" value="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('2_chemical_equation.html', 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80', 'input_17')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
-    </div></section>
-<section>
-    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
-        <span class="w-2 h-8 bg-cyan-500 rounded-full"></span> 3_mass_conservation.html
-    </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://www.shutterstock.com/image-vector/dissolving-process-formation-solution-260nw-2003140532.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Antoine_lavoisier.jpg/440px-Antoine_lavoisier.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_18" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Antoine_lavoisier.jpg/440px-Antoine_lavoisier.jpg" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('3_mass_conservation.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Antoine_lavoisier.jpg/440px-Antoine_lavoisier.jpg', 'input_18')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://www.teachoo.com/static/post/chemical-change-teachoo-01.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_19" type="text" value="https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('3_mass_conservation.html', 'https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', 'input_19')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBW-jT8t-Vv3hRQc8ciiTU36y41cQMG8jTtg&s')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_20" type="text" value="https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('3_mass_conservation.html', 'https://images.unsplash.com/photo-1581093191605-a1dba334805e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_20')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://d1ymz67w5raq8g.cloudfront.net/Pictures/2000xAny/6/1/4/510614_rustymetalnailscloseup_gettyimages_1189524829_368186.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_21" type="text" value="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('3_mass_conservation.html', 'https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'input_21')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx2t-ZtBMssxwgaExtB_ffxqscT_c7H_no2A&s')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_22" type="text" value="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('3_mass_conservation.html', 'https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'input_22')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQGBH6TqklasDWKfUHLRhIt-DCYW12Dp6WEQ&s')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1536633132051-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_23" type="text" value="https://images.unsplash.com/photo-1536633132051-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('3_mass_conservation.html', 'https://images.unsplash.com/photo-1536633132051-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'input_23')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
-    </div></section>
-<section>
-    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
-        <span class="w-2 h-8 bg-cyan-500 rounded-full"></span> 4_definite_proportions.html
-    </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIVRn3Mp4V96EgS0QZtdFHvofyYIYvM53tA&s')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_24" type="text" value="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('4_definite_proportions.html', 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'input_24')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Magnesium_ribbon_burning.jpg/1200px-Magnesium_ribbon_burning.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Joseph_Louis_Proust.jpg/440px-Joseph_Louis_Proust.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <iframe src="https://phet.colorado.edu/sims/html/states-of-matter-basics/latest/states-of-matter-basics_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://phet.colorado.edu/sims/html/states-of-matter-basics/latest/states-of-matter-basics_all.html?locale=ko" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '1_chemical_change.html', 'https://phet.colorado.edu/sims/html/states-of-matter-basics/latest/states-of-matter-basics_all.html?locale=ko')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">2_chemical_equation.html</h3>
+                    
+            <div class="p-3 bg-cyan-50 border border-cyan-200 rounded-lg flex items-center justify-between shadow-sm">
                 <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_25" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Joseph_Louis_Proust.jpg/440px-Joseph_Louis_Proust.jpg" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                    <span class="text-[10px] font-black text-cyan-600">Tinkerbell Quiz</span>
+                    <p class="text-sm font-bold text-slate-800">2차시 퀴즈 (10문제)</p>
                 </div>
-                <button onclick="updateAsset('4_definite_proportions.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Joseph_Louis_Proust.jpg/440px-Joseph_Louis_Proust.jpg', 'input_25')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
+                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" class="bg-cyan-600 text-white px-4 py-2 rounded-md text-xs font-black hover:bg-cyan-700 transition-colors">Start</a>
             </div>
-        </div>
+            
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_26" type="text" value="https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('4_definite_proportions.html', 'https://images.unsplash.com/photo-1544955437-6407270d4949?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'input_26')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3Fc1tTiGKKWs_RGKddcGLSmpZMK4SpfZ9qA&s" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3Fc1tTiGKKWs_RGKddcGLSmpZMK4SpfZ9qA&s" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '2_chemical_equation.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3Fc1tTiGKKWs_RGKddcGLSmpZMK4SpfZ9qA&s')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <iframe src="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '2_chemical_equation.html', 'https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">3_mass_conservation.html</h3>
+                    
+            <div class="p-3 bg-cyan-50 border border-cyan-200 rounded-lg flex items-center justify-between shadow-sm">
                 <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_27" type="text" value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                    <span class="text-[10px] font-black text-cyan-600">Tinkerbell Quiz</span>
+                    <p class="text-sm font-bold text-slate-800">3차시 퀴즈 (10문제)</p>
                 </div>
-                <button onclick="updateAsset('4_definite_proportions.html', 'https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_27')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
+                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" class="bg-cyan-600 text-white px-4 py-2 rounded-md text-xs font-black hover:bg-cyan-700 transition-colors">Start</a>
             </div>
-        </div>
+            
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1554224155-1696413565d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_28" type="text" value="https://images.unsplash.com/photo-1554224155-1696413565d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('4_definite_proportions.html', 'https://images.unsplash.com/photo-1554224155-1696413565d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_28')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
-    </div></section>
-<section>
-    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
-        <span class="w-2 h-8 bg-cyan-500 rounded-full"></span> 5_gas_reaction.html
-    </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '3_mass_conservation.html', 'https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_29" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('5_gas_reaction.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Joseph_Louis_Gay-Lussac.jpg/440px-Joseph_Louis_Gay-Lussac.jpg', 'input_29')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://m.media-amazon.com/images/I/81kQ8phdWRL.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://m.media-amazon.com/images/I/81kQ8phdWRL.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '3_mass_conservation.html', 'https://m.media-amazon.com/images/I/81kQ8phdWRL.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <iframe src="https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_all.html?locale=ko" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '3_mass_conservation.html', 'https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_all.html?locale=ko')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">4_definite_proportions.html</h3>
+                    
+            <div class="p-3 bg-cyan-50 border border-cyan-200 rounded-lg flex items-center justify-between shadow-sm">
                 <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_30" type="text" value="https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                    <span class="text-[10px] font-black text-cyan-600">Tinkerbell Quiz</span>
+                    <p class="text-sm font-bold text-slate-800">4차시 퀴즈 (11문제)</p>
                 </div>
-                <button onclick="updateAsset('5_gas_reaction.html', 'https://images.unsplash.com/photo-1534324482290-e147f863f685?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_30')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
+                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" class="bg-cyan-600 text-white px-4 py-2 rounded-md text-xs font-black hover:bg-cyan-700 transition-colors">Start</a>
             </div>
-        </div>
+            
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_31" type="text" value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('5_gas_reaction.html', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Amedeo_Avogadro.png/440px-Amedeo_Avogadro.png', 'input_31')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '4_definite_proportions.html', 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_32" type="text" value="https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('5_gas_reaction.html', 'https://images.unsplash.com/photo-1530103862676-fa8c91abe178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'input_32')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Portrait_of_Louis_Proust._Wellcome_L0006972.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/6/65/Portrait_of_Louis_Proust._Wellcome_L0006972.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '4_definite_proportions.html', 'https://upload.wikimedia.org/wikipedia/commons/6/65/Portrait_of_Louis_Proust._Wellcome_L0006972.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_33" type="text" value="https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('5_gas_reaction.html', 'https://images.unsplash.com/photo-1516733968668-dbdce39c46ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'input_33')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
-    </div></section>
-<section>
-    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
-        <span class="w-2 h-8 bg-cyan-500 rounded-full"></span> 6_energy_change.html
-    </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://media.gettyimages.com/id/137187401/video/magnesium-ribbon-burning-in-a-bunsen-flame.jpg?s=640x640&k=20&c=-dpSnPpLsZ9r34xWA53_P2dxksMeegKxD3g-aeNzxw8=" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://media.gettyimages.com/id/137187401/video/magnesium-ribbon-burning-in-a-bunsen-flame.jpg?s=640x640&k=20&c=-dpSnPpLsZ9r34xWA53_P2dxksMeegKxD3g-aeNzxw8=" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '4_definite_proportions.html', 'https://media.gettyimages.com/id/137187401/video/magnesium-ribbon-burning-in-a-bunsen-flame.jpg?s=640x640&k=20&c=-dpSnPpLsZ9r34xWA53_P2dxksMeegKxD3g-aeNzxw8=')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_34" type="text" value="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('6_energy_change.html', 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', 'input_34')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '4_definite_proportions.html', 'https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <iframe src="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '4_definite_proportions.html', 'https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">5_gas_reaction.html</h3>
+                    
+            <div class="p-3 bg-cyan-50 border border-cyan-200 rounded-lg flex items-center justify-between shadow-sm">
                 <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_35" type="text" value="https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                    <span class="text-[10px] font-black text-cyan-600">Tinkerbell Quiz</span>
+                    <p class="text-sm font-bold text-slate-800">5차시 퀴즈 (9문제)</p>
                 </div>
-                <button onclick="updateAsset('6_energy_change.html', 'https://images.unsplash.com/photo-1520114878144-6123749968dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', 'input_35')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
+                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" class="bg-cyan-600 text-white px-4 py-2 rounded-md text-xs font-black hover:bg-cyan-700 transition-colors">Start</a>
             </div>
-        </div>
+            
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_36" type="text" value="https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
-                </div>
-                <button onclick="updateAsset('6_energy_change.html', 'https://images.unsplash.com/photo-1544003385-4196a9d73647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'input_36')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '5_gas_reaction.html', 'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <iframe src="https://phet.colorado.edu/sims/html/gas-properties/latest/gas-properties_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://phet.colorado.edu/sims/html/gas-properties/latest/gas-properties_all.html?locale=ko" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '5_gas_reaction.html', 'https://phet.colorado.edu/sims/html/gas-properties/latest/gas-properties_all.html?locale=ko')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">6_energy_change.html</h3>
+                    
+            <div class="p-3 bg-cyan-50 border border-cyan-200 rounded-lg flex items-center justify-between shadow-sm">
                 <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_37" type="text" value="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                    <span class="text-[10px] font-black text-cyan-600">Tinkerbell Quiz</span>
+                    <p class="text-sm font-bold text-slate-800">6차시 퀴즈 (10문제)</p>
                 </div>
-                <button onclick="updateAsset('6_energy_change.html', 'https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', 'input_37')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
+                <a href="https://www.tkbell.co.kr/user/player/checkRoom.do" target="_blank" class="bg-cyan-600 text-white px-4 py-2 rounded-md text-xs font-black hover:bg-cyan-700 transition-colors">Start</a>
             </div>
-        </div>
+            
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-        <div class="asset-card bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 flex flex-col">
-            <div class="img-container">
-                <div class="loading-overlay"><span class="text-sm font-bold">저장 중...</span></div>
-                <img src="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Resource" onerror="this.src='https://via.placeholder.com/150?text=Invalid+URL'">
-            </div>
-            <div class="p-5 flex-grow flex flex-col justify-between">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Image Source (URL or Path)</label>
-                    <input id="input_38" type="text" value="https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-                           class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded font-mono focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://pds.joongang.co.kr/news/FbMetaImage/202312/71b4d760-77e9-4452-af9a-76ba50590c50.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://pds.joongang.co.kr/news/FbMetaImage/202312/71b4d760-77e9-4452-af9a-76ba50590c50.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'https://pds.joongang.co.kr/news/FbMetaImage/202312/71b4d760-77e9-4452-af9a-76ba50590c50.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="img/exothermic.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="img/exothermic.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'img/exothermic.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8kWlOk5HEAv_-4_3nW2d76lCl6P5cwdZug&s" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8kWlOk5HEAv_-4_3nW2d76lCl6P5cwdZug&s" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8kWlOk5HEAv_-4_3nW2d76lCl6P5cwdZug&s')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.stockcake.com/public/e/0/e/e0eaaf3b-ecc0-43fe-92c8-4f51fe99883b_large/rusty-gear-close-up-stockcake.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.stockcake.com/public/e/0/e/e0eaaf3b-ecc0-43fe-92c8-4f51fe99883b_large/rusty-gear-close-up-stockcake.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'https://images.stockcake.com/public/e/0/e/e0eaaf3b-ecc0-43fe-92c8-4f51fe99883b_large/rusty-gear-close-up-stockcake.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&w=400&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&w=400&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&w=400&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=500&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=500&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=500&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="img/endothermic.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="img/endothermic.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'img/endothermic.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://www.shutterstock.com/image-vector/cellular-respiration-diagram-science-education-600nw-2544439641.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://www.shutterstock.com/image-vector/cellular-respiration-diagram-science-education-600nw-2544439641.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'https://www.shutterstock.com/image-vector/cellular-respiration-diagram-science-education-600nw-2544439641.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <iframe src="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full h-full pointer-events-none"></iframe>
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '6_energy_change.html', 'https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_all.html?locale=ko')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div></div></div>
+    <div>
+        <h2 class="text-3xl font-black text-blue-800 mb-8 flex items-center gap-4">
+            <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm">📁</span> 3. Others
+        </h2>
+        <div class="space-y-12">
+
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">10_work_energy.html</h3>
+                    
                 </div>
-                <button onclick="updateAsset('6_energy_change.html', 'https://images.unsplash.com/photo-1532187875605-1ef640a3f41d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'input_38')" 
-                        class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg text-sm font-bold transition-colors">
-                    변경사항 저장하기
-                </button>
-            </div>
-        </div>
-    </div></section>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="img/phys_work.svg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="img/phys_work.svg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '10_work_energy.html', 'img/phys_work.svg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">11_potential_energy.html</h3>
+                    
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="img/phys_height.svg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="img/phys_height.svg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '11_potential_energy.html', 'img/phys_height.svg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">12_kinetic_energy.html</h3>
+                    
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="img/phys_car.svg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="img/phys_car.svg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '12_kinetic_energy.html', 'img/phys_car.svg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">13_mechanical_energy.html</h3>
+                    
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="img/phys_rollercoaster.svg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="img/phys_rollercoaster.svg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '13_mechanical_energy.html', 'img/phys_rollercoaster.svg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">14_energy_conservation.html</h3>
+                    
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="img/phys_dam.svg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="img/phys_dam.svg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '14_energy_conservation.html', 'img/phys_dam.svg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '14_energy_conservation.html', 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">8_uniform_motion.html</h3>
+                    
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://www.intamin.com/wp-content/uploads/2019/09/Scream-1-768x1024-1.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://www.intamin.com/wp-content/uploads/2019/09/Scream-1-768x1024-1.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '8_uniform_motion.html', 'https://www.intamin.com/wp-content/uploads/2019/09/Scream-1-768x1024-1.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Escalator_facility_on_platform_1_and_2.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/6/62/Escalator_facility_on_platform_1_and_2.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '8_uniform_motion.html', 'https://upload.wikimedia.org/wikipedia/commons/6/62/Escalator_facility_on_platform_1_and_2.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Shoes_conveyor.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://upload.wikimedia.org/wikipedia/commons/f/f0/Shoes_conveyor.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '8_uniform_motion.html', 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Shoes_conveyor.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://susanberkkoch.com/wp-content/uploads/2020/09/Depositphotos_37974403_xl-2015-scaled.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://susanberkkoch.com/wp-content/uploads/2020/09/Depositphotos_37974403_xl-2015-scaled.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '8_uniform_motion.html', 'https://susanberkkoch.com/wp-content/uploads/2020/09/Depositphotos_37974403_xl-2015-scaled.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.squarespace-cdn.com/content/v1/556646a4e4b0bda793faf918/1627019876105-J23KOR41JRGRP9Z46XYO/LB2670-001_recording_timer_KIt_8-12V.jpg" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.squarespace-cdn.com/content/v1/556646a4e4b0bda793faf918/1627019876105-J23KOR41JRGRP9Z46XYO/LB2670-001_recording_timer_KIt_8-12V.jpg" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '8_uniform_motion.html', 'https://images.squarespace-cdn.com/content/v1/556646a4e4b0bda793faf918/1627019876105-J23KOR41JRGRP9Z46XYO/LB2670-001_recording_timer_KIt_8-12V.jpg')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
+                <div class="flex justify-between items-start mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800 underline decoration-blue-200 underline-offset-8">9_free_fall.html</h3>
+                    
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.csmonitor.com/csm/2012/02/0207-Felix-Baumgartner-space-jump.jpg?alias=standard_1200x800" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.csmonitor.com/csm/2012/02/0207-Felix-Baumgartner-space-jump.jpg?alias=standard_1200x800" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '9_free_fall.html', 'https://images.csmonitor.com/csm/2012/02/0207-Felix-Baumgartner-space-jump.jpg?alias=standard_1200x800')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1614313913007-2b4ae8ce32d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="max-h-full object-contain mx-auto" />
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://images.unsplash.com/photo-1614313913007-2b4ae8ce32d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '9_free_fall.html', 'https://images.unsplash.com/photo-1614313913007-2b4ae8ce32d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden flex flex-col group hover:border-blue-500 transition-colors">
+                        <div class="h-32 p-2 flex items-center justify-center bg-white border-b border-slate-100 relative">
+                            <iframe src="https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion_ko.html" class="w-full h-full pointer-events-none"></iframe>
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500">Current URL</label>
+                                <input type="text" readonly value="https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion_ko.html" class="w-full text-[10px] p-1.5 bg-slate-100 border border-slate-200 rounded font-mono text-slate-500 outline-none">
+                            </div>
+                            <form onsubmit="replaceImage(event, '9_free_fall.html', 'https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion_ko.html')" class="flex gap-2">
+                                <input type="text" name="new_url" placeholder="New image URL..." required class="w-full text-[10px] p-1.5 bg-white border border-slate-300 rounded font-mono text-slate-700 outline-none focus:border-blue-500">
+                                <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-blue-700">Change</button>
+                            </form>
+                        </div>
+                    </div>
+</div></div></div></div>
         </div>
     </div>
     <script>
-        async function updateAsset(filename, oldSrc, inputId) {
-            const input = document.getElementById(inputId);
-            const newSrc = input.value.trim();
-            const card = input.closest('.asset-card');
-            const overlay = card.querySelector('.loading-overlay');
+        async function replaceImage(event, filename, oldUrl) {
+            event.preventDefault();
+            const form = event.target;
+            const newUrl = form.new_url.value;
+            const btn = form.querySelector('button');
+            const originalText = btn.innerText;
             
-            if (oldSrc === newSrc) {
-                alert('변경사항이 없습니다.');
-                return;
-            }
-
-            overlay.style.display = 'flex';
+            btn.innerText = 'Wait...';
+            btn.disabled = true;
             
             try {
-                const response = await fetch('http://localhost:8000/update-asset', {
+                // Assuming asset_server.py is running on port 5005
+                const res = await fetch('http://localhost:5005/api/replace_image', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ filename, old_src: oldSrc, new_src: newSrc })
+                    body: JSON.stringify({ filename, old_url: oldUrl, new_url: newUrl })
                 });
-
-                if (response.ok) {
-                    alert('성공적으로 수정되었습니다! 페이지를 새로고침하면 반영된 이미지를 볼 수 있습니다.');
-                    location.reload();
+                
+                const data = await res.json();
+                if (data.status === 'success') {
+                    btn.innerText = 'OK!';
+                    btn.classList.replace('bg-blue-600', 'bg-green-600');
+                    setTimeout(() => window.location.reload(), 1000);
                 } else {
-                    alert('수정 실패: 서버 오류가 발생했습니다.');
+                    alert('Error: ' + data.message);
+                    btn.innerText = originalText;
+                    btn.disabled = false;
                 }
             } catch (err) {
-                alert('서버와 연결할 수 없습니다. asset_server.py가 실행 중인지 확인하세요.');
-            } finally {
-                overlay.style.display = 'none';
+                alert('Network error. Is asset_server.py running?');
+                btn.innerText = originalText;
+                btn.disabled = false;
             }
         }
     </script>

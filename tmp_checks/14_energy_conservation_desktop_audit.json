@@ -1,0 +1,87 @@
+{
+  "ok": true,
+  "target": "/14_energy_conservation.html",
+  "title": "14차시: 에너지 보존 법칙의 일상생활 사례",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "imageCount": 2,
+  "sectionCount": 13,
+  "brokenImages": [],
+  "oversizedImages": [],
+  "overflowing": [],
+  "backgroundImages": [
+    {
+      "path": "section#slide-1",
+      "backgroundImage": "url(\"https://images.unsplash.com/rl0VdGm0sKA?auto=format&fit=crop&w=1200&q=80\")"
+    }
+  ],
+  "sections": [
+    {
+      "id": "slide-1",
+      "slideNum": "1",
+      "title": "Cover"
+    },
+    {
+      "id": "slide-2",
+      "slideNum": "2",
+      "title": "에너지 보존 법칙"
+    },
+    {
+      "id": "slide-3",
+      "slideNum": "3",
+      "title": "진자의 에너지 전환"
+    },
+    {
+      "id": "slide-4",
+      "slideNum": "4",
+      "title": "수력 발전"
+    },
+    {
+      "id": "slide-5",
+      "slideNum": "5",
+      "title": "자동차 브레이크"
+    },
+    {
+      "id": "slide-6",
+      "slideNum": "6",
+      "title": "에너지 전환 총정리"
+    },
+    {
+      "id": "slide-7",
+      "slideNum": "7",
+      "title": "에너지 효율"
+    },
+    {
+      "id": "slide-8",
+      "slideNum": "8",
+      "title": "심화: 스키 점프와 폭포"
+    },
+    {
+      "id": "slide-9",
+      "slideNum": "9",
+      "title": "개념 정리"
+    },
+    {
+      "id": "slide-10",
+      "slideNum": "10",
+      "title": "형성평가 1"
+    },
+    {
+      "id": "slide-11",
+      "slideNum": "11",
+      "title": "형성평가 2"
+    },
+    {
+      "id": "slide-12",
+      "slideNum": "12",
+      "title": "형성평가 3"
+    },
+    {
+      "id": "slide-13",
+      "slideNum": "13",
+      "title": "마무리"
+    }
+  ]
+}

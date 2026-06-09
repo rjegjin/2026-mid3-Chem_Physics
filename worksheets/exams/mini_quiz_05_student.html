@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>2. 화학 반응의 규칙 미니 퀴즈 (학생용)</title>
+    <script>
+        window.MathJax = { tex: { inlineMath: [['$', '$']] } };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+        body { margin: 0; padding: 0; font-family: 'Noto Sans KR', sans-serif; background: #eee; }
+        .a4-page { width: 210mm; min-height: 297mm; background: white; margin: 10mm auto; padding: 15mm; box-sizing: border-box; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        @media print { body { background: white; } .a4-page { margin: 0; box-shadow: none; page-break-after: always; } .no-print { display: none; } }
+        
+        .exam-header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 30px; }
+        .exam-title { font-size: 28px; font-weight: bold; }
+        
+        .student-info { display: flex; justify-content: flex-end; gap: 20px; margin-top: 10px; font-size: 16px; }
+        .info-box { border-bottom: 1px solid #000; min-width: 80px; text-align: center; }
+
+        .problem-list { column-count: 1; column-gap: 40px; } /* 2단 구성 원하시면 2로 변경 가능 */
+        .problem-item { margin-bottom: 40px; break-inside: avoid; position: relative; font-size: 15px; }
+        .prob-num { font-weight: bold; margin-right: 10px; font-size: 18px; }
+        
+        .graph-box { text-align: center; margin: 15px 0; border: 1px solid #eee; padding: 5px; }
+        .bog-box { border: 1px solid #000; margin: 10px 20px; padding: 10px; font-size: 14px; background: #fff; }
+        .bog-label { text-align: center; font-weight: bold; margin-bottom: 5px; border-bottom: 1px solid #eee; }
+        
+        .choice-grid { display: grid; grid-template-columns: 1fr; gap: 5px; margin-top: 10px; padding-left: 20px; }
+        .ans-key { display: none; color: red; font-weight: bold; margin-top: 10px; border: 1px solid red; padding: 5px; width: fit-content; }
+        
+        .descriptive-area { border-bottom: 1px dotted #ccc; height: 35px; margin-top: 10px; }
+        .page-num { text-align: center; margin-top: 20px; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="a4-page">
+        <div class="exam-header">
+            <div class="exam-title">2. 화학 반응의 규칙 미니 퀴즈 (학생용)</div>
+            <div class="student-info">
+                <span>3학년</span>
+                <span>반 : <span class="info-box"></span></span>
+                <span>번 : <span class="info-box"></span></span>
+                <span>이름 : <span class="info-box"></span></span>
+            </div>
+        </div>
+
+        <div class="problem-list">
+            
+            <div class="problem-item">
+                <div>
+                    <span class="prob-num">1.</span>
+                    <span>온도와 압력이 일정할 때, 질소 기체 10L와 수소 기체 40L를 반응시켜 암모니아 기체를 최대로 생성하였다. 반응 후 남은 기체의 종류와 부피, 그리고 생성된 암모니아의 부피를 바르게 짝지은 것은? ($ \rm N_2 + 3H_2 \rightarrow 2NH_3 $)</span>
+                </div>
+                
+                
+                
+                
+
+                
+                <div class="choice-grid">
+                    
+                    <div>1) 남은 수소 10L, 암모니아 20L</div>
+                    
+                    <div>2) 남은 수소 10L, 암모니아 30L</div>
+                    
+                    <div>3) 남은 질소 5L, 암모니아 20L</div>
+                    
+                    <div>4) 남은 질소 5L, 암모니아 10L</div>
+                    
+                    <div>5) 남은 기체 없음, 암모니아 20L</div>
+                    
+                </div>
+                
+
+                <div class="ans-key">정답: 1 (질소 10L는 수소 30L와 반응하여 암모니아 20L를 생성함. 수소 10L가 남음)</div>
+            </div>
+            
+            <div class="problem-item">
+                <div>
+                    <span class="prob-num">2.</span>
+                    <span>[데이터 분석] 수소 기체 2부피와 산소 기체 1부피가 반응하여 수증기 2부피를 형성한다. 만약 수소 원자와 산소 원자가 독립적으로 존재한다고 가정(돌턴의 원자설)할 경우 발생하는 모순점을 '원자의 분할' 관점에서 논리적으로 설명하시오.</span>
+                </div>
+                
+                
+                
+                
+
+                
+                <div class="descriptive-area"></div>
+                <div class="descriptive-area"></div>
+                <div class="descriptive-area"></div>
+                
+
+                <div class="ans-key">정답: 수증기 2부피가 만들어지려면 산소 1부피 내의 산소 원자들이 반으로 쪼개져서 각각의 수증기 입자에 들어가야 한다. 이는 '원자는 더 이상 쪼개지지 않는다'는 돌턴의 원자설에 정면으로 위배되는 모순을 발생시킨다.</div>
+            </div>
+            
+            <div class="problem-item">
+                <div>
+                    <span class="prob-num">3.</span>
+                    <span>[사고력 확장] 온도와 압력이 같을 때 산소 기체 1L의 질량은 수소 기체 1L의 질량보다 약 16배 무겁다. 이 사실과 아보가드로 법칙을 결합하여, 산소 분자와 수소 분자 한 개의 질량비를 추론하고 그 과정을 서술하시오.</span>
+                </div>
+                
+                
+                
+                
+
+                
+                <div class="descriptive-area"></div>
+                <div class="descriptive-area"></div>
+                <div class="descriptive-area"></div>
+                
+
+                <div class="ans-key">정답: 아보가드로 법칙에 따라 같은 부피(1L) 속에는 산소 분자와 수소 분자의 개수가 같다. 따라서 1L의 총질량비가 16:1이라는 것은 분자 한 개의 질량비 또한 16:1임을 의미한다. 즉, 산소 분자 한 개가 수소 분자 한 개보다 16배 무겁다는 결론을 얻을 수 있다.</div>
+            </div>
+            
+            <div class="problem-item">
+                <div>
+                    <span class="prob-num">4.</span>
+                    <span>[실험 비판] 목일이는 '액체인 물 20mL를 분해하면 수소 기체 20mL와 산소 기체 10mL가 정확히 얻어지므로 기체 반응 법칙이 액체에서도 성립한다'고 주장했다. 이 주장의 오류를 '상태 변화에 따른 부피 변화' 관점에서 비판하시오.</span>
+                </div>
+                
+                
+                
+                
+
+                
+                <div class="descriptive-area"></div>
+                <div class="descriptive-area"></div>
+                <div class="descriptive-area"></div>
+                
+
+                <div class="ans-key">정답: 기체 반응 법칙은 기체 상태 입자들 사이의 부피 비를 다루는 법칙이다. 액체인 물 20mL의 부피는 기체인 수소/산소와는 비교할 수 없을 정도로 작으며(기체화되면 약 1700배 팽창), 단순히 액체 부피 수치와 기체 생성 부피 수치가 비례하는 것은 우연일 뿐 기체 반응 법칙의 적용 사례가 아니다.</div>
+            </div>
+            
+            <div class="problem-item">
+                <div>
+                    <span class="prob-num">5.</span>
+                    <span>[창의적 응용] 미래의 화성 기지에서 인간이 호흡할 산소를 얻기 위해 물을 전기 분해한다. 생성된 수소와 산소를 각각 별도의 탱크에 보관할 때, 동일한 온도와 압력 조건이라면 어느 탱크의 부피가 더 커야 하며 그 비율은 얼마가 적당할지 기체 반응 법칙을 활용하여 설계안을 제시하시오.</span>
+                </div>
+                
+                
+                
+                
+
+                
+                <div class="descriptive-area"></div>
+                <div class="descriptive-area"></div>
+                <div class="descriptive-area"></div>
+                
+
+                <div class="ans-key">정답: 수소 탱크의 부피가 산소 탱크보다 2배 더 커야 한다. 물의 분해 반응식($ \rm 2H_2O \rightarrow 2H_2 + O_2 $)에 따라 생성되는 수소와 산소의 부피비는 항상 2:1이기 때문이다. 따라서 효율적인 보관을 위해 수소 탱크와 산소 탱크의 용량비를 2:1로 설계하는 것이 가장 경제적이다.</div>
+            </div>
+            
+        </div>
+        <div class="page-num">- 1 -</div>
+    </div>
+</body>
+</html>

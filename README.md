@@ -68,7 +68,7 @@ make check-phys
 실제 렌더링까지 자동으로 보려면:
 
 ```bash
-make render-check FILE=10_work_energy.html
+make render-check FILE=8_uniform_motion.html
 ```
 
 이 명령은 다음을 자동 수행합니다.

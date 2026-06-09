@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>심화 학습지: 01. 주변에서 일어나는 물질 변화 (Master Spec)</title>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        
+        @page { size: A4; margin: 15mm 20mm; }
+        body { margin: 0; padding: 0; font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif; background: #eee; color: #000; line-height: 1.7; }
+        
+        .document-wrapper { width: 210mm; margin: 0 auto; background: white; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+        @media print { body { background: white; } .document-wrapper { width: 100%; box-shadow: none; margin: 0; } .no-print { display: none !important; } }
+
+        .page-border { border: 1.2px solid #000; padding: 20px 25px; min-height: 250mm; display: flex; flex-direction: column; margin-bottom: 30px; position: relative; box-sizing: border-box; }
+        .header-table { width: 100%; border-collapse: collapse; border: 2px solid #000; margin-bottom: 20px; }
+        .header-table td { border: 1px solid #000; text-align: center; padding: 8px; font-size: 13px; }
+        .bg-blue-light { background-color: #b4c6e7; font-weight: bold; }
+        .bg-gray-light { background-color: #f2f2f2; }
+        .title-text { font-size: 20px; font-weight: 700; line-height: 1.4; }
+
+        .section-container { margin-bottom: 25px; break-inside: avoid; }
+        .section-header { display: flex; align-items: center; margin-bottom: 10px; }
+        .sec-num { background: #4dc0b5; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; font-weight: bold; margin-right: 8px; font-size: 13px; }
+        .sec-title { background: #4dc0b5; color: white; border-radius: 12px; padding: 2px 15px; font-weight: bold; font-size: 14px; }
+
+        .content-body { font-size: 14.5px; padding-left: 10px; text-align: justify; }
+        .indent-row { display: flex; margin-bottom: 6px; align-items: flex-start; }
+        .bullet { width: 20px; flex-shrink: 0; font-weight: bold; text-align: center; }
+
+        .ans-text { color: transparent; font-weight: bold; border-bottom: 1.2px solid #000; min-width: 60px; display: inline-block; text-align: center; }
+        
+        /* [일원화된 정답 박스] */
+        .teacher-answer-box {
+            margin: 15px 0 10px 25px;
+            padding: 12px 18px;
+            background-color: #fffafa;
+            border: 1px dashed #b91c1c;
+            color: #b91c1c;
+            font-size: 14px;
+            border-radius: 6px;
+            line-height: 1.6;
+            display: none;
+            break-inside: avoid;
+        }
+        .teacher-answer-box b { color: #b91c1c; margin-bottom: 3px; display: block; font-size: 13px; }
+
+        .graph-container { text-align: center; margin: 15px 0; border: 1px solid #f0f0f0; padding: 10px; background: #fafafa; border-radius: 5px; }
+        .compare-table { width: 100%; border-collapse: collapse; margin: 12px 0; border: 1.2px solid #000; font-size: 13.5px; }
+        .compare-table th, .compare-table td { border: 1px solid #000; padding: 8px; text-align: center; }
+        .compare-table th { background: #f1f5f9; }
+
+        .problem-area { border-top: 1.5px solid #000; padding-top: 25px; margin-top: 20px; }
+        .problem-header { font-weight: bold; font-size: 17px; margin-bottom: 25px; border-left: 6px solid #000; padding-left: 15px; }
+        .problem-item { margin-bottom: 45px; position: relative; font-size: 14.5px; break-inside: avoid; }
+        .choice-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 8px; margin-top: 12px; padding-left: 25px; }
+        .bog-box { border: 1px solid #000; margin: 15px 25px; padding: 12px 18px; position: relative; background: #fff; font-size: 14px; }
+        .bog-label { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: #fff; padding: 0 10px; font-weight: bold; font-size: 13px; }
+
+        .page-num { position: absolute; bottom: 8mm; left: 0; width: 100%; text-align: center; font-size: 12px; color: #333; }
+        .force-page-break { break-before: page; }
+    </style>
+</head>
+<body>
+    <div class="document-wrapper">
+        <!-- 1페이지: 이론 -->
+        <div class="page-border">
+            <table class="header-table">
+                <tr>
+                    <td rowspan="2" style="width: 12%; border-right: none; border-bottom: none;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzhjY2VmYyIgc3Ryb2tlPSIjMGI3NmI2IiBzdHJva2Utd2lkdGg9IjEuNSI+PHBhdGggZD0iTTE3LjUgMTkuMmMtMi4xIDAtMy44LTEuNy0zLjgtMy44bDAtLjFjLTEuNS43LTMuMy40LTQuNC0xLS40LjEtLjguMS0xLjIuMWEzLjggMy44IDAgMCAxIDAtNy42YzEuOC0xLjggNC45LTIgNy0uNWwxLS4xYTMuOCAzLjggMCAwIDEgMy44IDMuOGMwIC40LS4xLjgtLjEgMS4yIDEuMSAxLjEgMS41IDIuOSAxIDQuNC4xIDAgLjIgMCAuMyAwIDIuMSAwIDMuOCAxLjcgMy44IDMuOHMtMS43IDMuOC0zLjggMy44eiIvPjwvc3ZnPg==" style="width: 35px;"></td>
+                    <td rowspan="2" style="width: 38%; border-left: none; border-bottom: none;"><div class="title-text">I. 화학 반응의 규칙과 에너지 변화</div></td>
+                    <td colspan="4" class="bg-blue-light">1. 물질 변화와 화학반응식<br>01. 주변에서 일어나는 물질 변화 (Master Spec)</td>
+                </tr>
+                <tr><td class="bg-gray-light">학번</td><td>3학년 &nbsp;&nbsp;&nbsp;&nbsp;반 &nbsp;&nbsp;&nbsp;&nbsp;번</td><td class="bg-gray-light">이름</td><td></td></tr>
+                <tr><td colspan="5" style="text-align: left; padding: 10px 15px; border-right: none;"><span style="font-weight: bold;">✔ 학습 목표</span> &nbsp;&nbsp; ✿ 물리 변화와 화학 변화의 차이를 입자 배열의 관점에서 정밀하게 비교하고 분석할 수 있다.</td><td style="font-weight: bold; border-left: 1.5px solid #000;">교사 확인</td></tr>
+            </table>
+
+            
+            <div class="section-container">
+                <div class="section-header"><div class="sec-num">1</div><div class="sec-title">물리 변화 (Physical Change)</div></div>
+                <div class="content-body">
+                    <div class="indent-row"><div class="bullet">:</div><div>물질의 본질적인 성질은 유지되면서 형태나 상태만 변하는 현상</div></div>
+                    
+                    <div class="indent-row">
+                        <div class="bullet">•</div>
+                        <div style="flex-grow:1;">
+                            물리 변화 시 ( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> )의 종류와 성질은 변하지 않으나, 분자의 ( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> )이 달라진다.
+                            
+                            
+                            
+                            <div style="margin-top: 5px;"><div class="indent-row" style="font-size: 0.95em;"><div style="width: 15px;">-</div><div>모양 변화: 유리컵이 깨짐, 알루미늄 캔을 찌그러뜨림</div></div><div class="indent-row" style="font-size: 0.95em;"><div style="width: 15px;">-</div><div>상태 변화: 얼음($ \rm H_2O $)이 녹아 물($ \rm H_2O $)이 됨, 드라이아이스($ \rm CO_2 $)의 승화</div></div><div class="indent-row" style="font-size: 0.95em;"><div style="width: 15px;">-</div><div>확산 및 용해: 향수 냄새가 퍼짐, 설탕이 물에 녹아 설탕물이 됨 (단맛 유지)</div></div></div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="section-container">
+                <div class="section-header"><div class="sec-num">2</div><div class="sec-title">화학 변화 (Chemical Change)</div></div>
+                <div class="content-body">
+                    <div class="indent-row"><div class="bullet">:</div><div>원자 배열이 재조합되어 반응 전물질과 성질이 전혀 다른 새로운 물질이 생성되는 현상</div></div>
+                    
+                    <div class="indent-row">
+                        <div class="bullet">•</div>
+                        <div style="flex-grow:1;">
+                            화학 변화 시 ( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> )의 배열이 달라져 ( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> )의 종류가 변하고, 이에 따라 물질의 ( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> )이 변한다.
+                            
+                            
+                            <table class="compare-table"><thead><tr><th>구분</th><th>변하는 것</th><th>변하지 않는 것</th></tr></thead>
+                            <tbody><tr><td>물리 변화</td><td>분자의 ( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> )</td><td>원자의 종류·개수, 분자의 종류·성질</td></tr><tr><td>화학 변화</td><td>원자의 ( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> ), 분자의 ( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> ), 물질의 성질</td><td>원자의 ( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> )와 ( <span class="ans-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> ), 전체 질량</td></tr></tbody></table>
+                            
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="indent-row">
+                        <div class="bullet">•</div>
+                        <div style="flex-grow:1;">
+                            화학 변화를 감지할 수 있는 주요 지표 (Evidence)
+                            
+                            
+                            
+                            <div style="margin-top: 5px;"><div class="indent-row" style="font-size: 0.95em;"><div style="width: 15px;">-</div><div>열과 빛의 발생: 양초의 연소, 금속과 산의 반응</div></div><div class="indent-row" style="font-size: 0.95em;"><div style="width: 15px;">-</div><div>앙금 생성: $ \rm AgNO_3 + NaCl \rightarrow AgCl\downarrow(흰색) + NaNO_3 $</div></div><div class="indent-row" style="font-size: 0.95em;"><div style="width: 15px;">-</div><div>기체 발생: 마그네슘($ \rm Mg $)과 염산($ \rm HCl $)의 반응 ($ \rm H_2 $ 발생)</div></div><div class="indent-row" style="font-size: 0.95em;"><div style="width: 15px;">-</div><div>색깔, 맛, 냄새의 변화: 과일이 익음, 철이 녹슬음, 김치가 시어짐</div></div></div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="page-num">- 1 -</div>
+        </div>
+
+        <!-- 2페이지 이후: 실전 문제 -->
+        <div class="page-border force-page-break">
+            <div class="problem-area">
+                <div class="problem-header">실전 역량 강화 문제 (심화 탐구)</div>
+                
+                <div class="problem-item">
+                    <div class="indent-row">
+                        <div class="bullet" style="width: 25px;">1.</div>
+                        <div style="flex-grow:1; font-weight: 500;">
+                            다음 중 물리 변화와 화학 변화에 대한 설명으로 옳은 것만을 <보기>에서 있는 대로 고른 것은?
+                            
+                            <div class="bog-box"><div class="bog-label">&lt;보 기&gt;</div><div>ㄱ. 설탕이 물에 녹아 단맛이 나는 설탕물이 되는 것은 물리 변화이다.</div><div>ㄴ. 화학 변화가 일어날 때 원자의 배열이 변하여 분자의 종류가 달라진다.</div><div>ㄷ. 고체 양초가 녹아 액체 양초가 되는 것은 성질이 변하는 화학 변화이다.</div><div>ㄹ. 물리 변화가 일어날 때 분자의 배열은 변하지만 분자 자체는 변하지 않는다.</div></div>
+                            
+                            
+                            <div class="choice-grid"><div>1) ㄱ, ㄴ</div><div>2) ㄱ, ㄷ</div><div>3) ㄴ, ㄹ</div><div>4) ㄱ, ㄴ, ㄹ</div><div>5) ㄴ, ㄷ, ㄹ</div></div>
+                            
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="problem-item">
+                    <div class="indent-row">
+                        <div class="bullet" style="width: 25px;">2.</div>
+                        <div style="flex-grow:1; font-weight: 500;">
+                            메테인($ \rm CH_4 $) 기체를 연소시켰을 때 발생하는 변화를 '원자 배열'과 '분자 종류'의 관점에서 서술하고, 이 반응이 물리 변화인지 화학 변화인지 판별하시오.
+                            
+                            
+                            
+                            
+                            
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px; margin-top: 15px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="problem-item">
+                    <div class="indent-row">
+                        <div class="bullet" style="width: 25px;">3.</div>
+                        <div style="flex-grow:1; font-weight: 500;">
+                            목일이는 '소금이 물에 녹는 것은 눈에 보이지 않게 되므로 화학 변화이다'라고 주장한다. 이 주장의 오류를 입자 모델의 관점에서 비판하시오.
+                            
+                            
+                            
+                            
+                            
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px; margin-top: 15px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            <div style="border-bottom: 1.2px dotted #bbb; height: 35px;"></div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+            <div class="page-num">- 2 -</div>
+        </div>
+    </div>
+</body>
+</html>

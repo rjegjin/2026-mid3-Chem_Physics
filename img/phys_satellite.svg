@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <rect width="1200" height="800" fill="#0f172a"/>
+  <circle cx="300" cy="690" r="420" fill="#1d4ed8"/>
+  <circle cx="300" cy="690" r="360" fill="#38bdf8" opacity="0.65"/>
+  <g transform="translate(700 260)">
+    <rect x="120" y="90" width="170" height="95" rx="20" fill="#e2e8f0"/>
+    <rect x="0" y="65" width="150" height="145" rx="16" fill="#7dd3fc"/>
+    <rect x="260" y="65" width="150" height="145" rx="16" fill="#7dd3fc"/>
+    <rect x="105" y="120" width="20" height="30" fill="#94a3b8"/>
+    <rect x="290" y="120" width="20" height="30" fill="#94a3b8"/>
+    <circle cx="205" cy="138" r="26" fill="#f59e0b"/>
+  </g>
+  <circle cx="980" cy="160" r="7" fill="#fff"/>
+  <circle cx="1080" cy="230" r="5" fill="#fff"/>
+  <circle cx="900" cy="120" r="4" fill="#fff"/>
+  <text x="90" y="110" font-family="Noto Sans KR, sans-serif" font-size="64" font-weight="700" fill="#e2e8f0">인공위성 / 궤도 운동</text>
+  <text x="90" y="175" font-family="Noto Sans KR, sans-serif" font-size="34" fill="#cbd5e1">속력은 일정해도 방향은 계속 바뀔 수 있다</text>
+</svg>

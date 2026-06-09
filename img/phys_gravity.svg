@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e0f2fe"/>
+      <stop offset="100%" stop-color="#dbeafe"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <rect x="140" y="130" width="150" height="520" fill="#cbd5e1"/>
+  <rect x="210" y="80" width="60" height="570" fill="#94a3b8"/>
+  <path d="M0 680c120-30 250-50 400-20s260 40 400 10 240-10 400 10v120H0z" fill="#16a34a"/>
+  <circle cx="610" cy="250" r="24" fill="#0f172a"/>
+  <path d="M610 280v120" stroke="#0f172a" stroke-width="12" stroke-linecap="round"/>
+  <path d="M610 320l-50 70" stroke="#0f172a" stroke-width="12" stroke-linecap="round"/>
+  <path d="M610 320l50 70" stroke="#0f172a" stroke-width="12" stroke-linecap="round"/>
+  <path d="M610 400l-35 95" stroke="#0f172a" stroke-width="12" stroke-linecap="round"/>
+  <path d="M610 400l35 95" stroke="#0f172a" stroke-width="12" stroke-linecap="round"/>
+  <path d="M770 210c80 45 110 90 110 145 0 55-34 94-102 116" fill="none" stroke="#7c3aed" stroke-width="14" stroke-dasharray="18 16" stroke-linecap="round"/>
+  <path d="M746 454l48 10-22 43" fill="none" stroke="#7c3aed" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="90" y="110" font-family="Noto Sans KR, sans-serif" font-size="64" font-weight="700" fill="#0f172a">자유 낙하 / 중력 상황</text>
+  <text x="90" y="180" font-family="Noto Sans KR, sans-serif" font-size="34" fill="#334155">갈릴레이, 낙하, 포물선적 시각 자료 대체용</text>
+</svg>

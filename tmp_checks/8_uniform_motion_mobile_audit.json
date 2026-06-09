@@ -1,0 +1,117 @@
+{
+  "ok": true,
+  "target": "/8_uniform_motion.html?view=all",
+  "title": "8차시: 물체의 운동 — 등속 운동 분석",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "imageCount": 5,
+  "sectionCount": 19,
+  "brokenImages": [],
+  "oversizedImages": [],
+  "overflowing": [],
+  "backgroundImages": [
+    {
+      "path": "section#slide-1",
+      "backgroundImage": "url(\"https://images.unsplash.com/wGtHlUZQd7k?auto=format&fit=crop&w=1200&q=80\")"
+    }
+  ],
+  "sections": [
+    {
+      "id": "slide-1",
+      "slideNum": "1",
+      "title": "Cover"
+    },
+    {
+      "id": "slide-2",
+      "slideNum": "2",
+      "title": "도입: 자이로 드롭의 올라가는 운동"
+    },
+    {
+      "id": "slide-3",
+      "slideNum": "3",
+      "title": "속력의 정의와 공식"
+    },
+    {
+      "id": "slide-4",
+      "slideNum": "4",
+      "title": "단위 변환 m/s ↔ km/h"
+    },
+    {
+      "id": "slide-5",
+      "slideNum": "5",
+      "title": "등속 운동이란?"
+    },
+    {
+      "id": "slide-6",
+      "slideNum": "6",
+      "title": "시간-거리 그래프"
+    },
+    {
+      "id": "slide-7",
+      "slideNum": "7",
+      "title": "그래프에서 속력 구하기"
+    },
+    {
+      "id": "slide-8",
+      "slideNum": "8",
+      "title": "시간-속력 그래프"
+    },
+    {
+      "id": "slide-9",
+      "slideNum": "9",
+      "title": "면적으로 거리 구하기"
+    },
+    {
+      "id": "slide-10",
+      "slideNum": "10",
+      "title": "등속 운동 vs 비등속 운동"
+    },
+    {
+      "id": "slide-11",
+      "slideNum": "11",
+      "title": "등속 운동 실생활 사례"
+    },
+    {
+      "id": "slide-12",
+      "slideNum": "12",
+      "title": "기록 타이머 실험 원리"
+    },
+    {
+      "id": "slide-13",
+      "slideNum": "13",
+      "title": "개념 정리"
+    },
+    {
+      "id": "slide-14",
+      "slideNum": "14",
+      "title": "공식 카드"
+    },
+    {
+      "id": "slide-15",
+      "slideNum": "15",
+      "title": "형성 평가 01"
+    },
+    {
+      "id": "slide-16",
+      "slideNum": "16",
+      "title": "형성 평가 02"
+    },
+    {
+      "id": "slide-17",
+      "slideNum": "17",
+      "title": "형성 평가 03"
+    },
+    {
+      "id": "slide-18",
+      "slideNum": "18",
+      "title": "마무리 & 다음 차시"
+    },
+    {
+      "id": "slide-phet",
+      "slideNum": "19",
+      "title": "PhET: 이동하는 사람"
+    }
+  ]
+}
