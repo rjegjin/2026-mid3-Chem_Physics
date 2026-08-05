@@ -6,10 +6,14 @@ HOOKS_DIR := .githooks
 # 결정론적 검사를 먼저 — check_html_quality.py는 원격 이미지를 때려 429로 흔들린다
 check:
 	$(PYTHON) test_quiz_integrity.py
+	$(PYTHON) test_css_classes.py
 	$(PYTHON) check_html_quality.py
 
 check-quiz:
 	$(PYTHON) test_quiz_integrity.py
+
+check-css:
+	$(PYTHON) test_css_classes.py
 
 # css/tailwind.build.css 재생성. cdn.tailwindcss.com을 대체하는 정적 빌드이므로,
 # HTML이나 js/slide_engine.js에 새 Tailwind 클래스를 추가하면 반드시 다시 돌릴 것.

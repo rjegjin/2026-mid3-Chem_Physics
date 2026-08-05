@@ -116,13 +116,20 @@ def resolve_local_ref(base: Path, ref: str) -> Path:
 
 
 def probe_remote(url: str, timeout: float) -> tuple[bool, str]:
-    headers = {"User-Agent": "html-quality-check/1.0"}
+    # Wikimedia는 UA 정책상 연락처 없는 일반 UA에 429를 준다. 살아 있는 이미지가
+    # 매번 ERROR로 잡히던 원인이라 정책에 맞는 UA를 쓰고, 429도 GET으로 재시도한다.
+    headers = {
+        "User-Agent": (
+            "2026-mid3-Chem_Physics-link-check/1.1 "
+            "(https://github.com/rjegjin/2026-mid3-Chem_Physics)"
+        )
+    }
     req = request.Request(url, headers=headers, method="HEAD")
     try:
         with request.urlopen(req, timeout=timeout) as resp:
             return True, f"HTTP {resp.status}"
     except error.HTTPError as exc:
-        if exc.code == 405:
+        if exc.code in (403, 405, 429):
             try:
                 req = request.Request(url, headers=headers, method="GET")
                 with request.urlopen(req, timeout=timeout) as resp:
