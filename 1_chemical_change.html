@@ -6,8 +6,7 @@
   <title>
    1차시: 물질의 변화 (물리/화학)
   </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
+  <link href="css/tailwind.build.css" rel="stylesheet"/>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6">
   </script>
   <script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
@@ -768,23 +767,25 @@
      </h2>
      <div class="quiz-container w-full max-w-5xl">
       <p class="text-2xl font-bold mb-8 text-slate-800">
-       화학 변화가 일어날 때 **변하지 않는 것**을 모두 고르면?
+       화학 변화가 일어날 때 **변하지 않는 것**은?
       </p>
       <div class="quiz-options grid grid-cols-1 md:grid-cols-2 gap-4">
        <button class="quiz-btn" data-correct="true">
-        원자의 종류
+        원자의 종류와 개수
        </button>
        <button class="quiz-btn" data-correct="false">
         분자의 종류
        </button>
-       <button class="quiz-btn" data-correct="true">
-        원자의 총 개수
+       <button class="quiz-btn" data-correct="false">
+        물질의 성질
        </button>
        <button class="quiz-btn" data-correct="false">
         원자의 배열
        </button>
       </div>
       <div class="quiz-feedback font-bold text-2xl mt-6">
+       <p class="text-green-700 font-bold">✅ 정답! 원자의 종류와 개수</p>
+       <p class="text-slate-600 text-base font-normal mt-1">화학 변화는 원자의 <strong>배열</strong>만 바뀌는 것이다. 배열이 바뀌니 분자의 종류도, 물질의 성질도 달라지지만, 원자 자체는 새로 생기거나 사라지지 않는다 → 질량 보존 법칙의 근거</p>
       </div>
      </div>
     </div>

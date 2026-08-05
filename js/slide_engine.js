@@ -77,8 +77,8 @@ window.SlideEngine = {
                 <div class="control-sep"></div>
                 <button id="view-all-btn" title="문서 전체 보기 (V)">📋 전체</button>
                 <div class="control-sep"></div>
-                <button id="prev-btn" title="이전 (Left Arrow)">←</button>
-                <button id="next-btn" title="다음 (Right Arrow / Space)">→</button>
+                <button id="prev-btn" aria-label="이전 슬라이드" title="이전 (Left Arrow)">←</button>
+                <button id="next-btn" aria-label="다음 슬라이드" title="다음 (Right Arrow / Space)">→</button>
                 <span id="slide-indicator">1 / ${this.sections.length}</span>
             `;
             document.body.appendChild(controls);
@@ -204,13 +204,8 @@ window.SlideEngine = {
             const defaultFeedback = feedback.innerHTML.trim();
             feedback.dataset.defaultFeedback = defaultFeedback;
             feedback.style.display = 'none';
+            feedback.setAttribute('aria-live', 'polite');
 
-            // Some physics slides define their own inline checkAnswer() handler.
-            // Let those handlers own the click behavior after the shared initial hide.
-            if (Array.from(options).some(option => option.hasAttribute('onclick'))) {
-                return;
-            }
-            
             options.forEach(option => {
                 option.addEventListener('click', () => {
                     if (quiz.querySelector('.quiz-btn.selected')) return;
@@ -230,7 +225,11 @@ window.SlideEngine = {
                         feedback.innerHTML = defaultFeedback || '<span class="text-green-600 font-bold animate-bounce text-xl">정답입니다! 🎉</span>';
                     } else {
                         option.classList.add('wrong', 'ring-4', 'ring-red-200');
-                        feedback.innerHTML = '<span class="text-red-500 font-bold text-xl">아쉬워요! 다음엔 꼭! 😢</span>';
+                        // 오답일 때야말로 해설이 가장 필요하다 — 격려 문구 뒤에 원래 해설을 이어 붙인다.
+                        // defaultFeedback은 "✅ 정답! ② …" 형태라 아래 문구와 자연스럽게 읽힌다.
+                        feedback.innerHTML =
+                            '<p class="text-red-500 font-bold text-xl mb-2">아쉬워요! 정답을 함께 확인해 볼까요? 😢</p>' +
+                            defaultFeedback;
                     }
                 });
             });

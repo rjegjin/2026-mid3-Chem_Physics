@@ -4,11 +4,11 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>13차시: 역학적 에너지 전환과 보존</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="css/tailwind.build.css" rel="stylesheet"/>
   <link href="css/common.css" rel="stylesheet"/>
   <link href="css/presentation_mode.css" rel="stylesheet"/>
   <link href="css/chem_style.css" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="vendor/chart.umd.min.js"></script>
   <style>
    .hero-bg-me {
      background-image: url('https://images.unsplash.com/AsDYiy6N_6k?auto=format&fit=crop&w=1200&q=80');
@@ -47,7 +47,7 @@
        <p class="text-5xl font-black">E = E<sub>p</sub> + E<sub>k</sub></p>
        <p class="text-lg mt-3 text-slate-600">= mgh + ½mv² &nbsp;&nbsp; 단위: J</p>
       </div>
-      <div class="grid grid-cols-3 gap-5">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
        <div class="concept-card text-center">
         <p class="font-bold text-slate-800 text-lg mt-2">E<sub>p</sub> (위치 에너지)</p>
         <p class="text-sm text-slate-600 mt-1">mgh<br/>높이에 저장된 에너지</p>
@@ -77,7 +77,8 @@
      <h2>자유 낙하 — E<sub>p</sub> 감소, E<sub>k</sub> 증가, 합은 일정</h2>
      <div class="flex flex-col md:flex-row gap-5 items-center max-w-5xl mt-4 w-full">
       <div class="w-full md:w-1/2">
-       <canvas id="chart-freefall" height="220"></canvas>
+       <canvas id="chart-freefall" height="220" role="img"
+               aria-label="자유 낙하 중 에너지 변화 선그래프. 질량 1 kg이 10 m에서 떨어질 때 높이 10, 7.5, 5, 2.5, 0 m에서 위치 에너지는 98, 73.5, 49, 24.5, 0 J로 줄고 운동 에너지는 0, 24.5, 49, 73.5, 98 J로 늘어난다. 둘의 합인 역학적 에너지는 98 J로 항상 일정하다."></canvas>
       </div>
       <div class="w-full md:w-1/2 space-y-2">
        <table class="w-full text-center rounded-xl overflow-hidden shadow text-sm">
@@ -181,7 +182,7 @@
      <div class="flex flex-col md:flex-row gap-8 items-center max-w-5xl mt-6 w-full">
       <div class="w-full md:w-1/2">
        <img src="img/phys_rollercoaster.svg"
-            alt="롤러코스터" class="rounded-2xl shadow-2xl w-full object-cover" style="max-height:300px;"/>
+            alt="롤러코스터: 높은 곳의 위치 에너지가 내려오며 운동 에너지로 바뀐다" class="rounded-2xl shadow-2xl w-full object-cover" style="max-height:300px;"/>
       </div>
       <div class="w-full md:w-1/2 space-y-4 text-left">
        <div class="p-4 rounded-xl border border-slate-200">
@@ -228,7 +229,7 @@
         <tr class="bg-slate-50"><td class="p-3">1.43</td><td class="p-3">0</td><td class="p-3">14.0</td><td class="p-3 font-bold">0</td><td class="p-3 font-bold">98</td><td class="p-3 font-black">98</td></tr>
        </tbody>
       </table>
-      <div class="grid grid-cols-2 gap-5">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
        <div class="p-5 rounded-2xl border border-slate-200">
         <p class="font-bold text-slate-800">결론 1</p>
         <p class="text-slate-700 mt-1">낙하 중 E<sub>p</sub>+E<sub>k</sub> = 항상 98 J → 보존!</p>
@@ -287,7 +288,8 @@
     <div class="slide-content">
      <h2>에너지 전환 막대 그래프 — 낙하 중 에너지 변화</h2>
      <div class="max-w-4xl w-full mt-6">
-      <canvas id="chart-energy-bars" height="320"></canvas>
+      <canvas id="chart-energy-bars" height="320" role="img"
+               aria-label="낙하 위치별 에너지 분포 막대그래프. 출발(10 m)에서 위치 98 J·운동 0 J, 중간(5 m)에서 위치 49 J·운동 49 J, 지면(0 m)에서 위치 0 J·운동 98 J. 어느 위치에서나 합은 98 J로 일정하다."></canvas>
       <div class="mt-4 flex gap-6 justify-center text-sm">
        <span class="flex items-center gap-2"><span class="w-4 h-4 rounded" style="background:#8b5cf6"></span>위치 에너지 E<sub>p</sub></span>
        <span class="flex items-center gap-2"><span class="w-4 h-4 rounded" style="background:#ea580c"></span>운동 에너지 E<sub>k</sub></span>
@@ -306,7 +308,7 @@
        <p class="text-2xl font-black">역학적 에너지 E = E<sub>p</sub> + E<sub>k</sub> = mgh + ½mv²</p>
        <p class="text-lg mt-2 text-slate-600">마찰이 없을 때 항상 일정 → 에너지 보존!</p>
       </div>
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
        <div class="p-5 rounded-xl border border-slate-200">
         <p class="font-bold text-slate-800">에너지 전환</p>
         <p class="text-slate-700 mt-1">낙하 시: E<sub>p</sub>↓ → E<sub>k</sub>↑<br/>상승 시: E<sub>k</sub>↓ → E<sub>p</sub>↑</p>
@@ -337,10 +339,10 @@
        <p class="text-xl font-bold text-slate-800">마찰이 없을 때, 높이 5 m에서 정지 상태로 낙하하는 1 kg 공이 지면에 닿는 순간의 운동 에너지는? (g = 9.8 m/s²)</p>
       </div>
       <div class="quiz-options mt-6">
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 9.8 J</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">② 24.5 J</button>
-       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">③ 49 J</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 98 J</button>
+       <button class="quiz-btn" data-correct="false">① 9.8 J</button>
+       <button class="quiz-btn" data-correct="false">② 24.5 J</button>
+       <button class="quiz-btn" data-correct="true">③ 49 J</button>
+       <button class="quiz-btn" data-correct="false">④ 98 J</button>
       </div>
       <div class="quiz-feedback mt-4" style="display:none">
        <p class="text-green-700 font-bold">✅ 정답! ③ 49 J</p>
@@ -359,10 +361,10 @@
        <p class="text-xl font-bold text-slate-800">롤러코스터가 최고점에 있을 때의 설명으로 옳은 것은?</p>
       </div>
       <div class="quiz-options mt-6">
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① E<sub>k</sub>가 최대이다.</button>
-       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">② E<sub>p</sub>가 최대이고 E<sub>k</sub>는 최소이다.</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">③ 역학적 에너지가 0이다.</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ E<sub>p</sub>와 E<sub>k</sub>가 같다.</button>
+       <button class="quiz-btn" data-correct="false">① E<sub>k</sub>가 최대이다.</button>
+       <button class="quiz-btn" data-correct="true">② E<sub>p</sub>가 최대이고 E<sub>k</sub>는 최소이다.</button>
+       <button class="quiz-btn" data-correct="false">③ 역학적 에너지가 0이다.</button>
+       <button class="quiz-btn" data-correct="false">④ E<sub>p</sub>와 E<sub>k</sub>가 같다.</button>
       </div>
       <div class="quiz-feedback mt-4" style="display:none">
        <p class="text-green-700 font-bold">✅ 정답! ②</p>
@@ -381,10 +383,10 @@
        <p class="text-xl font-bold text-slate-800">마찰이 있을 때 물체가 경사면을 내려가면<br/>역학적 에너지(E<sub>p</sub>+E<sub>k</sub>)는 어떻게 되는가?</p>
       </div>
       <div class="quiz-options mt-6">
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 증가한다.</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">② 일정하다.</button>
-       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">③ 감소한다.</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 0이 된다.</button>
+       <button class="quiz-btn" data-correct="false">① 증가한다.</button>
+       <button class="quiz-btn" data-correct="false">② 일정하다.</button>
+       <button class="quiz-btn" data-correct="true">③ 감소한다.</button>
+       <button class="quiz-btn" data-correct="false">④ 0이 된다.</button>
       </div>
       <div class="quiz-feedback mt-4" style="display:none">
        <p class="text-green-700 font-bold">✅ 정답! ③ 감소한다.</p>
@@ -438,16 +440,6 @@
   </main>
 
   <script>
-   function checkAnswer(btn) {
-    const container = btn.closest('.quiz-container');
-    if (container.querySelector('.quiz-btn.selected')) return;
-    btn.classList.add('selected');
-    const isCorrect = btn.dataset.correct === 'true';
-    btn.classList.add(isCorrect ? 'correct' : 'wrong');
-    container.querySelector('.quiz-feedback').style.display = 'block';
-    container.querySelectorAll('.quiz-btn').forEach(b => b.disabled = true);
-   }
-
    window.addEventListener('load', function() {
     // 자유낙하 에너지 전환 차트
     const ctx = document.getElementById('chart-freefall');

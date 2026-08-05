@@ -304,8 +304,22 @@ thead.bg-slate-900 th { color: #ffffff !important; }
     background: none; border: none; cursor: pointer;
     font-size: 1.2rem; color: var(--primary-blue);
     transition: transform 0.1s;
+    /* 터치 타깃 44px 확보 — 모바일에서 유일한 이동 수단이다 */
+    min-width: 44px; min-height: 44px;
+    display: flex; align-items: center; justify-content: center;
 }
 #prev-btn:hover, #next-btn:hover { color: var(--accent-cyan); transform: scale(1.2); }
+
+/* --- Focus Visibility (키보드 사용자) --- */
+#slide-controls button:focus-visible,
+#home-btn:focus-visible,
+.quiz-btn:focus-visible,
+.btn-enter:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--accent-cyan);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
 
 /* --- View All Mode --- */
 body.view-all-mode {
@@ -478,7 +492,7 @@ body.view-all-mode .progress-bar-container {
 /* Muted caption */
 .slide-caption {
     font-size: 0.8rem !important;
-    color: #94a3b8;
+    color: #64748b; /* WCAG AA: 흰 배경 대비 4.8:1 (기존 #94a3b8은 2.6:1로 미달) */
     line-height: 1.4 !important;
     margin-bottom: 0 !important;
 }

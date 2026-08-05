@@ -4,11 +4,11 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>12차시: 운동 에너지 — 질량과 속력의 관계</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="css/tailwind.build.css" rel="stylesheet"/>
   <link href="css/common.css" rel="stylesheet"/>
   <link href="css/presentation_mode.css" rel="stylesheet"/>
   <link href="css/chem_style.css" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="vendor/chart.umd.min.js"></script>
   <style>
    .hero-bg-ke {
      background-image: url('https://images.unsplash.com/d2oajBs3n4Q?auto=format&fit=crop&w=1200&q=80');
@@ -42,7 +42,7 @@
      <div class="flex flex-col md:flex-row gap-8 items-center max-w-5xl mt-6 w-full">
       <div class="w-full md:w-1/2">
        <img src="img/phys_car.svg"
-            alt="자동차" class="rounded-2xl shadow-2xl w-full object-cover" style="max-height:300px;"/>
+            alt="달리는 자동차: 질량과 속력이 클수록 운동 에너지가 크다" class="rounded-2xl shadow-2xl w-full object-cover" style="max-height:300px;"/>
       </div>
       <div class="w-full md:w-1/2 space-y-4 text-left">
        <div class="p-5 rounded-xl border border-slate-200">
@@ -72,7 +72,7 @@
        <p class="text-5xl font-black tracking-wide">E<sub>k</sub> = ½mv²</p>
        <p class="text-lg mt-3 text-slate-600">단위: J (줄)</p>
       </div>
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
        <div class="p-3 rounded-xl border border-slate-200 text-center">
         <p class="text-2xl font-black text-slate-800">m</p>
         <p class="text-sm font-bold text-slate-600">질량 (kg)</p>
@@ -96,7 +96,8 @@
      <h2>속력이 같을 때 — 질량이 클수록 E<sub>k</sub>가 크다</h2>
      <div class="flex flex-col md:flex-row gap-8 items-center max-w-5xl mt-6 w-full">
       <div class="w-full md:w-1/2">
-       <canvas id="chart-mass-ek" height="280"></canvas>
+       <canvas id="chart-mass-ek" height="280" role="img"
+               aria-label="질량에 따른 운동 에너지 막대그래프. 속력 4 m/s 고정, 질량 1~5 kg에서 운동 에너지가 8, 16, 24, 32, 40 J로 늘어난다. 질량에 정비례한다."></canvas>
       </div>
       <div class="w-full md:w-1/2 space-y-4 text-left">
        <p class="text-slate-600 text-lg">속력 v = 4 m/s 고정</p>
@@ -127,7 +128,8 @@
      <h2>질량이 같을 때 — 속력의 <u>제곱</u>에 비례!</h2>
      <div class="flex flex-col md:flex-row gap-8 items-center max-w-5xl mt-6 w-full">
       <div class="w-full md:w-1/2">
-       <canvas id="chart-speed-ek" height="280"></canvas>
+       <canvas id="chart-speed-ek" height="280" role="img"
+               aria-label="속력에 따른 운동 에너지 그래프. 질량 2 kg 고정, 속력 1~5 m/s에서 운동 에너지가 1, 4, 9, 16, 25 J로 늘어난다. 속력이 2배면 운동 에너지는 4배 — 속력의 제곱에 비례하는 곡선이다."></canvas>
       </div>
       <div class="w-full md:w-1/2 space-y-4 text-left">
        <p class="text-slate-600 text-lg">질량 m = 2 kg 고정</p>
@@ -205,7 +207,7 @@
    <section data-slide-index="6" data-slide-num="7" data-title="계산 연습" id="slide-7">
     <div class="slide-content">
      <h2>E<sub>k</sub> = ½mv² 계산 연습</h2>
-     <div class="grid grid-cols-2 gap-6 max-w-5xl mt-6 w-full">
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mt-6 w-full">
       <div class="p-6 rounded-2xl border border-slate-200">
        <p class="font-bold text-slate-800 text-lg">문제 1</p>
        <p class="text-slate-700 mt-2">질량 4 kg인 물체가 3 m/s로 운동할 때<br/>운동 에너지는?</p>
@@ -250,7 +252,7 @@
    <section data-slide-index="7" data-slide-num="8" data-title="실생활 속 운동 에너지" id="slide-8">
     <div class="slide-content">
      <h2>실생활 속 운동 에너지</h2>
-     <div class="grid grid-cols-2 md:grid-cols-3 gap-5 max-w-5xl mt-6 w-full">
+     <div class="grid grid-cols-1 md:grid-cols-2 md:grid-cols-3 gap-5 max-w-5xl mt-6 w-full">
       <div class="concept-card">
        <p class="font-bold text-slate-800">자동차 충돌</p>
        <p class="text-sm text-slate-600 mt-1">속력 2배 → 충격 에너지 4배<br/>→ 안전벨트 필수!</p>
@@ -288,7 +290,7 @@
        <p class="text-3xl font-black">E<sub>k</sub> = ½mv² (단위: J)</p>
        <p class="text-lg mt-2 text-slate-600">m: 질량(kg) &nbsp;/&nbsp; v: 속력(m/s)</p>
       </div>
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
        <div class="p-5 rounded-xl border border-slate-200">
         <p class="font-bold text-slate-800">질량과의 관계</p>
         <p class="text-slate-700 mt-1">속력이 같을 때<br/>m ↑ → E<sub>k</sub> ↑ (비례)</p>
@@ -319,10 +321,10 @@
        <p class="text-xl font-bold text-slate-800">질량 3 kg인 물체가 4 m/s로 운동하고 있다.<br/>이 물체의 운동 에너지는?</p>
       </div>
       <div class="quiz-options mt-6">
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 12 J</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">② 18 J</button>
-       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">③ 24 J</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 48 J</button>
+       <button class="quiz-btn" data-correct="false">① 12 J</button>
+       <button class="quiz-btn" data-correct="false">② 18 J</button>
+       <button class="quiz-btn" data-correct="true">③ 24 J</button>
+       <button class="quiz-btn" data-correct="false">④ 48 J</button>
       </div>
       <div class="quiz-feedback mt-4" style="display:none">
        <p class="text-green-700 font-bold">✅ 정답! ③ 24 J</p>
@@ -341,10 +343,10 @@
        <p class="text-xl font-bold text-slate-800">어떤 물체의 속력이 3배로 증가했을 때,<br/>운동 에너지는 몇 배가 되는가?</p>
       </div>
       <div class="quiz-options mt-6">
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 3배</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">② 6배</button>
-       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">③ 9배</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 27배</button>
+       <button class="quiz-btn" data-correct="false">① 3배</button>
+       <button class="quiz-btn" data-correct="false">② 6배</button>
+       <button class="quiz-btn" data-correct="true">③ 9배</button>
+       <button class="quiz-btn" data-correct="false">④ 27배</button>
       </div>
       <div class="quiz-feedback mt-4" style="display:none">
        <p class="text-green-700 font-bold">✅ 정답! ③ 9배</p>
@@ -363,10 +365,10 @@
        <p class="text-xl font-bold text-slate-800">운동 에너지에 대한 설명으로 <strong>옳은</strong> 것은?</p>
       </div>
       <div class="quiz-options mt-6">
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 정지한 물체도 운동 에너지를 가진다.</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">② 속력이 2배이면 운동 에너지도 2배이다.</button>
-       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">③ 질량이 같을 때 속력이 클수록 운동 에너지가 크다.</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 운동 에너지의 단위는 m/s이다.</button>
+       <button class="quiz-btn" data-correct="false">① 정지한 물체도 운동 에너지를 가진다.</button>
+       <button class="quiz-btn" data-correct="false">② 속력이 2배이면 운동 에너지도 2배이다.</button>
+       <button class="quiz-btn" data-correct="true">③ 질량이 같을 때 속력이 클수록 운동 에너지가 크다.</button>
+       <button class="quiz-btn" data-correct="false">④ 운동 에너지의 단위는 m/s이다.</button>
       </div>
       <div class="quiz-feedback mt-4" style="display:none">
        <p class="text-green-700 font-bold">✅ 정답! ③</p>
@@ -420,16 +422,6 @@
   </main>
 
   <script>
-   function checkAnswer(btn) {
-    const container = btn.closest('.quiz-container');
-    if (container.querySelector('.quiz-btn.selected')) return;
-    btn.classList.add('selected');
-    const isCorrect = btn.dataset.correct === 'true';
-    btn.classList.add(isCorrect ? 'correct' : 'wrong');
-    container.querySelector('.quiz-feedback').style.display = 'block';
-    container.querySelectorAll('.quiz-btn').forEach(b => b.disabled = true);
-   }
-
    window.addEventListener('load', function() {
     // Chart 1: 질량 vs Ek
     const ctx1 = document.getElementById('chart-mass-ek');

@@ -4,17 +4,18 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>14차시: 에너지 보존 법칙의 일상생활 사례</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="css/tailwind.build.css" rel="stylesheet"/>
   <link href="css/common.css" rel="stylesheet"/>
   <link href="css/presentation_mode.css" rel="stylesheet"/>
   <link href="css/chem_style.css" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="vendor/chart.umd.min.js"></script>
   <style>
    .hero-bg-ec {
-     background-image: url('https://images.unsplash.com/rl0VdGm0sKA?auto=format&fit=crop&w=1200&q=80');
+     /* 로컬 자산 — 기존 Unsplash URL은 404였고, 이 그림이 곧 이 단원의 주제다 */
+     background-image: url('img/phys_rollercoaster.svg');
      background-size: cover; background-position: center;
    }
-   .bg-overlay { background: rgba(255,255,255,0.88); padding: 3rem; border-radius: 2rem; backdrop-filter: blur(12px); }
+   .bg-overlay { background: rgba(255,255,255,0.82); padding: 3rem; border-radius: 2rem; backdrop-filter: blur(6px); }
    .case-card { background: white; border-radius: 1.5rem; padding: 1.8rem; box-shadow: 0 6px 20px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; transition: all 0.3s; }
    .case-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.12); }
   </style>
@@ -44,7 +45,7 @@
        <p class="formula-display">에너지는 형태가 바뀌어도 총량이 보존된다</p>
        <p class="slide-caption">위치 에너지와 운동 에너지를 가진 사례를 조사하고, 전환 흐름으로 설명합니다.</p>
       </div>
-      <div class="grid grid-cols-2 gap-5">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
        <div class="p-5 border border-slate-200 rounded-xl">
         <p class="font-bold text-slate-800">역학적 에너지 보존</p>
         <p class="text-slate-600 mt-1">마찰 없을 때 E<sub>p</sub> + E<sub>k</sub> = 일정<br/>(역학 안에서의 에너지 전환)</p>
@@ -72,10 +73,11 @@
      <h2>진자 — E<sub>p</sub>와 E<sub>k</sub>가 반복 전환</h2>
      <div class="flex flex-col md:flex-row gap-4 items-center max-w-5xl mt-3 w-full">
       <div class="w-full md:w-1/2">
-       <canvas id="chart-pendulum" height="200"></canvas>
+       <canvas id="chart-pendulum" height="200" role="img"
+               aria-label="진자 운동 중 에너지 변화 그래프. 끝점 A에서 위치 에너지 100 J·운동 에너지 0 J, 중앙 B에서 위치 에너지 0 J·운동 에너지 100 J, 끝점 C에서 다시 위치 에너지 100 J·운동 에너지 0 J. 두 에너지의 합은 항상 100 J로 일정하다."></canvas>
       </div>
       <div class="w-full md:w-1/2 space-y-2">
-       <div class="grid grid-cols-3 gap-2 text-center text-sm">
+       <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-center text-sm">
         <div class="p-2 border border-slate-200 rounded-xl">
          <p class="font-bold text-slate-800">끝점(A)</p>
          <p class="text-slate-600 mt-1">E<sub>p</sub> 최대<br/>E<sub>k</sub> = 0<br/>순간 정지</p>
@@ -109,7 +111,7 @@
      <div class="flex flex-col md:flex-row gap-8 items-center max-w-5xl mt-6 w-full">
       <div class="w-full md:w-1/2">
        <img src="img/phys_dam.svg"
-            alt="댐" class="rounded-2xl shadow-2xl w-full object-cover" style="max-height:300px;"/>
+            alt="댐: 높은 곳에 물을 가둬 위치 에너지를 저장하고, 방류해 터빈을 돌린다" class="rounded-2xl shadow-2xl w-full object-cover" style="max-height:300px;"/>
       </div>
       <div class="w-full md:w-1/2 space-y-4">
        <div class="flex items-center gap-3 p-4 border border-slate-200 rounded-xl">
@@ -151,7 +153,7 @@
      <div class="flex flex-col md:flex-row gap-8 items-center max-w-5xl mt-6 w-full">
       <div class="w-full md:w-1/2">
        <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80"
-            alt="자동차 브레이크" class="rounded-2xl shadow-2xl w-full object-cover" style="max-height:300px;"/>
+            alt="자동차 브레이크 디스크: 마찰로 운동 에너지를 열로 바꾼다" class="rounded-2xl shadow-2xl w-full object-cover" style="max-height:300px;"/>
       </div>
       <div class="w-full md:w-1/2 space-y-4">
        <div class="p-5 border border-slate-200 rounded-xl">
@@ -179,24 +181,23 @@
    <section data-slide-index="5" data-slide-num="6" data-title="에너지 전환 총정리" id="slide-6">
     <div class="slide-content">
      <h2>일상 속 에너지 전환 총정리</h2>
-     <div class="max-w-5xl w-full mt-6">
+     <div class="max-w-5xl w-full mt-6 overflow-x-auto">
       <table class="w-full text-center rounded-2xl overflow-hidden shadow-lg text-sm">
-       <thead class="bg-blue-600 text-white">
+       <thead class="bg-teal-700 text-white">
         <tr>
          <th class="p-3">사례</th>
          <th class="p-3">전환 전 에너지</th>
          <th class="p-3">→</th>
          <th class="p-3">전환 후 에너지</th>
-         <th class="p-3">보존?</th>
         </tr>
        </thead>
        <tbody>
-        <tr class="bg-white"><td class="p-3">롤러코스터 내려올 때</td><td class="p-3">E<sub>p</sub> (위치)</td><td class="p-3">→</td><td class="p-3">E<sub>k</sub> (운동)</td><td class="p-3">✅ 마찰 없으면 보존</td></tr>
-        <tr class="bg-white"><td class="p-3">진자 끝→중앙</td><td class="p-3">E<sub>p</sub> (위치)</td><td class="p-3">→</td><td class="p-3">E<sub>k</sub> (운동)</td><td class="p-3">✅ 마찰 없으면 보존</td></tr>
-        <tr class="bg-white"><td class="p-3">수력 발전</td><td class="p-3">E<sub>p</sub> (위치)</td><td class="p-3">→</td><td class="p-3">전기 에너지</td><td class="p-3">✅ 총합 보존</td></tr>
-        <tr class="bg-white"><td class="p-3">자동차 브레이크</td><td class="p-3">E<sub>k</sub> (운동)</td><td class="p-3">→</td><td class="p-3">열에너지</td><td class="p-3">✅ 총합 보존</td></tr>
-        <tr class="bg-white"><td class="p-3">광합성</td><td class="p-3">빛 에너지</td><td class="p-3">→</td><td class="p-3">화학 에너지</td><td class="p-3">✅ 총합 보존</td></tr>
-        <tr class="bg-white"><td class="p-3">전구</td><td class="p-3">전기 에너지</td><td class="p-3">→</td><td class="p-3">빛+열 에너지</td><td class="p-3">✅ 총합 보존</td></tr>
+        <tr class="odd:bg-white even:bg-slate-50"><td class="p-3">롤러코스터 내려올 때</td><td class="p-3">E<sub>p</sub> (위치)</td><td class="p-3">→</td><td class="p-3">E<sub>k</sub> (운동)</td></tr>
+        <tr class="odd:bg-white even:bg-slate-50"><td class="p-3">진자 끝→중앙</td><td class="p-3">E<sub>p</sub> (위치)</td><td class="p-3">→</td><td class="p-3">E<sub>k</sub> (운동)</td></tr>
+        <tr class="odd:bg-white even:bg-slate-50"><td class="p-3">수력 발전</td><td class="p-3">E<sub>p</sub> (위치)</td><td class="p-3">→</td><td class="p-3">전기 에너지</td></tr>
+        <tr class="odd:bg-white even:bg-slate-50"><td class="p-3">자동차 브레이크</td><td class="p-3">E<sub>k</sub> (운동)</td><td class="p-3">→</td><td class="p-3">열에너지</td></tr>
+        <tr class="odd:bg-white even:bg-slate-50"><td class="p-3">광합성</td><td class="p-3">빛 에너지</td><td class="p-3">→</td><td class="p-3">화학 에너지</td></tr>
+        <tr class="odd:bg-white even:bg-slate-50"><td class="p-3">전구</td><td class="p-3">전기 에너지</td><td class="p-3">→</td><td class="p-3">빛+열 에너지</td></tr>
        </tbody>
       </table>
       <div style="border-top:1px solid #e2e8f0; padding-top:1rem; margin-top:1rem; text-align:center;">
@@ -213,7 +214,8 @@
      <h2>에너지 효율 — 유용한 에너지의 비율</h2>
      <div class="flex flex-col md:flex-row gap-8 items-center max-w-5xl mt-6 w-full">
       <div class="w-full md:w-1/2">
-       <canvas id="chart-efficiency" height="280"></canvas>
+       <canvas id="chart-efficiency" height="300" role="img"
+               aria-label="기기별 에너지 효율 누적 막대 그래프. 유용한 에너지 비율은 LED 전구 85퍼센트, 형광등 60퍼센트, 자동차 엔진 30퍼센트, 백열전구 10퍼센트이고, 나머지는 모두 열로 손실된다. 막대 길이는 모두 100퍼센트로 같다 — 에너지 총량은 어느 기기에서나 보존된다."></canvas>
       </div>
       <div class="w-full md:w-1/2 space-y-4">
        <div class="p-5 border border-slate-200 rounded-2xl">
@@ -221,34 +223,15 @@
         <p class="text-slate-700">공급한 에너지 중에서 <strong>원하는 형태</strong>로 전환된 에너지의 비율</p>
         <p class="text-slate-800 font-bold mt-2">효율(%) = (유용한 에너지 / 총 에너지) × 100</p>
        </div>
-       <div class="space-y-2 text-sm">
-        <div class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl">
-         <span class="font-bold text-slate-800 w-32">LED 전구</span>
-         <div class="flex-1 bg-gray-200 rounded-full h-5">
-          <div class="bg-green-500 h-5 rounded-full" style="width:85%"></div>
-         </div>
-         <span class="font-bold text-slate-800">~85%</span>
+       <div class="p-5 border border-slate-200 rounded-2xl text-left">
+        <p class="font-bold text-slate-800 text-lg mb-2">효율은 왜 다를까?</p>
+        <p class="text-slate-700 text-sm">막대 길이는 <strong>모두 100%로 같다.</strong> 다른 것은 그 100%가 어디로 가느냐뿐이다.</p>
+        <div class="info-line">
+         <p class="text-slate-700 text-sm">백열전구는 필라멘트를 <strong>뜨겁게 달궈</strong> 빛을 낸다 → 90%가 열</p>
+         <p class="text-slate-700 text-sm mt-1">LED는 전기를 <strong>곧바로 빛으로</strong> 바꾼다 → 열 손실이 적다</p>
         </div>
-        <div class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl">
-         <span class="font-bold text-slate-800 w-32">형광등</span>
-         <div class="flex-1 bg-gray-200 rounded-full h-5">
-          <div class="bg-yellow-400 h-5 rounded-full" style="width:60%"></div>
-         </div>
-         <span class="font-bold text-slate-800">~60%</span>
-        </div>
-        <div class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl">
-         <span class="font-bold text-slate-800 w-32">백열전구</span>
-         <div class="flex-1 bg-gray-200 rounded-full h-5">
-          <div class="bg-orange-400 h-5 rounded-full" style="width:10%"></div>
-         </div>
-         <span class="font-bold text-orange-700">~10%</span>
-        </div>
-        <div class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl">
-         <span class="font-bold text-slate-800 w-32">자동차 엔진</span>
-         <div class="flex-1 bg-gray-200 rounded-full h-5">
-          <div class="bg-red-400 h-5 rounded-full" style="width:30%"></div>
-         </div>
-         <span class="font-bold text-slate-800">~30%</span>
+        <div class="info-line">
+         <p class="text-slate-800 font-bold text-sm">손실된 에너지도 사라진 것이 아니다 — 열로 바뀌었을 뿐</p>
         </div>
        </div>
       </div>
@@ -260,7 +243,7 @@
    <section data-slide-index="7" data-slide-num="8" data-title="심화: 스키 점프와 폭포" id="slide-8">
     <div class="slide-content">
      <h2>심화 — 스키 점프와 폭포의 에너지 분석</h2>
-     <div class="grid grid-cols-2 gap-6 max-w-5xl mt-6 w-full">
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mt-6 w-full">
       <div class="case-card border border-slate-200">
        <p class="font-bold text-slate-800 text-lg">스키 점프</p>
        <div class="mt-3 space-y-2 text-sm">
@@ -314,7 +297,7 @@
        <p class="formula-display">에너지 보존 법칙</p>
        <p class="slide-caption">에너지 총량은 항상 일정하다 — 형태만 전환될 뿐</p>
       </div>
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
        <div class="p-5 border border-slate-200 rounded-xl">
         <p class="font-bold text-slate-800">역학적 에너지 보존</p>
         <p class="text-slate-700 mt-1">마찰 없을 때: E<sub>p</sub>+E<sub>k</sub> = 일정<br/>진자, 롤러코스터, 자유낙하</p>
@@ -345,10 +328,10 @@
        <p class="text-xl font-bold text-slate-800">진자가 가장 낮은 지점(중앙)을 통과할 때의 설명으로 옳은 것은?</p>
       </div>
       <div class="quiz-options mt-6">
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 위치 에너지가 최대이다.</button>
-       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">② 운동 에너지가 최대이다.</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">③ 진자가 순간 정지한다.</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 역학적 에너지가 0이다.</button>
+       <button class="quiz-btn" data-correct="false">① 위치 에너지가 최대이다.</button>
+       <button class="quiz-btn" data-correct="true">② 운동 에너지가 최대이다.</button>
+       <button class="quiz-btn" data-correct="false">③ 진자가 순간 정지한다.</button>
+       <button class="quiz-btn" data-correct="false">④ 역학적 에너지가 0이다.</button>
       </div>
       <div class="quiz-feedback mt-4" style="display:none">
        <p class="text-green-700 font-bold">✅ 정답! ② 운동 에너지가 최대이다.</p>
@@ -367,10 +350,10 @@
        <p class="text-xl font-bold text-slate-800">수력 발전에서 에너지 전환 순서로 옳은 것은?</p>
       </div>
       <div class="quiz-options mt-6">
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 운동 에너지 → 위치 에너지 → 전기 에너지</button>
-       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">② 위치 에너지 → 운동 에너지 → 전기 에너지</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">③ 전기 에너지 → 위치 에너지 → 운동 에너지</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 화학 에너지 → 위치 에너지 → 전기 에너지</button>
+       <button class="quiz-btn" data-correct="false">① 운동 에너지 → 위치 에너지 → 전기 에너지</button>
+       <button class="quiz-btn" data-correct="true">② 위치 에너지 → 운동 에너지 → 전기 에너지</button>
+       <button class="quiz-btn" data-correct="false">③ 전기 에너지 → 위치 에너지 → 운동 에너지</button>
+       <button class="quiz-btn" data-correct="false">④ 화학 에너지 → 위치 에너지 → 전기 에너지</button>
       </div>
       <div class="quiz-feedback mt-4" style="display:none">
        <p class="text-green-700 font-bold">✅ 정답! ② 위치 에너지 → 운동 에너지 → 전기 에너지</p>
@@ -389,10 +372,10 @@
        <p class="text-xl font-bold text-slate-800">에너지 보존 법칙에 대한 설명으로 옳지 <strong>않은</strong> 것은?</p>
       </div>
       <div class="quiz-options mt-6">
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 에너지는 한 형태에서 다른 형태로 전환될 수 있다.</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">② 마찰이 있어도 에너지 총량은 보존된다.</button>
-       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">③ 마찰이 있으면 에너지 총량이 감소한다.</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 에너지는 새로 생겨나거나 완전히 사라지지 않는다.</button>
+       <button class="quiz-btn" data-correct="false">① 에너지는 한 형태에서 다른 형태로 전환될 수 있다.</button>
+       <button class="quiz-btn" data-correct="false">② 마찰이 있어도 에너지 총량은 보존된다.</button>
+       <button class="quiz-btn" data-correct="true">③ 마찰이 있으면 에너지 총량이 감소한다.</button>
+       <button class="quiz-btn" data-correct="false">④ 에너지는 새로 생겨나거나 완전히 사라지지 않는다.</button>
       </div>
       <div class="quiz-feedback mt-4" style="display:none">
        <p class="text-green-700 font-bold">✅ 정답! ③</p>
@@ -446,16 +429,6 @@
   </main>
 
   <script>
-   function checkAnswer(btn) {
-    const container = btn.closest('.quiz-container');
-    if (container.querySelector('.quiz-btn.selected')) return;
-    btn.classList.add('selected');
-    const isCorrect = btn.dataset.correct === 'true';
-    btn.classList.add(isCorrect ? 'correct' : 'wrong');
-    container.querySelector('.quiz-feedback').style.display = 'block';
-    container.querySelectorAll('.quiz-btn').forEach(b => b.disabled = true);
-   }
-
    window.addEventListener('load', function() {
     // 진자 에너지 그래프
     const ctx1 = document.getElementById('chart-pendulum');
@@ -503,21 +476,28 @@
     // 에너지 효율 도넛 차트
     const ctx2 = document.getElementById('chart-efficiency');
     if (ctx2) {
+     // 누적 막대: 막대 길이는 모두 100%. 유용/손실 비율만 달라진다는 것이 이 슬라이드의 요점.
+     // 색은 프로젝트 표준(teal 단일 accent + slate 중립)을 따른다.
      new Chart(ctx2.getContext('2d'), {
-      type: 'doughnut',
+      type: 'bar',
       data: {
-       labels: ['유용한 에너지(빛)', '손실(열)'],
-       datasets: [{
-        data: [85, 15],
-        backgroundColor: ['#22c55e', '#ef4444'],
-        borderWidth: 2
-       }]
+       labels: ['LED 전구', '형광등', '자동차 엔진', '백열전구'],
+       datasets: [
+        { label: '유용한 에너지', data: [85, 60, 30, 10], backgroundColor: '#0d9488' },
+        { label: '손실(열)',     data: [15, 40, 70, 90], backgroundColor: '#cbd5e1' }
+       ]
       },
       options: {
+       indexAxis: 'y',
        responsive: true,
        plugins: {
-        title: { display: true, text: 'LED 전구 에너지 효율 (~85%)', font: { size: 14 } },
-        legend: { position: 'bottom' }
+        title: { display: true, text: '기기별 에너지 효율 — 총량은 언제나 100%', font: { size: 14 } },
+        legend: { position: 'bottom' },
+        tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.x}%` } }
+       },
+       scales: {
+        x: { stacked: true, max: 100, title: { display: true, text: '공급 에너지 중 비율 (%)' } },
+        y: { stacked: true }
        }
       }
      });

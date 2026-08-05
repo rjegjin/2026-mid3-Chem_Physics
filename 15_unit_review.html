@@ -4,11 +4,11 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>15차시: 단원 정리 — 운동과 에너지 총정리</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="css/tailwind.build.css" rel="stylesheet"/>
   <link href="css/common.css" rel="stylesheet"/>
   <link href="css/presentation_mode.css" rel="stylesheet"/>
   <link href="css/chem_style.css" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="vendor/chart.umd.min.js"></script>
   <style>
    .hero-bg-review {
      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f4c75 100%);
@@ -54,7 +54,7 @@
         <p class="text-sm text-slate-600 mt-1">중력이 한 일, 위치 에너지, 운동 에너지, 에너지 전환을 연결합니다.</p>
        </div>
       </div>
-      <div class="grid grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
        <div class="p-5 border border-slate-200 rounded-2xl">
         <p class="font-bold text-slate-800 text-lg mb-3">III-1 물체의 운동</p>
         <div class="space-y-2 text-sm">
@@ -91,7 +91,7 @@
        </div>
        <div class="p-5 border border-slate-200 rounded-2xl col-span-2">
         <p class="font-bold text-slate-800 text-lg mb-3">VI-1 역학적 에너지 전환과 보존</p>
-        <div class="grid grid-cols-2 gap-3 text-sm">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
          <div class="flex gap-2 items-center">
           <span class="lesson-pill bg-slate-100 text-slate-700">L13</span>
           <span>역학적 에너지 전환·보존 — E = E<sub>p</sub> + E<sub>k</sub> = 일정</span>
@@ -111,7 +111,7 @@
    <section data-slide-index="2" data-slide-num="3" data-title="공식 총정리" id="slide-3">
     <div class="slide-content">
      <h2 class="text-slate-800">공식 총정리 카드</h2>
-     <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl mt-6 w-full text-center">
+     <div class="grid grid-cols-1 md:grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl mt-6 w-full text-center">
       <div class="formula-card border-t-4 border-teal-500">
        <span class="lesson-pill bg-teal-100 text-teal-800 mb-2">L8 등속 운동</span>
        <p class="text-2xl font-bold text-slate-800 mt-2">v = d/t</p>
@@ -197,25 +197,29 @@
    <section data-slide-index="4" data-slide-num="5" data-title="그래프 총정리" id="slide-5">
     <div class="slide-content">
      <h2 class="text-slate-800">그래프 총정리 — 시험에 자주 나오는 4가지</h2>
-     <div class="grid grid-cols-2 gap-3 max-w-5xl mt-2 w-full">
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-5xl mt-2 w-full">
       <div>
        <p class="font-bold text-slate-700 text-center mb-1">① 등속 운동 — 시간-거리</p>
-       <canvas id="g1" height="120"></canvas>
+       <canvas id="g1" height="120" role="img"
+               aria-label="등속 운동의 시간-거리 그래프. 0~4초 동안 거리가 0, 2, 4, 6, 8 m로 일정하게 늘어나는 직선. 기울기는 속력 2 m/s이다."></canvas>
        <p class="text-xs text-center text-slate-500 mt-1">직선 / 기울기 = 속력</p>
       </div>
       <div>
        <p class="font-bold text-slate-700 text-center mb-1">② 자유 낙하 — 시간-속력</p>
-       <canvas id="g2" height="120"></canvas>
+       <canvas id="g2" height="120" role="img"
+               aria-label="자유 낙하의 시간-속력 그래프. 0~3초 동안 속력이 0, 9.8, 19.6, 29.4 m/s로 늘어나는 직선. 기울기는 중력 가속도 9.8 m/s²이다."></canvas>
        <p class="text-xs text-center text-slate-500 mt-1">우상향 직선 / 기울기 = g</p>
       </div>
       <div>
        <p class="font-bold text-slate-700 text-center mb-1">③ 자유 낙하 — 시간-거리</p>
-       <canvas id="g3" height="120"></canvas>
+       <canvas id="g3" height="120" role="img"
+               aria-label="자유 낙하의 시간-거리 그래프. 0~3초 동안 떨어진 거리가 0, 4.9, 19.6, 44.1 m로 늘어나는 곡선. 거리는 시간의 제곱에 비례한다."></canvas>
        <p class="text-xs text-center text-slate-500 mt-1">포물선 (가속) / d = ½gt²</p>
       </div>
       <div>
        <p class="font-bold text-slate-700 text-center mb-1">④ 운동 에너지 — 속력-Ek</p>
-       <canvas id="g4" height="120"></canvas>
+       <canvas id="g4" height="120" role="img"
+               aria-label="속력에 따른 운동 에너지 그래프. 속력 0~5에서 운동 에너지가 0, 1, 4, 9, 16, 25로 늘어나는 곡선. 속력의 제곱에 비례한다."></canvas>
        <p class="text-xs text-center text-slate-500 mt-1">포물선 (v² 비례) / E<sub>k</sub> = ½mv²</p>
       </div>
      </div>
@@ -261,10 +265,10 @@
        <p class="text-xl font-bold text-slate-800">질량 2 kg인 물체가 10 m 높이에서 정지 상태로 자유 낙하한다.<br/>지면에 닿는 순간의 속력은? (g = 9.8 m/s², 마찰 무시)</p>
       </div>
       <div class="quiz-options mt-6">
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 9.8 m/s</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">② 12 m/s</button>
-       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">③ 14 m/s</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 19.6 m/s</button>
+       <button class="quiz-btn" data-correct="false">① 9.8 m/s</button>
+       <button class="quiz-btn" data-correct="false">② 12 m/s</button>
+       <button class="quiz-btn" data-correct="true">③ 14 m/s</button>
+       <button class="quiz-btn" data-correct="false">④ 19.6 m/s</button>
       </div>
       <div class="quiz-feedback mt-4" style="display:none">
        <p class="text-green-700 font-bold">✅ 정답! ③ 14 m/s</p>
@@ -283,10 +287,10 @@
        <p class="text-xl font-bold text-slate-800">등속 운동하는 물체의 시간-속력 그래프 모양으로 옳은 것은?</p>
       </div>
       <div class="quiz-options mt-6">
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 우상향 직선 (기울기 양수)</button>
-       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">② 수평 직선 (기울기 0)</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">③ 우상향 포물선</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 우하향 직선</button>
+       <button class="quiz-btn" data-correct="false">① 우상향 직선 (기울기 양수)</button>
+       <button class="quiz-btn" data-correct="true">② 수평 직선 (기울기 0)</button>
+       <button class="quiz-btn" data-correct="false">③ 우상향 포물선</button>
+       <button class="quiz-btn" data-correct="false">④ 우하향 직선</button>
       </div>
       <div class="quiz-feedback mt-4" style="display:none">
        <p class="text-green-700 font-bold">✅ 정답! ② 수평 직선</p>
@@ -305,10 +309,10 @@
        <p class="text-xl font-bold text-slate-800">롤러코스터가 가장 높은 곳에서 가장 낮은 곳으로 내려올 때,<br/>가장 빠른 시점은 언제인가?</p>
       </div>
       <div class="quiz-options mt-6">
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 가장 높은 곳</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">② 중간 지점</button>
-       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">③ 가장 낮은 곳</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 어디서나 속력이 같다</button>
+       <button class="quiz-btn" data-correct="false">① 가장 높은 곳</button>
+       <button class="quiz-btn" data-correct="false">② 중간 지점</button>
+       <button class="quiz-btn" data-correct="true">③ 가장 낮은 곳</button>
+       <button class="quiz-btn" data-correct="false">④ 어디서나 속력이 같다</button>
       </div>
       <div class="quiz-feedback mt-4" style="display:none">
        <p class="text-green-700 font-bold">✅ 정답! ③ 가장 낮은 곳</p>
@@ -327,10 +331,10 @@
        <p class="text-xl font-bold text-slate-800">자동차 속력이 20 m/s일 때 운동 에너지가 200,000 J이었다.<br/>속력이 40 m/s가 되면 운동 에너지는?</p>
       </div>
       <div class="quiz-options mt-6">
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 400,000 J</button>
-       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">② 800,000 J</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">③ 200,000 J</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 100,000 J</button>
+       <button class="quiz-btn" data-correct="false">① 400,000 J</button>
+       <button class="quiz-btn" data-correct="true">② 800,000 J</button>
+       <button class="quiz-btn" data-correct="false">③ 200,000 J</button>
+       <button class="quiz-btn" data-correct="false">④ 100,000 J</button>
       </div>
       <div class="quiz-feedback mt-4" style="display:none">
        <p class="text-green-700 font-bold">✅ 정답! ② 800,000 J</p>
@@ -349,10 +353,10 @@
        <p class="text-xl font-bold text-slate-800">자유 낙하 운동에 대한 설명으로 옳지 <strong>않은</strong> 것은?<br/>(g = 9.8 m/s², 마찰 무시)</p>
       </div>
       <div class="quiz-options mt-6">
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">① 시간에 비례하여 속력이 증가한다.</button>
-       <button class="quiz-btn" data-correct="true" onclick="checkAnswer(this)">② 무거운 물체가 가벼운 물체보다 빠르게 낙하한다.</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">③ 낙하 거리는 시간의 제곱에 비례한다.</button>
-       <button class="quiz-btn" data-correct="false" onclick="checkAnswer(this)">④ 가속도는 질량에 관계없이 g = 9.8 m/s²이다.</button>
+       <button class="quiz-btn" data-correct="false">① 시간에 비례하여 속력이 증가한다.</button>
+       <button class="quiz-btn" data-correct="true">② 무거운 물체가 가벼운 물체보다 빠르게 낙하한다.</button>
+       <button class="quiz-btn" data-correct="false">③ 낙하 거리는 시간의 제곱에 비례한다.</button>
+       <button class="quiz-btn" data-correct="false">④ 가속도는 질량에 관계없이 g = 9.8 m/s²이다.</button>
       </div>
       <div class="quiz-feedback mt-4" style="display:none">
        <p class="text-green-700 font-bold">✅ 정답! ②</p>
@@ -448,16 +452,6 @@
   </main>
 
   <script>
-   function checkAnswer(btn) {
-    const container = btn.closest('.quiz-container');
-    if (container.querySelector('.quiz-btn.selected')) return;
-    btn.classList.add('selected');
-    const isCorrect = btn.dataset.correct === 'true';
-    btn.classList.add(isCorrect ? 'correct' : 'wrong');
-    container.querySelector('.quiz-feedback').style.display = 'block';
-    container.querySelectorAll('.quiz-btn').forEach(b => b.disabled = true);
-   }
-
    window.addEventListener('load', function() {
     const opts = { responsive: true, plugins: { legend: { display: false } } };
 
