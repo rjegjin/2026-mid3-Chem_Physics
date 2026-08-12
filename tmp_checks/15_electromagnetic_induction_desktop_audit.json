@@ -7,7 +7,7 @@
     "height": 720
   },
   "imageCount": 0,
-  "sectionCount": 21,
+  "sectionCount": 22,
   "brokenImages": [],
   "oversizedImages": [],
   "overflowing": [],
@@ -81,41 +81,46 @@
     {
       "id": "slide-14",
       "slideNum": "14",
-      "title": "교류가 되는 이유"
+      "title": "[읽기] 전자기파의 발생"
     },
     {
       "id": "slide-15",
       "slideNum": "15",
-      "title": "발전소의 에너지 전환"
+      "title": "교류가 되는 이유"
     },
     {
       "id": "slide-16",
       "slideNum": "16",
-      "title": "공통점과 예외"
+      "title": "발전소의 에너지 전환"
     },
     {
       "id": "slide-17",
       "slideNum": "17",
-      "title": "생활 속 전자기 유도"
+      "title": "공통점과 예외"
     },
     {
       "id": "slide-18",
       "slideNum": "18",
-      "title": "정리"
+      "title": "생활 속 전자기 유도"
     },
     {
       "id": "slide-19",
       "slideNum": "19",
-      "title": "형성평가 1"
+      "title": "정리"
     },
     {
       "id": "slide-20",
       "slideNum": "20",
-      "title": "형성평가 2"
+      "title": "형성평가 1"
     },
     {
       "id": "slide-21",
       "slideNum": "21",
+      "title": "형성평가 2"
+    },
+    {
+      "id": "slide-22",
+      "slideNum": "22",
       "title": "형성평가 3"
     }
   ]
