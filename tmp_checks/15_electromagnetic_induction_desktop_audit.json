@@ -1,0 +1,97 @@
+{
+  "ok": true,
+  "target": "/15_electromagnetic_induction.html",
+  "title": "15차시: 전기 에너지의 발생 — 전자기 유도와 발전기",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "imageCount": 0,
+  "sectionCount": 16,
+  "brokenImages": [],
+  "oversizedImages": [],
+  "overflowing": [],
+  "backgroundImages": [],
+  "sections": [
+    {
+      "id": "slide-1",
+      "slideNum": "1",
+      "title": "Cover"
+    },
+    {
+      "id": "slide-2",
+      "slideNum": "2",
+      "title": "흔들면 켜진다"
+    },
+    {
+      "id": "slide-3",
+      "slideNum": "3",
+      "title": "성취기준"
+    },
+    {
+      "id": "slide-4",
+      "slideNum": "4",
+      "title": "코일과 자석 실험"
+    },
+    {
+      "id": "slide-5",
+      "slideNum": "5",
+      "title": "실험 결과"
+    },
+    {
+      "id": "slide-6",
+      "slideNum": "6",
+      "title": "전자기 유도"
+    },
+    {
+      "id": "slide-7",
+      "slideNum": "7",
+      "title": "전류를 세게 하려면"
+    },
+    {
+      "id": "slide-8",
+      "slideNum": "8",
+      "title": "공짜 전기는 없다"
+    },
+    {
+      "id": "slide-9",
+      "slideNum": "9",
+      "title": "과학사 — 패러데이"
+    },
+    {
+      "id": "slide-10",
+      "slideNum": "10",
+      "title": "발전기의 원리"
+    },
+    {
+      "id": "slide-11",
+      "slideNum": "11",
+      "title": "발전소의 에너지 전환"
+    },
+    {
+      "id": "slide-12",
+      "slideNum": "12",
+      "title": "생활 속 전자기 유도"
+    },
+    {
+      "id": "slide-13",
+      "slideNum": "13",
+      "title": "정리"
+    },
+    {
+      "id": "slide-14",
+      "slideNum": "14",
+      "title": "형성평가 1"
+    },
+    {
+      "id": "slide-15",
+      "slideNum": "15",
+      "title": "형성평가 2"
+    },
+    {
+      "id": "slide-16",
+      "slideNum": "16",
+      "title": "형성평가 3"
+    }
+  ]
+}

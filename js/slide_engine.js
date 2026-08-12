@@ -66,7 +66,11 @@ window.SlideEngine = {
             const filename = window.location.pathname.split('/').pop();
             if (filename.startsWith('adv_inorganic')) {
                 homeLink = "index.html?tab=adv";
-            } else if (/^(7_|8_|9_|10_|11_|12_|13_|14_|15_|eval_A1)/.test(filename)) {
+            } else if (/^(13_|14_|15_|16_)/.test(filename) || filename === 'review_energy_conversion.html') {
+                homeLink = "index.html?tab=energy";
+            } else if (/^(18_|19_|20_|21_)/.test(filename)) {
+                homeLink = "index.html?tab=space";
+            } else if (/^(7_|8_|9_|10_|11_|12_|eval_A1)/.test(filename) || filename === 'review_motion_energy.html') {
                 homeLink = "index.html?tab=phys";
             }
 
