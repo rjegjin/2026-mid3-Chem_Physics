@@ -1,5 +1,5 @@
 {
-  "ok": true,
+  "ok": false,
   "target": "/15_electromagnetic_induction.html?view=all",
   "title": "15차시: 전기 에너지의 발생 — 전자기 유도와 발전기",
   "viewport": {
@@ -7,10 +7,17 @@
     "height": 720
   },
   "imageCount": 0,
-  "sectionCount": 16,
+  "sectionCount": 21,
   "brokenImages": [],
   "oversizedImages": [],
-  "overflowing": [],
+  "overflowing": [
+    {
+      "path": "g#magnet > text:nth-of-type(1)",
+      "scrollWidth": 15,
+      "clientWidth": 0,
+      "text": "N"
+    }
+  ],
   "backgroundImages": [],
   "sections": [
     {
@@ -56,41 +63,66 @@
     {
       "id": "slide-9",
       "slideNum": "9",
-      "title": "과학사 — 패러데이"
+      "title": "과학사 ① 외르스테드"
     },
     {
       "id": "slide-10",
       "slideNum": "10",
-      "title": "발전기의 원리"
+      "title": "과학사 ② 10년의 실패"
     },
     {
       "id": "slide-11",
       "slideNum": "11",
-      "title": "발전소의 에너지 전환"
+      "title": "과학사 ③ 1831년"
     },
     {
       "id": "slide-12",
       "slideNum": "12",
-      "title": "생활 속 전자기 유도"
+      "title": "과학사 ④ 무슨 쓸모"
     },
     {
       "id": "slide-13",
       "slideNum": "13",
-      "title": "정리"
+      "title": "발전기의 원리"
     },
     {
       "id": "slide-14",
       "slideNum": "14",
-      "title": "형성평가 1"
+      "title": "교류가 되는 이유"
     },
     {
       "id": "slide-15",
       "slideNum": "15",
-      "title": "형성평가 2"
+      "title": "발전소의 에너지 전환"
     },
     {
       "id": "slide-16",
       "slideNum": "16",
+      "title": "공통점과 예외"
+    },
+    {
+      "id": "slide-17",
+      "slideNum": "17",
+      "title": "생활 속 전자기 유도"
+    },
+    {
+      "id": "slide-18",
+      "slideNum": "18",
+      "title": "정리"
+    },
+    {
+      "id": "slide-19",
+      "slideNum": "19",
+      "title": "형성평가 1"
+    },
+    {
+      "id": "slide-20",
+      "slideNum": "20",
+      "title": "형성평가 2"
+    },
+    {
+      "id": "slide-21",
+      "slideNum": "21",
       "title": "형성평가 3"
     }
   ]

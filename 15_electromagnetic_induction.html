@@ -17,6 +17,45 @@
    .lab-table th, .lab-table td { border:1px solid #e2e8f0; padding:0.55rem 0.7rem; text-align:center; }
    .lab-table th { background:#ecfeff; color:#155e75; font-weight:700; }
    .flow-step { background:white; border:1px solid #e2e8f0; border-radius:1rem; padding:0.9rem 1rem; text-align:center; }
+   .readout { font-family:'Courier New', monospace; font-weight:700; color:#155e75; }
+
+   /* 과학사 — 빛바랜 양피지 */
+   .parchment {
+     background:
+       radial-gradient(circle at 18% 22%, rgba(146,104,58,0.16) 0 22%, transparent 55%),
+       radial-gradient(circle at 82% 78%, rgba(120,82,45,0.18) 0 20%, transparent 52%),
+       radial-gradient(circle at 62% 12%, rgba(160,120,70,0.12) 0 18%, transparent 48%),
+       linear-gradient(150deg, #f5e7c8 0%, #ecd9b0 45%, #e0c99a 100%);
+     border:1px solid #b08b52;
+     border-radius:0.4rem;
+     box-shadow: 0 10px 28px rgba(80,52,20,0.28), inset 0 0 60px rgba(120,84,40,0.22);
+     color:#3f2d17;
+     font-family: 'Nanum Myeongjo', Georgia, 'Times New Roman', serif;
+     padding:1.6rem 1.8rem;
+     position:relative;
+   }
+   .parchment::after {
+     content:""; position:absolute; inset:0; pointer-events:none; border-radius:0.4rem;
+     box-shadow: inset 0 0 24px rgba(90,60,25,0.35);
+   }
+   .parchment h3 { font-weight:800; color:#5a3d18; letter-spacing:0.02em; }
+   .parchment .yr {
+     display:inline-block; font-size:0.78rem; letter-spacing:0.18em;
+     color:#7a5626; border-bottom:1px solid #b08b52; padding-bottom:0.15rem; margin-bottom:0.5rem;
+   }
+   .parchment p { color:#4a3520; line-height:1.65; }
+   .parchment b { color:#7c2d12; }
+   .ink-quote {
+     font-family:'Nanum Myeongjo', Georgia, serif; font-style:italic;
+     color:#5a3d18; border-left:3px solid #a1662f; padding-left:1rem;
+   }
+   .wax-seal {
+     width:54px; height:54px; border-radius:50%;
+     background: radial-gradient(circle at 35% 30%, #b91c1c, #7f1d1d 70%);
+     box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+     display:flex; align-items:center; justify-content:center;
+     color:#fecaca; font-size:1.1rem; font-weight:800;
+   }
   </style>
  </head>
  <body class="presentation-mode">
@@ -70,49 +109,64 @@
      <h2>실험 — 자석을 코일에 넣었다 빼 보자</h2>
      <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-3">
       <div class="w-full md:w-3/5">
-       <svg viewBox="0 0 460 260" class="w-full" role="img"
-            aria-label="코일과 검류계 실험 장치. 막대자석을 코일 안으로 넣으면 검류계 바늘이 한쪽으로, 빼면 반대쪽으로 움직이고, 자석이 멈춰 있으면 바늘은 0을 가리킨다.">
-        <rect x="0" y="0" width="460" height="260" fill="#f8fafc" rx="16"></rect>
+       <svg id="lab-svg" viewBox="0 0 460 300" class="w-full" style="touch-action:none; cursor:grab" role="img"
+            aria-label="코일과 검류계 실험 장치. 막대자석을 마우스로 끌어 코일 안팎으로 움직일 수 있다. 자석이 코일에 가까워지거나 멀어지는 동안에만 검류계 바늘이 움직이고, 코일 한가운데에서 일정한 속도로 지나갈 때와 정지했을 때는 바늘이 0을 가리킨다.">
+        <rect x="0" y="0" width="460" height="300" fill="#f8fafc" rx="16"></rect>
         <!-- 코일 -->
         <g stroke="#b45309" stroke-width="6" fill="none">
-         <ellipse cx="215" cy="90" rx="16" ry="34"></ellipse>
-         <ellipse cx="243" cy="90" rx="16" ry="34"></ellipse>
-         <ellipse cx="271" cy="90" rx="16" ry="34"></ellipse>
-         <ellipse cx="299" cy="90" rx="16" ry="34"></ellipse>
+         <ellipse cx="215" cy="96" rx="16" ry="36"></ellipse>
+         <ellipse cx="243" cy="96" rx="16" ry="36"></ellipse>
+         <ellipse cx="271" cy="96" rx="16" ry="36"></ellipse>
+         <ellipse cx="299" cy="96" rx="16" ry="36"></ellipse>
         </g>
-        <text x="222" y="150" fill="#92400e" font-size="13" font-weight="bold">코일</text>
+        <text x="232" y="158" fill="#92400e" font-size="13" font-weight="bold">코일</text>
         <!-- 도선 -->
-        <path d="M 205 118 L 205 200 L 120 200" stroke="#475569" stroke-width="3" fill="none"></path>
-        <path d="M 309 118 L 309 200 L 210 200" stroke="#475569" stroke-width="3" fill="none"></path>
+        <path d="M 205 128 L 205 232 L 128 232" stroke="#475569" stroke-width="3" fill="none"></path>
+        <path d="M 309 128 L 309 232 L 214 232" stroke="#475569" stroke-width="3" fill="none"></path>
+        <!-- 전류 방향 표시 -->
+        <text id="cur-arrow" x="232" y="222" fill="#0891b2" font-size="15" font-weight="bold" opacity="0">→</text>
         <!-- 검류계 -->
-        <circle cx="100" cy="200" r="34" fill="white" stroke="#334155" stroke-width="3"></circle>
-        <line x1="70" y1="200" x2="130" y2="200" stroke="#cbd5e1" stroke-width="1.5"></line>
-        <text x="86" y="222" fill="#64748b" font-size="11" font-weight="bold">검류계</text>
-        <line id="needle" x1="100" y1="200" x2="100" y2="172" stroke="#dc2626" stroke-width="3"
-              style="transform-origin:100px 200px; transition:transform .25s ease-out"></line>
-        <!-- 자석 -->
-        <g id="magnet" style="transition:transform .5s ease-in-out">
-         <rect x="80" y="74" width="46" height="32" fill="#ef4444" rx="4"></rect>
-         <rect x="126" y="74" width="46" height="32" fill="#3b82f6" rx="4"></rect>
-         <text x="97" y="96" fill="white" font-size="16" font-weight="bold">N</text>
-         <text x="143" y="96" fill="white" font-size="16" font-weight="bold">S</text>
+        <circle cx="104" cy="232" r="36" fill="white" stroke="#334155" stroke-width="3"></circle>
+        <path d="M 74 232 A 30 30 0 0 1 134 232" fill="none" stroke="#e2e8f0" stroke-width="2"></path>
+        <text x="70" y="248" fill="#94a3b8" font-size="9">−</text>
+        <text x="132" y="248" fill="#94a3b8" font-size="9">+</text>
+        <text x="86" y="284" fill="#64748b" font-size="11" font-weight="bold">검류계</text>
+        <line id="needle" x1="104" y1="232" x2="104" y2="200" stroke="#dc2626" stroke-width="3"
+              style="transform-origin:104px 232px"></line>
+        <circle cx="104" cy="232" r="4" fill="#334155"></circle>
+        <!-- 자기력선 힌트 -->
+        <g id="field" opacity="0.35">
+         <ellipse cx="0" cy="96" rx="70" ry="30" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 4"></ellipse>
+        </g>
+        <!-- 자석 (드래그 가능) -->
+        <g id="magnet" style="cursor:grab">
+         <rect x="-46" y="78" width="46" height="36" fill="#ef4444" rx="4"></rect>
+         <rect x="0" y="78" width="46" height="36" fill="#3b82f6" rx="4"></rect>
+         <text x="-31" y="102" fill="white" font-size="17" font-weight="bold">N</text>
+         <text x="16" y="102" fill="white" font-size="17" font-weight="bold">S</text>
         </g>
        </svg>
        <div class="flex flex-wrap justify-center gap-2 mt-3">
-        <button class="quiz-btn" data-act="in" style="max-width:150px">넣기</button>
-        <button class="quiz-btn" data-act="stop" style="max-width:150px">안에서 멈춤</button>
-        <button class="quiz-btn" data-act="out" style="max-width:150px">빼기</button>
-        <button class="quiz-btn" data-act="fast" style="max-width:170px">빠르게 넣기</button>
+        <button class="quiz-btn" data-act="slow" style="max-width:150px">천천히 통과</button>
+        <button class="quiz-btn" data-act="fast" style="max-width:150px">빠르게 통과</button>
+        <button class="quiz-btn" data-act="flip" style="max-width:150px">극 뒤집기</button>
+        <button class="quiz-btn" data-act="reset" style="max-width:120px">처음으로</button>
        </div>
+       <p class="slide-caption mt-1">자석을 마우스로 직접 끌어 볼 수도 있다</p>
       </div>
       <div class="w-full md:w-2/5 space-y-3">
-       <div class="outline-card" id="obs-box">
-        <p class="font-bold text-slate-800">관찰</p>
-        <p class="text-slate-600 mt-1" id="obs-text">버튼을 눌러 자석을 움직여 보자.</p>
+       <div class="outline-card">
+        <p class="font-bold text-slate-800">계기판</p>
+        <p class="text-slate-600 mt-1">자석의 속도 <span class="readout" id="v-out">0.0</span> cm/s<br/>
+           유도 전류 <span class="readout" id="i-out">0.0</span> mA <span id="dir-out" class="text-slate-500"></span></p>
        </div>
        <div class="outline-card">
-        <p class="font-bold text-slate-800">기록할 것</p>
-        <p class="text-slate-600 mt-1">① 바늘이 움직이는가<br/>② 어느 쪽으로 움직이는가<br/>③ 얼마나 크게 움직이는가</p>
+        <p class="font-bold text-slate-800">관찰</p>
+        <p class="text-slate-600 mt-1" id="obs-text">자석을 끌거나 버튼을 눌러 움직여 보자.</p>
+       </div>
+       <div class="outline-card">
+        <p class="font-bold text-slate-800">놓치기 쉬운 것</p>
+        <p class="text-slate-600 mt-1">코일 <b>한가운데</b>를 지나는 순간에는 자기장의 변화가 가장 작아 전류가 오히려 줄어든다. 들어갈 때와 나올 때 전류의 <b>방향이 반대</b>인 것도 확인해 보자.</p>
        </div>
       </div>
      </div>
@@ -207,85 +261,138 @@
     </div>
    </section>
 
-   <!-- Slide 9: 과학사 -->
-   <section data-slide-index="8" data-slide-num="9" data-title="과학사 — 패러데이" id="slide-9">
+   <!-- 과학사 1 -->
+   <section data-slide-index="8" data-slide-num="9" data-title="과학사 ① 외르스테드" id="slide-9">
     <div class="slide-content">
-     <h2>과학사 — 10년을 붙들고 있던 질문</h2>
-     <div class="max-w-5xl w-full mt-4 space-y-4">
-      <div class="outline-card">
-       <p class="font-bold text-slate-800">1820년, 뜻밖의 발견에서 시작한다</p>
-       <p class="text-slate-600 mt-1">덴마크의 외르스테드가 강의 중 전선 옆의 나침반 바늘이 흔들리는 것을 보았다. <b>전기가 자기를 만든다</b>는 최초의 증거였다.</p>
+     <h2>과학사 ① — 우연히 흔들린 나침반</h2>
+     <div class="max-w-3xl w-full mt-5 parchment">
+      <div class="flex items-start gap-4">
+       <div class="wax-seal">⚡</div>
+       <div>
+        <span class="yr">A.D. 1820 &middot; 코펜하겐</span>
+        <h3 class="text-2xl">전기가 자기를 만든다</h3>
+        <p class="mt-2">덴마크의 <b>외르스테드</b>가 강의 도중, 전류를 흘린 전선 옆의 나침반 바늘이 슬쩍 돌아가는 것을 보았다. 아무도 예상하지 못한 장면이었다.</p>
+       </div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-       <div class="outline-card"><p class="font-bold text-slate-800">패러데이의 메모</p><p class="text-slate-600 mt-1">"전기가 자기를 만든다면, <b>자기도 전기를 만들 수 있지 않을까?</b>" 그는 이 문장을 수첩에 적고 10년을 실패했다.</p></div>
-       <div class="outline-card"><p class="font-bold text-slate-800">1831년 8월 29일</p><p class="text-slate-600 mt-1">쇠고리 양쪽에 코일을 감고 전원을 연결했다. 바늘은 스위치를 <b>넣는 순간과 끊는 순간에만</b> 튀었다. 답은 '변화'였다.</p></div>
-       <div class="outline-card"><p class="font-bold text-slate-800">제본공 견습생</p><p class="text-slate-600 mt-1">가난해 정규 교육을 못 받고 책 제본 일을 하던 소년이, 제본하던 책을 읽으며 과학자가 되었다. 수식 대신 <b>실험과 그림</b>으로 사고했다.</p></div>
+     </div>
+     <p class="slide-caption mt-4">이 우연한 관찰이 오늘 배우는 모든 것의 출발점이 된다.</p>
+    </div>
+   </section>
+
+   <!-- 과학사 2 -->
+   <section data-slide-index="9" data-slide-num="10" data-title="과학사 ② 10년의 실패" id="slide-10">
+    <div class="slide-content">
+     <h2>과학사 ② — 수첩에 적어 둔 한 줄</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-5xl w-full mt-5">
+      <div class="parchment">
+       <span class="yr">1821 &middot; 런던</span>
+       <p class="mt-2 text-lg">"전기가 자기를 만든다면,<br/><b>자기도 전기를 만들 수 있지 않을까?</b>"</p>
+       <p class="mt-3">패러데이는 이 한 줄을 적어 두고 <b>10년</b>을 실패했다.</p>
       </div>
-      <div class="outline-card">
-       <p class="font-bold text-slate-800">"이게 무슨 쓸모가 있습니까?"</p>
-       <p class="text-slate-600 mt-1">이 발견을 본 사람들의 반응이었다고 전해진다. 190여 년 뒤, 인류가 쓰는 전기의 <b>거의 전부</b>가 이 원리로 만들어진다. 화력·수력·풍력·원자력 발전이 모두 코일과 자석의 상대 운동이다.</p>
+      <div class="parchment">
+       <span class="yr">그 전에 &middot; 제본소</span>
+       <p class="mt-2">가난해 학교를 못 다니고 책을 꿰매던 소년이었다. 제본하던 책을 읽다 과학에 빠졌고, 수식이 서툴러 평생 <b>실험과 그림</b>으로 생각했다.</p>
       </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- 과학사 3 -->
+   <section data-slide-index="10" data-slide-num="11" data-title="과학사 ③ 1831년" id="slide-11">
+    <div class="slide-content">
+     <h2>과학사 ③ — 1831년 8월 29일</h2>
+     <div class="max-w-3xl w-full mt-5 parchment">
+      <span class="yr">1831. 8. 29 &middot; 왕립연구소</span>
+      <p class="mt-2">쇠고리 양쪽에 코일을 감고 한쪽에 전원을 이었다. 바늘은 스위치를 <b>넣는 순간</b>과 <b>끊는 순간</b>에만 튀었다.</p>
+      <p class="mt-3 text-lg"><b>답은 자석이 아니라 '변화'였다.</b></p>
+     </div>
+     <p class="slide-caption mt-4">오늘 우리가 실험에서 본 것과 정확히 같은 결론이다.</p>
+    </div>
+   </section>
+
+   <!-- 과학사 4 -->
+   <section data-slide-index="11" data-slide-num="12" data-title="과학사 ④ 무슨 쓸모" id="slide-12">
+    <div class="slide-content">
+     <h2>과학사 ④ — "그게 무슨 쓸모가 있습니까?"</h2>
+     <div class="max-w-3xl w-full mt-5 parchment">
+      <p class="ink-quote text-lg">"그런데 그게 대체 무슨 쓸모가 있습니까?"</p>
+      <p class="mt-3 text-sm">— 이 발견을 본 사람들의 반응이었다고 전해진다.</p>
+      <p class="mt-5">190여 년이 지난 지금, 인류가 쓰는 전기의 <b>거의 전부</b>가 그 대답이다.</p>
      </div>
     </div>
    </section>
 
    <!-- Slide 10: 발전기의 원리 -->
-   <section data-slide-index="9" data-slide-num="10" data-title="발전기의 원리" id="slide-10">
+   <section data-slide-index="12" data-slide-num="13" data-title="발전기의 원리" id="slide-13">
     <div class="slide-content">
-     <h2>발전기 — 코일을 계속 돌린다</h2>
-     <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-4">
+     <h2>발전기 — 코일이 돌면 사인파가 나온다</h2>
+     <div class="flex flex-col md:flex-row gap-5 items-center max-w-5xl w-full mt-3">
       <div class="w-full md:w-1/2">
-       <svg viewBox="0 0 320 240" class="w-full" role="img"
-            aria-label="발전기 구조 그림. 왼쪽 N극과 오른쪽 S극 자석 사이에서 사각형 코일이 회전하고, 회전축이 돌아가며 도선에 전류가 흐른다.">
-        <rect x="0" y="0" width="320" height="240" fill="#f8fafc" rx="16"></rect>
-        <rect x="18" y="60" width="46" height="120" fill="#ef4444" rx="6"></rect>
-        <text x="33" y="128" fill="white" font-size="20" font-weight="bold">N</text>
-        <rect x="256" y="60" width="46" height="120" fill="#3b82f6" rx="6"></rect>
-        <text x="271" y="128" fill="white" font-size="20" font-weight="bold">S</text>
-        <g id="gen-coil" style="transform-origin:160px 120px">
-         <rect x="112" y="80" width="96" height="80" fill="none" stroke="#b45309" stroke-width="6" rx="6"></rect>
+       <svg viewBox="0 0 320 210" class="w-full" role="img"
+            aria-label="발전기 구조 그림. 왼쪽 N극과 오른쪽 S극 자석 사이에서 사각형 코일이 회전축을 중심으로 회전한다.">
+        <rect x="0" y="0" width="320" height="210" fill="#f8fafc" rx="16"></rect>
+        <rect x="18" y="45" width="42" height="110" fill="#ef4444" rx="6"></rect>
+        <text x="31" y="107" fill="white" font-size="19" font-weight="bold">N</text>
+        <rect x="260" y="45" width="42" height="110" fill="#3b82f6" rx="6"></rect>
+        <text x="273" y="107" fill="white" font-size="19" font-weight="bold">S</text>
+        <g id="gen-coil" style="transform-origin:160px 100px">
+         <rect x="112" y="62" width="96" height="76" fill="none" stroke="#b45309" stroke-width="6" rx="6"></rect>
         </g>
-        <line x1="160" y1="160" x2="160" y2="205" stroke="#475569" stroke-width="4"></line>
-        <text x="120" y="226" fill="#64748b" font-size="12" font-weight="bold">회전축 (터빈이 돌린다)</text>
+        <line x1="160" y1="138" x2="160" y2="180" stroke="#475569" stroke-width="4"></line>
+        <text x="112" y="198" fill="#64748b" font-size="12" font-weight="bold">회전축 (터빈이 돌린다)</text>
        </svg>
-       <div class="text-center mt-3">
-        <button id="btn-gen" class="quiz-btn" style="max-width:220px">코일 회전 시작 / 정지</button>
+       <div class="flex justify-center gap-2 mt-2">
+        <button id="btn-gen" class="quiz-btn" style="max-width:150px">회전 시작/정지</button>
+        <button id="btn-gen-fast" class="quiz-btn" style="max-width:150px">빠르게 돌리기</button>
        </div>
       </div>
-      <div class="w-full md:w-1/2 space-y-3">
-       <div class="outline-card"><p class="font-bold text-slate-800">구조</p><p class="text-slate-600 mt-1">자석 + 그 사이에서 도는 코일 + 회전축</p></div>
-       <div class="outline-card"><p class="font-bold text-slate-800">왜 계속 흐르나</p><p class="text-slate-600 mt-1">코일이 도는 동안 자기장의 변화가 <b>끊이지 않기</b> 때문. 멈추면 전류도 멈춘다.</p></div>
-       <div class="outline-card"><p class="font-bold text-slate-800">방향이 바뀐다</p><p class="text-slate-600 mt-1">반 바퀴마다 코일이 자석을 향하는 면이 뒤집혀 전류 방향이 주기적으로 바뀐다 → <b>교류</b></p></div>
+      <div class="w-full md:w-1/2">
+       <canvas id="gen-wave" class="w-full" style="width:100%; height:200px" role="img"
+               aria-label="코일 회전에 따른 전압과 전류의 시간 그래프. 코일이 한 바퀴 돌 때마다 전압과 전류가 사인파 모양으로 커졌다 작아졌다 하며 방향이 주기적으로 바뀐다."></canvas>
+       <p class="slide-caption mt-1">코일이 자석과 나란할 때 0, 수직일 때 최대 — 한 바퀴에 방향이 두 번 바뀐다</p>
       </div>
      </div>
     </div>
    </section>
 
-   <!-- Slide 11: 발전소 -->
-   <section data-slide-index="10" data-slide-num="11" data-title="발전소의 에너지 전환" id="slide-11">
+   <!-- 발전기 해설 -->
+   <section data-slide-index="13" data-slide-num="14" data-title="교류가 되는 이유" id="slide-14">
+    <div class="slide-content">
+     <h2>왜 전류의 방향이 계속 바뀔까</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-6">
+      <div class="outline-card"><p class="font-bold text-slate-800">구조</p><p class="text-slate-600 mt-1">자석 + 그 사이에서 도는 코일 + 회전축</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">계속 흐르는 이유</p><p class="text-slate-600 mt-1">코일이 도는 동안 자기장의 변화가 <b>끊이지 않는다</b>. 멈추면 전류도 멈춘다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">교류</p><p class="text-slate-600 mt-1">반 바퀴마다 코일 면이 뒤집혀 전류 방향이 주기적으로 바뀐다.</p></div>
+     </div>
+    </div>
+   </section>
+
+   <!-- 발전소 4종 -->
+   <section data-slide-index="14" data-slide-num="15" data-title="발전소의 에너지 전환" id="slide-15">
     <div class="slide-content">
      <h2>발전소 — 터빈을 무엇으로 돌리느냐의 차이</h2>
-     <div class="max-w-5xl w-full mt-4 space-y-3">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-       <div class="outline-card"><p class="font-bold text-blue-700">수력</p><p class="text-slate-600 mt-1">높은 곳의 물<br/>위치 → 운동 → 전기</p></div>
-       <div class="outline-card"><p class="font-bold text-orange-600">화력</p><p class="text-slate-600 mt-1">연료를 태워 수증기<br/>화학 → 열 → 운동 → 전기</p></div>
-       <div class="outline-card"><p class="font-bold text-emerald-600">풍력</p><p class="text-slate-600 mt-1">바람<br/>운동 → 전기</p></div>
-       <div class="outline-card"><p class="font-bold text-purple-700">원자력</p><p class="text-slate-600 mt-1">핵분열 열로 수증기<br/>핵 → 열 → 운동 → 전기</p></div>
-      </div>
-      <div class="outline-card">
-       <p class="font-bold text-slate-800">공통점 찾기</p>
-       <p class="text-slate-600 mt-1">앞부분은 제각각이지만 마지막 두 칸은 모두 같다 — <b>터빈(코일)을 돌려서 전기</b>. 발전소는 결국 '거대한 흔들이 손전등'이다.</p>
-      </div>
-      <div class="outline-card">
-       <p class="font-bold text-slate-800">예외도 있다</p>
-       <p class="text-slate-600 mt-1"><b>태양광 발전</b>은 터빈이 없다. 빛이 직접 전기를 만드는 방식이라 전자기 유도를 쓰지 않는다.</p>
-      </div>
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl w-full mt-6">
+      <div class="outline-card"><p class="font-bold text-blue-700">수력</p><p class="text-slate-600 mt-1">높은 곳의 물<br/>위치 → 운동 → 전기</p></div>
+      <div class="outline-card"><p class="font-bold text-orange-600">화력</p><p class="text-slate-600 mt-1">연료를 태워 수증기<br/>화학 → 열 → 운동 → 전기</p></div>
+      <div class="outline-card"><p class="font-bold text-emerald-600">풍력</p><p class="text-slate-600 mt-1">바람<br/>운동 → 전기</p></div>
+      <div class="outline-card"><p class="font-bold text-purple-700">원자력</p><p class="text-slate-600 mt-1">핵분열 열로 수증기<br/>핵 → 열 → 운동 → 전기</p></div>
+     </div>
+    </div>
+   </section>
+
+   <!-- 발전소 공통점 -->
+   <section data-slide-index="15" data-slide-num="16" data-title="공통점과 예외" id="slide-16">
+    <div class="slide-content">
+     <h2>공통점 하나, 예외 하나</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-6">
+      <div class="outline-card"><p class="font-bold text-slate-800">모두 같은 마지막 단계</p><p class="text-slate-600 mt-1">앞부분은 제각각이지만 끝은 하나다 — <b>터빈(코일)을 돌려 전기</b>. 발전소는 결국 거대한 흔들이 손전등이다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">예외: 태양광</p><p class="text-slate-600 mt-1">터빈이 없다. 빛이 직접 전기를 만들어 전자기 유도를 쓰지 않는다.</p></div>
      </div>
     </div>
    </section>
 
    <!-- Slide 12: 생활 속 전자기 유도 -->
-   <section data-slide-index="11" data-slide-num="12" data-title="생활 속 전자기 유도" id="slide-12">
+   <section data-slide-index="16" data-slide-num="17" data-title="생활 속 전자기 유도" id="slide-17">
     <div class="slide-content">
      <h2>주변에서 찾는 전자기 유도</h2>
      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl w-full mt-6">
@@ -300,7 +407,7 @@
    </section>
 
    <!-- Slide 13: 정리 -->
-   <section data-slide-index="12" data-slide-num="13" data-title="정리" id="slide-13">
+   <section data-slide-index="17" data-slide-num="18" data-title="정리" id="slide-18">
     <div class="slide-content">
      <h2>오늘의 정리</h2>
      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-6">
@@ -313,7 +420,7 @@
    </section>
 
    <!-- Slide 14: 형성평가 1 -->
-   <section data-slide-index="13" data-slide-num="14" data-title="형성평가 1" id="slide-14">
+   <section data-slide-index="18" data-slide-num="19" data-title="형성평가 1" id="slide-19">
     <div class="slide-content">
      <h2 class="text-slate-800">형성평가 1 — 전류가 흐르는 경우</h2>
      <div class="quiz-container max-w-3xl mt-8 w-full">
@@ -335,7 +442,7 @@
    </section>
 
    <!-- Slide 15: 형성평가 2 -->
-   <section data-slide-index="14" data-slide-num="15" data-title="형성평가 2" id="slide-15">
+   <section data-slide-index="19" data-slide-num="20" data-title="형성평가 2" id="slide-20">
     <div class="slide-content">
      <h2 class="text-slate-800">형성평가 2 — 전류를 세게 하려면</h2>
      <div class="quiz-container max-w-3xl mt-8 w-full">
@@ -357,7 +464,7 @@
    </section>
 
    <!-- Slide 16: 형성평가 3 -->
-   <section data-slide-index="15" data-slide-num="16" data-title="형성평가 3" id="slide-16">
+   <section data-slide-index="20" data-slide-num="21" data-title="형성평가 3" id="slide-21">
     <div class="slide-content">
      <h2 class="text-slate-800">형성평가 3 — 발전소의 에너지 전환</h2>
      <div class="quiz-container max-w-3xl mt-8 w-full">
@@ -382,48 +489,166 @@
 
   <script>
    document.addEventListener('DOMContentLoaded', function () {
-    // 실험 시뮬레이션 — 자석 위치와 검류계 바늘
-    var magnet = document.getElementById('magnet');
-    var needle = document.getElementById('needle');
-    var obs = document.getElementById('obs-text');
-    var STATE = {
-     in:   { x: 130, angle:  38, text: '넣는 동안 바늘이 오른쪽으로 움직인다 → 유도 전류가 흐른다.' },
-     stop: { x: 130, angle:   0, text: '코일 안에 멈춰 있으면 바늘은 0. 자기장이 변하지 않으므로 전류가 없다.' },
-     out:  { x: 0,   angle: -38, text: '빼는 동안 바늘이 왼쪽으로 움직인다 → 전류의 방향이 반대가 된다.' },
-     fast: { x: 130, angle:  70, text: '빠르게 넣으면 바늘이 더 크게 움직인다 → 유도 전류가 세진다.' }
-    };
-    document.querySelectorAll('[data-act]').forEach(function (b) {
-     b.addEventListener('click', function () {
-      var s = STATE[b.dataset.act];
-      // 뺄 때는 일단 안쪽에서 출발해야 움직임이 보인다
-      if (b.dataset.act === 'out') magnet.style.transform = 'translateX(130px)';
-      setTimeout(function () {
-       magnet.style.transform = 'translateX(' + s.x + 'px)';
-       needle.style.transform = 'rotate(' + s.angle + 'deg)';
-       obs.textContent = s.text;
-       if (s.angle !== 0) setTimeout(function () { needle.style.transform = 'rotate(0deg)'; }, 700);
-      }, b.dataset.act === 'out' ? 60 : 0);
-     });
-    });
 
-    // 발전기 회전
-    var coil = document.getElementById('gen-coil');
-    var spinning = false, angle = 0, timer = null;
-    var gbtn = document.getElementById('btn-gen');
-    if (gbtn) gbtn.addEventListener('click', function () {
-     spinning = !spinning;
-     if (spinning) {
-      timer = setInterval(function () {
-       angle = (angle + 6) % 360;
-       coil.style.transform = 'rotate(' + angle + 'deg)';
-      }, 30);
-     } else {
-      clearInterval(timer);
+    /* ── 실험 시뮬레이션 ──────────────────────────────
+       자석의 위치 x에 따라 코일을 지나는 자기장 Φ(x)를 종 모양으로 두고,
+       유도 기전력을 e = -dΦ/dt = -(dΦ/dx)·v 로 매 프레임 계산한다.
+       그래서 (1) 정지하면 0 (2) 코일 정중앙을 지날 때 0에 가까움
+       (3) 들어갈 때와 나올 때 부호가 반대 — 실제 현상 그대로 나온다. */
+    var svg = document.getElementById('lab-svg');
+    if (svg) {
+     var magnet = document.getElementById('magnet');
+     var needle = document.getElementById('needle');
+     var arrow  = document.getElementById('cur-arrow');
+     var field  = document.getElementById('field');
+     var obs    = document.getElementById('obs-text');
+     var vOut   = document.getElementById('v-out');
+     var iOut   = document.getElementById('i-out');
+     var dirOut = document.getElementById('dir-out');
+
+     var COIL_X = 257;      // 코일 중심 (SVG 좌표)
+     var WIDTH  = 62;       // 자기장이 퍼진 폭
+     var x = 40;            // 자석 중심의 현재 위치
+     var prevX = x, v = 0, emf = 0, emfShown = 0;
+     var polarity = 1;      // 극 방향 (N이 앞 = 1)
+     var drag = false, anim = null;
+
+     function flux(px) { var u = (px - COIL_X) / WIDTH; return Math.exp(-u * u); }
+     function dFluxdx(px) { var u = (px - COIL_X) / WIDTH; return -2 * u / WIDTH * Math.exp(-u * u); }
+
+     function draw() {
+      magnet.setAttribute('transform', 'translate(' + x + ',0)' + (polarity < 0 ? ' scale(-1,1) translate(' + (-2 * x) + ',0)' : ''));
+      field.setAttribute('transform', 'translate(' + x + ',0)');
+      needle.style.transform = 'rotate(' + Math.max(-78, Math.min(78, emfShown * 0.9)) + 'deg)';
+      var mag = Math.abs(emfShown);
+      arrow.setAttribute('opacity', mag > 3 ? Math.min(1, mag / 40) : 0);
+      arrow.textContent = emfShown > 0 ? '→' : '←';
+      vOut.textContent = (Math.abs(v) * 0.1).toFixed(1);
+      iOut.textContent = mag.toFixed(1);
+      dirOut.textContent = mag < 3 ? '' : (emfShown > 0 ? '(오른쪽)' : '(왼쪽)');
      }
-    });
 
-    var emf = document.getElementById('chart-emf');
-    if (emf) new Chart(emf.getContext('2d'), {
+     function narrate() {
+      var d = x - COIL_X, mag = Math.abs(emfShown);
+      if (mag < 3) {
+       obs.textContent = Math.abs(v) < 0.3
+         ? '자석이 멈춰 있다 → 자기장이 변하지 않으므로 전류는 0이다.'
+         : '지금은 자기장의 변화가 거의 없는 구간이다 → 움직여도 전류가 작다.';
+      } else if (d < 0) {
+       obs.textContent = '코일에 가까워지는 중 → 자기장이 세지며 한쪽 방향으로 전류가 흐른다.';
+      } else {
+       obs.textContent = '코일에서 멀어지는 중 → 자기장이 약해지며 전류가 반대 방향으로 흐른다.';
+      }
+     }
+
+     var last = 0;
+     function loop(ts) {
+      var dt = Math.min(0.05, (ts - last) / 1000 || 0.016); last = ts;
+      v = (x - prevX) / dt; prevX = x;
+      emf = -dFluxdx(x) * v * polarity * 2.2;
+      emfShown += (emf - emfShown) * 0.35;      // 바늘의 관성
+      if (!drag && !anim) v *= 0.0;
+      draw(); narrate();
+      requestAnimationFrame(loop);
+     }
+     requestAnimationFrame(loop);
+
+     // 드래그
+     function toLocal(evt) {
+      var r = svg.getBoundingClientRect();
+      return (evt.clientX - r.left) / r.width * 460;
+     }
+     svg.addEventListener('pointerdown', function (e) { drag = true; anim = null; svg.setPointerCapture(e.pointerId); x = toLocal(e); });
+     svg.addEventListener('pointermove', function (e) { if (drag) x = Math.max(-20, Math.min(440, toLocal(e))); });
+     svg.addEventListener('pointerup',   function () { drag = false; });
+     svg.addEventListener('pointercancel', function () { drag = false; });
+
+     // 버튼 — 자동 통과
+     function sweep(duration) {
+      var from = 40, to = 440, t0 = null;
+      anim = true;
+      function step(ts) {
+       if (!anim) return;
+       if (t0 === null) t0 = ts;
+       var k = Math.min(1, (ts - t0) / duration);
+       x = from + (to - from) * k;
+       if (k < 1) requestAnimationFrame(step); else anim = null;
+      }
+      requestAnimationFrame(step);
+     }
+     document.querySelectorAll('[data-act]').forEach(function (b) {
+      b.addEventListener('click', function () {
+       var a = b.dataset.act;
+       if (a === 'slow') { x = 40; sweep(3200); }
+       else if (a === 'fast') { x = 40; sweep(1100); }
+       else if (a === 'flip') { polarity *= -1; obs.textContent = '자석의 극을 뒤집었다 → 같은 방향으로 움직여도 전류의 방향이 반대가 된다.'; }
+       else { anim = null; x = 40; emfShown = 0; }
+      });
+     });
+    }
+
+    /* ── 발전기: 코일 회전각 θ가 그대로 그래프의 위상이 된다 ── */
+    var coil = document.getElementById('gen-coil');
+    var wave = document.getElementById('gen-wave');
+    if (coil && wave) {
+     var ctx = wave.getContext('2d');
+     var theta = 0, speed = 2.2, spinning = false, hist = [];
+     for (var i = 0; i < 240; i++) hist.push(0);   // 정지 상태 = 0 V, 평평한 선
+     function resize() { wave.width = wave.clientWidth * 2; wave.height = 400; ctx.scale(1, 1); }
+     resize(); window.addEventListener('resize', resize);
+
+     function plot() {
+      var W = wave.width, H = wave.height, mid = H / 2;
+      ctx.clearRect(0, 0, W, H);
+      // 축
+      ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(0, mid); ctx.lineTo(W, mid); ctx.stroke();
+      ctx.fillStyle = '#64748b'; ctx.font = '22px sans-serif';
+      ctx.fillText('시간 →', W - 110, mid - 12);
+      // 곡선
+      [['#2563eb', 1.0, 3], ['#dc2626', 0.62, 3]].forEach(function (s, si) {
+       ctx.strokeStyle = s[0]; ctx.lineWidth = 5; ctx.beginPath();
+       hist.forEach(function (th, i) {
+        var px = W - (hist.length - i) * (W / 240);
+        var py = mid - Math.sin(th) * (mid - 30) * s[1];
+        i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
+       });
+       ctx.stroke();
+       ctx.fillStyle = s[0]; ctx.font = 'bold 24px sans-serif';
+       ctx.fillText(si === 0 ? '전압' : '전류', 12, 34 + si * 34);
+      });
+      // 현재 지점
+      if (hist.length) {
+       var last = hist[hist.length - 1];
+       ctx.fillStyle = '#2563eb';
+       ctx.beginPath(); ctx.arc(W - 4, mid - Math.sin(last) * (mid - 30), 8, 0, 6.3); ctx.fill();
+      }
+     }
+
+     function tick() {
+      if (spinning) {
+       theta += speed * 0.04;
+       coil.style.transform = 'rotate(' + (theta * 180 / Math.PI) + 'deg)';
+       hist.push(theta);
+       if (hist.length > 240) hist.shift();
+       plot();
+      }
+      requestAnimationFrame(tick);
+     }
+     requestAnimationFrame(tick);
+     plot();
+
+     document.getElementById('btn-gen').addEventListener('click', function () { spinning = !spinning; });
+     document.getElementById('btn-gen-fast').addEventListener('click', function () {
+      speed = speed > 3 ? 2.2 : 5.0;
+      this.textContent = speed > 3 ? '천천히 돌리기' : '빠르게 돌리기';
+      if (!spinning) spinning = true;
+     });
+    }
+
+    /* ── 유도 전류 세기 비교 ── */
+    var emfChart = document.getElementById('chart-emf');
+    if (emfChart) new Chart(emfChart.getContext('2d'), {
      type: 'bar',
      data: {
       labels: ['정지', '기준', '2배 빠르게', '센 자석', '코일 2배'],
@@ -437,6 +662,7 @@
      }
     });
    });
+  </script>
   </script>
   <script src="js/slide_engine.js"></script>
  </body>
