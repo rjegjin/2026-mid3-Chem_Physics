@@ -66,7 +66,7 @@ window.SlideEngine = {
             const filename = window.location.pathname.split('/').pop();
             if (filename.startsWith('adv_inorganic')) {
                 homeLink = "index.html?tab=adv";
-            } else if (/^(13_|14_|15_|16_)/.test(filename) || filename === 'review_energy_conversion.html') {
+            } else if (/^(13_|14_|15_|16_)/.test(filename) || filename === 'review_energy_conversion.html' || filename === '15_appendix.html') {
                 homeLink = "index.html?tab=energy";
             } else if (/^(18_|19_|20_|21_)/.test(filename)) {
                 homeLink = "index.html?tab=space";

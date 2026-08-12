@@ -79,7 +79,7 @@ body.presentation-mode section.active-slide {
 }
 
 body.presentation-mode h2 {
-    font-size: clamp(1.6rem, 2.2vw, 2.2rem) !important;
+    font-size: clamp(2.4rem, 3.2vw, 2.9rem) !important;   /* 교실 투사 기준: 38~46px */
     font-family: var(--font-heading);
     font-weight: 700;
     margin-bottom: 1rem !important;
@@ -94,7 +94,7 @@ body.presentation-mode h2 {
 
 body.presentation-mode p,
 body.presentation-mode li {
-    font-size: clamp(0.9rem, 1.4vw, 1.5rem);
+    font-size: clamp(1.6rem, 2.0vw, 2.0rem);   /* 교실 투사 기준: 26~32px */
     font-weight: 500;
     line-height: 1.6;
     color: #1e293b;
@@ -491,7 +491,7 @@ body.view-all-mode .progress-bar-container {
 
 /* Muted caption */
 .slide-caption {
-    font-size: 0.8rem !important;
+    font-size: 1.15rem !important;   /* 보조 문구도 뒷자리에서 읽히게 */
     color: #64748b; /* WCAG AA: 흰 배경 대비 4.8:1 (기존 #94a3b8은 2.6:1로 미달) */
     line-height: 1.4 !important;
     margin-bottom: 0 !important;

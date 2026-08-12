@@ -38,6 +38,7 @@
 14. **[14차시: 에너지 보존](14_energy_conservation.html)** - 일상생활 속 에너지 전환과 보존
 15. **[15차시: 전기 에너지의 발생](15_electromagnetic_induction.html)** - 전자기 유도와 발전기
 16. **[16차시: 전기 에너지의 전환과 이용](16_electric_power.html)** - 소비 전력과 전력량
+- **[15차시 부록](15_appendix.html)** - 과학사 연표·전자기파·위상차 (심화)
 - **[단원 총정리: 에너지 전환과 보존](review_energy_conversion.html)** - 대단원 6 핵심 개념 총정리
 
 ### 대단원 7. 별과 우주

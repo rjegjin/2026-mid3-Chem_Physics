@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>15차시 부록 — 과학사 · 전자기파 · 위상차</title>
+  <link href="css/tailwind.build.css" rel="stylesheet"/>
+  <link href="css/common.css" rel="stylesheet"/>
+  <link href="css/presentation_mode.css" rel="stylesheet"/>
+  <link href="css/chem_style.css" rel="stylesheet"/>
+  <style>
+   .outline-card { background:white; border:1px solid #e2e8f0; border-radius:1.25rem; padding:1.4rem; box-shadow:0 4px 14px rgba(0,0,0,0.05); }
+   .credit { font-size:1rem !important; color:#94a3b8 !important; line-height:1.3 !important; margin-top:0.3rem !important; }
+   .photo { border-radius:1rem; box-shadow:0 8px 22px rgba(0,0,0,0.14); width:100%; object-fit:contain; background:white; }
+   .src-list { font-size:1.15rem; color:#475569; }
+   .src-list a { color:#0e7490; text-decoration:underline; }
+   .tl { border-left:3px solid #cbd5e1; padding-left:1.2rem; }
+   .tl-item { position:relative; padding-bottom:1rem; }
+   .tl-item::before { content:""; position:absolute; left:-1.62rem; top:0.55rem; width:11px; height:11px; border-radius:50%; background:#0891b2; }
+   .tl-year { font-weight:800; color:#155e75; }
+  </style>
+ </head>
+ <body class="presentation-mode">
+  <main>
+
+   <!-- 1. 표지 -->
+   <section data-slide-index="0" data-slide-num="1" data-title="부록 표지" id="slide-1">
+    <div class="slide-content">
+     <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">15차시 부록 &bull; 더 알아보기</p>
+     <h1 class="text-4xl md:text-6xl font-black mb-6 text-slate-900 leading-tight">전자기 유도, 그 뒤의 이야기</h1>
+     <div class="w-20 h-1 bg-slate-500 mx-auto my-8"></div>
+     <p class="text-xl text-slate-500 font-bold mt-4">과학사 &middot; 전자기파 &middot; 전압과 전류의 위상차</p>
+     <p class="slide-caption mt-6"><a href="15_electromagnetic_induction.html" class="underline">← 15차시 본문으로</a></p>
+    </div>
+   </section>
+
+   <!-- 2. 과학사 연표 -->
+   <section data-slide-index="1" data-slide-num="2" data-title="과학사 연표" id="slide-2">
+    <div class="slide-content">
+     <h2>전자기 유도가 발견되기까지</h2>
+     <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-3">
+      <div class="w-full md:w-1/2">
+       <img src="img/emi_faraday_ring.jpg" class="photo" style="max-height:250px"
+            alt="패러데이가 1831년에 사용한 고리 코일 장치. 쇠고리 양쪽에 코일이 감겨 있다."/>
+       <p class="credit">패러데이의 고리 코일 장치 &middot; Wikimedia Commons, Public domain</p>
+      </div>
+      <div class="w-full md:w-1/2 tl">
+       <div class="tl-item"><p><span class="tl-year">1820</span> — 외르스테드가 전류가 흐르는 전선 근처에서 나침반 바늘이 움직이는 것을 관찰해 전기와 자기의 연결을 확인했다. <span class="text-slate-500">(발견 상황은 자료마다 조금씩 다르게 전해진다)</span></p></div>
+       <div class="tl-item"><p><span class="tl-year">1821</span> — 패러데이가 전자기 회전을 연구해 최초의 전기 모터 원리를 보였다. 이후 그는 다른 연구에도 힘을 쏟았다.</p></div>
+       <div class="tl-item"><p><span class="tl-year">1831. 8. 29</span> — 전자기 연구를 본격적으로 재개해, 쇠고리 양쪽에 감은 코일로 <b>상호 유도</b>를 발견했다.</p></div>
+       <div class="tl-item"><p><span class="tl-year">1831 가을</span> — 자석을 코일에 직접 넣고 빼는 실험으로, 움직이는 자석도 전류를 만든다는 것을 확인했다.</p></div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- 3. 1831년 실험의 의미 -->
+   <section data-slide-index="2" data-slide-num="3" data-title="1831년 실험" id="slide-3">
+    <div class="slide-content">
+     <h2>1831년 실험이 알려 준 것</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-5">
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">자석이 없어도 된다</p>
+       <p class="text-slate-600 mt-1">한쪽 코일의 <b>전류를 켜고 끄면</b> 그 코일이 만드는 자기장이 변하고, 다른 코일에 전류가 유도된다. 이것을 상호 유도라고 한다.</p>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">결정적인 관찰</p>
+       <p class="text-slate-600 mt-1">전류를 <b>계속 흘려 두는 동안에는</b> 아무 일도 없었고, 스위치를 <b>넣는 순간과 끊는 순간</b>에만 바늘이 움직였다.</p>
+      </div>
+     </div>
+     <div class="outline-card max-w-4xl w-full mt-4">
+      <p class="text-slate-700">두 실험이 같은 결론에 이른다 — 전류를 만드는 것은 자석 자체도, 전류 자체도 아니라 <b>코일을 통과하는 자기장의 변화</b>다.</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 4. 인물과 출처 -->
+   <section data-slide-index="3" data-slide-num="4" data-title="인물과 출처" id="slide-4">
+    <div class="slide-content">
+     <h2>사람과 출처</h2>
+     <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-3">
+      <div class="w-full md:w-1/3">
+       <img src="img/emi_faraday_portrait.jpg" class="photo" style="max-height:250px; object-fit:cover"
+            alt="마이클 패러데이의 초상 사진"/>
+       <p class="credit">Michael Faraday &middot; Public domain</p>
+      </div>
+      <div class="w-full md:w-2/3 space-y-3">
+       <div class="outline-card">
+        <p class="font-bold text-slate-800">마이클 패러데이 (1791–1867)</p>
+        <p class="text-slate-600 mt-1">가난한 대장장이의 아들로 태어나 책 제본 견습생으로 일했다. 제본하던 책을 읽으며 과학에 빠졌고, 수학 훈련을 거의 받지 못해 평생 <b>실험과 그림</b>으로 사고했다. 그의 실험을 훗날 맥스웰이 수식으로 정리했다.</p>
+       </div>
+       <div class="outline-card">
+        <p class="font-bold text-slate-800">확인한 출처</p>
+        <ul class="src-list mt-2 space-y-1">
+         <li>· <a href="https://nationalmaglab.org/magnet-academy/history-of-electricity-magnetism/museum/oersteds-compass-1820/">National MagLab — Oersted's Compass (1820)</a></li>
+         <li>· <a href="https://www.aps.org/apsnews/2001/08/faraday-electromagnetism">American Physical Society — Faraday and Electromagnetism</a></li>
+         <li>· <a href="https://www.rigb.org/explore-science/explore/collection/michael-faradays-ring-coil-apparatus">Royal Institution — Faraday's Ring Coil Apparatus</a></li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- 5. 전자기파 -->
+   <section data-slide-index="4" data-slide-num="5" data-title="전자기파" id="slide-5">
+    <div class="slide-content">
+     <h2>[심화] 전자기파는 어떻게 생기나</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">맥스웰의 정리</p><p class="text-slate-600 mt-1">변하는 자기장이 전기장을 만든다는 사실(전자기 유도)에, <b>변하는 전기장도 자기장을 만든다</b>는 항을 더해 전자기 법칙을 완성했다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">파동으로 퍼진다</p><p class="text-slate-600 mt-1">이 법칙에서 전기장과 자기장이 <b>함께 진동하며 공간으로 퍼져 나가는</b> 파동이 나온다. 매질이 없어도 진행한다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">빛도 그중 하나</p><p class="text-slate-600 mt-1">계산된 속력이 초속 약 <b>30만 km</b>로 당시 알려진 빛의 속력과 같았다. 빛이 전자기파임이 드러났다.</p></div>
+     </div>
+     <div class="outline-card max-w-4xl w-full mt-4">
+      <p class="text-slate-700">라디오·와이파이·리모컨·전자레인지·엑스선은 <b>진동수만 다른 같은 종류의 파동</b>이다. 안테나는 전자를 빠르게 진동시켜 이 파동을 내보낸다.</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 6. 위상차 -->
+   <section data-slide-index="5" data-slide-num="6" data-title="위상차" id="slide-6">
+    <div class="slide-content">
+     <h2>[심화] 전압과 전류의 봉우리가 어긋날 때</h2>
+     <div class="flex flex-col md:flex-row gap-5 items-center max-w-5xl w-full mt-3">
+      <div class="w-full md:w-1/2">
+       <canvas id="phase-wave" class="w-full" style="width:100%; height:190px" role="img"
+               aria-label="전압과 전류의 위상차 그래프. 저항만 있는 회로에서는 두 곡선의 봉우리가 겹치고, 코일이 포함된 회로에서는 전류 곡선이 전압 곡선보다 뒤로 밀려 나타난다."></canvas>
+       <div class="flex justify-center gap-2 mt-2">
+        <button id="btn-phase" class="quiz-btn" style="max-width:230px">부하 바꾸기: 저항만 (동상)</button>
+       </div>
+      </div>
+      <div class="w-full md:w-1/2 space-y-3">
+       <div class="outline-card"><p class="font-bold text-slate-800">저항만 있는 회로</p><p class="text-slate-600 mt-1">전구처럼 저항만 있으면 전압과 전류가 나란히 오르내린다 (위상차 0).</p></div>
+       <div class="outline-card"><p class="font-bold text-slate-800">코일이 있는 회로</p><p class="text-slate-600 mt-1">모터나 변압기처럼 코일이 끼면, 전류가 커지려는 변화를 코일이 방해해 <b>전류가 전압보다 뒤늦게</b> 따라온다.</p></div>
+       <div class="outline-card"><p class="font-bold text-slate-800">주의</p><p class="text-slate-600 mt-1">위상차는 발전기의 고정된 성질이 아니라 <b>연결한 부하</b>(저항·코일·축전기)에 따라 달라진다. 여기 값은 설명을 위해 정한 예시다.</p></div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- 7. 이미지 출처 -->
+   <section data-slide-index="6" data-slide-num="7" data-title="이미지 출처" id="slide-7">
+    <div class="slide-content">
+     <h2>이미지 출처</h2>
+     <div class="outline-card max-w-4xl w-full mt-5">
+      <ul class="src-list space-y-2">
+       <li>· 흔들이 손전등 — Chetvorno, Wikimedia Commons, <b>CC0</b></li>
+       <li>· 코일·검류계 실험 도해 — Eviatar Bach, Wikimedia Commons, <b>CC0</b></li>
+       <li>· 패러데이 고리 코일 / 초상 — Wikimedia Commons, <b>Public domain</b></li>
+       <li>· 수력 발전기 단면 — U.S. Army Corps of Engineers, <b>Public domain</b></li>
+       <li>· 허브 다이너모 — Sylenius, <b>CC BY-SA 3.0</b></li>
+       <li>· 다이내믹 마이크 — Master dpo, <b>CC BY-SA 3.0</b></li>
+       <li>· 인덕션 열화상 — CharlesMJames, <b>CC BY-SA 4.0</b></li>
+      </ul>
+     </div>
+     <p class="slide-caption mt-5"><a href="15_electromagnetic_induction.html" class="underline">← 15차시 본문으로 돌아가기</a></p>
+    </div>
+   </section>
+
+  </main>
+
+  <script>
+   document.addEventListener('DOMContentLoaded', function () {
+    var cv = document.getElementById('phase-wave');
+    if (!cv) return;
+    var ctx = cv.getContext('2d');
+    var phi = 0;   // 기본값: 저항 부하 = 동상
+
+    function plot() {
+     var W = cv.width = cv.clientWidth * 2, H = cv.height = 380, mid = H / 2, pad = 40;
+     ctx.clearRect(0, 0, W, H);
+     ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2;
+     ctx.beginPath(); ctx.moveTo(pad, mid); ctx.lineTo(W - 6, mid); ctx.stroke();
+     ctx.fillStyle = '#64748b'; ctx.font = '20px sans-serif';
+     ctx.fillText('시간 →', W - 110, mid + 28);
+     [['#2563eb', 0, '전압'], ['#dc2626', phi, '전류']].forEach(function (s, si) {
+      ctx.strokeStyle = s[0]; ctx.lineWidth = 5; ctx.beginPath();
+      for (var i = 0; i <= 320; i++) {
+       var a = i / 320 * (3 * Math.PI);
+       var px = pad + i / 320 * (W - pad - 6);
+       var py = mid - Math.sin(a - s[1]) * (mid - 26) * (si ? 0.78 : 1);
+       i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
+      }
+      ctx.stroke();
+      ctx.fillStyle = s[0]; ctx.font = 'bold 22px sans-serif';
+      ctx.fillText(s[2], pad + 10 + si * 100, 26);
+     });
+    }
+    plot();
+    window.addEventListener('resize', plot);
+    document.getElementById('btn-phase').addEventListener('click', function () {
+     phi = phi > 0.01 ? 0 : Math.PI / 3;
+     this.textContent = phi > 0.01 ? '부하 바꾸기: 코일 포함 (전류 지연)' : '부하 바꾸기: 저항만 (동상)';
+     plot();
+    });
+   });
+  </script>
+  <script src="js/slide_engine.js"></script>
+ </body>
+</html>
