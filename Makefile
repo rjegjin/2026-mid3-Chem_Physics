@@ -21,7 +21,7 @@ css:
 	npx -y tailwindcss@3 -c tailwind.config.js -i tailwind.input.css -o css/tailwind.build.css --minify
 
 check-phys:
-	$(PYTHON) check_html_quality.py 7_physics_intro.html 8_uniform_motion.html 9_free_fall.html 10_work_energy.html 11_potential_energy.html 12_kinetic_energy.html 13_mechanical_energy.html 14_energy_conservation.html 15_unit_review.html lecture_notes.html index.html
+	$(PYTHON) check_html_quality.py 7_physics_intro.html 8_uniform_motion.html 9_free_fall.html 10_work_energy.html 11_potential_energy.html 12_kinetic_energy.html 13_mechanical_energy.html 14_energy_conservation.html review_motion_energy.html lecture_notes.html index.html
 
 render-check:
 	@if [ -z "$(FILE)" ]; then echo "Usage: make render-check FILE=8_uniform_motion.html"; exit 2; fi

@@ -8,10 +8,15 @@
   <link href="css/common.css" rel="stylesheet"/>
   <link href="css/presentation_mode.css" rel="stylesheet"/>
   <link href="css/chem_style.css" rel="stylesheet"/>
+  <script src="vendor/chart.umd.min.js"></script>
   <style>
    .outline-card { background:white; border:1px solid #e2e8f0; border-radius:1.25rem; padding:1.5rem; box-shadow:0 4px 14px rgba(0,0,0,0.05); }
    .standard-box { background:#eef2ff; border-left:6px solid #4f46e5; padding:1.25rem 1.5rem; border-radius:0.75rem; }
-   .key-line { font-size:1.35rem; font-weight:800; color:#312e81; }
+   .key-line { font-size:1.3rem; font-weight:800; color:#312e81; }
+   .sky-box { background:#0b1120; border-radius:1.25rem; }
+   table.data-table { width:100%; border-collapse:collapse; background:white; border-radius:0.75rem; overflow:hidden; }
+   table.data-table th, table.data-table td { border:1px solid #e2e8f0; padding:0.6rem 0.8rem; text-align:center; }
+   table.data-table th { background:#eef2ff; color:#312e81; font-weight:700; }
   </style>
  </head>
  <body class="presentation-mode">
@@ -36,52 +41,374 @@
       <p class="font-bold text-indigo-800 mb-2">[9과23-01]</p>
       <p class="text-lg text-slate-700">별의 거리를 구하는 방법을 알고, 별의 표면 온도를 색으로 비교할 수 있다.</p>
      </div>
-    </div>
-   </section>
-
-   <!-- Slide 3: 별까지의 거리 -->
-   <section data-slide-index="2" data-slide-num="3" data-title="별까지의 거리" id="slide-3">
-    <div class="slide-content">
-     <h2>1. 별까지의 거리</h2>
      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-6">
-      <div class="outline-card"><p class="font-bold text-slate-800">별은 아주 멀다</p><p class="text-slate-600 mt-1">직접 재는 것이 불가능한 거리</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">가까운 별과 먼 별</p><p class="text-slate-600 mt-1">관측되는 모습의 차이</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">위치가 달라지면</p><p class="text-slate-600 mt-1">보는 곳이 바뀌면 겉보기 위치도 바뀐다 (시차)</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">손가락 실험</p><p class="text-slate-600 mt-1">눈을 번갈아 감아 시차를 체험</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">질문 1</p><p class="text-slate-600 mt-1">자를 댈 수 없는 거리를 어떻게 재지?</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">질문 2</p><p class="text-slate-600 mt-1">가 볼 수도 없는 별의 온도를 어떻게 알지?</p></div>
      </div>
-     <!-- TODO: 손가락 시차 인터랙티브 -->
     </div>
    </section>
 
-   <!-- Slide 4: 연주 시차 -->
-   <section data-slide-index="3" data-slide-num="4" data-title="연주 시차" id="slide-4">
+   <!-- Slide 3: 시차 체험 -->
+   <section data-slide-index="2" data-slide-num="3" data-title="시차 체험" id="slide-3">
     <div class="slide-content">
-     <h2>2. 연주 시차와 별의 거리</h2>
-     <div class="max-w-3xl w-full mt-6 space-y-4">
-      <div class="outline-card"><p class="font-bold text-slate-800">지구의 공전</p><p class="text-slate-600 mt-1">6개월 간격으로 관측 위치가 달라진다</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">연주 시차</p><p class="text-slate-600 mt-1">6개월 간격 관측에서 나타나는 시차의 절반</p></div>
-      <div class="outline-card text-center"><p class="key-line">연주 시차가 클수록 가까운 별, 작을수록 먼 별</p></div>
+     <h2>1. 시차 — 보는 위치가 달라지면 위치가 달라 보인다</h2>
+     <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-6">
+      <div class="w-full md:w-1/2 outline-card">
+       <p class="font-bold text-slate-800 mb-2">지금 해 봅시다</p>
+       <ol class="text-slate-600 space-y-2">
+        <li>1. 팔을 뻗어 엄지손가락을 세운다.</li>
+        <li>2. 왼쪽 눈만 감고 본다 → 위치 기억.</li>
+        <li>3. 오른쪽 눈만 감고 본다 → 손가락이 옆으로 <b>점프</b>한다.</li>
+        <li>4. 이번엔 손가락을 <b>얼굴 가까이</b> 두고 반복한다.</li>
+       </ol>
+       <div class="mt-3 p-3 bg-indigo-50 rounded-xl">
+        <p class="text-slate-700"><b>발견:</b> 가까울수록 더 많이 움직여 보인다.</p>
+       </div>
+      </div>
+      <div class="w-full md:w-1/2 space-y-3">
+       <div class="outline-card">
+        <p class="font-bold text-slate-800">시차(parallax)</p>
+        <p class="text-slate-600 mt-1">서로 다른 두 지점에서 같은 물체를 볼 때 생기는 <b>방향 차이(각도)</b></p>
+       </div>
+       <div class="outline-card">
+        <p class="font-bold text-slate-800">두 눈 = 두 관측 지점</p>
+        <p class="text-slate-600 mt-1">두 눈 사이 거리가 <b>기선(baseline)</b>. 기선이 길수록 시차를 재기 쉽다.</p>
+       </div>
+       <div class="outline-card text-center"><p class="key-line">시차가 크다 = 가깝다</p></div>
+      </div>
      </div>
-     <!-- TODO: 공전 궤도-시차 도식 SVG -->
     </div>
    </section>
 
-   <!-- Slide 5: 별의 색 -->
-   <section data-slide-index="4" data-slide-num="5" data-title="별의 색과 표면 온도" id="slide-5">
+   <!-- Slide 4: 별에게 쓰려면 -->
+   <section data-slide-index="3" data-slide-num="4" data-title="가장 긴 기선" id="slide-4">
     <div class="slide-content">
-     <h2>3. 별의 색과 표면 온도</h2>
-     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl w-full mt-6">
-      <div class="outline-card"><p class="font-bold text-blue-700">청색</p><p class="text-slate-600 mt-1">표면 온도 가장 높음</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-700">백색</p><p class="text-slate-600 mt-1">높은 편</p></div>
-      <div class="outline-card"><p class="font-bold text-amber-600">황색</p><p class="text-slate-600 mt-1">중간 (태양)</p></div>
-      <div class="outline-card"><p class="font-bold text-red-600">적색</p><p class="text-slate-600 mt-1">표면 온도 가장 낮음</p></div>
+     <h2>2. 별에 쓰려면 — 지구가 두 눈이 된다</h2>
+     <div class="max-w-4xl w-full mt-6 space-y-4">
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">문제</p>
+       <p class="text-slate-600 mt-1">별은 너무 멀어서 두 눈(약 6 cm) 정도의 기선으로는 시차를 전혀 잴 수 없다 — 아무리 봐도 안 움직인다.</p>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">해결</p>
+       <p class="text-slate-600 mt-1">지구는 태양 주위를 <b>공전</b>한다. 6개월 뒤 지구는 궤도의 반대편에 있다.<br/>→ 인류가 쓸 수 있는 가장 긴 기선: <b>지구 궤도의 지름(약 3억 km)</b></p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+       <div class="outline-card"><p class="font-bold text-slate-800">1월의 지구</p><p class="text-slate-600 mt-1">별을 A 방향에서 관측</p></div>
+       <div class="outline-card"><p class="font-bold text-slate-800">7월의 지구</p><p class="text-slate-600 mt-1">반대편에서 B 방향으로 관측</p></div>
+       <div class="outline-card"><p class="font-bold text-slate-800">결과</p><p class="text-slate-600 mt-1">가까운 별이 먼 별들 사이에서 조금 움직여 보인다</p></div>
+      </div>
      </div>
-     <div class="outline-card text-center max-w-3xl w-full mt-5"><p class="key-line">청색 별은 뜨겁고, 적색 별은 차갑다</p></div>
-     <!-- TODO: 색-온도 스펙트럼 막대 그래픽 -->
+    </div>
+   </section>
+
+   <!-- Slide 5: 연주 시차 도식 (인터랙티브) -->
+   <section data-slide-index="4" data-slide-num="5" data-title="연주 시차" id="slide-5">
+    <div class="slide-content">
+     <h2>3. 연주 시차의 정의</h2>
+     <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-4">
+      <div class="w-full md:w-3/5">
+       <svg viewBox="0 0 460 300" class="w-full" role="img"
+            aria-label="연주 시차 도식. 태양을 중심으로 지구가 공전하며, 1월의 지구와 7월의 지구에서 같은 별을 보면 시선 방향이 달라진다. 두 시선이 별에서 이루는 각을 시차라 하고, 그 절반이 연주 시차이다.">
+        <rect x="0" y="0" width="460" height="300" fill="#0b1120" rx="16"></rect>
+        <!-- 먼 배경 별들 -->
+        <g fill="#94a3b8">
+         <circle cx="60" cy="34" r="1.6"></circle><circle cx="150" cy="20" r="1.3"></circle>
+         <circle cx="300" cy="30" r="1.6"></circle><circle cx="400" cy="46" r="1.3"></circle>
+         <circle cx="240" cy="16" r="1.2"></circle>
+        </g>
+        <!-- 관측 대상 별 -->
+        <circle cx="230" cy="60" r="8" fill="#fbbf24"></circle>
+        <text x="248" y="58" fill="#fde68a" font-size="13" font-weight="bold">관측하는 별</text>
+        <!-- 시선 -->
+        <line id="los-jan" x1="120" y1="230" x2="230" y2="60" stroke="#38bdf8" stroke-width="2"></line>
+        <line id="los-jul" x1="340" y1="230" x2="230" y2="60" stroke="#f472b6" stroke-width="2"></line>
+        <!-- 시차 각 표시 -->
+        <path d="M 215 88 A 26 26 0 0 0 245 88" fill="none" stroke="#e2e8f0" stroke-width="1.5"></path>
+        <text x="212" y="108" fill="#e2e8f0" font-size="12" font-weight="bold">2p</text>
+        <!-- 궤도 -->
+        <ellipse cx="230" cy="230" rx="110" ry="34" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="5 5"></ellipse>
+        <circle cx="230" cy="230" r="12" fill="#f59e0b"></circle>
+        <text x="216" y="262" fill="#fcd34d" font-size="12" font-weight="bold">태양</text>
+        <!-- 지구 두 위치 -->
+        <circle id="earth-jan" cx="120" cy="230" r="8" fill="#38bdf8"></circle>
+        <text x="86" y="212" fill="#7dd3fc" font-size="12" font-weight="bold">1월</text>
+        <circle id="earth-jul" cx="340" cy="230" r="8" fill="#f472b6"></circle>
+        <text x="330" y="212" fill="#f9a8d4" font-size="12" font-weight="bold">7월</text>
+        <!-- 기선 -->
+        <line x1="120" y1="278" x2="340" y2="278" stroke="#64748b" stroke-width="1.5" marker-start="url(#a)" marker-end="url(#a)"></line>
+        <text x="150" y="294" fill="#94a3b8" font-size="11">지구 궤도 지름 = 2 AU (약 3억 km)</text>
+        <defs><marker id="a" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#64748b"></path></marker></defs>
+       </svg>
+       <div class="text-center mt-3">
+        <button id="btn-season" class="quiz-btn" style="max-width:280px">1월 ↔ 7월 관측 바꿔 보기</button>
+       </div>
+      </div>
+      <div class="w-full md:w-2/5 space-y-3">
+       <div class="outline-card">
+        <p class="font-bold text-slate-800">시차 = 2p</p>
+        <p class="text-slate-600 mt-1">6개월 간격으로 관측했을 때 생기는 전체 각</p>
+       </div>
+       <div class="outline-card" style="border-color:#4f46e5;">
+        <p class="font-bold text-indigo-700">연주 시차 = p</p>
+        <p class="text-slate-600 mt-1">그 각의 <b>절반</b>. 기선을 지구-태양 거리(1 AU)로 잡은 값이다.</p>
+       </div>
+       <div class="outline-card">
+        <p class="font-bold text-slate-800">단위</p>
+        <p class="text-slate-600 mt-1">각도의 아주 작은 단위 <b>초("</b>)<br/>1&deg; = 60&prime; = 3600&Prime;</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 6: 연주 시차와 거리 -->
+   <section data-slide-index="5" data-slide-num="6" data-title="연주 시차와 거리" id="slide-6">
+    <div class="slide-content">
+     <h2>4. 연주 시차와 별까지의 거리</h2>
+     <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-4">
+      <div class="w-full md:w-1/2">
+       <canvas id="chart-parallax" height="230" role="img"
+               aria-label="연주 시차와 거리의 관계 그래프. 연주 시차 1초일 때 거리 1파섹, 0.5초일 때 2파섹, 0.25초일 때 4파섹, 0.1초일 때 10파섹으로, 시차가 작아질수록 거리가 급격히 멀어지는 반비례 곡선이다."></canvas>
+      </div>
+      <div class="w-full md:w-1/2 space-y-3">
+       <div style="border-bottom:3px solid #4f46e5; padding-bottom:1rem; text-align:center;">
+        <p class="formula-display">거리(pc) = 1 / 연주 시차(&Prime;)</p>
+        <p class="slide-caption">반비례 관계</p>
+       </div>
+       <table class="data-table">
+        <thead><tr><th>연주 시차</th><th>거리(pc)</th><th>거리(광년)</th></tr></thead>
+        <tbody>
+         <tr><td>1&Prime;</td><td>1 pc</td><td>약 3.26</td></tr>
+         <tr><td>0.5&Prime;</td><td>2 pc</td><td>약 6.5</td></tr>
+         <tr><td>0.1&Prime;</td><td>10 pc</td><td>약 32.6</td></tr>
+         <tr><td>0.01&Prime;</td><td>100 pc</td><td>약 326</td></tr>
+        </tbody>
+       </table>
+       <div class="outline-card text-center"><p class="key-line">연주 시차가 클수록 가까운 별</p></div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 7: 방법의 한계 -->
+   <section data-slide-index="6" data-slide-num="7" data-title="연주 시차의 한계" id="slide-7">
+    <div class="slide-content">
+     <h2>5. 이 방법이 통하지 않는 곳</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-6">
+      <div class="outline-card"><p class="font-bold text-slate-800">가장 큰 연주 시차</p><p class="text-slate-600 mt-1">가장 가까운 별(프록시마 켄타우리)도 약 <b>0.77&Prime;</b><br/>1&Prime;를 넘는 별은 없다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">먼 별</p><p class="text-slate-600 mt-1">거리가 멀수록 시차가 작아져 <b>관측 오차에 묻힌다</b></p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">그래서</p><p class="text-slate-600 mt-1">연주 시차는 <b>비교적 가까운 별</b>에만 쓸 수 있다</p></div>
+     </div>
+     <div class="max-w-3xl w-full mt-6 outline-card">
+      <p class="font-bold text-slate-800">참고 — 0.77&Prime;는 얼마나 작은 각일까?</p>
+      <p class="text-slate-600 mt-1">약 3 km 밖에 세워 둔 1원짜리 동전을 보는 각도와 비슷하다. 별이 그만큼 멀다는 뜻이다.</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 과학사 1 -->
+   <section data-slide-index="7" data-slide-num="8" data-title="과학사 — 200년 묵은 반론" id="slide-8">
+    <div class="slide-content">
+     <h2>과학사 — 지동설을 200년간 괴롭힌 반론</h2>
+     <div class="max-w-5xl w-full mt-4 space-y-4">
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">"지구가 정말 돈다면, 별이 움직여 보여야 하지 않나?"</p>
+       <p class="text-slate-600 mt-1">코페르니쿠스(1543)가 지동설을 내놓자 반대자들이 던진 결정적 질문이었다. 지구가 궤도를 돈다면 연주 시차가 관측되어야 하는데, 당시 최고의 관측자 <b>티코 브라헤</b>조차 아무리 봐도 찾지 못했다.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+       <div class="outline-card"><p class="font-bold text-slate-800">답은 둘 중 하나</p><p class="text-slate-600 mt-1">① 지구가 돌지 않거나<br/>② 별이 상상 이상으로 멀거나</p></div>
+       <div class="outline-card"><p class="font-bold text-slate-800">1838년, 베셀</p><p class="text-slate-600 mt-1">백조자리 61번 별에서 연주 시차 <b>약 0.3&Prime;</b>를 측정했다. 정답은 ②였다. 지동설의 마지막 증거가 300년 만에 채워졌다.</p></div>
+       <div class="outline-card"><p class="font-bold text-slate-800">왜 그렇게 오래 걸렸나</p><p class="text-slate-600 mt-1">0.3&Prime;는 망원경과 정밀 측정 기술이 발달하기 전에는 잴 수 없는 각이었다.</p></div>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">지금은</p>
+       <p class="text-slate-600 mt-1">유럽우주국의 <b>가이아(Gaia)</b> 위성이 십억 개가 넘는 별의 연주 시차를 재고 있다. 베셀이 별 하나에 몇 달을 쏟던 측정이다.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 8: 별의 색 -->
+   <section data-slide-index="8" data-slide-num="9" data-title="별의 색" id="slide-9">
+    <div class="slide-content">
+     <h2>6. 별의 색 — 오리온자리에서 확인하기</h2>
+     <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-4">
+      <div class="w-full md:w-1/2 sky-box p-4">
+       <svg viewBox="0 0 260 300" class="w-full" role="img"
+            aria-label="오리온자리 별자리 그림. 왼쪽 위 어깨에 붉은색 별 베텔게우스, 오른쪽 아래 발에 푸른색 별 리겔이 있으며 가운데 삼태성이 나란히 놓여 있다.">
+        <circle cx="70" cy="60" r="9" fill="#ef4444"></circle>
+        <text x="84" y="58" fill="#fecaca" font-size="12" font-weight="bold">베텔게우스(적색)</text>
+        <circle cx="190" cy="80" r="6" fill="#e0f2fe"></circle>
+        <text x="150" y="102" fill="#bae6fd" font-size="11">벨라트릭스</text>
+        <circle cx="108" cy="150" r="5" fill="#bfdbfe"></circle>
+        <circle cx="130" cy="156" r="5" fill="#bfdbfe"></circle>
+        <circle cx="152" cy="162" r="5" fill="#bfdbfe"></circle>
+        <text x="96" y="182" fill="#dbeafe" font-size="11">삼태성</text>
+        <circle cx="196" cy="240" r="9" fill="#60a5fa"></circle>
+        <text x="120" y="264" fill="#bfdbfe" font-size="12" font-weight="bold">리겔(청백색)</text>
+        <g stroke="#334155" stroke-width="1">
+         <line x1="70" y1="60" x2="108" y2="150"></line>
+         <line x1="190" y1="80" x2="152" y2="162"></line>
+         <line x1="152" y1="162" x2="196" y2="240"></line>
+        </g>
+       </svg>
+      </div>
+      <div class="w-full md:w-1/2 space-y-3">
+       <div class="outline-card"><p class="font-bold text-red-600">베텔게우스 — 붉은색</p><p class="text-slate-600 mt-1">표면 온도 약 3,500 K</p></div>
+       <div class="outline-card"><p class="font-bold text-blue-600">리겔 — 청백색</p><p class="text-slate-600 mt-1">표면 온도 약 12,000 K</p></div>
+       <div class="outline-card"><p class="font-bold text-slate-800">같은 별자리인데 색이 다르다</p><p class="text-slate-600 mt-1">색 차이는 <b>표면 온도</b> 차이 때문이다.<br/>(밝기 차이나 거리 차이 때문이 아니다)</p></div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 9: 색과 표면 온도 -->
+   <section data-slide-index="9" data-slide-num="10" data-title="색과 표면 온도" id="slide-10">
+    <div class="slide-content">
+     <h2>7. 별의 색과 표면 온도</h2>
+     <div class="w-full max-w-5xl mt-4">
+      <canvas id="chart-temp" height="150" role="img"
+              aria-label="별의 색에 따른 표면 온도 막대그래프. 청색 약 3만 켈빈, 청백색 약 1만 5천 켈빈, 백색 약 9천 켈빈, 황백색 약 7천 켈빈, 황색 약 5천 5백 켈빈, 주황색 약 4천 5백 켈빈, 적색 약 3천 켈빈으로 청색에서 적색으로 갈수록 온도가 낮아진다."></canvas>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-blue-700">뜨거운 별</p><p class="text-slate-600 mt-1">청색 &middot; 청백색<br/>1만 K 이상</p></div>
+      <div class="outline-card"><p class="font-bold text-amber-600">중간 온도</p><p class="text-slate-600 mt-1">황색 — 태양이 여기(약 5,800 K)</p></div>
+      <div class="outline-card"><p class="font-bold text-red-600">차가운 별</p><p class="text-slate-600 mt-1">주황색 &middot; 적색<br/>4,000 K 이하</p></div>
+     </div>
+     <div class="outline-card text-center max-w-3xl w-full mt-5"><p class="key-line">청색 → 백색 → 황색 → 적색 순으로 표면 온도가 낮아진다</p></div>
+    </div>
+   </section>
+
+   <!-- 과학사 2 -->
+   <section data-slide-index="10" data-slide-num="11" data-title="과학사 — 하버드 컴퓨터스" id="slide-11">
+    <div class="slide-content">
+     <h2>과학사 — 별을 분류한 '하버드의 계산원들'</h2>
+     <div class="max-w-5xl w-full mt-4 space-y-4">
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">사진 건판 수십만 장</p>
+       <p class="text-slate-600 mt-1">19세기 말 하버드 천문대는 별빛을 찍은 유리 건판을 산더미처럼 쌓아 두고, 이를 하나하나 분석할 여성 연구원들을 고용했다. 사람들은 이들을 '하버드 컴퓨터스'라 불렀다.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+       <div class="outline-card"><p class="font-bold text-slate-800">애니 점프 캐넌</p><p class="text-slate-600 mt-1">별 <b>35만 개</b>를 직접 분류하며 O·B·A·F·G·K·M 순서를 정리했다. 이 순서가 곧 <b>표면 온도가 높은 것부터 낮은 것</b> 순이다.</p></div>
+       <div class="outline-card"><p class="font-bold text-slate-800">세실리아 페인(1925)</p><p class="text-slate-600 mt-1">별의 스펙트럼을 읽어 별이 주로 <b>수소</b>로 되어 있음을 밝혔다. 당시 지도교수조차 믿지 않았지만, 훗날 옳았음이 확인됐다.</p></div>
+       <div class="outline-card"><p class="font-bold text-slate-800">색이 온도인 이유</p><p class="text-slate-600 mt-1">뜨거운 물체일수록 파장이 짧은 빛(파란빛)을 강하게 낸다. 쇠를 달구면 붉은색 → 주황색 → 흰색으로 변하는 것과 같은 원리다.</p></div>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">교실에서 확인하기</p>
+       <p class="text-slate-600 mt-1">가스레인지 불꽃, 촛불 심지 부근, 전구 필라멘트의 색을 떠올려 보자. 색은 그 물체가 얼마나 뜨거운지를 알려 준다.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 10: 정리 -->
+   <section data-slide-index="11" data-slide-num="12" data-title="정리" id="slide-12">
+    <div class="slide-content">
+     <h2>오늘의 정리</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-6">
+      <div class="outline-card"><p class="font-bold text-slate-800">거리</p><p class="text-slate-600 mt-1">지구 공전 → 시차 발생 → 연주 시차 p<br/>거리(pc) = 1/p(&Prime;) &middot; 시차가 크면 가깝다</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">한계</p><p class="text-slate-600 mt-1">먼 별은 시차가 너무 작아 측정 불가</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">온도</p><p class="text-slate-600 mt-1">색이 곧 표면 온도의 신호<br/>청색 뜨겁고, 적색 차갑다</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">헷갈리지 말 것</p><p class="text-slate-600 mt-1">색은 <b>온도</b>를 알려주지, <b>거리</b>를 알려주지 않는다</p></div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 11: 형성평가 1 -->
+   <section data-slide-index="12" data-slide-num="13" data-title="형성평가 1" id="slide-13">
+    <div class="slide-content">
+     <h2 class="text-slate-800">형성평가 1 — 연주 시차</h2>
+     <div class="quiz-container max-w-3xl mt-8 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">별 A의 연주 시차는 0.5&Prime;, 별 B의 연주 시차는 0.1&Prime;이다. 옳은 설명은?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="true">① A가 B보다 지구에 가깝다</button>
+       <button class="quiz-btn" data-correct="false">② B가 A보다 지구에 가깝다</button>
+       <button class="quiz-btn" data-correct="false">③ A가 B보다 표면 온도가 높다</button>
+       <button class="quiz-btn" data-correct="false">④ 두 별까지의 거리는 같다</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">✅ 정답! ① A가 더 가깝다</p>
+       <p class="text-slate-600 mt-1">거리 = 1/연주 시차 → A는 1/0.5 = 2 pc, B는 1/0.1 = 10 pc. 연주 시차는 온도와는 관계가 없다.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Slide 12: 형성평가 2 -->
+   <section data-slide-index="13" data-slide-num="14" data-title="형성평가 2" id="slide-14">
+    <div class="slide-content">
+     <h2 class="text-slate-800">형성평가 2 — 별의 색</h2>
+     <div class="quiz-container max-w-3xl mt-8 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">다음 네 별 중 표면 온도가 가장 높은 별은?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false">① 붉은색 별</button>
+       <button class="quiz-btn" data-correct="false">② 노란색 별</button>
+       <button class="quiz-btn" data-correct="false">③ 흰색 별</button>
+       <button class="quiz-btn" data-correct="true">④ 파란색 별</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">✅ 정답! ④ 파란색 별</p>
+       <p class="text-slate-600 mt-1">청색 → 백색 → 황색 → 적색 순으로 표면 온도가 낮아진다. 태양은 황색으로 약 5,800 K.</p>
+      </div>
+     </div>
     </div>
    </section>
 
   </main>
+
+  <script>
+   document.addEventListener('DOMContentLoaded', function () {
+    // 1월 ↔ 7월 관측 토글 — 어느 쪽에서 보는지가 시차의 전부다
+    var season = 'both';
+    var btn = document.getElementById('btn-season');
+    var jan = document.getElementById('los-jan');
+    var jul = document.getElementById('los-jul');
+    if (btn) {
+     btn.addEventListener('click', function () {
+      season = season === 'jan' ? 'jul' : (season === 'jul' ? 'both' : 'jan');
+      jan.style.opacity = (season === 'jul') ? 0.15 : 1;
+      jul.style.opacity = (season === 'jan') ? 0.15 : 1;
+      btn.textContent = season === 'jan' ? '지금: 1월 관측 →' :
+                        season === 'jul' ? '지금: 7월 관측 →' : '지금: 두 시점 함께 →';
+     });
+    }
+
+    var opts = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } };
+
+    var pctx = document.getElementById('chart-parallax');
+    if (pctx) new Chart(pctx.getContext('2d'), {
+     type: 'line',
+     data: {
+      labels: ['1.0', '0.5', '0.25', '0.2', '0.1'],
+      datasets: [{ data: [1, 2, 4, 5, 10], borderColor: '#4f46e5', borderWidth: 3, tension: 0.3,
+                   pointRadius: 4, pointBackgroundColor: '#4f46e5', fill: true, backgroundColor: 'rgba(79,70,229,0.1)' }]
+     },
+     options: Object.assign({}, opts, { scales: {
+      x: { title: { display: true, text: '연주 시차(″)' } },
+      y: { beginAtZero: true, title: { display: true, text: '거리(pc)' } }
+     } })
+    });
+
+    var tctx = document.getElementById('chart-temp');
+    if (tctx) new Chart(tctx.getContext('2d'), {
+     type: 'bar',
+     data: {
+      labels: ['청색', '청백색', '백색', '황백색', '황색', '주황색', '적색'],
+      datasets: [{ data: [30000, 15000, 9000, 7000, 5500, 4500, 3000],
+                   backgroundColor: ['#2563eb', '#60a5fa', '#e2e8f0', '#fde68a', '#facc15', '#fb923c', '#ef4444'],
+                   borderColor: '#94a3b8', borderWidth: 1 }]
+     },
+     options: Object.assign({}, opts, { scales: {
+      y: { beginAtZero: true, title: { display: true, text: '표면 온도(K)' } }
+     } })
+    });
+   });
+  </script>
   <script src="js/slide_engine.js"></script>
  </body>
 </html>

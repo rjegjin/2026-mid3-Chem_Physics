@@ -31,9 +31,20 @@
 10. **[10차시: 일과 에너지](10_work_energy.html)** - 과학에서의 일, `W = Fd`
 11. **[11차시: 중력 위치 에너지](11_potential_energy.html)** - 질량, 중력, 높이와 위치 에너지
 12. **[12차시: 운동 에너지](12_kinetic_energy.html)** - 질량과 속력에 따른 운동 에너지
+- **[단원 총정리: 운동과 에너지](review_motion_energy.html)** - 대단원 3 핵심 개념 총정리
+
+### 대단원 6. 에너지 전환과 보존
 13. **[13차시: 역학적 에너지](13_mechanical_energy.html)** - 위치 에너지와 운동 에너지의 전환
 14. **[14차시: 에너지 보존](14_energy_conservation.html)** - 일상생활 속 에너지 전환과 보존
-15. **[15차시: 단원 정리](15_unit_review.html)** - 운동과 에너지 핵심 개념 총정리
+15. **[15차시: 전기 에너지의 발생](15_electromagnetic_induction.html)** - 전자기 유도와 발전기
+16. **[16차시: 전기 에너지의 전환과 이용](16_electric_power.html)** - 소비 전력과 전력량
+- **[단원 총정리: 에너지 전환과 보존](review_energy_conversion.html)** - 대단원 6 핵심 개념 총정리
+
+### 대단원 7. 별과 우주
+18. **[별](18_stars.html)** - 연주 시차와 별의 색
+19. **[우리은하](19_milky_way.html)** - 모양·크기·구성 천체
+20. **[팽창하는 우주](20_expanding_universe.html)** - 은하의 후퇴와 팽창 모형
+21. **[우주 탐사](21_space_exploration.html)** - 방법·의의·쟁점
 
 ## 🛠 기술 스택
 

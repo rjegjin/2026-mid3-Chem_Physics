@@ -21,7 +21,7 @@ DEFAULT_GLOB = [
     "12_kinetic_energy.html",
     "13_mechanical_energy.html",
     "14_energy_conservation.html",
-    "15_unit_review.html",
+    "review_motion_energy.html",
     "lecture_notes.html",
     "index.html",
 ]
@@ -183,7 +183,7 @@ def check_file(path: Path, remote_cache: dict[str, tuple[bool, str]], timeout: f
         if not target.exists():
             issues.append(Issue("ERROR", path, f"missing local {attr} at line {line}: {ref}"))
 
-    if path.name.startswith(tuple(str(i) for i in range(7, 16))) or path.name == "15_unit_review.html":
+    if path.name.startswith(tuple(str(i) for i in range(7, 16))) or path.name == "review_motion_energy.html":
         if "MathJax-script" in text and "\\(" not in text and "\\[" not in text:
             issues.append(Issue("WARN", path, "MathJax loaded but TeX delimiters were not found"))
 

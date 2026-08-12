@@ -17,6 +17,9 @@
 
 
 # 현재 상태
+- [x] Add BBC vacuum experiment video slide after slide 9
+- [x] Add misconception slide about free fall feeling and update vacuum experiment image
+- [x] Update images for free fall and uniform motion slides
 - [x] MathJax 적용 및 CSS 단위 표시(uppercase) 충돌 문제 해결
 - [x] quiz_L4L5_chem.html 선지 중복(Q2, Q3, Q17, Q20) 수정
 - [x] Implement parameterized quiz system with student/teacher dashboards and index linking
