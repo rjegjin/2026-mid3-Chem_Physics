@@ -12,7 +12,7 @@
   "oversizedImages": [],
   "overflowing": [
     {
-      "path": "g#magnet > text:nth-of-type(1)",
+      "path": "g#magnet-body > text.pole-label:nth-of-type(1)",
       "scrollWidth": 15,
       "clientWidth": 0,
       "text": "N"

@@ -140,33 +140,40 @@
         </g>
         <!-- 자석 (드래그 가능) -->
         <g id="magnet" style="cursor:grab">
-         <rect x="-46" y="78" width="46" height="36" fill="#ef4444" rx="4"></rect>
-         <rect x="0" y="78" width="46" height="36" fill="#3b82f6" rx="4"></rect>
-         <text x="-31" y="102" fill="white" font-size="17" font-weight="bold">N</text>
-         <text x="16" y="102" fill="white" font-size="17" font-weight="bold">S</text>
+         <g id="magnet-body" style="transform-origin:0px 96px; transition:transform .45s ease-in-out">
+          <rect x="-46" y="78" width="46" height="36" fill="#ef4444" rx="4"></rect>
+          <rect x="0" y="78" width="46" height="36" fill="#3b82f6" rx="4"></rect>
+          <text class="pole-label" x="-31" y="102" fill="white" font-size="17" font-weight="bold"
+                style="transform-box:fill-box; transform-origin:center; transition:transform .45s ease-in-out">N</text>
+          <text class="pole-label" x="16" y="102" fill="white" font-size="17" font-weight="bold"
+                style="transform-box:fill-box; transform-origin:center; transition:transform .45s ease-in-out">S</text>
+         </g>
         </g>
        </svg>
        <div class="flex flex-wrap justify-center gap-2 mt-3">
-        <button class="quiz-btn" data-act="slow" style="max-width:150px">천천히 통과</button>
-        <button class="quiz-btn" data-act="fast" style="max-width:150px">빠르게 통과</button>
-        <button class="quiz-btn" data-act="flip" style="max-width:150px">극 뒤집기</button>
-        <button class="quiz-btn" data-act="reset" style="max-width:120px">처음으로</button>
+        <button class="quiz-btn" data-act="right" style="max-width:135px">→ 오른쪽</button>
+        <button class="quiz-btn" data-act="left" style="max-width:135px">← 왼쪽</button>
+        <button class="quiz-btn" data-act="speed" id="btn-speed" style="max-width:135px">속도: 느리게</button>
+        <button class="quiz-btn" data-act="flip" style="max-width:120px">극 뒤집기</button>
+        <button class="quiz-btn" data-act="reset" style="max-width:110px">처음으로</button>
        </div>
-       <p class="slide-caption mt-1">자석을 마우스로 직접 끌어 볼 수도 있다</p>
+       <p class="slide-caption mt-1">한 번 누르면 정해진 거리(16 cm)만큼 움직이고 멈춘다 &middot; 자석을 마우스로 직접 끌 수도 있다</p>
       </div>
       <div class="w-full md:w-2/5 space-y-3">
        <div class="outline-card">
-        <p class="font-bold text-slate-800">계기판</p>
-        <p class="text-slate-600 mt-1">자석의 속도 <span class="readout" id="v-out">0.0</span> cm/s<br/>
-           유도 전류 <span class="readout" id="i-out">0.0</span> mA <span id="dir-out" class="text-slate-500"></span></p>
+        <p class="font-bold text-slate-800">유도 전압 &middot; 전류 기록</p>
+        <canvas id="lab-wave" class="w-full" style="width:100%; height:150px" role="img"
+                aria-label="시간에 따른 유도 전압과 전류 그래프. 자석이 코일에 들어갈 때 한쪽으로 솟구쳤다가, 코일 한가운데에서 0에 가까워지고, 빠져나올 때 반대쪽으로 솟구치는 두 개의 봉우리가 그려진다."></canvas>
+        <p class="text-slate-600 mt-2 text-sm">
+         속도 <span class="readout" id="v-out">0.0</span> cm/s &nbsp;
+         전압 <span class="readout" id="e-out">0.0</span> mV &nbsp;
+         전류 <span class="readout" id="i-out">0.0</span> mA
+         <span id="dir-out" class="text-slate-500"></span>
+        </p>
        </div>
        <div class="outline-card">
         <p class="font-bold text-slate-800">관찰</p>
         <p class="text-slate-600 mt-1" id="obs-text">자석을 끌거나 버튼을 눌러 움직여 보자.</p>
-       </div>
-       <div class="outline-card">
-        <p class="font-bold text-slate-800">놓치기 쉬운 것</p>
-        <p class="text-slate-600 mt-1">코일 <b>한가운데</b>를 지나는 순간에는 자기장의 변화가 가장 작아 전류가 오히려 줄어든다. 들어갈 때와 나올 때 전류의 <b>방향이 반대</b>인 것도 확인해 보자.</p>
        </div>
       </div>
      </div>
@@ -341,15 +348,17 @@
         <line x1="160" y1="138" x2="160" y2="180" stroke="#475569" stroke-width="4"></line>
         <text x="112" y="198" fill="#64748b" font-size="12" font-weight="bold">회전축 (터빈이 돌린다)</text>
        </svg>
-       <div class="flex justify-center gap-2 mt-2">
-        <button id="btn-gen" class="quiz-btn" style="max-width:150px">회전 시작/정지</button>
-        <button id="btn-gen-fast" class="quiz-btn" style="max-width:150px">빠르게 돌리기</button>
+       <div class="flex flex-wrap justify-center gap-2 mt-2">
+        <button id="btn-gen" class="quiz-btn" style="max-width:140px">회전 시작/정지</button>
+        <button id="btn-gen-fast" class="quiz-btn" style="max-width:140px">빠르게 돌리기</button>
+        <button id="btn-load" class="quiz-btn" style="max-width:200px">부하: 코일 포함(전류 지연)</button>
        </div>
       </div>
       <div class="w-full md:w-1/2">
        <canvas id="gen-wave" class="w-full" style="width:100%; height:200px" role="img"
                aria-label="코일 회전에 따른 전압과 전류의 시간 그래프. 코일이 한 바퀴 돌 때마다 전압과 전류가 사인파 모양으로 커졌다 작아졌다 하며 방향이 주기적으로 바뀐다."></canvas>
-       <p class="slide-caption mt-1">코일이 자석과 나란할 때 0, 수직일 때 최대 — 한 바퀴에 방향이 두 번 바뀐다</p>
+       <p class="slide-caption mt-1">코일 면이 자기장과 나란할 때 전압 최대, 수직일 때 0 — 한 바퀴에 방향이 두 번 바뀐다</p>
+       <p class="text-slate-600 text-sm mt-2 text-center">위상차 <span class="readout" id="phi-out">60°</span> — 전류가 전압보다 <b>뒤처져</b> 지나간다</p>
       </div>
      </div>
     </div>
@@ -363,6 +372,10 @@
       <div class="outline-card"><p class="font-bold text-slate-800">구조</p><p class="text-slate-600 mt-1">자석 + 그 사이에서 도는 코일 + 회전축</p></div>
       <div class="outline-card"><p class="font-bold text-slate-800">계속 흐르는 이유</p><p class="text-slate-600 mt-1">코일이 도는 동안 자기장의 변화가 <b>끊이지 않는다</b>. 멈추면 전류도 멈춘다.</p></div>
       <div class="outline-card"><p class="font-bold text-slate-800">교류</p><p class="text-slate-600 mt-1">반 바퀴마다 코일 면이 뒤집혀 전류 방향이 주기적으로 바뀐다.</p></div>
+     </div>
+     <div class="outline-card max-w-4xl w-full mt-5">
+      <p class="font-bold text-slate-800">[심화] 전압과 전류의 봉우리는 왜 어긋날까</p>
+      <p class="text-slate-600 mt-1">전구처럼 <b>저항만</b> 있는 회로에서는 전압과 전류가 나란히 오르내린다(동상). 그러나 발전기 코일이나 모터처럼 <b>코일(인덕턴스)</b>이 끼어 있으면, 전류가 커지려는 순간 코일이 그 변화를 방해해 <b>전류가 전압보다 뒤늦게</b> 따라온다. 이것이 위상차다.</p>
      </div>
     </div>
    </section>
@@ -491,49 +504,61 @@
    document.addEventListener('DOMContentLoaded', function () {
 
     /* ── 실험 시뮬레이션 ──────────────────────────────
-       자석의 위치 x에 따라 코일을 지나는 자기장 Φ(x)를 종 모양으로 두고,
-       유도 기전력을 e = -dΦ/dt = -(dΦ/dx)·v 로 매 프레임 계산한다.
-       그래서 (1) 정지하면 0 (2) 코일 정중앙을 지날 때 0에 가까움
-       (3) 들어갈 때와 나올 때 부호가 반대 — 실제 현상 그대로 나온다. */
+       자석 위치 x에 대한 자기장 Φ(x)를 종 모양으로 두고
+       유도 기전력 e = -dΦ/dt = -(dΦ/dx)·v 를 매 프레임 계산한다.
+       정지 → 0, 코일 정중앙 → 최소, 들어갈 때와 나올 때 → 부호 반대. */
     var svg = document.getElementById('lab-svg');
     if (svg) {
      var magnet = document.getElementById('magnet');
+     var body   = document.getElementById('magnet-body');
+     var labels = document.querySelectorAll('.pole-label');
      var needle = document.getElementById('needle');
      var arrow  = document.getElementById('cur-arrow');
      var field  = document.getElementById('field');
      var obs    = document.getElementById('obs-text');
      var vOut   = document.getElementById('v-out');
+     var eOut   = document.getElementById('e-out');
      var iOut   = document.getElementById('i-out');
      var dirOut = document.getElementById('dir-out');
+     var wave   = document.getElementById('lab-wave');
+     var wctx   = wave.getContext('2d');
+     var speedBtn = document.getElementById('btn-speed');
 
-     var COIL_X = 257;      // 코일 중심 (SVG 좌표)
-     var WIDTH  = 62;       // 자기장이 퍼진 폭
-     var x = 40;            // 자석 중심의 현재 위치
-     var prevX = x, v = 0, emf = 0, emfShown = 0;
-     var polarity = 1;      // 극 방향 (N이 앞 = 1)
-     var drag = false, anim = null;
+     var COIL_X = 257, WIDTH = 62;
+     var STEP = 160;            // 한 번 누를 때 이동 거리 (SVG 단위 = 16 cm)
+     var x = 40, prevX = x, v = 0, emf = 0, emfShown = 0;
+     var polarity = 1, flipped = false;
+     var drag = false, anim = null, slowMode = true;
+     var trace = [];            // 전압 기록
 
-     function flux(px) { var u = (px - COIL_X) / WIDTH; return Math.exp(-u * u); }
      function dFluxdx(px) { var u = (px - COIL_X) / WIDTH; return -2 * u / WIDTH * Math.exp(-u * u); }
 
-     function draw() {
-      magnet.setAttribute('transform', 'translate(' + x + ',0)' + (polarity < 0 ? ' scale(-1,1) translate(' + (-2 * x) + ',0)' : ''));
-      field.setAttribute('transform', 'translate(' + x + ',0)');
-      needle.style.transform = 'rotate(' + Math.max(-78, Math.min(78, emfShown * 0.9)) + 'deg)';
-      var mag = Math.abs(emfShown);
-      arrow.setAttribute('opacity', mag > 3 ? Math.min(1, mag / 40) : 0);
-      arrow.textContent = emfShown > 0 ? '→' : '←';
-      vOut.textContent = (Math.abs(v) * 0.1).toFixed(1);
-      iOut.textContent = mag.toFixed(1);
-      dirOut.textContent = mag < 3 ? '' : (emfShown > 0 ? '(오른쪽)' : '(왼쪽)');
+     function drawWave() {
+      var W = wave.width = wave.clientWidth * 2, H = wave.height = 300, mid = H / 2;
+      wctx.clearRect(0, 0, W, H);
+      wctx.strokeStyle = '#cbd5e1'; wctx.lineWidth = 2;
+      wctx.beginPath(); wctx.moveTo(0, mid); wctx.lineTo(W, mid); wctx.stroke();
+      wctx.fillStyle = '#94a3b8'; wctx.font = '20px sans-serif';
+      wctx.fillText('시간 →', W - 90, mid - 10);
+      [['#2563eb', 1.0, '전압'], ['#dc2626', 0.7, '전류']].forEach(function (s, si) {
+       wctx.strokeStyle = s[0]; wctx.lineWidth = 4; wctx.beginPath();
+       trace.forEach(function (e, i) {
+        var px = W - (trace.length - i) * (W / 300);
+        var py = mid - Math.max(-1, Math.min(1, e / 45)) * (mid - 20) * s[1];
+        i ? wctx.lineTo(px, py) : wctx.moveTo(px, py);
+       });
+       wctx.stroke();
+       wctx.fillStyle = s[0]; wctx.font = 'bold 22px sans-serif';
+       wctx.fillText(s[2], 10, 26 + si * 28);
+      });
      }
 
      function narrate() {
       var d = x - COIL_X, mag = Math.abs(emfShown);
       if (mag < 3) {
        obs.textContent = Math.abs(v) < 0.3
-         ? '자석이 멈춰 있다 → 자기장이 변하지 않으므로 전류는 0이다.'
-         : '지금은 자기장의 변화가 거의 없는 구간이다 → 움직여도 전류가 작다.';
+         ? '자석이 멈춰 있다 → 자기장이 변하지 않으므로 전압도 전류도 0이다.'
+         : '자기장의 변화가 거의 없는 구간이다 → 움직여도 전류가 작다.';
       } else if (d < 0) {
        obs.textContent = '코일에 가까워지는 중 → 자기장이 세지며 한쪽 방향으로 전류가 흐른다.';
       } else {
@@ -546,43 +571,62 @@
       var dt = Math.min(0.05, (ts - last) / 1000 || 0.016); last = ts;
       v = (x - prevX) / dt; prevX = x;
       emf = -dFluxdx(x) * v * polarity * 2.2;
-      emfShown += (emf - emfShown) * 0.35;      // 바늘의 관성
-      if (!drag && !anim) v *= 0.0;
-      draw(); narrate();
+      emfShown += (emf - emfShown) * 0.35;
+
+      magnet.setAttribute('transform', 'translate(' + x + ',0)');
+      field.setAttribute('transform', 'translate(' + x + ',0)');
+      needle.style.transform = 'rotate(' + Math.max(-78, Math.min(78, emfShown * 0.9)) + 'deg)';
+      var mag = Math.abs(emfShown);
+      arrow.setAttribute('opacity', mag > 3 ? Math.min(1, mag / 40) : 0);
+      arrow.textContent = emfShown > 0 ? '→' : '←';
+      vOut.textContent = (Math.abs(v) * 0.1).toFixed(1);
+      eOut.textContent = emfShown.toFixed(1);
+      iOut.textContent = (emfShown * 0.7).toFixed(1);
+      dirOut.textContent = mag < 3 ? '' : (emfShown > 0 ? '(오른쪽)' : '(왼쪽)');
+
+      trace.push(emfShown); if (trace.length > 300) trace.shift();
+      drawWave(); narrate();
       requestAnimationFrame(loop);
      }
      requestAnimationFrame(loop);
 
-     // 드래그
      function toLocal(evt) {
       var r = svg.getBoundingClientRect();
       return (evt.clientX - r.left) / r.width * 460;
      }
      svg.addEventListener('pointerdown', function (e) { drag = true; anim = null; svg.setPointerCapture(e.pointerId); x = toLocal(e); });
      svg.addEventListener('pointermove', function (e) { if (drag) x = Math.max(-20, Math.min(440, toLocal(e))); });
-     svg.addEventListener('pointerup',   function () { drag = false; });
+     svg.addEventListener('pointerup', function () { drag = false; });
      svg.addEventListener('pointercancel', function () { drag = false; });
 
-     // 버튼 — 자동 통과
-     function sweep(duration) {
-      var from = 40, to = 440, t0 = null;
-      anim = true;
+     // 방향을 골라 STEP 만큼만 이동하고 멈춘다
+     function sweep(dir) {
+      var from = x, to = Math.max(-20, Math.min(440, x + dir * STEP));
+      var duration = slowMode ? 2600 : 900, t0 = null, token = {};
+      anim = token;
       function step(ts) {
-       if (!anim) return;
+       if (anim !== token) return;
        if (t0 === null) t0 = ts;
        var k = Math.min(1, (ts - t0) / duration);
        x = from + (to - from) * k;
-       if (k < 1) requestAnimationFrame(step); else anim = null;
+       if (k < 1) requestAnimationFrame(step); else anim = null;   // 도착하면 정지
       }
       requestAnimationFrame(step);
      }
+
      document.querySelectorAll('[data-act]').forEach(function (b) {
       b.addEventListener('click', function () {
        var a = b.dataset.act;
-       if (a === 'slow') { x = 40; sweep(3200); }
-       else if (a === 'fast') { x = 40; sweep(1100); }
-       else if (a === 'flip') { polarity *= -1; obs.textContent = '자석의 극을 뒤집었다 → 같은 방향으로 움직여도 전류의 방향이 반대가 된다.'; }
-       else { anim = null; x = 40; emfShown = 0; }
+       if (a === 'right') sweep(1);
+       else if (a === 'left') sweep(-1);
+       else if (a === 'speed') { slowMode = !slowMode; speedBtn.textContent = slowMode ? '속도: 느리게' : '속도: 빠르게'; }
+       else if (a === 'flip') {
+        // 회전 중심은 자석의 한가운데(로컬 0,96). 글자는 역회전시켜 바로 세운다
+        flipped = !flipped; polarity *= -1;
+        body.style.transform = flipped ? 'rotate(180deg)' : 'rotate(0deg)';
+        labels.forEach(function (el) { el.style.transform = flipped ? 'rotate(180deg)' : 'rotate(0deg)'; });
+        obs.textContent = '자석의 극을 뒤집었다 → 같은 방향으로 움직여도 전류의 방향이 반대가 된다.';
+       } else { anim = null; x = 40; emfShown = 0; trace.length = 0; }
       });
      });
     }
@@ -593,6 +637,7 @@
     if (coil && wave) {
      var ctx = wave.getContext('2d');
      var theta = 0, speed = 2.2, spinning = false, hist = [];
+     var phi = Math.PI / 3;      // 전류가 전압보다 뒤처지는 위상차 (코일 부하)
      for (var i = 0; i < 240; i++) hist.push(0);   // 정지 상태 = 0 V, 평평한 선
      function resize() { wave.width = wave.clientWidth * 2; wave.height = 400; ctx.scale(1, 1); }
      resize(); window.addEventListener('resize', resize);
@@ -605,19 +650,19 @@
       ctx.beginPath(); ctx.moveTo(0, mid); ctx.lineTo(W, mid); ctx.stroke();
       ctx.fillStyle = '#64748b'; ctx.font = '22px sans-serif';
       ctx.fillText('시간 →', W - 110, mid - 12);
-      // 곡선
-      [['#2563eb', 1.0, 3], ['#dc2626', 0.62, 3]].forEach(function (s, si) {
+      // 전압 e = E0 sinθ, 전류 i = I0 sin(θ - φ) — 코일 부하에서는 전류가 뒤처진다
+      [['#2563eb', 1.0, 0, '전압'], ['#dc2626', 0.62 * Math.cos(phi) + 0.28, phi, '전류']].forEach(function (s, si) {
        ctx.strokeStyle = s[0]; ctx.lineWidth = 5; ctx.beginPath();
        hist.forEach(function (th, i) {
         var px = W - (hist.length - i) * (W / 240);
-        var py = mid - Math.sin(th) * (mid - 30) * s[1];
+        var py = mid - Math.sin(th - s[2]) * (mid - 30) * s[1];
         i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
        });
        ctx.stroke();
        ctx.fillStyle = s[0]; ctx.font = 'bold 24px sans-serif';
-       ctx.fillText(si === 0 ? '전압' : '전류', 12, 34 + si * 34);
+       ctx.fillText(s[3], 12, 34 + si * 34);
       });
-      // 현재 지점
+      // 현재 지점 (전압)
       if (hist.length) {
        var last = hist[hist.length - 1];
        ctx.fillStyle = '#2563eb';
@@ -639,6 +684,12 @@
      plot();
 
      document.getElementById('btn-gen').addEventListener('click', function () { spinning = !spinning; });
+     document.getElementById('btn-load').addEventListener('click', function () {
+      phi = phi > 0.01 ? 0 : Math.PI / 3;
+      this.textContent = phi > 0.01 ? '부하: 코일 포함(전류 지연)' : '부하: 저항만(동상)';
+      document.getElementById('phi-out').textContent = phi > 0.01 ? '60°' : '0°';
+      plot();
+     });
      document.getElementById('btn-gen-fast').addEventListener('click', function () {
       speed = speed > 3 ? 2.2 : 5.0;
       this.textContent = speed > 3 ? '천천히 돌리기' : '빠르게 돌리기';
