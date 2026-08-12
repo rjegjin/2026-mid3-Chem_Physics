@@ -1,0 +1,90 @@
+{
+ "emi_shake_flashlight.jpg": {
+  "source": "Wikimedia Commons",
+  "file": "Linear induction flashlight.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3ALinear_induction_flashlight.jpg",
+  "license": "CC0",
+  "author": "Chetvorno",
+  "bytes": 255430
+ },
+ "emi_coil_experiment.svg": {
+  "source": "Wikimedia Commons",
+  "file": "Faraday emf experiment.svg",
+  "page": "https://commons.wikimedia.org/wiki/File%3AFaraday_emf_experiment.svg",
+  "license": "CC0",
+  "author": "Eviatar Bach",
+  "bytes": 41770
+ },
+ "emi_faraday_ring.jpg": {
+  "source": "Wikimedia Commons",
+  "file": "Faraday ring transformer.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3AFaraday_ring_transformer.jpg",
+  "license": "Public domain",
+  "author": "Unknown authorUnknown author",
+  "bytes": 39617
+ },
+ "emi_faraday_portrait.jpg": {
+  "source": "Wikimedia Commons",
+  "file": "Michael Faraday sitting crop.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3AMichael_Faraday_sitting_crop.jpg",
+  "license": "Public domain",
+  "author": "Unknown authorUnknown author",
+  "bytes": 564950
+ },
+ "emi_oersted.png": {
+  "source": "Wikimedia Commons",
+  "file": "Oersted experiment.png",
+  "page": "https://commons.wikimedia.org/wiki/File%3AOersted_experiment.png",
+  "license": "Public domain",
+  "author": "Agustin Privat-Deschanel",
+  "bytes": 60739
+ },
+ "emi_turbine_plant.jpg": {
+  "source": "Wikimedia Commons",
+  "file": "Turbine-plant.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3ATurbine-plant.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Werni1",
+  "bytes": 911987
+ },
+ "emi_hydro_generator.svg": {
+  "source": "Wikimedia Commons",
+  "file": "Hydroelectric Generator.svg",
+  "page": "https://commons.wikimedia.org/wiki/File%3AHydroelectric_Generator.svg",
+  "license": "Public domain",
+  "author": "U.S. Army Corps of Engineers (Vector image: Gothika, Edit: Bammesk)",
+  "bytes": 66324
+ },
+ "emi_stator.jpg": {
+  "source": "Wikimedia Commons",
+  "file": "Generator Stator Core Vent Slots.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File%3AGenerator_Stator_Core_Vent_Slots.JPG",
+  "license": "CC BY-SA 3.0",
+  "author": "Wtshymanski",
+  "bytes": 680249
+ },
+ "emi_dynamic_mic.jpg": {
+  "source": "Wikimedia Commons",
+  "file": "Microphone a bobine mobile final.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3AMicrophone_a_bobine_mobile_final.jpg",
+  "license": "CC BY-SA 3.0",
+  "author": "Master dpo",
+  "bytes": 60881
+ },
+ "emi_induction_thermo.jpg": {
+  "source": "Wikimedia Commons",
+  "file": "InductionPanThermography.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3AInductionPanThermography.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "CharlesMJames",
+  "bytes": 18015
+ },
+ "emi_dynamo_hub.jpg": {
+  "source": "Wikimedia Commons",
+  "file": "Bicycle wheel with dynamo hub.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File%3ABicycle_wheel_with_dynamo_hub.JPG",
+  "license": "CC BY-SA 3.0",
+  "author": "Sylenius",
+  "bytes": 842423
+ }
+}

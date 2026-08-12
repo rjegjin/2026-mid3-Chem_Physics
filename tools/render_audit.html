@@ -138,6 +138,9 @@
                 if (el.children.length > 8) return false;
                 const rect = el.getBoundingClientRect();
                 if (rect.width === 0 || rect.height === 0) return false;
+                // SVG 자식은 clientWidth가 늘 0이라 항상 넘침으로 잡힌다. viewBox가
+                // 알아서 스케일하므로 넘침 판정 대상이 아니다 — 바깥의 <svg>만 본다.
+                if (el.ownerSVGElement) return false;
                 return el.scrollWidth > el.clientWidth + 4;
               })
               .slice(0, 50)

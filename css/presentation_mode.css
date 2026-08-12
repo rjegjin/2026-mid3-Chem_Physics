@@ -79,7 +79,9 @@ body.presentation-mode section.active-slide {
 }
 
 body.presentation-mode h2 {
-    font-size: clamp(1.6rem, 2.2vw, 2.2rem) !important;
+    /* 교실 투사 기준으로 키우되 화면 '높이'에도 연동한다. 가로만 보면
+       세로가 짧은 화면에서 슬라이드가 한 화면에 안 들어간다. */
+    font-size: calc(clamp(1.9rem, min(3.4vw, 4.6vh), 2.9rem) * var(--fit, 1)) !important;
     font-family: var(--font-heading);
     font-weight: 700;
     margin-bottom: 1rem !important;
@@ -94,7 +96,7 @@ body.presentation-mode h2 {
 
 body.presentation-mode p,
 body.presentation-mode li {
-    font-size: clamp(0.9rem, 1.4vw, 1.5rem);
+    font-size: calc(clamp(1.25rem, min(2.1vw, 2.75vh), 2.0rem) * var(--fit, 1));   /* 위와 같은 이유로 vh 연동 */
     font-weight: 500;
     line-height: 1.6;
     color: #1e293b;
@@ -491,7 +493,7 @@ body.view-all-mode .progress-bar-container {
 
 /* Muted caption */
 .slide-caption {
-    font-size: 0.8rem !important;
+    font-size: calc(clamp(0.95rem, 1.6vh, 1.2rem) * var(--fit, 1)) !important;   /* 보조 문구도 뒷자리에서 읽히게 */
     color: #64748b; /* WCAG AA: 흰 배경 대비 4.8:1 (기존 #94a3b8은 2.6:1로 미달) */
     line-height: 1.4 !important;
     margin-bottom: 0 !important;
