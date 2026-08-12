@@ -27,3 +27,4 @@ $RECYCLE.BIN/
 
 # Backup files
 *.bak
+tmp_checks/
