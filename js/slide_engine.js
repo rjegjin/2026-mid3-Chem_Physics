@@ -238,6 +238,42 @@ window.SlideEngine = {
                 });
             });
         });
+
+        // 이미지와 차트가 자리를 잡기 전에 재면 높이를 작게 본다. 로드 후 다시 맞춘다.
+        this.fitSlides();
+        window.addEventListener('load', () => { this.fitSlides(); setTimeout(() => this.fitSlides(), 600); });
+        window.addEventListener('resize', () => this.fitSlides());
+    },
+
+    /**
+     * 슬라이드가 화면 높이를 넘으면 그 슬라이드만 글자를 줄여 한 화면에 담는다.
+     * 교실 투사를 위해 기본 글자를 키운 대신, 내용이 많은 슬라이드에서 스크롤이
+     * 생기는 것을 막는다. 넘치지 않는 슬라이드는 건드리지 않는다.
+     */
+    fitSlides: function() {
+        const MIN = 0.62;                       // 이 아래로는 읽기 어렵다
+        this.sections.forEach(sec => {
+            const content = sec.querySelector('.slide-content');
+            if (!content) return;
+            const wasHidden = getComputedStyle(sec).display === 'none';
+            if (wasHidden) { sec.style.visibility = 'hidden'; sec.style.display = 'flex'; }
+
+            content.style.removeProperty('--fit');
+            content.style.removeProperty('transform');
+            let scale = 1;
+            // 넘치는 동안 5%씩 줄인다. --fit은 CSS의 clamp 값에 곱해진다.
+            while (content.scrollHeight > content.clientHeight + 4 && scale > MIN) {
+                scale -= 0.05;
+                content.style.setProperty('--fit', scale.toFixed(2));
+            }
+            // 글자만으로 부족하면(사진·캔버스가 자리를 차지하는 경우) 통째로 축소한다.
+            if (content.scrollHeight > content.clientHeight + 4) {
+                const k = Math.max(0.55, content.clientHeight / content.scrollHeight);
+                content.style.transformOrigin = 'center top';
+                content.style.transform = 'scale(' + k.toFixed(3) + ')';
+            }
+            if (wasHidden) { sec.style.display = ''; sec.style.removeProperty('visibility'); }
+        });
     }
 };
 

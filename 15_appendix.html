@@ -15,7 +15,8 @@
    .src-list { font-size:1.15rem; color:#475569; }
    .src-list a { color:#0e7490; text-decoration:underline; }
    .tl { border-left:3px solid #cbd5e1; padding-left:1.2rem; }
-   .tl-item { position:relative; padding-bottom:1rem; }
+   .tl-item { position:relative; padding-bottom:0.6rem; }
+   .tl-item p { font-size:1.5rem !important; line-height:1.5 !important; }
    .tl-item::before { content:""; position:absolute; left:-1.62rem; top:0.55rem; width:11px; height:11px; border-radius:50%; background:#0891b2; }
    .tl-year { font-weight:800; color:#155e75; }
   </style>
@@ -40,7 +41,7 @@
      <h2>전자기 유도가 발견되기까지</h2>
      <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-3">
       <div class="w-full md:w-1/2">
-       <img src="img/emi_faraday_ring.jpg" class="photo" style="max-height:250px"
+       <img src="img/emi_faraday_ring.jpg" class="photo" style="max-height:190px"
             alt="패러데이가 1831년에 사용한 고리 코일 장치. 쇠고리 양쪽에 코일이 감겨 있다."/>
        <p class="credit">패러데이의 고리 코일 장치 &middot; Wikimedia Commons, Public domain</p>
       </div>
@@ -80,16 +81,16 @@
      <h2>사람과 출처</h2>
      <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-3">
       <div class="w-full md:w-1/3">
-       <img src="img/emi_faraday_portrait.jpg" class="photo" style="max-height:250px; object-fit:cover"
+       <img src="img/emi_faraday_portrait.jpg" class="photo" style="max-height:210px; object-fit:cover"
             alt="마이클 패러데이의 초상 사진"/>
        <p class="credit">Michael Faraday &middot; Public domain</p>
       </div>
       <div class="w-full md:w-2/3 space-y-3">
-       <div class="outline-card">
+       <div class="outline-card" style="padding:1rem">
         <p class="font-bold text-slate-800">마이클 패러데이 (1791–1867)</p>
-        <p class="text-slate-600 mt-1">가난한 대장장이의 아들로 태어나 책 제본 견습생으로 일했다. 제본하던 책을 읽으며 과학에 빠졌고, 수학 훈련을 거의 받지 못해 평생 <b>실험과 그림</b>으로 사고했다. 그의 실험을 훗날 맥스웰이 수식으로 정리했다.</p>
+        <p class="text-slate-600 mt-1">대장장이의 아들로 태어나 책 제본 견습생으로 일했다. 제본하던 책을 읽으며 과학에 빠졌고, 수학 훈련을 거의 받지 못해 평생 <b>실험과 그림</b>으로 사고했다.</p>
        </div>
-       <div class="outline-card">
+       <div class="outline-card" style="padding:1rem">
         <p class="font-bold text-slate-800">확인한 출처</p>
         <ul class="src-list mt-2 space-y-1">
          <li>· <a href="https://nationalmaglab.org/magnet-academy/history-of-electricity-magnetism/museum/oersteds-compass-1820/">National MagLab — Oersted's Compass (1820)</a></li>
@@ -123,16 +124,16 @@
      <h2>[심화] 전압과 전류의 봉우리가 어긋날 때</h2>
      <div class="flex flex-col md:flex-row gap-5 items-center max-w-5xl w-full mt-3">
       <div class="w-full md:w-1/2">
-       <canvas id="phase-wave" class="w-full" style="width:100%; height:190px" role="img"
+       <canvas id="phase-wave" class="w-full" style="width:100%; height:170px" role="img"
                aria-label="전압과 전류의 위상차 그래프. 저항만 있는 회로에서는 두 곡선의 봉우리가 겹치고, 코일이 포함된 회로에서는 전류 곡선이 전압 곡선보다 뒤로 밀려 나타난다."></canvas>
        <div class="flex justify-center gap-2 mt-2">
         <button id="btn-phase" class="quiz-btn" style="max-width:230px">부하 바꾸기: 저항만 (동상)</button>
        </div>
       </div>
       <div class="w-full md:w-1/2 space-y-3">
-       <div class="outline-card"><p class="font-bold text-slate-800">저항만 있는 회로</p><p class="text-slate-600 mt-1">전구처럼 저항만 있으면 전압과 전류가 나란히 오르내린다 (위상차 0).</p></div>
-       <div class="outline-card"><p class="font-bold text-slate-800">코일이 있는 회로</p><p class="text-slate-600 mt-1">모터나 변압기처럼 코일이 끼면, 전류가 커지려는 변화를 코일이 방해해 <b>전류가 전압보다 뒤늦게</b> 따라온다.</p></div>
-       <div class="outline-card"><p class="font-bold text-slate-800">주의</p><p class="text-slate-600 mt-1">위상차는 발전기의 고정된 성질이 아니라 <b>연결한 부하</b>(저항·코일·축전기)에 따라 달라진다. 여기 값은 설명을 위해 정한 예시다.</p></div>
+       <div class="outline-card" style="padding:1rem"><p class="text-slate-700"><b>저항만</b> — 전구처럼 저항뿐이면 전압과 전류가 나란히 오르내린다 (위상차 0).</p></div>
+       <div class="outline-card" style="padding:1rem"><p class="text-slate-700"><b>코일이 있으면</b> — 전류가 커지려는 변화를 코일이 방해해 전류가 전압보다 뒤늦게 따라온다.</p></div>
+       <div class="outline-card" style="padding:1rem"><p class="text-slate-700"><b>주의</b> — 위상차는 발전기의 성질이 아니라 연결한 부하에 따라 달라진다. 여기 값은 예시다.</p></div>
       </div>
      </div>
     </div>
@@ -167,12 +168,12 @@
     var phi = 0;   // 기본값: 저항 부하 = 동상
 
     function plot() {
-     var W = cv.width = cv.clientWidth * 2, H = cv.height = 380, mid = H / 2, pad = 40;
+     var W = cv.width = cv.clientWidth * 2, H = cv.height = cv.clientHeight * 2, mid = H / 2, pad = 46;
      ctx.clearRect(0, 0, W, H);
      ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2;
      ctx.beginPath(); ctx.moveTo(pad, mid); ctx.lineTo(W - 6, mid); ctx.stroke();
-     ctx.fillStyle = '#64748b'; ctx.font = '20px sans-serif';
-     ctx.fillText('시간 →', W - 110, mid + 28);
+     ctx.fillStyle = '#475569'; ctx.font = '28px sans-serif';
+     ctx.fillText('시간 →', W - 150, mid + 36);
      [['#2563eb', 0, '전압'], ['#dc2626', phi, '전류']].forEach(function (s, si) {
       ctx.strokeStyle = s[0]; ctx.lineWidth = 5; ctx.beginPath();
       for (var i = 0; i <= 320; i++) {
@@ -182,8 +183,8 @@
        i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
       }
       ctx.stroke();
-      ctx.fillStyle = s[0]; ctx.font = 'bold 22px sans-serif';
-      ctx.fillText(s[2], pad + 10 + si * 100, 26);
+      ctx.fillStyle = s[0]; ctx.font = 'bold 28px sans-serif';
+      ctx.fillText(s[2], pad + 10 + si * 130, 30);
      });
     }
     plot();

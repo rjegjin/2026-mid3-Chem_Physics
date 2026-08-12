@@ -91,7 +91,7 @@
      <h2>탐구 — 자석을 코일에 넣었다 빼 보자</h2>
      <div class="flex flex-col md:flex-row gap-5 items-center max-w-5xl w-full mt-2">
       <div class="w-full md:w-3/5">
-       <svg id="lab-svg" viewBox="0 0 460 300" class="w-full" style="touch-action:none; cursor:grab" role="img"
+       <svg id="lab-svg" viewBox="0 0 460 300" class="w-full" style="touch-action:none; cursor:grab; max-height:330px" role="img"
             aria-label="코일과 검류계 실험 장치. 막대자석을 끌거나 버튼으로 움직일 수 있다. 코일을 통과하는 자기장이 변하는 동안에만 검류계 바늘이 움직이고, 코일 한가운데를 지날 때와 정지했을 때는 0에 가깝다.">
         <rect x="0" y="0" width="460" height="300" fill="#f8fafc" rx="16"></rect>
         <g stroke="#b45309" stroke-width="6" fill="none">
@@ -131,13 +131,13 @@
       </div>
       <div class="w-full md:w-2/5 space-y-3">
        <div class="outline-card" style="padding:1rem">
-        <canvas id="lab-wave" class="w-full" style="width:100%; height:200px" role="img"
+        <canvas id="lab-wave" class="w-full" style="width:100%; height:220px" role="img"
                 aria-label="유도 전류 기록 그래프. 자석이 코일에 들어갈 때 한쪽으로 봉우리가 생기고, 코일 한가운데에서 0으로 돌아왔다가, 빠져나올 때 반대쪽으로 봉우리가 생긴다. 느린 이동과 빠른 이동의 기록이 다른 색으로 겹쳐 남는다."></canvas>
         <p class="text-slate-600 mt-1" style="font-size:1.3rem">
          상대 속도 <span class="readout" id="v-out">0</span> &nbsp; 상대 유도 전류 <span class="readout" id="i-out">0</span>
          <span id="dir-out" class="text-slate-500"></span></p>
        </div>
-       <div class="ask"><p id="obs-text">자석을 움직여 보고, 바늘이 가장 크게 흔들리는 순간을 찾아 기록하세요.</p></div>
+       <div class="ask" style="padding:0.7rem 1rem"><p id="obs-text">자석을 움직여 보고, 바늘이 가장 크게 흔들리는 순간을 찾아 기록하세요.</p></div>
       </div>
      </div>
     </div>
@@ -169,7 +169,7 @@
      <h2>핵심은 '움직임'이 아니라 '자기장의 변화'</h2>
      <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-3">
       <div class="w-full md:w-1/2">
-       <img src="img/emi_coil_experiment.svg" class="photo" style="background:white; padding:0.8rem; max-height:270px; object-fit:contain"
+       <img src="img/emi_coil_experiment.svg" class="photo" style="background:white; padding:0.6rem; max-height:210px; object-fit:contain"
             alt="코일에 검류계를 연결하고 막대자석을 코일 안팎으로 움직이는 실험 도해"/>
        <p class="credit">그림: Eviatar Bach, Wikimedia Commons, CC0</p>
       </div>
@@ -177,8 +177,8 @@
        <div class="outline-card" style="border-color:#0891b2">
         <p class="text-slate-700"><b>코일을 통과하는 자기장이 변하면</b> 코일에 <b>유도 전압</b>이 생긴다.<br/>코일이 <b>닫힌 회로</b>를 이루고 있으면 그때 <b>유도 전류</b>가 흐른다.</p>
        </div>
-       <div class="outline-card"><p class="font-bold text-slate-800">이것을 전자기 유도라고 한다</p><p class="text-slate-600 mt-1">자석을 움직이든 코일을 움직이든, 코일을 지나는 자기장이 변해야 한다.</p></div>
-       <div class="outline-card"><p class="font-bold text-slate-800">그래서</p><p class="text-slate-600 mt-1">움직여도 자기장의 변화가 없으면 전류는 0에 가깝다.</p></div>
+       <div class="outline-card" style="padding:1rem"><p class="text-slate-700">이것을 <b>전자기 유도</b>라 한다. 자석을 움직이든 코일을 움직이든, 코일을 지나는 자기장이 변해야 한다.</p></div>
+       <div class="outline-card" style="padding:1rem"><p class="text-slate-700">그래서 움직여도 자기장의 변화가 없으면 전류는 0에 가깝다.</p></div>
       </div>
      </div>
     </div>
@@ -203,14 +203,16 @@
      <h2>유도 전류를 더 세게 만들려면</h2>
      <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-3">
       <div class="w-full md:w-1/2">
-       <canvas id="chart-emf" height="220" role="img"
-               aria-label="조건에 따른 유도 전류 세기의 정성적 비교 막대그래프. 자석이 정지하면 없음, 기준 조건은 보통, 더 빠르게 움직이거나 더 센 자석을 쓰거나 코일을 더 많이 감으면 큼으로 표시된다."></canvas>
+       <div style="height:240px; position:relative">
+        <canvas id="chart-emf" role="img"
+                aria-label="조건에 따른 유도 전류 세기의 정성적 비교 막대그래프. 자석이 정지하면 없음, 기준 조건은 보통, 더 빠르게 움직이거나 더 센 자석을 쓰거나 코일을 더 많이 감으면 큼으로 표시된다."></canvas>
+       </div>
        <p class="credit">단순화한 모형의 상대 비교 — 회로의 저항 등 다른 조건은 같다고 가정</p>
       </div>
       <div class="w-full md:w-1/2 space-y-3">
-       <div class="outline-card"><p class="font-bold text-slate-800">더 빠르게 움직인다</p><p class="text-slate-600 mt-1">같은 변화를 더 짧은 시간에 → 커진다</p></div>
-       <div class="outline-card"><p class="font-bold text-slate-800">더 센 자석을 쓴다</p><p class="text-slate-600 mt-1">자기장의 변화 폭이 커진다</p></div>
-       <div class="outline-card"><p class="font-bold text-slate-800">코일을 더 많이 감는다</p><p class="text-slate-600 mt-1">같은 변화를 여러 겹이 함께 겪는다</p></div>
+       <div class="outline-card" style="padding:1rem"><p class="text-slate-700"><b>더 빠르게</b> — 같은 변화를 짧은 시간에</p></div>
+       <div class="outline-card" style="padding:1rem"><p class="text-slate-700"><b>센 자석</b> — 자기장의 변화 폭이 커진다</p></div>
+       <div class="outline-card" style="padding:1rem"><p class="text-slate-700"><b>많이 감은 코일</b> — 여러 겹이 함께 겪는다</p></div>
       </div>
      </div>
     </div>
@@ -222,14 +224,14 @@
      <h2>공짜 전기는 없다</h2>
      <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-3">
       <div class="w-full md:w-1/2">
-       <img src="img/emi_dynamo_hub.jpg" class="photo" style="max-height:260px"
+       <img src="img/emi_dynamo_hub.jpg" class="photo" style="max-height:200px"
             alt="자전거 바퀴 축에 달린 허브 다이너모. 바퀴가 돌면 전조등에 전기를 공급한다."/>
        <p class="credit">사진: Sylenius, Wikimedia Commons, CC BY-SA 3.0</p>
       </div>
       <div class="w-full md:w-1/2 space-y-3">
-       <div class="outline-card"><p class="font-bold text-slate-800">해 보면 느껴진다</p><p class="text-slate-600 mt-1">전조등을 켜면 <b>페달이 더 무거워진다.</b> 코일에 전구를 연결하고 자석을 넣을 때 손이 뻑뻑해지는 것도 같은 이유다.</p></div>
-       <div class="outline-card"><p class="font-bold text-slate-800">왜?</p><p class="text-slate-600 mt-1">전기가 만들어진 만큼 누군가 <b>일을 해야</b> 하기 때문이다.</p></div>
-       <div class="outline-card" style="border-color:#0891b2"><p class="text-slate-700">역학적 에너지 → 전기 에너지 → 빛·열에너지</p></div>
+       <div class="outline-card" style="padding:1rem"><p class="text-slate-700">전조등을 켜면 <b>페달이 더 무거워진다.</b> 코일에 전구를 물리고 자석을 넣을 때 손이 뻑뻑해지는 것과 같다.</p></div>
+       <div class="outline-card" style="padding:1rem"><p class="text-slate-700">전기가 만들어진 만큼 누군가 <b>일을 해야</b> 하기 때문이다.</p></div>
+       <div class="outline-card" style="padding:1rem; border-color:#0891b2"><p class="text-slate-700">역학적 에너지 → 전기 에너지 → 빛·열에너지</p></div>
       </div>
      </div>
     </div>
@@ -302,14 +304,14 @@
      <h2>터빈과 발전기는 다른 부품이다</h2>
      <div class="flex flex-col md:flex-row gap-5 items-center max-w-5xl w-full mt-3">
       <div class="w-full md:w-1/2">
-       <img src="img/emi_hydro_generator.svg" class="photo" style="background:white; padding:0.6rem; max-height:250px; object-fit:contain"
+       <img src="img/emi_hydro_generator.svg" class="photo" style="background:white; padding:0.5rem; max-height:200px; object-fit:contain"
             alt="수력 발전기 단면도. 물이 터빈을 돌리고, 회전축이 발전기의 회전자를 돌린다."/>
        <p class="credit">그림: U.S. Army Corps of Engineers, Wikimedia Commons, Public domain</p>
       </div>
       <div class="w-full md:w-1/2 space-y-3">
-       <div class="outline-card"><p class="text-slate-700">물·수증기·바람 → <b>터빈</b> 회전 → <b>회전축</b> → 발전기의 <b>회전자</b> → 전기 에너지</p></div>
-       <div class="outline-card"><p class="font-bold text-slate-800">발전기의 정의</p><p class="text-slate-600 mt-1">자석과 코일 <b>둘 중 하나를 회전</b>시켜 코일을 통과하는 자기장을 계속 변화시키는 장치. 큰 발전기는 자석 쪽(회전자)이 돌고 코일은 고정되어 있는 경우가 많다.</p></div>
-       <div class="outline-card"><p class="font-bold text-slate-800">발전소의 차이</p><p class="text-slate-600 mt-1">수력·화력·풍력·원자력은 <b>터빈을 무엇으로 돌리는가</b>만 다르다. 태양광은 터빈이 없어 예외다.</p></div>
+       <div class="outline-card" style="padding:1rem"><p class="text-slate-700">물·수증기·바람 → <b>터빈</b> → <b>회전축</b> → 발전기의 <b>회전자</b> → 전기</p></div>
+       <div class="outline-card" style="padding:1rem"><p class="text-slate-700"><b>발전기</b>는 자석과 코일 중 하나를 회전시켜 통과 자기장을 계속 바꾸는 장치다. 큰 발전기는 자석 쪽이 돌고 코일은 고정된 경우가 많다.</p></div>
+       <div class="outline-card" style="padding:1rem"><p class="text-slate-700">수력·화력·풍력·원자력은 <b>터빈을 무엇으로 돌리는가</b>만 다르다. 태양광은 터빈이 없어 예외.</p></div>
       </div>
      </div>
     </div>
@@ -435,41 +437,61 @@
      function dFluxdx(px) { var u = (px - COIL_X) / WIDTH; return -2 * u / WIDTH * Math.exp(-u * u); }
 
      function drawWave() {
-      var W = wave.width = wave.clientWidth * 2, H = wave.height = 400, mid = H / 2, pad = 46;
+      // 캔버스의 픽셀 크기를 CSS 크기의 2배로 맞춘다. 어긋나면 그림이 늘어나 글자가 뭉개진다.
+      var W = wave.width = wave.clientWidth * 2,
+          H = wave.height = wave.clientHeight * 2,
+          mid = H / 2, padL = 64, padR = 14, padT = 34, F = 30;
       wctx.clearRect(0, 0, W, H);
-      wctx.strokeStyle = '#94a3b8'; wctx.lineWidth = 2;
-      wctx.beginPath(); wctx.moveTo(pad, mid); wctx.lineTo(W - 8, mid); wctx.stroke();
-      wctx.beginPath(); wctx.moveTo(pad, 14); wctx.lineTo(pad, H - 14); wctx.stroke();
-      wctx.fillStyle = '#64748b'; wctx.font = '22px sans-serif';
-      wctx.fillText('시간 →', W - 110, mid + 30);
-      wctx.fillText('0', pad - 26, mid + 8);
-      wctx.save(); wctx.translate(22, mid + 80); wctx.rotate(-Math.PI / 2);
-      wctx.fillText('유도 전류 (상대값)', 0, 0); wctx.restore();
+
+      // 눈금선
+      wctx.strokeStyle = '#e2e8f0'; wctx.lineWidth = 2;
+      [-1, -0.5, 0.5, 1].forEach(function (k) {
+       var y = mid - k * (mid - padT);
+       wctx.beginPath(); wctx.moveTo(padL, y); wctx.lineTo(W - padR, y); wctx.stroke();
+      });
+      // 0선과 세로축
+      wctx.strokeStyle = '#64748b'; wctx.lineWidth = 3;
+      wctx.beginPath(); wctx.moveTo(padL, mid); wctx.lineTo(W - padR, mid); wctx.stroke();
+      wctx.beginPath(); wctx.moveTo(padL, padT - 12); wctx.lineTo(padL, H - padT + 12); wctx.stroke();
+
+      wctx.fillStyle = '#475569'; wctx.font = F + 'px sans-serif';
+      wctx.textAlign = 'right';
+      wctx.fillText('+', padL - 12, mid - (mid - padT) + 12);
+      wctx.fillText('0', padL - 12, mid + 11);
+      wctx.fillText('−', padL - 12, mid + (mid - padT) + 12);
+      wctx.textAlign = 'left';
+      wctx.fillText('시간 →', W - padR - 130, mid + F + 8);
 
       runs.forEach(function (run) {
        wctx.strokeStyle = run.fast ? '#dc2626' : '#2563eb';
-       wctx.lineWidth = 4; wctx.beginPath();
+       wctx.lineWidth = 6; wctx.lineJoin = 'round'; wctx.beginPath();
        run.pts.forEach(function (e, i) {
-        var px = pad + (i / 260) * (W - pad - 12);
-        var py = mid - Math.max(-1, Math.min(1, e / 45)) * (mid - 26);
+        var px = padL + (i / 260) * (W - padL - padR);
+        var py = mid - Math.max(-1, Math.min(1, e / 45)) * (mid - padT);
         i ? wctx.lineTo(px, py) : wctx.moveTo(px, py);
        });
        wctx.stroke();
        [1, -1].forEach(function (sgn) {
         var bi = -1, bv = 0;
         run.pts.forEach(function (e, i) { if (e * sgn > bv) { bv = e * sgn; bi = i; } });
-        if (bi < 0 || bv < 6) return;
-        var px = pad + (bi / 260) * (W - pad - 12);
-        var py = mid - Math.max(-1, Math.min(1, (bv * sgn) / 45)) * (mid - 26);
+        if (bi < 0 || bv < 8) return;
+        var px = padL + (bi / 260) * (W - padL - padR);
+        var py = mid - Math.max(-1, Math.min(1, (bv * sgn) / 45)) * (mid - padT);
         wctx.fillStyle = run.fast ? '#dc2626' : '#2563eb';
-        wctx.beginPath(); wctx.arc(px, py, 7, 0, 6.3); wctx.fill();
-        wctx.font = 'bold 20px sans-serif';
-        wctx.fillText(sgn > 0 ? '들어갈 때' : '나올 때', px - 44, py + (sgn > 0 ? -14 : 30));
+        wctx.beginPath(); wctx.arc(px, py, 9, 0, 6.3); wctx.fill();
+        wctx.font = 'bold ' + F + 'px sans-serif'; wctx.textAlign = 'center';
+        wctx.fillText(sgn > 0 ? '들어갈 때' : '나올 때',
+                      Math.min(W - 100, Math.max(100, px)), py + (sgn > 0 ? -18 : F + 12));
+        wctx.textAlign = 'left';
        });
       });
-      wctx.font = 'bold 20px sans-serif';
-      wctx.fillStyle = '#2563eb'; wctx.fillText('느리게', pad + 10, 26);
-      wctx.fillStyle = '#dc2626'; wctx.fillText('빠르게', pad + 100, 26);
+
+      // 범례
+      wctx.font = 'bold ' + F + 'px sans-serif';
+      wctx.fillStyle = '#2563eb'; wctx.fillRect(padL + 8, 12, 26, 8);
+      wctx.fillText('느리게', padL + 42, 26);
+      wctx.fillStyle = '#dc2626'; wctx.fillRect(padL + 170, 12, 26, 8);
+      wctx.fillText('빠르게', padL + 204, 26);
      }
 
      function narrate() {
@@ -569,13 +591,13 @@
      }
 
      function drawWave2() {
-      var W = gwave.width = gwave.clientWidth * 2, H = gwave.height = 360, mid = H / 2, pad = 40;
+      var W = gwave.width = gwave.clientWidth * 2, H = gwave.height = gwave.clientHeight * 2, mid = H / 2, pad = 52;
       gctx.clearRect(0, 0, W, H);
       gctx.strokeStyle = '#94a3b8'; gctx.lineWidth = 2;
       gctx.beginPath(); gctx.moveTo(pad, mid); gctx.lineTo(W - 6, mid); gctx.stroke();
-      gctx.fillStyle = '#64748b'; gctx.font = '20px sans-serif';
-      gctx.fillText('회전각 →', W - 130, mid + 28);
-      gctx.fillText('0', pad - 22, mid + 7);
+      gctx.fillStyle = '#475569'; gctx.font = '28px sans-serif';
+      gctx.fillText('회전각 →', W - 160, mid + 36);
+      gctx.fillText('0', pad - 30, mid + 10);
       gctx.strokeStyle = '#2563eb'; gctx.lineWidth = 5; gctx.beginPath();
       for (var i = 0; i <= 300; i++) {
        var a = i / 300 * (3 * Math.PI);
@@ -591,8 +613,8 @@
       gctx.beginPath(); gctx.moveTo(cpx, 8); gctx.lineTo(cpx, H - 8); gctx.stroke();
       gctx.setLineDash([]);
       gctx.fillStyle = '#f59e0b'; gctx.beginPath(); gctx.arc(cpx, cpy, 9, 0, 6.3); gctx.fill();
-      gctx.fillStyle = '#2563eb'; gctx.font = 'bold 22px sans-serif';
-      gctx.fillText('유도 전압', pad + 8, 26);
+      gctx.fillStyle = '#2563eb'; gctx.font = 'bold 28px sans-serif';
+      gctx.fillText('유도 전압', pad + 8, 30);
      }
 
      function readout() {
