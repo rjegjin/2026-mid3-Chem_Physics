@@ -61,7 +61,13 @@ for name, aw, am, bw, bm in presets:
 check('[role="slider"]' in ENGINE and "return;" in ENGINE,
       "slide_engine.js에 입력 포커스 예외 처리가 없다 — 슬라이더 조작이 슬라이드를 넘긴다")
 
-# 6. 삭제하기로 한 서술이 돌아오지 않았는지
+# 6. 엔진이 섹션 innerHTML을 무조건 다시 쓰면 애플릿 리스너가 전부 죽는다
+check("if (!sec.innerHTML.includes('**')) return;" in ENGINE,
+      "slide_engine.js가 모든 섹션의 innerHTML을 다시 쓴다 — 애플릿 이벤트 리스너가 사라진다")
+check("DOMContentLoaded" in JS,
+      "16강 애플릿이 DOMContentLoaded 전에 리스너를 붙인다 — 엔진 init이 그 리스너를 날릴 수 있다")
+
+# 7. 삭제하기로 한 서술이 돌아오지 않았는지
 check("약 5%만" not in HTML, "출처 없는 '약 5%만 빛' 수치가 본문에 남아 있다")
 check("전류 전쟁" not in HTML, "전류 전쟁 카드가 본문에 남아 있다 (부록 대상)")
 

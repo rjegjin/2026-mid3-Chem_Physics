@@ -225,7 +225,11 @@
     });
   }
 
-  initApplet1();
-  initApplet2();
-  initPoll();
+  // slide_engine.js가 init에서 섹션 innerHTML을 다시 쓸 수 있으므로, 15강과 같이
+  // DOMContentLoaded 이후에 리스너를 붙인다. (엔진 init은 그 전에 동기로 끝난다)
+  document.addEventListener('DOMContentLoaded', function () {
+    initApplet1();
+    initApplet2();
+    initPoll();
+  });
 })();

@@ -1,7 +1,7 @@
 PYTHON ?= python3
 HOOKS_DIR := .githooks
 
-.PHONY: check check-phys check-quiz css render-check install-hooks
+.PHONY: check check-phys check-quiz css render-check interaction-check install-hooks
 
 # 결정론적 검사를 먼저 — check_html_quality.py는 원격 이미지를 때려 429로 흔들린다
 check:
@@ -24,6 +24,10 @@ css:
 
 check-phys:
 	$(PYTHON) check_html_quality.py 7_physics_intro.html 8_uniform_motion.html 9_free_fall.html 10_work_energy.html 11_potential_energy.html 12_kinetic_energy.html 13_mechanical_energy.html 14_energy_conservation.html review_motion_energy.html lecture_notes.html index.html
+
+# 버튼이 실제로 반응하는지 — 정적 검사와 render-check가 못 잡는 영역이다
+interaction-check:
+	../unified_venv/bin/python interaction_check.py
 
 render-check:
 	@if [ -z "$(FILE)" ]; then echo "Usage: make render-check FILE=8_uniform_motion.html"; exit 2; fi
