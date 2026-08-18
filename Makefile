@@ -7,6 +7,7 @@ HOOKS_DIR := .githooks
 check:
 	$(PYTHON) test_quiz_integrity.py
 	$(PYTHON) test_css_classes.py
+	$(PYTHON) test_lesson16.py
 	$(PYTHON) check_html_quality.py
 
 check-quiz:
@@ -14,6 +15,7 @@ check-quiz:
 
 check-css:
 	$(PYTHON) test_css_classes.py
+	$(PYTHON) test_lesson16.py
 
 # css/tailwind.build.css 재생성. cdn.tailwindcss.com을 대체하는 정적 빌드이므로,
 # HTML이나 js/slide_engine.js에 새 Tailwind 클래스를 추가하면 반드시 다시 돌릴 것.

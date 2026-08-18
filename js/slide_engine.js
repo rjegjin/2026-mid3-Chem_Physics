@@ -111,6 +111,13 @@ window.SlideEngine = {
         }
 
         document.addEventListener('keydown', (e) => {
+            // 슬라이더·버튼·입력에 포커스가 있으면 Space/좌우 화살표는 그 요소의 것이다.
+            // 이게 없으면 16강 전력-시간 슬라이더를 화살표로 조절할 때 슬라이드가 넘어간다.
+            const interactive = e.target instanceof Element && e.target.closest(
+                'button, input, select, textarea, a, [role="slider"], [contenteditable="true"]'
+            );
+            if (interactive && [' ', 'ArrowLeft', 'ArrowRight'].includes(e.key)) return;
+
             if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
                 this.nextSlide();
             } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {

@@ -17,6 +17,7 @@
 
 
 # 현재 상태
+- [x] 16강을 18장 수업 서사로 재구성, 애플릿 2종 신설, 슬라이드 엔진 키 충돌 수정 (PR #5)
 - [x] Add BBC vacuum experiment video slide after slide 9
 - [x] Add misconception slide about free fall feeling and update vacuum experiment image
 - [x] Update images for free fall and uniform motion slides
