@@ -9,101 +9,433 @@
   <link href="css/presentation_mode.css" rel="stylesheet"/>
   <link href="css/chem_style.css" rel="stylesheet"/>
   <style>
-   .outline-card { background:white; border:1px solid #e2e8f0; border-radius:1.25rem; padding:1.5rem; box-shadow:0 4px 14px rgba(0,0,0,0.05); }
-   .standard-box { background:#fff7ed; border-left:6px solid #ea580c; padding:1.25rem 1.5rem; border-radius:0.75rem; }
+   .outline-card { background:white; border:1px solid #e2e8f0; border-radius:1.25rem; padding:1.4rem; box-shadow:0 4px 14px rgba(0,0,0,0.05); }
+   .standard-box { background:#fff7ed; border-left:6px solid #ea580c; padding:1.2rem 1.4rem; border-radius:0.75rem; }
+   .ask { background:#fffbeb; border-left:6px solid #f59e0b; padding:0.9rem 1.2rem; border-radius:0.6rem; }
+   .ask p { color:#78350f !important; font-weight:700; }
+   .lab-table { width:100%; border-collapse:collapse; background:white; border-radius:0.75rem; overflow:hidden; font-size:1.3rem; }
+   .lab-table th, .lab-table td { border:1px solid #e2e8f0; padding:0.5rem 0.7rem; text-align:center; }
+   .lab-table th { background:#fff7ed; color:#9a3412; font-weight:700; }
+   .readout { font-family:'Courier New', monospace; font-weight:700; color:#9a3412; }
+   .credit { font-size:1rem !important; color:#94a3b8 !important; line-height:1.3 !important; margin-top:0.3rem !important; }
+   /* 선택 버튼 — 최소 44x44px 터치 영역 */
+   .pick { min-height:44px; min-width:44px; padding:0.5rem 0.9rem; border:2px solid #cbd5e1; border-radius:0.7rem;
+           background:white; font-weight:700; color:#334155; font-size:1.15rem; cursor:pointer; transition:all .15s; }
+   .pick:hover { border-color:#ea580c; }
+   .pick[aria-pressed="true"] { background:#ffedd5; border-color:#ea580c; color:#9a3412; }
+   .pick:focus-visible { outline:3px solid #f59e0b; outline-offset:2px; }
+   #ap1-products, #ap1-outputs, #ap2-presets, #intro-poll { flex-wrap:wrap; }
+   /* 에너지 칩 — 색뿐 아니라 기호와 글자로도 구별한다 */
+   .echip { display:inline-block; padding:0.25rem 0.7rem; border-radius:999px; font-weight:700; font-size:1.1rem; margin:0.15rem; }
+   .echip.intended { background:#dcfce7; color:#166534; border:2px solid #16a34a; }
+   .echip.other { background:#ede9fe; color:#5b21b6; border:2px dashed #7c3aed; }
+   .echip.input { background:#dbeafe; color:#1e40af; border:2px solid #2563eb; }
+   .mock-label { background:#f8fafc; border:2px solid #94a3b8; border-radius:0.6rem; padding:0.8rem 1rem; text-align:left; font-size:1.05rem; }
+   .mock-label .w { font-size:1.6rem; font-weight:900; color:#1e40af; }
+   .mock-label dt { color:#64748b; }
+   .mock-label dd { font-weight:700; color:#334155; margin:0 0 0.25rem 0; }
+   input[type="range"] { width:100%; height:44px; accent-color:#ea580c; }
+   @media (prefers-reduced-motion: reduce) { .pick, #meter-rect { transition:none !important; } }
   </style>
  </head>
  <body class="presentation-mode">
   <main>
 
-   <!-- Slide 1: Cover -->
+   <!-- 1. 표지 -->
    <section data-slide-index="0" data-slide-num="1" data-title="Cover" id="slide-1">
     <div class="slide-content">
      <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">2026학년도 중학교 3학년 과학 &bull; 물리 VI-3</p>
      <h1 class="text-4xl md:text-6xl font-black mb-6 text-slate-900 leading-tight">콘센트 뒤에서 벌어지는 일</h1>
      <div class="w-20 h-1 bg-orange-600 mx-auto my-8"></div>
      <p class="text-2xl text-slate-600 font-medium">제 16강: 전기 에너지의 전환과 이용</p>
-     <p class="text-xl text-slate-500 font-bold mt-4">가전제품의 에너지 전환 &middot; 소비 전력 &middot; 전력량</p>
+     <div class="ask max-w-3xl w-full mt-8"><p>10분 쓴 드라이어(1800 W)와 6시간 켠 선풍기(50 W), 어느 쪽이 전기 에너지를 더 많이 사용했을까?</p></div>
     </div>
    </section>
 
-   <!-- Slide 2: 성취기준 -->
-   <section data-slide-index="1" data-slide-num="2" data-title="성취기준" id="slide-2">
+   <!-- 2. 앞 차시와의 연결 -->
+   <section data-slide-index="1" data-slide-num="2" data-title="전기는 어디로 갈까" id="slide-2">
+    <div class="slide-content">
+     <h2>전기는 만들어진 뒤 어디로 갈까</h2>
+     <svg viewBox="0 0 720 150" class="w-full" style="max-height:190px" role="img"
+          aria-label="에너지 전환 사슬. 물과 바람과 수증기의 운동 에너지가 발전기에서 전기 에너지로 바뀌고, 그 전기 에너지가 가전제품에서 빛, 열, 운동, 소리 에너지로 다시 바뀐다.">
+      <rect x="4" y="45" width="150" height="60" rx="12" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"></rect>
+      <text x="79" y="72" text-anchor="middle" font-size="15" font-weight="bold" fill="#334155">물·바람·수증기</text>
+      <text x="79" y="92" text-anchor="middle" font-size="14" fill="#64748b">운동 에너지</text>
+      <text x="168" y="83" font-size="22" fill="#ea580c" font-weight="bold">→</text>
+      <rect x="196" y="45" width="120" height="60" rx="12" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"></rect>
+      <text x="256" y="82" text-anchor="middle" font-size="15" font-weight="bold" fill="#334155">발전기 (15강)</text>
+      <text x="330" y="83" font-size="22" fill="#ea580c" font-weight="bold">→</text>
+      <rect x="358" y="45" width="120" height="60" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="3"></rect>
+      <text x="418" y="82" text-anchor="middle" font-size="16" font-weight="bold" fill="#1e40af">전기 에너지</text>
+      <text x="492" y="83" font-size="22" fill="#ea580c" font-weight="bold">→</text>
+      <rect x="520" y="45" width="110" height="60" rx="12" fill="#ffedd5" stroke="#ea580c" stroke-width="3"></rect>
+      <text x="575" y="82" text-anchor="middle" font-size="16" font-weight="bold" fill="#9a3412">가전제품</text>
+      <text x="644" y="83" font-size="22" fill="#ea580c" font-weight="bold">→</text>
+      <text x="672" y="70" font-size="14" font-weight="bold" fill="#166534">빛 · 열</text>
+      <text x="668" y="95" font-size="14" font-weight="bold" fill="#166534">운동 · 소리</text>
+     </svg>
+     <div class="ask max-w-4xl w-full mt-4"><p>전기 에너지는 콘센트에 도착한 뒤 사라질까요, 아니면 다시 다른 형태로 바뀔까요?</p></div>
+    </div>
+   </section>
+
+   <!-- 3. 인지 갈등 -->
+   <section data-slide-index="2" data-slide-num="3" data-title="드라이어 vs 선풍기" id="slide-3">
+    <div class="slide-content">
+     <h2>10분 드라이어 vs 6시간 선풍기</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-4">
+      <div class="outline-card">
+       <p class="font-bold text-slate-800 text-xl">헤어드라이어</p>
+       <p class="readout text-2xl mt-2">1800 W</p>
+       <p class="text-slate-600 mt-1">사용 시간 <b>10분</b> · 전력이 매우 크다</p>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-slate-800 text-xl">선풍기</p>
+       <p class="readout text-2xl mt-2">50 W</p>
+       <p class="text-slate-600 mt-1">사용 시간 <b>6시간</b> · 전력은 작지만 오래 쓴다</p>
+      </div>
+     </div>
+     <div class="mt-5 flex gap-4 items-center" id="intro-poll">
+      <button class="pick" aria-pressed="false">드라이어</button>
+      <button class="pick" aria-pressed="false">선풍기</button>
+      <button class="pick" aria-pressed="false">아직 판단할 수 없음</button>
+     </div>
+     <p class="slide-caption mt-4">지금은 정답을 공개하지 않습니다. 어떤 단서를 보고 골랐는지 말해 봅시다.</p>
+    </div>
+   </section>
+
+   <!-- 4. 예상 -->
+   <section data-slide-index="3" data-slide-num="4" data-title="먼저 예상하기" id="slide-4">
+    <div class="slide-content">
+     <h2>먼저 예상해 봅시다</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-6">
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 1</p><p class="text-slate-600 mt-1">소비 전력이 큰 제품은 <b>짧게</b> 써도 언제나 전기 에너지를 더 많이 쓸까요?</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 2</p><p class="text-slate-600 mt-1">선풍기에서 전기 에너지는 <b>운동 에너지로만</b> 전환될까요?</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 3</p><p class="text-slate-600 mt-1">전구에서 <b>빛으로 바뀌지 않은</b> 에너지는 사라진 걸까요?</p></div>
+     </div>
+     <div class="ask max-w-4xl w-full mt-5"><p>정답을 맞히는 단계가 아닙니다. 지금 생각과 그 까닭을 한 문장으로 적으세요.</p></div>
+    </div>
+   </section>
+
+   <!-- 5. 학습 목표 -->
+   <section data-slide-index="4" data-slide-num="5" data-title="학습 목표" id="slide-5">
     <div class="slide-content">
      <h2>이 차시의 목표</h2>
-     <div class="max-w-3xl w-full mt-8 standard-box">
+     <div class="max-w-3xl w-full mt-6 standard-box">
       <p class="font-bold text-orange-800 mb-2">[9과22-03]</p>
-      <p class="text-lg text-slate-700">가정에서 전기 에너지가 다양한 형태의 에너지로 전환되는 예를 들고, 이를 소비 전력과 관련지어 설명할 수 있다.</p>
+      <p class="text-slate-700">가정에서 전기 에너지가 다양한 형태의 에너지로 전환되는 예를 들고, 이를 소비 전력과 관련지어 설명할 수 있다.</p>
      </div>
-     <p class="slide-caption mt-4">※ 전력·전력량은 단위를 소개하는 수준으로 다루고, 정량 계산보다 에너지 전환에 초점을 둔다.</p>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">찾아보기</p><p class="text-slate-600 mt-1">전기 에너지가 바뀐 형태 찾기</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">비교하기</p><p class="text-slate-600 mt-1">제품의 소비 전력 비교하기</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">설명하기</p><p class="text-slate-600 mt-1">전력과 사용 시간을 함께 고려하기</p></div>
+     </div>
+     <p class="slide-caption mt-4">※ 전력과 전력량은 단위와 의미를 이해하는 수준에서 다루고, 복잡한 계산보다 에너지 전환과 비교에 초점을 둔다.</p>
     </div>
    </section>
 
-   <!-- Slide 3: 가전제품의 에너지 전환 -->
-   <section data-slide-index="2" data-slide-num="3" data-title="가전제품의 에너지 전환" id="slide-3">
+   <!-- 6. 애플릿 1 -->
+   <section data-slide-index="5" data-slide-num="6" data-title="에너지 전환 탐색기" id="slide-6">
     <div class="slide-content">
-     <h2>1. 가전제품에서의 에너지 전환</h2>
-     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl w-full mt-6">
-      <div class="outline-card"><p class="font-bold text-slate-800">빛에너지</p><p class="text-slate-600 mt-1">전등, 모니터</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">열에너지</p><p class="text-slate-600 mt-1">전기밥솥, 헤어드라이어</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">운동 에너지</p><p class="text-slate-600 mt-1">선풍기, 세탁기</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">소리 에너지</p><p class="text-slate-600 mt-1">스피커, 이어폰</p></div>
-     </div>
-     <!-- TODO: 제품 클릭 → 전환 경로 표시 인터랙션 -->
-    </div>
-   </section>
-
-   <!-- Slide 4: 에너지 전환과 보존 -->
-   <section data-slide-index="3" data-slide-num="4" data-title="에너지 전환과 보존" id="slide-4">
-    <div class="slide-content">
-     <h2>2. 에너지 전환과 보존</h2>
-     <div class="max-w-3xl w-full mt-6 space-y-4">
-      <div class="outline-card"><p class="font-bold text-slate-800">여러 단계의 전환</p><p class="text-slate-600 mt-1">전기 → 운동 → 소리 처럼 연쇄적으로 바뀐다</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">총량은 보존</p><p class="text-slate-600 mt-1">전환되어도 에너지의 총합은 변하지 않는다</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">항상 생기는 열</p><p class="text-slate-600 mt-1">실제 기기는 일부가 열에너지로 빠져나간다</p></div>
+     <h2>가전제품의 에너지 전환을 찾아라</h2>
+     <div class="max-w-5xl w-full mt-2">
+      <p class="text-slate-600 mb-2">① 제품을 고르고 ② 나온다고 생각하는 에너지를 <b>모두</b> 고른 뒤 ③ 확인을 누르세요.</p>
+      <div class="flex gap-2 mb-3" id="ap1-products" role="group" aria-label="제품 선택"></div>
+      <div class="flex gap-2 items-center mb-3">
+       <span class="echip input">전기 에너지 (입력)</span>
+       <span class="text-2xl text-orange-600 font-bold">→</span>
+       <span id="ap1-outputs" class="flex gap-2" role="group" aria-label="출력 에너지 선택"></span>
+       <button class="pick" id="ap1-check">확인</button>
+       <button class="pick" id="ap1-reset">초기화</button>
+      </div>
+      <div class="outline-card" id="ap1-feedback" aria-live="polite">
+       <p class="text-slate-600">제품을 먼저 고르세요.</p>
+      </div>
      </div>
     </div>
    </section>
 
-   <!-- Slide 5: 소비 전력 / 전력량 -->
-   <section data-slide-index="4" data-slide-num="5" data-title="소비 전력과 전력량" id="slide-5">
+   <!-- 7. 한 제품에서 여러 에너지 -->
+   <section data-slide-index="6" data-slide-num="7" data-title="여러 에너지가 함께" id="slide-7">
     <div class="slide-content">
-     <h2>3. 소비 전력과 전력량</h2>
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-6">
-      <div class="outline-card"><p class="font-bold text-slate-800">소비 전력</p><p class="text-slate-600 mt-1">1초 동안 사용하는 전기 에너지의 양 · 단위 W</p></div>
+     <h2>한 제품에서 여러 에너지가 나온다</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl w-full mt-4">
+      <div class="outline-card"><p class="font-bold text-slate-800">전등</p><p class="mt-1"><span class="echip input">전기</span> → <span class="echip intended">빛</span><span class="echip other">열</span></p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">선풍기</p><p class="mt-1"><span class="echip input">전기</span> → <span class="echip intended">운동</span><span class="echip other">소리</span><span class="echip other">열</span></p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">헤어드라이어</p><p class="mt-1"><span class="echip input">전기</span> → <span class="echip intended">열</span><span class="echip intended">운동</span><span class="echip other">소리</span></p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">스피커</p><p class="mt-1"><span class="echip input">전기</span> → <span class="echip intended">소리</span><span class="echip other">진동</span><span class="echip other">열</span></p></div>
+     </div>
+     <p class="slide-caption mt-2">■ 실선 초록 = 주된 목적 / ▨ 점선 보라 = 함께 나타남</p>
+     <div class="ask max-w-4xl w-full mt-4"><p>무엇을 '유용한 에너지'라고 부를지는 그 제품을 <b>사용하는 목적</b>에 따라 달라집니다. 밥솥과 난로에서는 열이 바로 목적입니다.</p></div>
+    </div>
+   </section>
+
+   <!-- 8. 보존 -->
+   <section data-slide-index="7" data-slide-num="8" data-title="에너지 보존" id="slide-8">
+    <div class="slide-content">
+     <h2>에너지는 사라진 것이 아니다</h2>
+     <svg viewBox="0 0 700 210" class="w-full" style="max-height:250px" role="img"
+          aria-label="전기 에너지 토큰 100개가 전구에서는 빛과 열로, 선풍기에서는 운동과 소리와 열로 나뉘어 담기는 정성 모형. 나뉜 뒤에도 토큰의 총수는 100개로 같다.">
+      <rect x="10" y="20" width="130" height="54" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="3"></rect>
+      <text x="75" y="43" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e40af">전기 에너지</text>
+      <text x="75" y="63" text-anchor="middle" font-size="14" fill="#1e40af">토큰 100개</text>
+      <text x="152" y="52" font-size="20" fill="#64748b" font-weight="bold">→</text>
+      <text x="185" y="30" font-size="14" font-weight="bold" fill="#334155">전구</text>
+      <rect x="185" y="38" width="130" height="30" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"></rect>
+      <text x="250" y="58" text-anchor="middle" font-size="13" font-weight="bold" fill="#166534">빛 (목적)</text>
+      <rect x="325" y="38" width="180" height="30" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="2" stroke-dasharray="6 4"></rect>
+      <text x="415" y="58" text-anchor="middle" font-size="13" font-weight="bold" fill="#5b21b6">전구와 주변의 열·적외선</text>
+      <text x="185" y="120" font-size="14" font-weight="bold" fill="#334155">선풍기</text>
+      <rect x="185" y="128" width="110" height="30" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"></rect>
+      <text x="240" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#166534">공기의 운동</text>
+      <rect x="305" y="128" width="80" height="30" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="2" stroke-dasharray="6 4"></rect>
+      <text x="345" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#5b21b6">소리</text>
+      <rect x="395" y="128" width="150" height="30" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="2" stroke-dasharray="6 4"></rect>
+      <text x="470" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#5b21b6">모터와 주변의 열</text>
+      <text x="565" y="52" font-size="13" font-weight="bold" fill="#334155">합계 100개</text>
+      <text x="565" y="148" font-size="13" font-weight="bold" fill="#334155">합계 100개</text>
+      <text x="10" y="196" font-size="13" fill="#94a3b8">칸의 넓이는 실제 비율이 아닌 정성 모형이다.</text>
+     </svg>
+     <div class="standard-box max-w-4xl w-full mt-3">
+      <p class="text-slate-700">실제 기기에서는 전기 에너지의 일부가 목적과 다른 소리나 열의 형태로 <b>주변에 분산</b>된다. 에너지가 사라지는 것은 아니며 전체 에너지는 <b>보존</b>된다.</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 9. 같은 밝기, 다른 소비 전력 -->
+   <section data-slide-index="8" data-slide-num="9" data-title="백열전구와 LED" id="slide-9">
+    <div class="slide-content">
+     <h2>같은 밝기, 다른 소비 전력</h2>
+     <svg viewBox="0 0 560 190" class="w-full" style="max-height:230px" role="img"
+          aria-label="같은 밝기를 내는 예시 제품의 소비 전력 막대 비교. 백열전구는 60와트, LED 램프는 10와트로 백열전구 막대가 6배 길다.">
+      <text x="10" y="34" font-size="15" font-weight="bold" fill="#334155">백열전구(예시)</text>
+      <rect x="180" y="18" width="330" height="34" rx="6" fill="#fdba74" stroke="#ea580c" stroke-width="2"></rect>
+      <text x="345" y="41" text-anchor="middle" font-size="16" font-weight="bold" fill="#7c2d12">60 W</text>
+      <text x="10" y="104" font-size="15" font-weight="bold" fill="#334155">LED 램프(예시)</text>
+      <rect x="180" y="88" width="55" height="34" rx="6" fill="#86efac" stroke="#16a34a" stroke-width="2"></rect>
+      <text x="207" y="111" text-anchor="middle" font-size="15" font-weight="bold" fill="#14532d">10 W</text>
+      <text x="180" y="152" font-size="14" fill="#475569">두 제품이 내는 밝기는 비슷하다고 가정한다.</text>
+      <text x="180" y="174" font-size="14" fill="#475569">막대 길이는 소비 전력에 비례한다.</text>
+     </svg>
+     <div class="ask max-w-4xl w-full mt-3"><p>두 전구가 같은 밝기를 낸다면, 소비 전력 차이는 에너지 전환 방식에 대해 무엇을 말해 줄까요?</p></div>
+     <p class="text-slate-600 max-w-4xl mt-3">백열전구는 필라멘트를 매우 뜨겁게 해 빛을 내므로 입력 에너지의 많은 부분이 <b>열과 적외선</b>으로 전환된다. 에디슨이 1879년 오래 견디는 필라멘트를 찾아낸 방식이 바로 이것이다. LED는 같은 밝기를 내는 데 더 작은 소비 전력으로 작동할 수 있다.</p>
+     <p class="credit">비교 예시 출처: 한국에너지공단 에너지절약 효과 비교(eep.energy.or.kr, 2010년 기준 대표값) · 확인일 2026-08-19. 특정 모델의 보편적 수치가 아니다.</p>
+    </div>
+   </section>
+
+   <!-- 10. 소비 전력의 뜻 -->
+   <section data-slide-index="9" data-slide-num="10" data-title="소비 전력의 뜻" id="slide-10">
+    <div class="slide-content">
+     <h2>소비 전력은 무엇을 뜻할까</h2>
+     <div class="standard-box max-w-3xl w-full mt-4">
+      <p class="text-lg text-slate-700"><b>소비 전력:</b> 가전제품이 전기 에너지를 사용하는 <b>빠르기</b></p>
+      <p class="text-lg text-slate-700 mt-1"><b>단위:</b> W(와트) &nbsp;·&nbsp; <b>1 W</b> = 1초 동안 1 J의 에너지를 전환하는 빠르기</p>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">수도꼭지의 빠르기</p><p class="text-slate-600 mt-1">물이 <b>나오는 빠르기</b> = 소비 전력 (W)</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">통에 모인 물의 양</p><p class="text-slate-600 mt-1">그동안 <b>모인 전체 양</b> = 사용한 전기 에너지 (Wh)</p></div>
+     </div>
+     <p class="slide-caption mt-4">※ 물 비유는 '빠르기와 누적량'의 차이만 설명한다. 전기가 관 속의 물처럼 저장되어 흐른다는 뜻은 아니다.</p>
+    </div>
+   </section>
+
+   <!-- 11. 라벨 읽기 -->
+   <section data-slide-index="10" data-slide-num="11" data-title="제품 라벨 읽기" id="slide-11">
+    <div class="slide-content">
+     <h2>제품 라벨에서 W를 찾아라</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl w-full mt-4">
+      <div class="mock-label">
+       <p class="font-bold text-slate-800">한빛전자 LED 스탠드 HL-10</p>
+       <dl class="mt-2">
+        <dt>정격 전압</dt><dd>220 V / 60 Hz</dd>
+        <dt>정격 소비 전력</dt><dd class="w">10 W</dd>
+        <dt>색온도</dt><dd>4000 K</dd>
+       </dl>
+      </div>
+      <div class="mock-label">
+       <p class="font-bold text-slate-800">한빛전자 선풍기 HF-50</p>
+       <dl class="mt-2">
+        <dt>정격 전압</dt><dd>220 V / 60 Hz</dd>
+        <dt>정격 소비 전력</dt><dd class="w">50 W</dd>
+        <dt>1시간 소비 전력량</dt><dd>50 Wh</dd>
+       </dl>
+      </div>
+      <div class="mock-label">
+       <p class="font-bold text-slate-800">한빛전자 헤어드라이어 HD-1800</p>
+       <dl class="mt-2">
+        <dt>정격 전압</dt><dd>220 V / 60 Hz</dd>
+        <dt>정격 소비 전력</dt><dd class="w">1800 W</dd>
+        <dt>안전 표시</dt><dd>이중 절연</dd>
+       </dl>
+      </div>
+     </div>
+     <p class="slide-caption mt-3">가상 회사·모델명으로 직접 제작한 모의 라벨이다. 실제 표기 사례는 한국에너지공단 효율관리제도 제품 정보에서 확인할 수 있다(확인일 2026-08-19).</p>
+     <div class="ask max-w-4xl w-full mt-3"><p>W가 붙은 값은 '지금까지 쓴 전체 에너지'일까요, '사용 빠르기'일까요? 같은 시간 쓴다면 세 제품 중 어느 것이 전기 에너지를 가장 많이 쓸까요?</p></div>
+    </div>
+   </section>
+
+   <!-- 12. 애플릿 2 -->
+   <section data-slide-index="11" data-slide-num="12" data-title="전력-시간 미터" id="slide-12">
+    <div class="slide-content">
+     <h2>전력과 시간을 바꾸어 보자</h2>
+     <div class="flex flex-col md:flex-row gap-5 max-w-5xl w-full mt-2">
+      <div class="w-full md:w-3/5">
+       <svg id="meter-svg" viewBox="0 0 480 300" class="w-full" style="max-height:300px" role="img"
+            aria-label="소비 전력을 세로 높이로, 사용 시간을 가로 너비로 나타낸 직사각형. 직사각형의 넓이가 사용한 전기 에너지를 나타낸다.">
+        <rect x="0" y="0" width="480" height="300" fill="#f8fafc" rx="14"></rect>
+        <line x1="60" y1="40" x2="60" y2="260" stroke="#334155" stroke-width="2"></line>
+        <line x1="60" y1="260" x2="460" y2="260" stroke="#334155" stroke-width="2"></line>
+        <rect id="meter-rect" x="60" y="150" width="200" height="110" fill="#fdba74" fill-opacity="0.75" stroke="#ea580c" stroke-width="2"></rect>
+        <text x="6" y="34" font-size="13" fill="#64748b">2000 W</text>
+        <text x="40" y="265" font-size="13" fill="#64748b">0</text>
+        <text x="440" y="280" font-size="13" fill="#64748b">8시간</text>
+        <text x="14" y="26" font-size="13" font-weight="bold" fill="#334155">소비 전력</text>
+        <text x="392" y="296" font-size="13" font-weight="bold" fill="#334155">사용 시간</text>
+        <text id="meter-area-label" x="260" y="205" text-anchor="middle" font-size="16" font-weight="bold" fill="#7c2d12">300 Wh</text>
+       </svg>
+      </div>
+      <div class="w-full md:w-2/5">
+       <label class="font-bold text-slate-800" for="ap2-power">소비 전력</label>
+       <input type="range" id="ap2-power" min="0" max="2000" step="10" value="1000"/>
+       <p class="readout text-xl" id="ap2-power-out">1000 W</p>
+       <label class="font-bold text-slate-800 mt-2 block" for="ap2-time">사용 시간</label>
+       <input type="range" id="ap2-time" min="0" max="480" step="10" value="180"/>
+       <p class="readout text-xl" id="ap2-time-out">3시간 0분</p>
+       <div class="standard-box mt-3">
+        <p class="text-lg text-slate-700">사용한 전기 에너지</p>
+        <p class="readout text-2xl" id="ap2-energy">3000 Wh (3.000 kWh)</p>
+       </div>
+       <div class="flex gap-2 mt-3" id="ap2-presets"></div>
+      </div>
+     </div>
+     <p class="text-slate-600 max-w-5xl mt-2" id="ap2-live" aria-live="polite">소비 전력 1000 W로 3시간 0분 사용하면 전기 에너지 3000 Wh를 사용한다.</p>
+     <table class="lab-table max-w-5xl mt-2" id="ap2-table">
+      <thead><tr><th>비교</th><th>소비 전력</th><th>사용 시간</th><th>전력량</th></tr></thead>
+      <tbody><tr><td colspan="4">아래 버튼으로 두 조건을 비교해 보세요.</td></tr></tbody>
+     </table>
+    </div>
+   </section>
+
+   <!-- 13. 규칙 찾기 -->
+   <section data-slide-index="12" data-slide-num="13" data-title="규칙 찾기" id="slide-13">
+    <div class="slide-content">
+     <h2>관찰 결과에서 규칙 찾기</h2>
+     <table class="lab-table max-w-5xl mt-4">
+      <thead><tr><th>바꾼 조건</th><th>그대로 둔 조건</th><th>관찰되는 결과</th><th>완성할 규칙</th></tr></thead>
+      <tbody>
+       <tr><td>소비 전력 증가</td><td>사용 시간 같음</td><td>전력량 증가</td><td>같은 시간에는 소비 전력이 클수록 …</td></tr>
+       <tr><td>사용 시간 증가</td><td>소비 전력 같음</td><td>전력량 증가</td><td>같은 제품도 오래 사용할수록 …</td></tr>
+       <tr><td>전력 증가 &amp; 시간 감소</td><td>없음</td><td>경우에 따라 다름</td><td>둘 다 알아야 …</td></tr>
+      </tbody>
+     </table>
+     <div class="standard-box max-w-4xl w-full mt-4">
+      <p class="text-lg text-slate-700"><b>소비 전력만으로는 일정 기간 사용한 전기 에너지의 양을 판단할 수 없다. 사용 시간도 함께 알아야 한다.</b></p>
+     </div>
+     <p class="slide-caption mt-3">※ kWh는 에너지의 단위이며 kW/h가 아니다. 전력 × 시간이므로 곱이다.</p>
+    </div>
+   </section>
+
+   <!-- 14. 처음 질문으로 -->
+   <section data-slide-index="13" data-slide-num="14" data-title="어느 쪽이 더 많이" id="slide-14">
+    <div class="slide-content">
+     <h2>어느 쪽이 더 많이 사용했을까</h2>
+     <table class="lab-table max-w-4xl mt-4">
+      <thead><tr><th>제품</th><th>소비 전력</th><th>사용 시간</th><th>사용한 전기 에너지</th></tr></thead>
+      <tbody>
+       <tr><td>헤어드라이어</td><td>1800 W</td><td>10분 = 1/6시간</td><td class="readout">300 Wh</td></tr>
+       <tr><td>선풍기</td><td>50 W</td><td>6시간</td><td class="readout">300 Wh</td></tr>
+      </tbody>
+     </table>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl w-full mt-4">
+      <div class="outline-card"><p class="font-bold text-slate-800">또 다른 짝</p><p class="text-slate-600 mt-1">1000 W 전기주전자 6분 &nbsp;=&nbsp; 10 W LED 전구 10시간 &nbsp;→&nbsp; 둘 다 <b>100 Wh</b></p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">또 다른 짝</p><p class="text-slate-600 mt-1">100 W TV 2시간 &nbsp;=&nbsp; 50 W 선풍기 4시간 &nbsp;→&nbsp; 둘 다 <b>200 Wh</b></p></div>
+     </div>
+     <div class="ask max-w-4xl w-full mt-4"><p>3번 슬라이드에서 고른 답과 지금 생각이 달라졌나요? 무엇 때문에 달라졌나요?</p></div>
+    </div>
+   </section>
+
+   <!-- 15. 생활 적용 -->
+   <section data-slide-index="14" data-slide-num="15" data-title="생활 적용" id="slide-15">
+    <div class="slide-content">
+     <h2>우리 집의 에너지 사용을 판단하려면</h2>
+     <table class="lab-table max-w-5xl mt-3">
+      <thead><tr><th>정보</th><th>뜻</th><th>사용할 때의 주의점</th></tr></thead>
+      <tbody>
+       <tr><td>정격 소비 전력 W</td><td>특정 조건에서 작동할 때의 전력</td><td>사용 모드에 따라 실제 전력은 달라진다</td></tr>
+       <tr><td>1시간 소비 전력량 Wh</td><td>한 시간 사용 시의 에너지 사용량</td><td>시험 조건을 확인해야 한다</td></tr>
+       <tr><td>연간 소비 전력량 kWh</td><td>표준 사용 조건에서의 사용량</td><td>같은 품목·비슷한 용량끼리 비교한다</td></tr>
+       <tr><td>에너지소비효율등급</td><td>정해진 시험 기준에 따른 효율 수준</td><td>품목과 기준이 다르면 등급을 직접 비교하지 않는다</td></tr>
+      </tbody>
+     </table>
+     <div class="ask max-w-4xl w-full mt-4"><p>"가장 W가 큰 제품을 쓰지 말자"보다 더 타당한 절약 원칙은 무엇일까요?</p></div>
+     <p class="text-slate-600 max-w-4xl mt-2">필요 없을 때 <b>사용 시간</b>을 줄인다 · 같은 기능·용량끼리 비교해 더 효율적인 제품을 고른다 · 대기 전력도 확인한다 · 열을 내는 것이 목적인 제품을 전력 숫자만으로 낭비라고 단정하지 않는다.</p>
+     <p class="credit">제품별 연간 소비 전력량은 한국에너지공단 효율관리제도 제품 검색(eep.energy.or.kr)에서 확인 · 확인일 2026-08-19</p>
+    </div>
+   </section>
+
+   <!-- 16. 정리 -->
+   <section data-slide-index="15" data-slide-num="16" data-title="오늘의 정리" id="slide-16">
+    <div class="slide-content">
+     <h2>오늘의 정리</h2>
+     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">전환</p><p class="text-slate-600 mt-1">전기 에너지는 빛·열·운동·소리 등으로 바뀐다</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">보존</p><p class="text-slate-600 mt-1">목적과 다른 형태로 분산되어도 전체 에너지는 보존된다</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">소비 전력</p><p class="text-slate-600 mt-1">전기 에너지를 사용하는 빠르기 · 단위 W</p></div>
       <div class="outline-card"><p class="font-bold text-slate-800">전력량</p><p class="text-slate-600 mt-1">일정 시간 동안 사용한 전기 에너지 · 단위 Wh, kWh</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">제품 표시 읽기</p><p class="text-slate-600 mt-1">가전제품 라벨에서 소비 전력 찾기</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">효율적인 사용</p><p class="text-slate-600 mt-1">같은 시간 사용 시 소비 전력 비교 → 절약 방법 제안</p></div>
+     </div>
+     <div class="standard-box max-w-4xl w-full mt-5">
+      <p class="text-lg text-slate-700">가전제품의 에너지 사용을 비교할 때는 <b>전환되는 에너지, 소비 전력, 사용 시간</b>을 함께 본다.</p>
      </div>
     </div>
    </section>
 
-   <!-- Slide 6: 탐구 활동 -->
-   <section data-slide-index="5" data-slide-num="6" data-title="탐구 활동" id="slide-6">
+   <!-- 17. 형성평가 -->
+   <section data-slide-index="16" data-slide-num="17" data-title="형성평가" id="slide-17">
     <div class="slide-content">
-     <h2>4. 탐구 활동</h2>
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-6">
-      <div class="outline-card"><p class="font-bold text-slate-800">활동 1</p><p class="text-slate-600 mt-1">일상 속 에너지 전환 사례를 찾아 순서로 표현하고 보존을 설명하기</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">활동 2</p><p class="text-slate-600 mt-1">우리 집 가전제품의 소비 전력을 조사&middot;비교하고 절약 방안 제안하기</p></div>
+     <h2 class="text-slate-800">형성평가 — 같은 시간 비교</h2>
+     <div class="quiz-container max-w-3xl mt-6 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">소비 전력이 1200 W인 전기난로와 60 W인 선풍기를 <b>같은 시간</b> 사용했다. 옳은 설명은?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false">① 선풍기가 더 많은 전기 에너지를 사용한다.</button>
+       <button class="quiz-btn" data-correct="true">② 전기난로가 더 많은 전기 에너지를 사용한다.</button>
+       <button class="quiz-btn" data-correct="false">③ 두 제품은 항상 같은 전기 에너지를 사용한다.</button>
+       <button class="quiz-btn" data-correct="false">④ 소비 전력으로는 같은 시간의 사용량도 비교할 수 없다.</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">✅ 정답! ② 전기난로</p>
+       <p class="text-slate-600 mt-1">사용 시간이 같다면 소비 전력이 큰 제품이 더 많은 전기 에너지를 사용한다. 다만 사용 시간이 다르면 소비 전력만으로 전체 사용량을 판단할 수 없다.</p>
+      </div>
      </div>
-     <!-- TODO: 활동지 링크 (worksheets/) 연결 -->
     </div>
    </section>
 
-   <!-- Slide 7: 과학사 에피소드 -->
-   <section data-slide-index="6" data-slide-num="7" data-title="과학사 에피소드" id="slide-7">
+   <!-- 18. 오개념 확인 -->
+   <section data-slide-index="17" data-slide-num="18" data-title="오개념 확인" id="slide-18">
     <div class="slide-content">
-     <h2>과학사 — 전류 전쟁과 백열등의 최후</h2>
-     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-6">
-      <div class="outline-card"><p class="font-bold text-slate-800">1879년 에디슨</p><p class="text-slate-600 mt-1">40시간 넘게 버티는 필라멘트를 찾아 수천 가지 재료를 태웠다. 대나무 탄화 섬유가 답이었다.</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">전류 전쟁(1880년대)</p><p class="text-slate-600 mt-1">에디슨의 직류 vs 테슬라·웨스팅하우스의 교류. 송전 효율에서 교류가 이겨 오늘날 콘센트가 되었다.</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">백열등의 퇴장</p><p class="text-slate-600 mt-1">백열등은 전기 에너지의 약 5%만 빛으로 바꾼다. 나머지는 열. 한국은 2014년 백열등 생산·수입을 중단했다.</p></div>
+     <h2 class="text-slate-800">오개념 확인과 출구 질문</h2>
+     <div class="quiz-container max-w-3xl mt-4 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">"소비 전력이 큰 제품은 <b>언제나</b> 더 많은 전기 에너지를 사용한다"에 대한 가장 좋은 반례는?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false">① 같은 전구를 같은 시간 켠 경우</button>
+       <button class="quiz-btn" data-correct="true">② 1800 W 드라이어를 10분, 50 W 선풍기를 6시간 사용한 경우</button>
+       <button class="quiz-btn" data-correct="false">③ 서로 다른 색의 전구를 같은 시간 켠 경우</button>
+       <button class="quiz-btn" data-correct="false">④ 전원을 연결하지 않은 두 제품을 비교한 경우</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">✅ 정답! ②</p>
+       <p class="text-slate-600 mt-1">전력은 에너지 사용의 빠르기이고 전력량은 일정 시간 동안 사용한 에너지이다. 큰 전력으로 짧게 쓴 경우와 작은 전력으로 오래 쓴 경우의 전력량은 같을 수도 있다.</p>
+      </div>
      </div>
-     <!-- TODO: 에디슨/테슬라 인물 카드, 조명 효율 비교 그래프 -->
+     <div class="ask max-w-4xl w-full mt-4"><p>출구 질문 — 오늘 집에서 가전제품 라벨을 본다면 어떤 <b>두 정보</b>를 함께 확인하겠습니까? 그 이유를 한 문장으로 쓰세요.</p></div>
     </div>
    </section>
 
   </main>
+
+  <script src="js/16_electric_power.js"></script>
   <script src="js/slide_engine.js"></script>
  </body>
 </html>
