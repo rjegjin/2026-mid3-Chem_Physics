@@ -13,7 +13,10 @@ window.SlideEngine = {
         this.sections = Array.from(document.querySelectorAll('main > section'));
         
         // Parse Markdown Bold
+        // innerHTML을 다시 대입하면 그 섹션의 DOM이 통째로 새로 만들어지고, 앞서 붙인
+        // 이벤트 리스너가 전부 사라진다. **가 실제로 있는 섹션만 건드린다.
         this.sections.forEach(sec => {
+            if (!sec.innerHTML.includes('**')) return;
             sec.innerHTML = sec.innerHTML
                 .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         });
