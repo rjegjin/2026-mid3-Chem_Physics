@@ -87,8 +87,11 @@ def shade(cell, hexcolor):
     tcPr.append(el)
 
 
-def section(doc, text):
+def section(doc, text, new_page=False):
     par = doc.add_paragraph()
+    # Google Docs는 keep_with_next를 무시한다. 큰 관찰표가 쪽 경계에서 쪼개지지
+    # 않게 하려면 그 절 앞에서 명시적으로 쪽을 넘겨야 한다.
+    par.paragraph_format.page_break_before = new_page
     par.paragraph_format.keep_with_next = True
     par.paragraph_format.space_before = Pt(12)
     par.paragraph_format.space_after = Pt(4)
@@ -223,7 +226,7 @@ def lesson15_student():
     answer_lines(doc, 2)
     note(doc, "※ 예상이 틀려도 괜찮습니다. 지운 흔적도 그대로 두세요.")
 
-    section(doc, "B. 관찰 기록 — 자석과 코일 애플릿")
+    section(doc, "B. 관찰 기록 — 자석과 코일 애플릿", new_page=True)
     question(doc, "자석을 아래와 같이 움직이며 관찰한 것을 채우세요.")
     table(doc,
           ["자석의 상태", "코일을 통과하는 자기장은 어떻게 변하는가", "검류계 바늘"],
@@ -299,7 +302,7 @@ def lesson16_student():
     question(doc, "선풍기에서 전기 에너지는 운동 에너지로만 전환될까요?", "A-2")
     answer_lines(doc, 2)
 
-    section(doc, "B. 관찰 기록 1 — 가전제품 에너지 전환 탐색기")
+    section(doc, "B. 관찰 기록 1 — 가전제품 에너지 전환 탐색기", new_page=True)
     question(doc, "제품을 세 개 골라 표를 채우세요. 증거 칸에는 "
                   "‘밝다 · 뜨겁다 · 움직인다 · 소리가 난다’처럼 확인할 수 있는 것을 씁니다.")
     table(doc,
@@ -340,9 +343,6 @@ def lesson16_student():
     answer_lines(doc, 3)
     question(doc, "A-1에 적었던 처음 예상과 비교하면 무엇을 고쳐야 하나요?", "E-3")
     answer_lines(doc, 2)
-    question(doc, "전력량이 200 Wh가 되는 ‘소비 전력 × 사용 시간’ 조합을 두 가지 만드세요.", "E-4")
-    answer_lines(doc, 2)
-
     section(doc, "F. 한 단계 더 생각하기")
     question(doc, "“10 W 스탠드가 1800 W 드라이어보다 효율이 좋다”고 바로 말할 수 있나요? "
                   "까닭을 쓰세요.", "F-1")
