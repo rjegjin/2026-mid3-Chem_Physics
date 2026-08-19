@@ -17,6 +17,8 @@
 
 
 # 현재 상태
+- [x] 15·16강 학습지 4종 docx 생성기 추가 (WORKSHEET_CREATION_WORKFLOW 적용, PR #8)
+- [x] 16강 QA 반영: 대비 2건, 3번 예상 회수, 13번 규칙 완성 상호작용, 9번 과학사 보강, 8강 죽은 이미지 SVG 교체 (PR #7)
 - [x] 16강 애플릿 버튼 무반응 수정(엔진 innerHTML 재작성), interaction_check.py 신설, PR #6 머지
 - [x] 16강을 18장 수업 서사로 재구성, 애플릿 2종 신설, 슬라이드 엔진 키 충돌 수정 (PR #5)
 - [x] Add BBC vacuum experiment video slide after slide 9
