@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 400" role="img"
+     aria-label="기록 타이머와 기록 테이프 실험 장치. 타이머가 일정한 시간 간격으로 테이프에 점을 찍고, 수레가 빨라질수록 점 사이 간격이 넓어진다.">
+ <rect width="520" height="400" fill="#f8fafc" rx="16"/>
+
+ <!-- 기록 타이머 본체 -->
+ <rect x="34" y="120" width="150" height="110" rx="10" fill="#e2e8f0" stroke="#475569" stroke-width="3"/>
+ <text x="109" y="112" text-anchor="middle" font-size="16" font-weight="bold" fill="#334155">기록 타이머</text>
+ <!-- 전자석 코일 -->
+ <g stroke="#b45309" stroke-width="5" fill="none">
+  <ellipse cx="74" cy="175" rx="9" ry="26"/>
+  <ellipse cx="92" cy="175" rx="9" ry="26"/>
+  <ellipse cx="110" cy="175" rx="9" ry="26"/>
+ </g>
+ <text x="92" y="222" text-anchor="middle" font-size="13" fill="#92400e">전자석</text>
+ <!-- 진동하는 타점 바늘 -->
+ <line x1="130" y1="150" x2="176" y2="168" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+ <circle cx="176" cy="168" r="6" fill="#dc2626"/>
+ <path d="M 150 138 q 8 -12 16 0" stroke="#dc2626" stroke-width="2" fill="none"/>
+ <text x="200" y="118" font-size="13" fill="#b91c1c">1초에 60번 진동</text>
+
+ <!-- 전원 -->
+ <line x1="34" y1="205" x2="14" y2="205" stroke="#475569" stroke-width="3"/>
+ <text x="10" y="252" font-size="12" fill="#64748b">교류 전원</text>
+
+ <!-- 기록 테이프 -->
+ <rect x="150" y="160" width="352" height="28" fill="white" stroke="#94a3b8" stroke-width="2"/>
+ <text x="470" y="152" text-anchor="end" font-size="13" fill="#475569">기록 테이프</text>
+ <!-- 타점: 오른쪽으로 갈수록 간격이 넓어진다 (점점 빨라지는 운동) -->
+ <g fill="#0f172a">
+  <circle cx="186" cy="174" r="3.5"/><circle cx="199" cy="174" r="3.5"/><circle cx="215" cy="174" r="3.5"/>
+  <circle cx="234" cy="174" r="3.5"/><circle cx="257" cy="174" r="3.5"/><circle cx="284" cy="174" r="3.5"/>
+  <circle cx="316" cy="174" r="3.5"/><circle cx="353" cy="174" r="3.5"/><circle cx="395" cy="174" r="3.5"/>
+  <circle cx="442" cy="174" r="3.5"/><circle cx="494" cy="174" r="3.5"/>
+ </g>
+ <!-- 같은 시간 간격 표시 -->
+ <path d="M 186 198 L 186 210 M 199 198 L 199 210" stroke="#64748b" stroke-width="2"/>
+ <path d="M 186 205 L 199 205" stroke="#0891b2" stroke-width="2"/>
+ <text x="205" y="210" font-size="12" fill="#0e7490">점과 점 사이는 모두 같은 시간(1/60초)</text>
+
+ <!-- 수레 -->
+ <rect x="392" y="252" width="96" height="40" rx="6" fill="#fdba74" stroke="#ea580c" stroke-width="3"/>
+ <circle cx="414" cy="298" r="13" fill="#334155"/>
+ <circle cx="466" cy="298" r="13" fill="#334155"/>
+ <line x1="440" y1="252" x2="440" y2="190" stroke="#94a3b8" stroke-width="2"/>
+ <text x="440" y="278" text-anchor="middle" font-size="14" font-weight="bold" fill="#7c2d12">수레</text>
+ <path d="M 300 313 L 505 313" stroke="#94a3b8" stroke-width="3"/>
+ <path d="M 455 334 L 495 334" stroke="#ea580c" stroke-width="3"/>
+ <path d="M 489 328 L 501 334 L 489 340 Z" fill="#ea580c"/>
+ <text x="260" y="374" text-anchor="middle" font-size="13" fill="#334155">점 사이 간격이 넓어지면 같은 시간에 더 많이 이동한 것 —</text>
+ <text x="260" y="392" text-anchor="middle" font-size="13" fill="#334155">수레가 점점 빨라지고 있다.</text>
+</svg>
