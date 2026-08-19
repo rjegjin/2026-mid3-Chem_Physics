@@ -102,6 +102,21 @@ def main():
                 ".getAttribute('aria-pressed')") != "true":
             fails.append("예상 선택 버튼이 눌린 상태를 표시하지 않는다")
 
+        # --- 3번 예상이 14번에서 회수되는가 ---
+        if "드라이어" not in drv.find_element(By.ID, "poll-recall").text:
+            fails.append("3번에서 고른 예상이 14번에 되돌아오지 않는다")
+
+        # --- 13번 규칙 완성 ---
+        drv.execute_script(
+            "document.querySelector('[data-rule=\"rule1\"] button[data-correct=\"false\"]').click()")
+        if "다시 봅시다" not in drv.find_element(By.ID, "rule-feedback").text:
+            fails.append("규칙 오답에 되묻는 피드백이 없다")
+        for rule in ("rule1", "rule2", "rule3"):
+            drv.execute_script(
+                f"document.querySelector('[data-rule=\"{rule}\"] button[data-correct=\"true\"]').click()")
+        if "세 규칙이 완성" not in drv.find_element(By.ID, "rule-feedback").text:
+            fails.append("세 규칙을 모두 맞혀도 완성 피드백이 나오지 않는다")
+
         # --- 공용 퀴즈 엔진 ---
         drv.execute_script(
             "document.querySelector('#slide-17 .quiz-btn[data-correct=\"true\"]').click()")

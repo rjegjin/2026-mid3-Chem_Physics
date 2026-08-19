@@ -213,13 +213,65 @@
     render();
   }
 
+  /* 3번의 예상을 기억해 두었다가 14번에서 되돌려준다.
+     설계서가 금지한 것은 '선택 비율 저장'이지 학생 본인의 회수가 아니다.
+     교실 공용 PC를 고려해 sessionStorage만 쓴다 — 탭을 닫으면 사라진다. */
+  var POLL_KEY = 'lesson16.introPoll';
+
+  function showPoll(choice) {
+    var echo = document.getElementById('intro-poll-echo');
+    var recall = document.getElementById('poll-recall');
+    if (echo) echo.textContent = choice ? '기록됨: ' + choice : '';
+    if (!recall) return;
+    recall.innerHTML = choice
+      ? '3번 슬라이드에서 당신은 <b>' + choice + '</b>을(를) 골랐습니다. 지금 생각은 그대로인가요? 무엇 때문에 달라졌나요?'
+      : '3번 슬라이드에서 고른 답과 지금 생각이 달라졌나요? 무엇 때문에 달라졌나요?';
+  }
+
   function initPoll() {
     var poll = document.getElementById('intro-poll');
     if (!poll) return;
+    var saved = null;
+    try { saved = sessionStorage.getItem(POLL_KEY); } catch (e) { saved = null; }
+
     Array.prototype.forEach.call(poll.children, function (b) {
+      if (saved && b.textContent === saved) b.setAttribute('aria-pressed', 'true');
       b.addEventListener('click', function () {
         Array.prototype.forEach.call(poll.children, function (c) {
           c.setAttribute('aria-pressed', String(c === b));
+        });
+        try { sessionStorage.setItem(POLL_KEY, b.textContent); } catch (e) { /* 저장 못 해도 수업은 굴러간다 */ }
+        showPoll(b.textContent);
+      });
+    });
+    showPoll(saved);
+  }
+
+  /* 13번 — 관찰 결과를 학생이 문장으로 완성한다. 읽기만 하는 표가 되지 않게 한다. */
+  function initRules() {
+    var blanks = document.querySelectorAll('.rule-blank');
+    var out = document.getElementById('rule-feedback');
+    if (!blanks.length || !out) return;
+    var done = {};
+
+    Array.prototype.forEach.call(blanks, function (blank) {
+      Array.prototype.forEach.call(blank.querySelectorAll('button'), function (b) {
+        b.addEventListener('click', function () {
+          var right = b.dataset.correct === 'true';
+          Array.prototype.forEach.call(blank.querySelectorAll('button'), function (c) {
+            c.classList.remove('chosen-right', 'chosen-wrong');
+          });
+          b.classList.add(right ? 'chosen-right' : 'chosen-wrong');
+          done[blank.dataset.rule] = right;
+
+          if (!right) {
+            out.textContent = '다시 봅시다. 12번 애플릿에서 그 조건만 바꾸면 직사각형의 넓이가 어떻게 되었나요?';
+            return;
+          }
+          var got = Object.keys(done).filter(function (k) { return done[k]; }).length;
+          out.textContent = got === blanks.length
+            ? '세 규칙이 완성되었습니다. 소비 전력만으로는 사용한 전기 에너지를 판단할 수 없고, 사용 시간도 함께 알아야 합니다.'
+            : '맞습니다. (' + got + '/' + blanks.length + ') 남은 칸도 채워 봅시다.';
         });
       });
     });
@@ -231,5 +283,6 @@
     initApplet1();
     initApplet2();
     initPoll();
+    initRules();
   });
 })();
