@@ -15,9 +15,26 @@
 규칙(서술형은 1열 전체 폭, 최소 2줄, 이유 설명 3줄, 표의 서술 셀 높이, 표·문항의
 페이지 분할 금지)이 코드에 들어 있어서 직접 편집하면 그 규칙이 조용히 깨진다.
 
-Google Docs로 올리려면 Drive에 드래그하면 자동 변환된다. API로 바로 만들려면
-GCP 프로젝트에서 Docs API를 켜고 **사용자 OAuth 클라이언트**가 필요하다 —
-서비스 계정은 개인 Drive에 파일을 소유할 수 없다(storageQuotaExceeded).
+## Google Docs로 올리기
+
+Drive에 드래그해도 자동 변환되지만, `push_to_gdocs.py`로 한 번에 올릴 수 있다.
+
+```bash
+../unified_venv/bin/python worksheets/push_to_gdocs.py
+```
+
+준비는 한 번만 하면 된다.
+
+1. https://console.cloud.google.com/apis/credentials 에서
+   **OAuth 클라이언트 ID → 데스크톱 앱** 생성
+2. 받은 JSON을 `~/projects/.secrets/oauth_client.json`으로 저장
+3. 스크립트 실행 → 브라우저에서 한 번 동의 (토큰은 `.secrets/gdocs_token.json`)
+
+**Docs API는 켤 필요 없다.** docx를 올리면서 변환시키므로 Drive API만 쓴다.
+서비스 계정(`service_key.json`)으로는 안 된다 — 개인 Drive에 파일을 소유할 수
+없어 `storageQuotaExceeded`가 난다. 그래서 사용자 본인 자격으로 올린다.
+
+다시 실행하면 `.gdocs_ids.json`에 기억된 문서를 **갱신**한다. 링크가 바뀌지 않는다.
 
 레이아웃 확인:
 

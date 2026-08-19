@@ -28,3 +28,6 @@ $RECYCLE.BIN/
 # Backup files
 *.bak
 tmp_checks/
+
+# Drive 문서 ID (개인 링크)
+worksheets/.gdocs_ids.json
