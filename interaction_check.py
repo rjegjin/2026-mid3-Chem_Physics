@@ -19,7 +19,9 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 PORT = 8942
-URL = f"http://127.0.0.1:{PORT}/16_electric_power.html?view=all"
+BASE = f"http://127.0.0.1:{PORT}"
+URL = f"{BASE}/16_electric_power.html?view=all"
+FULL_TARGET = "16_electric_power.html"   # 애플릿 검사는 이 차시 전용이다
 
 fails = []
 
@@ -39,6 +41,51 @@ def browser():
     if binary:
         opts.binary_location = binary
     return webdriver.Chrome(options=opts)
+
+
+
+def check_common(drv, page):
+    """차시와 무관하게 lesson_patterns.js가 제공하는 패턴이 살아 있는지 본다.
+    새 차시를 만들 때마다 검사기를 새로 쓰지 않기 위한 최소 공통 검사."""
+    drv.get(f"{BASE}/{page}?view=all")
+    tag = f"[{page}]"
+
+    if drv.execute_script("return !!document.querySelector('[data-poll]')"):
+        drv.execute_script("document.querySelector('[data-poll] button').click()")
+        if drv.execute_script(
+                "return document.querySelector('[data-poll] button').getAttribute('aria-pressed')") != "true":
+            fails.append(f"{tag} 예상 버튼이 눌린 상태를 표시하지 않는다")
+        echo = drv.execute_script(
+            "const p=document.querySelector('[data-poll]');"
+            "const e=document.getElementById(p.id+'-echo');return e?e.textContent:''")
+        if "기록됨" not in echo:
+            fails.append(f"{tag} 예상 선택이 기록되지 않는다: {echo!r}")
+
+    if drv.execute_script("return !!document.querySelector('.rule-blank')"):
+        out = drv.find_element(By.ID, "rule-feedback")
+        hint = drv.execute_script("return document.getElementById('rule-feedback').dataset.hint")
+        drv.execute_script(
+            "document.querySelector('.rule-blank button[data-correct=\"false\"]').click()")
+        if hint and out.text != hint:
+            fails.append(f"{tag} 규칙 오답에 되묻는 피드백이 없다: {out.text!r}")
+        drv.execute_script(
+            "document.querySelectorAll('.rule-blank').forEach("
+            "b => b.querySelector('button[data-correct=\"true\"]').click())")
+        done = drv.execute_script("return document.getElementById('rule-feedback').dataset.done")
+        if done and out.text != done:
+            fails.append(f"{tag} 규칙을 모두 맞혀도 완성 피드백이 없다: {out.text!r}")
+
+    quiz = drv.execute_script(
+        "const b=document.querySelector('.quiz-btn[data-correct=\"true\"]');"
+        "if(!b) return null; b.click();"
+        "return getComputedStyle(b.closest('.quiz-container').querySelector('.quiz-feedback')).display")
+    if quiz == "none":
+        fails.append(f"{tag} 퀴즈 정답을 눌러도 해설이 나오지 않는다")
+
+    severe = [l for l in drv.get_log("browser")
+              if l["level"] == "SEVERE" and "favicon" not in l["message"]]
+    if severe:
+        fails.append(f"{tag} console error: {severe}")
 
 
 def main():
@@ -129,15 +176,19 @@ def main():
                   if log["level"] == "SEVERE" and "favicon" not in log["message"]]
         if severe:
             fails.append(f"console error: {severe}")
-    finally:
+        for page in (sys.argv[1:] or ["17_energy_chain_review.html"]):
+            check_common(drv, page)
         drv.quit()
+    except Exception:
+        drv.quit()
+        raise
 
     if fails:
         print("FAIL")
         for f in fails:
             print(" -", f)
         return 1
-    print("OK — 애플릿 1·2, 예상 버튼, 퀴즈가 모두 클릭에 반응한다")
+    print("OK — 16강 애플릿 1·2, 그리고 공용 패턴(예상·규칙·퀴즈)이 모두 클릭에 반응한다")
     return 0
 
 

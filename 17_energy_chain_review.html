@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>17차시: VI단원 종합 — 에너지는 모습을 바꾼다</title>
+  <link href="css/tailwind.build.css" rel="stylesheet"/>
+  <link href="css/common.css" rel="stylesheet"/>
+  <link href="css/presentation_mode.css" rel="stylesheet"/>
+  <link href="css/chem_style.css" rel="stylesheet"/>
+  <link href="css/components.css" rel="stylesheet"/>
+ </head>
+ <body class="presentation-mode">
+  <main>
+
+   <!-- 1. cover -->
+   <section data-slide-index="0" data-slide-num="1" data-title="Cover" id="slide-1">
+    <div class="slide-content">
+     <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">2026학년도 중학교 3학년 과학 &bull; 물리 VI-4</p>
+     <h1 class="text-4xl md:text-6xl font-black mb-6 text-slate-900 leading-tight">물 한 통이 전등을 켜기까지</h1>
+     <div class="w-20 h-1 bg-orange-600 mx-auto my-8"></div>
+     <p class="text-2xl text-slate-600 font-medium">제 17강: VI단원 종합 — 에너지는 모습을 바꾼다</p>
+     <div class="ask max-w-3xl w-full mt-8"><p>댐에 고인 물 한 통이 내 방 전등을 켜기까지, 에너지는 몇 번 모습을 바꿀까?</p></div>
+    </div>
+   </section>
+
+   <!-- 2. hook -->
+   <section data-slide-index="1" data-slide-num="2" data-title="세 차시는 하나의 사슬이었다" id="slide-2">
+    <div class="slide-content">
+     <h2>우리는 사슬을 나눠서 배웠다</h2>
+     <svg viewBox="0 0 760 200" class="w-full" style="max-height:230px" role="img"
+          aria-label="에너지 전환 사슬. 댐에 고인 물의 위치 에너지가 떨어지며 운동 에너지로 바뀌고, 터빈과 발전기에서 전기 에너지가 되며, 가전제품에서 빛과 열과 운동과 소리로 바뀐다. 앞의 두 단계는 14강과 15강, 마지막 단계는 16강에서 배웠다.">
+      <rect x="4" y="40" width="140" height="62" rx="12" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"></rect>
+      <text x="74" y="66" text-anchor="middle" font-size="15" font-weight="bold" fill="#334155">댐에 고인 물</text>
+      <text x="74" y="87" text-anchor="middle" font-size="14" fill="#64748b">위치 에너지</text>
+      <text x="156" y="78" font-size="22" fill="#ea580c" font-weight="bold">→</text>
+      <rect x="186" y="40" width="130" height="62" rx="12" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"></rect>
+      <text x="251" y="66" text-anchor="middle" font-size="15" font-weight="bold" fill="#334155">떨어지는 물</text>
+      <text x="251" y="87" text-anchor="middle" font-size="14" fill="#64748b">운동 에너지</text>
+      <text x="328" y="78" font-size="22" fill="#ea580c" font-weight="bold">→</text>
+      <rect x="358" y="40" width="130" height="62" rx="12" fill="#ffedd5" stroke="#ea580c" stroke-width="3"></rect>
+      <text x="423" y="66" text-anchor="middle" font-size="15" font-weight="bold" fill="#9a3412">터빈·발전기</text>
+      <text x="423" y="87" text-anchor="middle" font-size="14" fill="#9a3412">전자기 유도</text>
+      <text x="500" y="78" font-size="22" fill="#ea580c" font-weight="bold">→</text>
+      <rect x="530" y="40" width="120" height="62" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="3"></rect>
+      <text x="590" y="77" text-anchor="middle" font-size="16" font-weight="bold" fill="#1e40af">전기 에너지</text>
+      <text x="662" y="78" font-size="22" fill="#ea580c" font-weight="bold">→</text>
+      <text x="692" y="65" font-size="14" font-weight="bold" fill="#166534">빛 · 열</text>
+      <text x="688" y="90" font-size="14" font-weight="bold" fill="#166534">운동 · 소리</text>
+      <line x1="10" y1="128" x2="320" y2="128" stroke="#94a3b8" stroke-width="2"></line>
+      <text x="165" y="149" text-anchor="middle" font-size="14" font-weight="bold" fill="#475569">14강 — 역학적 에너지 보존</text>
+      <line x1="336" y1="128" x2="500" y2="128" stroke="#94a3b8" stroke-width="2"></line>
+      <text x="418" y="149" text-anchor="middle" font-size="14" font-weight="bold" fill="#475569">15강 — 전자기 유도</text>
+      <line x1="516" y1="128" x2="750" y2="128" stroke="#94a3b8" stroke-width="2"></line>
+      <text x="633" y="149" text-anchor="middle" font-size="14" font-weight="bold" fill="#475569">16강 — 전기 에너지의 이용</text>
+     </svg>
+     <div class="ask max-w-4xl w-full mt-4"><p>세 차시는 각각 이 사슬의 한 마디였습니다. 오늘은 마디를 이어 붙입니다.</p></div>
+    </div>
+   </section>
+
+   <!-- 3. predict -->
+   <section data-slide-index="2" data-slide-num="3" data-title="먼저 예상하기" id="slide-3">
+    <div class="slide-content">
+     <h2>먼저 예상해 봅시다</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-6">
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 1</p><p class="text-slate-600 mt-1">댐의 물이 가진 에너지는 <b>전부</b> 전기 에너지가 될까요?</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 2</p><p class="text-slate-600 mt-1">사슬 중간에서 <b>빠져나간</b> 에너지는 어디로 갔을까요?</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 3</p><p class="text-slate-600 mt-1">발전기는 에너지를 <b>만들어내는</b> 장치일까요?</p></div>
+     </div>
+     <div class="mt-6 flex gap-3 items-center justify-center flex-wrap" id="leak-poll" data-poll="lesson17.leakPoll">
+      <p class="font-bold text-slate-700">가장 많이 새는 곳은 어디일까?</p>
+      <button class="pick" aria-pressed="false">물 → 운동</button>
+      <button class="pick" aria-pressed="false">운동 → 전기</button>
+      <button class="pick" aria-pressed="false">전기 → 빛</button>
+     </div>
+     <p class="slide-caption mt-2" id="leak-poll-echo" aria-live="polite"></p>
+     <div class="ask max-w-4xl w-full mt-4"><p>정답을 맞히는 단계가 아닙니다. 지금 생각과 그 까닭을 한 문장으로 적으세요.</p></div>
+    </div>
+   </section>
+
+   <!-- 4. objectives -->
+   <section data-slide-index="3" data-slide-num="4" data-title="이 차시의 목표" id="slide-4">
+    <div class="slide-content">
+     <h2>이 차시의 목표</h2>
+     <div class="max-w-3xl w-full mt-6 standard-box">
+      <p class="font-bold text-orange-800 mb-2">[9과22-01] [9과22-02] [9과22-03] 종합</p>
+      <p class="text-slate-700">역학적 에너지 보존, 전자기 유도, 전기 에너지의 전환을 하나의 전환 사슬로 연결하여 설명할 수 있다.</p>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">잇기</p><p class="text-slate-600 mt-1">세 차시를 끊김 없는 사슬로 말하기</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">찾기</p><p class="text-slate-600 mt-1">각 마디에서 새는 에너지의 형태 찾기</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">바로잡기</p><p class="text-slate-600 mt-1">"에너지가 사라진다"는 생각 교정하기</p></div>
+     </div>
+     <p class="slide-caption mt-4">※ 새 개념은 도입하지 않는다. 효율의 정량 계산은 다루지 않고, 사슬을 잇는 것과 오개념 교정에 집중한다.</p>
+    </div>
+   </section>
+
+   <!-- 5. concept -->
+   <section data-slide-index="4" data-slide-num="5" data-title="하나의 사슬" id="slide-5">
+    <div class="slide-content">
+     <h2>세 차시는 사슬의 세 마디였다</h2>
+     <div class="standard-box max-w-4xl w-full mt-5">
+      <p class="text-lg text-slate-700">에너지는 <b>새로 생기지도, 없어지지도 않는다.</b> 다만 형태를 바꾸며, 그 과정에서 일부는 목적과 다른 형태로 주변에 흩어진다.</p>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-5">
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">14강 · 위치 → 운동</p>
+       <p class="text-slate-600 mt-1">높이가 낮아진 만큼 빨라진다. 마찰이 없다면 역학적 에너지의 합은 일정하다.</p>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">15강 · 운동 → 전기</p>
+       <p class="text-slate-600 mt-1">코일을 지나는 자기장이 <b>변할 때</b> 전류가 흐른다. 패러데이, 1831년.</p>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">16강 · 전기 → 빛·열</p>
+       <p class="text-slate-600 mt-1">가전제품에서 다시 여러 형태로 바뀐다. 목적한 형태는 그중 일부다.</p>
+      </div>
+     </div>
+     <p class="slide-caption mt-4">※ 줄(James Joule)은 1843년, 물을 젓는 일이 물의 온도를 올린다는 것을 측정해 역학적 에너지와 열이 같은 것임을 보였다. 사슬에서 '새는' 것의 정체가 열이라는 근거다.</p>
+    </div>
+   </section>
+
+   <!-- 6. observe -->
+   <section data-slide-index="5" data-slide-num="6" data-title="어디서 새는가" id="slide-6">
+    <div class="slide-content">
+     <h2>마디마다 무엇이 새는가</h2>
+     <div class="max-w-5xl w-full mt-4">
+      <table class="lab-table">
+       <thead><tr><th>사슬의 마디</th><th>배운 차시</th><th>목적한 전환</th><th>새어 나가는 형태</th></tr></thead>
+       <tbody>
+        <tr><td>위치 → 운동</td><td>14강</td><td>물이 빨라진다</td><td>공기 저항 · 마찰 → <b>열</b></td></tr>
+        <tr><td>운동 → 전기</td><td>15강</td><td>코일에 전류가 흐른다</td><td>축 마찰 · 코일 저항 → <b>열 · 소리</b></td></tr>
+        <tr><td>전기 → 빛</td><td>16강</td><td>전구가 밝아진다</td><td>목적 외 전환 → <b>열</b></td></tr>
+       </tbody>
+      </table>
+     </div>
+     <div class="mt-5 flex gap-2 flex-wrap justify-center">
+      <span class="echip input">■ 공급 · 위치 에너지</span>
+      <span class="echip intended">◎ 목적한 전환 · 전기 · 빛</span>
+      <span class="echip other">△ 그 외 전환 · 열 · 소리</span>
+     </div>
+     <div class="ask max-w-4xl w-full mt-4"><p>세 마디 모두에서 <b>열</b>이 나옵니다. 왜 하필 열일까요?</p></div>
+    </div>
+   </section>
+
+   <!-- 7. rule -->
+   <section data-slide-index="6" data-slide-num="7" data-title="사슬 완성하기" id="slide-7">
+    <div class="slide-content">
+     <h2>규칙을 문장으로 완성하기</h2>
+     <table class="lab-table max-w-5xl mt-4">
+      <thead><tr><th>관찰한 것</th><th>완성할 규칙</th></tr></thead>
+      <tbody>
+       <tr><td>댐의 물이 가진 에너지보다 얻은 전기 에너지가 적다</td>
+        <td>줄어든 만큼의 에너지는 <span class="rule-blank" data-rule="rule1">
+         <button class="pick" data-correct="true">열 등 다른 형태로 흩어졌다</button>
+         <button class="pick" data-correct="false">완전히 없어졌다</button>
+        </span></td></tr>
+       <tr><td>자석을 코일 안에 넣고 <b>가만히</b> 두면 전류가 흐르지 않는다</td>
+        <td>전류는 자기장이 <span class="rule-blank" data-rule="rule2">
+         <button class="pick" data-correct="true">변할 때</button>
+         <button class="pick" data-correct="false">세기만 하면</button>
+        </span> 흐른다</td></tr>
+       <tr><td>1800 W를 10분 쓴 것과 50 W를 6시간 쓴 것</td>
+        <td>전기 에너지의 양을 비교하려면 <span class="rule-blank" data-rule="rule3">
+         <button class="pick" data-correct="true">전력과 시간을 함께 봐야 한다</button>
+         <button class="pick" data-correct="false">전력만 보면 된다</button>
+        </span></td></tr>
+      </tbody>
+     </table>
+     <p class="text-slate-600 mt-2" id="rule-feedback" aria-live="polite"
+      data-hint="다시 봅시다. 그 마디에서 빠져나간 에너지는 어떤 형태였나요?"
+      data-done="세 규칙이 완성되었습니다. 에너지는 사라지지 않고, 쓰기 어려운 형태로 흩어질 뿐입니다.">칸마다 알맞은 말을 골라 규칙을 완성하세요.</p>
+     <div class="standard-box max-w-4xl w-full mt-4">
+      <p class="text-lg text-slate-700"><b>사슬의 어느 마디에서도 에너지는 사라지지 않는다. 다만 쓰기 어려운 형태(열)로 흩어질 뿐이다.</b></p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 8. compare -->
+   <section data-slide-index="7" data-slide-num="8" data-title="같은 밝기, 다른 손실" id="slide-8">
+    <div class="slide-content">
+     <h2>같은 밝기, 다른 손실</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-4">
+      <div class="outline-card">
+       <p class="font-bold text-slate-800 text-xl">백열전구</p>
+       <p class="readout text-2xl mt-2">60 W</p>
+       <p class="text-slate-600 mt-2">공급한 전기 에너지의 약 <b>5%</b>만 빛이 된다. 나머지는 열이다.</p>
+       <div class="mt-3 flex gap-1 flex-wrap">
+        <span class="echip intended">◎ 빛 5%</span><span class="echip other">△ 열 95%</span>
+       </div>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-slate-800 text-xl">LED 전구</p>
+       <p class="readout text-2xl mt-2">8 W</p>
+       <p class="text-slate-600 mt-2">비슷한 밝기를 훨씬 적은 전기로 낸다. 열로 새는 몫이 작다.</p>
+       <div class="mt-3 flex gap-1 flex-wrap">
+        <span class="echip intended">◎ 빛 40%</span><span class="echip other">△ 열 60%</span>
+       </div>
+      </div>
+     </div>
+     <div class="standard-box max-w-4xl w-full mt-5">
+      <p class="text-lg text-slate-700">효율이 높다는 것은 <b>에너지를 덜 쓴다</b>는 뜻이 아니라, 공급한 에너지 중 <b>목적한 형태로 바뀌는 몫이 크다</b>는 뜻이다.</p>
+     </div>
+     <p class="slide-caption mt-3">※ 에디슨이 1879년 실용화한 백열전구는 100년 넘게 쓰였지만, 에너지의 대부분을 빛이 아니라 열로 보냈다.</p>
+    </div>
+   </section>
+
+   <!-- 9. apply -->
+   <section data-slide-index="8" data-slide-num="9" data-title="거꾸로 추적하기" id="slide-9">
+    <div class="slide-content">
+     <h2>내 방 전등에서 거꾸로 올라가기</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-4">
+      <dl class="mock-label">
+       <dt>제품</dt><dd>LED 스탠드</dd>
+       <dt>정격 소비 전력</dt><dd><span class="w">8 W</span></dd>
+       <dt>정격 전압</dt><dd>220 V</dd>
+       <dt>하루 사용</dt><dd>4시간</dd>
+      </dl>
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">거꾸로 물어보기</p>
+       <p class="text-slate-600 mt-2">① 이 전등의 빛은 무엇에서 왔는가?<br/>
+        ② 그 전기는 어디에서 만들어졌는가?<br/>
+        ③ 발전기를 돌린 것은 무엇인가?<br/>
+        ④ 그 처음의 에너지는 어떤 형태였는가?</p>
+      </div>
+     </div>
+     <div class="ask max-w-4xl w-full mt-5"><p>④에서 시작해 ①까지, 사슬을 <b>한 문장</b>으로 이어 말해 봅시다.</p></div>
+    </div>
+   </section>
+
+   <!-- 10. summary -->
+   <section data-slide-index="9" data-slide-num="10" data-title="오늘의 정리" id="slide-10">
+    <div class="slide-content">
+     <h2>오늘의 정리</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">전환</p><p class="text-slate-600 mt-1">에너지는 형태를 바꾼다. 위치 → 운동 → 전기 → 빛·열</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">보존</p><p class="text-slate-600 mt-1">새어도 사라지지 않는다. 쓰기 어려운 형태로 흩어질 뿐이다</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">전력 × 시간</p><p class="text-slate-600 mt-1">사용한 전기 에너지의 양은 두 가지를 함께 봐야 안다</p></div>
+     </div>
+     <div class="standard-box max-w-4xl w-full mt-5">
+      <p class="text-lg text-slate-700">표지의 질문에 답해 봅시다 — 물 한 통이 전등을 켜기까지, 에너지는 <b>적어도 세 번</b> 모습을 바꾼다. 그리고 그때마다 일부는 열로 흩어진다.</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 11. quiz -->
+   <section data-slide-index="10" data-slide-num="11" data-title="형성평가" id="slide-11">
+    <div class="slide-content">
+     <h2 class="text-slate-800">형성평가 — 사슬 잇기</h2>
+     <div class="quiz-container max-w-3xl mt-6 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">수력 발전소에서 전기가 만들어져 가정의 전등을 켤 때까지의 에너지 전환 순서로 옳은 것은?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false">① 운동 → 위치 → 전기 → 빛</button>
+       <button class="quiz-btn" data-correct="true">② 위치 → 운동 → 전기 → 빛</button>
+       <button class="quiz-btn" data-correct="false">③ 위치 → 전기 → 운동 → 빛</button>
+       <button class="quiz-btn" data-correct="false">④ 전기 → 위치 → 운동 → 빛</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">✅ 정답! ② 위치 → 운동 → 전기 → 빛</p>
+       <p class="text-slate-600 mt-1">높이 있던 물이 떨어지며 빨라지고(14강), 그 운동이 발전기를 돌려 전류를 만들며(15강), 전기가 전구에서 빛과 열로 바뀐다(16강). 다만 각 단계마다 일부는 열로 흩어지므로, 처음의 위치 에너지 전부가 빛이 되지는 않는다.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- 12. misconception -->
+   <section data-slide-index="11" data-slide-num="12" data-title="오개념 확인" id="slide-12">
+    <div class="slide-content">
+     <h2 class="text-slate-800">오개념 확인과 출구 질문</h2>
+     <div class="quiz-container max-w-3xl mt-4 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">"전등을 켜면 전기 에너지가 <b>소모되어 없어진다</b>"는 말의 문제점을 가장 잘 지적한 것은?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false">① 전등은 전기 에너지를 쓰지 않기 때문이다</button>
+       <button class="quiz-btn" data-correct="true">② 없어진 것이 아니라 빛과 열로 바뀌어 주변에 흩어졌기 때문이다</button>
+       <button class="quiz-btn" data-correct="false">③ 전기 에너지는 빛으로만 바뀌기 때문이다</button>
+       <button class="quiz-btn" data-correct="false">④ 전기 요금이 나오므로 없어진 것이 맞기 때문이다</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">✅ 정답! ②</p>
+       <p class="text-slate-600 mt-1">에너지는 사라지지 않는다. 다만 빛과 열로 바뀌어 주변으로 흩어지면 다시 모아 쓰기 어려워진다. 우리가 "소모했다"고 말하는 것은 <b>없어졌다</b>는 뜻이 아니라 <b>쓰기 어려운 형태가 되었다</b>는 뜻이다.</p>
+      </div>
+     </div>
+     <div class="ask max-w-4xl w-full mt-4"><p>출구 질문 — 오늘 집에서 쓰는 가전제품 하나를 골라, 그 에너지가 <b>어디에서 와서 어디로 흩어지는지</b> 사슬로 적어 오세요.</p></div>
+    </div>
+   </section>
+
+  </main>
+  <script src="js/slide_engine.js"></script>
+  <script src="js/lesson_patterns.js"></script>
+ </body>
+</html>
