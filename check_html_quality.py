@@ -21,6 +21,9 @@ DEFAULT_GLOB = [
     "12_kinetic_energy.html",
     "13_mechanical_energy.html",
     "14_energy_conservation.html",
+    "15_electromagnetic_induction.html",
+    "16_electric_power.html",
+    "17_energy_chain_review.html",
     "review_motion_energy.html",
     "lecture_notes.html",
     "index.html",
@@ -187,7 +190,15 @@ def check_file(path: Path, remote_cache: dict[str, tuple[bool, str]], timeout: f
         if "MathJax-script" in text and "\\(" not in text and "\\[" not in text:
             issues.append(Issue("WARN", path, "MathJax loaded but TeX delimiters were not found"))
 
-    if path.name not in {"7_physics_intro.html", "index.html"}:
+    # 역학 공식(E_p, ½gt² …)을 요구하는 규칙이다. 전자기·전기 에너지·종합 복습
+    # 차시는 그 공식을 쓰지 않는 것이 정상이므로 면제한다.
+    NO_MECHANICS_FORMULA = {
+        "7_physics_intro.html", "index.html",
+        "15_electromagnetic_induction.html",
+        "16_electric_power.html",
+        "17_energy_chain_review.html",
+    }
+    if path.name not in NO_MECHANICS_FORMULA:
         for token in FORMULA_TOKENS:
             if token in text:
                 break
