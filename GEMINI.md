@@ -17,6 +17,8 @@
 
 
 # 현재 상태
+- [x] Stage 0: 16강 인라인 컴포넌트를 공용 css/components.css로 승격, 공통화 로드맵 작성
+- [x] 15·16강 학습지 Google Docs 업로드 완료 + Docs 변환 기준 레이아웃 교정 (PR #9, #10)
 - [x] 15·16강 학습지 4종 docx 생성기 추가 (WORKSHEET_CREATION_WORKFLOW 적용, PR #8)
 - [x] 16강 QA 반영: 대비 2건, 3번 예상 회수, 13번 규칙 완성 상호작용, 9번 과학사 보강, 8강 죽은 이미지 SVG 교체 (PR #7)
 - [x] 16강 애플릿 버튼 무반응 수정(엔진 innerHTML 재작성), interaction_check.py 신설, PR #6 머지
