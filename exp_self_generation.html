@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>실험: 내 몸으로 만드는 전기 — 자가 발전</title>
+  <link href="css/tailwind.build.css" rel="stylesheet"/>
+  <link href="css/common.css" rel="stylesheet"/>
+  <link href="css/presentation_mode.css" rel="stylesheet"/>
+  <link href="css/chem_style.css" rel="stylesheet"/>
+  <link href="css/components.css" rel="stylesheet"/>
+ </head>
+ <body class="presentation-mode" style="--accent:#0891b2; --accent-strong:#155e75; --accent-soft:#cffafe; --accent-tint:#ecfeff">
+  <main>
+
+   <!-- 1. cover -->
+   <section data-slide-index="0" data-slide-num="1" data-title="Cover" id="slide-1">
+    <div class="slide-content">
+     <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">2026학년도 중학교 3학년 과학 &bull; 물리 VI-2 탐구</p>
+     <h1 class="text-4xl md:text-6xl font-black mb-6 text-slate-900 leading-tight">내 몸으로 만드는 전기</h1>
+     <div class="w-20 h-1 bg-cyan-600 mx-auto my-8"></div>
+     <p class="text-2xl text-slate-600 font-medium">실험 활동: 자가 발전 &mdash; 15강 전자기 유도 적용</p>
+     <div class="ask max-w-3xl w-full mt-8"><p>건전지도 콘센트도 없이, 오직 내 팔 힘만으로 LED를 켤 수 있을까? 켤 수 있다면 그 전기는 <b>어디서</b> 온 것일까?</p></div>
+    </div>
+   </section>
+
+   <!-- 2. hook -->
+   <section data-slide-index="1" data-slide-num="2" data-title="흔들이 손전등 속" id="slide-2">
+    <div class="slide-content">
+     <h2>이 손전등 안에는 건전지가 없다</h2>
+     <svg viewBox="0 0 720 190" class="w-full" style="max-height:230px" role="img"
+          aria-label="흔들이 손전등의 내부 구조. 투명한 관 안에서 자석이 앞뒤로 미끄러지고, 관 바깥에 감긴 코일이 자석의 움직임에서 전류를 얻는다. 그 전류는 정류 회로를 지나 축전기에 잠시 저장되었다가 엘이디를 켠다.">
+      <rect x="0" y="0" width="720" height="190" fill="#f8fafc" rx="16"></rect>
+      <rect x="40" y="60" width="330" height="70" fill="#ffffff" stroke="#94a3b8" stroke-width="3" rx="10"></rect>
+      <g stroke="#b45309" stroke-width="7" fill="none">
+       <ellipse cx="185" cy="95" rx="12" ry="40"></ellipse>
+       <ellipse cx="207" cy="95" rx="12" ry="40"></ellipse>
+       <ellipse cx="229" cy="95" rx="12" ry="40"></ellipse>
+       <ellipse cx="251" cy="95" rx="12" ry="40"></ellipse>
+      </g>
+      <text x="186" y="155" fill="#92400e" font-size="15" font-weight="bold">코일</text>
+      <rect x="78" y="76" width="34" height="38" fill="#ef4444" rx="4"></rect>
+      <rect x="112" y="76" width="34" height="38" fill="#3b82f6" rx="4"></rect>
+      <text x="90" y="102" fill="white" font-size="16" font-weight="bold">N</text>
+      <text x="124" y="102" fill="white" font-size="16" font-weight="bold">S</text>
+      <text x="72" y="52" fill="#334155" font-size="15" font-weight="bold">자석 (관 안에서 미끄러진다)</text>
+      <text x="300" y="52" fill="#0891b2" font-size="22" font-weight="bold">&#8596;</text>
+      <path d="M 370 95 L 430 95" stroke="#475569" stroke-width="3"></path>
+      <rect x="430" y="70" width="82" height="50" fill="#e2e8f0" stroke="#64748b" stroke-width="2" rx="8"></rect>
+      <text x="444" y="100" fill="#334155" font-size="14" font-weight="bold">정류 회로</text>
+      <path d="M 512 95 L 560 95" stroke="#475569" stroke-width="3"></path>
+      <rect x="560" y="70" width="60" height="50" fill="#dbeafe" stroke="#2563eb" stroke-width="2" rx="8"></rect>
+      <text x="572" y="100" fill="#1e40af" font-size="14" font-weight="bold">축전기</text>
+      <path d="M 620 95 L 660 95" stroke="#475569" stroke-width="3"></path>
+      <circle cx="678" cy="95" r="18" fill="#fde68a" stroke="#f59e0b" stroke-width="3"></circle>
+      <text x="666" y="140" fill="#92400e" font-size="14" font-weight="bold">LED</text>
+     </svg>
+     <div class="ask max-w-4xl w-full mt-4"><p>흔들기를 멈추면 불빛은 곧 꺼집니다. 그런데 왜 <b>바로</b> 꺼지지 않고 몇 초 더 남아 있을까요?</p></div>
+     <p class="slide-caption mt-3">※ 자석이 관 안을 왕복하면 코일을 지나는 자기장이 계속 바뀐다 &mdash; 15강에서 배운 전자기 유도 그대로다.</p>
+    </div>
+   </section>
+
+   <!-- 3. predict -->
+   <section data-slide-index="2" data-slide-num="3" data-title="먼저 예상하기" id="slide-3">
+    <div class="slide-content">
+     <h2>먼저 예상해 봅시다</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-6">
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 1</p><p class="text-slate-600 mt-1">같은 자석, 같은 코일이라면 <b>더 빨리</b> 흔들수록 LED는 밝아질까요? 아니면 밝기는 자석의 세기로만 정해질까요?</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 2</p><p class="text-slate-600 mt-1">코일을 <b>두 배</b>로 감으면 전류도 두 배가 될까요, 그대로일까요?</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 3</p><p class="text-slate-600 mt-1">LED가 켜져 있을 때와 꺼져 있을 때, 흔드는 <b>손의 느낌</b>은 같을까요?</p></div>
+     </div>
+     <div class="mt-5 flex flex-wrap justify-center gap-4 items-center" data-poll="exp-selfgen-poll" id="exp-poll">
+      <button class="pick" aria-pressed="false">빠르게 흔들수록 밝다</button>
+      <button class="pick" aria-pressed="false">밝기는 자석 세기로만 정해진다</button>
+      <button class="pick" aria-pressed="false">아직 판단할 수 없다</button>
+     </div>
+     <p class="slide-caption mt-1" id="exp-poll-echo" aria-live="polite"></p>
+     <div class="ask max-w-4xl w-full mt-4"><p>정답을 맞히는 단계가 아닙니다. 지금 생각과 그 <b>까닭</b>을 학습지에 한 문장으로 적으세요.</p></div>
+    </div>
+   </section>
+
+   <!-- 4. objectives -->
+   <section data-slide-index="3" data-slide-num="4" data-title="목표와 안전" id="slide-4">
+    <div class="slide-content">
+     <h2>이 활동의 목표</h2>
+     <div class="max-w-3xl w-full mt-5 standard-box">
+      <p class="font-bold text-cyan-800 mb-2">[9과22-02]</p>
+      <p class="text-slate-700">자기장의 변화로 전류가 유도되는 현상을 관찰하고, 이를 에너지 전환의 관점에서 설명할 수 있다.</p>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">만들기</p><p class="text-slate-600 mt-1">코일과 자석만으로 발전기를 조립한다</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">비교하기</p><p class="text-slate-600 mt-1">한 번에 <b>한 조건만</b> 바꾸어 전류의 세기를 비교한다</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">설명하기</p><p class="text-slate-600 mt-1">내가 쓴 힘이 어떤 에너지로 바뀌었는지 사슬로 말한다</p></div>
+     </div>
+     <div class="max-w-4xl w-full mt-5">
+      <table class="lab-table">
+       <thead><tr><th>안전 수칙</th><th>까닭</th></tr></thead>
+       <tbody>
+        <tr><td>네오디뮴 자석은 두 개를 <b>맞부딪히지 않는다</b></td><td>깨지면서 파편이 튄다</td></tr>
+        <tr><td>자석을 휴대폰&middot;교통카드&middot;시계에서 <b>30 cm</b> 떨어뜨린다</td><td>자기 기록이 지워진다</td></tr>
+        <tr><td>에나멜선 끝은 사포로 벗긴 뒤 <b>테이프로 감는다</b></td><td>끊어진 구리선 끝이 날카롭다</td></tr>
+       </tbody>
+      </table>
+     </div>
+     <p class="slide-caption mt-3">※ 이 활동은 전류의 <b>세기를 계산하지 않는다</b>. 무엇이 전류를 크게 만드는지 비교하는 데까지가 범위다.</p>
+    </div>
+   </section>
+
+   <!-- 5. explore 1 — 제작 -->
+   <section data-slide-index="4" data-slide-num="5" data-title="자가 발전기 만들기" id="slide-5">
+    <div class="slide-content">
+     <h2>탐구 1 &mdash; 자가 발전기 조립하기</h2>
+     <div class="flex flex-col md:flex-row gap-5 items-start max-w-5xl w-full mt-4">
+      <div class="w-full md:w-2/5">
+       <div class="outline-card">
+        <p class="font-bold text-slate-800 mb-2">준비물 (모둠당)</p>
+        <ul class="list-disc text-left text-slate-600 leading-relaxed" style="padding-left:1.2rem">
+         <li>에나멜선 0.3 mm &mdash; 약 10 m</li>
+         <li>플라스틱 빨대 굵은 것 1개 (또는 유리관)</li>
+         <li>네오디뮴 자석 <b>&Phi;10 mm</b> 3개</li>
+         <li>적색 LED 2개 (역방향으로 병렬 연결)</li>
+         <li>검류계 1대, 사포, 절연 테이프</li>
+        </ul>
+       </div>
+      </div>
+      <div class="w-full md:w-3/5">
+       <div class="outline-card">
+        <p class="font-bold text-slate-800 mb-2">조립 순서</p>
+        <ol class="list-decimal text-left text-slate-600 leading-relaxed" style="padding-left:1.4rem">
+         <li>빨대 가운데에 에나멜선을 <b>한 방향으로만</b> 200회 감는다. 되감으면 서로 상쇄된다.</li>
+         <li>양 끝 3 cm를 사포로 문질러 에나멜 피막을 벗긴다. 이 피막이 남아 있으면 전류가 흐르지 않는다.</li>
+         <li>빨대 양 끝을 테이프로 막아 자석이 튀어나오지 않게 한다.</li>
+         <li>자석 3개를 <b>같은 극끼리 반발하지 않도록</b> 붙여 하나로 만든 뒤 빨대 안에 넣는다.</li>
+         <li>선 두 가닥을 검류계에 연결한다. LED로 바꿔 달 수 있게 집게를 쓴다.</li>
+        </ol>
+       </div>
+       <div class="ask mt-3"><p>LED를 <b>두 개, 서로 반대 방향으로</b> 다는 까닭은 무엇일까요? (힌트: 15강 교류)</p></div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- 6. explore 2 — 변인 -->
+   <section data-slide-index="5" data-slide-num="6" data-title="세 가지 비교 실험" id="slide-6">
+    <div class="slide-content">
+     <h2>탐구 2 &mdash; 한 번에 한 조건만 바꾼다</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-5">
+      <div class="outline-card">
+       <p class="font-bold text-cyan-800">실험 A &middot; 흔드는 빠르기</p>
+       <p class="text-slate-600 mt-1"><b>바꾸는 것</b>: 1초에 흔드는 횟수 (1회 &rarr; 3회)</p>
+       <p class="text-slate-600 mt-1"><b>그대로 두는 것</b>: 코일 감은 수, 자석 개수, 흔드는 폭</p>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-cyan-800">실험 B &middot; 코일 감은 수</p>
+       <p class="text-slate-600 mt-1"><b>바꾸는 것</b>: 100회 &rarr; 200회 &rarr; 400회</p>
+       <p class="text-slate-600 mt-1"><b>그대로 두는 것</b>: 흔드는 빠르기와 폭, 자석 개수</p>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-cyan-800">실험 C &middot; 자석의 세기</p>
+       <p class="text-slate-600 mt-1"><b>바꾸는 것</b>: 자석 1개 &rarr; 2개 &rarr; 3개</p>
+       <p class="text-slate-600 mt-1"><b>그대로 두는 것</b>: 흔드는 빠르기와 폭, 코일 감은 수</p>
+      </div>
+     </div>
+     <div class="standard-box max-w-4xl w-full mt-5">
+      <p class="text-lg text-slate-700"><b>기록 방법</b>: 검류계 바늘이 <b>가장 크게</b> 흔들린 눈금을 읽는다. 바늘은 좌우로 흔들리므로 한쪽 최대값만 읽고, 3회 측정해 가운데 값을 쓴다.</p>
+     </div>
+     <p class="slide-caption mt-3">※ 두 조건을 동시에 바꾸면 어느 쪽이 원인인지 알 수 없다. 이것이 통제 변인을 두는 까닭이다.</p>
+    </div>
+   </section>
+
+   <!-- 7. observe -->
+   <section data-slide-index="6" data-slide-num="7" data-title="관찰 결과" id="slide-7">
+    <div class="slide-content">
+     <h2>관찰 결과를 정리하면</h2>
+     <div class="max-w-5xl w-full mt-4">
+      <table class="lab-table">
+       <thead><tr><th>실험</th><th>바꾼 조건</th><th>코일을 지나는 자기장</th><th>검류계 최대 눈금</th></tr></thead>
+       <tbody>
+        <tr><td rowspan="2">A</td><td>느리게 흔들기</td><td>천천히 바뀐다</td><td>작다</td></tr>
+        <tr><td><b>빠르게</b> 흔들기</td><td>같은 변화를 <b>짧은 시간</b>에</td><td>크다</td></tr>
+        <tr><td rowspan="2">B</td><td>코일 100회</td><td>변화량은 같다</td><td>작다</td></tr>
+        <tr><td>코일 <b>400회</b></td><td>변화량은 같다</td><td>크다</td></tr>
+        <tr><td rowspan="2">C</td><td>자석 1개</td><td>자기장 자체가 약하다</td><td>작다</td></tr>
+        <tr><td>자석 <b>3개</b></td><td>자기장 자체가 세다</td><td>크다</td></tr>
+       </tbody>
+      </table>
+     </div>
+     <div class="ask max-w-4xl w-full mt-4"><p>세 실험에서 <b>공통으로</b> 커진 것은 무엇입니까? "자기장"이 아니라 "자기장의 □□"라고 답해 봅시다.</p></div>
+    </div>
+   </section>
+
+   <!-- 8. rule -->
+   <section data-slide-index="7" data-slide-num="8" data-title="규칙 완성" id="slide-8">
+    <div class="slide-content">
+     <h2>관찰에서 규칙으로</h2>
+     <div class="max-w-5xl w-full mt-4">
+      <table class="lab-table">
+       <thead><tr><th>바꾼 조건</th><th>그대로 둔 조건</th><th>완성할 규칙</th></tr></thead>
+       <tbody>
+        <tr>
+         <td>흔드는 빠르기 증가</td><td>코일&middot;자석 그대로</td>
+         <td>자기장이 <b>빠르게</b> 변할수록 유도 전류는
+          <span class="rule-blank" data-rule="rule1">
+           <button class="pick" data-correct="true">세진다</button>
+           <button class="pick" data-correct="false">변하지 않는다</button>
+          </span>
+         </td>
+        </tr>
+        <tr>
+         <td>코일 감은 수 증가</td><td>빠르기&middot;자석 그대로</td>
+         <td>같은 자기장 변화라도 감은 수가 많을수록 유도 전류는
+          <span class="rule-blank" data-rule="rule2">
+           <button class="pick" data-correct="true">세진다</button>
+           <button class="pick" data-correct="false">약해진다</button>
+          </span>
+         </td>
+        </tr>
+        <tr>
+         <td>자석을 코일 안에 <b>정지</b></td><td>모든 조건 그대로</td>
+         <td>자기장이 변하지 않으면 유도 전류는
+          <span class="rule-blank" data-rule="rule3">
+           <button class="pick" data-correct="true">흐르지 않는다</button>
+           <button class="pick" data-correct="false">일정하게 흐른다</button>
+          </span>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <p class="text-slate-600 mt-3" id="rule-feedback" aria-live="polite"
+        data-hint="다시 봅시다. 그 조건만 바꾸었을 때 검류계 눈금이 어떻게 되었나요?"
+        data-done="규칙 완성 — 전류를 만드는 것은 자기장이 아니라 자기장의 '변화'입니다.">칸마다 알맞은 말을 골라 규칙을 완성하세요.</p>
+     <div class="standard-box max-w-4xl w-full mt-4">
+      <p class="text-lg text-slate-700"><b>규칙</b>: 유도 전류는 코일을 지나는 자기장이 <b>변할 때만</b> 흐르고, 그 변화가 빠를수록&middot;코일 감은 수가 많을수록&middot;자석이 셀수록 세진다.</p>
+     </div>
+     <p class="slide-caption mt-3">※ "자석이 세면 전류가 흐른다"가 아니다. 아무리 센 자석도 <b>가만히 있으면</b> 전류는 0이다.</p>
+    </div>
+   </section>
+
+   <!-- 9. concept -->
+   <section data-slide-index="8" data-slide-num="9" data-title="에너지는 어디서 왔나" id="slide-9">
+    <div class="slide-content">
+     <h2>그 전기는 어디서 왔을까</h2>
+     <div class="standard-box max-w-4xl w-full mt-4">
+      <p class="text-lg text-slate-700">내가 아침에 먹은 밥의 <b>화학 에너지</b> &rarr; 팔의 <b>운동 에너지</b> &rarr; 코일의 <b>전기 에너지</b> &rarr; LED의 <b>빛 에너지</b>(그리고 대부분은 열)</p>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">공짜는 없다</p><p class="text-slate-600 mt-1">발전기는 전기를 <b>만들어내지</b> 않는다. 이미 있던 에너지의 모습을 바꿀 뿐이다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">렌츠, 1834</p><p class="text-slate-600 mt-1">하인리히 렌츠는 유도 전류가 <b>변화를 방해하는 방향</b>으로 흐른다는 것을 밝혔다. 그래서 전기를 뽑아 쓸수록 손이 무거워진다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">패러데이, 1831</p><p class="text-slate-600 mt-1">"이게 무슨 쓸모가 있소?"라는 질문에 패러데이는 "갓 태어난 아기가 무슨 쓸모가 있습니까?"라고 답했다고 전한다.</p></div>
+     </div>
+     <div class="max-w-4xl w-full mt-5">
+      <span class="echip input">&#9632; 공급 &middot; 내 몸의 화학 에너지</span>
+      <span class="echip intended">&#9678; 목적한 전환 &middot; 빛</span>
+      <span class="echip other">&#9651; 그 외 전환 &middot; 열 &middot; 소리 &middot; 마찰</span>
+     </div>
+     <p class="credit">렌츠의 법칙은 중학교 교육과정에서 방향까지 다루지 않는다. 여기서는 "왜 손이 무거워지는가"의 근거로만 쓴다.</p>
+    </div>
+   </section>
+
+   <!-- 10. apply -->
+   <section data-slide-index="9" data-slide-num="10" data-title="손의 느낌으로 확인" id="slide-10">
+    <div class="slide-content">
+     <h2>적용 &mdash; 에너지의 대가를 손으로 느끼기</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-5">
+      <div class="outline-card">
+       <p class="font-bold text-slate-800 text-xl">회로를 <b>열어</b> 둘 때</p>
+       <p class="readout text-2xl mt-2">가볍다</p>
+       <p class="text-slate-600 mt-1">전류가 흐르지 않으므로 전기 에너지로 빠져나가는 몫이 거의 없다</p>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-slate-800 text-xl">LED를 <b>연결</b>했을 때</p>
+       <p class="readout text-2xl mt-2">무겁다</p>
+       <p class="text-slate-600 mt-1">전기 에너지로 나가는 만큼 내 팔이 더 일해야 한다</p>
+      </div>
+     </div>
+     <div class="ask max-w-4xl w-full mt-5"><p>손발전기가 있다면 같은 비교를 해 보세요. 자전거 라이트를 켜면 페달이 무거워지는 것도 같은 까닭입니다.</p></div>
+     <div class="outline-card max-w-4xl w-full mt-4">
+      <p class="font-bold text-slate-800">과학사 &middot; 태엽 라디오, 1991</p>
+      <p class="text-slate-600 mt-1">영국의 발명가 트레버 베일리스는 전기가 들어오지 않는 지역에 보건 정보를 전할 방법을 찾다가, 손으로 태엽을 감아 발전하는 라디오를 만들었다. 자가 발전은 취미가 아니라 <b>전기가 없는 곳의 문제 해결</b>에서 나왔다.</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 11. summary -->
+   <section data-slide-index="10" data-slide-num="11" data-title="정리" id="slide-11">
+    <div class="slide-content">
+     <h2>오늘의 정리</h2>
+     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">변화</p><p class="text-slate-600 mt-1">자기장이 <b>변할 때만</b> 전류가 유도된다</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">세기</p><p class="text-slate-600 mt-1">빠르게 &middot; 많이 감을수록 &middot; 센 자석일수록 크다</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">전환</p><p class="text-slate-600 mt-1">화학 &rarr; 운동 &rarr; 전기 &rarr; 빛</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">대가</p><p class="text-slate-600 mt-1">전기를 뽑아 쓰면 손이 무거워진다</p></div>
+     </div>
+     <div class="standard-box max-w-4xl w-full mt-5">
+      <p class="text-lg text-slate-700">표지의 질문에 답하면 &mdash; 내 팔만으로 LED를 켤 수 있다. 그 전기는 <b>없던 데서 생긴 것이 아니라</b> 내 몸의 화학 에너지가 모습을 바꾼 것이다.</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 12. quiz -->
+   <section data-slide-index="11" data-slide-num="12" data-title="형성평가" id="slide-12">
+    <div class="slide-content">
+     <h2>형성평가</h2>
+     <div class="quiz-container max-w-3xl mt-6 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">자가 발전기를 흔들다가 자석을 코일 <b>한가운데에 멈춰</b> 두었다. 이때 검류계는?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false">&#9312; 자석이 코일 안에 있으므로 가장 크게 흔들린다</button>
+       <button class="quiz-btn" data-correct="true">&#9313; 자기장이 변하지 않으므로 0을 가리킨다</button>
+       <button class="quiz-btn" data-correct="false">&#9314; 자석이 셀수록 일정한 전류가 계속 흐른다</button>
+       <button class="quiz-btn" data-correct="false">&#9315; 코일 감은 수가 많으면 멈춰 있어도 흐른다</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">&#9989; 정답! &#9313; 자기장이 변하지 않으므로 0이다.</p>
+       <p class="text-slate-600 mt-1">전류를 만드는 것은 자기장의 <b>세기</b>가 아니라 <b>변화</b>다. 다만 자석이 셀수록 <b>움직일 때의</b> 변화량이 커지므로, 자석의 세기가 아무 상관이 없다는 뜻은 아니다.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- 13. misconception -->
+   <section data-slide-index="12" data-slide-num="13" data-title="오개념 확인" id="slide-13">
+    <div class="slide-content">
+     <h2>오개념 확인</h2>
+     <div class="quiz-container max-w-3xl mt-4 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">"자가 발전기는 <b>공짜로</b> 전기를 만든다"에 대한 가장 좋은 반례는?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false">&#9312; 오래 흔들면 코일이 뜨거워진다</button>
+       <button class="quiz-btn" data-correct="true">&#9313; LED를 연결하는 순간 흔드는 손이 더 무거워진다</button>
+       <button class="quiz-btn" data-correct="false">&#9314; 자석을 빼면 전류가 흐르지 않는다</button>
+       <button class="quiz-btn" data-correct="false">&#9315; 흔들기를 멈추면 불이 꺼진다</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">&#9989; 정답! &#9313; 손이 무거워진다.</p>
+       <p class="text-slate-600 mt-1">전기 에너지로 나가는 만큼 내가 더 일해야 한다는 <b>직접 증거</b>다. &#9312;과 &#9315;는 사실이지만 "대가를 치른다"는 것을 보여주지는 못한다. &#9312;은 오히려 손실(열)의 증거이고, &#9315;는 에너지 공급이 끊겼다는 뜻일 뿐이다.</p>
+      </div>
+     </div>
+     <div class="ask max-w-4xl w-full mt-4"><p>출구 질문 &mdash; 흔들이 손전등을 하루 종일 흔들어 휴대폰을 충전하기는 어렵습니다. 그 까닭을 오늘 배운 말로 한 문장으로 쓰세요.</p></div>
+    </div>
+   </section>
+
+  </main>
+  <script src="js/slide_engine.js"></script>
+  <script src="js/lesson_patterns.js"></script>
+ </body>
+</html>

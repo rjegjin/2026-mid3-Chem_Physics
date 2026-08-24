@@ -197,6 +197,10 @@ def check_file(path: Path, remote_cache: dict[str, tuple[bool, str]], timeout: f
         "15_electromagnetic_induction.html",
         "16_electric_power.html",
         "17_energy_chain_review.html",
+        # 천체·전자기 유도 차시는 역학 공식을 쓰지 않는다
+        "18_stars.html",
+        "19_milky_way.html",
+        "exp_self_generation.html",
     }
     if path.name not in NO_MECHANICS_FORMULA:
         for token in FORMULA_TOKENS:
