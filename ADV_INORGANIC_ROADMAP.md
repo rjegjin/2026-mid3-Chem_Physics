@@ -38,9 +38,9 @@ Molecular Symmetry → Group Theory → Representations → SALCs / Selection Ru
 | 01 | Molecular Symmetry & Point Groups | `adv_inorganic_01.html` | 완료 (28절) |
 | 02 | Representations & Character Tables | `adv_inorganic_02.html` | 완료 |
 | 03 | Vibrational Spectroscopy & SALCs | `adv_inorganic_03.html` | 완료 |
-| 04 | Atomic Orbitals & Angular Momentum | — | **미제작** |
+| 04 | Atomic Orbitals & Angular Momentum | `adv_inorganic_04.html` | 완료 (14절) |
 | 05 | MO Theory: Diatomics | — | **미제작** |
-| 06 | MO Theory: Polyatomics | `adv_inorganic_04.html` | 완료 (11절, 보완 필요) |
+| 06 | MO Theory: Polyatomics | `adv_inorganic_06.html` | 완료 (15절) |
 | 07 | Crystal Field Theory | — | 미제작 |
 | 08 | Ligand Field Theory | — | 미제작 |
 | 09 | Electronic Spectra | — | 미제작 (2회분) |
@@ -51,28 +51,20 @@ Molecular Symmetry → Group Theory → Representations → SALCs / Selection Ru
 | 14 | Solid-State & Band Theory | — | 미제작 |
 | 15 | Modern Inorganic Materials | — | 미제작 |
 
-완료 4편 · 미제작 11편 + Bonus 3편.
+완료 6편 · 미제작 9편 + Bonus 3편.
 
-### 파일명과 모듈 번호가 어긋나 있다
+### 파일명과 모듈 번호를 일치시켰다 (해소)
 
-`adv_inorganic_04.html`의 실제 내용은 **MO Theory + SALCs**다 — 새 번호로는 Module 06이다.
-Module 04 자리(Atomic Orbitals)는 비어 있다.
+`adv_inorganic_04.html`이 MO 이론·SALCs를 담고 있어 모듈 번호와 어긋나 있었다.
+(A)안으로 정리했다 — 파일 번호가 곧 모듈 번호다.
 
-| 파일 | 실제 내용 | 새 모듈 번호 |
-|---|---|---|
-| `adv_inorganic_01.html` | 분자 대칭성·점군 | 01 ✔ |
-| `adv_inorganic_02.html` | 표현론·지표표·GOT | 02 ✔ |
-| `adv_inorganic_03.html` | 진동 분광학 | 03 ✔ |
-| `adv_inorganic_04.html` | MO 이론·SALCs | **06** ✘ |
+```
+adv_inorganic_04.html (MO·SALCs) → adv_inorganic_06.html   [git mv]
+adv_inorganic_04.html                                       [신규 · 원자 오비탈]
+```
 
-두 갈래가 있고, **결정이 필요하다**:
-
-- **(A) 파일명을 맞춘다** — `adv_inorganic_04.html` → `adv_inorganic_06.html`로 rename.
-  `index.html`의 링크 2줄만 고치면 된다. 이후 번호가 곧 모듈 번호가 되어 혼동이 없다.
-- **(B) 파일명을 놔둔다** — 파일명은 제작 순서, 모듈 번호는 커리큘럼 순서로 분리한다.
-  이 문서와 `syllabus.html`이 매핑을 유지한다. 현재는 이쪽으로 적혀 있다.
-
----
+같이 고친 것: `index.html` 링크 2곳과 카드 라벨, `syllabus.html` 링크 1곳,
+파일 내부의 `Lecture 04` · `Module 4` 표기.
 
 ## 이전 로드맵에서 빠진 것 — 결정 필요
 
@@ -179,7 +171,8 @@ Module 04 자리(Atomic Orbitals)는 비어 있다.
 
 # Part II. Electronic Structure & Bonding
 
-## Module 04 — Atomic Orbitals, Electron Configurations & Angular Momentum  ✘ 미제작
+## Module 04 — Atomic Orbitals, Electron Configurations & Angular Momentum  ✔ 완료
+**파일**: `adv_inorganic_04.html` (14절)
 **중심 질문**: 원자의 전자상태는 어떻게 결정되는가?
 
 이전 구성보다 **범위를 넓힌다.** 각운동량과 Slater 행렬식을 여기에 넣어야 Module 09의
@@ -212,9 +205,9 @@ term symbol이 갑자기 튀어나오지 않는다.
 8. O₂의 상자성
 9. 이핵 이원자 분자 — CO, NO
 
-## Module 06 — MO Theory: Polyatomic Molecules  ✔ 완료 (보완 필요)
+## Module 06 — MO Theory: Polyatomic Molecules  ✔ 완료
 **중심 질문**: 대칭성으로 복잡한 MO를 어떻게 구성하는가?
-**파일**: `adv_inorganic_04.html`
+**파일**: `adv_inorganic_06.html` (15절)
 
 여기서 **군론과 MO 이론이 본격적으로 결합**한다.
 
@@ -230,12 +223,19 @@ Ligand orbitals → SALCs → 중심 원자 오비탈 → Molecular orbitals
 6. MO 도표 구성 ✔
 7. `Oh` σ 결합 ✔
 8. Ligand Field Theory로의 전환 ✔
-9. **사례 — NH₃, BF₃, CH₄, SF₆** ✘ 없음
-10. **Walsh 도표와 Walsh 규칙** ✘ 없음
-11. **`AH₂`의 bond angle 변화에 따른 MO 에너지** ✘ 없음
-12. **orbital symmetry와 분자 구조(bent vs linear)** ✘ 없음
+9. 사례 — NH₃(`C3v`), BF₃(`D3h`) ✔ 추가
+10. 사례 — CH₄(`Td`), SF₆(`Oh`) ✔ 추가
+11. Walsh 도표와 Walsh 규칙 ✔ 추가
+12. `AH₂` 전자수 → 결합각 (BeH₂ ~ H₂O 6종 표) ✔ 추가
 
-**보완 작업**: 9~12번 4절 추가. 신규 집필보다 싸다.
+**보완에서 함께 못박은 것 두 가지**:
+
+- CH₄의 광전자 스펙트럼에 이온화가 **2개** 나온다는 사실. `sp³` 혼성 그림은
+  네 결합이 축퇴라고 예측하므로 이 관측과 맞지 않다. 혼성은 결합 **방향**을
+  말하고 오비탈 **에너지**를 말하지 않는다.
+- SF₆에 `3d` 참여(확장 옥텟)가 필요 없다는 것. 여섯 결합은 S 기반 결합성
+  오비탈 4개 + 리간드 기반 `eg` 2개에서 나온다. hypervalency는 **비편재화**의
+  결과이고, 이 `Γσ`가 Module 08의 `[ML6]`에서 그대로 재사용된다.
 
 ---
 
@@ -435,12 +435,15 @@ Ru · Ir · 란타넘족 착물. 전자 전이 유형 — `d–d`, LMCT, MLCT, l
 2. **Module 06의 보완(4절 추가)을 Module 05보다 먼저.** 이미 있는 파일에 붙이는 것이
    신규 집필보다 싸고, Module 08의 ligand SALC가 06을 전제한다.
 
-권고 순서:
+권고 순서 (앞의 두 칸은 완료):
 
 ```
-04 → 06 보완 → 05 → 07 → 08 → 09 → 10 → 11 → 12 → 13 → 14 → 15
+~~04~~ → ~~06 보완~~ → 05 → 07 → 08 → 09 → 10 → 11 → 12 → 13 → 14 → 15
 Bonus 02·03 분리 → Bonus 04
 ```
+
+다음은 **Module 05 (MO Theory: Diatomics)** 다. 04(원자 오비탈)와 06(다원자 MO)이
+양쪽에 다 있으므로, 05는 그 사이를 메우는 작업이고 참조할 것이 가장 많다.
 
 # 제작 규칙
 
