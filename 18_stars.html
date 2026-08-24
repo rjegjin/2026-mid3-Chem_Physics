@@ -8,18 +8,14 @@
   <link href="css/common.css" rel="stylesheet"/>
   <link href="css/presentation_mode.css" rel="stylesheet"/>
   <link href="css/chem_style.css" rel="stylesheet"/>
+  <link href="css/components.css" rel="stylesheet"/>
   <script src="vendor/chart.umd.min.js"></script>
   <style>
-   .outline-card { background:white; border:1px solid #e2e8f0; border-radius:1.25rem; padding:1.5rem; box-shadow:0 4px 14px rgba(0,0,0,0.05); }
-   .standard-box { background:#eef2ff; border-left:6px solid #4f46e5; padding:1.25rem 1.5rem; border-radius:0.75rem; }
    .key-line { font-size:1.3rem; font-weight:800; color:#312e81; }
    .sky-box { background:#0b1120; border-radius:1.25rem; }
-   table.data-table { width:100%; border-collapse:collapse; background:white; border-radius:0.75rem; overflow:hidden; }
-   table.data-table th, table.data-table td { border:1px solid #e2e8f0; padding:0.6rem 0.8rem; text-align:center; }
-   table.data-table th { background:#eef2ff; color:#312e81; font-weight:700; }
   </style>
  </head>
- <body class="presentation-mode">
+ <body class="presentation-mode" style="--accent:#4f46e5; --accent-strong:#312e81; --accent-soft:#e0e7ff; --accent-tint:#eef2ff">
   <main>
 
    <!-- Slide 1: Cover -->
@@ -33,8 +29,54 @@
     </div>
    </section>
 
+   <!-- hook -->
+   <section data-slide-index="1" data-slide-num="2" data-title="반년 뒤 다시 찍은 하늘" id="slide-2">
+    <div class="slide-content">
+     <h2>같은 별자리를 반년 뒤에 다시 찍었다</h2>
+     <svg viewBox="0 0 720 200" class="w-full" style="max-height:240px" role="img"
+          aria-label="같은 하늘을 1월과 7월에 찍어 겹친 그림. 배경의 먼 별들은 제자리에 있는데, 가까운 별 하나만 두 장에서 서로 다른 위치에 찍혀 있다.">
+      <rect x="0" y="0" width="720" height="200" fill="#0b1120" rx="16"></rect>
+      <g fill="#cbd5e1">
+       <circle cx="120" cy="96" r="2"></circle><circle cx="240" cy="30" r="1.6"></circle>
+       <circle cx="330" cy="150" r="2"></circle><circle cx="470" cy="60" r="1.6"></circle>
+       <circle cx="560" cy="140" r="2"></circle><circle cx="640" cy="48" r="1.6"></circle>
+       <circle cx="190" cy="160" r="1.6"></circle><circle cx="410" cy="168" r="2"></circle>
+      </g>
+      <circle cx="330" cy="100" r="7" fill="#fbbf24"></circle>
+      <circle cx="378" cy="100" r="7" fill="#38bdf8"></circle>
+      <text x="272" y="82" fill="#fbbf24" font-size="14" font-weight="bold">1월</text>
+      <text x="368" y="82" fill="#38bdf8" font-size="14" font-weight="bold">7월</text>
+      <path d="M 340 116 L 368 116" stroke="#f8fafc" stroke-width="2"></path>
+      <path d="M 340 112 L 340 120 M 368 112 L 368 120" stroke="#f8fafc" stroke-width="2"></path>
+      <text x="300" y="140" fill="#f8fafc" font-size="13" font-weight="bold">이만큼 어긋났다</text>
+      <text x="40" y="34" fill="#94a3b8" font-size="14">배경의 먼 별은 그대로인데,</text>
+      <text x="40" y="56" fill="#94a3b8" font-size="14">가까운 별 하나만 자리를 옮겼다.</text>
+     </svg>
+     <div class="ask max-w-4xl w-full mt-4"><p>별이 정말로 움직인 걸까요, 아니면 <b>우리가</b> 움직인 걸까요?</p></div>
+    </div>
+   </section>
+
+   <!-- predict -->
+   <section data-slide-index="2" data-slide-num="3" data-title="먼저 예상하기" id="slide-3">
+    <div class="slide-content">
+     <h2>먼저 예상해 봅시다</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-6">
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 1</p><p class="text-slate-600 mt-1">이 어긋남은 <b>가까운</b> 별에서 클까요, <b>먼</b> 별에서 클까요?</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 2</p><p class="text-slate-600 mt-1">1월과 7월, 반년 간격으로 찍은 까닭은 무엇일까요?</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 3</p><p class="text-slate-600 mt-1">이 방법으로 <b>모든</b> 별의 거리를 잴 수 있을까요?</p></div>
+     </div>
+     <div class="mt-5 flex flex-wrap justify-center gap-4 items-center" data-poll="stars-parallax-poll" id="stars-poll">
+      <button class="pick" aria-pressed="false">가까운 별일수록 크게 어긋난다</button>
+      <button class="pick" aria-pressed="false">먼 별일수록 크게 어긋난다</button>
+      <button class="pick" aria-pressed="false">거리와 상관없다</button>
+     </div>
+     <p class="slide-caption mt-1" id="stars-poll-echo" aria-live="polite"></p>
+     <div class="ask max-w-4xl w-full mt-4"><p>정답을 맞히는 단계가 아닙니다. 지금 생각과 그 <b>까닭</b>을 한 문장으로 적으세요.</p></div>
+    </div>
+   </section>
+
    <!-- Slide 2: 성취기준 -->
-   <section data-slide-index="1" data-slide-num="2" data-title="성취기준" id="slide-2">
+   <section data-slide-index="3" data-slide-num="4" data-title="성취기준" id="slide-4">
     <div class="slide-content">
      <h2>이 차시의 목표</h2>
      <div class="max-w-3xl w-full mt-8 standard-box">
@@ -49,7 +91,7 @@
    </section>
 
    <!-- Slide 3: 시차 체험 -->
-   <section data-slide-index="2" data-slide-num="3" data-title="시차 체험" id="slide-3">
+   <section data-slide-index="4" data-slide-num="5" data-title="시차 체험" id="slide-5">
     <div class="slide-content">
      <h2>1. 시차 — 보는 위치가 달라지면 위치가 달라 보인다</h2>
      <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-6">
@@ -81,7 +123,7 @@
    </section>
 
    <!-- Slide 4: 별에게 쓰려면 -->
-   <section data-slide-index="3" data-slide-num="4" data-title="가장 긴 기선" id="slide-4">
+   <section data-slide-index="5" data-slide-num="6" data-title="가장 긴 기선" id="slide-6">
     <div class="slide-content">
      <h2>2. 별에 쓰려면 — 지구가 두 눈이 된다</h2>
      <div class="max-w-4xl w-full mt-6 space-y-4">
@@ -103,7 +145,7 @@
    </section>
 
    <!-- Slide 5: 연주 시차 도식 (인터랙티브) -->
-   <section data-slide-index="4" data-slide-num="5" data-title="연주 시차" id="slide-5">
+   <section data-slide-index="6" data-slide-num="7" data-title="연주 시차" id="slide-7">
     <div class="slide-content">
      <h2>3. 연주 시차의 정의</h2>
      <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-4">
@@ -163,7 +205,7 @@
    </section>
 
    <!-- Slide 6: 연주 시차와 거리 -->
-   <section data-slide-index="5" data-slide-num="6" data-title="연주 시차와 거리" id="slide-6">
+   <section data-slide-index="7" data-slide-num="8" data-title="연주 시차와 거리" id="slide-8">
     <div class="slide-content">
      <h2>4. 연주 시차와 별까지의 거리</h2>
      <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-4">
@@ -176,7 +218,7 @@
         <p class="formula-display">거리(pc) = 1 / 연주 시차(&Prime;)</p>
         <p class="slide-caption">반비례 관계</p>
        </div>
-       <table class="data-table">
+       <table class="lab-table">
         <thead><tr><th>연주 시차</th><th>거리(pc)</th><th>거리(광년)</th></tr></thead>
         <tbody>
          <tr><td>1&Prime;</td><td>1 pc</td><td>약 3.26</td></tr>
@@ -191,8 +233,55 @@
     </div>
    </section>
 
+   <!-- rule -->
+   <section data-slide-index="8" data-slide-num="9" data-title="규칙 완성" id="slide-9">
+    <div class="slide-content">
+     <h2>관찰에서 규칙으로</h2>
+     <div class="max-w-5xl w-full mt-4">
+      <table class="lab-table">
+       <thead><tr><th>바꾼 조건</th><th>그대로 둔 조건</th><th>완성할 규칙</th></tr></thead>
+       <tbody>
+        <tr>
+         <td>별까지의 거리를 <b>2배</b>로</td><td>관측 시점(1월&middot;7월) 그대로</td>
+         <td>연주 시차는
+          <span class="rule-blank" data-rule="rule1">
+           <button class="pick" data-correct="true">절반이 된다</button>
+           <button class="pick" data-correct="false">2배가 된다</button>
+          </span>
+         </td>
+        </tr>
+        <tr>
+         <td>연주 시차가 <b>더 큰</b> 별</td><td>관측 방법 그대로</td>
+         <td>그 별은
+          <span class="rule-blank" data-rule="rule2">
+           <button class="pick" data-correct="true">더 가깝다</button>
+           <button class="pick" data-correct="false">더 멀다</button>
+          </span>
+         </td>
+        </tr>
+        <tr>
+         <td>관측 간격을 <b>3개월</b>로 줄이면</td><td>같은 별</td>
+         <td>측정되는 시차각은
+          <span class="rule-blank" data-rule="rule3">
+           <button class="pick" data-correct="true">작아져 재기 어렵다</button>
+           <button class="pick" data-correct="false">그대로다</button>
+          </span>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <p class="text-slate-600 mt-3" id="rule-feedback" aria-live="polite"
+        data-hint="다시 봅시다. 거리(pc) = 1 / 연주 시차(&Prime;) 에 값을 직접 넣어 보세요."
+        data-done="규칙 완성 — 연주 시차와 거리는 반비례합니다. 그래서 먼 별일수록 재기 어려워집니다.">칸마다 알맞은 말을 골라 규칙을 완성하세요.</p>
+     <div class="standard-box max-w-4xl w-full mt-4">
+      <p class="text-lg text-slate-700"><b>표기 주의</b>: 연주 시차는 지구가 반년 동안 움직인 각의 <b>절반</b>이다. 사진 두 장이 어긋난 각 전체가 아니다.</p>
+     </div>
+    </div>
+   </section>
+
    <!-- Slide 7: 방법의 한계 -->
-   <section data-slide-index="6" data-slide-num="7" data-title="연주 시차의 한계" id="slide-7">
+   <section data-slide-index="9" data-slide-num="10" data-title="연주 시차의 한계" id="slide-10">
     <div class="slide-content">
      <h2>5. 이 방법이 통하지 않는 곳</h2>
      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-6">
@@ -207,8 +296,32 @@
     </div>
    </section>
 
+   <!-- apply -->
+   <section data-slide-index="10" data-slide-num="11" data-title="실제 별로 해 보기" id="slide-11">
+    <div class="slide-content">
+     <h2>6. 실제 별의 시차로 거리를 구해 보자</h2>
+     <div class="max-w-5xl w-full mt-4">
+      <table class="lab-table">
+       <thead><tr><th>별</th><th>연주 시차</th><th>거리(pc) = 1/p</th><th>연주 시차로 잴 수 있나?</th></tr></thead>
+       <tbody>
+        <tr><td>프록시마 켄타우리</td><td class="readout">0.77&Prime;</td><td class="readout">약 1.3 pc</td><td>가능 &mdash; 가장 가깝다</td></tr>
+        <tr><td>시리우스</td><td class="readout">0.38&Prime;</td><td class="readout">약 2.6 pc</td><td>가능</td></tr>
+        <tr><td>베가(직녀성)</td><td class="readout">0.13&Prime;</td><td class="readout">약 7.7 pc</td><td>가능</td></tr>
+        <tr><td>북극성</td><td class="readout">0.008&Prime;</td><td class="readout">약 130 pc</td><td>지상 망원경으로는 어렵다</td></tr>
+        <tr><td>데네브</td><td class="readout">0.002&Prime;</td><td class="readout">약 500 pc</td><td>불가능 &mdash; 오차에 묻힌다</td></tr>
+       </tbody>
+      </table>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-4">
+      <div class="outline-card"><p class="font-bold text-slate-800">읽는 순서</p><p class="text-slate-600 mt-1">&#9312; 시차를 읽는다 &rarr; &#9313; 1을 나눈다 &rarr; &#9314; pc를 얻는다. 광년으로 바꾸려면 &times;3.26.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">밝기와 헷갈리지 말 것</p><p class="text-slate-600 mt-1">데네브는 시리우스보다 훨씬 밝게 보이지 않지만 <b>200배 가까이 멀다</b>. 밝아 보인다고 가까운 별이 아니다.</p></div>
+     </div>
+     <p class="slide-caption mt-3">※ 값은 히파르코스&middot;가이아 위성 관측 기준 근삿값이다. 가이아 위성은 0.00002&Prime;까지 재어 이 한계를 크게 넓혔다.</p>
+    </div>
+   </section>
+
    <!-- 과학사 1 -->
-   <section data-slide-index="7" data-slide-num="8" data-title="과학사 — 200년 묵은 반론" id="slide-8">
+   <section data-slide-index="11" data-slide-num="12" data-title="과학사 — 200년 묵은 반론" id="slide-12">
     <div class="slide-content">
      <h2>과학사 — 지동설을 200년간 괴롭힌 반론</h2>
      <div class="max-w-5xl w-full mt-4 space-y-4">
@@ -230,9 +343,9 @@
    </section>
 
    <!-- Slide 8: 별의 색 -->
-   <section data-slide-index="8" data-slide-num="9" data-title="별의 색" id="slide-9">
+   <section data-slide-index="12" data-slide-num="13" data-title="별의 색" id="slide-13">
     <div class="slide-content">
-     <h2>6. 별의 색 — 오리온자리에서 확인하기</h2>
+     <h2>7. 별의 색 — 오리온자리에서 확인하기</h2>
      <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-4">
       <div class="w-full md:w-1/2 sky-box p-4">
        <svg viewBox="0 0 260 300" class="w-full" role="img"
@@ -264,9 +377,9 @@
    </section>
 
    <!-- Slide 9: 색과 표면 온도 -->
-   <section data-slide-index="9" data-slide-num="10" data-title="색과 표면 온도" id="slide-10">
+   <section data-slide-index="13" data-slide-num="14" data-title="색과 표면 온도" id="slide-14">
     <div class="slide-content">
-     <h2>7. 별의 색과 표면 온도</h2>
+     <h2>8. 별의 색과 표면 온도</h2>
      <div class="w-full max-w-5xl mt-4">
       <canvas id="chart-temp" height="150" role="img"
               aria-label="별의 색에 따른 표면 온도 막대그래프. 청색 약 3만 켈빈, 청백색 약 1만 5천 켈빈, 백색 약 9천 켈빈, 황백색 약 7천 켈빈, 황색 약 5천 5백 켈빈, 주황색 약 4천 5백 켈빈, 적색 약 3천 켈빈으로 청색에서 적색으로 갈수록 온도가 낮아진다."></canvas>
@@ -281,7 +394,7 @@
    </section>
 
    <!-- 과학사 2 -->
-   <section data-slide-index="10" data-slide-num="11" data-title="과학사 — 하버드 컴퓨터스" id="slide-11">
+   <section data-slide-index="14" data-slide-num="15" data-title="과학사 — 하버드 컴퓨터스" id="slide-15">
     <div class="slide-content">
      <h2>과학사 — 별을 분류한 '하버드의 계산원들'</h2>
      <div class="max-w-5xl w-full mt-4 space-y-4">
@@ -303,7 +416,7 @@
    </section>
 
    <!-- Slide 10: 정리 -->
-   <section data-slide-index="11" data-slide-num="12" data-title="정리" id="slide-12">
+   <section data-slide-index="15" data-slide-num="16" data-title="정리" id="slide-16">
     <div class="slide-content">
      <h2>오늘의 정리</h2>
      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-6">
@@ -312,11 +425,12 @@
       <div class="outline-card"><p class="font-bold text-slate-800">온도</p><p class="text-slate-600 mt-1">색이 곧 표면 온도의 신호<br/>청색 뜨겁고, 적색 차갑다</p></div>
       <div class="outline-card"><p class="font-bold text-slate-800">헷갈리지 말 것</p><p class="text-slate-600 mt-1">색은 <b>온도</b>를 알려주지, <b>거리</b>를 알려주지 않는다</p></div>
      </div>
+     <p class="text-slate-600 mt-5" data-poll-recall="stars-parallax-poll" aria-live="polite">앞에서 고른 답과 지금 생각이 달라졌나요? 무엇 때문에 달라졌나요?</p>
     </div>
    </section>
 
    <!-- Slide 11: 형성평가 1 -->
-   <section data-slide-index="12" data-slide-num="13" data-title="형성평가 1" id="slide-13">
+   <section data-slide-index="16" data-slide-num="17" data-title="형성평가 1" id="slide-17">
     <div class="slide-content">
      <h2 class="text-slate-800">형성평가 1 — 연주 시차</h2>
      <div class="quiz-container max-w-3xl mt-8 w-full">
@@ -338,7 +452,7 @@
    </section>
 
    <!-- Slide 12: 형성평가 2 -->
-   <section data-slide-index="13" data-slide-num="14" data-title="형성평가 2" id="slide-14">
+   <section data-slide-index="17" data-slide-num="18" data-title="형성평가 2" id="slide-18">
     <div class="slide-content">
      <h2 class="text-slate-800">형성평가 2 — 별의 색</h2>
      <div class="quiz-container max-w-3xl mt-8 w-full">
@@ -359,6 +473,28 @@
     </div>
    </section>
 
+   <!-- misconception -->
+   <section data-slide-index="18" data-slide-num="19" data-title="오개념 확인" id="slide-19">
+    <div class="slide-content">
+     <h2>오개념 확인</h2>
+     <div class="quiz-container max-w-3xl mt-4 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">"밝게 보이는 별은 <b>언제나</b> 더 가까운 별이다"에 대한 가장 좋은 반례는?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false">&#9312; 프록시마 켄타우리는 가장 가까운 별이다</button>
+       <button class="quiz-btn" data-correct="true">&#9313; 데네브는 시리우스보다 200배 가까이 멀지만 밤하늘에서 뚜렷하게 보인다</button>
+       <button class="quiz-btn" data-correct="false">&#9314; 청색 별은 적색 별보다 표면 온도가 높다</button>
+       <button class="quiz-btn" data-correct="false">&#9315; 연주 시차가 클수록 가까운 별이다</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">&#9989; 정답! &#9313; 데네브.</p>
+       <p class="text-slate-600 mt-1">보이는 밝기는 <b>별이 실제로 내는 빛의 양</b>과 <b>거리</b>가 함께 정한다. 그래서 밝기만으로는 거리를 알 수 없고, 연주 시차 같은 <b>독립된 측정</b>이 필요하다. &#9314;&#9315;는 옳은 진술이지만 밝기와 거리의 관계를 다루지 않는다.</p>
+      </div>
+     </div>
+     <div class="ask max-w-4xl w-full mt-4"><p>출구 질문 &mdash; 어떤 별의 색이 붉고, 연주 시차가 0.001&Prime;였습니다. 이 별에 대해 <b>말할 수 있는 것</b>과 <b>말할 수 없는 것</b>을 하나씩 쓰세요.</p></div>
+    </div>
+   </section>
   </main>
 
   <script>
@@ -410,5 +546,6 @@
    });
   </script>
   <script src="js/slide_engine.js"></script>
+  <script src="js/lesson_patterns.js"></script>
  </body>
 </html>

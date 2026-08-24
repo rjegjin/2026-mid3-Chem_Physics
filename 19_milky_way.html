@@ -8,100 +8,382 @@
   <link href="css/common.css" rel="stylesheet"/>
   <link href="css/presentation_mode.css" rel="stylesheet"/>
   <link href="css/chem_style.css" rel="stylesheet"/>
-  <style>
-   .outline-card { background:white; border:1px solid #e2e8f0; border-radius:1.25rem; padding:1.5rem; box-shadow:0 4px 14px rgba(0,0,0,0.05); }
-   .standard-box { background:#f5f3ff; border-left:6px solid #7c3aed; padding:1.25rem 1.5rem; border-radius:0.75rem; }
-  </style>
+  <link href="css/components.css" rel="stylesheet"/>
  </head>
- <body class="presentation-mode">
+ <body class="presentation-mode" style="--accent:#7c3aed; --accent-strong:#5b21b6; --accent-soft:#ede9fe; --accent-tint:#f5f3ff">
   <main>
 
-   <!-- Slide 1: Cover -->
+   <!-- 1. cover -->
    <section data-slide-index="0" data-slide-num="1" data-title="Cover" id="slide-1">
     <div class="slide-content">
      <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">2026학년도 중학교 3학년 과학 &bull; 지구과학 VII-2</p>
      <h1 class="text-4xl md:text-6xl font-black mb-6 text-slate-900 leading-tight">우리는 은하의 변두리에 산다</h1>
      <div class="w-20 h-1 bg-violet-600 mx-auto my-8"></div>
      <p class="text-2xl text-slate-600 font-medium">제 19강: 우리은하</p>
-     <p class="text-xl text-slate-500 font-bold mt-4">모양 &middot; 크기 &middot; 구성 천체 &middot; 태양계의 위치</p>
+     <div class="ask max-w-3xl w-full mt-8"><p>우리는 우리은하 <b>안에</b> 있습니다. 밖으로 나가 본 적이 없는데, 그 모양을 어떻게 알아냈을까?</p></div>
     </div>
    </section>
 
-   <!-- Slide 2: 성취기준 -->
-   <section data-slide-index="1" data-slide-num="2" data-title="성취기준" id="slide-2">
+   <!-- 2. hook -->
+   <section data-slide-index="1" data-slide-num="2" data-title="여름밤의 뿌연 띠" id="slide-2">
+    <div class="slide-content">
+     <h2>여름밤 하늘을 가로지르는 뿌연 띠</h2>
+     <svg viewBox="0 0 720 210" class="w-full" style="max-height:250px" role="img"
+          aria-label="밤하늘을 가로지르는 은하수의 모습. 하늘 전체에 흩어진 별들 사이로, 한 방향으로만 뿌옇고 폭이 넓은 띠가 지나간다. 띠의 한쪽은 특히 밝고 두껍다.">
+      <rect x="0" y="0" width="720" height="210" fill="#0f172a" rx="16"></rect>
+      <path d="M 20 170 Q 250 60 700 40 L 700 90 Q 250 110 20 200 Z" fill="#a78bfa" opacity="0.25"></path>
+      <path d="M 20 178 Q 250 72 700 52 L 700 78 Q 250 98 20 192 Z" fill="#ddd6fe" opacity="0.35"></path>
+      <g fill="#f8fafc">
+       <circle cx="90" cy="40" r="2"></circle><circle cx="170" cy="30" r="1.5"></circle>
+       <circle cx="260" cy="46" r="2.5"></circle><circle cx="350" cy="26" r="1.5"></circle>
+       <circle cx="430" cy="150" r="2"></circle><circle cx="520" cy="170" r="1.5"></circle>
+       <circle cx="600" cy="140" r="2.5"></circle><circle cx="660" cy="180" r="1.5"></circle>
+       <circle cx="120" cy="120" r="1.5"></circle><circle cx="300" cy="185" r="2"></circle>
+       <circle cx="480" cy="30" r="1.5"></circle><circle cx="560" cy="60" r="2"></circle>
+      </g>
+      <g fill="#ede9fe" opacity="0.9">
+       <circle cx="620" cy="60" r="1.2"></circle><circle cx="640" cy="70" r="1.2"></circle>
+       <circle cx="660" cy="58" r="1.2"></circle><circle cx="600" cy="72" r="1.2"></circle>
+       <circle cx="580" cy="64" r="1.2"></circle><circle cx="550" cy="76" r="1.2"></circle>
+      </g>
+      <text x="596" y="36" fill="#c4b5fd" font-size="14" font-weight="bold">이쪽이 유난히 밝다</text>
+      <text x="40" y="30" fill="#94a3b8" font-size="14">별은 하늘 어디에나 있는데,</text>
+      <text x="40" y="52" fill="#94a3b8" font-size="14">뿌연 띠는 왜 한 방향으로만 지나갈까?</text>
+     </svg>
+     <div class="ask max-w-4xl w-full mt-4"><p>별이 하늘에 <b>고르게</b> 흩어져 있다면 이런 띠는 생기지 않습니다. 이 띠는 무엇을 말해 주는 걸까요?</p></div>
+     <p class="slide-caption mt-3">※ 은하수(Milky Way)는 우리말로 '미리내'. 옛사람들은 하늘의 강이라 불렀다.</p>
+    </div>
+   </section>
+
+   <!-- 3. predict -->
+   <section data-slide-index="2" data-slide-num="3" data-title="먼저 예상하기" id="slide-3">
+    <div class="slide-content">
+     <h2>먼저 예상해 봅시다</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-6">
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 1</p><p class="text-slate-600 mt-1">뿌연 띠의 정체는 <b>구름</b>일까요, 아주 먼 <b>별</b>들일까요?</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 2</p><p class="text-slate-600 mt-1">우리은하가 <b>공 모양</b>이라면 은하수는 하늘 어떻게 보일까요? <b>납작한 원반</b>이라면?</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 3</p><p class="text-slate-600 mt-1">태양계는 우리은하의 <b>중심</b>에 있을까요, 아니면 가장자리 쪽일까요?</p></div>
+     </div>
+     <div class="mt-5 flex flex-wrap justify-center gap-4 items-center" data-poll="mw-center-poll" id="mw-poll">
+      <button class="pick" aria-pressed="false">태양계는 중심에 있다</button>
+      <button class="pick" aria-pressed="false">중심에서 많이 떨어져 있다</button>
+      <button class="pick" aria-pressed="false">아직 판단할 수 없다</button>
+     </div>
+     <p class="slide-caption mt-1" id="mw-poll-echo" aria-live="polite"></p>
+     <div class="ask max-w-4xl w-full mt-4"><p>정답을 맞히는 단계가 아닙니다. 지금 생각과 그 <b>까닭</b>을 한 문장으로 적으세요. 수업 끝에 다시 돌아옵니다.</p></div>
+    </div>
+   </section>
+
+   <!-- 4. objectives -->
+   <section data-slide-index="3" data-slide-num="4" data-title="학습 목표" id="slide-4">
     <div class="slide-content">
      <h2>이 차시의 목표</h2>
-     <div class="max-w-3xl w-full mt-8 standard-box">
+     <div class="max-w-3xl w-full mt-5 standard-box">
       <p class="font-bold text-violet-800 mb-2">[9과23-02]</p>
       <p class="text-lg text-slate-700">우리은하의 모양, 크기, 구성 천체를 설명할 수 있다.</p>
      </div>
-    </div>
-   </section>
-
-   <!-- Slide 3: 은하란 -->
-   <section data-slide-index="2" data-slide-num="3" data-title="은하의 의미" id="slide-3">
-    <div class="slide-content">
-     <h2>1. 은하의 의미</h2>
-     <div class="max-w-3xl w-full mt-6 space-y-4">
-      <div class="outline-card"><p class="font-bold text-slate-800">은하</p><p class="text-slate-600 mt-1">수많은 별과 성간 물질이 중력으로 모인 거대한 집단</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">무작위가 아니다</p><p class="text-slate-600 mt-1">별은 우주에 흩어져 있지 않고 은하를 이룬다</p></div>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">그리기</p><p class="text-slate-600 mt-1">우리은하를 옆에서&middot;위에서 본 모습으로 그리고 태양계를 표시한다</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">설명하기</p><p class="text-slate-600 mt-1">은하수가 왜 <b>띠</b>로 보이는지 원반 구조로 설명한다</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">구별하기</p><p class="text-slate-600 mt-1">성단과 성운, 산개성단과 구상성단을 구별한다</p></div>
      </div>
+     <p class="slide-caption mt-4">※ 다루는 범위: 우리은하의 구조와 구성 천체. 다루지 않는 것: 은하의 형성 과정, 암흑 물질의 정량적 취급.</p>
     </div>
    </section>
 
-   <!-- Slide 4: 모양과 크기 -->
-   <section data-slide-index="3" data-slide-num="4" data-title="우리은하의 모양과 크기" id="slide-4">
+   <!-- 5. concept — 은하란 -->
+   <section data-slide-index="4" data-slide-num="5" data-title="은하의 의미" id="slide-5">
+    <div class="slide-content">
+     <h2>1. 은하란 무엇인가</h2>
+     <div class="standard-box max-w-4xl w-full mt-5">
+      <p class="text-lg text-slate-700"><b>은하</b>: 수많은 별과 성단&middot;성운&middot;성간 물질이 <b>중력</b>으로 묶여 이루는 거대한 천체 집단.</p>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">별은 흩어져 있지 않다</p><p class="text-slate-600 mt-1">우주의 별은 고르게 퍼져 있지 않고 은하라는 <b>덩어리</b>를 이룬다. 은하와 은하 사이는 거의 텅 비어 있다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">우리은하 (the Galaxy)</p><p class="text-slate-600 mt-1">태양계가 속한 은하. 고유명사처럼 쓰므로 <b>붙여 쓴다</b>. 다른 은하와 구별되는 이름이다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">별의 수</p><p class="text-slate-600 mt-1">우리은하에만 약 <b>2000억 개</b>의 별이 있다. 그런 은하가 관측 가능한 우주에 수천억 개 있다.</p></div>
+     </div>
+     <div class="ask max-w-4xl w-full mt-5"><p>'우리은하'와 '은하수'는 같은 말일까요? 잠시 뒤 슬라이드 8에서 확인합니다.</p></div>
+    </div>
+   </section>
+
+   <!-- 6. concept — 모양과 크기 -->
+   <section data-slide-index="5" data-slide-num="6" data-title="모양과 크기" id="slide-6">
     <div class="slide-content">
      <h2>2. 우리은하의 모양과 크기</h2>
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-6">
-      <div class="outline-card"><p class="font-bold text-slate-800">옆에서 본 모습</p><p class="text-slate-600 mt-1">중심부가 볼록한 납작한 원반</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">위에서 본 모습</p><p class="text-slate-600 mt-1">중심에서 뻗어 나온 나선팔</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">지름</p><p class="text-slate-600 mt-1">약 10만 광년 — 빛으로도 10만 년</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">태양계와 비교</p><p class="text-slate-600 mt-1">태양계는 은하 속의 점 하나 수준</p></div>
-     </div>
-     <!-- TODO: 정면도/측면도 SVG 2종 -->
+     <svg viewBox="0 0 720 250" class="w-full" style="max-height:280px" role="img"
+          aria-label="우리은하를 옆에서 본 모습과 위에서 본 모습. 옆에서 보면 가운데가 볼록한 납작한 원반이고 지름은 약 십만 광년, 중심부 두께는 약 만오천 광년이다. 위에서 보면 중심의 막대 구조에서 나선팔이 휘어져 뻗어 있으며, 태양계는 중심에서 약 삼만 광년 떨어진 나선팔에 있다.">
+      <rect x="0" y="0" width="720" height="250" fill="#f8fafc" rx="16"></rect>
+
+      <text x="30" y="30" fill="#5b21b6" font-size="16" font-weight="bold">옆에서 본 모습 (측면)</text>
+      <ellipse cx="180" cy="105" rx="150" ry="14" fill="#c4b5fd"></ellipse>
+      <ellipse cx="180" cy="105" rx="46" ry="34" fill="#8b5cf6"></ellipse>
+      <circle cx="255" cy="105" r="5" fill="#f59e0b"></circle>
+      <text x="238" y="140" fill="#92400e" font-size="13" font-weight="bold">태양계</text>
+      <path d="M 30 175 L 330 175" stroke="#475569" stroke-width="2"></path>
+      <path d="M 30 170 L 30 180 M 330 170 L 330 180" stroke="#475569" stroke-width="2"></path>
+      <text x="118" y="196" fill="#334155" font-size="14" font-weight="bold">지름 약 10만 광년</text>
+      <path d="M 355 71 L 355 139" stroke="#475569" stroke-width="2"></path>
+      <path d="M 350 71 L 360 71 M 350 139 L 360 139" stroke="#475569" stroke-width="2"></path>
+      <text x="300" y="60" fill="#334155" font-size="13" font-weight="bold">중심부 두께 약 1.5만 광년</text>
+      <text x="128" y="222" fill="#64748b" font-size="13">가운데가 볼록한 납작한 원반</text>
+
+      <circle cx="560" cy="130" r="105" fill="#ede9fe"></circle>
+      <path d="M 560 130 m -70 0 a 70 70 0 0 1 140 0 a 70 70 0 0 1 -140 0" fill="none" stroke="#ddd6fe" stroke-width="26"></path>
+      <path d="M 528 112 Q 470 96 452 150 Q 442 196 494 214" fill="none" stroke="#a78bfa" stroke-width="17" stroke-linecap="round"></path>
+      <path d="M 592 148 Q 650 164 668 110 Q 678 64 626 46" fill="none" stroke="#a78bfa" stroke-width="17" stroke-linecap="round"></path>
+      <rect x="530" y="120" width="60" height="20" fill="#7c3aed" rx="10" transform="rotate(-20 560 130)"></rect>
+      <text x="500" y="94" fill="#5b21b6" font-size="12" font-weight="bold">막대 구조</text>
+      <circle cx="482" cy="186" r="6" fill="#f59e0b"></circle>
+      <text x="440" y="212" fill="#92400e" font-size="13" font-weight="bold">태양계</text>
+      <text x="596" y="228" fill="#64748b" font-size="13">나선팔</text>
+      <text x="420" y="30" fill="#5b21b6" font-size="16" font-weight="bold">위에서 본 모습 (정면)</text>
+     </svg>
+     <p class="slide-caption mt-3">※ 1 광년 = 빛이 1년 동안 가는 거리(약 9조 5000억 km). 지름 10만 광년은 <b>빛으로도 10만 년</b>이 걸리는 크기다.</p>
     </div>
    </section>
 
-   <!-- Slide 5: 구성 천체 -->
-   <section data-slide-index="4" data-slide-num="5" data-title="구성 천체" id="slide-5">
+   <!-- 7. concept — 태양계의 위치 -->
+   <section data-slide-index="6" data-slide-num="7" data-title="태양계의 위치" id="slide-7">
     <div class="slide-content">
-     <h2>3. 우리은하의 구성 천체</h2>
-     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl w-full mt-6">
-      <div class="outline-card"><p class="font-bold text-slate-800">별</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">성단</p><p class="text-slate-600 mt-1">별들의 집단</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">성운</p><p class="text-slate-600 mt-1">성간 물질이 모인 구름</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">성간 물질</p><p class="text-slate-600 mt-1">가스와 티끌</p></div>
+     <h2>3. 우리은하에서 태양계의 위치</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">중심이 아니다</p><p class="text-slate-600 mt-1">태양계는 은하 중심에서 약 <b>3만 광년</b> 떨어진 곳에 있다. 반지름 5만 광년의 원반에서 한참 바깥쪽이다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">원반의 나선팔</p><p class="text-slate-600 mt-1">태양계는 두꺼운 중심부가 아니라 <b>얇은 원반의 나선팔</b> 속에 있다. 그래서 원반을 따라 보는 방향에 별이 몰려 보인다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">돌고 있다</p><p class="text-slate-600 mt-1">태양계는 은하 중심을 약 <b>2억 년</b>에 한 바퀴 돈다. 공룡이 살던 시절 태양은 지금과 반대편에 있었다.</p></div>
+     </div>
+     <div class="standard-box max-w-4xl w-full mt-5">
+      <p class="text-lg text-slate-700">지구가 태양계의 중심이 아니었듯, <b>태양계도 은하의 중심이 아니다</b>. 관측 기술이 좋아질 때마다 인류는 중심에서 한 걸음씩 밀려났다.</p>
+     </div>
+     <p class="slide-caption mt-3">※ 3만 광년은 교과서 표준값이다. 최신 관측값은 약 2만 6000광년으로, 문헌에 따라 조금씩 다르다.</p>
+    </div>
+   </section>
+
+   <!-- 8. concept — 은하수가 띠로 보이는 까닭 -->
+   <section data-slide-index="7" data-slide-num="8" data-title="은하수가 띠인 까닭" id="slide-8">
+    <div class="slide-content">
+     <h2>4. 은하수는 왜 '띠'로 보일까</h2>
+     <svg viewBox="0 0 720 200" class="w-full" style="max-height:230px" role="img"
+          aria-label="납작한 원반 안에 있는 태양계에서 하늘을 보는 그림. 원반을 따라 보는 방향에는 별이 겹겹이 쌓여 있어 뿌연 띠로 보이고, 원반과 수직인 위아래 방향으로는 별이 적어 띠가 보이지 않는다.">
+      <rect x="0" y="0" width="720" height="200" fill="#0f172a" rx="16"></rect>
+      <ellipse cx="360" cy="100" rx="300" ry="26" fill="#4c1d95" opacity="0.75"></ellipse>
+      <ellipse cx="360" cy="100" rx="70" ry="40" fill="#6d28d9" opacity="0.85"></ellipse>
+      <g fill="#ede9fe">
+       <circle cx="130" cy="98" r="1.6"></circle><circle cx="170" cy="106" r="1.6"></circle>
+       <circle cx="210" cy="94" r="1.6"></circle><circle cx="250" cy="104" r="1.6"></circle>
+       <circle cx="290" cy="96" r="1.6"></circle><circle cx="470" cy="100" r="1.6"></circle>
+       <circle cx="510" cy="92" r="1.6"></circle><circle cx="550" cy="106" r="1.6"></circle>
+       <circle cx="590" cy="96" r="1.6"></circle><circle cx="630" cy="104" r="1.6"></circle>
+      </g>
+      <g fill="#94a3b8">
+       <circle cx="300" cy="36" r="1.4"></circle><circle cx="430" cy="30" r="1.4"></circle>
+       <circle cx="380" cy="170" r="1.4"></circle><circle cx="290" cy="164" r="1.4"></circle>
+      </g>
+      <circle cx="530" cy="100" r="6" fill="#f59e0b"></circle>
+      <text x="506" y="128" fill="#fbbf24" font-size="13" font-weight="bold">태양계</text>
+      <path d="M 524 100 L 200 100" stroke="#facc15" stroke-width="2" stroke-dasharray="6 4"></path>
+      <path d="M 530 94 L 530 30" stroke="#64748b" stroke-width="2" stroke-dasharray="6 4"></path>
+      <path d="M 530 106 L 530 172" stroke="#64748b" stroke-width="2" stroke-dasharray="6 4"></path>
+      <text x="212" y="86" fill="#facc15" font-size="14" font-weight="bold">원반을 따라 보면 &mdash; 별이 겹겹이 &rarr; 뿌연 띠</text>
+      <text x="546" y="34" fill="#94a3b8" font-size="13">원반과 수직으로 보면 &mdash; 별이 적다</text>
+      <text x="546" y="176" fill="#94a3b8" font-size="13">아래쪽도 마찬가지</text>
+     </svg>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-4">
+      <div class="outline-card"><p class="font-bold text-slate-800">은하수 &ne; 우리은하</p><p class="text-slate-600 mt-1"><b>우리은하</b>는 천체 집단 그 자체이고, <b>은하수</b>는 그 원반을 <b>안에서</b> 본 모습이다. 우리는 밖에서 우리은하를 볼 수 없다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">여름 은하수가 더 밝다</p><p class="text-slate-600 mt-1">여름밤 지구의 밤 방향은 <b>궁수자리</b> 쪽 &mdash; 곧 은하 중심 방향이다. 별이 가장 빽빽한 쪽을 보게 되므로 더 밝고 두껍다.</p></div>
      </div>
     </div>
    </section>
 
-   <!-- Slide 6: 태양계의 위치 -->
-   <section data-slide-index="5" data-slide-num="6" data-title="태양계의 위치" id="slide-6">
+   <!-- 9. compare — 성단 -->
+   <section data-slide-index="8" data-slide-num="9" data-title="성단 비교" id="slide-9">
     <div class="slide-content">
-     <h2>4. 우리은하에서 태양계의 위치</h2>
-     <div class="max-w-3xl w-full mt-6 space-y-4">
-      <div class="outline-card"><p class="font-bold text-slate-800">중심이 아니다</p><p class="text-slate-600 mt-1">태양계는 은하 중심에서 약 3만 광년 떨어진 곳</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">원반의 나선팔 부근</p><p class="text-slate-600 mt-1">그래서 은하수가 띠 모양으로 보인다</p></div>
+     <h2>5. 구성 천체 (1) &mdash; 성단</h2>
+     <div class="standard-box max-w-4xl w-full mt-4">
+      <p class="text-lg text-slate-700"><b>성단</b>: 수십 개에서 수십만 개의 별이 <b>같은 성운에서 함께 태어나</b> 중력으로 모여 있는 무리.</p>
      </div>
-     <!-- TODO: 은하수가 띠로 보이는 이유 도식 -->
+     <div class="max-w-5xl w-full mt-4">
+      <table class="lab-table">
+       <thead><tr><th>비교 항목</th><th>산개 성단</th><th>구상 성단</th></tr></thead>
+       <tbody>
+        <tr><td>별의 수</td><td>수십 ~ 수만 개</td><td>수만 ~ 수십만 개</td></tr>
+        <tr><td>모양</td><td>엉성하게 흩어짐</td><td>공 모양으로 빽빽함</td></tr>
+        <tr><td>분포</td><td>주로 <b>나선팔</b> (원반)</td><td>주로 <b>중심부와 그 바깥</b></td></tr>
+        <tr><td>별의 색</td><td>파란색 별이 많다</td><td>붉은색 별이 많다</td></tr>
+        <tr><td>표면 온도&middot;나이</td><td>고온 &middot; <b>젊은</b> 별</td><td>저온 &middot; <b>늙은</b> 별</td></tr>
+        <tr><td>보기</td><td>플레이아데스 성단</td><td>M13 (헤르쿨레스)</td></tr>
+       </tbody>
+      </table>
+     </div>
+     <p class="slide-caption mt-3">※ 18강 회수 &mdash; 파란 별은 표면 온도가 높고, 붉은 별은 낮다. <b>색이 성단의 나이를 알려주는 단서</b>가 된다.</p>
     </div>
    </section>
 
-   <!-- Slide 7: 과학사 에피소드 -->
-   <section data-slide-index="6" data-slide-num="7" data-title="과학사 에피소드" id="slide-7">
+   <!-- 10. concept — 성운과 성간 물질 -->
+   <section data-slide-index="9" data-slide-num="10" data-title="성운과 성간 물질" id="slide-10">
     <div class="slide-content">
-     <h2>과학사 — 은하의 지도를 그린 사람들</h2>
-     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-6">
-      <div class="outline-card"><p class="font-bold text-slate-800">허셜의 별 세기(1785)</p><p class="text-slate-600 mt-1">누이 캐럴라인과 함께 하늘을 구역별로 나눠 별을 세어 우리은하의 첫 지도를 그렸다. 다만 태양을 중심에 두는 실수를 했다.</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">섀플리의 반전(1918)</p><p class="text-slate-600 mt-1">구상성단의 분포를 보니 중심은 궁수자리 쪽이었다. 태양계는 은하의 <b>변두리</b>였다.</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">대논쟁(1920)</p><p class="text-slate-600 mt-1">안드로메다는 우리은하 안의 성운인가, 바깥의 다른 은하인가. 섀플리와 커티스가 정면으로 맞붙었다.</p></div>
+     <h2>6. 구성 천체 (2) &mdash; 성운과 성간 물질</h2>
+     <div class="standard-box max-w-4xl w-full mt-4">
+      <p class="text-lg text-slate-700"><b>성간 물질</b>: 별과 별 사이를 채운 가스와 티끌. 이것이 짙게 모여 구름처럼 보이는 것이 <b>성운</b>이다. 성운은 별이 태어나는 재료다.</p>
      </div>
-     <!-- TODO: 허셜 지도 vs 현대 지도 비교 이미지 -->
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-5">
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">방출 성운</p>
+       <p class="text-slate-600 mt-1">가까운 <b>뜨거운 별의 빛을 흡수</b>했다가 스스로 붉은빛을 낸다.</p>
+       <p class="text-slate-500 mt-1">보기: 오리온 대성운</p>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">반사 성운</p>
+       <p class="text-slate-600 mt-1">주변 <b>별빛을 반사</b>해 보인다. 티끌이 파란빛을 잘 흩뜨려 푸르게 보인다.</p>
+       <p class="text-slate-500 mt-1">보기: 플레이아데스 주변 성운</p>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">암흑 성운</p>
+       <p class="text-slate-600 mt-1">스스로 빛나지 않고 <b>뒤쪽 별빛을 가려</b> 검게 보인다. 없는 것이 아니라 <b>가린 것</b>이다.</p>
+       <p class="text-slate-500 mt-1">보기: 말머리 성운</p>
+      </div>
+     </div>
+     <div class="ask max-w-4xl w-full mt-5"><p>암흑 성운이 검게 보이는 것과, 그 자리에 정말 아무것도 없는 것을 어떻게 구별할 수 있을까요?</p></div>
+    </div>
+   </section>
+
+   <!-- 11. rule -->
+   <section data-slide-index="10" data-slide-num="11" data-title="규칙 완성" id="slide-11">
+    <div class="slide-content">
+     <h2>관찰에서 규칙으로</h2>
+     <div class="max-w-5xl w-full mt-4">
+      <table class="lab-table">
+       <thead><tr><th>관찰한 사실</th><th>완성할 규칙</th></tr></thead>
+       <tbody>
+        <tr>
+         <td>뿌연 띠가 하늘의 <b>한 방향</b>으로만 지나간다</td>
+         <td>우리은하는
+          <span class="rule-blank" data-rule="rule1">
+           <button class="pick" data-correct="true">납작한 원반이다</button>
+           <button class="pick" data-correct="false">공 모양이다</button>
+          </span>
+         </td>
+        </tr>
+        <tr>
+         <td>띠의 <b>궁수자리 쪽</b>이 유난히 밝고 두껍다</td>
+         <td>그 방향이 우리은하의
+          <span class="rule-blank" data-rule="rule2">
+           <button class="pick" data-correct="true">중심이다</button>
+           <button class="pick" data-correct="false">가장자리다</button>
+          </span>
+         </td>
+        </tr>
+        <tr>
+         <td>구상 성단이 하늘 <b>한쪽에 치우쳐</b> 분포한다</td>
+         <td>태양계는 은하 중심에
+          <span class="rule-blank" data-rule="rule3">
+           <button class="pick" data-correct="true">있지 않다</button>
+           <button class="pick" data-correct="false">있다</button>
+          </span>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <p class="text-slate-600 mt-3" id="rule-feedback" aria-live="polite"
+        data-hint="다시 봅시다. 원반 안에서 하늘을 본다면 어느 방향에 별이 가장 많이 겹쳐 보일까요?"
+        data-done="규칙 완성 — 은하 밖으로 나가지 않고도, 별이 하늘에 어떻게 분포하는지만으로 우리은하의 모양과 우리 위치를 알아냈습니다.">칸마다 알맞은 말을 골라 규칙을 완성하세요.</p>
+     <div class="standard-box max-w-4xl w-full mt-4">
+      <p class="text-lg text-slate-700">천문학은 <b>가 볼 수 없는 곳</b>을 다룬다. 그래서 '보이는 분포'에서 '실제 구조'를 되짚는 것이 이 단원의 방법이다.</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 12. 과학사 -->
+   <section data-slide-index="11" data-slide-num="12" data-title="과학사 — 은하의 지도" id="slide-12">
+    <div class="slide-content">
+     <h2>과학사 &mdash; 은하의 지도를 그린 사람들</h2>
+     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-5xl w-full mt-5">
+      <div class="outline-card">
+       <p class="font-bold text-violet-800">갈릴레이, 1610</p>
+       <p class="text-slate-600 mt-1">망원경을 은하수로 돌리자 뿌연 구름이 <b>수많은 별</b>로 갈라졌다. 은하수의 정체가 처음 밝혀진 순간이다.</p>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-violet-800">허셜 남매, 1785</p>
+       <p class="text-slate-600 mt-1">윌리엄과 캐럴라인 허셜은 하늘을 683개 구역으로 나눠 별을 <b>일일이 세어</b> 첫 은하 지도를 그렸다. 다만 태양을 한가운데 두는 실수를 했다.</p>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-violet-800">섀플리, 1918</p>
+       <p class="text-slate-600 mt-1">구상 성단의 분포가 <b>궁수자리 쪽으로 치우쳐</b> 있었다. 중심은 거기였고, 태양계는 변두리였다.</p>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-violet-800">대논쟁, 1920</p>
+       <p class="text-slate-600 mt-1">안드로메다는 우리은하 안의 성운인가, 바깥의 다른 은하인가. 섀플리와 커티스가 맞붙었고, <b>1924년 허블</b>이 바깥이라고 답했다.</p>
+      </div>
+     </div>
+     <div class="ask max-w-4xl w-full mt-5"><p>허셜은 왜 태양을 중심에 두게 되었을까요? (힌트: 성간 물질이 먼 별빛을 가린다면, 사방이 똑같이 흐릿해 보인다)</p></div>
+    </div>
+   </section>
+
+   <!-- 13. summary -->
+   <section data-slide-index="12" data-slide-num="13" data-title="정리" id="slide-13">
+    <div class="slide-content">
+     <h2>오늘의 정리</h2>
+     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">모양</p><p class="text-slate-600 mt-1">가운데가 볼록한 <b>납작한 원반</b> + 막대 &middot; 나선팔</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">크기</p><p class="text-slate-600 mt-1">지름 약 <b>10만 광년</b>, 태양계는 중심에서 약 3만 광년</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">구성</p><p class="text-slate-600 mt-1">별 &middot; 성단(산개&middot;구상) &middot; 성운(방출&middot;반사&middot;암흑) &middot; 성간 물질</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">은하수</p><p class="text-slate-600 mt-1">우리은하의 원반을 <b>안에서</b> 본 모습</p></div>
+     </div>
+     <div class="standard-box max-w-4xl w-full mt-5">
+      <p class="text-lg text-slate-700">표지의 질문에 답하면 &mdash; 밖으로 나가지 않고도, <b>별과 성단이 하늘에 어떻게 분포하는지</b>를 세는 것만으로 우리은하의 모양과 우리 위치를 알아냈다.</p>
+     </div>
+     <p class="text-slate-600 mt-4" data-poll-recall="mw-center-poll" aria-live="polite">앞에서 고른 답과 지금 생각이 달라졌나요? 무엇 때문에 달라졌나요?</p>
+    </div>
+   </section>
+
+   <!-- 14. quiz -->
+   <section data-slide-index="13" data-slide-num="14" data-title="형성평가" id="slide-14">
+    <div class="slide-content">
+     <h2>형성평가</h2>
+     <div class="quiz-container max-w-3xl mt-6 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">밤하늘의 은하수가 <b>띠 모양</b>으로 보이는 까닭으로 옳은 것은?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false">&#9312; 우리은하가 공 모양이고 태양계가 그 중심에 있기 때문</button>
+       <button class="quiz-btn" data-correct="true">&#9313; 우리은하가 납작한 원반이고, 그 원반을 따라 보는 방향에 별이 겹쳐 보이기 때문</button>
+       <button class="quiz-btn" data-correct="false">&#9314; 은하수가 우리은하 바깥에 있는 다른 은하이기 때문</button>
+       <button class="quiz-btn" data-correct="false">&#9315; 성간 물질이 띠 모양으로만 분포하기 때문</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">&#9989; 정답! &#9313; 납작한 원반을 안에서 보기 때문이다.</p>
+       <p class="text-slate-600 mt-1">원반과 <b>수직</b>인 방향으로는 별이 적어 띠가 보이지 않는다. 단, 은하수가 원반을 따라 <b>고르게</b> 밝은 것은 아니다 &mdash; 중심 방향(궁수자리)이 훨씬 밝다.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- 15. misconception -->
+   <section data-slide-index="14" data-slide-num="15" data-title="오개념 확인" id="slide-15">
+    <div class="slide-content">
+     <h2>오개념 확인</h2>
+     <div class="quiz-container max-w-3xl mt-4 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">"별이 빽빽해 보이는 곳에는 <b>언제나</b> 별이 많다"에 대한 가장 좋은 반례는?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false">&#9312; 구상 성단은 별이 수십만 개나 모여 있다</button>
+       <button class="quiz-btn" data-correct="true">&#9313; 암흑 성운 자리는 별이 없어 보이지만, 실제로는 성간 물질이 뒤쪽 별빛을 가린 것이다</button>
+       <button class="quiz-btn" data-correct="false">&#9314; 산개 성단은 별이 엉성하게 흩어져 있다</button>
+       <button class="quiz-btn" data-correct="false">&#9315; 은하와 은하 사이는 거의 비어 있다</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">&#9989; 정답! &#9313; 암흑 성운.</p>
+       <p class="text-slate-600 mt-1">'보이는 것'과 '있는 것'은 다르다. 허셜이 태양을 은하 중심에 둔 실수도 같은 함정이었다 &mdash; 성간 물질이 먼 별빛을 가려 사방이 똑같이 흐릿해 보였던 것이다. &#9312;&#9314;&#9315;는 모두 사실이지만 <b>보이는 것과 실제가 어긋난 사례</b>가 아니다.</p>
+      </div>
+     </div>
+     <div class="ask max-w-4xl w-full mt-4"><p>출구 질문 &mdash; 우리은하를 <b>밖에서</b> 찍은 사진은 존재하지 않습니다. 그런데도 교과서에 정면도가 실리는 근거는 무엇인지 한 문장으로 쓰세요.</p></div>
     </div>
    </section>
 
   </main>
   <script src="js/slide_engine.js"></script>
+  <script src="js/lesson_patterns.js"></script>
  </body>
 </html>
