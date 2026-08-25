@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Inorganic Chemistry 04: MO Theory & SALCs</title>
+    <title>Advanced Inorganic Chemistry 04: Atomic Orbitals & Angular Momentum</title>
     <link href="css/tailwind.build.css" rel="stylesheet"/>
     <script>
         window.MathJax = {
@@ -24,8 +24,18 @@
         h2 { color: #0f172a; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; border-bottom: 3px solid #0f172a; padding-bottom: 0.5rem; margin-bottom: 2rem; }
         h3 { color: #334155; font-weight: 800; margin-top: 1.5rem; }
         .step-box { background: #ffffff; border: 2px solid #e2e8f0; padding: 1rem; border-radius: 1rem; }
-        .bond-sigma { color: #166534; font-weight: bold; }
-        .bond-pi { color: #991b1b; font-weight: bold; }
+        /* 이 모듈 고유 — 양자수·전자배치 표. Tailwind로 매번 조립하지 않는다. */
+        table.qtable { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        table.qtable th, table.qtable td { border: 1px solid #e2e8f0; padding: 0.5rem 0.7rem; text-align: center; }
+        table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
+        table.qtable td.l { text-align: left; }
+        /* 역사적 출처. 본문과 구별되게 작고 옅게. */
+        .hist { border-left: 6px solid #94a3b8; background: #f8fafc; padding: 1rem 1.25rem; font-size: 0.9rem; color: #475569; }
+        .hist b { color: #0f172a; }
+        .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
+        .warn b { color: #78350f; }
+        .spin-up { color: #1d4ed8; font-weight: 900; }
+        .spin-dn { color: #b91c1c; font-weight: 900; }
     </style>
 </head>
 <body class="presentation-mode">
@@ -35,198 +45,446 @@
     <section id="s1">
         <div class="slide-content text-center">
             <p class="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-4">Advanced Inorganic Chemistry Series</p>
-            <h1 class="text-6xl font-black text-slate-900 mb-6 tracking-tighter leading-tight">Molecular Orbital Theory <br>& SALCs</h1>
-            <p class="text-xl text-slate-500 font-medium italic">"From Symmetry-Adapted Basis Sets to Complex Electronic Structure"</p>
+            <h1 class="text-6xl font-black text-slate-900 mb-6 tracking-tighter leading-tight">Atomic Orbitals <br>&amp; Angular Momentum</h1>
+            <p class="text-xl text-slate-500 font-medium italic">"Before we can couple angular momenta, we must know what is being coupled."</p>
             <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
-            <p class="text-base font-bold text-slate-800">Lecture 04: The Projection Operator Method and MO Diagram Construction</p>
+            <p class="text-base font-bold text-slate-800">Lecture 04: Quantum Numbers, Slater Determinants, and the $ns$ / $(n-1)d$ Problem</p>
         </div>
     </section>
 
-    <!-- Slide 2: Prerequisite: LCAO -->
+    <!-- Slide 2: Why this module exists -->
     <section id="s2">
         <div class="slide-content text-left px-20">
-            <h2>1. Review: LCAO-MO Theory</h2>
-            <p class="text-lg font-medium mb-6">Molecular Orbitals ($\Psi$) are formed by the <b>Linear Combination of Atomic Orbitals</b> ($\phi$).</p>
-            <div class="math-box text-center py-10">
-                $$ \Psi = c_1 \phi_1 + c_2 \phi_2 + \dots + c_n \phi_n $$
+            <h2>0. Why This Module Sits Here</h2>
+            <p class="text-lg font-medium mb-6">Modules 01&ndash;03 built the <b>symmetry machinery</b>. Module 09 will build <b>term symbols</b> $^{2S+1}L_J$ out of $d^n$ configurations. That step is impossible without three things established here.</p>
+            <div class="grid md:grid-cols-3 gap-6 mt-8">
+                <div class="step-box">
+                    <span class="logic-tag">Needed by M09</span>
+                    <p class="font-black mt-3">Angular momentum</p>
+                    <p class="text-sm text-slate-700 mt-2">$L$ and $S$ cannot be summed over electrons unless $\hat{L}^2$, $\hat{L}_z$ eigenvalues are defined.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Needed by M09</span>
+                    <p class="font-black mt-3">Slater determinants</p>
+                    <p class="text-sm text-slate-700 mt-2">Microstate counting <i>is</i> the enumeration of allowed determinants.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Needed by M07</span>
+                    <p class="font-black mt-3">$ns$ vs $(n-1)d$</p>
+                    <p class="text-sm text-slate-700 mt-2">Every CFT diagram assumes $M^{2+}$ is $[\text{Ar}]3d^n$. That fact needs an argument.</p>
+                </div>
             </div>
-            <div class="info-card mt-10">
-                <p class="font-black text-slate-900 uppercase text-xs mb-3">Two Primary Conditions for Interaction</p>
-                <ul class="text-sm space-y-3 font-medium text-slate-700">
-                    <li>● <b>Energy Proximity:</b> Atomic orbitals must have comparable energies.</li>
-                    <li>● <b>Symmetry Match:</b> The integral $\langle \phi_i | \hat{H} | \phi_j \rangle$ is non-zero ONLY if both orbitals belong to the same IR.</li>
-                </ul>
+            <div class="warn mt-8">
+                <b>Scope note.</b> We do not solve the many-electron Schr&ouml;dinger equation. We take the hydrogenic solution as the orbital basis and then ask what electron&ndash;electron repulsion does to the <i>ordering</i> of that basis.
             </div>
         </div>
     </section>
 
-    <!-- Slide 3: Concept of SALCs -->
+    <!-- Slide 3: Hydrogenic equation -->
     <section id="s3">
         <div class="slide-content text-left px-20">
-            <h2>2. Symmetry-Adapted Linear Combinations (SALCs)</h2>
-            <p class="text-base text-slate-700 mb-10">In multi-center systems, we group equivalent atomic orbitals into **Basis Sets** that transform according to the point group of the molecule.</p>
-            <div class="grid grid-cols-2 gap-10">
-                <div class="step-box">
-                    <h3 class="mt-0">The SALC Goal</h3>
-                    <p class="text-xs leading-relaxed">Instead of individual atomic orbitals, we use their linear combinations that match the IRs of the group. This decouples the secular determinant into smaller, manageable blocks.</p>
+            <h2>1. The Hydrogenic Schr&ouml;dinger Equation</h2>
+            <p class="text-lg font-medium mb-6">One electron, one nucleus of charge $+Ze$. The potential depends only on $r$, so the equation <b>separates</b> in spherical coordinates.</p>
+            <div class="math-box text-center py-6">
+                $$ \left[-\frac{\hbar^2}{2\mu}\nabla^2 - \frac{Ze^2}{4\pi\varepsilon_0 r}\right]\psi = E\psi
+                \qquad\Longrightarrow\qquad
+                \psi_{n\ell m}(r,\theta,\phi) = R_{n\ell}(r)\, Y_{\ell}^{m}(\theta,\phi) $$
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-8">
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">What separation buys us</p>
+                    <ul class="text-sm space-y-2 font-medium text-slate-700">
+                        <li>● The <b>angular</b> part $Y_\ell^m$ is universal &mdash; it does not know about $Z$ or even about the Coulomb form. Any central potential gives the same $Y_\ell^m$.</li>
+                        <li>● Therefore the <b>shapes</b> of $s, p, d, f$ orbitals survive into many-electron atoms unchanged.</li>
+                        <li>● Only the <b>radial</b> part $R_{n\ell}$ has to be re-derived when other electrons are present.</li>
+                    </ul>
                 </div>
-                <div class="step-box bg-slate-50">
-                    <h3 class="mt-0">Why SALCs?</h3>
-                    <p class="text-xs leading-relaxed">Symmetry ensures that an orbital of $A_1$ symmetry cannot interact with an orbital of $B_1$ symmetry. SALCs automatically group orbitals by their interaction potential.</p>
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">The accidental degeneracy</p>
+                    <p class="text-sm font-medium text-slate-700">For the pure Coulomb potential only,</p>
+                    <div class="math-box text-center" style="margin:0.75rem 0">$$ E_n = -\frac{Z^2}{n^2}\cdot 13.6\ \text{eV} $$</div>
+                    <p class="text-sm font-medium text-slate-700">$E$ depends on $n$ <b>alone</b>, so $2s$ and $2p$ are degenerate. This is a special property of $1/r$, not a general law. Break the $1/r$ form &mdash; add a second electron &mdash; and $2s \ne 2p$ immediately.</p>
                 </div>
+            </div>
+            <div class="hist mt-6">
+                <b>Schr&ouml;dinger, 1926.</b> The hydrogen spectrum had been fitted numerically by Bohr in 1913, but Bohr's orbits were postulated. Schr&ouml;dinger's four papers of 1926 <i>derived</i> the same energies from a wave equation &mdash; and delivered, unasked, the quantum numbers $\ell$ and $m_\ell$ as separation constants.
             </div>
         </div>
     </section>
 
-    <!-- Slide 4: The Projection Operator -->
+    <!-- Slide 4: Quantum numbers -->
     <section id="s4">
         <div class="slide-content text-left px-20">
-            <h2>3. The Projection Operator Method</h2>
-            <p class="text-lg font-bold mb-6">How do we mathematically derive SALCs? We use the <b>Projection Operator ($\hat{P}$)</b>.</p>
-            <div class="math-box py-10 text-center text-3xl">
-                $$ \hat{P}^{\Gamma_i} \phi = \frac{l_i}{h} \sum_R \chi_i(R) \hat{R} \phi $$
-            </div>
-            <div class="space-y-4 mt-8 font-medium text-sm">
-                <p>1. Start with one basis orbital (e.g., $\phi_1$).</p>
-                <p>2. Apply all symmetry operations ($\hat{R}$) of the point group to it.</p>
-                <p>3. Multiply each result by the corresponding character ($\chi_i$) from the table.</p>
-                <p>4. Sum them up to get the SALC for representation $\Gamma_i$.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 5: Example H2O SALCs (Step 1) -->
-    <section id="s5">
-        <div class="slide-content text-left px-20">
-            <h2>4. Case Study: $H_2O$ Hydrogen 1s SALCs</h2>
-            <p class="mb-6 font-bold">Basis Set: $\{ s_1, s_2 \}$ (The two H 1s orbitals)</p>
-            <table class="char-table">
+            <h2>2. The Four Quantum Numbers</h2>
+            <p class="text-lg font-medium mb-6">Three arise from the boundary conditions of the differential equation. The fourth does not &mdash; it is put in by hand.</p>
+            <div class="overflow-x-auto">
+            <table class="qtable">
                 <thead>
-                    <tr><th>$C_{2v}$</th><th>$E$</th><th>$C_2$</th><th>$\sigma_v(xz)$</th><th>$\sigma_v'(yz)$</th></tr>
+                    <tr><th>Symbol</th><th>Name</th><th>Allowed values</th><th>Origin</th><th>Physical meaning</th></tr>
                 </thead>
-                <tbody class="font-black">
-                    <tr><td>$\hat{R} s_1$</td><td>$s_1$</td><td>$s_2$</td><td>$s_1$</td><td>$s_2$</td></tr>
-                    <tr class="bg-cyan-50"><td>$\chi(A_1)$</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
-                    <tr class="bg-red-50"><td>$\chi(B_2)$</td><td>1</td><td>-1</td><td>-1</td><td>1</td></tr>
+                <tbody>
+                    <tr><td>$n$</td><td class="l">Principal</td><td>$1, 2, 3, \dots$</td><td>Radial boundary condition</td><td class="l">Energy and mean radius</td></tr>
+                    <tr><td>$\ell$</td><td class="l">Azimuthal</td><td>$0, 1, \dots, n-1$</td><td>Separation constant</td><td class="l">Magnitude of orbital angular momentum</td></tr>
+                    <tr><td>$m_\ell$</td><td class="l">Magnetic</td><td>$-\ell, \dots, 0, \dots, +\ell$</td><td>Separation constant</td><td class="l">Its projection on a chosen axis</td></tr>
+                    <tr><td>$m_s$</td><td class="l">Spin magnetic</td><td>$+\tfrac12,\ -\tfrac12$</td><td><b>Not from this equation</b></td><td class="l">Projection of intrinsic spin</td></tr>
                 </tbody>
             </table>
-            <p class="mt-8 text-xs font-bold text-slate-400 uppercase tracking-widest">Note: $\Gamma_{basis} = A_1 + B_2$</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-8">
+                <div class="step-box">
+                    <p class="font-black">Why $\ell \le n-1$</p>
+                    <p class="text-sm text-slate-700 mt-2">The radial equation admits a normalizable solution only if the number of radial nodes $n-\ell-1$ is a non-negative integer. A $2d$ orbital is not "rare" &mdash; it does not exist.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black">Degeneracy of a shell</p>
+                    <p class="text-sm text-slate-700 mt-2">$\sum_{\ell=0}^{n-1}(2\ell+1) = n^2$ spatial orbitals, hence $2n^2$ spin-orbitals. This is the origin of the period lengths, once the $(n+\ell)$ ordering of &sect;9 is applied.</p>
+                </div>
+            </div>
+            <div class="hist mt-6">
+                <b>Spin was an inference, not a derivation.</b> Stern and Gerlach (1922) split a silver beam into <i>two</i> components &mdash; an even number, impossible for integer $\ell$. Uhlenbeck and Goudsmit (1925) proposed an intrinsic half-integer angular momentum; Pauli had already used a "two-valuedness not describable classically" to state the exclusion rule. Spin entered chemistry as a bookkeeping necessity and was only later justified by Dirac's relativistic equation (1928).
+            </div>
         </div>
     </section>
 
-    <!-- Slide 6: Example H2O SALCs (Step 2) -->
+    <!-- Slide 5: Radial functions and nodes -->
+    <section id="s5">
+        <div class="slide-content text-left px-20">
+            <h2>3. Radial Functions and Nodes</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <div class="math-box text-center py-6">
+                        $$ \text{radial nodes} = n-\ell-1 $$
+                        $$ \text{angular nodes} = \ell $$
+                        $$ \text{total nodes} = n-1 $$
+                    </div>
+                    <div class="info-card mt-6">
+                        <p class="font-black uppercase text-xs mb-3">Penetration</p>
+                        <p class="text-sm font-medium text-slate-700">Low-$\ell$ orbitals have radial density close to the nucleus. A $4s$ electron spends part of its time <b>inside</b> the $3d$ radial maximum, where it is shielded far less. This single fact drives &sect;10 and &sect;11.</p>
+                    </div>
+                </div>
+                <div>
+                    <svg viewBox="0 0 420 300" class="w-full" role="img"
+                         aria-label="Schematic radial distribution functions. The 3s curve has two inner lobes before its outer maximum, the 3p curve has one, and the 3d curve has none and rises only once. Low angular momentum orbitals therefore have appreciable density near the nucleus.">
+                        <rect x="0" y="0" width="420" height="300" fill="#f8fafc" rx="10"></rect>
+                        <line x1="50" y1="260" x2="400" y2="260" stroke="#334155" stroke-width="2"></line>
+                        <line x1="50" y1="20" x2="50" y2="260" stroke="#334155" stroke-width="2"></line>
+                        <text x="200" y="288" fill="#475569" font-size="13" font-weight="bold">r →</text>
+                        <text x="8" y="140" fill="#475569" font-size="13" font-weight="bold">4πr²R²</text>
+                        <!-- 3d: single maximum, no inner density -->
+                        <path d="M 50 260 Q 150 258 200 200 Q 240 150 280 190 Q 330 250 400 258" fill="none" stroke="#b91c1c" stroke-width="3"></path>
+                        <text x="286" y="176" fill="#b91c1c" font-size="14" font-weight="bold">3d</text>
+                        <!-- 3p: one inner lobe -->
+                        <path d="M 50 260 Q 68 236 84 252 Q 130 258 190 150 Q 240 96 300 200 Q 350 252 400 258" fill="none" stroke="#166534" stroke-width="3"></path>
+                        <text x="238" y="118" fill="#166534" font-size="14" font-weight="bold">3p</text>
+                        <!-- 3s: two inner lobes -->
+                        <path d="M 50 260 Q 62 214 74 250 Q 96 232 116 252 Q 170 258 220 118 Q 268 60 320 190 Q 360 250 400 258" fill="none" stroke="#1d4ed8" stroke-width="3"></path>
+                        <text x="256" y="84" fill="#1d4ed8" font-size="14" font-weight="bold">3s</text>
+                        <text x="58" y="40" fill="#64748b" font-size="11">schematic — not to scale</text>
+                    </svg>
+                    <p class="text-sm text-slate-500 mt-3">Same $n$, different $\ell$. The inner lobes of $3s$ and $3p$ are small in area but they sit where the nuclear attraction is strongest.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Angular functions -->
     <section id="s6">
         <div class="slide-content text-left px-20">
-            <h2>5. Case Study: $H_2O$ SALC Derivation</h2>
-            <div class="space-y-8 mt-10">
-                <div class="p-6 border-2 border-slate-900 rounded-2xl">
-                    <p class="font-black text-indigo-700">$A_1$ SALC Calculation:</p>
-                    <p class="text-sm font-bold">$\Psi_{A_1} = (1)s_1 + (1)s_2 + (1)s_1 + (1)s_2 = 2(s_1 + s_2)$</p>
-                    <p class="text-xs text-slate-500 mt-2">$\rightarrow$ Normalizing: $N(s_1 + s_2)$ (Bonding Phase)</p>
+            <h2>4. Angular Functions and the Orbitals We Draw</h2>
+            <p class="text-lg font-medium mb-6">The $Y_\ell^m$ with $m \ne 0$ are <b>complex</b>. The familiar lobed pictures are real linear combinations of them.</p>
+            <div class="math-box text-center py-6">
+                $$ p_x = -\tfrac{1}{\sqrt2}\left(Y_1^{+1} - Y_1^{-1}\right), \qquad
+                   p_y = \tfrac{i}{\sqrt2}\left(Y_1^{+1} + Y_1^{-1}\right), \qquad
+                   p_z = Y_1^{0} $$
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-8">
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">Why this matters for us</p>
+                    <ul class="text-sm space-y-2 font-medium text-slate-700">
+                        <li>● Real combinations are what transform as the rows of a character table. $\{p_x, p_y, p_z\}$ span $T_{1u}$ in $O_h$; $Y_1^{m}$ individually do not label neatly.</li>
+                        <li>● The five real $d$ orbitals split $2+3$ in $O_h$ precisely because $\{d_{z^2}, d_{x^2-y^2}\}$ and $\{d_{xy}, d_{xz}, d_{yz}\}$ are separately closed under the group operations. That is Module 07's entire starting point.</li>
+                    </ul>
                 </div>
-                <div class="p-6 border-2 border-slate-900 rounded-2xl">
-                    <p class="font-black text-rose-700">$B_2$ SALC Calculation:</p>
-                    <p class="text-sm font-bold">$\Psi_{B_2} = (1)s_1 + (-1)s_2 + (-1)s_1 + (1)s_2$ ?? </p>
-                    <p class="text-xs text-red-600 mt-2">Warning: Coordinate definitions (xz vs yz) can flip signs. In $C_{2v}$, $B_2$ typically maps to $s_1 - s_2$.</p>
+                <div class="warn">
+                    <b>A real combination is not an eigenfunction of $\hat{L}_z$.</b> $p_x$ has no definite $m_\ell$. This costs nothing while the field is cubic &mdash; but in Module 09 and 10, where $L_z$ and $J$ matter, we must go back to the complex $Y_\ell^m$ basis. Keeping the two bases straight is a common source of error.
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 7: Central Atom Symmetry -->
+    <!-- Slide 7: Orbital angular momentum -->
     <section id="s7">
         <div class="slide-content text-left px-20">
-            <h2>6. Central Atom Orbitals (Oxygen)</h2>
-            <p class="mb-10 text-slate-600 italic">Consult the $C_{2v}$ Character Table for valence orbitals of Oxygen ($2s, 2p$):</p>
-            <div class="grid grid-cols-2 gap-10">
-                <div class="p-6 bg-slate-50 border rounded-xl">
-                    <ul class="text-sm space-y-4 font-black">
-                        <li>$2s$ Orbital: $A_1$</li>
-                        <li>$2p_z$ Orbital: $A_1$</li>
-                        <li>$2p_x$ Orbital: $B_1$</li>
-                        <li>$2p_y$ Orbital: $B_2$</li>
-                    </ul>
+            <h2>5. Orbital Angular Momentum</h2>
+            <p class="text-lg font-medium mb-6">$\hat{L}^2$ and $\hat{L}_z$ commute with each other and with a central-field $\hat{H}$, so all three share eigenfunctions.</p>
+            <div class="math-box text-center py-6">
+                $$ \hat{L}^2 Y_\ell^m = \ell(\ell+1)\hbar^2\, Y_\ell^m
+                \qquad
+                \hat{L}_z Y_\ell^m = m_\ell \hbar\, Y_\ell^m
+                \qquad
+                |\mathbf{L}| = \sqrt{\ell(\ell+1)}\,\hbar $$
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 mt-8">
+                <div class="step-box">
+                    <p class="font-black">$\ell(\ell+1)$, not $\ell^2$</p>
+                    <p class="text-sm text-slate-700 mt-2">For $\ell=1$: $|\mathbf{L}| = \sqrt2\,\hbar \approx 1.41\hbar$, while $\max(m_\ell)\hbar = \hbar$. The vector is <b>always longer than its longest projection</b>.</p>
                 </div>
-                <div class="flex flex-col justify-center">
-                    <p class="text-sm font-medium">Interactions possible with H SALCs ($A_1, B_2$):</p>
-                    <ul class="text-xs list-disc pl-6 mt-2 space-y-2">
-                        <li>$A_1$ (H SALC) + $2s, 2p_z$ (O)</li>
-                        <li>$B_2$ (H SALC) + $2p_y$ (O)</li>
-                        <li class="text-red-600 font-bold">$2p_x$ (O) remains Non-Bonding ($B_1$)</li>
-                    </ul>
+                <div class="step-box">
+                    <p class="font-black">So it cannot align</p>
+                    <p class="text-sm text-slate-700 mt-2">$\mathbf{L}$ can never lie exactly along $z$. If it did, $L_x = L_y = 0$ simultaneously, violating $[\hat{L}_x,\hat{L}_y] = i\hbar \hat{L}_z$.</p>
                 </div>
+                <div class="step-box">
+                    <p class="font-black">Only one axis at a time</p>
+                    <p class="text-sm text-slate-700 mt-2">We may know $|\mathbf{L}|$ and one projection. The remaining two are indeterminate &mdash; the vector-cone picture, not an arrow.</p>
+                </div>
+            </div>
+            <div class="info-card mt-8">
+                <p class="font-black uppercase text-xs mb-3">Forward reference &mdash; Modules 09 and 10</p>
+                <p class="text-sm font-medium text-slate-700">Because $\hat{L}$ obeys these commutators, individual electron momenta add as <b>vectors with quantised resultants</b>: $\mathbf{L} = \sum_i \boldsymbol{\ell}_i$, $\mathbf{S} = \sum_i \mathbf{s}_i$, $\mathbf{J} = \mathbf{L} + \mathbf{S}$. Russell&ndash;Saunders coupling is nothing more than doing this sum in that order &mdash; and $jj$ coupling is doing it in the other order. Which order is correct depends on whether electron repulsion or spin&ndash;orbit coupling is the larger perturbation. That comparison is Module 10.</p>
             </div>
         </div>
     </section>
 
-    <!-- Slide 8: MO Diagram Construction -->
+    <!-- Slide 8: Spin -->
     <section id="s8">
         <div class="slide-content text-left px-20">
-            <h2>7. Constructing the MO Diagram</h2>
-            <ol class="list-decimal pl-6 space-y-4 font-bold text-slate-700">
-                <li>Determine Point Group ($C_{2v}$).</li>
-                <li>Find $\Gamma_{basis}$ for terminal atoms (SALCs).</li>
-                <li>Decompose $\Gamma_{basis}$ into IRs.</li>
-                <li>Identify symmetry of central atom orbitals.</li>
-                <li>Combine orbitals of the <b>SAME symmetry</b>.</li>
-                <li>Rank levels by node count and energy.</li>
-            </ol>
+            <h2>6. Spin Angular Momentum</h2>
+            <p class="text-lg font-medium mb-6">Spin satisfies the <b>same algebra</b> as $\hat{L}$ but with a half-integer quantum number and no spatial coordinate.</p>
+            <div class="math-box text-center py-6">
+                $$ \hat{S}^2 \chi = s(s+1)\hbar^2 \chi = \tfrac{3}{4}\hbar^2 \chi
+                \qquad
+                \hat{S}_z \chi_{\pm} = \pm\tfrac{1}{2}\hbar\, \chi_{\pm}
+                \qquad s = \tfrac12 \ \text{always} $$
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-8">
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">Not a rotating ball</p>
+                    <p class="text-sm font-medium text-slate-700">A classical sphere of the electron's mass and radius spinning fast enough to give $\tfrac12\hbar$ would have a surface speed far above $c$. Spin has no classical limit; it is a label on the state, with the algebra of an angular momentum and nothing else.</p>
+                </div>
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">Total wavefunction</p>
+                    <p class="text-sm font-medium text-slate-700">A one-electron state is a <b>spin-orbital</b>: $\;\psi_{n\ell m}(\mathbf r)\,\chi_{m_s}$. Counting states means counting spin-orbitals, which is why $2n^2$ and not $n^2$ sets the period lengths.</p>
+                </div>
+            </div>
+            <div class="warn mt-6">
+                <b>The $g$-factor anomaly, previewed.</b> The magnetic moment of spin is roughly <i>twice</i> what the same angular momentum in orbital form would give ($g_e \approx 2.0023$). This is why the spin-only formula $\mu = \sqrt{n(n+2)}\,\mu_B$ of Module 07 works at all, and why orbital contributions in Module 10 must be handled separately rather than simply added.
+            </div>
         </div>
     </section>
 
-    <!-- Slide 9: Octahedral Complexes (Part 1) -->
+    <!-- Slide 9: Pauli principle -->
     <section id="s9">
         <div class="slide-content text-left px-20">
-            <h2>8. Advanced: $O_h$ $\sigma$-bonding</h2>
-            <p class="mb-6 font-medium">In transition metal complexes (e.g., $[Co(NH_3)_6]^{3+}$), we use the 6 ligand lone pair vectors as basis set.</p>
-            <div class="math-box text-center">
-                $$ \Gamma_{\sigma} = A_{1g} + E_g + T_{1u} $$
+            <h2>7. The Pauli Principle Is About Antisymmetry</h2>
+            <p class="text-lg font-medium mb-6">The rule taught first &mdash; "no two electrons share all four quantum numbers" &mdash; is a <b>consequence</b>, not the principle.</p>
+            <div class="math-box text-center py-6">
+                $$ \hat{P}_{12}\,\Psi(1,2,\dots,N) = -\,\Psi(1,2,\dots,N) $$
             </div>
-            <p class="mt-6 text-sm">Matching Metal d-orbitals in $O_h$:</p>
-            <ul class="text-xs space-y-2 font-bold pl-6 mt-2">
-                <li>$s$ orbital: $A_{1g}$ (Match!)</li>
-                <li>$p$ orbitals: $T_{1u}$ (Match!)</li>
-                <li>$d$ orbitals ($d_{z^2}, d_{x^2-y^2}$): $E_g$ (Match!)</li>
-                <li>$d$ orbitals ($d_{xy}, d_{yz}, d_{zx}$): $T_{2g}$ (Non-Bonding!)</li>
-            </ul>
+            <p class="text-lg font-medium">The many-electron wavefunction must change sign under exchange of <b>any</b> two electron labels. Electrons are fermions; this is a postulate about the state, not about a force.</p>
+            <div class="grid md:grid-cols-2 gap-6 mt-8">
+                <div class="step-box">
+                    <p class="font-black">A product violates it</p>
+                    <p class="text-sm text-slate-700 mt-2">$\Psi = \phi_a(1)\phi_b(2)$ is not antisymmetric. Worse, it says electron 1 <i>is</i> in $\phi_a$ &mdash; a statement forbidden for identical particles.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black">The fix</p>
+                    <p class="text-sm text-slate-700 mt-2">$\Psi = \tfrac{1}{\sqrt2}\left[\phi_a(1)\phi_b(2) - \phi_a(2)\phi_b(1)\right]$. Swap the labels and the sign flips. Set $\phi_a = \phi_b$ and it vanishes identically.</p>
+                </div>
+            </div>
+            <div class="info-card mt-8">
+                <p class="font-black uppercase text-xs mb-3">The Fermi hole &mdash; why this has energetic consequences</p>
+                <p class="text-sm font-medium text-slate-700">Antisymmetry makes $\Psi \to 0$ as two <b>same-spin</b> electrons approach each other. Same-spin electrons therefore avoid one another <i>before</i> any Coulomb repulsion is considered. This purely statistical avoidance is the mechanism behind Hund's first rule (&sect;9) &mdash; not "parallel spins repel less because magnets".</p>
+            </div>
+            <div class="hist mt-6">
+                <b>Pauli, 1925.</b> Pauli arrived at exclusion by working backwards from the anomalous Zeeman effect and the observed closing of shells at 2, 8, 18. He explicitly declined to explain <i>why</i>. The antisymmetry formulation, and with it the connection to fermion statistics, came from Heisenberg and Dirac in 1926.
+            </div>
         </div>
     </section>
 
-    <!-- Slide 10: Ligand Field Theory Transition -->
+    <!-- Slide 10: Slater determinants -->
     <section id="s10">
         <div class="slide-content text-left px-20">
-            <h2>9. Transition to Ligand Field Theory</h2>
-            <p class="text-base text-slate-700 mb-8">The splitting of d-orbitals in a complex is a direct result of these symmetry interactions.</p>
-            <div class="grid grid-cols-2 gap-10">
-                <div class="p-6 border-l-8 border-cyan-600 bg-cyan-50">
-                    <p class="font-black text-cyan-900">$\sigma$-Bonding</p>
-                    <p class="text-xs mt-2">Increases the energy of $e_g$ orbitals (Stronger overlap).</p>
+            <h2>8. Slater Determinants</h2>
+            <p class="text-lg font-medium mb-6">A determinant is antisymmetric by construction: swapping two rows changes its sign. Slater's device is to make the rows the electrons.</p>
+            <div class="math-box text-center py-6">
+                $$ \Psi(1,\dots,N) = \frac{1}{\sqrt{N!}}
+                \begin{vmatrix}
+                \phi_1(1) & \phi_2(1) & \cdots & \phi_N(1) \\
+                \phi_1(2) & \phi_2(2) & \cdots & \phi_N(2) \\
+                \vdots & \vdots & \ddots & \vdots \\
+                \phi_1(N) & \phi_2(N) & \cdots & \phi_N(N)
+                \end{vmatrix} $$
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 mt-8">
+                <div class="step-box">
+                    <p class="font-black">Rows = electrons</p>
+                    <p class="text-sm text-slate-700 mt-2">Exchange two electrons &rArr; exchange two rows &rArr; sign flips. Antisymmetry is automatic.</p>
                 </div>
-                <div class="p-6 border-l-8 border-red-600 bg-red-50">
-                    <p class="font-black text-red-900">$\pi$-Bonding</p>
-                    <p class="text-xs mt-2">Affects the $t_{2g}$ orbitals. Can be donor (weak field) or acceptor (strong field).</p>
+                <div class="step-box">
+                    <p class="font-black">Columns = spin-orbitals</p>
+                    <p class="text-sm text-slate-700 mt-2">Two identical columns &rArr; determinant is zero. <b>Pauli exclusion falls out of linear algebra.</b></p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black">Shorthand</p>
+                    <p class="text-sm text-slate-700 mt-2">$|\phi_1 \phi_2 \cdots \phi_N|$, or for He: $|1s\,\overline{1s}|$ with the bar meaning $\beta$ spin.</p>
+                </div>
+            </div>
+            <div class="info-card mt-8">
+                <p class="font-black uppercase text-xs mb-3">This is the bridge to Module 09</p>
+                <p class="text-sm font-medium text-slate-700">
+                    "How many microstates does $d^2$ have?" is exactly "how many distinct determinants can be built from the ten $3d$ spin-orbitals, taken two at a time?" &mdash; that is $\binom{10}{2} = 45$.
+                    Those 45 determinants then regroup into the terms $^3F, {}^3P, {}^1G, {}^1D, {}^1S$, whose degeneracies $21+9+9+5+1$ sum back to 45. Module 09 does that regrouping; the counting is done here.
+                </p>
+            </div>
+            <div class="hist mt-6">
+                <b>Slater, 1929.</b> Determinantal wavefunctions had appeared in Heisenberg's and Dirac's work, but Slater's paper made them a practical tool by showing how matrix elements of the Hamiltonian between determinants reduce to a short list of one- and two-electron integrals &mdash; the rules that still carry his name.
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: Aufbau, Hund, exchange -->
+    <section id="s11">
+        <div class="slide-content text-left px-20">
+            <h2>9. Aufbau, Hund's Rule, and Exchange Stabilisation</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3>The $(n+\ell)$ ordering</h3>
+                    <p class="text-sm text-slate-700 mt-2">Fill in order of increasing $n+\ell$; for equal $n+\ell$, increasing $n$. This reproduces $4s$ before $3d$ ($4+0 &lt; 3+2$).</p>
+                    <div class="warn mt-4">
+                        <b>It is a mnemonic, not a theorem.</b> It has no derivation from the Schr&ouml;dinger equation and it fails for roughly twenty elements &mdash; Cr, Cu, Nb, Mo, Ru, Rh, Pd, Ag, Pt, Au among them. Treat exceptions as data, not as misbehaviour.
+                    </div>
+                    <h3 class="mt-8">Hund's first rule</h3>
+                    <p class="text-sm text-slate-700 mt-2">For a given configuration, the term of <b>highest multiplicity</b> lies lowest. Then, among those, highest $L$. Then $J$: smallest for a less-than-half-filled shell, largest for more than half filled.</p>
+                </div>
+                <div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-3">Why parallel spins win</p>
+                        <p class="text-sm font-medium text-slate-700">Two same-spin electrons in different orbitals gain a negative <b>exchange</b> term $-K_{ab}$ that has no classical analogue. It exists only because of the Fermi hole of &sect;7.</p>
+                        <div class="math-box text-center" style="margin:0.75rem 0">
+                            $$ E_{\uparrow\uparrow} = J_{ab} - K_{ab} \quad &lt; \quad E_{\uparrow\downarrow} = J_{ab} $$
+                        </div>
+                        <p class="text-sm font-medium text-slate-700">The stabilisation scales with the <b>number of parallel pairs</b>, $\binom{n_\uparrow}{2}$ &mdash; which is why the effect peaks at the half-filled shell.</p>
+                    </div>
+                    <div class="overflow-x-auto">
+                    <table class="qtable">
+                        <thead><tr><th>$d^n$</th><th>Parallel pairs</th><th>Exchange terms</th></tr></thead>
+                        <tbody>
+                            <tr><td>$d^3$</td><td>3</td><td>$-3K$</td></tr>
+                            <tr><td>$d^4$</td><td>6</td><td>$-6K$</td></tr>
+                            <tr><td>$d^5$ high spin</td><td><b>10</b></td><td><b>$-10K$</b></td></tr>
+                            <tr><td>$d^6$ high spin</td><td>10 + 1</td><td>$-11K$, but one pair now doubly occupies</td></tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-3">This table is the reason $d^5$ and $f^7$ configurations are unusually stable, and it will reappear in Module 07 as the competition between $\Delta_o$ and pairing energy.</p>
+                </div>
+            </div>
+            <div class="hist mt-6">
+                <b>Hund, 1925.</b> Friedrich Hund extracted his rules from atomic spectra by inspection, before any calculation could justify them. Slater and others supplied the exchange-integral explanation later in the decade. The rules are strictly reliable only for the <i>lowest</i> term of a configuration &mdash; using them to order excited terms is a common overreach.
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 12: ns vs (n-1)d -->
+    <section id="s12">
+        <div class="slide-content text-left px-20">
+            <h2>10. The $ns$ / $(n-1)d$ Problem</h2>
+            <p class="text-lg font-medium mb-6">Potassium fills $4s$, not $3d$. But in scandium the $3d$ <b>orbital energy</b> already lies below $4s$. Both statements are true, and the resolution is a lesson in what "orbital energy" means.</p>
+            <div class="grid md:grid-cols-2 gap-6 mt-4">
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">The wrong question</p>
+                    <p class="text-sm font-medium text-slate-700">"Which orbital is lower?" &mdash; orbital energies are not additive. The quantity nature minimises is the <b>total electronic energy</b> of the whole configuration, which includes every electron&ndash;electron repulsion term.</p>
+                </div>
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">The right comparison</p>
+                    <p class="text-sm font-medium text-slate-700">Compare $E_{\text{total}}[\,3d^{n-1}4s^1\,]$ with $E_{\text{total}}[\,3d^{n}\,]$ and $E_{\text{total}}[\,3d^{n-2}4s^2\,]$. For neutral atoms of the first transition series the $4s$-containing configuration usually wins, by a small margin.</p>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="step-box">
+                    <p class="font-black">Why $4s$ is competitive at all</p>
+                    <p class="text-sm text-slate-700 mt-2"><b>Penetration</b> (&sect;3). The $4s$ radial function has inner lobes reaching the core, where shielding is weak and $Z_{\text{eff}}$ is large.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black">Why $3d$ is penalised</p>
+                    <p class="text-sm text-slate-700 mt-2"><b>Compactness.</b> $3d$ is radially contracted, so two $3d$ electrons repel each other much more strongly than two diffuse $4s$ electrons do.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black">The margin is small</p>
+                    <p class="text-sm text-slate-700 mt-2">A fraction of an eV. That is why Cr is $3d^54s^1$ and Cu is $3d^{10}4s^1$: the exchange gain of &sect;9 is enough to tip it.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black">And it reverses on ionisation</p>
+                    <p class="text-sm text-slate-700 mt-2">Remove an electron and $Z_{\text{eff}}$ rises. The compact $3d$ benefits more than the diffuse $4s$. See &sect;11.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 11: Summary Checklist -->
-    <section id="s11">
+    <!-- Slide 13: ionisation -->
+    <section id="s13">
         <div class="slide-content text-left px-20">
-            <h2>10. Module 4 Key Competencies</h2>
-            <div class="space-y-4 mt-10">
-                <div class="p-4 border-2 border-slate-900 rounded-xl font-bold flex items-center gap-4">
-                    <span class="text-2xl">✅</span>
-                    <p>Ability to use the <b>Projection Operator</b> to derive SALCs.</p>
+            <h2>11. Why $s$ Electrons Leave First</h2>
+            <p class="text-lg font-medium mb-6">Every first-row transition metal dication is $[\text{Ar}]3d^{\,n}$ &mdash; with <b>no</b> $4s$ electrons. Not one exception.</p>
+            <div class="overflow-x-auto">
+            <table class="qtable">
+                <thead><tr><th>Atom</th><th>Neutral configuration</th><th>$M^{2+}$</th><th>Note</th></tr></thead>
+                <tbody>
+                    <tr><td>Ti</td><td>$[\text{Ar}]3d^2 4s^2$</td><td>$[\text{Ar}]3d^2$</td><td class="l">both $4s$ removed</td></tr>
+                    <tr><td>Cr</td><td>$[\text{Ar}]3d^5 4s^1$</td><td>$[\text{Ar}]3d^4$</td><td class="l">$4s$ then one $3d$</td></tr>
+                    <tr><td>Fe</td><td>$[\text{Ar}]3d^6 4s^2$</td><td>$[\text{Ar}]3d^6$</td><td class="l">both $4s$ removed</td></tr>
+                    <tr><td>Cu</td><td>$[\text{Ar}]3d^{10} 4s^1$</td><td>$[\text{Ar}]3d^9$</td><td class="l">$4s$ then one $3d$</td></tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-8">
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">The argument</p>
+                    <p class="text-sm font-medium text-slate-700">In the <b>cation</b>, the reduced electron count means less mutual shielding, so $Z_{\text{eff}}$ rises for every orbital. The contracted $3d$ set, sitting closer in, is stabilised more steeply than the diffuse $4s$. The ordering that was marginal in the neutral atom is decisive in the ion, and $4s$ becomes the highest occupied level.</p>
                 </div>
-                <div class="p-4 border-2 border-slate-900 rounded-xl font-bold flex items-center gap-4">
-                    <span class="text-2xl">✅</span>
-                    <p>Skill in matching SALC symmetries with central atom orbitals.</p>
+                <div class="warn">
+                    <b>Do not say "$4s$ fills first, so $4s$ empties last".</b> That reasoning is backwards and gives the wrong answer. Filling order is a statement about <i>neutral-atom total energies</i>; ionisation order is a statement about <i>the cation's</i> level ordering. They are different systems and there is no reason for one to determine the other.
                 </div>
-                <div class="p-4 border-2 border-slate-900 rounded-xl font-bold flex items-center gap-4">
-                    <span class="text-2xl">✅</span>
-                    <p>Understanding the symmetry origin of <b>Non-Bonding</b> orbitals.</p>
+            </div>
+            <div class="info-card mt-6">
+                <p class="font-black uppercase text-xs mb-3">Why Modules 07&ndash;09 depend on this slide</p>
+                <p class="text-sm font-medium text-slate-700">Crystal field theory splits a $d^n$ manifold. Ligand field theory builds MOs from metal $d$ and ligand SALCs. Both take as given that the metal centre in a complex is a $d^n$ ion with no valence $s$ electrons. That premise is established here and nowhere else in the course.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 14: competencies -->
+    <section id="s14">
+        <div class="slide-content text-left px-20">
+            <h2>12. Module 4 Key Competencies</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="step-box">
+                    <span class="logic-tag">Derive</span>
+                    <p class="text-sm text-slate-700 mt-3">State the allowed ranges of $n, \ell, m_\ell, m_s$ and explain why $\ell \le n-1$ in terms of radial nodes.</p>
                 </div>
+                <div class="step-box">
+                    <span class="logic-tag">Compute</span>
+                    <p class="text-sm text-slate-700 mt-3">Give $|\mathbf{L}|$ and the allowed $L_z$ for any $\ell$, and explain why $\mathbf{L}$ cannot align with $z$.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Construct</span>
+                    <p class="text-sm text-slate-700 mt-3">Write the Slater determinant for a given configuration and show that a repeated spin-orbital annihilates it.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Count</span>
+                    <p class="text-sm text-slate-700 mt-3">Enumerate the microstates of $d^n$ as $\binom{10}{n}$ and verify the total against the term degeneracies.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Explain</span>
+                    <p class="text-sm text-slate-700 mt-3">Justify Hund's first rule through exchange stabilisation and the Fermi hole &mdash; not through magnetic repulsion.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Resolve</span>
+                    <p class="text-sm text-slate-700 mt-3">Reconcile "$4s$ fills before $3d$" with "$4s$ ionises before $3d$" without contradiction.</p>
+                </div>
+            </div>
+            <div class="warn mt-8">
+                <b>Self-test.</b> If you cannot state, in one sentence each, (i) why $|\mathbf{L}| \ne m_\ell^{\max}\hbar$, (ii) why a determinant enforces Pauli, and (iii) why $\text{Fe}^{2+}$ has no $4s$ electrons &mdash; return to &sect;5, &sect;8, and &sect;11 before starting Module 05.
             </div>
         </div>
     </section>
@@ -236,9 +494,9 @@
         <div class="slide-content text-center">
             <h2 class="border-none text-5xl font-black mb-10 tracking-tighter">Module 4 Complete</h2>
             <p class="text-xl font-bold text-slate-500 uppercase tracking-widest">Next Phase:</p>
-            <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Transition Metal Chemistry <br>& Electronic Spectra</p>
+            <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">MO Theory <br>&amp; Diatomic Molecules</p>
             <div class="mt-20 p-8 border-t-2 border-slate-100 italic font-serif text-slate-400">
-                "Symmetry is the key that unlocks the complexity of the chemical bond."
+                "The orbital is a one-electron fiction. Everything interesting in this course is what happens when we stop pretending."
             </div>
         </div>
     </section>

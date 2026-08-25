@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Inorganic Chemistry 14: Solid-State Chemistry &amp; Band Theory</title>
+    <link href="css/tailwind.build.css" rel="stylesheet"/>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/presentation_mode.css">
+    <link rel="stylesheet" href="css/chem_style.css">
+    <style>
+        body { background-color: #ffffff; color: #0f172a; font-family: 'Inter', system-ui, sans-serif; }
+        .slide-content { background: #ffffff; border: 1px solid #e2e8f0; color: #0f172a; box-shadow: none; }
+        .math-box { background: #f8fafc; color: #0f172a; padding: 1.5rem; border: 2px solid #0f172a; border-radius: 0.5rem; margin: 1rem 0; }
+        .info-card { border-left: 6px solid #0f172a; padding: 1.25rem; background: #f1f5f9; margin-bottom: 1.5rem; }
+        .logic-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 900; font-size: 0.7rem; text-transform: uppercase; border: 1px solid #0f172a; }
+        h2 { color: #0f172a; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; border-bottom: 3px solid #0f172a; padding-bottom: 0.5rem; margin-bottom: 2rem; }
+        h3 { color: #334155; font-weight: 800; margin-top: 1.5rem; }
+        .step-box { background: #ffffff; border: 2px solid #e2e8f0; padding: 1rem; border-radius: 1rem; }
+        table.qtable { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        table.qtable th, table.qtable td { border: 1px solid #e2e8f0; padding: 0.5rem 0.7rem; text-align: center; }
+        table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
+        .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
+        .warn b { color: #78350f; }
+        /* 뼈대 문서 표식 — 완성본과 혼동하지 않게 한다 */
+        .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+        .todo { list-style: none; padding-left: 0; }
+        .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
+        .todo li::before { content: "\25A1"; color: #94a3b8; font-weight: 900; margin-right: 0.6rem; }
+        .todo li b { color: #0f172a; }
+    </style>
+</head>
+<body class="presentation-mode">
+
+<main>
+    <!-- Slide 1: Title -->
+    <section id="s1">
+        <div class="slide-content text-center">
+            <p class="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-4">Advanced Inorganic Chemistry Series</p>
+            <h1 class="text-6xl font-black text-slate-900 mb-6 tracking-tighter leading-tight">Solid-State Chemistry<br>&amp; Band Theory</h1>
+            <p class="text-xl text-slate-500 font-medium italic">"A crystal is one molecule with 10²³ atoms. The MO diagram just gets crowded."</p>
+            <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
+            <p class="text-base font-bold text-slate-800">Lecture 14: From Two Orbitals to a Band</p>
+            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; 본문 미작성</div>
+        </div>
+    </section>
+
+    <!-- Slide 2: Scope -->
+    <section id="s2">
+        <div class="slide-content text-left px-20">
+            <h2>0. Scope</h2>
+            <div class="info-card">
+                <p class="font-black uppercase text-xs mb-3">Central question</p>
+                <p class="text-lg font-medium text-slate-800">MO 개념이 고체의 band structure로 어떻게 확장되는가?</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="step-box">
+                    <span class="logic-tag">Requires</span>
+                    <p class="text-sm text-slate-700 mt-3">Module 05&ndash;06 &mdash; MO 이론 &middot; Module 01 &mdash; 대칭성</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Feeds</span>
+                    <p class="text-sm text-slate-700 mt-3">Module 15 &mdash; 모든 Case study가 band 언어를 쓴다</p>
+                </div>
+            </div>
+            <div class="warn mt-8"><b>이 모듈의 한 줄.</b> $\text{AO} \to \text{MO} \to \text{many MOs} \to \text{bands}$. 새 물리가 아니라 같은 MO 이론을 $N \to \infty$로 보낸 것이다.</div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Crystal Structures -->
+    <section id="s3">
+        <div class="slide-content text-left px-20">
+            <h2>1. Crystal Structures</h2>
+            <ul class="todo mt-4">
+                <li>단위 세포와 격자 &mdash; 격자점은 원자가 아니다</li>
+                <li>7개 결정계와 14개 Bravais 격자</li>
+                <li>충전율과 배위수 &mdash; simple cubic, BCC, FCC, HCP</li>
+                <li>빈틈(사면체·팔면체 자리)의 수와 크기</li>
+                <li>이온 결정 &mdash; NaCl, CsCl, zinc blende, fluorite, rutile</li>
+                <li>반지름 비 규칙과 그 한계</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 4: Lattice Energy -->
+    <section id="s4">
+        <div class="slide-content text-left px-20">
+            <h2>2. Lattice Energy</h2>
+            <div class="math-box text-center py-6">
+                $$ U \propto \frac{M\,z^+z^-}{r_0}\left(1 - \frac{1}{n}\right) $$
+            </div>
+            <ul class="todo mt-4">
+                <li>Madelung 상수 $M$ &mdash; 구조가 정하는 수</li>
+                <li>Born&ndash;Land&eacute; / Born&ndash;Mayer 식</li>
+                <li><b>Born&ndash;Haber 순환</b> &mdash; 실험적 격자 에너지</li>
+                <li>계산값과 실험값의 차이가 곧 공유성의 척도</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 5: Reciprocal Space -->
+    <section id="s5">
+        <div class="slide-content text-left px-20">
+            <h2>3. Reciprocal Space</h2>
+            <ul class="todo mt-4">
+                <li>역격자 &mdash; 왜 필요한가</li>
+                <li>$\mathbf{k}$ 벡터의 의미 &mdash; 파장이 아니라 위상 관계</li>
+                <li>Brillouin zone과 그 경계</li>
+                <li>Bragg 조건을 역격자로 다시 쓰기</li>
+                <li><b>최소한만</b> &mdash; 밴드 도표를 읽을 수 있을 정도까지</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 6: From MOs to Bands -->
+    <section id="s6">
+        <div class="slide-content text-left px-20">
+            <h2>4. From MOs to Bands</h2>
+            <div class="math-box text-center py-6">
+                $$ E = E(k) $$
+            </div>
+            <ul class="todo mt-4">
+                <li>$N$개 원자 사슬 &mdash; $N$개 MO가 띠를 이룬다</li>
+                <li>띠 나비는 <b>중첩의 크기</b>가 정한다 &mdash; $s$ 띠는 넓고 $d$ 띠는 좁다</li>
+                <li>결합성 바닥에서 반결합성 꼭대기까지</li>
+                <li>상태 밀도(DOS) &mdash; 띠 나비와 반비례</li>
+                <li>$\mathrm{Fermi}$ 준위</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 7: Metals, Semiconductors, Insulators -->
+    <section id="s7">
+        <div class="slide-content text-left px-20">
+            <h2>5. Metals, Semiconductors, Insulators</h2>
+            <ul class="todo mt-4">
+                <li>부분적으로 찬 띠 &rarr; 금속</li>
+                <li>가득 찬 띠 + 좁은 간격 &rarr; 반도체</li>
+                <li>가득 찬 띠 + 넓은 간격 &rarr; 절연체</li>
+                <li>직접 간격 대 간접 간격 &mdash; 왜 Si는 LED가 안 되고 GaAs는 되는가</li>
+                <li><b>Mott 절연체</b> &mdash; 띠 이론이 틀리는 경우. 전자 상관이 이긴다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 8: Doping -->
+    <section id="s8">
+        <div class="slide-content text-left px-20">
+            <h2>6. Doping</h2>
+            <ul class="todo mt-4">
+                <li>진성 반도체의 캐리어 농도와 온도 의존성</li>
+                <li>n형 &mdash; donor 준위, 전도띠 바로 아래</li>
+                <li>p형 &mdash; acceptor 준위, 원자가띠 바로 위</li>
+                <li>p&ndash;n 접합 &mdash; 정류의 원리</li>
+                <li>축퇴 도핑과 투명 전도 산화물</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 9: Key Competencies -->
+    <section id="s9">
+        <div class="slide-content text-left px-20">
+            <h2>7. Key Competencies</h2>
+            <ul class="todo mt-4">
+                <li>주어진 구조의 단위 세포 내 화학식 단위 수와 배위수를 센다</li>
+                <li>Born&ndash;Haber 순환으로 격자 에너지를 구한다</li>
+                <li>MO 도표를 띠 도표로 이어서 설명한다</li>
+                <li>띠 구조로 금속·반도체·절연체를 분류한다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 40: End -->
+    <section id="s40" class="end">
+        <div class="slide-content text-center">
+            <div class="outline-banner" style="display:inline-block">Outline only</div>
+            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 14 &mdash; 뼈대</h2>
+            <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
+                절 구성과 핵심 식만 세워 둔 상태입니다. 본문 서술·도표·사례는 제작 단계에서 채웁니다.
+                구성 근거는 <b>ADV_INORGANIC_ROADMAP.md</b>, 전체 지도는
+                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>에 있습니다.
+            </p>
+            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
+            <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Modern Inorganic Materials<br>&amp; Case Studies</p>
+        </div>
+    </section>
+</main>
+
+<script src="js/slide_engine.js"></script>
+</body>
+</html>

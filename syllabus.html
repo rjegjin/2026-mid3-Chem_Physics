@@ -43,12 +43,16 @@
             margin-top: 1rem;
         }
         .course-title {
+            font-family: 'Playfair Display', Georgia, serif;
+
             font-size: 2.5rem;
             font-weight: 900;
             color: #111827;
             margin: 0.5rem 0;
         }
         .section-title {
+            font-family: 'Inter', -apple-system, sans-serif;
+
             font-size: 1.25rem;
             font-weight: 800;
             text-transform: uppercase;
@@ -77,6 +81,8 @@
             font-size: 0.875rem;
         }
         .module-title {
+            font-family: 'Inter', -apple-system, sans-serif;
+
             font-size: 1.125rem;
             font-weight: 700;
             color: #374151;
@@ -86,6 +92,13 @@
             color: #6b7280;
             margin-top: 0.5rem;
         }
+        /* 이 모듈이 답하는 질문. 주제 나열이 아니라 질문으로 적는다. */
+        .module-q {
+            font-size: 0.9rem;
+            color: var(--u-navy);
+            font-style: italic;
+            margin-top: 0.4rem;
+        }
         .badge {
             background: #f3f4f6;
             color: #4b5563;
@@ -94,6 +107,56 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
+        /* 제작 상태 — 색만으로 구분하지 않고 글자로도 적는다 */
+        .status {
+            display: inline-block;
+            padding: 0.1rem 0.55rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+            border: 1px solid;
+        }
+        .status.done    { background: #ecfdf5; color: #065f46; border-color: #10b981; }
+        .status.planned { background: #f9fafb; color: #6b7280; border-color: #d1d5db; }
+        .status.outline { background: #f1f5f9; color: #334155; border-color: #94a3b8; }
+        .status.revise  { background: #fffbeb; color: #92400e; border-color: #f59e0b; }
+        .module-link { font-size: 0.8rem; font-weight: 700; color: var(--u-navy); }
+        .module-link:hover { text-decoration: underline; }
+        .chain {
+            background: #002147;
+            color: #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1.5rem 1.75rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.82rem;
+            line-height: 1.55;
+            white-space: pre;
+        }
+        .axis {
+            background: #f8fafc;
+            border: 2px solid var(--u-navy);
+            border-radius: 0.5rem;
+            padding: 1.1rem 1.4rem;
+            text-align: center;
+            font-weight: 800;
+            color: var(--u-navy);
+            letter-spacing: 0.02em;
+        }
+        .note {
+            border-left: 4px solid var(--u-gold);
+            background: #fffdf5;
+            padding: 1rem 1.25rem;
+            font-size: 0.9rem;
+            color: #57534e;
+            border-radius: 0 0.4rem 0.4rem 0;
+        }
+        table.plan { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        table.plan th, table.plan td { border: 1px solid #e5e7eb; padding: 0.45rem 0.6rem; text-align: left; }
+        table.plan th { background: #f9fafb; color: var(--u-navy); font-weight: 800; }
+        table.plan td.n { text-align: center; font-weight: 700; color: #6b7280; white-space: nowrap; }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
@@ -101,10 +164,11 @@
 
     <div class="syllabus-container">
         <header class="uni-header">
-            <div class="uni-name">Division of Chemical & Physical Sciences</div>
+            <div class="uni-name">Division of Chemical &amp; Physical Sciences</div>
             <div class="course-code">CHEM601 / PHYS601</div>
             <h1 class="course-title">Advanced Inorganic Chemistry</h1>
-            <p class="text-slate-500 italic">Spring Semester 2026</p>
+            <p class="text-slate-600">Symmetry, Electronic Structure, Spectroscopy, Organometallic Chemistry &amp; Materials</p>
+            <p class="text-slate-500 italic mt-2">Spring Semester 2026 &middot; 15 Modules + 4 Bonus</p>
         </header>
 
         <section>
@@ -113,9 +177,70 @@
                 Course Description
             </h2>
             <p class="leading-relaxed text-slate-600">
-                본 과정은 분자 대칭성과 군론(Group Theory)을 기반으로 무기 화합물의 구조와 결합을 심도 있게 탐구합니다. 
-                전이 금속의 전자 구조, 분광학적 특성, 유기금속 촉매 메커니즘 및 현대 재료 화학의 기초를 다룹니다.
+                본 과정은 분자 대칭성과 군론(Group Theory)을 기반으로 무기 화합물의 구조와 결합을 심도 있게 탐구합니다.
+                원자 및 분자의 전자 구조에서 출발하여 배위 화합물의 결합과 전자 스펙트럼을 해석하고,
+                전이금속 착물의 반응성과 유기금속 화학, 촉매 메커니즘으로 확장합니다.
+                마지막에는 밴드 이론과 고체&middot;재료화학을 통해 분자 수준의 대칭성과 전자구조가
+                거시적 물성으로 연결되는 과정을 다룹니다.
             </p>
+            <div class="axis mt-6">
+                Symmetry → Electronic Structure → Bonding → Spectroscopy → Reactivity → Materials
+            </div>
+            <p class="module-content mt-4">
+                이 과정의 목표는 “무기화학을 여러 주제로 공부한다”가 아니라, 위 하나의 축을 끝까지 잇는 것입니다.
+                각 모듈은 독립된 챕터가 아니라 이전 모듈의 결과를 입력으로 받습니다.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="section-title">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                Prerequisites
+            </h2>
+            <ul class="list-disc pl-6 text-slate-600 space-y-1" style="font-size:0.95rem">
+                <li>일반화학 &mdash; 원자 구조, 주기성, 루이스 구조, VSEPR</li>
+                <li>물리화학 기초 &mdash; 슈뢰딩거 방정식의 의미, 수소 원자의 오비탈</li>
+                <li>선형대수 &mdash; 행렬 곱, 고윳값 문제. <b>부족하면 Bonus 01부터 시작합니다.</b></li>
+            </ul>
+            <div class="note mt-4">
+                Bonus 트랙(01&ndash;04)은 선택이 아니라 <b>Module 02의 선수 과정</b>입니다.
+                Great Orthogonality Theorem을 증명 없이 받아들이면 Module 03 이후의 selection rule이
+                규칙 암기로 남습니다.
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.247m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.247"></path></svg>
+                Special Bonus &mdash; Mathematical Foundations
+            </h2>
+            <div class="module-card" style="border-left-color: #3b82f6; background: #f8fafc;">
+                <div class="module-num" style="color: #3b82f6;">Bonus 01<span class="status done">제작 완료</span></div>
+                <div class="module-title">Linear Algebra for Quantum Chemistry</div>
+                <div class="module-content">Vector spaces &middot; linear operators &middot; eigenvalues &middot; basis transformation &middot; unitary/Hermitian operators &middot; direct sums &middot; tensor products</div>
+                <a href="adv_inorganic_bonus_01.html" class="module-link">문서 열기 →</a>
+            </div>
+            <div class="module-card" style="border-left-color: #3b82f6;">
+                <div class="module-num" style="color: #3b82f6;">Bonus 02<span class="status outline">뼈대 &middot; Bonus 01에서 분리 예정</span></div>
+                <div class="module-title">Hilbert Spaces &amp; Symmetry Operators</div>
+                <div class="module-content">Hilbert space &middot; bra&ndash;ket notation &middot; 양자 상태의 벡터 표현 &middot; symmetry operator &middot; commutator &middot; simultaneous eigenstates</div>
+                <a href="adv_inorganic_bonus_02.html" class="module-link">뼈대 열기 →</a>
+            </div>
+            <div class="module-card" style="border-left-color: #3b82f6;">
+                <div class="module-num" style="color: #3b82f6;">Bonus 03<span class="status outline">뼈대 &middot; Bonus 01에서 분리 예정</span></div>
+                <div class="module-title">Representation Theory</div>
+                <div class="module-content">Group representations &middot; reducible/irreducible &middot; Schur's Lemma &middot; orthogonality theorem &middot; <b>GOT 증명</b> &middot; character orthogonality</div>
+                <a href="adv_inorganic_bonus_03.html" class="module-link">뼈대 열기 →</a>
+            </div>
+            <div class="module-card" style="border-left-color: #3b82f6;">
+                <div class="module-num" style="color: #3b82f6;">Bonus 04<span class="status outline">뼈대</span></div>
+                <div class="module-title">Quantum Hamiltonian Symmetry</div>
+                <div class="module-content">
+                    핵심 연결은 [H, R] = 0 이면 Hamiltonian과 symmetry operator를 동시에 block diagonalization할 수 있다는 것입니다.
+                </div>
+                <a href="adv_inorganic_bonus_04.html" class="module-link">뼈대 열기 →</a>
+                <div class="module-q">Symmetry → irreducible representations → block diagonal Hamiltonian → selection rules</div>
+            </div>
         </section>
 
         <section>
@@ -125,74 +250,288 @@
             </h2>
 
             <div class="space-y-4">
-                <!-- Part 1 -->
-                    <div class="module-card" style="border-left-color: #3b82f6; background: #f8fafc;">
-                        <div class="module-num" style="color: #3b82f6;">Special Bonus</div>
-                        <div class="module-title">Mathematical Foundations of Representation Theory</div>
-                        <div class="module-content">Hilbert Spaces, Schur's Lemma, GOT Proof, and Quantum Hamiltonian Symmetry</div>
-                    </div>
 
+                <!-- Part I -->
                 <div class="mb-8">
-                    <span class="badge mb-4">Part I: Symmetry & Group Theory</span>
+                    <span class="badge mb-4">Part I &middot; Symmetry &amp; Group Theory</span>
                     <div class="module-card">
-                        <div class="module-num">Module 01</div>
-                        <div class="module-title">Molecular Symmetry & Point Groups</div>
-                        <div class="module-content">대칭 요소, 점군 결정 알고리즘, 수학적 군의 정의</div>
+                        <div class="module-num">Module 01<span class="status done">제작 완료</span></div>
+                        <div class="module-title">Molecular Symmetry &amp; Point Groups</div>
+                        <div class="module-content">대칭 요소와 조작(E, C<sub>n</sub>, σ, i, S<sub>n</sub>) &middot; 점군 결정 알고리즘 &middot; 군의 공리(closure&middot;associativity&middot;identity&middot;inverse) &middot; conjugacy class</div>
+                        <div class="module-q">분자의 대칭성을 어떻게 수학적으로 분류하는가?</div>
+                        <a href="adv_inorganic_01.html" class="module-link">문서 열기 →</a>
                     </div>
                     <div class="module-card">
-                        <div class="module-num">Module 02</div>
-                        <div class="module-title">Representations & Character Tables</div>
-                        <div class="module-content">가약/기약 표현, GOT, 약분 공식의 이해</div>
+                        <div class="module-num">Module 02<span class="status done">제작 완료</span></div>
+                        <div class="module-title">Representations &amp; Character Tables</div>
+                        <div class="module-content">대칭 조작 → 행렬 표현 &middot; similarity transformation &middot; 가약/기약 표현 &middot; GOT &middot; reduction formula &middot; Mulliken 기호 &middot; C<sub>2v</sub> C<sub>3v</sub> D<sub>3h</sub> T<sub>d</sub> O<sub>h</sub> 실전</div>
+                        <div class="module-q">대칭 operation을 어떻게 선형대수로 표현하는가?</div>
+                        <a href="adv_inorganic_02.html" class="module-link">문서 열기 →</a>
                     </div>
                     <div class="module-card">
-                        <div class="module-num">Module 03</div>
-                        <div class="module-title">Vibrational Spectroscopy</div>
-                        <div class="module-content">진동 모드 분석, IR/Raman 활성 판별, SALCs 도입</div>
+                        <div class="module-num">Module 03<span class="status done">제작 완료</span></div>
+                        <div class="module-title">Vibrational Spectroscopy &amp; SALCs</div>
+                        <div class="module-content">3N−6 / 3N−5 &middot; Cartesian displacement 표현 &middot; 병진&middot;회전 모드 제거 &middot; IR selection rule(x, y, z) &middot; Raman selection rule(quadratic) &middot; SALC와 projection operator 도입</div>
+                        <div class="module-q">대칭성으로 IR/Raman spectrum을 어떻게 예측하는가?</div>
+                        <a href="adv_inorganic_03.html" class="module-link">문서 열기 →</a>
                     </div>
                 </div>
 
-                <!-- Part 2 -->
+                <!-- Part II -->
                 <div class="mb-8">
-                    <span class="badge mb-4">Part II: Electronic Structure & Bonding</span>
+                    <span class="badge mb-4">Part II &middot; Electronic Structure &amp; Bonding</span>
                     <div class="module-card">
-                        <div class="module-num">Module 04</div>
-                        <div class="module-title">Atomic Orbitals & Quantum Numbers</div>
-                        <div class="module-content">슈뢰딩거 해, Slater 행렬식, 전자 배치</div>
+                        <div class="module-num">Module 04<span class="status done">제작 완료</span></div>
+                        <div class="module-title">Atomic Orbitals, Electron Configurations &amp; Angular Momentum</div>
+                        <div class="module-content">
+                            수소꼴 슈뢰딩거 방정식 &middot; 양자수 (n, l, m<sub>l</sub>, m<sub>s</sub>) &middot; radial/angular 파동함수와 node &middot;
+                            L² = l(l+1)ℏ² &middot; spin &middot; Pauli 원리와 반대칭성 &middot; Slater 행렬식 &middot;
+                            Aufbau &middot; Hund 규칙 &middot; exchange stabilization &middot;
+                            전이금속의 ns 대 (n−1)d 에너지와 이온화 시 s 전자가 먼저 빠지는 이유
+                        </div>
+                        <div class="module-q">원자의 전자상태는 어떻게 결정되는가?</div>
+                        <div class="module-content"><b>범위 확장 반영</b>: 각운동량과 Slater 행렬식까지 넣어 Module 09의 term symbol 기반을 여기서 마련했습니다.</div>
+                        <a href="adv_inorganic_04.html" class="module-link">문서 열기 →</a>
                     </div>
                     <div class="module-card">
-                        <div class="module-num">Module 05</div>
+                        <div class="module-num">Module 05<span class="status outline">뼈대</span></div>
                         <div class="module-title">MO Theory: Diatomic Molecules</div>
-                        <div class="module-content">에너지 준위 도표, 대칭성 기반 결합 분석</div>
+                        <div class="module-content">
+                            LCAO &middot; 결합/반결합 오비탈 &middot; overlap integral &middot; 결합 차수 BO = (N<sub>b</sub> − N<sub>a</sub>)/2 &middot;
+                            H₂ He₂ Li₂ B₂ C₂ N₂ O₂ F₂ CO NO &middot; s&ndash;p mixing &middot; HOMO/LUMO &middot;
+                            O₂의 상자성 &middot; 이핵 이원자 분자
+                        <a href="adv_inorganic_05.html" class="module-link">뼈대 열기 →</a>
+                        </div>
+                        <div class="module-q">원자 orbital은 어떻게 분자 orbital을 만드는가?</div>
                     </div>
                     <div class="module-card">
-                        <div class="module-num">Module 06</div>
-                        <div class="module-title">MO Theory: Polyatomic Systems</div>
-                        <div class="module-content">다원자 분자 MO, Walsh 도표 및 구조 예측</div>
+                        <div class="module-num">Module 06<span class="status done">제작 완료</span></div>
+                        <div class="module-title">MO Theory: Polyatomic Molecules</div>
+                        <div class="module-content">
+                            Ligand orbitals → SALCs → 중심 원자 오비탈 → MO &middot;
+                            H₂O NH₃ BF₃ CH₄ SF₆ &middot; Walsh 도표와 Walsh 규칙 &middot;
+                            AH₂의 bond angle 변화에 따른 MO 에너지 &middot; orbital symmetry와 분자 구조
+                        </div>
+                        <div class="module-q">대칭성으로 복잡한 MO를 어떻게 구성하는가?</div>
+                        <a href="adv_inorganic_06.html" class="module-link">문서 열기 →</a>
+                        <div class="module-content"><b>보완 완료</b>: NH₃&middot;BF₃, CH₄&middot;SF₆, Walsh 도표, AH₂ 결합각 4개 절을 추가해 15절이 되었습니다.</div>
                     </div>
                 </div>
 
-                <!-- Part 3 -->
+                <!-- Part III -->
                 <div class="mb-8">
-                    <span class="badge mb-4">Part III: Coordination Chemistry</span>
+                    <span class="badge mb-4">Part III &middot; Coordination Chemistry</span>
                     <div class="module-card">
-                        <div class="module-num">Module 07</div>
-                        <div class="module-title">Crystal Field Theory (CFT)</div>
-                        <div class="module-content">d-오비탈 갈라짐, CFSE 및 자성 분석</div>
+                        <div class="module-num">Module 07<span class="status outline">뼈대</span></div>
+                        <div class="module-title">Crystal Field Theory</div>
+                        <div class="module-content">
+                            d 오비탈 축퇴의 해소 &middot; O<sub>h</sub>: d → t<sub>2g</sub> + e<sub>g</sub> &middot; T<sub>d</sub> &middot; square planar &middot;
+                            Δ<sub>o</sub>, Δ<sub>t</sub> ≈ (4/9)Δ<sub>o</sub> &middot;
+                            CFSE = (−0.4 n<sub>t2g</sub> + 0.6 n<sub>eg</sub>)Δ<sub>o</sub> &middot;
+                            high/low spin과 pairing energy &middot; spin-only μ = √(n(n+2)) μ<sub>B</sub> &middot; Jahn&ndash;Teller 왜곡
+                        <a href="adv_inorganic_07.html" class="module-link">뼈대 열기 →</a>
+                        </div>
+                        <div class="module-q">ligand가 d orbital energy를 어떻게 변화시키는가?</div>
                     </div>
                     <div class="module-card">
-                        <div class="module-num">Module 08</div>
-                        <div class="module-title">Ligand Field Theory (LFT)</div>
-                        <div class="module-content">σ 및 π 결합 대칭성, 분광화학적 계열</div>
+                        <div class="module-num">Module 08<span class="status outline">뼈대</span></div>
+                        <div class="module-title">Ligand Field Theory</div>
+                        <div class="module-content">
+                            금속&ndash;리간드 σ 결합 &middot; ligand SALCs &middot; O<sub>h</sub> MO 도표 &middot;
+                            π donor(Δ<sub>o</sub> 감소) 대 π acceptor(back bonding, t<sub>2g</sub> 안정화, Δ<sub>o</sub> 증가) &middot;
+                            분광화학적 계열 I⁻ &lt; Br⁻ &lt; Cl⁻ &lt; F⁻ &lt; H₂O &lt; NH₃ &lt; en &lt; NO₂⁻ &lt; CN⁻ &lt; CO
+                        <a href="adv_inorganic_08.html" class="module-link">뼈대 열기 →</a>
+                        </div>
+                        <div class="module-q">metal&ndash;ligand bonding을 MO 관점에서 어떻게 설명하는가?</div>
+                        <div class="module-content"><b>서술 원칙</b>: 분광화학적 계열을 암기 목록으로 주지 않고 σ donor / π donor / π acceptor로 설명합니다.</div>
                     </div>
                     <div class="module-card">
-                        <div class="module-num">Module 09</div>
-                        <div class="module-title">Electronic Spectra of Complexes</div>
-                        <div class="module-content">Term Symbols, Tanabe-Sugano 도표 해석</div>
+                        <div class="module-num">Module 09<span class="status outline">뼈대 &middot; 2회분 배정</span></div>
+                        <div class="module-title">Electronic Spectra of Transition-Metal Complexes</div>
+                        <div class="module-content">
+                            d<sup>n</sup> microstate 계산 &middot; Russell&ndash;Saunders coupling(L, S, J)과 term symbol <sup>2S+1</sup>L<sub>J</sub> &middot;
+                            Hund 규칙 &middot; free-ion → ligand-field state(<sup>3</sup>F → <sup>3</sup>T<sub>1g</sub> + <sup>3</sup>T<sub>2g</sub> + <sup>3</sup>A<sub>2g</sub>) &middot;
+                            spin selection ΔS = 0 &middot; Laporte 규칙 &middot; Orgel 도표 &middot;
+                            Tanabe&ndash;Sugano 도표로 Δ<sub>o</sub>와 Racah B 추정
+                        </div>
+                        <div class="module-q">전이금속의 absorption spectrum은 어디에서 오는가?</div>
+                        <div class="module-content">분량이 커서 한 모듈에 두 회차를 배정합니다. spin&ndash;orbit coupling은 여기서 다루지 않고 Module 10으로 넘깁니다.</div>
+                        <a href="adv_inorganic_09.html" class="module-link">뼈대 열기 →</a>
                     </div>
                 </div>
+
+                <!-- Part IV -->
+                <div class="mb-8">
+                    <span class="badge mb-4">Part IV &middot; Advanced Electronic Structure</span>
+                    <div class="module-card">
+                        <div class="module-num">Module 10<span class="status outline">뼈대</span></div>
+                        <div class="module-title">Spin&ndash;Orbit Coupling, Relativistic Effects &amp; Magnetism</div>
+                        <div class="module-content">
+                            LS coupling → intermediate coupling → jj coupling &middot; H<sub>SO</sub> = λ L·S &middot;
+                            spin&ndash;orbit splitting &middot; 자성의 orbital 기여와 orbital angular momentum quenching &middot;
+                            유효 자기 모멘트 &middot; Zeeman 효과 &middot;
+                            상대론 효과: s, p<sub>1/2</sub> 수축과 d, f 팽창
+                        <a href="adv_inorganic_10.html" class="module-link">뼈대 열기 →</a>
+                        </div>
+                        <div class="module-q">무거운 원소에서 전자구조는 왜 달라지는가?</div>
+                        <div class="module-content"><b>사례</b>: Au가 금색인 이유 &middot; Hg의 낮은 녹는점 &middot; Pb의 inert-pair effect</div>
+                    </div>
+                </div>
+
+                <!-- Part V -->
+                <div class="mb-8">
+                    <span class="badge mb-4">Part V &middot; Organometallic Chemistry</span>
+                    <div class="module-card">
+                        <div class="module-num">Module 11<span class="status outline">뼈대</span></div>
+                        <div class="module-title">Metal&ndash;Ligand Bonding &amp; Electron Counting</div>
+                        <div class="module-content">
+                            산화수법 대 중성(공유결합)법 &middot; 18전자 규칙 &middot;
+                            CO CN⁻ phosphine alkene alkyne hydride alkyl Cp allyl &middot; hapticity η<sup>n</sup> &middot;
+                            Fe(CO)₅ Ni(CO)₄ Cr(CO)₆ ferrocene &middot;
+                            Dewar&ndash;Chatt&ndash;Duncanson 모형(σ donation + π back-donation)
+                        <a href="adv_inorganic_11.html" class="module-link">뼈대 열기 →</a>
+                        </div>
+                        <div class="module-q">금속&ndash;유기 ligand 결합을 어떻게 해석하는가?</div>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-num">Module 12<span class="status outline">뼈대</span></div>
+                        <div class="module-title">Elementary Organometallic Reactions</div>
+                        <div class="module-content">
+                            ligand substitution(associative/dissociative) &middot; oxidative addition(M<sup>n</sup> → M<sup>n+2</sup>) &middot;
+                            reductive elimination &middot; migratory insertion(M&ndash;R + CO → M&ndash;C(O)R, alkene insertion) &middot;
+                            β-hydride elimination
+                        <a href="adv_inorganic_12.html" class="module-link">뼈대 열기 →</a>
+                        </div>
+                        <div class="module-q">금속 착물은 어떤 elementary step으로 반응하는가?</div>
+                        <div class="module-content"><b>분석 틀</b>: 모든 반응을 산화수 + 전자수 + 배위수 세 가지를 동시에 추적하며 해석합니다.</div>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-num">Module 13<span class="status outline">뼈대</span></div>
+                        <div class="module-title">Homogeneous Catalysis &amp; Catalytic Cycles</div>
+                        <div class="module-content">
+                            수소화(Wilkinson 촉매 RhCl(PPh₃)₃) &middot; hydroformylation(alkene + CO + H₂ → aldehyde) &middot;
+                            Monsanto / Cativa 공정(메탄올 카보닐화) &middot;
+                            교차 결합: Suzuki &middot; Heck &middot; Negishi &middot; Kumada
+                        <a href="adv_inorganic_13.html" class="module-link">뼈대 열기 →</a>
+                        </div>
+                        <div class="module-q">elementary reactions가 어떻게 catalytic cycle을 구성하는가?</div>
+                        <div class="module-content"><b>서술 원칙</b>: cycle 그림을 암기시키지 않습니다. 단계마다 산화수 &middot; d 전자수 &middot; 총 전자수 &middot; 배위수 &middot; 반응 유형을 추적해 전자구조의 변화로 이해시킵니다.</div>
+                    </div>
+                </div>
+
+                <!-- Part VI -->
+                <div class="mb-8">
+                    <span class="badge mb-4">Part VI &middot; Solid-State &amp; Materials Chemistry</span>
+                    <div class="module-card">
+                        <div class="module-num">Module 14<span class="status outline">뼈대</span></div>
+                        <div class="module-title">Solid-State Chemistry &amp; Band Theory</div>
+                        <div class="module-content">
+                            단위 세포 &middot; Bravais 격자 &middot; 배위수와 packing &middot;
+                            simple cubic BCC FCC HCP NaCl CsCl zinc blende fluorite &middot;
+                            역격자와 Brillouin zone, k 벡터 &middot; E = E(k) &middot;
+                            원자가띠 &middot; 전도띠 &middot; Fermi 준위 &middot; 띠 간격 &middot;
+                            금속/반도체/절연체 &middot; 진성 반도체와 n형&middot;p형, donor/acceptor 준위
+                        <a href="adv_inorganic_14.html" class="module-link">뼈대 열기 →</a>
+                        </div>
+                        <div class="module-q">MO 개념이 고체의 band structure로 어떻게 확장되는가?</div>
+                        <div class="module-content"><b>핵심 연결</b>: AO → MO → many MOs → bands</div>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-num">Module 15<span class="status outline">뼈대</span></div>
+                        <div class="module-title">Modern Inorganic Materials &amp; Integrated Case Studies</div>
+                        <div class="module-content">
+                            새 이론을 추가하지 않고 앞의 내용을 실제 물질에 통합 적용합니다.
+                        <a href="adv_inorganic_15.html" class="module-link">뼈대 열기 →</a>
+                        </div>
+                        <div class="module-q">전자구조와 대칭성이 실제 물성을 어떻게 결정하는가?</div>
+                        <div class="module-content" style="margin-top:0.8rem">
+                            <b>Case 1 &middot; 전이금속 산화물</b> TiO₂ Fe₂O₃ MnO₂ &mdash; crystal symmetry → d orbitals → band structure → 광학적 성질<br>
+                            <b>Case 2 &middot; Perovskite</b> ABX₃ &mdash; 팔면체 배위, 구조 왜곡, 산화물/할라이드 perovskite<br>
+                            <b>Case 3 &middot; 배위 고분자와 MOF</b> &mdash; 금속 노드 + 유기 링커, topology, 기공성, 기체 흡착, 촉매<br>
+                            <b>Case 4 &middot; 발광 착물</b> Ru &middot; Ir &middot; 란타넘족 &mdash; d&ndash;d, LMCT, MLCT, ligand-centered 전이<br>
+                            <b>Case 5 &middot; 무기 에너지 재료</b> &mdash; 광촉매, 전기촉매, 전지 재료, 연료전지 촉매
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            
-            <p class="text-center text-slate-400 text-sm mt-10">... Full 15-module schedule is detailed in the roadmap file.</p>
+        </section>
+
+        <section>
+            <h2 class="section-title">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v12a4 4 0 01-4 4H4V6zM12 4h4a2 2 0 012 2v14h-6V4z"></path></svg>
+                Logical Chain
+            </h2>
+            <div class="overflow-x-auto">
+<div class="chain">Molecular Symmetry
+      ↓
+Group Theory
+      ↓
+Representations
+      ↓
+SALCs / Selection Rules
+      ↓
+Atomic Orbitals
+      ↓
+Molecular Orbitals
+      ↓
+Transition-Metal d Orbitals
+      ↓
+Crystal Field Theory
+      ↓
+Ligand Field Theory
+      ↓
+Electronic States / Spectroscopy
+      ↓
+Spin–Orbit Coupling
+      ↓
+Metal–Ligand Bonding
+      ↓
+Organometallic Reactions
+      ↓
+Catalytic Cycles
+      ↓
+Extended Solids
+      ↓
+Band Structure
+      ↓
+Modern Inorganic Materials</div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                Module Summary
+            </h2>
+            <div class="overflow-x-auto">
+            <table class="plan">
+                <thead><tr><th>#</th><th>제목</th><th>중심 질문</th><th>상태</th></tr></thead>
+                <tbody>
+                    <tr><td class="n">01</td><td>Molecular Symmetry &amp; Point Groups</td><td>분자의 대칭성을 어떻게 수학적으로 분류하는가?</td><td>제작 완료</td></tr>
+                    <tr><td class="n">02</td><td>Representations &amp; Character Tables</td><td>대칭 operation을 어떻게 선형대수로 표현하는가?</td><td>제작 완료</td></tr>
+                    <tr><td class="n">03</td><td>Vibrational Spectroscopy</td><td>대칭성으로 IR/Raman spectrum을 어떻게 예측하는가?</td><td>제작 완료</td></tr>
+                    <tr><td class="n">04</td><td>Atomic Orbitals &amp; Angular Momentum</td><td>원자의 전자상태는 어떻게 결정되는가?</td><td>제작 완료</td></tr>
+                    <tr><td class="n">05</td><td>MO Theory: Diatomics</td><td>원자 orbital은 어떻게 분자 orbital을 만드는가?</td><td>뼈대</td></tr>
+                    <tr><td class="n">06</td><td>MO Theory: Polyatomics</td><td>대칭성으로 복잡한 MO를 어떻게 구성하는가?</td><td>제작 완료</td></tr>
+                    <tr><td class="n">07</td><td>Crystal Field Theory</td><td>ligand가 d orbital energy를 어떻게 변화시키는가?</td><td>뼈대</td></tr>
+                    <tr><td class="n">08</td><td>Ligand Field Theory</td><td>metal&ndash;ligand bonding을 MO 관점에서 어떻게 설명하는가?</td><td>뼈대</td></tr>
+                    <tr><td class="n">09</td><td>Electronic Spectra</td><td>전이금속의 absorption spectrum은 어디에서 오는가?</td><td>뼈대</td></tr>
+                    <tr><td class="n">10</td><td>Spin&ndash;Orbit &amp; Relativistic Effects</td><td>무거운 원소에서 전자구조는 왜 달라지는가?</td><td>뼈대</td></tr>
+                    <tr><td class="n">11</td><td>Organometallic Bonding</td><td>금속&ndash;유기 ligand 결합을 어떻게 해석하는가?</td><td>뼈대</td></tr>
+                    <tr><td class="n">12</td><td>Organometallic Reactions</td><td>금속 착물은 어떤 elementary step으로 반응하는가?</td><td>뼈대</td></tr>
+                    <tr><td class="n">13</td><td>Homogeneous Catalysis</td><td>elementary reactions가 어떻게 catalytic cycle을 구성하는가?</td><td>뼈대</td></tr>
+                    <tr><td class="n">14</td><td>Solid-State &amp; Band Theory</td><td>MO 개념이 고체의 band structure로 어떻게 확장되는가?</td><td>뼈대</td></tr>
+                    <tr><td class="n">15</td><td>Modern Inorganic Materials</td><td>전자구조와 대칭성이 실제 물성을 어떻게 결정하는가?</td><td>뼈대</td></tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="note mt-4">
+                <b>이전 로드맵에서 빠진 두 주제</b> &mdash; 배위 화합물의 반응 메커니즘(내부권/외부권 전자 전이)과
+                생무기화학입니다. 전자는 Module 12의 ligand substitution이 일부를 흡수하지만 전자 전이는 아직
+                어디에도 없고, 후자는 이 축(대칭성 → 물성)에서 벗어나 통째로 빠졌습니다.
+                되살릴지는 결정이 필요합니다. 자세한 내용은 <code>ADV_INORGANIC_ROADMAP.md</code>에 적었습니다.
+            </div>
         </section>
 
         <footer class="mt-20 pt-8 border-t border-slate-100 text-center">
