@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Inorganic Chemistry 15: Modern Inorganic Materials &amp; Integrated Case Studies</title>
+    <link href="css/tailwind.build.css" rel="stylesheet"/>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/presentation_mode.css">
+    <link rel="stylesheet" href="css/chem_style.css">
+    <style>
+        body { background-color: #ffffff; color: #0f172a; font-family: 'Inter', system-ui, sans-serif; }
+        .slide-content { background: #ffffff; border: 1px solid #e2e8f0; color: #0f172a; box-shadow: none; }
+        .math-box { background: #f8fafc; color: #0f172a; padding: 1.5rem; border: 2px solid #0f172a; border-radius: 0.5rem; margin: 1rem 0; }
+        .info-card { border-left: 6px solid #0f172a; padding: 1.25rem; background: #f1f5f9; margin-bottom: 1.5rem; }
+        .logic-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 900; font-size: 0.7rem; text-transform: uppercase; border: 1px solid #0f172a; }
+        h2 { color: #0f172a; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; border-bottom: 3px solid #0f172a; padding-bottom: 0.5rem; margin-bottom: 2rem; }
+        h3 { color: #334155; font-weight: 800; margin-top: 1.5rem; }
+        .step-box { background: #ffffff; border: 2px solid #e2e8f0; padding: 1rem; border-radius: 1rem; }
+        table.qtable { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        table.qtable th, table.qtable td { border: 1px solid #e2e8f0; padding: 0.5rem 0.7rem; text-align: center; }
+        table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
+        .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
+        .warn b { color: #78350f; }
+        /* 뼈대 문서 표식 — 완성본과 혼동하지 않게 한다 */
+        .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+        .todo { list-style: none; padding-left: 0; }
+        .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
+        .todo li::before { content: "\25A1"; color: #94a3b8; font-weight: 900; margin-right: 0.6rem; }
+        .todo li b { color: #0f172a; }
+    </style>
+</head>
+<body class="presentation-mode">
+
+<main>
+    <!-- Slide 1: Title -->
+    <section id="s1">
+        <div class="slide-content text-center">
+            <p class="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-4">Advanced Inorganic Chemistry Series</p>
+            <h1 class="text-6xl font-black text-slate-900 mb-6 tracking-tighter leading-tight">Modern Inorganic Materials<br>&amp; Case Studies</h1>
+            <p class="text-xl text-slate-500 font-medium italic">"No new theory. Everything you need is already in modules 01 to 14."</p>
+            <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
+            <p class="text-base font-bold text-slate-800">Lecture 15: Five Materials, One Method</p>
+            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; 본문 미작성</div>
+        </div>
+    </section>
+
+    <!-- Slide 2: Scope -->
+    <section id="s2">
+        <div class="slide-content text-left px-20">
+            <h2>0. Scope</h2>
+            <div class="info-card">
+                <p class="font-black uppercase text-xs mb-3">Central question</p>
+                <p class="text-lg font-medium text-slate-800">전자구조와 대칭성이 실제 물성을 어떻게 결정하는가?</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="step-box">
+                    <span class="logic-tag">Requires</span>
+                    <p class="text-sm text-slate-700 mt-3">Module 07&ndash;10 &mdash; 배위·전자상태 &middot; Module 14 &mdash; 띠 이론</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Feeds</span>
+                    <p class="text-sm text-slate-700 mt-3">&mdash; (과정의 종착점)</p>
+                </div>
+            </div>
+            <div class="warn mt-8"><b>새 이론을 도입하지 않는다.</b> 각 Case는 같은 절차를 반복한다: 대칭성 &rarr; 오비탈 &rarr; 전자구조 &rarr; 물성.</div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Case 1 &mdash; Transition-Metal Oxides -->
+    <section id="s3">
+        <div class="slide-content text-left px-20">
+            <h2>1. Case 1 &mdash; Transition-Metal Oxides</h2>
+            <div class="math-box text-center py-6">
+                $$ \text{crystal symmetry} \to d\text{ orbitals} \to \text{band structure} \to \text{optical properties} $$
+            </div>
+            <ul class="todo mt-4">
+                <li>$\mathrm{TiO_2}$ &mdash; rutile 대 anatase, 3.0/3.2 eV 간격, 자외선만 흡수</li>
+                <li>$\mathrm{Fe_2O_3}$ &mdash; 왜 붉은가. 전하 이동 전이</li>
+                <li>$\mathrm{MnO_2}$ &mdash; 혼합 원자가와 전도성</li>
+                <li>$\mathrm{TiO_2}$의 광촉매 작용 &mdash; 밴드 가장자리 위치가 산화·환원력을 정한다</li>
+                <li>Module 07 회수 &mdash; 팔면체 자리의 $d$ 갈라짐이 띠 가장자리를 만든다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 4: Case 2 &mdash; Perovskites -->
+    <section id="s4">
+        <div class="slide-content text-left px-20">
+            <h2>2. Case 2 &mdash; Perovskites</h2>
+            <div class="math-box text-center py-6">
+                $$ \mathrm{ABX_3}, \qquad t = \frac{r_A + r_X}{\sqrt{2}\,(r_B + r_X)} $$
+            </div>
+            <ul class="todo mt-4">
+                <li>이상적 입방 구조와 $\mathrm{BX_6}$ 팔면체 망</li>
+                <li><b>Goldschmidt 허용 인자</b> $t$ &mdash; 왜곡을 예측한다</li>
+                <li>팔면체 기울임(tilting)과 강유전성</li>
+                <li>산화물 perovskite &mdash; $\mathrm{BaTiO_3}$, $\mathrm{SrTiO_3}$</li>
+                <li>할라이드 perovskite &mdash; $\mathrm{CH_3NH_3PbI_3}$, 태양전지, 안정성 문제</li>
+                <li>Module 10 회수 &mdash; 납의 상대론적 $6s$가 밴드 가장자리에 들어온다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 5: Case 3 &mdash; Coordination Polymers and MOFs -->
+    <section id="s5">
+        <div class="slide-content text-left px-20">
+            <h2>3. Case 3 &mdash; Coordination Polymers and MOFs</h2>
+            <ul class="todo mt-4">
+                <li>금속 노드 + 유기 링커 &rarr; 확장 네트워크</li>
+                <li>이차 구조 단위(SBU)와 topology</li>
+                <li>기공률과 표면적 &mdash; 그램당 수천 m&sup2;</li>
+                <li>기체 흡착 &mdash; $\mathrm{CO_2}$ 포집, 수소 저장</li>
+                <li>열린 금속 자리를 이용한 촉매</li>
+                <li>Module 11 회수 &mdash; 배위 기하와 hapticity가 그대로 쓰인다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 6: Case 4 &mdash; Luminescent Complexes -->
+    <section id="s6">
+        <div class="slide-content text-left px-20">
+            <h2>4. Case 4 &mdash; Luminescent Complexes</h2>
+            <ul class="todo mt-4">
+                <li>전이 유형 &mdash; $d$&ndash;$d$, LMCT, MLCT, ligand-centered</li>
+                <li>$\mathrm{[Ru(bpy)_3]^{2+}}$ &mdash; MLCT 삼중항, 긴 수명, 광산화환원 촉매</li>
+                <li>이리듐 착물 &mdash; OLED 인광. Module 10 회수: 무거운 원자 효과가 삼중항을 수확한다</li>
+                <li>란타넘족 &mdash; $f$&ndash;$f$ 전이는 좁고 선명하다. 안테나 효과</li>
+                <li>Module 09 회수 &mdash; 선택률이 수명을 정한다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 7: Case 5 &mdash; Inorganic Energy Materials -->
+    <section id="s7">
+        <div class="slide-content text-left px-20">
+            <h2>5. Case 5 &mdash; Inorganic Energy Materials</h2>
+            <ul class="todo mt-4">
+                <li>광촉매 물분해 &mdash; 밴드 가장자리와 산화환원 전위의 정렬</li>
+                <li>전기촉매 &mdash; OER/HER, 화산형(volcano) 그림과 흡착 에너지</li>
+                <li>전지 재료 &mdash; 층상 산화물, 올리빈 $\mathrm{LiFePO_4}$, 삽입 반응</li>
+                <li>연료전지 촉매 &mdash; 백금 사용량 저감</li>
+                <li>공통 논리 &mdash; 성능은 전자구조가 정하고, 전자구조는 대칭성이 정한다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 8: Case 6 &mdash; Bioinorganic Chemistry (검토 중) -->
+    <section id="s8">
+        <div class="slide-content text-left px-20">
+            <h2>6. Case 6 &mdash; Bioinorganic Chemistry (검토 중)</h2>
+            <ul class="todo mt-4">
+                <li>헤모글로빈·미오글로빈 &mdash; 산소 결합과 협동성</li>
+                <li>$\mathrm{Fe}$의 spin state 변화가 구조 변화를 일으킨다 &mdash; Module 07 회수</li>
+                <li>금속효소 &mdash; 질소고정효소, 시토크롬 P450</li>
+                <li><b>이 절은 로드맵의 열린 결정 사항이다</b> &mdash; 이전 커리큘럼의 독립 모듈이었고, 넣을지 확정되지 않았다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 9: Closing &mdash; The Whole Chain -->
+    <section id="s9">
+        <div class="slide-content text-left px-20">
+            <h2>7. Closing &mdash; The Whole Chain</h2>
+            <ul class="todo mt-4">
+                <li>대칭성 &rarr; 전자구조 &rarr; 결합 &rarr; 분광학 &rarr; 반응성 &rarr; 재료</li>
+                <li>15개 모듈이 하나의 사슬이었다는 것을 되짚는다</li>
+                <li>각 Case에서 어느 모듈이 회수되었는지 표로 정리</li>
+                <li>다음 단계 &mdash; 계산화학, 고체 물리, 촉매공학으로의 갈림길</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 40: End -->
+    <section id="s40" class="end">
+        <div class="slide-content text-center">
+            <div class="outline-banner" style="display:inline-block">Outline only</div>
+            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 15 &mdash; 뼈대</h2>
+            <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
+                절 구성과 핵심 식만 세워 둔 상태입니다. 본문 서술·도표·사례는 제작 단계에서 채웁니다.
+                구성 근거는 <b>ADV_INORGANIC_ROADMAP.md</b>, 전체 지도는
+                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>에 있습니다.
+            </p>
+            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
+            <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">&mdash; 과정 종료 &mdash;</p>
+        </div>
+    </section>
+</main>
+
+<script src="js/slide_engine.js"></script>
+</body>
+</html>

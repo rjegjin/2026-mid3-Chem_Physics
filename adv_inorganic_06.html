@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Inorganic Chemistry 06: MO Theory & SALCs</title>
+    <link href="css/tailwind.build.css" rel="stylesheet"/>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/presentation_mode.css">
+    <link rel="stylesheet" href="css/chem_style.css">
+    <style>
+        body { background-color: #ffffff; color: #0f172a; font-family: 'Inter', system-ui, sans-serif; }
+        .slide-content { background: #ffffff; border: 1px solid #e2e8f0; color: #0f172a; box-shadow: none; }
+        .math-box { background: #f8fafc; color: #0f172a; padding: 1.5rem; border: 2px solid #0f172a; border-radius: 0.5rem; margin: 1rem 0; }
+        .info-card { border-left: 6px solid #0f172a; padding: 1.25rem; background: #f1f5f9; margin-bottom: 1.5rem; }
+        .logic-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 900; font-size: 0.7rem; text-transform: uppercase; border: 1px solid #0f172a; }
+        h2 { color: #0f172a; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; border-bottom: 3px solid #0f172a; padding-bottom: 0.5rem; margin-bottom: 2rem; }
+        h3 { color: #334155; font-weight: 800; margin-top: 1.5rem; }
+        .step-box { background: #ffffff; border: 2px solid #e2e8f0; padding: 1rem; border-radius: 1rem; }
+        .bond-sigma { color: #166534; font-weight: bold; }
+        .bond-pi { color: #991b1b; font-weight: bold; }
+        table.qtable { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        table.qtable th, table.qtable td { border: 1px solid #e2e8f0; padding: 0.5rem 0.7rem; text-align: center; }
+        table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
+        .hist { border-left: 6px solid #94a3b8; background: #f8fafc; padding: 1rem 1.25rem; font-size: 0.9rem; color: #475569; }
+        .hist b { color: #0f172a; }
+        .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
+        .warn b { color: #78350f; }
+    </style>
+</head>
+<body class="presentation-mode">
+
+<main>
+    <!-- Slide 1: Title -->
+    <section id="s1">
+        <div class="slide-content text-center">
+            <p class="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-4">Advanced Inorganic Chemistry Series</p>
+            <h1 class="text-6xl font-black text-slate-900 mb-6 tracking-tighter leading-tight">Molecular Orbital Theory <br>& SALCs</h1>
+            <p class="text-xl text-slate-500 font-medium italic">"From Symmetry-Adapted Basis Sets to Complex Electronic Structure"</p>
+            <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
+            <p class="text-base font-bold text-slate-800">Lecture 06: The Projection Operator Method and MO Diagram Construction</p>
+        </div>
+    </section>
+
+    <!-- Slide 2: Prerequisite: LCAO -->
+    <section id="s2">
+        <div class="slide-content text-left px-20">
+            <h2>1. Review: LCAO-MO Theory</h2>
+            <p class="text-lg font-medium mb-6">Molecular Orbitals ($\Psi$) are formed by the <b>Linear Combination of Atomic Orbitals</b> ($\phi$).</p>
+            <div class="math-box text-center py-10">
+                $$ \Psi = c_1 \phi_1 + c_2 \phi_2 + \dots + c_n \phi_n $$
+            </div>
+            <div class="info-card mt-10">
+                <p class="font-black text-slate-900 uppercase text-xs mb-3">Two Primary Conditions for Interaction</p>
+                <ul class="text-sm space-y-3 font-medium text-slate-700">
+                    <li>● <b>Energy Proximity:</b> Atomic orbitals must have comparable energies.</li>
+                    <li>● <b>Symmetry Match:</b> The integral $\langle \phi_i | \hat{H} | \phi_j \rangle$ is non-zero ONLY if both orbitals belong to the same IR.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Concept of SALCs -->
+    <section id="s3">
+        <div class="slide-content text-left px-20">
+            <h2>2. Symmetry-Adapted Linear Combinations (SALCs)</h2>
+            <p class="text-base text-slate-700 mb-10">In multi-center systems, we group equivalent atomic orbitals into **Basis Sets** that transform according to the point group of the molecule.</p>
+            <div class="grid grid-cols-2 gap-10">
+                <div class="step-box">
+                    <h3 class="mt-0">The SALC Goal</h3>
+                    <p class="text-xs leading-relaxed">Instead of individual atomic orbitals, we use their linear combinations that match the IRs of the group. This decouples the secular determinant into smaller, manageable blocks.</p>
+                </div>
+                <div class="step-box bg-slate-50">
+                    <h3 class="mt-0">Why SALCs?</h3>
+                    <p class="text-xs leading-relaxed">Symmetry ensures that an orbital of $A_1$ symmetry cannot interact with an orbital of $B_1$ symmetry. SALCs automatically group orbitals by their interaction potential.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: The Projection Operator -->
+    <section id="s4">
+        <div class="slide-content text-left px-20">
+            <h2>3. The Projection Operator Method</h2>
+            <p class="text-lg font-bold mb-6">How do we mathematically derive SALCs? We use the <b>Projection Operator ($\hat{P}$)</b>.</p>
+            <div class="math-box py-10 text-center text-3xl">
+                $$ \hat{P}^{\Gamma_i} \phi = \frac{l_i}{h} \sum_R \chi_i(R) \hat{R} \phi $$
+            </div>
+            <div class="space-y-4 mt-8 font-medium text-sm">
+                <p>1. Start with one basis orbital (e.g., $\phi_1$).</p>
+                <p>2. Apply all symmetry operations ($\hat{R}$) of the point group to it.</p>
+                <p>3. Multiply each result by the corresponding character ($\chi_i$) from the table.</p>
+                <p>4. Sum them up to get the SALC for representation $\Gamma_i$.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Example H2O SALCs (Step 1) -->
+    <section id="s5">
+        <div class="slide-content text-left px-20">
+            <h2>4. Case Study: $H_2O$ Hydrogen 1s SALCs</h2>
+            <p class="mb-6 font-bold">Basis Set: $\{ s_1, s_2 \}$ (The two H 1s orbitals)</p>
+            <table class="char-table">
+                <thead>
+                    <tr><th>$C_{2v}$</th><th>$E$</th><th>$C_2$</th><th>$\sigma_v(xz)$</th><th>$\sigma_v'(yz)$</th></tr>
+                </thead>
+                <tbody class="font-black">
+                    <tr><td>$\hat{R} s_1$</td><td>$s_1$</td><td>$s_2$</td><td>$s_1$</td><td>$s_2$</td></tr>
+                    <tr class="bg-cyan-50"><td>$\chi(A_1)$</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+                    <tr class="bg-red-50"><td>$\chi(B_2)$</td><td>1</td><td>-1</td><td>-1</td><td>1</td></tr>
+                </tbody>
+            </table>
+            <p class="mt-8 text-xs font-bold text-slate-400 uppercase tracking-widest">Note: $\Gamma_{basis} = A_1 + B_2$</p>
+        </div>
+    </section>
+
+    <!-- Slide 6: Example H2O SALCs (Step 2) -->
+    <section id="s6">
+        <div class="slide-content text-left px-20">
+            <h2>5. Case Study: $H_2O$ SALC Derivation</h2>
+            <div class="space-y-8 mt-10">
+                <div class="p-6 border-2 border-slate-900 rounded-2xl">
+                    <p class="font-black text-indigo-700">$A_1$ SALC Calculation:</p>
+                    <p class="text-sm font-bold">$\Psi_{A_1} = (1)s_1 + (1)s_2 + (1)s_1 + (1)s_2 = 2(s_1 + s_2)$</p>
+                    <p class="text-xs text-slate-500 mt-2">$\rightarrow$ Normalizing: $N(s_1 + s_2)$ (Bonding Phase)</p>
+                </div>
+                <div class="p-6 border-2 border-slate-900 rounded-2xl">
+                    <p class="font-black text-rose-700">$B_2$ SALC Calculation:</p>
+                    <p class="text-sm font-bold">$\Psi_{B_2} = (1)s_1 + (-1)s_2 + (-1)s_1 + (1)s_2$ ?? </p>
+                    <p class="text-xs text-red-600 mt-2">Warning: Coordinate definitions (xz vs yz) can flip signs. In $C_{2v}$, $B_2$ typically maps to $s_1 - s_2$.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Central Atom Symmetry -->
+    <section id="s7">
+        <div class="slide-content text-left px-20">
+            <h2>6. Central Atom Orbitals (Oxygen)</h2>
+            <p class="mb-10 text-slate-600 italic">Consult the $C_{2v}$ Character Table for valence orbitals of Oxygen ($2s, 2p$):</p>
+            <div class="grid grid-cols-2 gap-10">
+                <div class="p-6 bg-slate-50 border rounded-xl">
+                    <ul class="text-sm space-y-4 font-black">
+                        <li>$2s$ Orbital: $A_1$</li>
+                        <li>$2p_z$ Orbital: $A_1$</li>
+                        <li>$2p_x$ Orbital: $B_1$</li>
+                        <li>$2p_y$ Orbital: $B_2$</li>
+                    </ul>
+                </div>
+                <div class="flex flex-col justify-center">
+                    <p class="text-sm font-medium">Interactions possible with H SALCs ($A_1, B_2$):</p>
+                    <ul class="text-xs list-disc pl-6 mt-2 space-y-2">
+                        <li>$A_1$ (H SALC) + $2s, 2p_z$ (O)</li>
+                        <li>$B_2$ (H SALC) + $2p_y$ (O)</li>
+                        <li class="text-red-600 font-bold">$2p_x$ (O) remains Non-Bonding ($B_1$)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: MO Diagram Construction -->
+    <section id="s8">
+        <div class="slide-content text-left px-20">
+            <h2>7. Constructing the MO Diagram</h2>
+            <ol class="list-decimal pl-6 space-y-4 font-bold text-slate-700">
+                <li>Determine Point Group ($C_{2v}$).</li>
+                <li>Find $\Gamma_{basis}$ for terminal atoms (SALCs).</li>
+                <li>Decompose $\Gamma_{basis}$ into IRs.</li>
+                <li>Identify symmetry of central atom orbitals.</li>
+                <li>Combine orbitals of the <b>SAME symmetry</b>.</li>
+                <li>Rank levels by node count and energy.</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- Slide: NH3 and BF3 -->
+    <section id="s9">
+        <div class="slide-content text-left px-20">
+            <h2>8. Beyond $H_2O$: $NH_3$ and $BF_3$</h2>
+            <p class="text-lg font-medium mb-6">The procedure does not change &mdash; only the point group and the number of peripheral atoms do.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="step-box">
+                    <p class="font-black">$NH_3$ &mdash; $C_{3v}$</p>
+                    <div class="math-box text-center" style="margin:0.75rem 0">$$ \Gamma_{\sigma}(3\times\text{H }1s) = A_1 + E $$</div>
+                    <ul class="text-sm space-y-2 font-medium text-slate-700 pl-6">
+                        <li>● N $2s$ and $2p_z$ both span $A_1$ &mdash; they mix, and the surviving $A_1$ combination is the lone pair.</li>
+                        <li>● N $(2p_x, 2p_y)$ span $E$ &mdash; matched by the ligand $E$ set.</li>
+                        <li>● Result: three bonding, three antibonding, one largely non-bonding $a_1$ lone pair pointing away from the H atoms.</li>
+                    </ul>
+                </div>
+                <div class="step-box">
+                    <p class="font-black">$BF_3$ &mdash; $D_{3h}$</p>
+                    <div class="math-box text-center" style="margin:0.75rem 0">$$ \Gamma_{\sigma}(3\times\text{F}) = A_1' + E' $$</div>
+                    <ul class="text-sm space-y-2 font-medium text-slate-700 pl-6">
+                        <li>● B $2s$ spans $A_1'$; B $(2p_x, 2p_y)$ span $E'$. Both matched.</li>
+                        <li>● B $2p_z$ spans $A_2''$ &mdash; <b>no $\sigma$ partner exists</b>. It is left empty and perpendicular to the plane.</li>
+                        <li>● That vacant $a_2''$ orbital <i>is</i> the Lewis acidity of $BF_3$, and it accepts $\pi$ donation from the F lone pairs.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="info-card mt-8">
+                <p class="font-black uppercase text-xs mb-3">The lesson</p>
+                <p class="text-sm font-medium text-slate-700">Symmetry tells us when an orbital has <b>no partner</b>. An unmatched orbital is not a failure of the method &mdash; it is a prediction, and in $BF_3$ it is the chemically most important orbital in the molecule.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide: CH4 and SF6 -->
+    <section id="s10">
+        <div class="slide-content text-left px-20">
+            <h2>9. High Symmetry: $CH_4$ and $SF_6$</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <p class="font-black text-lg">$CH_4$ &mdash; $T_d$</p>
+                    <div class="math-box text-center" style="margin:0.75rem 0">$$ \Gamma_{\sigma}(4\times\text{H }1s) = A_1 + T_2 $$</div>
+                    <ul class="text-sm space-y-2 font-medium text-slate-700 pl-6">
+                        <li>● C $2s \to A_1$; C $(2p_x,2p_y,2p_z) \to T_2$. Exact match, no orbital left over.</li>
+                        <li>● Eight valence electrons fill $a_1$ and the triply degenerate $t_2$.</li>
+                    </ul>
+                    <div class="warn mt-4">
+                        <b>Four equivalent bonds, two different orbital energies.</b> Photoelectron spectroscopy of $CH_4$ shows <b>two</b> ionisations, not one. The $sp^3$ hybrid picture predicts four degenerate bonding orbitals and is simply wrong about this observable. The MO picture predicts $a_1$ and $t_2$ at different energies, which is what is measured. Hybrid orbitals describe the <i>bond directions</i>, never the <i>orbital energies</i>.
+                    </div>
+                </div>
+                <div>
+                    <p class="font-black text-lg">$SF_6$ &mdash; $O_h$</p>
+                    <div class="math-box text-center" style="margin:0.75rem 0">$$ \Gamma_{\sigma}(6\times\text{F}) = A_{1g} + E_g + T_{1u} $$</div>
+                    <ul class="text-sm space-y-2 font-medium text-slate-700 pl-6">
+                        <li>● S $3s \to A_{1g}$, S $3p \to T_{1u}$. That accounts for four of the six ligand SALCs.</li>
+                        <li>● The $E_g$ pair has <b>no valence $s$ or $p$ partner</b> on sulfur. Its bonding combination is delocalised over the six F atoms.</li>
+                    </ul>
+                    <div class="warn mt-4">
+                        <b>No expanded octet is required.</b> The classical account invokes $3d$ participation to reach twelve electrons around sulfur. Modern calculations put $3d$ occupancy near zero. Six bonds arise from four sulfur-based bonding orbitals plus two ligand-based $e_g$ combinations &mdash; hypervalency is a <b>delocalisation</b> result, and it is the same $\Gamma_\sigma$ we will reuse for $[ML_6]$ in &sect;10.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide: Walsh diagrams -->
+    <section id="s11">
+        <div class="slide-content text-left px-20">
+            <h2>10. Walsh Diagrams</h2>
+            <p class="text-lg font-medium mb-6">A Walsh diagram plots <b>orbital energy against a geometric coordinate</b> &mdash; usually a bond angle. It answers a question no single MO diagram can: <i>which shape does the molecule choose?</i></p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <svg viewBox="0 0 420 300" class="w-full" role="img"
+                         aria-label="Walsh diagram for a triatomic AH2 molecule. Moving from the linear geometry on the left to the bent geometry on the right, one orbital falls steeply in energy while another rises slightly and a third is almost flat. The steeply falling orbital is the one that decides the geometry when it is occupied.">
+                        <rect x="0" y="0" width="420" height="300" fill="#f8fafc" rx="10"></rect>
+                        <line x1="70" y1="30" x2="70" y2="255" stroke="#334155" stroke-width="2"></line>
+                        <line x1="70" y1="255" x2="390" y2="255" stroke="#334155" stroke-width="2"></line>
+                        <text x="12" y="140" fill="#475569" font-size="12" font-weight="bold">Energy</text>
+                        <text x="76" y="278" fill="#475569" font-size="12" font-weight="bold">180&#176; (linear)</text>
+                        <text x="300" y="278" fill="#475569" font-size="12" font-weight="bold">90&#176; (bent)</text>
+                        <!-- steeply falling: 2a1 (from pi_u) -->
+                        <path d="M 80 78 Q 220 108 380 196" fill="none" stroke="#b91c1c" stroke-width="3"></path>
+                        <text x="308" y="180" fill="#b91c1c" font-size="13" font-weight="bold">2a&#8321;</text>
+                        <!-- nearly flat: 1b1 -->
+                        <path d="M 80 84 Q 220 84 380 90" fill="none" stroke="#475569" stroke-width="3" stroke-dasharray="6 4"></path>
+                        <text x="336" y="80" fill="#475569" font-size="13" font-weight="bold">1b&#8321;</text>
+                        <!-- rising slightly: 1b2 -->
+                        <path d="M 80 176 Q 220 168 380 150" fill="none" stroke="#166534" stroke-width="3"></path>
+                        <text x="336" y="142" fill="#166534" font-size="13" font-weight="bold">1b&#8322;</text>
+                        <!-- deep, flat: 1a1 -->
+                        <path d="M 80 226 Q 220 228 380 230" fill="none" stroke="#1d4ed8" stroke-width="3"></path>
+                        <text x="336" y="246" fill="#1d4ed8" font-size="13" font-weight="bold">1a&#8321;</text>
+                        <text x="88" y="52" fill="#64748b" font-size="11">schematic — slopes matter, values do not</text>
+                    </svg>
+                    <p class="text-sm text-slate-500 mt-3">Only the <b>slope</b> of each line carries information. Absolute energies in a Walsh diagram are not meaningful.</p>
+                </div>
+                <div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-3">Walsh's rule</p>
+                        <p class="text-sm font-medium text-slate-700">The molecule adopts the geometry that <b>minimises the sum of occupied orbital energies</b>. In practice: look at the highest occupied orbital and follow its line. If it falls on bending, the molecule bends.</p>
+                    </div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-3">Why $2a_1$ falls so steeply</p>
+                        <p class="text-sm font-medium text-slate-700">In the linear molecule it is a member of the non-bonding $\pi_u$ pair on the central atom. Bending destroys the degeneracy: one component acquires central-atom $s$ character and can now overlap with both H atoms, so it is stabilised. Its partner $1b_1$ stays perpendicular to the plane and is untouched &mdash; hence the flat dashed line.</p>
+                    </div>
+                    <div class="warn">
+                        <b>Limits.</b> Walsh diagrams are one-dimensional and qualitative. They order geometries; they do not give bond angles. Where two lines have opposing slopes of similar magnitude &mdash; or where the species is a radical &mdash; the prediction can fail.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide: AH2 bent vs linear -->
+    <section id="s12">
+        <div class="slide-content text-left px-20">
+            <h2>11. $AH_2$: Reading Geometry Off the Electron Count</h2>
+            <p class="text-lg font-medium mb-6">The whole $AH_2$ series follows from counting valence electrons and asking whether $2a_1$ is occupied.</p>
+            <div class="overflow-x-auto">
+            <table class="qtable">
+                <thead><tr><th>Molecule</th><th>Valence $e^-$</th><th>Configuration</th><th>$2a_1$ occupied?</th><th>Geometry</th><th>Observed angle</th></tr></thead>
+                <tbody>
+                    <tr><td>$BeH_2$</td><td>4</td><td>$(1a_1)^2(1b_2)^2$</td><td>No</td><td><b>Linear</b></td><td>180&#176;</td></tr>
+                    <tr><td>$BH_2$</td><td>5</td><td>$\dots(2a_1)^1$</td><td>Singly</td><td>Bent</td><td>&asymp; 131&#176;</td></tr>
+                    <tr><td>$CH_2$ (triplet)</td><td>6</td><td>$\dots(2a_1)^1(1b_1)^1$</td><td>Singly</td><td>Bent</td><td>&asymp; 136&#176;</td></tr>
+                    <tr><td>$CH_2$ (singlet)</td><td>6</td><td>$\dots(2a_1)^2$</td><td>Doubly</td><td>Bent</td><td>&asymp; 102&#176;</td></tr>
+                    <tr><td>$NH_2$</td><td>7</td><td>$\dots(2a_1)^2(1b_1)^1$</td><td>Doubly</td><td>Bent</td><td>&asymp; 103&#176;</td></tr>
+                    <tr><td>$H_2O$</td><td>8</td><td>$\dots(2a_1)^2(1b_1)^2$</td><td>Doubly</td><td><b>Bent</b></td><td>104.5&#176;</td></tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-8">
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">The rule in one line</p>
+                    <p class="text-sm font-medium text-slate-700">$AH_2$ with <b>4 valence electrons is linear</b>; with <b>5 to 8 it is bent</b>, and the angle tightens as $2a_1$ goes from singly to doubly occupied. Compare the two states of $CH_2$: same molecule, same electron count, 34&#176; apart &mdash; because one of them puts a second electron into the steeply falling orbital.</p>
+                </div>
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">What this buys over VSEPR</p>
+                    <p class="text-sm font-medium text-slate-700">VSEPR also predicts bent $H_2O$, and faster. But VSEPR cannot distinguish singlet from triplet $CH_2$, cannot say <i>why</i> the angle tightens, and has nothing to say about the two ionisation energies of $CH_4$ in &sect;9. Orbital symmetry explains the cases where electron-pair repulsion runs out of arguments.</p>
+                </div>
+            </div>
+            <div class="hist mt-6">
+                <b>Walsh, 1953.</b> A. D. Walsh published the diagrams in a series of ten consecutive papers in <i>J. Chem. Soc.</i>, built almost entirely from spectroscopic bond angles rather than calculation. The correlation lines were drawn by hand and by inference; later <i>ab initio</i> work confirmed most of the slopes he guessed.
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Octahedral Complexes (Part 1) -->
+    <section id="s13">
+        <div class="slide-content text-left px-20">
+            <h2>12. Advanced: $O_h$ $\sigma$-bonding</h2>
+            <p class="mb-6 font-medium">In transition metal complexes (e.g., $[Co(NH_3)_6]^{3+}$), we use the 6 ligand lone pair vectors as basis set.</p>
+            <div class="math-box text-center">
+                $$ \Gamma_{\sigma} = A_{1g} + E_g + T_{1u} $$
+            </div>
+            <p class="mt-6 text-sm">Matching Metal d-orbitals in $O_h$:</p>
+            <ul class="text-xs space-y-2 font-bold pl-6 mt-2">
+                <li>$s$ orbital: $A_{1g}$ (Match!)</li>
+                <li>$p$ orbitals: $T_{1u}$ (Match!)</li>
+                <li>$d$ orbitals ($d_{z^2}, d_{x^2-y^2}$): $E_g$ (Match!)</li>
+                <li>$d$ orbitals ($d_{xy}, d_{yz}, d_{zx}$): $T_{2g}$ (Non-Bonding!)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 10: Ligand Field Theory Transition -->
+    <section id="s14">
+        <div class="slide-content text-left px-20">
+            <h2>13. Transition to Ligand Field Theory</h2>
+            <p class="text-base text-slate-700 mb-8">The splitting of d-orbitals in a complex is a direct result of these symmetry interactions.</p>
+            <div class="grid grid-cols-2 gap-10">
+                <div class="p-6 border-l-8 border-cyan-600 bg-cyan-50">
+                    <p class="font-black text-cyan-900">$\sigma$-Bonding</p>
+                    <p class="text-xs mt-2">Increases the energy of $e_g$ orbitals (Stronger overlap).</p>
+                </div>
+                <div class="p-6 border-l-8 border-red-600 bg-red-50">
+                    <p class="font-black text-red-900">$\pi$-Bonding</p>
+                    <p class="text-xs mt-2">Affects the $t_{2g}$ orbitals. Can be donor (weak field) or acceptor (strong field).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: Summary Checklist -->
+    <section id="s15">
+        <div class="slide-content text-left px-20">
+            <h2>14. Module 6 Key Competencies</h2>
+            <div class="space-y-4 mt-10">
+                <div class="p-4 border-2 border-slate-900 rounded-xl font-bold flex items-center gap-4">
+                    <span class="text-2xl">✅</span>
+                    <p>Ability to use the <b>Projection Operator</b> to derive SALCs.</p>
+                </div>
+                <div class="p-4 border-2 border-slate-900 rounded-xl font-bold flex items-center gap-4">
+                    <span class="text-2xl">✅</span>
+                    <p>Skill in matching SALC symmetries with central atom orbitals.</p>
+                </div>
+                <div class="p-4 border-2 border-slate-900 rounded-xl font-bold flex items-center gap-4">
+                    <span class="text-2xl">✅</span>
+                    <p>Understanding the symmetry origin of <b>Non-Bonding</b> orbitals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 40: End -->
+    <section id="s40" class="end">
+        <div class="slide-content text-center">
+            <h2 class="border-none text-5xl font-black mb-10 tracking-tighter">Module 6 Complete</h2>
+            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest">Next Phase:</p>
+            <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Transition Metal Chemistry <br>& Electronic Spectra</p>
+            <div class="mt-20 p-8 border-t-2 border-slate-100 italic font-serif text-slate-400">
+                "Symmetry is the key that unlocks the complexity of the chemical bond."
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="js/slide_engine.js"></script>
+</body>
+</html>

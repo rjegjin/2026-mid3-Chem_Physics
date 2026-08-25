@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Inorganic Chemistry 10: Spin–Orbit Coupling, Relativistic Effects &amp; Magnetism</title>
+    <link href="css/tailwind.build.css" rel="stylesheet"/>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/presentation_mode.css">
+    <link rel="stylesheet" href="css/chem_style.css">
+    <style>
+        body { background-color: #ffffff; color: #0f172a; font-family: 'Inter', system-ui, sans-serif; }
+        .slide-content { background: #ffffff; border: 1px solid #e2e8f0; color: #0f172a; box-shadow: none; }
+        .math-box { background: #f8fafc; color: #0f172a; padding: 1.5rem; border: 2px solid #0f172a; border-radius: 0.5rem; margin: 1rem 0; }
+        .info-card { border-left: 6px solid #0f172a; padding: 1.25rem; background: #f1f5f9; margin-bottom: 1.5rem; }
+        .logic-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 900; font-size: 0.7rem; text-transform: uppercase; border: 1px solid #0f172a; }
+        h2 { color: #0f172a; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; border-bottom: 3px solid #0f172a; padding-bottom: 0.5rem; margin-bottom: 2rem; }
+        h3 { color: #334155; font-weight: 800; margin-top: 1.5rem; }
+        .step-box { background: #ffffff; border: 2px solid #e2e8f0; padding: 1rem; border-radius: 1rem; }
+        table.qtable { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        table.qtable th, table.qtable td { border: 1px solid #e2e8f0; padding: 0.5rem 0.7rem; text-align: center; }
+        table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
+        .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
+        .warn b { color: #78350f; }
+        /* 뼈대 문서 표식 — 완성본과 혼동하지 않게 한다 */
+        .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+        .todo { list-style: none; padding-left: 0; }
+        .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
+        .todo li::before { content: "\25A1"; color: #94a3b8; font-weight: 900; margin-right: 0.6rem; }
+        .todo li b { color: #0f172a; }
+    </style>
+</head>
+<body class="presentation-mode">
+
+<main>
+    <!-- Slide 1: Title -->
+    <section id="s1">
+        <div class="slide-content text-center">
+            <p class="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-4">Advanced Inorganic Chemistry Series</p>
+            <h1 class="text-6xl font-black text-slate-900 mb-6 tracking-tighter leading-tight">Spin&ndash;Orbit Coupling<br>&amp; Relativistic Effects</h1>
+            <p class="text-xl text-slate-500 font-medium italic">"Gold is yellow and mercury is liquid for the same reason."</p>
+            <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
+            <p class="text-base font-bold text-slate-800">Lecture 10: From $LS$ to $jj$, and Why Heavy Elements Misbehave</p>
+            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; 본문 미작성</div>
+        </div>
+    </section>
+
+    <!-- Slide 2: Scope -->
+    <section id="s2">
+        <div class="slide-content text-left px-20">
+            <h2>0. Scope</h2>
+            <div class="info-card">
+                <p class="font-black uppercase text-xs mb-3">Central question</p>
+                <p class="text-lg font-medium text-slate-800">무거운 원소에서 전자구조는 왜 달라지는가?</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="step-box">
+                    <span class="logic-tag">Requires</span>
+                    <p class="text-sm text-slate-700 mt-3">Module 04 &mdash; 각운동량 &middot; Module 09 &mdash; 항 기호와 $LS$ 결합</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Feeds</span>
+                    <p class="text-sm text-slate-700 mt-3">Module 11 &mdash; 4d/5d 금속의 결합 &middot; Module 15 &mdash; 발광 착물의 삼중항 수확</p>
+                </div>
+            </div>
+            <div class="warn mt-8"><b>Module 09와 이 모듈 사이가 이 과정의 가장 중요한 연결점이다.</b> 09는 전자 반발이 지배하는 극한, 10은 spin&ndash;orbit이 그에 필적하거나 이기는 극한을 다룬다.</div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Two Ways to Add Angular Momenta -->
+    <section id="s3">
+        <div class="slide-content text-left px-20">
+            <h2>1. Two Ways to Add Angular Momenta</h2>
+            <div class="math-box text-center py-6">
+                $$ \hat{H}_{SO} \approx \lambda\, \mathbf{L}\cdot\mathbf{S} $$
+            </div>
+            <ul class="todo mt-4">
+                <li><b>$LS$(Russell&ndash;Saunders)</b> &mdash; $\mathbf{L}$, $\mathbf{S}$를 먼저 합성한 뒤 $\mathbf{J} = \mathbf{L}+\mathbf{S}$</li>
+                <li><b>$jj$</b> &mdash; 전자마다 $\mathbf{j}_i = \boldsymbol{\ell}_i + \mathbf{s}_i$를 먼저, 그 뒤 $\mathbf{J} = \sum_i \mathbf{j}_i$</li>
+                <li>어느 쪽이 맞는지는 <b>전자 반발과 $\lambda$의 크기 비교</b>가 정한다</li>
+                <li>그 사이가 intermediate coupling &mdash; 실제 4d/5d 금속이 여기 있다</li>
+                <li>$\lambda$가 $Z^4$에 가깝게 커진다는 사실</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 4: Spin&ndash;Orbit Splitting -->
+    <section id="s4">
+        <div class="slide-content text-left px-20">
+            <h2>2. Spin&ndash;Orbit Splitting</h2>
+            <div class="math-box text-center py-6">
+                $$ E_J = \tfrac{\lambda}{2}\left[J(J+1) - L(L+1) - S(S+1)\right] $$
+            </div>
+            <ul class="todo mt-4">
+                <li>Land&eacute; 간격 규칙 &mdash; 이웃 준위 간격이 $J$에 비례</li>
+                <li>정상 다중항과 역전 다중항 &mdash; 반 이하/반 이상 껍질</li>
+                <li>$p^{1/2}$, $p^{3/2}$ 표기와 미세 구조</li>
+                <li>란타넘족에서 $J$가 실질적 좋은 양자수가 되는 이유</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 5: Magnetism Beyond Spin-Only -->
+    <section id="s5">
+        <div class="slide-content text-left px-20">
+            <h2>3. Magnetism Beyond Spin-Only</h2>
+            <div class="math-box text-center py-6">
+                $$ \mu_{\text{eff}} = \sqrt{4S(S+1) + L(L+1)}\ \mu_B $$
+            </div>
+            <ul class="todo mt-4">
+                <li>궤도 각운동량의 <b>quenching</b> &mdash; 리간드장이 $L_z$를 좋은 양자수에서 밀어낸다</li>
+                <li>quenching이 완전하지 않은 경우 &mdash; $T$ 항 바닥 상태</li>
+                <li>3d 금속에서 spin-only가 잘 맞고 란타넘족에서 안 맞는 이유</li>
+                <li>Curie 법칙과 온도 의존성</li>
+                <li>Zeeman 효과 &mdash; 자기장 안에서의 준위 분리</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 6: Relativistic Effects -->
+    <section id="s6">
+        <div class="slide-content text-left px-20">
+            <h2>4. Relativistic Effects</h2>
+            <ul class="todo mt-4">
+                <li>내각 전자의 속도가 $c$에 근접 &rarr; 질량 증가 &rarr; <b>$s$, $p_{1/2}$ 수축</b></li>
+                <li>수축된 $s$가 핵을 더 잘 가림 &rarr; <b>$d$, $f$ 팽창과 불안정화</b></li>
+                <li>spin&ndash;orbit 분리 자체의 증대</li>
+                <li>세 효과는 같은 뿌리에서 나오며 서로 경쟁한다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 7: Four Consequences You Can See -->
+    <section id="s7">
+        <div class="slide-content text-left px-20">
+            <h2>5. Four Consequences You Can See</h2>
+            <ul class="todo mt-4">
+                <li><b>금의 색</b> &mdash; $5d \to 6s$ 간격이 축소되어 청색을 흡수한다. 은은 자외선이라 흰색</li>
+                <li><b>수은의 낮은 녹는점</b> &mdash; $6s$가 수축·안정화되어 금속 결합에 잘 참여하지 않는다</li>
+                <li><b>$\mathrm{Pb}$의 inert-pair 효과</b> &mdash; $6s^2$가 비활성. $\mathrm{Pb(II)}$가 $\mathrm{Pb(IV)}$보다 안정</li>
+                <li><b>납축전지</b>가 작동하는 것도 상대론 효과의 몫이라는 계산 결과(2011)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 8: Key Competencies -->
+    <section id="s8">
+        <div class="slide-content text-left px-20">
+            <h2>6. Key Competencies</h2>
+            <ul class="todo mt-4">
+                <li>$LS$와 $jj$ 결합의 적용 조건을 구별해 말한다</li>
+                <li>Land&eacute; 간격 규칙으로 미세 구조 준위를 배열한다</li>
+                <li>spin-only 식이 깨지는 경우를 예측한다</li>
+                <li>금·수은·납의 이상 성질을 하나의 원인으로 설명한다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 40: End -->
+    <section id="s40" class="end">
+        <div class="slide-content text-center">
+            <div class="outline-banner" style="display:inline-block">Outline only</div>
+            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 10 &mdash; 뼈대</h2>
+            <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
+                절 구성과 핵심 식만 세워 둔 상태입니다. 본문 서술·도표·사례는 제작 단계에서 채웁니다.
+                구성 근거는 <b>ADV_INORGANIC_ROADMAP.md</b>, 전체 지도는
+                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>에 있습니다.
+            </p>
+            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
+            <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Metal&ndash;Ligand Bonding<br>&amp; Electron Counting</p>
+        </div>
+    </section>
+</main>
+
+<script src="js/slide_engine.js"></script>
+</body>
+</html>

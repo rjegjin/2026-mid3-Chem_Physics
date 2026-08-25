@@ -1,0 +1,23 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-08-24T15:10:20.752Z",
+        "reason": "adv_inorganic 계열 5개 + syllabus.html이 공유하는 본문 서체. 개별 파일에서 새로 고른 값이 아니다."
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "adv_inorganic_*.html"
+        ],
+        "createdAt": "2026-08-24T15:10:29.762Z",
+        "reason": "border-left 6px는 .info-card로 adv 계열 전체가 쓰는 어휘다. 계열 일관성이 목적이며, 수업 차시 HTML에는 적용하지 않는다."
+      }
+    ]
+  }
+}

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Inorganic Chemistry 07: Crystal Field Theory</title>
+    <link href="css/tailwind.build.css" rel="stylesheet"/>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/presentation_mode.css">
+    <link rel="stylesheet" href="css/chem_style.css">
+    <style>
+        body { background-color: #ffffff; color: #0f172a; font-family: 'Inter', system-ui, sans-serif; }
+        .slide-content { background: #ffffff; border: 1px solid #e2e8f0; color: #0f172a; box-shadow: none; }
+        .math-box { background: #f8fafc; color: #0f172a; padding: 1.5rem; border: 2px solid #0f172a; border-radius: 0.5rem; margin: 1rem 0; }
+        .info-card { border-left: 6px solid #0f172a; padding: 1.25rem; background: #f1f5f9; margin-bottom: 1.5rem; }
+        .logic-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 900; font-size: 0.7rem; text-transform: uppercase; border: 1px solid #0f172a; }
+        h2 { color: #0f172a; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; border-bottom: 3px solid #0f172a; padding-bottom: 0.5rem; margin-bottom: 2rem; }
+        h3 { color: #334155; font-weight: 800; margin-top: 1.5rem; }
+        .step-box { background: #ffffff; border: 2px solid #e2e8f0; padding: 1rem; border-radius: 1rem; }
+        table.qtable { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        table.qtable th, table.qtable td { border: 1px solid #e2e8f0; padding: 0.5rem 0.7rem; text-align: center; }
+        table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
+        .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
+        .warn b { color: #78350f; }
+        /* 뼈대 문서 표식 — 완성본과 혼동하지 않게 한다 */
+        .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+        .todo { list-style: none; padding-left: 0; }
+        .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
+        .todo li::before { content: "\25A1"; color: #94a3b8; font-weight: 900; margin-right: 0.6rem; }
+        .todo li b { color: #0f172a; }
+    </style>
+</head>
+<body class="presentation-mode">
+
+<main>
+    <!-- Slide 1: Title -->
+    <section id="s1">
+        <div class="slide-content text-center">
+            <p class="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-4">Advanced Inorganic Chemistry Series</p>
+            <h1 class="text-6xl font-black text-slate-900 mb-6 tracking-tighter leading-tight">Crystal Field Theory</h1>
+            <p class="text-xl text-slate-500 font-medium italic">"A purely electrostatic lie that predicts the right colours."</p>
+            <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
+            <p class="text-base font-bold text-slate-800">Lecture 07: $d$-Orbital Splitting, CFSE, and the Spin-State Competition</p>
+            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; 본문 미작성</div>
+        </div>
+    </section>
+
+    <!-- Slide 2: Scope -->
+    <section id="s2">
+        <div class="slide-content text-left px-20">
+            <h2>0. Scope</h2>
+            <div class="info-card">
+                <p class="font-black uppercase text-xs mb-3">Central question</p>
+                <p class="text-lg font-medium text-slate-800">ligand가 $d$ orbital energy를 어떻게 변화시키는가?</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="step-box">
+                    <span class="logic-tag">Requires</span>
+                    <p class="text-sm text-slate-700 mt-3">Module 01&ndash;02 대칭성 &middot; Module 04 $d^n$ 이온의 성립</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Feeds</span>
+                    <p class="text-sm text-slate-700 mt-3">Module 08 &mdash; 같은 갈라짐을 MO로 다시 유도한다. Module 09 &mdash; $\Delta_o$가 스펙트럼의 눈금이 된다</p>
+                </div>
+            </div>
+            <div class="warn mt-8"><b>모형의 한계를 먼저 밝힌다.</b> CFT는 리간드를 점전하로 본다. 공유 결합이 없으므로 분광화학적 계열의 순서를 설명하지 못한다 &mdash; 그 실패가 Module 08이 존재하는 이유다.</div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Removing the Degeneracy -->
+    <section id="s3">
+        <div class="slide-content text-left px-20">
+            <h2>1. Removing the Degeneracy</h2>
+            <div class="math-box text-center py-6">
+                $$ d \;\longrightarrow\; t_{2g} + e_g \quad (O_h) $$
+            </div>
+            <ul class="todo mt-4">
+                <li>자유 이온의 5개 $d$ 오비탈은 축퇴되어 있다</li>
+                <li>팔면체 장: $e_g$($d_{z^2}, d_{x^2-y^2}$)는 리간드를 <b>향하므로</b> 올라간다</li>
+                <li>$t_{2g}$($d_{xy}, d_{yz}, d_{zx}$)는 리간드 <b>사이</b>를 향하므로 내려간다</li>
+                <li>무게중심 보존(barycentre) &mdash; $+0.6\Delta_o$ 둘, $-0.4\Delta_o$ 셋</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 4: Other Geometries -->
+    <section id="s4">
+        <div class="slide-content text-left px-20">
+            <h2>2. Other Geometries</h2>
+            <div class="math-box text-center py-6">
+                $$ \Delta_t \approx \tfrac{4}{9}\,\Delta_o $$
+            </div>
+            <ul class="todo mt-4">
+                <li>사면체 &mdash; 라벨이 뒤집힌다($e$ 아래, $t_2$ 위), 리간드 수도 적다</li>
+                <li>사면체 착물이 거의 항상 high spin인 이유</li>
+                <li>평면사각 &mdash; $z$축 리간드를 무한히 멀리 보낸 극한</li>
+                <li>$d^8$ 평면사각 &mdash; $\mathrm{Ni^{2+}}$, $\mathrm{Pd^{2+}}$, $\mathrm{Pt^{2+}}$</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 5: Crystal Field Stabilisation Energy -->
+    <section id="s5">
+        <div class="slide-content text-left px-20">
+            <h2>3. Crystal Field Stabilisation Energy</h2>
+            <div class="math-box text-center py-6">
+                $$ \mathrm{CFSE} = \left(-0.4\,n_{t_{2g}} + 0.6\,n_{e_g}\right)\Delta_o + m P $$
+            </div>
+            <ul class="todo mt-4">
+                <li>$d^1$&ndash;$d^{10}$ CFSE 표 &mdash; high spin / low spin 양쪽</li>
+                <li>수화 엔탈피의 이중 봉우리 곡선 &mdash; CFSE의 실험적 증거</li>
+                <li>이온 반지름의 불규칙성</li>
+                <li><b>주의</b> &mdash; CFSE는 전체 결합 에너지의 작은 몫이다. 추세를 설명하지 절대값을 주지 않는다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 6: High Spin vs Low Spin -->
+    <section id="s6">
+        <div class="slide-content text-left px-20">
+            <h2>4. High Spin vs Low Spin</h2>
+            <div class="math-box text-center py-6">
+                $$ \Delta_o \;\lessgtr\; P $$
+            </div>
+            <ul class="todo mt-4">
+                <li>$\Delta_o$ 대 짝지음 에너지 $P$의 경쟁</li>
+                <li>$d^4$&ndash;$d^7$에서만 선택지가 생긴다</li>
+                <li>$\Delta_o$를 키우는 것: 높은 산화수, 3d &lt; 4d &lt; 5d, 강한 장 리간드</li>
+                <li>Module 04 회수 &mdash; $P$ 안에는 교환 안정화의 손실이 들어 있다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 7: Magnetism -->
+    <section id="s7">
+        <div class="slide-content text-left px-20">
+            <h2>5. Magnetism</h2>
+            <div class="math-box text-center py-6">
+                $$ \mu_{\text{s.o.}} = \sqrt{n(n+2)}\ \mu_B $$
+            </div>
+            <ul class="todo mt-4">
+                <li>홀전자 수 → spin-only 자기 모멘트</li>
+                <li>실측값과의 편차 &mdash; 궤도 기여가 남아 있는 경우</li>
+                <li><b>Module 10 예고</b> &mdash; 언제 spin-only가 깨지는가</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 8: Jahn&ndash;Teller Distortion -->
+    <section id="s8">
+        <div class="slide-content text-left px-20">
+            <h2>6. Jahn&ndash;Teller Distortion</h2>
+            <ul class="todo mt-4">
+                <li>정리: 축퇴된 바닥 상태의 비선형 분자는 왜곡되어 축퇴를 푼다</li>
+                <li>$e_g$ 축퇴가 클수록 왜곡이 크다 &mdash; $d^9$($\mathrm{Cu^{2+}}$), high spin $d^4$</li>
+                <li>$t_{2g}$ 축퇴는 약한 왜곡만 만든다</li>
+                <li>$\mathrm{[Cu(H_2O)_6]^{2+}}$의 축 신장</li>
+                <li><b>과학사</b> &mdash; Jahn &amp; Teller 1937</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 9: Key Competencies -->
+    <section id="s9">
+        <div class="slide-content text-left px-20">
+            <h2>7. Key Competencies</h2>
+            <ul class="todo mt-4">
+                <li>임의의 $d^n$과 기하에 대해 갈라짐 도표를 그리고 CFSE를 구한다</li>
+                <li>high/low spin을 $\Delta_o$ 대 $P$로 판정한다</li>
+                <li>spin-only 식으로 자기 모멘트를 예측하고 편차를 설명한다</li>
+                <li>CFT가 <b>설명하지 못하는</b> 것을 하나 든다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 40: End -->
+    <section id="s40" class="end">
+        <div class="slide-content text-center">
+            <div class="outline-banner" style="display:inline-block">Outline only</div>
+            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 7 &mdash; 뼈대</h2>
+            <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
+                절 구성과 핵심 식만 세워 둔 상태입니다. 본문 서술·도표·사례는 제작 단계에서 채웁니다.
+                구성 근거는 <b>ADV_INORGANIC_ROADMAP.md</b>, 전체 지도는
+                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>에 있습니다.
+            </p>
+            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
+            <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Ligand Field Theory</p>
+        </div>
+    </section>
+</main>
+
+<script src="js/slide_engine.js"></script>
+</body>
+</html>

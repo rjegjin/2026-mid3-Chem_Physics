@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Inorganic Chemistry 11: Metal–Ligand Bonding &amp; Electron Counting</title>
+    <link href="css/tailwind.build.css" rel="stylesheet"/>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/presentation_mode.css">
+    <link rel="stylesheet" href="css/chem_style.css">
+    <style>
+        body { background-color: #ffffff; color: #0f172a; font-family: 'Inter', system-ui, sans-serif; }
+        .slide-content { background: #ffffff; border: 1px solid #e2e8f0; color: #0f172a; box-shadow: none; }
+        .math-box { background: #f8fafc; color: #0f172a; padding: 1.5rem; border: 2px solid #0f172a; border-radius: 0.5rem; margin: 1rem 0; }
+        .info-card { border-left: 6px solid #0f172a; padding: 1.25rem; background: #f1f5f9; margin-bottom: 1.5rem; }
+        .logic-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 900; font-size: 0.7rem; text-transform: uppercase; border: 1px solid #0f172a; }
+        h2 { color: #0f172a; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; border-bottom: 3px solid #0f172a; padding-bottom: 0.5rem; margin-bottom: 2rem; }
+        h3 { color: #334155; font-weight: 800; margin-top: 1.5rem; }
+        .step-box { background: #ffffff; border: 2px solid #e2e8f0; padding: 1rem; border-radius: 1rem; }
+        table.qtable { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        table.qtable th, table.qtable td { border: 1px solid #e2e8f0; padding: 0.5rem 0.7rem; text-align: center; }
+        table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
+        .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
+        .warn b { color: #78350f; }
+        /* 뼈대 문서 표식 — 완성본과 혼동하지 않게 한다 */
+        .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+        .todo { list-style: none; padding-left: 0; }
+        .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
+        .todo li::before { content: "\25A1"; color: #94a3b8; font-weight: 900; margin-right: 0.6rem; }
+        .todo li b { color: #0f172a; }
+    </style>
+</head>
+<body class="presentation-mode">
+
+<main>
+    <!-- Slide 1: Title -->
+    <section id="s1">
+        <div class="slide-content text-center">
+            <p class="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-4">Advanced Inorganic Chemistry Series</p>
+            <h1 class="text-6xl font-black text-slate-900 mb-6 tracking-tighter leading-tight">Metal&ndash;Ligand Bonding<br>&amp; Electron Counting</h1>
+            <p class="text-xl text-slate-500 font-medium italic">"Count the electrons and the structure usually tells you what it is."</p>
+            <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
+            <p class="text-base font-bold text-slate-800">Lecture 11: The 18-Electron Rule, Hapticity, and Back-Donation</p>
+            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; 본문 미작성</div>
+        </div>
+    </section>
+
+    <!-- Slide 2: Scope -->
+    <section id="s2">
+        <div class="slide-content text-left px-20">
+            <h2>0. Scope</h2>
+            <div class="info-card">
+                <p class="font-black uppercase text-xs mb-3">Central question</p>
+                <p class="text-lg font-medium text-slate-800">금속&ndash;유기 ligand 결합을 어떻게 해석하는가?</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="step-box">
+                    <span class="logic-tag">Requires</span>
+                    <p class="text-sm text-slate-700 mt-3">Module 05 &mdash; CO의 HOMO/LUMO &middot; Module 08 &mdash; $\pi$ acceptor</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Feeds</span>
+                    <p class="text-sm text-slate-700 mt-3">Module 12 &mdash; 모든 elementary step이 전자수 변화로 기술된다</p>
+                </div>
+            </div>
+            <div class="warn mt-8"><b>무기화학에서 유기금속화학으로 넘어가는 자리다.</b> 여기서 익힌 세기(counting)가 Module 12&ndash;13의 유일한 분석 도구가 된다.</div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Two Counting Conventions -->
+    <section id="s3">
+        <div class="slide-content text-left px-20">
+            <h2>1. Two Counting Conventions</h2>
+            <div class="math-box text-center py-6">
+                $$ N_e = d^{\,n} + \sum(\text{ligand contributions}) $$
+            </div>
+            <ul class="todo mt-4">
+                <li><b>산화수법(ionic)</b> &mdash; 리간드를 이온으로 떼어 낸다</li>
+                <li><b>중성법(covalent)</b> &mdash; 리간드를 중성 조각으로 떼어 낸다</li>
+                <li>두 방법은 <b>항상 같은 총 전자수</b>를 준다 &mdash; 다른 값이 나오면 계산 실수다</li>
+                <li>산화수가 필요한 곳과 총 전자수가 필요한 곳을 구별한다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 4: The 18-Electron Rule -->
+    <section id="s4">
+        <div class="slide-content text-left px-20">
+            <h2>2. The 18-Electron Rule</h2>
+            <ul class="todo mt-4">
+                <li>뿌리 &mdash; 9개 원자가 오비탈($s$ 1 + $p$ 3 + $d$ 5)을 채운다</li>
+                <li>Module 08 회수 &mdash; 결합성 6쌍 + $t_{2g}$ 6개</li>
+                <li><b>잘 지켜지는 경우</b> &mdash; 저산화수, $\pi$ acceptor가 많은 착물</li>
+                <li><b>깨지는 경우</b> &mdash; 초기 전이금속(입체 장애), 평면사각 $d^8$(16전자)</li>
+                <li>16/18 전자 사이를 오가는 것이 촉매 회로의 본질</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 5: The Ligand Zoo -->
+    <section id="s5">
+        <div class="slide-content text-left px-20">
+            <h2>3. The Ligand Zoo</h2>
+            <ul class="todo mt-4">
+                <li>$\mathrm{CO}$ &middot; $\mathrm{CN^-}$ &middot; phosphine &mdash; 2전자 $\sigma$ donor</li>
+                <li>hydride &middot; alkyl &middot; halide &mdash; 1전자(중성법) 또는 2전자(이온법)</li>
+                <li>alkene &middot; alkyne &mdash; $\pi$ 결합이 공여한다</li>
+                <li>Cp &middot; allyl &mdash; 다중 배위</li>
+                <li><b>표로 정리</b> &mdash; 두 방법에서의 기여 전자수 대조표</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 6: Hapticity -->
+    <section id="s6">
+        <div class="slide-content text-left px-20">
+            <h2>4. Hapticity</h2>
+            <div class="math-box text-center py-6">
+                $$ \eta^n\text{-ligand}, \qquad \eta^5\text{-}\mathrm{C_5H_5} $$
+            </div>
+            <ul class="todo mt-4">
+                <li>$\eta$는 <b>금속에 붙은 인접 원자 수</b>다</li>
+                <li>$\eta^5$ Cp(5전자, 중성법) 대 $\eta^1$ Cp(1전자)</li>
+                <li>$\eta^3 \rightleftharpoons \eta^1$ 미끄러짐 &mdash; 배위 자리를 여는 흔한 수법</li>
+                <li>$\kappa$(hapto가 아닌 결합 원자 표기)와 $\mu$(가교)의 구별</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 7: Dewar&ndash;Chatt&ndash;Duncanson Model -->
+    <section id="s7">
+        <div class="slide-content text-left px-20">
+            <h2>5. Dewar&ndash;Chatt&ndash;Duncanson Model</h2>
+            <ul class="todo mt-4">
+                <li>$\pi_{\text{alkene}} \to d_{\text{metal}}$ &mdash; $\sigma$ 공여</li>
+                <li>$d_{\text{metal}} \to \pi^*_{\text{alkene}}$ &mdash; $\pi$ 역공여</li>
+                <li>역공여가 커질수록 C=C가 길어지고 치환기가 금속 반대로 굽는다</li>
+                <li>극한: metallacyclopropane 기술</li>
+                <li>$\mathrm{CO}$의 $\nu_{\mathrm{CO}}$ 감소 &mdash; 역공여의 <b>측정 가능한</b> 지표</li>
+                <li>Zeise 염 &mdash; 1827년에 만들어졌고 1953년에야 구조가 밝혀졌다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 8: Representative Complexes -->
+    <section id="s8">
+        <div class="slide-content text-left px-20">
+            <h2>6. Representative Complexes</h2>
+            <ul class="todo mt-4">
+                <li>$\mathrm{Ni(CO)_4}$ &middot; $\mathrm{Fe(CO)_5}$ &middot; $\mathrm{Cr(CO)_6}$ &mdash; 전자수 세기 연습</li>
+                <li>왜 $\mathrm{V(CO)_6}$은 17전자로 존재하는가</li>
+                <li>ferrocene &mdash; 샌드위치 구조와 MO 도표</li>
+                <li><b>과학사</b> &mdash; ferrocene의 구조 오판(1951)과 정정(Wilkinson&ndash;Fischer, 노벨상 1973)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 9: Key Competencies -->
+    <section id="s9">
+        <div class="slide-content text-left px-20">
+            <h2>7. Key Competencies</h2>
+            <ul class="todo mt-4">
+                <li>임의의 유기금속 착물의 총 전자수를 두 방법으로 구해 일치시킨다</li>
+                <li>산화수와 $d$ 전자수를 구별해 말한다</li>
+                <li>hapticity를 읽고 기여 전자수를 결정한다</li>
+                <li>$\nu_{\mathrm{CO}}$ 변화로 전자 밀도를 비교한다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 40: End -->
+    <section id="s40" class="end">
+        <div class="slide-content text-center">
+            <div class="outline-banner" style="display:inline-block">Outline only</div>
+            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 11 &mdash; 뼈대</h2>
+            <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
+                절 구성과 핵심 식만 세워 둔 상태입니다. 본문 서술·도표·사례는 제작 단계에서 채웁니다.
+                구성 근거는 <b>ADV_INORGANIC_ROADMAP.md</b>, 전체 지도는
+                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>에 있습니다.
+            </p>
+            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
+            <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Elementary<br>Organometallic Reactions</p>
+        </div>
+    </section>
+</main>
+
+<script src="js/slide_engine.js"></script>
+</body>
+</html>
