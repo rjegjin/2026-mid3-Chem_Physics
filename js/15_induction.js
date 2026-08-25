@@ -51,8 +51,12 @@
 
       function drawWave() {
         // 캔버스의 픽셀 크기를 CSS 크기의 2배로 맞춘다. 어긋나면 그림이 늘어나 글자가 뭉개진다.
-        var W = wave.width = wave.clientWidth * 2,
-            H = wave.height = wave.clientHeight * 2,
+        // 크기가 실제로 바뀔 때만 대입한다 — 매 프레임 width를 쓰면 캔버스가 초기화되고
+        // 글자가 매번 다시 래스터화돼 미세하게 떨린다.
+        var cw = wave.clientWidth * 2, chh = wave.clientHeight * 2;
+        if (wave.width !== cw) wave.width = cw;
+        if (wave.height !== chh) wave.height = chh;
+        var W = wave.width, H = wave.height,
             mid = H / 2, padL = 64, padR = 14, padT = 34, F = 30;
         wctx.clearRect(0, 0, W, H);
 
@@ -84,18 +88,18 @@
             i ? wctx.lineTo(px, py) : wctx.moveTo(px, py);
           });
           wctx.stroke();
-          if (run.live) return;   // 굴러가는 기록에는 봉우리 이름표를 붙이지 않는다
-          [1, -1].forEach(function (sgn) {
-            var bi = -1, bv = 0;
-            run.pts.forEach(function (e, i) { if (e * sgn > bv) { bv = e * sgn; bi = i; } });
-            if (bi < 0 || bv < 8) return;
-            var px = padL + (bi / 260) * (W - padL - padR);
-            var py = mid - Math.max(-1, Math.min(1, (bv * sgn) / 45)) * (mid - padT);
+          // 봉우리 이름표는 기록이 '끝난' 실행에만, 그리고 그때 한 번 계산해 둔
+          // 위치에만 찍는다. 기록 중에 매 프레임 argmax를 다시 찾으면 빠른 이동에서
+          // 최대점이 프레임마다 옮겨져 글자가 심하게 흔들린다.
+          if (!run.peaks) return;
+          run.peaks.forEach(function (pk) {
+            var px = padL + (pk.i / 260) * (W - padL - padR);
+            var py = mid - Math.max(-1, Math.min(1, pk.e / 45)) * (mid - padT);
             wctx.fillStyle = run.fast ? '#dc2626' : '#2563eb';
             wctx.beginPath(); wctx.arc(px, py, 9, 0, 6.3); wctx.fill();
             wctx.font = 'bold ' + F + 'px sans-serif'; wctx.textAlign = 'center';
-            wctx.fillText(sgn > 0 ? '들어갈 때' : '나올 때',
-                          Math.min(W - 100, Math.max(100, px)), py + (sgn > 0 ? -18 : F + 12));
+            wctx.fillText(pk.label, Math.min(W - 100, Math.max(100, px)),
+                          py + (pk.up ? -18 : F + 12));
             wctx.textAlign = 'left';
           });
         });
@@ -110,6 +114,21 @@
           wctx.fillStyle = '#0891b2'; wctx.fillRect(padL + 332, 12, 26, 8);
           wctx.fillText('상시 기록', padL + 366, 26);
         }
+      }
+
+      /* 기록이 끝난 뒤 봉우리를 한 번만 찾아 고정한다. 이후 drawWave는 이 값만 읽는다. */
+      function freezePeaks(run) {
+        run.peaks = [];
+        [1, -1].forEach(function (sgn) {
+          var bi = -1, bv = 0;
+          run.pts.forEach(function (e, i) { if (e * sgn > bv) { bv = e * sgn; bi = i; } });
+          if (bi < 0 || bv < 8) return;
+          // 라벨은 전류의 부호가 아니라 그 순간 자석이 코일로 '접근 중이었는지'로 정한다.
+          // 부호로 정하면 왼쪽으로 쓸거나 극을 뒤집을 때 라벨이 뒤바뀐다.
+          var appr = run.appr && run.appr[bi];
+          run.peaks.push({ i: bi, e: bv * sgn, up: sgn > 0,
+                           label: appr ? '들어갈 때' : '나올 때' });
+        });
       }
 
       function narrate() {
@@ -154,7 +173,10 @@
           if (live.pts.length >= 260) live.pts.shift();
           live.pts.push(emfShown);
         }
-        if (cur && cur.pts.length < 260) cur.pts.push(emfShown);
+        if (cur && cur.pts.length < 260) {
+          cur.pts.push(emfShown);
+          cur.appr.push(v * (COIL_X - x) > 0);   // 코일로 가까워지는 중인가
+        }
         drawWave(); narrate();
         requestAnimationFrame(loop);
       }
@@ -185,7 +207,7 @@
         if (dist < 1) return;                                  // 0으로 나누지 않는다
         var duration = dist / (slowMode ? 0.17 : 0.5), t0 = null, token = {};
         anim = token;
-        cur = { fast: !slowMode, pts: [] };
+        cur = { fast: !slowMode, pts: [], appr: [] };
         // 스윕 기록은 2개까지만 남긴다. 상시 기록(live)은 이 회전에서 제외한다.
         var sweeps = runs.filter(function (r) { return !r.live; });
         if (sweeps.length >= 2) runs.splice(runs.indexOf(sweeps[0]), 1);
@@ -195,7 +217,9 @@
           if (t0 === null) t0 = ts;
           var k = Math.min(1, (ts - t0) / duration);
           x = from + (to - from) * k;
-          if (k < 1) requestAnimationFrame(step); else { anim = null; cur = null; }   // 기록은 남긴다
+          if (k < 1) { requestAnimationFrame(step); return; }
+          freezePeaks(cur);          // 여기서 이름표 위치가 확정된다
+          anim = null; cur = null;   // 기록은 남긴다
         }
         requestAnimationFrame(step);
       }
@@ -275,7 +299,10 @@
       }
 
       function drawWave2() {
-        var W = gwave.width = gwave.clientWidth * 2, H = gwave.height = gwave.clientHeight * 2, mid = H / 2, pad = 52;
+        var gw = gwave.clientWidth * 2, gh = gwave.clientHeight * 2;
+        if (gwave.width !== gw) gwave.width = gw;
+        if (gwave.height !== gh) gwave.height = gh;
+        var W = gwave.width, H = gwave.height, mid = H / 2, pad = 52;
         gctx.clearRect(0, 0, W, H);
         gctx.strokeStyle = '#94a3b8'; gctx.lineWidth = 2;
         gctx.beginPath(); gctx.moveTo(pad, mid); gctx.lineTo(W - 6, mid); gctx.stroke();
