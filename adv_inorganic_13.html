@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Inorganic Chemistry 13: Homogeneous Catalysis &amp; Catalytic Cycles</title>
+    <link href="css/tailwind.build.css" rel="stylesheet"/>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/presentation_mode.css">
+    <link rel="stylesheet" href="css/chem_style.css">
+    <style>
+        body { background-color: #ffffff; color: #0f172a; font-family: 'Inter', system-ui, sans-serif; }
+        .slide-content { background: #ffffff; border: 1px solid #e2e8f0; color: #0f172a; box-shadow: none; }
+        .math-box { background: #f8fafc; color: #0f172a; padding: 1.5rem; border: 2px solid #0f172a; border-radius: 0.5rem; margin: 1rem 0; }
+        .info-card { border-left: 6px solid #0f172a; padding: 1.25rem; background: #f1f5f9; margin-bottom: 1.5rem; }
+        .logic-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 900; font-size: 0.7rem; text-transform: uppercase; border: 1px solid #0f172a; }
+        h2 { color: #0f172a; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; border-bottom: 3px solid #0f172a; padding-bottom: 0.5rem; margin-bottom: 2rem; }
+        h3 { color: #334155; font-weight: 800; margin-top: 1.5rem; }
+        .step-box { background: #ffffff; border: 2px solid #e2e8f0; padding: 1rem; border-radius: 1rem; }
+        table.qtable { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        table.qtable th, table.qtable td { border: 1px solid #e2e8f0; padding: 0.5rem 0.7rem; text-align: center; }
+        table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
+        .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
+        .warn b { color: #78350f; }
+        /* 뼈대 문서 표식 — 완성본과 혼동하지 않게 한다 */
+        .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+        .todo { list-style: none; padding-left: 0; }
+        .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
+        .todo li::before { content: "\25A1"; color: #94a3b8; font-weight: 900; margin-right: 0.6rem; }
+        .todo li b { color: #0f172a; }
+    </style>
+</head>
+<body class="presentation-mode">
+
+<main>
+    <!-- Slide 1: Title -->
+    <section id="s1">
+        <div class="slide-content text-center">
+            <p class="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-4">Advanced Inorganic Chemistry Series</p>
+            <h1 class="text-6xl font-black text-slate-900 mb-6 tracking-tighter leading-tight">Homogeneous Catalysis<br>&amp; Catalytic Cycles</h1>
+            <p class="text-xl text-slate-500 font-medium italic">"Do not memorise the circle. Track the electrons around it."</p>
+            <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
+            <p class="text-base font-bold text-slate-800">Lecture 13: Hydrogenation, Hydroformylation, Carbonylation, Cross-Coupling</p>
+            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; 본문 미작성</div>
+        </div>
+    </section>
+
+    <!-- Slide 2: Scope -->
+    <section id="s2">
+        <div class="slide-content text-left px-20">
+            <h2>0. Scope</h2>
+            <div class="info-card">
+                <p class="font-black uppercase text-xs mb-3">Central question</p>
+                <p class="text-lg font-medium text-slate-800">elementary reactions가 어떻게 catalytic cycle을 구성하는가?</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="step-box">
+                    <span class="logic-tag">Requires</span>
+                    <p class="text-sm text-slate-700 mt-3">Module 12 &mdash; 다섯 elementary step</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Feeds</span>
+                    <p class="text-sm text-slate-700 mt-3">Module 15 Case 5 &mdash; 전기촉매·광촉매</p>
+                </div>
+            </div>
+            <div class="warn mt-8"><b>서술 원칙.</b> 회로 그림을 암기시키지 않는다. 각 단계마다 산화수 &middot; $d$ 전자수 &middot; 총 전자수 &middot; 배위수 &middot; 단계 유형 다섯 열을 표로 추적한다.</div>
+        </div>
+    </section>
+
+    <!-- Slide 3: What Makes a Cycle -->
+    <section id="s3">
+        <div class="slide-content text-left px-20">
+            <h2>1. What Makes a Cycle</h2>
+            <ul class="todo mt-4">
+                <li>촉매는 소비되지 않는다 &mdash; 회로가 닫혀야 한다</li>
+                <li>촉매 전구체와 활성종의 구별</li>
+                <li>turnover number(TON)와 turnover frequency(TOF)</li>
+                <li>속도 결정 단계와 축적되는 휴지 상태(resting state)</li>
+                <li>촉매 실활 &mdash; 이량화, 금속 석출, 피독</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 4: Hydrogenation &mdash; Wilkinson -->
+    <section id="s4">
+        <div class="slide-content text-left px-20">
+            <h2>2. Hydrogenation &mdash; Wilkinson</h2>
+            <div class="math-box text-center py-6">
+                $$ \mathrm{RhCl(PPh_3)_3} $$
+            </div>
+            <ul class="todo mt-4">
+                <li>16전자 $\mathrm{Rh(I)}$ 활성종</li>
+                <li>$\mathrm{H_2}$ 산화적 첨가 &rarr; $\mathrm{Rh(III)}$</li>
+                <li>알켄 배위 &rarr; 삽입 &rarr; 환원적 제거</li>
+                <li>말단 알켄에 선택적, 사면체 치환 알켄에는 느리다</li>
+                <li><b>비대칭 수소화</b> &mdash; BINAP, Noyori (노벨상 2001)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 5: Hydroformylation -->
+    <section id="s5">
+        <div class="slide-content text-left px-20">
+            <h2>3. Hydroformylation</h2>
+            <div class="math-box text-center py-6">
+                $$ \mathrm{RCH{=}CH_2} + \mathrm{CO} + \mathrm{H_2} \longrightarrow \mathrm{RCH_2CH_2CHO} $$
+            </div>
+            <ul class="todo mt-4">
+                <li>연간 1000만 톤 규모 &mdash; 가장 큰 균일 촉매 공정</li>
+                <li>코발트 공정 대 로듐 공정</li>
+                <li>선형/분지(n/iso) 선택성 &mdash; 삽입의 방향이 정한다</li>
+                <li>부피 큰 phosphite 리간드로 선택성 제어</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 6: Monsanto and Cativa -->
+    <section id="s6">
+        <div class="slide-content text-left px-20">
+            <h2>4. Monsanto and Cativa</h2>
+            <div class="math-box text-center py-6">
+                $$ \mathrm{CH_3OH} + \mathrm{CO} \longrightarrow \mathrm{CH_3COOH} $$
+            </div>
+            <ul class="todo mt-4">
+                <li>$\mathrm{[Rh(CO)_2I_2]^-}$ &mdash; 산화적 첨가가 속도 결정</li>
+                <li>$\mathrm{CH_3I}$ 조촉매의 역할</li>
+                <li>삽입 &rarr; CO 배위 &rarr; 환원적 제거 &rarr; 가수분해</li>
+                <li><b>Cativa</b> &mdash; 이리듐으로 바꾸면 속도 결정 단계가 옮겨간다</li>
+                <li>같은 회로, 다른 금속, 다른 병목 &mdash; 이 비교가 이 절의 핵심</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 7: Cross-Coupling -->
+    <section id="s7">
+        <div class="slide-content text-left px-20">
+            <h2>5. Cross-Coupling</h2>
+            <ul class="todo mt-4">
+                <li>공통 골격: 산화적 첨가 &rarr; 트랜스메탈화 &rarr; 환원적 제거</li>
+                <li><b>Suzuki</b> 붕소 &middot; <b>Negishi</b> 아연 &middot; <b>Kumada</b> 마그네슘 &middot; <b>Stille</b> 주석</li>
+                <li><b>Heck</b> &mdash; 트랜스메탈화가 없다. 삽입과 $\beta$-H 제거로 돈다</li>
+                <li>리간드 설계 &mdash; 부피 큰 전자 풍부 phosphine이 두 끝 단계를 모두 돕는다</li>
+                <li><b>과학사</b> &mdash; Heck &middot; Negishi &middot; Suzuki 노벨상 2010</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 8: Reading Any Cycle -->
+    <section id="s8">
+        <div class="slide-content text-left px-20">
+            <h2>6. Reading Any Cycle</h2>
+            <ul class="todo mt-4">
+                <li>다섯 열 추적표 양식</li>
+                <li>회로를 한 바퀴 돌면 산화수 변화의 합이 0이 되어야 한다</li>
+                <li>빈 배위 자리가 언제 생기고 언제 채워지는지</li>
+                <li><b>연습</b> &mdash; 처음 보는 회로를 받아 단계 유형을 붙인다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 9: Key Competencies -->
+    <section id="s9">
+        <div class="slide-content text-left px-20">
+            <h2>7. Key Competencies</h2>
+            <ul class="todo mt-4">
+                <li>주어진 회로의 각 단계에 elementary step 이름을 붙인다</li>
+                <li>단계마다 산화수·전자수·배위수를 채운다</li>
+                <li>속도 결정 단계와 휴지 상태를 구별한다</li>
+                <li>리간드를 바꾸면 어느 단계가 빨라지는지 예측한다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 40: End -->
+    <section id="s40" class="end">
+        <div class="slide-content text-center">
+            <div class="outline-banner" style="display:inline-block">Outline only</div>
+            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 13 &mdash; 뼈대</h2>
+            <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
+                절 구성과 핵심 식만 세워 둔 상태입니다. 본문 서술·도표·사례는 제작 단계에서 채웁니다.
+                구성 근거는 <b>ADV_INORGANIC_ROADMAP.md</b>, 전체 지도는
+                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>에 있습니다.
+            </p>
+            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
+            <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Solid-State Chemistry<br>&amp; Band Theory</p>
+        </div>
+    </section>
+</main>
+
+<script src="js/slide_engine.js"></script>
+</body>
+</html>

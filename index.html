@@ -70,6 +70,19 @@
             max-width: 1200px;
             margin: 0 auto;
         }
+        /* 고급 무기화학 — 제작 상태 표시. 색만이 아니라 글자로도 구분한다. */
+        .adv-chip { display:inline-block; padding:0.12rem 0.5rem; border-radius:4px;
+                    font-size:0.68rem; font-weight:800; letter-spacing:0.03em;
+                    border:1px solid; margin-left:0.4rem; vertical-align:middle; }
+        .adv-chip.done    { background:#ecfdf5; color:#065f46; border-color:#10b981; }
+        .adv-chip.outline { background:#f8fafc; color:#475569; border-color:#cbd5e1; }
+        .adv-part { font-size:0.66rem; font-weight:800; letter-spacing:0.08em;
+                    text-transform:uppercase; color:#94a3b8; }
+        .adv-intro { max-width:1100px; margin:0 auto 2rem; padding:1.5rem 1.75rem;
+                     background:#f8fafc; border:1px solid #e2e8f0; border-radius:1rem; }
+        .adv-axis { background:#0f172a; color:#e2e8f0; border-radius:0.5rem;
+                    padding:0.7rem 1rem; font-size:0.82rem; font-weight:700;
+                    text-align:center; letter-spacing:0.02em; overflow-x:auto; white-space:nowrap; }
         .lesson-card {
             background: white;
             border-radius: 1rem;
@@ -663,12 +676,25 @@
 
     <!-- Advanced Section -->
     <section id="section-adv" class="lesson-section hidden">
+        <div class="adv-intro">
+            <p class="adv-part">CHEM601 / PHYS601 &middot; Spring Semester 2026</p>
+            <h3 style="font-size:1.4rem;font-weight:900;color:#0f172a;margin:0.3rem 0 0.6rem">Advanced Inorganic Chemistry &mdash; 15 Modules + 4 Bonus</h3>
+            <div class="adv-axis">Symmetry &rarr; Electronic Structure &rarr; Bonding &rarr; Spectroscopy &rarr; Reactivity &rarr; Materials</div>
+            <p style="font-size:0.9rem;color:#475569;margin-top:0.9rem;line-height:1.6">
+                각 모듈은 독립된 챕터가 아니라 이전 모듈의 결과를 입력으로 받습니다.
+                <b>본문 완성 6편</b>, 나머지는 절 구성과 핵심 식만 세운 <b>뼈대</b>입니다 &mdash;
+                뼈대 문서도 열어서 무엇을 다룰지 확인할 수 있습니다.
+            </p>
+            <p style="font-size:0.9rem;margin-top:0.7rem">
+                <a href="syllabus.html" style="color:#002147;font-weight:800;text-decoration:underline">전체 Syllabus 보기 &rarr;</a>
+            </p>
+        </div>
         <main class="lesson-grid">
             <!-- Advanced Inorganic 01 -->
             <article class="lesson-card" style="border: 2px solid #06b6d4; background: #f0f9ff;">
                 <div class="card-header" style="background: #e0f2fe; border-bottom: 2px solid #bae6fd;">
                     <span class="card-num" style="color: #0369a1;">University / Graduate</span>
-                    <h3 class="card-title" style="color: #0c4a6e;">고급 무기화학 01</h3>
+                    <h3 class="card-title" style="color: #0c4a6e;">고급 무기화학 01<span class="adv-chip done">본문 완료</span></h3>
                 </div>
                 <div class="card-body text-slate-700 font-medium">
                     분자 대칭성과 군론의 기초. 대칭 조작부터 지표표, 그리고 오비탈 변환의 수학적 원리까지 깊이 있게 다룹니다.
@@ -683,7 +709,7 @@
             <article class="lesson-card" style="border: 2px solid #0ea5e9; background: #f0fdfa;">
                 <div class="card-header" style="background: #e0f2fe; border-bottom: 2px solid #bae6fd;">
                     <span class="card-num" style="color: #0369a1;">University / Graduate</span>
-                    <h3 class="card-title" style="color: #0c4a6e;">고급 무기화학 02</h3>
+                    <h3 class="card-title" style="color: #0c4a6e;">고급 무기화학 02<span class="adv-chip done">본문 완료</span></h3>
                 </div>
                 <div class="card-body text-slate-700 font-medium">
                     표현론과 지표표. 위대한 직교성 정리(GOT)와 블록 대각화, 지표표를 수학적으로 유도하는 과정을 다룹니다.
@@ -698,7 +724,7 @@
             <article class="lesson-card" style="border: 2px solid #6366f1; background: #eef2ff;">
                 <div class="card-header" style="background: #e0e7ff; border-bottom: 2px solid #c7d2fe;">
                     <span class="card-num" style="color: #4338ca;">University / Graduate</span>
-                    <h3 class="card-title" style="color: #312e81;">고급 무기화학 03</h3>
+                    <h3 class="card-title" style="color: #312e81;">고급 무기화학 03<span class="adv-chip done">본문 완료</span></h3>
                 </div>
                 <div class="card-body text-slate-700 font-medium">
                     진동 분광학과 군론. 3N 자유도에서 순수 진동 모드를 추출하고, IR/Raman 선택 규칙을 통해 분광학적 활성도를 예측합니다.
@@ -713,7 +739,7 @@
             <article class="lesson-card" style="border: 2px solid #7c3aed; background: #f5f3ff;">
                 <div class="card-header" style="background: #ede9fe; border-bottom: 2px solid #ddd6fe;">
                     <span class="card-num" style="color: #5b21b6;">University / Graduate</span>
-                    <h3 class="card-title" style="color: #4c1d95;">고급 무기화학 04</h3>
+                    <h3 class="card-title" style="color: #4c1d95;">고급 무기화학 04<span class="adv-chip done">본문 완료</span></h3>
                 </div>
                 <div class="card-body text-slate-700 font-medium">
                     원자 오비탈과 각운동량. 수소꼴 해에서 출발해 Slater 행렬식과 교환 안정화까지, 뒤에 나올 항 기호(term symbol)의 전제를 여기서 마련합니다.
@@ -724,11 +750,26 @@
                 </div>
             </article>
         
+            <!-- Advanced Inorganic 05 (뼈대) -->
+            <article class="lesson-card" style="border: 2px solid #e2e8f0; background: #ffffff;">
+                <div class="card-header" style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <span class="card-num" style="color: #64748b;">Part II · 전자구조와 결합</span>
+                    <h3 class="card-title" style="color: #334155;">고급 무기화학 05<span class="adv-chip outline">뼈대</span></h3>
+                </div>
+                <div class="card-body text-slate-600 text-sm">
+                    MO 이론 I &mdash; 이원자 분자. LCAO와 결합 차수, H₂~F₂ 계열의 <b>s–p 혼합</b>, O₂의 상자성, 그리고 CO의 HOMO가 왜 탄소 쪽인지.
+                </div>
+                <div class="card-footer" style="background: #ffffff;">
+                    <a href="adv_inorganic_05.html" class="btn-enter" style="background: #475569;">뼈대 보기 →</a>
+                    <a href="adv_inorganic_05.html?view=all" class="text-xs text-slate-400 mt-2 block hover:underline">문서 전체 보기</a>
+                </div>
+            </article>
+
             <!-- Advanced Inorganic 06 -->
             <article class="lesson-card" style="border: 2px solid #ec4899; background: #fdf2f8;">
                 <div class="card-header" style="background: #fce7f3; border-bottom: 2px solid #fbcfe8;">
                     <span class="card-num" style="color: #be185d;">University / Graduate</span>
-                    <h3 class="card-title" style="color: #831843;">고급 무기화학 06</h3>
+                    <h3 class="card-title" style="color: #831843;">고급 무기화학 06<span class="adv-chip done">본문 완료</span></h3>
                 </div>
                 <div class="card-body text-slate-700 font-medium">
                     MO 이론과 SALCs. 투영 연산자로 대칭 적합 선형 결합을 유도하고, H₂O·NH₃·BF₃·CH₄·SF₆의 MO를 구성한 뒤 Walsh 도표로 AH₂의 결합각을 예측합니다.
@@ -739,11 +780,146 @@
                 </div>
             </article>
         
+            <!-- Advanced Inorganic 07 (뼈대) -->
+            <article class="lesson-card" style="border: 2px solid #e2e8f0; background: #ffffff;">
+                <div class="card-header" style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <span class="card-num" style="color: #64748b;">Part III · 배위화학</span>
+                    <h3 class="card-title" style="color: #334155;">고급 무기화학 07<span class="adv-chip outline">뼈대</span></h3>
+                </div>
+                <div class="card-body text-slate-600 text-sm">
+                    결정장 이론. d 오비탈 갈라짐과 CFSE, high/low spin의 Δ<sub>o</sub> 대 P 경쟁, spin-only 자기 모멘트, Jahn–Teller 왜곡.
+                </div>
+                <div class="card-footer" style="background: #ffffff;">
+                    <a href="adv_inorganic_07.html" class="btn-enter" style="background: #475569;">뼈대 보기 →</a>
+                    <a href="adv_inorganic_07.html?view=all" class="text-xs text-slate-400 mt-2 block hover:underline">문서 전체 보기</a>
+                </div>
+            </article>
+
+            <!-- Advanced Inorganic 08 (뼈대) -->
+            <article class="lesson-card" style="border: 2px solid #e2e8f0; background: #ffffff;">
+                <div class="card-header" style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <span class="card-num" style="color: #64748b;">Part III · 배위화학</span>
+                    <h3 class="card-title" style="color: #334155;">고급 무기화학 08<span class="adv-chip outline">뼈대</span></h3>
+                </div>
+                <div class="card-body text-slate-600 text-sm">
+                    리간드장 이론. 분광화학적 계열을 암기 목록이 아니라 <b>σ donor / π donor / π acceptor</b>로 유도합니다.
+                </div>
+                <div class="card-footer" style="background: #ffffff;">
+                    <a href="adv_inorganic_08.html" class="btn-enter" style="background: #475569;">뼈대 보기 →</a>
+                    <a href="adv_inorganic_08.html?view=all" class="text-xs text-slate-400 mt-2 block hover:underline">문서 전체 보기</a>
+                </div>
+            </article>
+
+            <!-- Advanced Inorganic 09 (뼈대) -->
+            <article class="lesson-card" style="border: 2px solid #e2e8f0; background: #ffffff;">
+                <div class="card-header" style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <span class="card-num" style="color: #64748b;">Part IV · 전자상태와 분광학</span>
+                    <h3 class="card-title" style="color: #334155;">고급 무기화학 09<span class="adv-chip outline">뼈대</span></h3>
+                </div>
+                <div class="card-body text-slate-600 text-sm">
+                    전이금속 착물의 전자 스펙트럼. Microstate 세기부터 항 기호, 선택률, Tanabe–Sugano 도표로 Δ<sub>o</sub>와 Racah B 읽기까지. <b>2회분</b>.
+                </div>
+                <div class="card-footer" style="background: #ffffff;">
+                    <a href="adv_inorganic_09.html" class="btn-enter" style="background: #475569;">뼈대 보기 →</a>
+                    <a href="adv_inorganic_09.html?view=all" class="text-xs text-slate-400 mt-2 block hover:underline">문서 전체 보기</a>
+                </div>
+            </article>
+
+            <!-- Advanced Inorganic 10 (뼈대) -->
+            <article class="lesson-card" style="border: 2px solid #e2e8f0; background: #ffffff;">
+                <div class="card-header" style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <span class="card-num" style="color: #64748b;">Part V · 고급 전자구조</span>
+                    <h3 class="card-title" style="color: #334155;">고급 무기화학 10<span class="adv-chip outline">뼈대</span></h3>
+                </div>
+                <div class="card-body text-slate-600 text-sm">
+                    Spin–orbit coupling과 상대론 효과. LS에서 jj로, 궤도 각운동량 quenching, 그리고 <b>금이 노랗고 수은이 액체인 하나의 이유</b>.
+                </div>
+                <div class="card-footer" style="background: #ffffff;">
+                    <a href="adv_inorganic_10.html" class="btn-enter" style="background: #475569;">뼈대 보기 →</a>
+                    <a href="adv_inorganic_10.html?view=all" class="text-xs text-slate-400 mt-2 block hover:underline">문서 전체 보기</a>
+                </div>
+            </article>
+
+            <!-- Advanced Inorganic 11 (뼈대) -->
+            <article class="lesson-card" style="border: 2px solid #e2e8f0; background: #ffffff;">
+                <div class="card-header" style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <span class="card-num" style="color: #64748b;">Part VI · 유기금속</span>
+                    <h3 class="card-title" style="color: #334155;">고급 무기화학 11<span class="adv-chip outline">뼈대</span></h3>
+                </div>
+                <div class="card-body text-slate-600 text-sm">
+                    금속–리간드 결합과 전자수 세기. 18전자 규칙, hapticity, Dewar–Chatt–Duncanson 모형과 ν<sub>CO</sub>로 읽는 back-donation.
+                </div>
+                <div class="card-footer" style="background: #ffffff;">
+                    <a href="adv_inorganic_11.html" class="btn-enter" style="background: #475569;">뼈대 보기 →</a>
+                    <a href="adv_inorganic_11.html?view=all" class="text-xs text-slate-400 mt-2 block hover:underline">문서 전체 보기</a>
+                </div>
+            </article>
+
+            <!-- Advanced Inorganic 12 (뼈대) -->
+            <article class="lesson-card" style="border: 2px solid #e2e8f0; background: #ffffff;">
+                <div class="card-header" style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <span class="card-num" style="color: #64748b;">Part VI · 유기금속</span>
+                    <h3 class="card-title" style="color: #334155;">고급 무기화학 12<span class="adv-chip outline">뼈대</span></h3>
+                </div>
+                <div class="card-body text-slate-600 text-sm">
+                    Elementary 반응 5종. 치환·산화적 첨가·환원적 제거·삽입·β-H 제거를 <b>산화수 + 전자수 + 배위수</b> 세 열로 추적합니다.
+                </div>
+                <div class="card-footer" style="background: #ffffff;">
+                    <a href="adv_inorganic_12.html" class="btn-enter" style="background: #475569;">뼈대 보기 →</a>
+                    <a href="adv_inorganic_12.html?view=all" class="text-xs text-slate-400 mt-2 block hover:underline">문서 전체 보기</a>
+                </div>
+            </article>
+
+            <!-- Advanced Inorganic 13 (뼈대) -->
+            <article class="lesson-card" style="border: 2px solid #e2e8f0; background: #ffffff;">
+                <div class="card-header" style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <span class="card-num" style="color: #64748b;">Part VI · 유기금속</span>
+                    <h3 class="card-title" style="color: #334155;">고급 무기화학 13<span class="adv-chip outline">뼈대</span></h3>
+                </div>
+                <div class="card-body text-slate-600 text-sm">
+                    균일 촉매와 촉매 회로. Wilkinson, hydroformylation, Monsanto/Cativa, 교차 결합. 회로를 암기하지 않고 전자구조 변화로 읽습니다.
+                </div>
+                <div class="card-footer" style="background: #ffffff;">
+                    <a href="adv_inorganic_13.html" class="btn-enter" style="background: #475569;">뼈대 보기 →</a>
+                    <a href="adv_inorganic_13.html?view=all" class="text-xs text-slate-400 mt-2 block hover:underline">문서 전체 보기</a>
+                </div>
+            </article>
+
+            <!-- Advanced Inorganic 14 (뼈대) -->
+            <article class="lesson-card" style="border: 2px solid #e2e8f0; background: #ffffff;">
+                <div class="card-header" style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <span class="card-num" style="color: #64748b;">Part VII · 고체와 재료</span>
+                    <h3 class="card-title" style="color: #334155;">고급 무기화학 14<span class="adv-chip outline">뼈대</span></h3>
+                </div>
+                <div class="card-body text-slate-600 text-sm">
+                    고체화학과 밴드 이론. 결정 구조와 격자 에너지, 역격자 기초, 그리고 <b>AO → MO → many MOs → bands</b>.
+                </div>
+                <div class="card-footer" style="background: #ffffff;">
+                    <a href="adv_inorganic_14.html" class="btn-enter" style="background: #475569;">뼈대 보기 →</a>
+                    <a href="adv_inorganic_14.html?view=all" class="text-xs text-slate-400 mt-2 block hover:underline">문서 전체 보기</a>
+                </div>
+            </article>
+
+            <!-- Advanced Inorganic 15 (뼈대) -->
+            <article class="lesson-card" style="border: 2px solid #e2e8f0; background: #ffffff;">
+                <div class="card-header" style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <span class="card-num" style="color: #64748b;">Part VII · 고체와 재료</span>
+                    <h3 class="card-title" style="color: #334155;">고급 무기화학 15<span class="adv-chip outline">뼈대</span></h3>
+                </div>
+                <div class="card-body text-slate-600 text-sm">
+                    현대 무기재료 통합 사례. 전이금속 산화물·perovskite·MOF·발광 착물·에너지 재료 — 앞의 14개 모듈을 실제 물질에 적용합니다.
+                </div>
+                <div class="card-footer" style="background: #ffffff;">
+                    <a href="adv_inorganic_15.html" class="btn-enter" style="background: #475569;">뼈대 보기 →</a>
+                    <a href="adv_inorganic_15.html?view=all" class="text-xs text-slate-400 mt-2 block hover:underline">문서 전체 보기</a>
+                </div>
+            </article>
+
             <!-- Advanced Inorganic Bonus -->
             <article class="lesson-card" style="border: 2px solid #3b82f6; background: #eff6ff;">
                 <div class="card-header" style="background: #dbeafe; border-bottom: 2px solid #bfdbfe;">
                     <span class="card-num" style="color: #1e40af;">Bonus Supplement</span>
-                    <h3 class="card-title" style="color: #1e3a8a;">[심화] 표현론의 수학적 기초</h3>
+                    <h3 class="card-title" style="color: #1e3a8a;">[심화] 표현론의 수학적 기초<span class="adv-chip done">본문 완료</span></h3>
                 </div>
                 <div class="card-body text-slate-700 font-medium text-sm">
                     군론의 극한. Schur의 보조정리부터 Hilbert 공간에서의 연산자 대수까지, 표현론의 모든 수학적 증명과 양자역학적 연결고리를 다룹니다.
@@ -753,6 +929,52 @@
                     <a href="adv_inorganic_bonus_01.html?view=all" class="text-xs text-slate-400 mt-2 block hover:underline">문서 전체 보기</a>
                 </div>
             </article>
+
+            <!-- Advanced Inorganic Bonus 02 (뼈대) -->
+            <article class="lesson-card" style="border: 2px solid #e2e8f0; background: #ffffff;">
+                <div class="card-header" style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <span class="card-num" style="color: #64748b;">Bonus · 수학적 기초</span>
+                    <h3 class="card-title" style="color: #334155;">[심화] Hilbert 공간과 대칭 연산자<span class="adv-chip outline">뼈대</span></h3>
+                </div>
+                <div class="card-body text-slate-600 text-sm">
+                    브라–켓 표기, 교환자와 동시 고유상태, 그리고 대칭 조작이 <b>유니터리 연산자</b>라는 것. Bonus 01에서 분리 예정.
+                </div>
+                <div class="card-footer" style="background: #ffffff;">
+                    <a href="adv_inorganic_bonus_02.html" class="btn-enter" style="background: #475569;">뼈대 보기 →</a>
+                    <a href="adv_inorganic_bonus_02.html?view=all" class="text-xs text-slate-400 mt-2 block hover:underline">문서 전체 보기</a>
+                </div>
+            </article>
+
+            <!-- Advanced Inorganic Bonus 03 (뼈대) -->
+            <article class="lesson-card" style="border: 2px solid #e2e8f0; background: #ffffff;">
+                <div class="card-header" style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <span class="card-num" style="color: #64748b;">Bonus · 수학적 기초</span>
+                    <h3 class="card-title" style="color: #334155;">[심화] 표현론<span class="adv-chip outline">뼈대</span></h3>
+                </div>
+                <div class="card-body text-slate-600 text-sm">
+                    Schur의 보조정리에서 <b>GOT의 완전한 증명</b>까지. 지표 직교성과 약분 공식이 여기서 유도됩니다. Bonus 01에서 분리 예정.
+                </div>
+                <div class="card-footer" style="background: #ffffff;">
+                    <a href="adv_inorganic_bonus_03.html" class="btn-enter" style="background: #475569;">뼈대 보기 →</a>
+                    <a href="adv_inorganic_bonus_03.html?view=all" class="text-xs text-slate-400 mt-2 block hover:underline">문서 전체 보기</a>
+                </div>
+            </article>
+
+            <!-- Advanced Inorganic Bonus 04 (뼈대) -->
+            <article class="lesson-card" style="border: 2px solid #e2e8f0; background: #ffffff;">
+                <div class="card-header" style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <span class="card-num" style="color: #64748b;">Bonus · 수학적 기초</span>
+                    <h3 class="card-title" style="color: #334155;">[심화] 양자 Hamiltonian의 대칭<span class="adv-chip outline">뼈대</span></h3>
+                </div>
+                <div class="card-body text-slate-600 text-sm">
+                    [H, R] = 0 이면 Hamiltonian이 블록 대각화된다. <b>모든 selection rule이 여기서 나옵니다</b> — Bonus 트랙의 도착점.
+                </div>
+                <div class="card-footer" style="background: #ffffff;">
+                    <a href="adv_inorganic_bonus_04.html" class="btn-enter" style="background: #475569;">뼈대 보기 →</a>
+                    <a href="adv_inorganic_bonus_04.html?view=all" class="text-xs text-slate-400 mt-2 block hover:underline">문서 전체 보기</a>
+                </div>
+            </article>
+
         </main>
     </section>
 

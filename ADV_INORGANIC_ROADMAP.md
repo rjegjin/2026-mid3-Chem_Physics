@@ -32,26 +32,27 @@ Molecular Symmetry → Group Theory → Representations → SALCs / Selection Ru
 | # | 모듈 | 파일 | 상태 |
 |---|---|---|---|
 | B01 | Linear Algebra for Quantum Chemistry | `adv_inorganic_bonus_01.html` | 완료 |
-| B02 | Hilbert Spaces & Symmetry Operators | — | B01에서 분리 예정 |
-| B03 | Representation Theory (GOT 증명) | — | B01에서 분리 예정 |
-| B04 | Quantum Hamiltonian Symmetry | — | 미제작 |
+| B02 | Hilbert Spaces & Symmetry Operators| `adv_inorganic_bonus_02.html` | 뼈대 |
+| B03 | Representation Theory (GOT 증명)| `adv_inorganic_bonus_03.html` | 뼈대 |
+| B04 | Quantum Hamiltonian Symmetry| `adv_inorganic_bonus_04.html` | 뼈대 |
 | 01 | Molecular Symmetry & Point Groups | `adv_inorganic_01.html` | 완료 (28절) |
 | 02 | Representations & Character Tables | `adv_inorganic_02.html` | 완료 |
 | 03 | Vibrational Spectroscopy & SALCs | `adv_inorganic_03.html` | 완료 |
 | 04 | Atomic Orbitals & Angular Momentum | `adv_inorganic_04.html` | 완료 (14절) |
-| 05 | MO Theory: Diatomics | — | **미제작** |
+| 05 | MO Theory: Diatomics | `adv_inorganic_05.html` | 뼈대 |
 | 06 | MO Theory: Polyatomics | `adv_inorganic_06.html` | 완료 (15절) |
-| 07 | Crystal Field Theory | — | 미제작 |
-| 08 | Ligand Field Theory | — | 미제작 |
-| 09 | Electronic Spectra | — | 미제작 (2회분) |
-| 10 | Spin–Orbit & Relativistic Effects | — | 미제작 |
-| 11 | Organometallic Bonding | — | 미제작 |
-| 12 | Organometallic Reactions | — | 미제작 |
-| 13 | Homogeneous Catalysis | — | 미제작 |
-| 14 | Solid-State & Band Theory | — | 미제작 |
-| 15 | Modern Inorganic Materials | — | 미제작 |
+| 07 | Crystal Field Theory | `adv_inorganic_07.html` | 뼈대 |
+| 08 | Ligand Field Theory | `adv_inorganic_08.html` | 뼈대 |
+| 09 | Electronic Spectra | `adv_inorganic_09.html` | 뼈대 (2회분) |
+| 10 | Spin–Orbit & Relativistic Effects | `adv_inorganic_10.html` | 뼈대 |
+| 11 | Organometallic Bonding | `adv_inorganic_11.html` | 뼈대 |
+| 12 | Organometallic Reactions | `adv_inorganic_12.html` | 뼈대 |
+| 13 | Homogeneous Catalysis | `adv_inorganic_13.html` | 뼈대 |
+| 14 | Solid-State & Band Theory | `adv_inorganic_14.html` | 뼈대 |
+| 15 | Modern Inorganic Materials | `adv_inorganic_15.html` | 뼈대 |
 
-완료 6편 · 미제작 9편 + Bonus 3편.
+본문 완료 **6편**(01·02·03·04·06 + Bonus 01) · 뼈대 **13편**(모듈 10 + Bonus 3).
+모든 모듈이 열리는 HTML을 갖고 있으며 `index.html`에 전부 노출돼 있다.
 
 ### 파일명과 모듈 번호를 일치시켰다 (해소)
 
@@ -192,7 +193,7 @@ term symbol이 갑자기 튀어나오지 않는다.
 
 **후속 의존**: 7·9·11번이 Module 09(term symbol)와 Module 10(LS coupling)의 전제다.
 
-## Module 05 — MO Theory: Diatomic Molecules  ✘ 미제작
+## Module 05 — MO Theory: Diatomic Molecules  ◻ 뼈대
 **중심 질문**: 원자 orbital은 어떻게 분자 orbital을 만드는가?
 
 1. LCAO — `ψ = c_A φ_A + c_B φ_B`
@@ -241,7 +242,7 @@ Ligand orbitals → SALCs → 중심 원자 오비탈 → Molecular orbitals
 
 # Part III. Coordination Chemistry
 
-## Module 07 — Crystal Field Theory  ✘ 미제작
+## Module 07 — Crystal Field Theory  ◻ 뼈대
 **중심 질문**: ligand가 d orbital energy를 어떻게 변화시키는가?
 
 1. 자유 이온 5개 d 오비탈의 축퇴
@@ -254,7 +255,7 @@ Ligand orbitals → SALCs → 중심 원자 오비탈 → Molecular orbitals
 8. 자기 모멘트 — spin-only `μ = √(n(n+2)) μ_B`
 9. Jahn–Teller 왜곡
 
-## Module 08 — Ligand Field Theory  ✘ 미제작
+## Module 08 — Ligand Field Theory  ◻ 뼈대
 **중심 질문**: metal–ligand bonding을 MO 관점에서 어떻게 설명하는가?
 
 CFT에서 MO 이론으로 넘어가는 핵심 모듈이다. Module 06의 SALC가 여기서 회수된다.
@@ -274,7 +275,7 @@ CFT에서 MO 이론으로 넘어가는 핵심 모듈이다. Module 06의 SALC가
 
 # Part IV. Electronic States & Spectroscopy
 
-## Module 09 — Electronic Spectra of Transition-Metal Complexes  ✘ 미제작 (2회분)
+## Module 09 — Electronic Spectra of Transition-Metal Complexes  ◻ 뼈대 (2회분)
 **중심 질문**: 전이금속의 absorption spectrum은 어디에서 오는가?
 
 분량이 커서 한 모듈에 두 회차를 배정한다. spin–orbit coupling은 여기서 다루지 않고
@@ -297,7 +298,7 @@ Module 10으로 넘긴다 — 그것이 09/10을 분리한 이유다.
 
 # Part V. Advanced Electronic Structure
 
-## Module 10 — Spin–Orbit Coupling, Relativistic Effects & Magnetism  ✘ 미제작
+## Module 10 — Spin–Orbit Coupling, Relativistic Effects & Magnetism  ◻ 뼈대
 **중심 질문**: 무거운 원소에서 전자구조는 왜 달라지는가?
 
 Module 09와 이 모듈 사이가 이 과정에서 가장 중요한 연결점이다.
@@ -319,7 +320,7 @@ Russell–Saunders coupling과 `jj` coupling의 차이가 여기서 정확한 �
 
 # Part VI. Organometallic Chemistry
 
-## Module 11 — Metal–Ligand Bonding & Electron Counting  ✘ 미제작
+## Module 11 — Metal–Ligand Bonding & Electron Counting  ◻ 뼈대
 **중심 질문**: 금속–유기 ligand 결합을 어떻게 해석하는가?
 
 무기화학에서 유기금속화학으로 넘어가는 자리다.
@@ -335,7 +336,7 @@ Russell–Saunders coupling과 `jj` coupling의 차이가 여기서 정확한 �
 
 **Module 08과의 연결**: 6번의 CO back-bonding은 Module 08의 π acceptor를 그대로 쓴다.
 
-## Module 12 — Elementary Organometallic Reactions  ✘ 미제작
+## Module 12 — Elementary Organometallic Reactions  ◻ 뼈대
 **중심 질문**: 금속 착물은 어떤 elementary step으로 반응하는가?
 
 촉매 cycle을 배우기 전에 각 elementary step을 분리해서 이해해야 한다.
@@ -356,7 +357,7 @@ Russell–Saunders coupling과 `jj` coupling의 차이가 여기서 정확한 �
 
 **추가 검토**: 내부권/외부권 전자 전이를 여기에 한 절로 넣을지 결정 필요(위 "빠진 것" 참조).
 
-## Module 13 — Homogeneous Catalysis & Catalytic Cycles  ✘ 미제작
+## Module 13 — Homogeneous Catalysis & Catalytic Cycles  ◻ 뼈대
 **중심 질문**: elementary reactions가 어떻게 catalytic cycle을 구성하는가?
 
 1. 수소화 — Wilkinson 촉매 `RhCl(PPh₃)₃`
@@ -378,7 +379,7 @@ Russell–Saunders coupling과 `jj` coupling의 차이가 여기서 정확한 �
 
 # Part VII. Solid-State & Materials Chemistry
 
-## Module 14 — Solid-State Chemistry & Band Theory  ✘ 미제작
+## Module 14 — Solid-State Chemistry & Band Theory  ◻ 뼈대
 **중심 질문**: MO 개념이 고체의 band structure로 어떻게 확장되는가?
 
 가장 중요한 연결은 이것이다:
@@ -395,7 +396,7 @@ AO → MO → many MOs → bands
 6. 분류 — 금속 / 반도체 / 절연체
 7. 반도체 — 진성, n형, p형, donor/acceptor 준위
 
-## Module 15 — Modern Inorganic Materials & Integrated Case Studies  ✘ 미제작
+## Module 15 — Modern Inorganic Materials & Integrated Case Studies  ◻ 뼈대
 **중심 질문**: 전자구조와 대칭성이 실제 물성을 어떻게 결정하는가?
 
 **새 이론을 추가하지 않는다.** 앞의 내용을 실제 물질에 통합 적용하는 모듈이다.
