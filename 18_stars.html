@@ -233,8 +233,63 @@
     </div>
    </section>
 
+   <!-- 외부 시뮬레이션 -->
+   <section data-slide-index="8" data-slide-num="9" data-title="시뮬레이션으로 확인하기" id="slide-9">
+    <div class="slide-content">
+     <h2>시뮬레이션으로 확인하기</h2>
+     <p class="text-slate-600" id="sim-lead" style="font-size:1.3rem">지금까지 그림과 식으로 본 것을 <b>직접 조작해</b> 확인합니다. 카드의 &lsquo;여기에 열기&rsquo;를 누르면 아래에 열리고, &lsquo;새 창&rsquo;은 화면 전체로 볼 때 씁니다.</p>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl w-full mt-4" id="sim-cards">
+      <div class="outline-card">
+       <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">슬라이드 1·2와 짝</p>
+       <p class="font-bold text-slate-800 mt-1">거리와 시차의 관계</p>
+       <p class="text-slate-600 mt-1 text-sm">관측 위치 (가)·(나)에서 시차를 재어 표에 기록한다. 물체까지의 거리를 바꿔 가며 <b>거리가 멀수록 시차가 작아지는 것</b>을 직접 측정한다.</p>
+       <div class="flex flex-wrap gap-2 mt-3">
+        <button class="quiz-btn" data-sim="https://sciencej1.cafe24.com/sci2/parallax.html" data-sim-name="거리와 시차의 관계" style="max-width:130px">여기에 열기</button>
+        <a class="quiz-btn" href="https://sciencej1.cafe24.com/sci2/parallax.html" target="_blank" rel="noopener noreferrer"
+           style="max-width:110px; display:inline-block; text-align:center">새 창 &#8599;</a>
+       </div>
+      </div>
+      <div class="outline-card">
+       <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">슬라이드 4와 짝</p>
+       <p class="font-bold text-slate-800 mt-1">연주 시차로 거리 비교하기</p>
+       <p class="text-slate-600 mt-1 text-sm">여러 별의 연주 시차를 나란히 놓고 <b>어느 별이 더 가까운지</b> 판단한다. 시차와 거리의 반비례를 눈으로 확인하는 단계.</p>
+       <div class="flex flex-wrap gap-2 mt-3">
+        <button class="quiz-btn" data-sim="https://sciencej1.cafe24.com/sci2/stellarparallax.html" data-sim-name="연주 시차로 거리 비교하기" style="max-width:130px">여기에 열기</button>
+        <a class="quiz-btn" href="https://sciencej1.cafe24.com/sci2/stellarparallax.html" target="_blank" rel="noopener noreferrer"
+           style="max-width:110px; display:inline-block; text-align:center">새 창 &#8599;</a>
+       </div>
+      </div>
+      <div class="outline-card">
+       <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">슬라이드 3·4와 짝</p>
+       <p class="font-bold text-slate-800 mt-1">연주 시차 3D</p>
+       <p class="text-slate-600 mt-1 text-sm">지구 공전을 3D로 돌려 본다. 별 X의 거리(pc)와 공전 각도를 바꾸면 시차 ∠AXB와 연주 시차 p, 그리고 <b>d = 1/p</b> 그래프가 함께 움직인다.</p>
+       <div class="flex flex-wrap gap-2 mt-3">
+        <button class="quiz-btn" data-sim="https://sciencej1.cafe24.com/sci2/stellarparallax3d.html" data-sim-name="연주 시차 3D" style="max-width:130px">여기에 열기</button>
+        <a class="quiz-btn" href="https://sciencej1.cafe24.com/sci2/stellarparallax3d.html" target="_blank" rel="noopener noreferrer"
+           style="max-width:110px; display:inline-block; text-align:center">새 창 &#8599;</a>
+       </div>
+      </div>
+     </div>
+     <p class="slide-caption mt-3" id="sim-note" aria-live="polite">카드에서 시뮬레이션을 골라 열어 보세요. 외부 사이트이므로 인터넷 연결이 필요합니다.</p>
+     <!-- #slide-controls가 bottom:20px에 고정돼 있어 아래를 덮는다. 그만큼 비워 둔다. -->
+     <div id="sim-stage" class="max-w-5xl w-full mt-4" style="display:none; padding-bottom:5rem">
+      <div class="flex items-center justify-between mb-2">
+       <p class="font-bold text-slate-800" id="sim-title"></p>
+       <button class="quiz-btn" data-sim-close style="max-width:100px">닫기</button>
+      </div>
+      <!-- loading="lazy"를 쓰지 않는다: 이 iframe은 숨겨진 상태에서 src가 걸리므로
+                뷰포트에 들어오지 않아 로드가 무기한 미뤄진다. 지연 로딩은 이미
+                클릭할 때만 src를 거는 방식으로 하고 있다. -->
+      <iframe id="sim-frame" title="외부 시뮬레이션" allowfullscreen allow="fullscreen"
+              referrerpolicy="no-referrer"
+              style="width:100%; height:min(55vh, 600px); border:2px solid #e2e8f0; border-radius:1rem; background:#f8fafc"></iframe>
+     </div>
+     <p class="credit">시뮬레이션 출처: sciencej1.cafe24.com &middot; 3D 시뮬레이션은 sciencelove.com 자료를 수정한 것입니다.</p>
+    </div>
+   </section>
+
    <!-- rule -->
-   <section data-slide-index="8" data-slide-num="9" data-title="규칙 완성" id="slide-9">
+   <section data-slide-index="9" data-slide-num="10" data-title="규칙 완성" id="slide-10">
     <div class="slide-content">
      <h2>관찰에서 규칙으로</h2>
      <div class="max-w-5xl w-full mt-4">
@@ -281,7 +336,7 @@
    </section>
 
    <!-- Slide 7: 방법의 한계 -->
-   <section data-slide-index="9" data-slide-num="10" data-title="연주 시차의 한계" id="slide-10">
+   <section data-slide-index="10" data-slide-num="11" data-title="연주 시차의 한계" id="slide-11">
     <div class="slide-content">
      <h2>5. 이 방법이 통하지 않는 곳</h2>
      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-6">
@@ -297,7 +352,7 @@
    </section>
 
    <!-- apply -->
-   <section data-slide-index="10" data-slide-num="11" data-title="실제 별로 해 보기" id="slide-11">
+   <section data-slide-index="11" data-slide-num="12" data-title="실제 별로 해 보기" id="slide-12">
     <div class="slide-content">
      <h2>6. 실제 별의 시차로 거리를 구해 보자</h2>
      <div class="max-w-5xl w-full mt-4">
@@ -321,7 +376,7 @@
    </section>
 
    <!-- 과학사 1 -->
-   <section data-slide-index="11" data-slide-num="12" data-title="과학사 — 200년 묵은 반론" id="slide-12">
+   <section data-slide-index="12" data-slide-num="13" data-title="과학사 — 200년 묵은 반론" id="slide-13">
     <div class="slide-content">
      <h2>과학사 — 지동설을 200년간 괴롭힌 반론</h2>
      <div class="max-w-5xl w-full mt-4 space-y-4">
@@ -343,7 +398,7 @@
    </section>
 
    <!-- Slide 8: 별의 색 -->
-   <section data-slide-index="12" data-slide-num="13" data-title="별의 색" id="slide-13">
+   <section data-slide-index="13" data-slide-num="14" data-title="별의 색" id="slide-14">
     <div class="slide-content">
      <h2>7. 별의 색 — 오리온자리에서 확인하기</h2>
      <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-4">
@@ -377,7 +432,7 @@
    </section>
 
    <!-- Slide 9: 색과 표면 온도 -->
-   <section data-slide-index="13" data-slide-num="14" data-title="색과 표면 온도" id="slide-14">
+   <section data-slide-index="14" data-slide-num="15" data-title="색과 표면 온도" id="slide-15">
     <div class="slide-content">
      <h2>8. 별의 색과 표면 온도</h2>
      <div class="w-full max-w-5xl mt-4">
@@ -394,7 +449,7 @@
    </section>
 
    <!-- 과학사 2 -->
-   <section data-slide-index="14" data-slide-num="15" data-title="과학사 — 하버드 컴퓨터스" id="slide-15">
+   <section data-slide-index="15" data-slide-num="16" data-title="과학사 — 하버드 컴퓨터스" id="slide-16">
     <div class="slide-content">
      <h2>과학사 — 별을 분류한 '하버드의 계산원들'</h2>
      <div class="max-w-5xl w-full mt-4 space-y-4">
@@ -416,7 +471,7 @@
    </section>
 
    <!-- Slide 10: 정리 -->
-   <section data-slide-index="15" data-slide-num="16" data-title="정리" id="slide-16">
+   <section data-slide-index="16" data-slide-num="17" data-title="정리" id="slide-17">
     <div class="slide-content">
      <h2>오늘의 정리</h2>
      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-6">
@@ -430,7 +485,7 @@
    </section>
 
    <!-- Slide 11: 형성평가 1 -->
-   <section data-slide-index="16" data-slide-num="17" data-title="형성평가 1" id="slide-17">
+   <section data-slide-index="17" data-slide-num="18" data-title="형성평가 1" id="slide-18">
     <div class="slide-content">
      <h2 class="text-slate-800">형성평가 1 — 연주 시차</h2>
      <div class="quiz-container max-w-3xl mt-8 w-full">
@@ -452,7 +507,7 @@
    </section>
 
    <!-- Slide 12: 형성평가 2 -->
-   <section data-slide-index="17" data-slide-num="18" data-title="형성평가 2" id="slide-18">
+   <section data-slide-index="18" data-slide-num="19" data-title="형성평가 2" id="slide-19">
     <div class="slide-content">
      <h2 class="text-slate-800">형성평가 2 — 별의 색</h2>
      <div class="quiz-container max-w-3xl mt-8 w-full">
@@ -474,7 +529,7 @@
    </section>
 
    <!-- misconception -->
-   <section data-slide-index="18" data-slide-num="19" data-title="오개념 확인" id="slide-19">
+   <section data-slide-index="19" data-slide-num="20" data-title="오개념 확인" id="slide-20">
     <div class="slide-content">
      <h2>오개념 확인</h2>
      <div class="quiz-container max-w-3xl mt-4 w-full">
@@ -511,6 +566,40 @@
       jul.style.opacity = (season === 'jan') ? 0.15 : 1;
       btn.textContent = season === 'jan' ? '지금: 1월 관측 →' :
                         season === 'jul' ? '지금: 7월 관측 →' : '지금: 두 시점 함께 →';
+     });
+    }
+
+
+    /* 외부 시뮬레이션 — 클릭한 것 하나만 불러온다.
+       세 개를 미리 걸어 두면 '전체 보기'에서 열 때마다 외부 페이지를 세 번 받아 오고,
+       3D 시뮬레이션이 보이지도 않는 곳에서 계속 돈다. */
+    var simStage = document.getElementById('sim-stage');
+    if (simStage) {
+     var simFrame = document.getElementById('sim-frame'),
+         simTitle = document.getElementById('sim-title'),
+         simNote  = document.getElementById('sim-note'),
+         simCards = document.getElementById('sim-cards'),
+         simLead  = document.getElementById('sim-lead');
+     document.querySelectorAll('[data-sim]').forEach(function (b) {
+      b.addEventListener('click', function () {
+       var name = b.dataset.simName;
+       simTitle.textContent = name;
+       simFrame.title = name + ' 시뮬레이션';
+       simFrame.src = b.dataset.sim;
+       simStage.style.display = '';
+       // 카드와 안내문을 접어 시뮬레이션에 슬라이드를 통째로 내준다.
+       // 셋을 다 펼치면 한 슬라이드에 들어가지 않는다.
+       simCards.style.display = 'none';
+       if (simLead) simLead.style.display = 'none';
+       simNote.textContent = name + ' 을(를) 아래에 열었습니다. 화면이 비어 있으면 인터넷 연결을 확인하거나 새 창으로 여세요.';
+      });
+     });
+     document.querySelector('[data-sim-close]').addEventListener('click', function () {
+      simFrame.removeAttribute('src');          // 정지시켜 CPU를 놓아 준다
+      simStage.style.display = 'none';
+      simCards.style.display = '';
+      if (simLead) simLead.style.display = '';
+      simNote.textContent = '카드에서 시뮬레이션을 골라 열어 보세요. 외부 사이트이므로 인터넷 연결이 필요합니다.';
      });
     }
 
