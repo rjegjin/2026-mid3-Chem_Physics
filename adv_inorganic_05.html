@@ -29,7 +29,7 @@
         table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
         .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
         .warn b { color: #78350f; }
-        /* 뼈대 문서 표식 — 완성본과 혼동하지 않게 한다 */
+        /* Marks this file as an outline so it is never mistaken for finished content. */
         .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
         .todo { list-style: none; padding-left: 0; }
         .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
@@ -48,7 +48,7 @@
             <p class="text-xl text-slate-500 font-medium italic">"Two atoms is the smallest laboratory in which a bond can be taken apart."</p>
             <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
             <p class="text-base font-bold text-slate-800">Lecture 05: LCAO, Bond Order, and the $s$&ndash;$p$ Mixing Problem</p>
-            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; 본문 미작성</div>
+            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; prose not written</div>
         </div>
     </section>
 
@@ -58,19 +58,19 @@
             <h2>0. Scope</h2>
             <div class="info-card">
                 <p class="font-black uppercase text-xs mb-3">Central question</p>
-                <p class="text-lg font-medium text-slate-800">원자 orbital은 어떻게 분자 orbital을 만드는가?</p>
+                <p class="text-lg font-medium text-slate-800">How do atomic orbitals combine into molecular orbitals?</p>
             </div>
             <div class="grid md:grid-cols-2 gap-6 mt-6">
                 <div class="step-box">
                     <span class="logic-tag">Requires</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 04 &mdash; 원자 오비탈, 각운동량, 전자 배치</p>
+                    <p class="text-sm text-slate-700 mt-3">Module 04 &mdash; atomic orbitals, angular momentum, electron configurations</p>
                 </div>
                 <div class="step-box">
                     <span class="logic-tag">Feeds</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 06 &mdash; 다원자 MO. Module 08 &mdash; 금속&ndash;리간드 $\sigma$ 결합</p>
+                    <p class="text-sm text-slate-700 mt-3">Module 06 &mdash; polyatomic MOs. Module 08 &mdash; metal&ndash;ligand $\sigma$ bonding</p>
                 </div>
             </div>
-            <div class="warn mt-8"><b>범위.</b> 이원자 분자에 한정한다. 대칭성 라벨은 $D_{\infty h}$/$C_{\infty v}$를 쓰되 점군 형식론은 Module 01&ndash;02에서 회수한다.</div>
+            <div class="warn mt-8"><b>Scope.</b> Diatomics only. Symmetry labels use $D_{\infty h}$ / $C_{\infty v}$, but the point-group formalism itself is recovered from Modules 01&ndash;02.</div>
         </div>
     </section>
 
@@ -82,10 +82,10 @@
                 $$ \psi_{\mathrm{MO}} = c_A\phi_A + c_B\phi_B $$
             </div>
             <ul class="todo mt-4">
-                <li>에너지 근접성 &mdash; 두 AO의 에너지가 비슷해야 한다</li>
-                <li>대칭 일치 &mdash; 같은 기약 표현에 속해야 중첩 적분이 0이 아니다</li>
-                <li><b>중첩 적분</b> $S_{AB} = \langle \phi_A | \phi_B \rangle$의 부호와 크기</li>
-                <li>결합성 / 반결합성 &mdash; 반결합의 불안정화가 결합의 안정화보다 크다</li>
+                <li>Energy proximity &mdash; the two AOs must lie at comparable energies</li>
+                <li>Symmetry match &mdash; the overlap integral vanishes unless both belong to the same irrep</li>
+                <li>The <b>overlap integral</b> $S_{AB} = \langle \phi_A | \phi_B \rangle$: its sign and magnitude</li>
+                <li>Bonding vs antibonding &mdash; the antibonding destabilisation exceeds the bonding stabilisation</li>
             </ul>
         </div>
     </section>
@@ -98,9 +98,9 @@
                 $$ BO = \tfrac{1}{2}\left(N_b - N_a\right) $$
             </div>
             <ul class="todo mt-4">
-                <li>결합 차수와 결합 길이·결합 에너지의 상관</li>
-                <li>분수 결합 차수 &mdash; $\mathrm{O_2^+}$, $\mathrm{O_2^-}$, $\mathrm{NO}$</li>
-                <li>결합 차수가 0이면 분자가 없다 &mdash; $\mathrm{He_2}$</li>
+                <li>Bond order against bond length and bond energy</li>
+                <li>Fractional bond orders &mdash; $\mathrm{O_2^+}$, $\mathrm{O_2^-}$, $\mathrm{NO}$</li>
+                <li>Bond order zero means no molecule &mdash; $\mathrm{He_2}$</li>
             </ul>
         </div>
     </section>
@@ -110,11 +110,11 @@
         <div class="slide-content text-left px-20">
             <h2>3. The Homonuclear Series</h2>
             <ul class="todo mt-4">
-                <li>$\mathrm{H_2}$ &middot; $\mathrm{He_2}$ &mdash; 가장 단순한 두 경우</li>
-                <li>$\mathrm{Li_2}$ &middot; $\mathrm{Be_2}$ &mdash; $2s$만으로</li>
-                <li>$\mathrm{B_2}$ &middot; $\mathrm{C_2}$ &middot; $\mathrm{N_2}$ &mdash; $s$&ndash;$p$ 혼합이 지배하는 구간</li>
-                <li>$\mathrm{O_2}$ &middot; $\mathrm{F_2}$ &mdash; 혼합이 꺼진 구간</li>
-                <li><b>표로 정리</b> &mdash; 결합 차수, 결합 길이, 자성</li>
+                <li>$\mathrm{H_2}$ and $\mathrm{He_2}$ &mdash; the two simplest cases</li>
+                <li>$\mathrm{Li_2}$, $\mathrm{Be_2}$ &mdash; $2s$ only</li>
+                <li>$\mathrm{B_2}$, $\mathrm{C_2}$, $\mathrm{N_2}$ &mdash; the regime where $s$&ndash;$p$ mixing dominates</li>
+                <li>$\mathrm{O_2}$, $\mathrm{F_2}$ &mdash; the regime where mixing has switched off</li>
+                <li><b>Summary table</b> &mdash; bond order, bond length, magnetism</li>
             </ul>
         </div>
     </section>
@@ -124,10 +124,10 @@
         <div class="slide-content text-left px-20">
             <h2>4. $s$&ndash;$p$ Mixing</h2>
             <ul class="todo mt-4">
-                <li>$2s$와 $2p_z$는 같은 대칭($\sigma_g$)이므로 섞인다</li>
-                <li>$\mathrm{Li_2} \to \mathrm{N_2}$: $\sigma_{2p}$가 $\pi_{2p}$ <b>위로</b> 밀린다</li>
-                <li>$\mathrm{O_2}$, $\mathrm{F_2}$: $2s$&ndash;$2p$ 에너지 간격이 벌어져 혼합이 약해진다</li>
-                <li>이 순서 역전이 광전자 분광 데이터로 확인된다</li>
+                <li>$2s$ and $2p_z$ share $\sigma_g$ symmetry, so they mix</li>
+                <li>$\mathrm{Li_2} \to \mathrm{N_2}$: $\sigma_{2p}$ is pushed <b>above</b> $\pi_{2p}$</li>
+                <li>$\mathrm{O_2}$, $\mathrm{F_2}$: the $2s$&ndash;$2p$ gap widens and mixing weakens</li>
+                <li>The level inversion is confirmed by photoelectron spectra, not assumed</li>
             </ul>
         </div>
     </section>
@@ -137,10 +137,10 @@
         <div class="slide-content text-left px-20">
             <h2>5. $\mathrm{O_2}$ and Paramagnetism</h2>
             <ul class="todo mt-4">
-                <li>$\pi^*$에 홀전자 2개 &mdash; 삼중항 바닥 상태</li>
-                <li>루이스 구조로는 설명할 수 없는 관측 &mdash; MO 이론의 결정적 근거</li>
-                <li>액체 산소가 자석에 붙는 실험</li>
-                <li><b>과학사</b> &mdash; Lennard-Jones 1929, Mulliken의 MO 명명법</li>
+                <li>Two unpaired electrons in $\pi^*$ &mdash; a triplet ground state</li>
+                <li>An observation no Lewis structure accounts for &mdash; the decisive argument for MO theory</li>
+                <li>Liquid oxygen sticking to a magnet</li>
+                <li><b>History</b> &mdash; Lennard-Jones 1929; Mulliken's MO nomenclature</li>
             </ul>
         </div>
     </section>
@@ -150,11 +150,11 @@
         <div class="slide-content text-left px-20">
             <h2>6. Heteronuclear Diatomics</h2>
             <ul class="todo mt-4">
-                <li>계수 비대칭 &mdash; $|c_A| \ne |c_B|$, 전기음성도가 큰 쪽으로 치우친다</li>
-                <li>$\mathrm{HF}$ &mdash; 비결합 오비탈과 극성</li>
-                <li>$\mathrm{CO}$ &mdash; HOMO가 <b>탄소</b> 쪽에 치우친 $\sigma$ 오비탈</li>
-                <li>$\mathrm{CO}$의 HOMO/LUMO가 Module 11의 back-bonding으로 직결된다</li>
-                <li>$\mathrm{NO}$ &mdash; 홀전자 하나, non-innocent ligand의 예고</li>
+                <li>Asymmetric coefficients &mdash; $|c_A| \ne |c_B|$, weighted toward the more electronegative atom</li>
+                <li>$\mathrm{HF}$ &mdash; non-bonding orbitals and polarity</li>
+                <li>$\mathrm{CO}$ &mdash; a HOMO that is $\sigma$ and weighted on <b>carbon</b></li>
+                <li>That HOMO/LUMO pair is what Module 11 needs for back-donation</li>
+                <li>$\mathrm{NO}$ &mdash; one unpaired electron, a preview of non-innocent ligands</li>
             </ul>
         </div>
     </section>
@@ -164,10 +164,10 @@
         <div class="slide-content text-left px-20">
             <h2>7. Key Competencies</h2>
             <ul class="todo mt-4">
-                <li>임의의 2주기 이원자 분자의 MO 도표를 그리고 결합 차수를 구한다</li>
-                <li>$s$&ndash;$p$ 혼합이 켜지는 구간과 꺼지는 구간을 구별한다</li>
-                <li>$\mathrm{O_2}$의 상자성을 MO로 설명한다</li>
-                <li>$\mathrm{CO}$의 HOMO가 왜 탄소 쪽인지 말한다</li>
+                <li>Draw the MO diagram of any second-row diatomic and give its bond order</li>
+                <li>Identify where $s$&ndash;$p$ mixing switches on and off</li>
+                <li>Explain the paramagnetism of $\mathrm{O_2}$ in MO terms</li>
+                <li>Say why the $\mathrm{CO}$ HOMO is carbon-weighted</li>
             </ul>
         </div>
     </section>
@@ -176,11 +176,11 @@
     <section id="s40" class="end">
         <div class="slide-content text-center">
             <div class="outline-banner" style="display:inline-block">Outline only</div>
-            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 5 &mdash; 뼈대</h2>
+            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 5 &mdash; Outline</h2>
             <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
-                절 구성과 핵심 식만 세워 둔 상태입니다. 본문 서술·도표·사례는 제작 단계에서 채웁니다.
-                구성 근거는 <b>ADV_INORGANIC_ROADMAP.md</b>, 전체 지도는
-                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>에 있습니다.
+                Section structure and key equations are in place; prose, diagrams and worked cases are not.
+                The rationale for this ordering is in <b>ADV_INORGANIC_ROADMAP.md</b>; the whole map is in the
+                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>.
             </p>
             <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
             <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">MO Theory<br>&amp; Polyatomic Molecules</p>

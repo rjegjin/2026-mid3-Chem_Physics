@@ -29,7 +29,7 @@
         table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
         .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
         .warn b { color: #78350f; }
-        /* 뼈대 문서 표식 — 완성본과 혼동하지 않게 한다 */
+        /* Marks this file as an outline so it is never mistaken for finished content. */
         .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
         .todo { list-style: none; padding-left: 0; }
         .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
@@ -48,7 +48,7 @@
             <p class="text-xl text-slate-500 font-medium italic">"A state is a vector. An observable is an operator. Everything else follows."</p>
             <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
             <p class="text-base font-bold text-slate-800">Bonus 02: Bra&ndash;Ket Notation, Commutators, and Simultaneous Eigenstates</p>
-            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; 본문 미작성</div>
+            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; prose not written</div>
         </div>
     </section>
 
@@ -58,19 +58,19 @@
             <h2>0. Scope</h2>
             <div class="info-card">
                 <p class="font-black uppercase text-xs mb-3">Central question</p>
-                <p class="text-lg font-medium text-slate-800">양자 상태와 대칭 조작을 왜 같은 언어로 쓸 수 있는가?</p>
+                <p class="text-lg font-medium text-slate-800">Why can quantum states and symmetry operations be written in the same language?</p>
             </div>
             <div class="grid md:grid-cols-2 gap-6 mt-6">
                 <div class="step-box">
                     <span class="logic-tag">Requires</span>
-                    <p class="text-sm text-slate-700 mt-3">Bonus 01 &mdash; 벡터 공간, 선형 연산자, 고윳값</p>
+                    <p class="text-sm text-slate-700 mt-3">Bonus 01 &mdash; vector spaces, linear operators, eigenvalues</p>
                 </div>
                 <div class="step-box">
                     <span class="logic-tag">Feeds</span>
-                    <p class="text-sm text-slate-700 mt-3">Bonus 03 &mdash; 표현론 &middot; Bonus 04 &mdash; Hamiltonian 대칭</p>
+                    <p class="text-sm text-slate-700 mt-3">Bonus 03 &mdash; representation theory &middot; Bonus 04 &mdash; Hamiltonian symmetry</p>
                 </div>
             </div>
-            <div class="warn mt-8"><b>분리 작업이다.</b> 이 내용의 상당 부분이 현재 <code>adv_inorganic_bonus_01.html</code>에 들어 있다. 신규 집필이 아니라 옮기고 다듬는 작업이다.</div>
+            <div class="warn mt-8"><b>This is a split, not new writing.</b> Much of this material already sits in <code>adv_inorganic_bonus_01.html</code>; the work is to separate and sharpen it.</div>
         </div>
     </section>
 
@@ -79,10 +79,10 @@
         <div class="slide-content text-left px-20">
             <h2>1. Hilbert Space</h2>
             <ul class="todo mt-4">
-                <li>내적이 정의된 완비 벡터 공간</li>
-                <li>$L^2$ &mdash; 제곱적분 가능 함수의 공간이 왜 자연스러운 무대인가</li>
-                <li>정규직교 기저와 완비성 관계</li>
-                <li>유한 차원과 무한 차원의 차이가 화학에서 문제되는 지점</li>
+                <li>A complete vector space equipped with an inner product</li>
+                <li>$L^2$ &mdash; why square-integrable functions are the natural stage</li>
+                <li>Orthonormal bases and the completeness relation</li>
+                <li>Where the finite- and infinite-dimensional cases actually differ for chemistry</li>
             </ul>
         </div>
     </section>
@@ -95,10 +95,10 @@
                 $$ \langle \phi | \hat{A} | \psi \rangle $$
             </div>
             <ul class="todo mt-4">
-                <li>켓 $|\psi\rangle$과 브라 $\langle\phi|$ &mdash; 벡터와 쌍대 벡터</li>
-                <li>내적, 사영 연산자 $|\psi\rangle\langle\psi|$</li>
-                <li>행렬 요소를 이 표기로 읽기</li>
-                <li>Module 05&ndash;06의 중첩 적분과 Hamiltonian 행렬 요소가 곧 이것이다</li>
+                <li>Kets $|\psi\rangle$ and bras $\langle\phi|$ &mdash; vectors and dual vectors</li>
+                <li>Inner products and the projection operator $|\psi\rangle\langle\psi|$</li>
+                <li>Reading a matrix element in this notation</li>
+                <li>The overlap integrals and Hamiltonian matrix elements of Modules 05&ndash;06 are exactly these</li>
             </ul>
         </div>
     </section>
@@ -108,10 +108,10 @@
         <div class="slide-content text-left px-20">
             <h2>3. Operators and Observables</h2>
             <ul class="todo mt-4">
-                <li>에르미트 연산자 $\hat{A}^\dagger = \hat{A}$ &mdash; 실수 고윳값</li>
-                <li>유니터리 연산자 $\hat{U}^\dagger\hat{U} = 1$ &mdash; 내적을 보존</li>
-                <li><b>대칭 조작은 유니터리다</b> &mdash; 이것이 열쇠다</li>
-                <li>기저 변환과 대각합(trace)의 불변성</li>
+                <li>Hermitian operators $\hat{A}^\dagger = \hat{A}$ &mdash; real eigenvalues</li>
+                <li>Unitary operators $\hat{U}^\dagger\hat{U} = 1$ &mdash; inner products preserved</li>
+                <li><b>Symmetry operations are unitary</b> &mdash; this is the key</li>
+                <li>Change of basis and the invariance of the trace</li>
             </ul>
         </div>
     </section>
@@ -124,10 +124,10 @@
                 $$ [\hat{A}, \hat{B}] = \hat{A}\hat{B} - \hat{B}\hat{A} $$
             </div>
             <ul class="todo mt-4">
-                <li>교환하는 연산자는 <b>동시 고유상태</b>를 갖는다 &mdash; 증명</li>
-                <li>교환하지 않으면 불확정성 관계</li>
-                <li>$[\hat{L}^2, \hat{L}_z] = 0$이지만 $[\hat{L}_x, \hat{L}_y] \ne 0$ &mdash; Module 04 &sect;5의 근거</li>
-                <li>Casimir 연산자의 개념</li>
+                <li>Commuting operators possess <b>simultaneous eigenstates</b> &mdash; with proof</li>
+                <li>Non-commuting operators and the uncertainty relation</li>
+                <li>$[\hat{L}^2, \hat{L}_z] = 0$ but $[\hat{L}_x, \hat{L}_y] \ne 0$ &mdash; the basis of Module 04 &sect;5</li>
+                <li>The notion of a Casimir operator</li>
             </ul>
         </div>
     </section>
@@ -137,10 +137,10 @@
         <div class="slide-content text-left px-20">
             <h2>5. Symmetry Operators</h2>
             <ul class="todo mt-4">
-                <li>기하학적 조작 $R$ → 함수에 작용하는 연산자 $\hat{R}$</li>
-                <li>$\hat{R}f(\mathbf{r}) = f(R^{-1}\mathbf{r})$ &mdash; 역이 들어가는 이유</li>
-                <li>$\hat{R}$이 군의 곱셈 구조를 보존한다는 것</li>
-                <li>Bonus 03의 '표현'이 바로 이 대응이다</li>
+                <li>From a geometric operation $R$ to an operator $\hat{R}$ acting on functions</li>
+                <li>$\hat{R}f(\mathbf{r}) = f(R^{-1}\mathbf{r})$ &mdash; why the inverse appears</li>
+                <li>$\hat{R}$ preserves the group multiplication structure</li>
+                <li>That correspondence is precisely what Bonus 03 calls a representation</li>
             </ul>
         </div>
     </section>
@@ -149,11 +149,11 @@
     <section id="s40" class="end">
         <div class="slide-content text-center">
             <div class="outline-banner" style="display:inline-block">Outline only</div>
-            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module B2 &mdash; 뼈대</h2>
+            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module B2 &mdash; Outline</h2>
             <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
-                절 구성과 핵심 식만 세워 둔 상태입니다. 본문 서술·도표·사례는 제작 단계에서 채웁니다.
-                구성 근거는 <b>ADV_INORGANIC_ROADMAP.md</b>, 전체 지도는
-                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>에 있습니다.
+                Section structure and key equations are in place; prose, diagrams and worked cases are not.
+                The rationale for this ordering is in <b>ADV_INORGANIC_ROADMAP.md</b>; the whole map is in the
+                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>.
             </p>
             <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
             <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Representation Theory</p>

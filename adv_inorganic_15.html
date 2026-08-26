@@ -29,7 +29,7 @@
         table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
         .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
         .warn b { color: #78350f; }
-        /* 뼈대 문서 표식 — 완성본과 혼동하지 않게 한다 */
+        /* Marks this file as an outline so it is never mistaken for finished content. */
         .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
         .todo { list-style: none; padding-left: 0; }
         .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
@@ -48,7 +48,7 @@
             <p class="text-xl text-slate-500 font-medium italic">"No new theory. Everything you need is already in modules 01 to 14."</p>
             <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
             <p class="text-base font-bold text-slate-800">Lecture 15: Five Materials, One Method</p>
-            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; 본문 미작성</div>
+            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; prose not written</div>
         </div>
     </section>
 
@@ -58,19 +58,19 @@
             <h2>0. Scope</h2>
             <div class="info-card">
                 <p class="font-black uppercase text-xs mb-3">Central question</p>
-                <p class="text-lg font-medium text-slate-800">전자구조와 대칭성이 실제 물성을 어떻게 결정하는가?</p>
+                <p class="text-lg font-medium text-slate-800">How do electronic structure and symmetry decide a material's properties?</p>
             </div>
             <div class="grid md:grid-cols-2 gap-6 mt-6">
                 <div class="step-box">
                     <span class="logic-tag">Requires</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 07&ndash;10 &mdash; 배위·전자상태 &middot; Module 14 &mdash; 띠 이론</p>
+                    <p class="text-sm text-slate-700 mt-3">Modules 07&ndash;10 &mdash; coordination and electronic states &middot; Module 14 &mdash; band theory</p>
                 </div>
                 <div class="step-box">
                     <span class="logic-tag">Feeds</span>
-                    <p class="text-sm text-slate-700 mt-3">&mdash; (과정의 종착점)</p>
+                    <p class="text-sm text-slate-700 mt-3">&mdash; (the end of the course)</p>
                 </div>
             </div>
-            <div class="warn mt-8"><b>새 이론을 도입하지 않는다.</b> 각 Case는 같은 절차를 반복한다: 대칭성 &rarr; 오비탈 &rarr; 전자구조 &rarr; 물성.</div>
+            <div class="warn mt-8"><b>No new theory is introduced.</b> Every case repeats one procedure: symmetry &rarr; orbitals &rarr; electronic structure &rarr; property.</div>
         </div>
     </section>
 
@@ -82,11 +82,11 @@
                 $$ \text{crystal symmetry} \to d\text{ orbitals} \to \text{band structure} \to \text{optical properties} $$
             </div>
             <ul class="todo mt-4">
-                <li>$\mathrm{TiO_2}$ &mdash; rutile 대 anatase, 3.0/3.2 eV 간격, 자외선만 흡수</li>
-                <li>$\mathrm{Fe_2O_3}$ &mdash; 왜 붉은가. 전하 이동 전이</li>
-                <li>$\mathrm{MnO_2}$ &mdash; 혼합 원자가와 전도성</li>
-                <li>$\mathrm{TiO_2}$의 광촉매 작용 &mdash; 밴드 가장자리 위치가 산화·환원력을 정한다</li>
-                <li>Module 07 회수 &mdash; 팔면체 자리의 $d$ 갈라짐이 띠 가장자리를 만든다</li>
+                <li>$\mathrm{TiO_2}$ &mdash; rutile against anatase, gaps of 3.0 and 3.2 eV, absorbing only in the ultraviolet</li>
+                <li>$\mathrm{Fe_2O_3}$ &mdash; why it is red. Charge-transfer transitions</li>
+                <li>$\mathrm{MnO_2}$ &mdash; mixed valence and conductivity</li>
+                <li>Photocatalysis by $\mathrm{TiO_2}$ &mdash; band-edge positions fix its oxidising and reducing power</li>
+                <li>Recovered from Module 07 &mdash; $d$ splitting at the octahedral site sets the band edges</li>
             </ul>
         </div>
     </section>
@@ -99,12 +99,12 @@
                 $$ \mathrm{ABX_3}, \qquad t = \frac{r_A + r_X}{\sqrt{2}\,(r_B + r_X)} $$
             </div>
             <ul class="todo mt-4">
-                <li>이상적 입방 구조와 $\mathrm{BX_6}$ 팔면체 망</li>
-                <li><b>Goldschmidt 허용 인자</b> $t$ &mdash; 왜곡을 예측한다</li>
-                <li>팔면체 기울임(tilting)과 강유전성</li>
-                <li>산화물 perovskite &mdash; $\mathrm{BaTiO_3}$, $\mathrm{SrTiO_3}$</li>
-                <li>할라이드 perovskite &mdash; $\mathrm{CH_3NH_3PbI_3}$, 태양전지, 안정성 문제</li>
-                <li>Module 10 회수 &mdash; 납의 상대론적 $6s$가 밴드 가장자리에 들어온다</li>
+                <li>The ideal cubic structure and the corner-sharing $\mathrm{BX_6}$ network</li>
+                <li><b>The Goldschmidt tolerance factor</b> $t$ &mdash; predicting distortion</li>
+                <li>Octahedral tilting and ferroelectricity</li>
+                <li>Oxide perovskites &mdash; $\mathrm{BaTiO_3}$, $\mathrm{SrTiO_3}$</li>
+                <li>Halide perovskites &mdash; $\mathrm{CH_3NH_3PbI_3}$, photovoltaics, and the stability problem</li>
+                <li>Recovered from Module 10 &mdash; the relativistic lead $6s$ sits at the band edge</li>
             </ul>
         </div>
     </section>
@@ -114,12 +114,12 @@
         <div class="slide-content text-left px-20">
             <h2>3. Case 3 &mdash; Coordination Polymers and MOFs</h2>
             <ul class="todo mt-4">
-                <li>금속 노드 + 유기 링커 &rarr; 확장 네트워크</li>
-                <li>이차 구조 단위(SBU)와 topology</li>
-                <li>기공률과 표면적 &mdash; 그램당 수천 m&sup2;</li>
-                <li>기체 흡착 &mdash; $\mathrm{CO_2}$ 포집, 수소 저장</li>
-                <li>열린 금속 자리를 이용한 촉매</li>
-                <li>Module 11 회수 &mdash; 배위 기하와 hapticity가 그대로 쓰인다</li>
+                <li>Metal nodes plus organic linkers giving an extended network</li>
+                <li>Secondary building units and topology</li>
+                <li>Porosity and surface area &mdash; thousands of m&sup2; per gram</li>
+                <li>Gas adsorption &mdash; $\mathrm{CO_2}$ capture, hydrogen storage</li>
+                <li>Catalysis at open metal sites</li>
+                <li>Recovered from Module 11 &mdash; coordination geometry and hapticity used directly</li>
             </ul>
         </div>
     </section>
@@ -129,11 +129,11 @@
         <div class="slide-content text-left px-20">
             <h2>4. Case 4 &mdash; Luminescent Complexes</h2>
             <ul class="todo mt-4">
-                <li>전이 유형 &mdash; $d$&ndash;$d$, LMCT, MLCT, ligand-centered</li>
-                <li>$\mathrm{[Ru(bpy)_3]^{2+}}$ &mdash; MLCT 삼중항, 긴 수명, 광산화환원 촉매</li>
-                <li>이리듐 착물 &mdash; OLED 인광. Module 10 회수: 무거운 원자 효과가 삼중항을 수확한다</li>
-                <li>란타넘족 &mdash; $f$&ndash;$f$ 전이는 좁고 선명하다. 안테나 효과</li>
-                <li>Module 09 회수 &mdash; 선택률이 수명을 정한다</li>
+                <li>Transition types &mdash; $d$&ndash;$d$, LMCT, MLCT, ligand-centred</li>
+                <li>$\mathrm{[Ru(bpy)_3]^{2+}}$ &mdash; a long-lived MLCT triplet and photoredox catalysis</li>
+                <li>Iridium complexes &mdash; OLED phosphorescence. Recovered from Module 10: the heavy-atom effect harvests triplets</li>
+                <li>Lanthanides &mdash; sharp $f$&ndash;$f$ lines and the antenna effect</li>
+                <li>Recovered from Module 09 &mdash; the selection rules set the lifetime</li>
             </ul>
         </div>
     </section>
@@ -143,24 +143,24 @@
         <div class="slide-content text-left px-20">
             <h2>5. Case 5 &mdash; Inorganic Energy Materials</h2>
             <ul class="todo mt-4">
-                <li>광촉매 물분해 &mdash; 밴드 가장자리와 산화환원 전위의 정렬</li>
-                <li>전기촉매 &mdash; OER/HER, 화산형(volcano) 그림과 흡착 에너지</li>
-                <li>전지 재료 &mdash; 층상 산화물, 올리빈 $\mathrm{LiFePO_4}$, 삽입 반응</li>
-                <li>연료전지 촉매 &mdash; 백금 사용량 저감</li>
-                <li>공통 논리 &mdash; 성능은 전자구조가 정하고, 전자구조는 대칭성이 정한다</li>
+                <li>Photocatalytic water splitting &mdash; aligning band edges with redox potentials</li>
+                <li>Electrocatalysis &mdash; OER and HER, volcano plots and adsorption energies</li>
+                <li>Battery materials &mdash; layered oxides, olivine $\mathrm{LiFePO_4}$, intercalation</li>
+                <li>Fuel-cell catalysts &mdash; reducing platinum loading</li>
+                <li>The shared logic &mdash; performance follows electronic structure, which follows symmetry</li>
             </ul>
         </div>
     </section>
 
-    <!-- Slide 8: Case 6 &mdash; Bioinorganic Chemistry (검토 중) -->
+    <!-- Slide 8: Case 6 &mdash; Bioinorganic Chemistry (under review) -->
     <section id="s8">
         <div class="slide-content text-left px-20">
-            <h2>6. Case 6 &mdash; Bioinorganic Chemistry (검토 중)</h2>
+            <h2>6. Case 6 &mdash; Bioinorganic Chemistry (under review)</h2>
             <ul class="todo mt-4">
-                <li>헤모글로빈·미오글로빈 &mdash; 산소 결합과 협동성</li>
-                <li>$\mathrm{Fe}$의 spin state 변화가 구조 변화를 일으킨다 &mdash; Module 07 회수</li>
-                <li>금속효소 &mdash; 질소고정효소, 시토크롬 P450</li>
-                <li><b>이 절은 로드맵의 열린 결정 사항이다</b> &mdash; 이전 커리큘럼의 독립 모듈이었고, 넣을지 확정되지 않았다</li>
+                <li>Haemoglobin and myoglobin &mdash; oxygen binding and cooperativity</li>
+                <li>A spin-state change at iron driving a structural change &mdash; recovered from Module 07</li>
+                <li>Metalloenzymes &mdash; nitrogenase, cytochrome P450</li>
+                <li><b>This section is an open decision in the roadmap</b> &mdash; a standalone module in the older curriculum, not yet confirmed for inclusion</li>
             </ul>
         </div>
     </section>
@@ -170,10 +170,10 @@
         <div class="slide-content text-left px-20">
             <h2>7. Closing &mdash; The Whole Chain</h2>
             <ul class="todo mt-4">
-                <li>대칭성 &rarr; 전자구조 &rarr; 결합 &rarr; 분광학 &rarr; 반응성 &rarr; 재료</li>
-                <li>15개 모듈이 하나의 사슬이었다는 것을 되짚는다</li>
-                <li>각 Case에서 어느 모듈이 회수되었는지 표로 정리</li>
-                <li>다음 단계 &mdash; 계산화학, 고체 물리, 촉매공학으로의 갈림길</li>
+                <li>Symmetry &rarr; electronic structure &rarr; bonding &rarr; spectroscopy &rarr; reactivity &rarr; materials</li>
+                <li>Looking back at the fifteen modules as one chain</li>
+                <li>A table of which module each case study drew on</li>
+                <li>Where to go next &mdash; computational chemistry, solid-state physics, catalytic engineering</li>
             </ul>
         </div>
     </section>
@@ -182,14 +182,14 @@
     <section id="s40" class="end">
         <div class="slide-content text-center">
             <div class="outline-banner" style="display:inline-block">Outline only</div>
-            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 15 &mdash; 뼈대</h2>
+            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 15 &mdash; Outline</h2>
             <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
-                절 구성과 핵심 식만 세워 둔 상태입니다. 본문 서술·도표·사례는 제작 단계에서 채웁니다.
-                구성 근거는 <b>ADV_INORGANIC_ROADMAP.md</b>, 전체 지도는
-                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>에 있습니다.
+                Section structure and key equations are in place; prose, diagrams and worked cases are not.
+                The rationale for this ordering is in <b>ADV_INORGANIC_ROADMAP.md</b>; the whole map is in the
+                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>.
             </p>
             <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
-            <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">&mdash; 과정 종료 &mdash;</p>
+            <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">&mdash; End of Course &mdash;</p>
         </div>
     </section>
 </main>
