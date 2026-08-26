@@ -27,14 +27,22 @@
         table.qtable { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
         table.qtable th, table.qtable td { border: 1px solid #e2e8f0; padding: 0.5rem 0.7rem; text-align: center; }
         table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
+        table.qtable td.l { text-align: left; }
+        .hist { border-left: 6px solid #94a3b8; background: #f8fafc; padding: 1rem 1.25rem; font-size: 0.9rem; color: #475569; }
+        .hist b { color: #0f172a; }
         .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
         .warn b { color: #78350f; }
-        /* 뼈대 문서 표식 — 완성본과 혼동하지 않게 한다 */
-        .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
-        .todo { list-style: none; padding-left: 0; }
-        .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
-        .todo li::before { content: "\25A1"; color: #94a3b8; font-weight: 900; margin-right: 0.6rem; }
-        .todo li b { color: #0f172a; }
+        /* 애플릿 조작부. 44px 터치 영역은 접근성 기준이므로 줄이지 말 것. */
+        .ctl { min-height: 44px; padding: 0.45rem 0.9rem; border: 2px solid #cbd5e1; border-radius: 0.6rem;
+               background: #ffffff; font-weight: 700; color: #334155; font-size: 1rem; cursor: pointer; }
+        .ctl:hover:not([disabled]) { border-color: #0f172a; }
+        .ctl[aria-pressed="true"] { background: #0f172a; border-color: #0f172a; color: #f8fafc; }
+        .ctl[disabled] { cursor: not-allowed; }
+        .ctl:focus-visible { outline: 3px solid #0891b2; outline-offset: 2px; }
+        .readout-box { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 0.75rem; padding: 0.7rem 0.9rem; text-align: center; }
+        .readout-box .k { font-size: 0.72rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+        .readout-box .v { font-family: 'Courier New', monospace; font-weight: 700; font-size: 1.25rem; color: #0f172a; margin-top: 0.15rem; }
+        input[type="range"] { accent-color: #0f172a; min-height: 44px; }
     </style>
 </head>
 <body class="presentation-mode">
@@ -48,154 +56,498 @@
             <p class="text-xl text-slate-500 font-medium italic">"A purely electrostatic lie that predicts the right colours."</p>
             <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
             <p class="text-base font-bold text-slate-800">Lecture 07: $d$-Orbital Splitting, CFSE, and the Spin-State Competition</p>
-            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; 본문 미작성</div>
         </div>
     </section>
 
     <!-- Slide 2: Scope -->
     <section id="s2">
         <div class="slide-content text-left px-20">
-            <h2>0. Scope</h2>
-            <div class="info-card">
-                <p class="font-black uppercase text-xs mb-3">Central question</p>
-                <p class="text-lg font-medium text-slate-800">ligand가 $d$ orbital energy를 어떻게 변화시키는가?</p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-6 mt-6">
-                <div class="step-box">
-                    <span class="logic-tag">Requires</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 01&ndash;02 대칭성 &middot; Module 04 $d^n$ 이온의 성립</p>
+            <h2>0. What This Model Is, and What It Is Not</h2>
+            <p class="text-lg font-medium mb-6">Crystal field theory treats every ligand as a <b>negative point charge</b>. There are no bonds, no orbital overlap, no covalency. It is, taken literally, false. It also predicts the colours and magnetic moments of thousands of complexes.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">What it gets right</p>
+                    <ul class="text-sm space-y-2 font-medium text-slate-700">
+                        <li>● The <b>pattern</b> of $d$-orbital splitting in any geometry &mdash; because that follows from symmetry alone (Module 01&ndash;02), not from the bonding model.</li>
+                        <li>● Which complexes are high spin and which are low spin.</li>
+                        <li>● Magnetic moments, to a first approximation.</li>
+                        <li>● Trends in hydration enthalpy and ionic radius across a period.</li>
+                    </ul>
                 </div>
-                <div class="step-box">
-                    <span class="logic-tag">Feeds</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 08 &mdash; 같은 갈라짐을 MO로 다시 유도한다. Module 09 &mdash; $\Delta_o$가 스펙트럼의 눈금이 된다</p>
+                <div class="warn">
+                    <b>What it cannot do.</b> It cannot explain the <b>spectrochemical series</b>. If ligands were point charges, $\mathrm{OH^-}$ (charged) would split more strongly than $\mathrm{NH_3}$ (neutral). It does not &mdash; the order is nearly the reverse. A purely electrostatic model has no mechanism for this, and no amount of parameter fitting will supply one.
+                    <br><br>That failure is not a footnote. It is the reason Module 08 exists.
                 </div>
             </div>
-            <div class="warn mt-8"><b>모형의 한계를 먼저 밝힌다.</b> CFT는 리간드를 점전하로 본다. 공유 결합이 없으므로 분광화학적 계열의 순서를 설명하지 못한다 &mdash; 그 실패가 Module 08이 존재하는 이유다.</div>
+            <div class="info-card mt-4">
+                <p class="font-black uppercase text-xs mb-3">Prerequisite from Module 04</p>
+                <p class="text-sm font-medium text-slate-700">Every diagram in this module assumes the metal centre is a $d^{\,n}$ ion with <b>no valence $s$ electrons</b> &mdash; that $\mathrm{Fe^{2+}}$ is $[\mathrm{Ar}]3d^6$ and not $[\mathrm{Ar}]3d^44s^2$. Module 04 &sect;11 established this. Without it, "$d^{\,n}$" would be an assumption rather than a fact.</p>
+            </div>
         </div>
     </section>
 
-    <!-- Slide 3: Removing the Degeneracy -->
+    <!-- Slide 3: geometry of the splitting -->
     <section id="s3">
         <div class="slide-content text-left px-20">
-            <h2>1. Removing the Degeneracy</h2>
-            <div class="math-box text-center py-6">
-                $$ d \;\longrightarrow\; t_{2g} + e_g \quad (O_h) $$
+            <h2>1. Where the Splitting Comes From</h2>
+            <p class="text-lg font-medium mb-6">Bring six negative charges up along $\pm x, \pm y, \pm z$. An electron in a $d$ orbital that <b>points at</b> a ligand is repelled more than one that points <b>between</b> ligands.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <svg viewBox="0 0 420 260" class="w-full" role="img"
+                         aria-label="팔면체 배위에서 d 오비탈의 방향. d z제곱과 d x제곱빼y제곱은 좌표축을 따라 뻗어 리간드를 정면으로 겨누고, d xy·d yz·d zx는 축 사이를 향한다.">
+                        <rect x="0" y="0" width="420" height="260" fill="#f8fafc" rx="12"></rect>
+                        <!-- 축 -->
+                        <line x1="110" y1="130" x2="310" y2="130" stroke="#94a3b8" stroke-width="2"></line>
+                        <line x1="210" y1="30" x2="210" y2="230" stroke="#94a3b8" stroke-width="2"></line>
+                        <text x="316" y="134" fill="#64748b" font-size="12" font-weight="bold">x</text>
+                        <text x="204" y="24" fill="#64748b" font-size="12" font-weight="bold">z</text>
+                        <!-- 리간드 -->
+                        <circle cx="120" cy="130" r="13" fill="#1d4ed8"></circle>
+                        <circle cx="300" cy="130" r="13" fill="#1d4ed8"></circle>
+                        <circle cx="210" cy="40" r="13" fill="#1d4ed8"></circle>
+                        <circle cx="210" cy="220" r="13" fill="#1d4ed8"></circle>
+                        <circle cx="210" cy="130" r="16" fill="#0f172a"></circle>
+                        <text x="203" y="135" fill="#f8fafc" font-size="12" font-weight="bold">M</text>
+                        <!-- 축을 따라 뻗은 로브 (eg) -->
+                        <ellipse cx="163" cy="130" rx="26" ry="13" fill="#b91c1c" opacity="0.35"></ellipse>
+                        <ellipse cx="257" cy="130" rx="26" ry="13" fill="#b91c1c" opacity="0.35"></ellipse>
+                        <!-- 축 사이 로브 (t2g) -->
+                        <ellipse cx="255" cy="86" rx="22" ry="12" fill="#166534" opacity="0.35" transform="rotate(-42 255 86)"></ellipse>
+                        <ellipse cx="165" cy="174" rx="22" ry="12" fill="#166534" opacity="0.35" transform="rotate(-42 165 174)"></ellipse>
+                        <text x="24" y="42" fill="#b91c1c" font-size="13" font-weight="bold">축을 겨눔 → 반발 큼</text>
+                        <text x="24" y="240" fill="#166534" font-size="13" font-weight="bold">축 사이 → 반발 작음</text>
+                    </svg>
+                </div>
+                <div>
+                    <div class="math-box text-center py-6">
+                        $$ d \;\longrightarrow\; t_{2g} + e_g \qquad (O_h) $$
+                    </div>
+                    <div class="overflow-x-auto">
+                    <table class="qtable">
+                        <thead><tr><th>집합</th><th>오비탈</th><th>방향</th><th>에너지</th></tr></thead>
+                        <tbody>
+                            <tr><td>$e_g$</td><td class="l">$d_{z^2},\ d_{x^2-y^2}$</td><td>축을 따라</td><td>$+0.6\,\Delta_o$</td></tr>
+                            <tr><td>$t_{2g}$</td><td class="l">$d_{xy},\ d_{yz},\ d_{zx}$</td><td>축 사이</td><td>$-0.4\,\Delta_o$</td></tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="warn mt-4">
+                        <b>$d_{z^2}$가 왜 $e_g$인가.</b> 그림만 보면 $d_{z^2}$는 $z$축 하나만 겨누는데 $d_{x^2-y^2}$는 네 방향을 겨눈다. 두 개가 같은 에너지인 것이 이상해 보인다. 답은 $d_{z^2}$가 실제로는 $d_{z^2-x^2}$와 $d_{z^2-y^2}$의 <b>합</b>이라는 것이다 &mdash; 여섯 개 중 다섯 개만 독립이다. 대칭성이 둘을 한 묶음으로 묶는다는 것은 Module 02의 지표표가 이미 말해 주었다.
+                    </div>
+                </div>
             </div>
-            <ul class="todo mt-4">
-                <li>자유 이온의 5개 $d$ 오비탈은 축퇴되어 있다</li>
-                <li>팔면체 장: $e_g$($d_{z^2}, d_{x^2-y^2}$)는 리간드를 <b>향하므로</b> 올라간다</li>
-                <li>$t_{2g}$($d_{xy}, d_{yz}, d_{zx}$)는 리간드 <b>사이</b>를 향하므로 내려간다</li>
-                <li>무게중심 보존(barycentre) &mdash; $+0.6\Delta_o$ 둘, $-0.4\Delta_o$ 셋</li>
-            </ul>
         </div>
     </section>
 
-    <!-- Slide 4: Other Geometries -->
+    <!-- Slide 4: barycentre -->
     <section id="s4">
         <div class="slide-content text-left px-20">
-            <h2>2. Other Geometries</h2>
+            <h2>2. The Barycentre Rule</h2>
+            <p class="text-lg font-medium mb-6">왜 $+0.6$과 $-0.4$인가. 리간드장은 $d$ 집합 전체의 <b>평균</b> 에너지를 올릴 뿐이고, 그 평균을 기준으로 재분배는 <b>합이 0</b>이어야 한다.</p>
             <div class="math-box text-center py-6">
-                $$ \Delta_t \approx \tfrac{4}{9}\,\Delta_o $$
+                $$ 2\,(+0.6\,\Delta_o) + 3\,(-0.4\,\Delta_o) = 1.2 - 1.2 = 0 $$
             </div>
-            <ul class="todo mt-4">
-                <li>사면체 &mdash; 라벨이 뒤집힌다($e$ 아래, $t_2$ 위), 리간드 수도 적다</li>
-                <li>사면체 착물이 거의 항상 high spin인 이유</li>
-                <li>평면사각 &mdash; $z$축 리간드를 무한히 멀리 보낸 극한</li>
-                <li>$d^8$ 평면사각 &mdash; $\mathrm{Ni^{2+}}$, $\mathrm{Pd^{2+}}$, $\mathrm{Pt^{2+}}$</li>
-            </ul>
+            <div class="grid md:grid-cols-3 gap-6 mt-6">
+                <div class="step-box">
+                    <span class="logic-tag">정의</span>
+                    <p class="text-sm text-slate-700 mt-3">$\Delta_o \equiv E(e_g) - E(t_{2g})$. 분광학에서 $10\,Dq$로도 쓴다 &mdash; 같은 양의 다른 이름이다.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">주의</span>
+                    <p class="text-sm text-slate-700 mt-3">무게중심은 <b>구형 장</b> 기준이다. 자유 이온보다 이미 올라간 자리다. CFSE가 음수인 것은 자유 이온보다 안정하다는 뜻이 아니다.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">크기</span>
+                    <p class="text-sm text-slate-700 mt-3">$\Delta_o$는 보통 $10\,000$&ndash;$30\,000\ \mathrm{cm^{-1}}$. 가시광 영역이다 &mdash; 그래서 착물에 <b>색</b>이 있다.</p>
+                </div>
+            </div>
+            <div class="hist mt-6">
+                <b>Bethe, 1929.</b> 한스 베테는 결정 안의 이온이 받는 정전기장을 <b>군론으로</b> 다뤄 이 갈라짐을 유도했다 &mdash; 화학 결합을 논하지 않고 대칭성만으로. 화학자가 아니라 물리학자의 결과였고, 20년 가까이 무기화학에 거의 알려지지 않았다.
+            </div>
         </div>
     </section>
 
-    <!-- Slide 5: Crystal Field Stabilisation Energy -->
+    <!-- Slide 5: other geometries -->
     <section id="s5">
         <div class="slide-content text-left px-20">
-            <h2>3. Crystal Field Stabilisation Energy</h2>
-            <div class="math-box text-center py-6">
-                $$ \mathrm{CFSE} = \left(-0.4\,n_{t_{2g}} + 0.6\,n_{e_g}\right)\Delta_o + m P $$
+            <h2>3. Other Geometries</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="mt-0">사면체 &mdash; 라벨이 뒤집힌다</h3>
+                    <div class="math-box text-center" style="margin:0.75rem 0">
+                        $$ \Delta_t \approx \tfrac{4}{9}\,\Delta_o $$
+                    </div>
+                    <ul class="text-sm space-y-2 font-medium text-slate-700 pl-6">
+                        <li>● $e$($d_{z^2}, d_{x^2-y^2}$)가 <b>아래</b>, $t_2$($d_{xy}, d_{yz}, d_{zx}$)가 위</li>
+                        <li>● 어느 $d$ 오비탈도 리간드를 정면으로 겨누지 않는다 &mdash; 축 사이를 겨누는 $t_2$가 그나마 가깝다</li>
+                        <li>● $g$ 아래첨자가 없다: $T_d$에는 반전 중심이 없다. Module 09의 Laporte 규칙에서 이것이 결정적이 된다</li>
+                    </ul>
+                    <div class="warn mt-3">
+                        <b>$4/9$는 유도가 아니라 어림이다.</b> 리간드가 6개에서 4개로 줄어 $\tfrac{2}{3}$, 방향이 어긋나 다시 $\tfrac{2}{3}$ &mdash; 곱해서 $\tfrac{4}{9}$. 점전하 모형 안에서의 손어림이고, 실측값은 착물에 따라 흩어진다.
+                    </div>
+                </div>
+                <div>
+                    <h3 class="mt-0">평면사각 &mdash; $z$를 버린 극한</h3>
+                    <p class="text-sm text-slate-700 mt-2">팔면체에서 $z$축 두 리간드를 무한히 멀리 보낸다. $z$ 성분이 있는 오비탈($d_{z^2}, d_{xz}, d_{yz}$)은 내려가고, $xy$ 평면의 오비탈($d_{xy}, d_{x^2-y^2}$)은 올라간다.</p>
+                    <div class="overflow-x-auto mt-3">
+                    <table class="qtable">
+                        <thead><tr><th>오비탈</th><th>에너지 ($\Delta_o$)</th></tr></thead>
+                        <tbody>
+                            <tr><td>$d_{x^2-y^2}$</td><td>$+1.228$</td></tr>
+                            <tr><td>$d_{xy}$</td><td>$+0.228$</td></tr>
+                            <tr><td>$d_{z^2}$</td><td>$-0.428$</td></tr>
+                            <tr><td>$d_{xz},\ d_{yz}$</td><td>$-0.514$</td></tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="warn mt-3">
+                        <b>$d_{z^2}$와 $d_{xy}$의 순서는 보편적이지 않다.</b> 위 값은 점전하 모형의 표준 수치이고, 실제 착물에서는 리간드에 따라 두 준위가 뒤집힐 수 있다. 확실한 것은 $d_{x^2-y^2}$가 유난히 높다는 것 &mdash; 그것이 $d^8$ 평면사각의 반자성을 만든다.
+                    </div>
+                </div>
             </div>
-            <ul class="todo mt-4">
-                <li>$d^1$&ndash;$d^{10}$ CFSE 표 &mdash; high spin / low spin 양쪽</li>
-                <li>수화 엔탈피의 이중 봉우리 곡선 &mdash; CFSE의 실험적 증거</li>
-                <li>이온 반지름의 불규칙성</li>
-                <li><b>주의</b> &mdash; CFSE는 전체 결합 에너지의 작은 몫이다. 추세를 설명하지 절대값을 주지 않는다</li>
-            </ul>
         </div>
     </section>
 
-    <!-- Slide 6: High Spin vs Low Spin -->
+    <!-- Slide 6: APPLET -->
     <section id="s6">
-        <div class="slide-content text-left px-20">
-            <h2>4. High Spin vs Low Spin</h2>
-            <div class="math-box text-center py-6">
-                $$ \Delta_o \;\lessgtr\; P $$
+        <div class="slide-content text-left px-16">
+            <h2>4. 조작해 보기 &mdash; 갈라짐과 CFSE</h2>
+            <div class="flex flex-wrap gap-2 items-center mb-3">
+                <span class="text-sm font-black text-slate-500 uppercase tracking-widest">기하</span>
+                <button class="ctl" data-geom="Oh" aria-pressed="false">팔면체 O$_h$</button>
+                <button class="ctl" data-geom="Td" aria-pressed="false">사면체 T$_d$</button>
+                <button class="ctl" data-geom="D4h" aria-pressed="false">평면사각 D$_{4h}$</button>
+                <span class="text-sm font-black text-slate-500 uppercase tracking-widest" style="margin-left:1rem">스핀</span>
+                <button class="ctl" data-spin="high" aria-pressed="true">고스핀</button>
+                <button class="ctl" data-spin="low" aria-pressed="false">저스핀</button>
             </div>
-            <ul class="todo mt-4">
-                <li>$\Delta_o$ 대 짝지음 에너지 $P$의 경쟁</li>
-                <li>$d^4$&ndash;$d^7$에서만 선택지가 생긴다</li>
-                <li>$\Delta_o$를 키우는 것: 높은 산화수, 3d &lt; 4d &lt; 5d, 강한 장 리간드</li>
-                <li>Module 04 회수 &mdash; $P$ 안에는 교환 안정화의 손실이 들어 있다</li>
-            </ul>
+            <div class="flex items-center gap-3 mb-3">
+                <label for="cf-n" class="text-sm font-black text-slate-500 uppercase tracking-widest" style="white-space:nowrap">d 전자수</label>
+                <input id="cf-n" type="range" min="0" max="10" step="1" value="5" class="flex-1">
+                <span class="readout-box" style="padding:0.35rem 0.7rem"><span class="v" id="cf-n-out">d5</span></span>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <svg id="cf-svg" viewBox="0 0 470 300" class="w-full" role="img" aria-label="결정장 갈라짐 도표"></svg>
+                <div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="readout-box"><div class="k">배치</div><div class="v" id="cf-config">&mdash;</div></div>
+                        <div class="readout-box"><div class="k">CFSE</div><div class="v" id="cf-cfse">&mdash;</div></div>
+                        <div class="readout-box"><div class="k">홀전자</div><div class="v" id="cf-unpaired">&mdash;</div></div>
+                        <div class="readout-box"><div class="k">spin-only &mu;</div><div class="v" id="cf-mu">&mdash;</div></div>
+                    </div>
+                    <div class="info-card mt-4" style="margin-bottom:0">
+                        <p class="font-black uppercase text-xs mb-2">이 기하에서</p>
+                        <p class="text-sm font-medium text-slate-700" id="cf-note">&mdash;</p>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-3" id="cf-live" aria-live="polite"></p>
+                </div>
+            </div>
+            <div class="warn mt-3" style="font-size:0.88rem">
+                <b>확인해 볼 것.</b> ① $d^3$과 $d^8$에서 고스핀/저스핀 버튼이 꺼지는 이유. ② $d^5$ 고스핀의 CFSE가 정확히 0인데도 그 배치가 흔한 이유. ③ 사면체에서 스핀 선택이 아예 없는 이유. ④ 평면사각 $d^8$의 홀전자 수.
+            </div>
         </div>
     </section>
 
-    <!-- Slide 7: Magnetism -->
+    <!-- Slide 7: CFSE -->
     <section id="s7">
         <div class="slide-content text-left px-20">
-            <h2>5. Magnetism</h2>
+            <h2>5. Crystal Field Stabilisation Energy</h2>
+            <div class="math-box text-center py-6">
+                $$ \mathrm{CFSE} = \left(-0.4\,n_{t_{2g}} + 0.6\,n_{e_g}\right)\Delta_o \;+\; m\,P $$
+            </div>
+            <p class="text-lg font-medium">$m$은 <b>자유 이온보다 더 생긴 짝의 수</b>다. $d^{\,n}$에서 어쩔 수 없이 생기는 짝($n>5$일 때 $n-5$개)은 세지 않는다 &mdash; 그것은 리간드장 때문이 아니다.</p>
+            <div class="overflow-x-auto mt-5">
+            <table class="qtable">
+                <thead><tr><th>$d^{\,n}$</th><th>고스핀 배치</th><th>CFSE</th><th>홀전자</th><th>저스핀 배치</th><th>CFSE</th><th>홀전자</th></tr></thead>
+                <tbody>
+                    <tr><td>$d^3$</td><td>$t_{2g}^3$</td><td>$-1.2\,\Delta_o$</td><td>3</td><td colspan="3">선택지 없음</td></tr>
+                    <tr><td>$d^4$</td><td>$t_{2g}^3 e_g^1$</td><td>$-0.6\,\Delta_o$</td><td>4</td><td>$t_{2g}^4$</td><td>$-1.6\,\Delta_o + P$</td><td>2</td></tr>
+                    <tr><td>$d^5$</td><td>$t_{2g}^3 e_g^2$</td><td>$0$</td><td>5</td><td>$t_{2g}^5$</td><td>$-2.0\,\Delta_o + 2P$</td><td>1</td></tr>
+                    <tr><td>$d^6$</td><td>$t_{2g}^4 e_g^2$</td><td>$-0.4\,\Delta_o$</td><td>4</td><td>$t_{2g}^6$</td><td>$-2.4\,\Delta_o + 2P$</td><td>0</td></tr>
+                    <tr><td>$d^7$</td><td>$t_{2g}^5 e_g^2$</td><td>$-0.8\,\Delta_o$</td><td>3</td><td>$t_{2g}^6 e_g^1$</td><td>$-1.8\,\Delta_o + P$</td><td>1</td></tr>
+                    <tr><td>$d^8$</td><td>$t_{2g}^6 e_g^2$</td><td>$-1.2\,\Delta_o$</td><td>2</td><td colspan="3">선택지 없음</td></tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="warn mt-4">
+                <b>$d^4$ 저스핀은 $t_{2g}^4$이고, 홀전자는 2개다.</b> 0개가 아니다. 저스핀은 "최대한 짝짓는다"가 아니라 "<b>낮은 준위에 몰린다</b>"는 뜻이며, 그 준위 <i>안에서는</i> 훈트 규칙이 그대로 작동한다. $t_{2g}^4 = \uparrow\downarrow\ \uparrow\ \uparrow$ 다. 위 애플릿의 초기 구현이 정확히 이 지점에서 틀렸다가 검증에서 잡혔다.
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: 실험적 증거 -->
+    <section id="s8">
+        <div class="slide-content text-left px-20">
+            <h2>6. CFSE의 실험적 흔적</h2>
+            <p class="text-lg font-medium mb-6">CFSE는 전체 결합 에너지의 작은 몫이다. 절대값을 주지 않고 <b>추세</b>를 설명한다. 그 추세가 두 곳에서 눈에 보인다.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <svg viewBox="0 0 420 250" class="w-full" role="img"
+                         aria-label="칼슘 이가 이온에서 아연 이가 이온까지 수화 엔탈피 그래프. 전체적으로 증가하는 직선 위에 두 개의 봉우리가 얹혀, d3 부근과 d8 부근에서 직선보다 더 안정하다. d0, d5, d10에서는 직선 위에 놓인다.">
+                        <rect x="0" y="0" width="420" height="250" fill="#f8fafc" rx="12"></rect>
+                        <line x1="52" y1="210" x2="400" y2="210" stroke="#334155" stroke-width="2"></line>
+                        <line x1="52" y1="24" x2="52" y2="210" stroke="#334155" stroke-width="2"></line>
+                        <text x="8" y="118" fill="#475569" font-size="11" font-weight="bold">|ΔH|</text>
+                        <!-- 기준 직선 -->
+                        <line x1="60" y1="186" x2="392" y2="66" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 5"></line>
+                        <!-- 이중 봉우리 -->
+                        <path d="M 60 186 Q 96 150 130 140 Q 164 132 196 146 Q 226 158 226 158 Q 262 128 296 108 Q 330 92 358 100 Q 378 106 392 66"
+                              fill="none" stroke="#1d4ed8" stroke-width="3"></path>
+                        <g fill="#0f172a" font-size="10" font-weight="bold">
+                          <text x="52" y="228">d⁰</text><text x="126" y="228">d³</text>
+                          <text x="218" y="228">d⁵</text><text x="292" y="228">d⁸</text><text x="376" y="228">d¹⁰</text>
+                        </g>
+                        <circle cx="60" cy="186" r="4" fill="#b91c1c"></circle>
+                        <circle cx="226" cy="158" r="4" fill="#b91c1c"></circle>
+                        <circle cx="392" cy="66" r="4" fill="#b91c1c"></circle>
+                        <text x="242" y="196" fill="#b91c1c" font-size="11" font-weight="bold">CFSE = 0인 곳만 직선 위</text>
+                    </svg>
+                    <p class="text-sm text-slate-500 mt-2">$\mathrm{Ca^{2+}} \to \mathrm{Zn^{2+}}$ 수화 엔탈피. 개략도다.</p>
+                </div>
+                <div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">왜 이중 봉우리인가</p>
+                        <p class="text-sm font-medium text-slate-700">직선은 $Z_{\text{eff}}$가 커지며 생기는 단조 증가다. 그 위에 CFSE가 얹힌다. 고스핀 $d^0, d^5, d^{10}$에서 CFSE가 <b>정확히 0</b>이므로 그 세 점만 직선에 놓이고, 사이 구간은 아래로 처진다(더 안정하다). 봉우리가 두 개인 것은 $d^5$에서 CFSE가 0으로 돌아오기 때문이다.</p>
+                    </div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">이온 반지름도 같은 모양</p>
+                        <p class="text-sm font-medium text-slate-700">$t_{2g}$를 채우는 구간에서는 전자가 리간드를 피해 있어 반지름이 예상보다 작고, $e_g$를 채우면 리간드를 밀어내 커진다. 주기를 따라 반지름이 매끄럽게 줄지 않는 이유다.</p>
+                    </div>
+                    <div class="warn">
+                        <b>순환 논증을 피할 것.</b> CFSE로 이 곡선을 설명하고, 이 곡선으로 CFSE를 증명하면 아무것도 보인 게 없다. 독립된 근거는 <b>분광학</b>이다 &mdash; 흡수 봉우리에서 $\Delta_o$를 직접 읽는다. 그것이 Module 09다.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: high/low spin -->
+    <section id="s9">
+        <div class="slide-content text-left px-20">
+            <h2>7. 고스핀과 저스핀 &mdash; 두 에너지의 경쟁</h2>
+            <div class="math-box text-center py-6">
+                $$ \Delta_o \;\gtrless\; P $$
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-4">
+                <div class="step-box">
+                    <p class="font-black text-lg">$\Delta_o &lt; P$ &rarr; 고스핀</p>
+                    <p class="text-sm text-slate-700 mt-2">올라가는 값이 짝짓는 값보다 싸다. 전자는 $e_g$로 올라가 홀로 남는다. <b>약한 장</b>.</p>
+                    <p class="text-sm text-slate-700 mt-2">$\mathrm{[Fe(H_2O)_6]^{2+}}$ &mdash; $d^6$ 고스핀, 홀전자 4개, 상자성.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black text-lg">$\Delta_o &gt; P$ &rarr; 저스핀</p>
+                    <p class="text-sm text-slate-700 mt-2">올라가는 값이 비싸다. 전자는 $t_{2g}$에 몰려 짝을 짓는다. <b>강한 장</b>.</p>
+                    <p class="text-sm text-slate-700 mt-2">$\mathrm{[Fe(CN)_6]^{4-}}$ &mdash; 같은 $d^6$인데 저스핀, 홀전자 0개, 반자성.</p>
+                </div>
+            </div>
+            <div class="info-card mt-5">
+                <p class="font-black uppercase text-xs mb-3">$P$ 안에 들어 있는 것</p>
+                <p class="text-sm font-medium text-slate-700">짝지음 에너지는 두 몫이다 &mdash; 같은 오비탈에 전자 둘을 넣는 <b>쿨롱 반발</b>, 그리고 평행 스핀을 잃어 사라지는 <b>교환 안정화</b>. 후자는 Module 04 &sect;9에서 훈트 규칙의 근거로 세운 그 항이다. 즉 고스핀/저스핀 경쟁은 리간드장과 <b>훈트 규칙</b>의 싸움이다.</p>
+            </div>
+            <div class="warn mt-4">
+                <b>$d^4$&ndash;$d^7$에서만 선택지가 생긴다.</b> $d^1$&ndash;$d^3$은 $t_{2g}$에 홀로 들어갈 자리가 남아 있어 짝지을 이유가 없고, $d^8$&ndash;$d^{10}$은 $t_{2g}$가 이미 찼으므로 $e_g$로 갈 수밖에 없다. 애플릿에서 이 구간 밖으로 나가면 스핀 버튼이 꺼지는 것이 그 때문이다.
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: 무엇이 Δo를 키우나 -->
+    <section id="s10">
+        <div class="slide-content text-left px-20">
+            <h2>8. 무엇이 $\Delta_o$를 키우는가</h2>
+            <div class="overflow-x-auto">
+            <table class="qtable">
+                <thead><tr><th>바꾸는 것</th><th>방향</th><th>보기</th><th>까닭</th></tr></thead>
+                <tbody>
+                    <tr><td class="l">금속의 산화수</td><td>$2+ \to 3+$ 이면 <b>증가</b></td><td class="l">$\mathrm{[Fe(H_2O)_6]^{2+}} &lt; \mathrm{[Fe(H_2O)_6]^{3+}}$</td><td class="l">전하가 커져 리간드를 더 끌어당긴다</td></tr>
+                    <tr><td class="l">주기 (3d &rarr; 4d &rarr; 5d)</td><td>아래로 갈수록 <b>증가</b></td><td class="l">$\mathrm{Co^{3+}} &lt; \mathrm{Rh^{3+}} &lt; \mathrm{Ir^{3+}}$</td><td class="l">$4d$&middot;$5d$가 더 넓게 뻗어 리간드와 더 겹친다</td></tr>
+                    <tr><td class="l">리간드의 종류</td><td>계열에 따라</td><td class="l">$\mathrm{I^-} &lt; \cdots &lt; \mathrm{CN^-}$</td><td class="l"><b>CFT로는 설명되지 않는다</b></td></tr>
+                    <tr><td class="l">배위 기하</td><td>$T_d$는 작다</td><td class="l">$\Delta_t \approx \tfrac{4}{9}\Delta_o$</td><td class="l">리간드가 적고 방향이 어긋난다</td></tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-5">
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-2">2행이 주는 실용적 결론</p>
+                    <p class="text-sm font-medium text-slate-700">$4d$&middot;$5d$ 금속은 $\Delta$가 크므로 <b>거의 항상 저스핀</b>이다. $\mathrm{Pd^{2+}}$&middot;$\mathrm{Pt^{2+}}$의 $d^8$ 평면사각 반자성이 그 결과이고, 이것이 Module 11&ndash;13 유기금속 화학이 $4d$&middot;$5d$ 금속을 주로 쓰는 이유 중 하나다.</p>
+                </div>
+                <div class="warn">
+                    <b>3행에서 이 모형이 끝난다.</b> 점전하 모형이라면 전하를 띤 $\mathrm{OH^-}$가 중성 $\mathrm{NH_3}$보다 세게 갈라야 한다. 실제로는 그 반대다. 리간드 순서는 정전기가 아니라 <b>궤도 겹침</b>이 정한다 &mdash; $\sigma$ 공여, $\pi$ 공여, $\pi$ 수용. Module 08에서 이 계열을 <b>암기 목록이 아니라 결론으로</b> 유도한다.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: 자성 -->
+    <section id="s11">
+        <div class="slide-content text-left px-20">
+            <h2>9. 자성 &mdash; 홀전자를 세는 실험</h2>
             <div class="math-box text-center py-6">
                 $$ \mu_{\text{s.o.}} = \sqrt{n(n+2)}\ \mu_B $$
             </div>
-            <ul class="todo mt-4">
-                <li>홀전자 수 → spin-only 자기 모멘트</li>
-                <li>실측값과의 편차 &mdash; 궤도 기여가 남아 있는 경우</li>
-                <li><b>Module 10 예고</b> &mdash; 언제 spin-only가 깨지는가</li>
-            </ul>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <div class="overflow-x-auto">
+                    <table class="qtable">
+                        <thead><tr><th>홀전자 $n$</th><th>$\mu_{\text{s.o.}}$ / $\mu_B$</th><th>보기</th></tr></thead>
+                        <tbody>
+                            <tr><td>0</td><td>0</td><td class="l">$\mathrm{[Fe(CN)_6]^{4-}}$</td></tr>
+                            <tr><td>1</td><td>1.73</td><td class="l">$\mathrm{[Ti(H_2O)_6]^{3+}}$</td></tr>
+                            <tr><td>2</td><td>2.83</td><td class="l">$\mathrm{[Ni(H_2O)_6]^{2+}}$</td></tr>
+                            <tr><td>3</td><td>3.87</td><td class="l">$\mathrm{[Cr(H_2O)_6]^{3+}}$</td></tr>
+                            <tr><td>4</td><td>4.90</td><td class="l">$\mathrm{[Fe(H_2O)_6]^{2+}}$</td></tr>
+                            <tr><td>5</td><td>5.92</td><td class="l">$\mathrm{[Mn(H_2O)_6]^{2+}}$</td></tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                <div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">이 식이 왜 유용한가</p>
+                        <p class="text-sm font-medium text-slate-700">자기 모멘트는 <b>측정된다</b>. 측정값을 이 식에 넣으면 홀전자 수가 나오고, 홀전자 수는 고스핀/저스핀을 가려 준다. 즉 자성 측정이 &sect;7의 경쟁을 <b>실험으로 판정</b>한다.</p>
+                    </div>
+                    <div class="warn">
+                        <b>왜 "spin-only"인가.</b> 이 식은 궤도 각운동량의 기여를 <b>0으로</b> 두었다. 리간드장이 $L_z$를 좋은 양자수 자리에서 밀어내기 때문에($\text{quenching}$) 3$d$ 금속에서는 대체로 통한다. 그러나 $T$ 항 바닥 상태나 4$d$&middot;5$d$&middot;란타넘족에서는 편차가 크다. 언제 왜 깨지는지는 Module 10에서 다룬다.
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Slide 8: Jahn&ndash;Teller Distortion -->
-    <section id="s8">
+    <!-- Slide 12: Jahn-Teller -->
+    <section id="s12">
         <div class="slide-content text-left px-20">
-            <h2>6. Jahn&ndash;Teller Distortion</h2>
-            <ul class="todo mt-4">
-                <li>정리: 축퇴된 바닥 상태의 비선형 분자는 왜곡되어 축퇴를 푼다</li>
-                <li>$e_g$ 축퇴가 클수록 왜곡이 크다 &mdash; $d^9$($\mathrm{Cu^{2+}}$), high spin $d^4$</li>
-                <li>$t_{2g}$ 축퇴는 약한 왜곡만 만든다</li>
-                <li>$\mathrm{[Cu(H_2O)_6]^{2+}}$의 축 신장</li>
-                <li><b>과학사</b> &mdash; Jahn &amp; Teller 1937</li>
-            </ul>
+            <h2>10. Jahn&ndash;Teller 왜곡</h2>
+            <div class="info-card">
+                <p class="text-lg font-medium text-slate-800">축퇴된 바닥 상태를 가진 비선형 분자는 <b>반드시 왜곡되어</b> 그 축퇴를 없앤다.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-4">
+                <div>
+                    <svg viewBox="0 0 400 210" class="w-full" role="img"
+                         aria-label="정팔면체에서 축 방향으로 늘어난 왜곡. 왜곡 전에는 e g 두 준위가 같은 높이이고, 늘어나면 d z제곱이 내려가고 d x제곱빼y제곱이 올라가 축퇴가 풀린다. 아래쪽 t 2 g도 약하게 갈라진다.">
+                        <rect x="0" y="0" width="400" height="210" fill="#f8fafc" rx="12"></rect>
+                        <text x="46" y="22" fill="#475569" font-size="11" font-weight="bold">정팔면체</text>
+                        <text x="256" y="22" fill="#475569" font-size="11" font-weight="bold">축 신장 후</text>
+                        <line x1="40" y1="70" x2="120" y2="70" stroke="#0f172a" stroke-width="3"></line>
+                        <text x="14" y="74" fill="#0f172a" font-size="11" font-weight="bold">e</text>
+                        <line x1="40" y1="150" x2="120" y2="150" stroke="#0f172a" stroke-width="3"></line>
+                        <text x="10" y="154" fill="#0f172a" font-size="11" font-weight="bold">t₂</text>
+                        <line x1="250" y1="44" x2="330" y2="44" stroke="#b91c1c" stroke-width="3"></line>
+                        <text x="336" y="48" fill="#b91c1c" font-size="10">d(x²−y²)</text>
+                        <line x1="250" y1="98" x2="330" y2="98" stroke="#166534" stroke-width="3"></line>
+                        <text x="336" y="102" fill="#166534" font-size="10">d(z²)</text>
+                        <line x1="250" y1="140" x2="330" y2="140" stroke="#334155" stroke-width="2"></line>
+                        <line x1="250" y1="162" x2="330" y2="162" stroke="#334155" stroke-width="2"></line>
+                        <path d="M 122 70 L 248 44" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"></path>
+                        <path d="M 122 70 L 248 98" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"></path>
+                        <path d="M 122 150 L 248 140" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"></path>
+                        <path d="M 122 150 L 248 162" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"></path>
+                        <text x="140" y="196" fill="#64748b" font-size="10">축퇴 → 왜곡 → 축퇴 해소</text>
+                    </svg>
+                </div>
+                <div>
+                    <div class="overflow-x-auto">
+                    <table class="qtable">
+                        <thead><tr><th>배치</th><th>축퇴 위치</th><th>왜곡</th></tr></thead>
+                        <tbody>
+                            <tr><td>$d^9$</td><td>$e_g^3$</td><td><b>큼</b></td></tr>
+                            <tr><td>$d^4$ 고스핀</td><td>$e_g^1$</td><td><b>큼</b></td></tr>
+                            <tr><td>$d^7$ 저스핀</td><td>$e_g^1$</td><td><b>큼</b></td></tr>
+                            <tr><td>$d^1, d^2$</td><td>$t_{2g}$</td><td>작음</td></tr>
+                            <tr><td>$d^3, d^6$ 저스핀</td><td>없음</td><td>없음</td></tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="info-card mt-3">
+                        <p class="font-black uppercase text-xs mb-2">왜 $e_g$가 세고 $t_{2g}$는 약한가</p>
+                        <p class="text-sm font-medium text-slate-700">$e_g$는 리간드를 <b>정면으로</b> 겨눈다. 축을 조금만 늘려도 에너지가 크게 움직인다. $t_{2g}$는 리간드 사이를 향하므로 같은 왜곡에 덜 반응한다.</p>
+                    </div>
+                    <p class="text-sm text-slate-700 mt-3">$\mathrm{[Cu(H_2O)_6]^{2+}}$ &mdash; $d^9$. 적도 4개는 약 1.95 Å, 축 2개는 약 2.4 Å로 <b>눈에 띄게</b> 길다.</p>
+                </div>
+            </div>
+            <div class="hist mt-4">
+                <b>Jahn &amp; Teller, 1937.</b> 헤르만 얀과 에드워드 텔러는 이것을 화학 실험이 아니라 <b>군론</b>으로 증명했다 &mdash; 선형 분자를 제외한 모든 점군에서, 축퇴된 전자 상태를 없애는 비대칭 진동 모드가 반드시 존재한다는 정리다. 정리는 왜곡이 일어난다는 것만 말하고 <b>얼마나</b>인지는 말하지 않는다.
+            </div>
         </div>
     </section>
 
-    <!-- Slide 9: Key Competencies -->
-    <section id="s9">
+    <!-- Slide 13: 과학사와 한계 -->
+    <section id="s13">
         <div class="slide-content text-left px-20">
-            <h2>7. Key Competencies</h2>
-            <ul class="todo mt-4">
-                <li>임의의 $d^n$과 기하에 대해 갈라짐 도표를 그리고 CFSE를 구한다</li>
-                <li>high/low spin을 $\Delta_o$ 대 $P$로 판정한다</li>
-                <li>spin-only 식으로 자기 모멘트를 예측하고 편차를 설명한다</li>
-                <li>CFT가 <b>설명하지 못하는</b> 것을 하나 든다</li>
-            </ul>
+            <h2>11. 이 모형의 수명</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="step-box">
+                    <p class="font-black">Bethe, 1929</p>
+                    <p class="text-sm text-slate-700 mt-2">결정 안 이온의 준위 갈라짐을 군론으로 유도. 물리학의 결과였고 화학에 곧바로 전해지지 않았다.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black">Van Vleck, 1932&ndash;35</p>
+                    <p class="text-sm text-slate-700 mt-2">자성 데이터에 적용해 CFT를 화학의 도구로 만들었다. 동시에 <b>순수 정전기 모형의 한계</b>를 스스로 지적하고 궤도 겹침을 섞은 기술을 제안했다 &mdash; 그것이 뒤에 리간드장 이론이 된다. 1977년 노벨 물리학상.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black">1950년대</p>
+                    <p class="text-sm text-slate-700 mt-2">Orgel&middot;Tanabe&middot;Sugano가 전자 스펙트럼을 CFT 틀로 해석해 냈다. 모형이 틀렸는데도 스펙트럼을 맞히는 이유는 <b>갈라짐의 패턴이 대칭성에서 오기</b> 때문이다.</p>
+                </div>
+            </div>
+            <div class="info-card mt-6">
+                <p class="font-black uppercase text-xs mb-3">이 모듈이 남기는 하나의 문장</p>
+                <p class="text-lg font-medium text-slate-800">갈라짐의 <b>패턴</b>은 대칭성이 정하고, 갈라짐의 <b>크기</b>는 결합이 정한다. CFT는 앞의 절반만 가진 모형이다.</p>
+            </div>
+            <div class="warn mt-4">
+                그래서 다음 모듈은 새 주제가 아니라 <b>같은 그림의 나머지 절반</b>이다. Module 08은 $t_{2g}$&middot;$e_g$ 라벨을 그대로 쓰면서 그것을 점전하가 아닌 <b>분자 오비탈</b>로 다시 유도하고, 그 과정에서 $\Delta_o$의 크기가 왜 리간드에 따라 달라지는지를 설명한다.
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 14: competencies -->
+    <section id="s14">
+        <div class="slide-content text-left px-20">
+            <h2>12. Module 7 Key Competencies</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="step-box">
+                    <span class="logic-tag">Draw</span>
+                    <p class="text-sm text-slate-700 mt-3">$O_h$&middot;$T_d$&middot;$D_{4h}$의 갈라짐 도표를 그리고 무게중심 규칙으로 준위 값을 붙인다.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Compute</span>
+                    <p class="text-sm text-slate-700 mt-3">임의의 $d^{\,n}$에 대해 고스핀&middot;저스핀 CFSE를 $\Delta_o$와 $P$로 쓴다.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Decide</span>
+                    <p class="text-sm text-slate-700 mt-3">$\Delta_o$ 대 $P$로 스핀 상태를 판정하고, $d^4$&ndash;$d^7$에서만 선택지가 생기는 이유를 말한다.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Measure</span>
+                    <p class="text-sm text-slate-700 mt-3">측정된 $\mu$에서 홀전자 수를 역산하고, spin-only 식이 깨질 조건을 든다.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Predict</span>
+                    <p class="text-sm text-slate-700 mt-3">어느 배치가 Jahn&ndash;Teller 왜곡을 크게 겪는지 $e_g$ 축퇴로 설명한다.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Criticise</span>
+                    <p class="text-sm text-slate-700 mt-3">CFT가 설명하지 <b>못하는</b> 관측을 하나 들고, 왜 못하는지 모형의 가정으로 말한다.</p>
+                </div>
+            </div>
+            <div class="warn mt-8">
+                <b>자기 점검.</b> 한 문장씩 답해 보라 &mdash; (i) $d^4$ 저스핀의 홀전자는 왜 0이 아닌가, (ii) 수화 엔탈피 곡선이 $d^0$&middot;$d^5$&middot;$d^{10}$에서만 직선에 놓이는 까닭, (iii) 전하를 띤 $\mathrm{OH^-}$가 중성 $\mathrm{NH_3}$보다 약한 장인 것이 왜 CFT의 <b>실패</b>인가. 막히면 &sect;7&middot;&sect;6&middot;&sect;8로 돌아간다.
+            </div>
         </div>
     </section>
 
     <!-- Slide 40: End -->
     <section id="s40" class="end">
         <div class="slide-content text-center">
-            <div class="outline-banner" style="display:inline-block">Outline only</div>
-            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 7 &mdash; 뼈대</h2>
-            <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
-                절 구성과 핵심 식만 세워 둔 상태입니다. 본문 서술·도표·사례는 제작 단계에서 채웁니다.
-                구성 근거는 <b>ADV_INORGANIC_ROADMAP.md</b>, 전체 지도는
-                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>에 있습니다.
-            </p>
-            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
+            <h2 class="border-none text-5xl font-black mb-10 tracking-tighter">Module 7 Complete</h2>
+            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest">Next Phase:</p>
             <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Ligand Field Theory</p>
+            <div class="mt-20 p-8 border-t-2 border-slate-100 italic font-serif text-slate-400">
+                "The pattern comes from symmetry. The size comes from bonding. Crystal field theory has only the first half."
+            </div>
         </div>
     </section>
 </main>
 
 <script src="js/slide_engine.js"></script>
+<script src="js/adv_inorganic_07.js"></script>
 </body>
 </html>

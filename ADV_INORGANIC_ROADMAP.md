@@ -41,7 +41,7 @@ Molecular Symmetry → Group Theory → Representations → SALCs / Selection Ru
 | 04 | Atomic Orbitals & Angular Momentum | `adv_inorganic_04.html` | 완료 (14절) |
 | 05 | MO Theory: Diatomics | `adv_inorganic_05.html` | 뼈대 |
 | 06 | MO Theory: Polyatomics | `adv_inorganic_06.html` | 완료 (15절) |
-| 07 | Crystal Field Theory | `adv_inorganic_07.html` | 뼈대 |
+| 07 | Crystal Field Theory | `adv_inorganic_07.html` | 완료 (14절 + 애플릿) |
 | 08 | Ligand Field Theory | `adv_inorganic_08.html` | 뼈대 |
 | 09 | Electronic Spectra | `adv_inorganic_09.html` | 뼈대 (2회분) |
 | 10 | Spin–Orbit & Relativistic Effects | `adv_inorganic_10.html` | 뼈대 |
@@ -51,7 +51,7 @@ Molecular Symmetry → Group Theory → Representations → SALCs / Selection Ru
 | 14 | Solid-State & Band Theory | `adv_inorganic_14.html` | 뼈대 |
 | 15 | Modern Inorganic Materials | `adv_inorganic_15.html` | 뼈대 |
 
-본문 완료 **6편**(01·02·03·04·06 + Bonus 01) · 뼈대 **13편**(모듈 10 + Bonus 3).
+본문 완료 **7편**(01·02·03·04·06 + Bonus 01) · 뼈대 **13편**(모듈 10 + Bonus 3).
 모든 모듈이 열리는 HTML을 갖고 있으며 `index.html`에 전부 노출돼 있다.
 
 ### 파일명과 모듈 번호를 일치시켰다 (해소)
@@ -242,7 +242,8 @@ Ligand orbitals → SALCs → 중심 원자 오비탈 → Molecular orbitals
 
 # Part III. Coordination Chemistry
 
-## Module 07 — Crystal Field Theory  ◻ 뼈대
+## Module 07 — Crystal Field Theory  ✔ 완료
+**파일**: `adv_inorganic_07.html` (14절) · 애플릿 `js/adv_inorganic_07.js`
 **중심 질문**: ligand가 d orbital energy를 어떻게 변화시키는가?
 
 1. 자유 이온 5개 d 오비탈의 축퇴
@@ -445,6 +446,57 @@ Bonus 02·03 분리 → Bonus 04
 
 다음은 **Module 05 (MO Theory: Diatomics)** 다. 04(원자 오비탈)와 06(다원자 MO)이
 양쪽에 다 있으므로, 05는 그 사이를 메우는 작업이고 참조할 것이 가장 많다.
+
+# 제작 기준 (2026-08-26 확정)
+
+뼈대 13편에 본문을 채울 때 지킬 세 가지. 편마다 기준이 흔들리면 나중에 일괄
+손보는 비용이 훨씬 크다.
+
+## 1. 깊이 — 04·06 수준
+
+절당 1.6~2.5 KB. 서술형 본문 + 표 + SVG + 과학사 + 오개념 못박기. 목표 규모는
+**본문 13~15절 + end**, 25~37 KB.
+
+현재 완성본의 실측 편차가 크다 — 02·03·Bonus 01은 절당 ~1.0 KB(수식·요점 위주),
+04는 2.5 KB(서술형)다. 새로 채우는 편은 04·06 쪽에 맞춘다. 로드맵의 서술 원칙
+(계열을 암기시키지 않고 유도한다, 과학사를 엮는다, 오개념을 명시적으로 반박한다)은
+요점 나열로는 지킬 수 없다.
+
+## 2. 애플릿 — 07·09·14 세 편만
+
+정적 그림으로는 가르치기 어려운 자리에만 만든다.
+
+| 모듈 | 애플릿 | 왜 필요한가 |
+|---|---|---|
+| 07 | d 갈라짐·CFSE 조작기 | 기하 × d^n × 스핀 상태의 조합이 많아 그림 한 장으로 안 된다 |
+| 09 | Tanabe–Sugano 읽기 | 도표에서 Δo와 B를 읽는 것은 절차이지 지식이 아니다 |
+| 14 | AO → MO → band | N을 늘리며 띠가 생기는 과정 자체가 내용이다 |
+
+나머지 10편은 정적으로 간다. `js/chem_sim.js`(125줄, 대칭 조작 시뮬레이터)가
+01·Bonus 01에 로드돼 있으나 두 파일 모두 버튼·캔버스가 0개다 — 잠들어 있는
+코드다. 07 애플릿을 만들 때 재사용할 수 있는지 먼저 본다.
+
+애플릿 규약은 `docs/SLIDE_ARCHETYPES.md`의 explore 절을 따른다 —
+조작부는 `.pick` 또는 `<input type="range">`, 44px 터치 영역, 값이 바뀌면
+`aria-live`에 문장으로도 알린다, 스크립트는 `js/adv_inorganic_{NN}.js`로 분리.
+
+## 3. 진행 — 한 편씩 PR·검토
+
+한 편 만들어 PR → 검토·교정 → 다음 편. Phase 단위로 묶지 않는다.
+기준이 어긋난 것을 13편 뒤에 발견하는 사고를 막는다.
+
+## 진행 상황
+
+- [x] **07 Crystal Field Theory** — 14절 + CFSE 조작 애플릿 (PR 예정)
+- [ ] **08 Ligand Field Theory** ← 다음
+- [ ] 09 Electronic Spectra (2회분, 애플릿 포함)
+- [ ] 05 MO Diatomics
+- [ ] 10 Spin–Orbit & Relativistic
+- [ ] 11 → 12 → 13 Organometallic
+- [ ] 14 Band Theory (애플릿 포함) → 15 Materials
+- [ ] Bonus 02·03 분리 → Bonus 04
+
+---
 
 # 제작 규칙
 
