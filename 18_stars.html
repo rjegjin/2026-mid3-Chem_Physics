@@ -13,6 +13,16 @@
   <style>
    .key-line { font-size:1.3rem; font-weight:800; color:#312e81; }
    .sky-box { background:#0b1120; border-radius:1.25rem; }
+   /* 8쪽만 — 표(20.8px)와 캡션(15.2px)이 제목(39.6px)에 견줘 지나치게 작았다.
+      슬라이드 번호는 삽입 때마다 밀리므로 data-title로 건다. */
+   [data-title="연주 시차와 거리"] .lab-table { font-size:1.6rem; }
+   [data-title="연주 시차와 거리"] .lab-table th,
+   [data-title="연주 시차와 거리"] .lab-table td { padding:0.65rem 0.8rem; }
+   /* presentation_mode.css가 !important + var(--fit)로 잡고 있다.
+      엔진의 자동 축소를 살리려면 그 calc 구조를 그대로 두고 값만 키워야 한다. */
+   [data-title="연주 시차와 거리"] .slide-caption {
+     font-size: calc(clamp(1.15rem, 2vh, 1.5rem) * var(--fit, 1)) !important;
+   }
   </style>
  </head>
  <body class="presentation-mode" style="--accent:#4f46e5; --accent-strong:#312e81; --accent-soft:#e0e7ff; --accent-tint:#eef2ff">
@@ -213,7 +223,7 @@
      <h2>4. 연주 시차와 별까지의 거리</h2>
      <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-4">
       <div class="w-full md:w-1/2">
-       <canvas id="chart-parallax" height="230" role="img"
+       <canvas id="chart-parallax" height="290" role="img"
                aria-label="연주 시차와 거리의 관계 그래프. 연주 시차 1초일 때 거리 1파섹, 0.5초일 때 2파섹, 0.25초일 때 4파섹, 0.1초일 때 10파섹으로, 시차가 작아질수록 거리가 급격히 멀어지는 반비례 곡선이다."></canvas>
       </div>
       <div class="w-full md:w-1/2 space-y-3">
@@ -868,9 +878,12 @@
       datasets: [{ data: [1, 2, 4, 5, 10], borderColor: '#4f46e5', borderWidth: 3, tension: 0.3,
                    pointRadius: 4, pointBackgroundColor: '#4f46e5', fill: true, backgroundColor: 'rgba(79,70,229,0.1)' }]
      },
+     // 8쪽 차트만 글자를 키운다. Chart.js 기본은 12px이라 투사 화면에서 읽히지 않았다.
      options: Object.assign({}, opts, { scales: {
-      x: { title: { display: true, text: '연주 시차(″)' } },
-      y: { beginAtZero: true, title: { display: true, text: '거리(pc)' } }
+      x: { title: { display: true, text: '연주 시차(″)', font: { size: 19, weight: 'bold' } },
+           ticks: { font: { size: 18 } } },
+      y: { beginAtZero: true, title: { display: true, text: '거리(pc)', font: { size: 19, weight: 'bold' } },
+           ticks: { font: { size: 18 } } }
      } })
     });
 
