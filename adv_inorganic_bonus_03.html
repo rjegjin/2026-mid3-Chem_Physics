@@ -29,7 +29,7 @@
         table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
         .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
         .warn b { color: #78350f; }
-        /* 뼈대 문서 표식 — 완성본과 혼동하지 않게 한다 */
+        /* Marks this file as an outline so it is never mistaken for finished content. */
         .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
         .todo { list-style: none; padding-left: 0; }
         .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
@@ -48,7 +48,7 @@
             <p class="text-xl text-slate-500 font-medium italic">"The Great Orthogonality Theorem is not a rule. It is a theorem, and it has a proof."</p>
             <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
             <p class="text-base font-bold text-slate-800">Bonus 03: Schur's Lemma and the Proof of the GOT</p>
-            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; 본문 미작성</div>
+            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; prose not written</div>
         </div>
     </section>
 
@@ -58,19 +58,19 @@
             <h2>0. Scope</h2>
             <div class="info-card">
                 <p class="font-black uppercase text-xs mb-3">Central question</p>
-                <p class="text-lg font-medium text-slate-800">지표표의 모든 성질은 어디에서 나오는가?</p>
+                <p class="text-lg font-medium text-slate-800">Where do all the properties of a character table come from?</p>
             </div>
             <div class="grid md:grid-cols-2 gap-6 mt-6">
                 <div class="step-box">
                     <span class="logic-tag">Requires</span>
-                    <p class="text-sm text-slate-700 mt-3">Bonus 01&ndash;02 &mdash; 선형대수, 유니터리 연산자</p>
+                    <p class="text-sm text-slate-700 mt-3">Bonus 01&ndash;02 &mdash; linear algebra, unitary operators</p>
                 </div>
                 <div class="step-box">
                     <span class="logic-tag">Feeds</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 02 &mdash; 지표표 &middot; Module 03 &mdash; selection rule</p>
+                    <p class="text-sm text-slate-700 mt-3">Module 02 &mdash; character tables &middot; Module 03 &mdash; selection rules</p>
                 </div>
             </div>
-            <div class="warn mt-8"><b>이 과정에서 가장 수학적인 편이다.</b> 여기를 건너뛰면 Module 03 이후의 selection rule이 규칙 암기로 남는다. Bonus 01에 이미 상당 부분이 들어 있다.</div>
+            <div class="warn mt-8"><b>The most mathematical instalment of the course.</b> Skip it and every selection rule from Module 03 onward stays a rule to be memorised. Much of it already sits in Bonus 01.</div>
         </div>
     </section>
 
@@ -79,10 +79,10 @@
         <div class="slide-content text-left px-20">
             <h2>1. Representations</h2>
             <ul class="todo mt-4">
-                <li>정의 &mdash; 군에서 $GL(V)$로 가는 준동형사상</li>
-                <li>충실한(faithful) 표현과 그렇지 않은 표현</li>
-                <li>동치인 표현 &mdash; 상사 변환으로 연결된다</li>
-                <li>유니터리 표현으로 항상 바꿀 수 있다(유한군)</li>
+                <li>Definition &mdash; a homomorphism from the group into $GL(V)$</li>
+                <li>Faithful and unfaithful representations</li>
+                <li>Equivalent representations &mdash; related by a similarity transformation</li>
+                <li>Any representation of a finite group can be made unitary</li>
             </ul>
         </div>
     </section>
@@ -92,10 +92,10 @@
         <div class="slide-content text-left px-20">
             <h2>2. Reducibility</h2>
             <ul class="todo mt-4">
-                <li>불변 부분공간</li>
-                <li>가약 &mdash; 블록 대각으로 만들 수 있다</li>
-                <li>기약 &mdash; 더 쪼갤 수 없다</li>
-                <li>Maschke 정리 &mdash; 유한군의 표현은 기약 표현의 직합으로 완전 분해된다</li>
+                <li>Invariant subspaces</li>
+                <li>Reducible &mdash; can be brought to block-diagonal form</li>
+                <li>Irreducible &mdash; cannot be broken down further</li>
+                <li>Maschke's theorem &mdash; representations of finite groups decompose completely into irreducibles</li>
             </ul>
         </div>
     </section>
@@ -105,10 +105,10 @@
         <div class="slide-content text-left px-20">
             <h2>3. Schur's Lemma</h2>
             <ul class="todo mt-4">
-                <li><b>제1보조정리</b> &mdash; 기약 표현과 교환하는 행렬은 스칼라 배뿐이다</li>
-                <li><b>제2보조정리</b> &mdash; 동치가 아닌 두 기약 표현을 잇는 행렬은 0뿐이다</li>
-                <li>두 보조정리의 증명</li>
-                <li>이것이 GOT의 유일한 재료다</li>
+                <li><b>First lemma</b> &mdash; a matrix commuting with an irreducible representation is a multiple of the identity</li>
+                <li><b>Second lemma</b> &mdash; a matrix intertwining two inequivalent irreducibles must be zero</li>
+                <li>Proofs of both</li>
+                <li>These are the only ingredients the GOT needs</li>
             </ul>
         </div>
     </section>
@@ -121,10 +121,10 @@
                 $$ \sum_R \Gamma^{(\alpha)}_{ij}(R)^{*}\,\Gamma^{(\beta)}_{kl}(R) = \frac{h}{\sqrt{l_\alpha l_\beta}}\,\delta_{\alpha\beta}\delta_{ik}\delta_{jl} $$
             </div>
             <ul class="todo mt-4">
-                <li>Schur로부터의 <b>완전한 증명</b></li>
-                <li>직교성이 '벡터'로서 무엇을 뜻하는가 &mdash; $h$차원 공간의 직교 벡터들</li>
-                <li>기약 표현의 개수 = 켤레류의 개수 (따름정리)</li>
-                <li>$\sum_i l_i^2 = h$ (따름정리)</li>
+                <li>The <b>complete proof</b> from Schur's lemmas</li>
+                <li>What orthogonality means here &mdash; orthogonal vectors in an $h$-dimensional space</li>
+                <li>Corollary &mdash; the number of irreducibles equals the number of conjugacy classes</li>
+                <li>Corollary &mdash; $\sum_i l_i^2 = h$</li>
             </ul>
         </div>
     </section>
@@ -137,10 +137,10 @@
                 $$ \frac{1}{h}\sum_R n_R\, \chi^{(i)}(R)\,\chi^{(j)}(R)^{*} = \delta_{ij} $$
             </div>
             <ul class="todo mt-4">
-                <li>지표는 상사 변환에 불변 &mdash; 그래서 표현의 이름표가 된다</li>
-                <li>지표의 직교성은 GOT의 대각합 버전이다</li>
-                <li><b>약분 공식</b>의 유도 &mdash; Module 02에서 쓰던 그 식</li>
-                <li>지표표를 처음부터 구성하는 절차</li>
+                <li>Characters are invariant under similarity transformation, which is why they can serve as labels</li>
+                <li>Character orthogonality is the trace version of the GOT</li>
+                <li>Deriving the <b>reduction formula</b> used throughout Module 02</li>
+                <li>Constructing a character table from nothing</li>
             </ul>
         </div>
     </section>
@@ -150,10 +150,10 @@
         <div class="slide-content text-left px-20">
             <h2>6. Why Chemistry Cares</h2>
             <ul class="todo mt-4">
-                <li>적분 $\int \psi_a^* \hat{O} \psi_b \, d\tau$가 0이 아닐 조건</li>
-                <li>&rarr; $\Gamma_a \otimes \Gamma_O \otimes \Gamma_b \supset$ 완전대칭 표현</li>
-                <li>이 한 문장에서 IR/Raman 활성, Laporte 규칙, MO의 대칭 일치가 모두 나온다</li>
-                <li>Module 03 &middot; 06 &middot; 09가 쓰는 것은 전부 이 따름정리다</li>
+                <li>The condition for $\int \psi_a^* \hat{O} \psi_b \, d\tau$ to be non-zero</li>
+                <li>&rarr; $\Gamma_a \otimes \Gamma_O \otimes \Gamma_b$ must contain the totally symmetric representation</li>
+                <li>IR and Raman activity, the Laporte rule and MO symmetry matching all follow from that one sentence</li>
+                <li>Modules 03, 06 and 09 use nothing but this corollary</li>
             </ul>
         </div>
     </section>
@@ -162,11 +162,11 @@
     <section id="s40" class="end">
         <div class="slide-content text-center">
             <div class="outline-banner" style="display:inline-block">Outline only</div>
-            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module B3 &mdash; 뼈대</h2>
+            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module B3 &mdash; Outline</h2>
             <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
-                절 구성과 핵심 식만 세워 둔 상태입니다. 본문 서술·도표·사례는 제작 단계에서 채웁니다.
-                구성 근거는 <b>ADV_INORGANIC_ROADMAP.md</b>, 전체 지도는
-                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>에 있습니다.
+                Section structure and key equations are in place; prose, diagrams and worked cases are not.
+                The rationale for this ordering is in <b>ADV_INORGANIC_ROADMAP.md</b>; the whole map is in the
+                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>.
             </p>
             <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
             <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Quantum Hamiltonian Symmetry</p>

@@ -29,7 +29,7 @@
         table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
         .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
         .warn b { color: #78350f; }
-        /* 뼈대 문서 표식 — 완성본과 혼동하지 않게 한다 */
+        /* Marks this file as an outline so it is never mistaken for finished content. */
         .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
         .todo { list-style: none; padding-left: 0; }
         .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
@@ -48,7 +48,7 @@
             <p class="text-xl text-slate-500 font-medium italic">"Symmetry does not simplify the calculation. It tells you which parts were never coupled."</p>
             <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
             <p class="text-base font-bold text-slate-800">Bonus 04: $[\hat{H}, \hat{R}] = 0$ and Where Selection Rules Come From</p>
-            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; 본문 미작성</div>
+            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; prose not written</div>
         </div>
     </section>
 
@@ -58,19 +58,19 @@
             <h2>0. Scope</h2>
             <div class="info-card">
                 <p class="font-black uppercase text-xs mb-3">Central question</p>
-                <p class="text-lg font-medium text-slate-800">대칭성은 왜 계산을 블록으로 쪼갤 수 있게 하는가?</p>
+                <p class="text-lg font-medium text-slate-800">Why does symmetry let the problem be broken into blocks?</p>
             </div>
             <div class="grid md:grid-cols-2 gap-6 mt-6">
                 <div class="step-box">
                     <span class="logic-tag">Requires</span>
-                    <p class="text-sm text-slate-700 mt-3">Bonus 02 &mdash; 교환자 &middot; Bonus 03 &mdash; 기약 표현</p>
+                    <p class="text-sm text-slate-700 mt-3">Bonus 02 &mdash; commutators &middot; Bonus 03 &mdash; irreducible representations</p>
                 </div>
                 <div class="step-box">
                     <span class="logic-tag">Feeds</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 03 &middot; 06 &middot; 09 &mdash; 모든 selection rule의 근거</p>
+                    <p class="text-sm text-slate-700 mt-3">Modules 03, 06 and 09 &mdash; the basis of every selection rule</p>
                 </div>
             </div>
-            <div class="warn mt-8"><b>Bonus 트랙의 도착점이다.</b> 앞의 세 편에서 쌓은 것이 여기서 하나의 문장으로 모인다.</div>
+            <div class="warn mt-8"><b>The destination of the bonus track.</b> Everything built in the previous three instalments collapses here into a single sentence.</div>
         </div>
     </section>
 
@@ -82,10 +82,10 @@
                 $$ [\hat{H}, \hat{R}] = 0 $$
             </div>
             <ul class="todo mt-4">
-                <li>분자의 대칭 조작은 Hamiltonian을 바꾸지 않는다</li>
-                <li>&rArr; $\hat{H}$와 $\hat{R}$은 동시 고유상태를 갖는다 (Bonus 02)</li>
-                <li>&rArr; 에너지 고유함수는 기약 표현으로 <b>분류될 수 있다</b></li>
-                <li>축퇴는 기약 표현의 차원과 같다 &mdash; 우연한 축퇴가 아니라면</li>
+                <li>A symmetry operation of the molecule leaves the Hamiltonian unchanged</li>
+                <li>&rArr; $\hat{H}$ and $\hat{R}$ have simultaneous eigenstates (Bonus 02)</li>
+                <li>&rArr; energy eigenfunctions <b>can be labelled</b> by irreducible representations</li>
+                <li>Degeneracy equals the dimension of the irreducible representation &mdash; barring accidental degeneracy</li>
             </ul>
         </div>
     </section>
@@ -95,10 +95,10 @@
         <div class="slide-content text-left px-20">
             <h2>2. Block Diagonalisation</h2>
             <ul class="todo mt-4">
-                <li>다른 기약 표현 사이의 Hamiltonian 행렬 요소는 <b>0이다</b> (Schur 제2보조정리)</li>
-                <li>&rArr; 세속 행렬(secular matrix)이 블록으로 쪼개진다</li>
-                <li>$N \times N$ 하나가 아니라 작은 블록 여럿 &mdash; 계산량이 줄어드는 것이 아니라 <b>애초에 섞이지 않았다</b></li>
-                <li>SALC를 쓰는 이유가 정확히 이것이다 (Module 06)</li>
+                <li>Hamiltonian matrix elements between different irreducibles <b>vanish</b> (Schur's second lemma)</li>
+                <li>&rArr; the secular matrix separates into blocks</li>
+                <li>Not one $N \times N$ problem but several small ones &mdash; and the point is that they were <b>never coupled to begin with</b></li>
+                <li>This is exactly why SALCs are used (Module 06)</li>
             </ul>
         </div>
     </section>
@@ -111,12 +111,12 @@
                 $$ \int \psi_a^{*}\,\hat{O}\,\psi_b \; d\tau \ne 0 \iff \Gamma_a \otimes \Gamma_{\hat{O}} \otimes \Gamma_b \supset \Gamma_{\text{tot.sym.}} $$
             </div>
             <ul class="todo mt-4">
-                <li>적분이 0이 아닐 필요조건 &mdash; 완전대칭 성분을 포함할 것</li>
-                <li>직접곱의 분해</li>
-                <li>$\hat{O} = $ 쌍극자 &rarr; IR 활성 (Module 03)</li>
-                <li>$\hat{O} = $ 분극률 &rarr; Raman 활성 (Module 03)</li>
-                <li>$\hat{O} = $ 쌍극자, 중심대칭 &rarr; <b>Laporte 규칙</b> (Module 09)</li>
-                <li>$\hat{O} = \hat{H}$ &rarr; MO의 대칭 일치 조건 (Module 05&ndash;06)</li>
+                <li>The necessary condition for a non-vanishing integral</li>
+                <li>Decomposing the direct product</li>
+                <li>$\hat{O} = $ dipole &rarr; IR activity (Module 03)</li>
+                <li>$\hat{O} = $ polarisability &rarr; Raman activity (Module 03)</li>
+                <li>$\hat{O} = $ dipole, centrosymmetric &rarr; the <b>Laporte rule</b> (Module 09)</li>
+                <li>$\hat{O} = \hat{H}$ &rarr; the symmetry-matching condition for MOs (Modules 05&ndash;06)</li>
             </ul>
         </div>
     </section>
@@ -129,10 +129,10 @@
                 $$ \text{Symmetry} \to \text{Irreps} \to \text{Block-diagonal } \hat{H} \to \text{Selection rules} $$
             </div>
             <ul class="todo mt-4">
-                <li>네 단계가 각각 어느 Bonus/Module에 대응하는지</li>
-                <li>이 사슬을 한 번 세워 두면 Module 03 &middot; 06 &middot; 09가 같은 정리의 세 응용이 된다</li>
-                <li>선택률의 <b>예외</b>가 나오는 지점 &mdash; vibronic coupling, spin&ndash;orbit 혼합</li>
-                <li>예외조차 '대칭이 깨졌다'로 설명된다는 것</li>
+                <li>Which bonus instalment or module supplies each of the four steps</li>
+                <li>Once the chain stands, Modules 03, 06 and 09 become three applications of one theorem</li>
+                <li>Where <b>exceptions</b> come from &mdash; vibronic coupling, spin&ndash;orbit mixing</li>
+                <li>Even the exceptions are explained as 'the symmetry was broken'</li>
             </ul>
         </div>
     </section>
@@ -141,11 +141,11 @@
     <section id="s40" class="end">
         <div class="slide-content text-center">
             <div class="outline-banner" style="display:inline-block">Outline only</div>
-            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module B4 &mdash; 뼈대</h2>
+            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module B4 &mdash; Outline</h2>
             <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
-                절 구성과 핵심 식만 세워 둔 상태입니다. 본문 서술·도표·사례는 제작 단계에서 채웁니다.
-                구성 근거는 <b>ADV_INORGANIC_ROADMAP.md</b>, 전체 지도는
-                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>에 있습니다.
+                Section structure and key equations are in place; prose, diagrams and worked cases are not.
+                The rationale for this ordering is in <b>ADV_INORGANIC_ROADMAP.md</b>; the whole map is in the
+                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>.
             </p>
             <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
             <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Module 01 &mdash;<br>Molecular Symmetry</p>

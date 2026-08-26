@@ -32,7 +32,7 @@
         .hist b { color: #0f172a; }
         .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
         .warn b { color: #78350f; }
-        /* 애플릿 조작부. 44px 터치 영역은 접근성 기준이므로 줄이지 말 것. */
+        /* Applet controls. The 44 px touch target is an accessibility floor — do not shrink it. */
         .ctl { min-height: 44px; padding: 0.45rem 0.9rem; border: 2px solid #cbd5e1; border-radius: 0.6rem;
                background: #ffffff; font-weight: 700; color: #334155; font-size: 1rem; cursor: pointer; }
         .ctl:hover:not([disabled]) { border-color: #0f172a; }
@@ -63,25 +63,25 @@
     <section id="s2">
         <div class="slide-content text-left px-20">
             <h2>0. What This Model Is, and What It Is Not</h2>
-            <p class="text-lg font-medium mb-6">Crystal field theory treats every ligand as a <b>negative point charge</b>. There are no bonds, no orbital overlap, no covalency. It is, taken literally, false. It also predicts the colours and magnetic moments of thousands of complexes.</p>
+            <p class="text-lg font-medium mb-6">Crystal field theory treats every ligand as a <b>negative point charge</b>. There are no bonds, no orbital overlap, no covalency. Taken literally it is false. It also predicts the colours and magnetic moments of thousands of complexes.</p>
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="info-card">
                     <p class="font-black uppercase text-xs mb-3">What it gets right</p>
                     <ul class="text-sm space-y-2 font-medium text-slate-700">
-                        <li>● The <b>pattern</b> of $d$-orbital splitting in any geometry &mdash; because that follows from symmetry alone (Module 01&ndash;02), not from the bonding model.</li>
+                        <li>● The <b>pattern</b> of $d$-orbital splitting in any geometry &mdash; because that follows from symmetry alone (Modules 01&ndash;02), not from the bonding model.</li>
                         <li>● Which complexes are high spin and which are low spin.</li>
                         <li>● Magnetic moments, to a first approximation.</li>
                         <li>● Trends in hydration enthalpy and ionic radius across a period.</li>
                     </ul>
                 </div>
                 <div class="warn">
-                    <b>What it cannot do.</b> It cannot explain the <b>spectrochemical series</b>. If ligands were point charges, $\mathrm{OH^-}$ (charged) would split more strongly than $\mathrm{NH_3}$ (neutral). It does not &mdash; the order is nearly the reverse. A purely electrostatic model has no mechanism for this, and no amount of parameter fitting will supply one.
+                    <b>What it cannot do.</b> It cannot explain the <b>spectrochemical series</b>. If ligands were point charges, $\mathrm{OH^-}$ (charged) would split more strongly than $\mathrm{NH_3}$ (neutral). It does not &mdash; the order is close to the reverse. A purely electrostatic model has no mechanism for this, and no amount of parameter fitting will supply one.
                     <br><br>That failure is not a footnote. It is the reason Module 08 exists.
                 </div>
             </div>
             <div class="info-card mt-4">
                 <p class="font-black uppercase text-xs mb-3">Prerequisite from Module 04</p>
-                <p class="text-sm font-medium text-slate-700">Every diagram in this module assumes the metal centre is a $d^{\,n}$ ion with <b>no valence $s$ electrons</b> &mdash; that $\mathrm{Fe^{2+}}$ is $[\mathrm{Ar}]3d^6$ and not $[\mathrm{Ar}]3d^44s^2$. Module 04 &sect;11 established this. Without it, "$d^{\,n}$" would be an assumption rather than a fact.</p>
+                <p class="text-sm font-medium text-slate-700">Every diagram here assumes the metal centre is a $d^{\,n}$ ion with <b>no valence $s$ electrons</b> &mdash; that $\mathrm{Fe^{2+}}$ is $[\mathrm{Ar}]3d^6$ and not $[\mathrm{Ar}]3d^44s^2$. Module 04 &sect;11 established this. Without it, "$d^{\,n}$" would be an assumption rather than a fact.</p>
             </div>
         </div>
     </section>
@@ -90,32 +90,28 @@
     <section id="s3">
         <div class="slide-content text-left px-20">
             <h2>1. Where the Splitting Comes From</h2>
-            <p class="text-lg font-medium mb-6">Bring six negative charges up along $\pm x, \pm y, \pm z$. An electron in a $d$ orbital that <b>points at</b> a ligand is repelled more than one that points <b>between</b> ligands.</p>
+            <p class="text-lg font-medium mb-6">Bring six negative charges up along $\pm x, \pm y, \pm z$. An electron in a $d$ orbital that <b>points at</b> a ligand is repelled more than one pointing <b>between</b> ligands.</p>
             <div class="grid md:grid-cols-2 gap-6">
                 <div>
                     <svg viewBox="0 0 420 260" class="w-full" role="img"
-                         aria-label="팔면체 배위에서 d 오비탈의 방향. d z제곱과 d x제곱빼y제곱은 좌표축을 따라 뻗어 리간드를 정면으로 겨누고, d xy·d yz·d zx는 축 사이를 향한다.">
+                         aria-label="Orientation of d orbitals in an octahedral field. The d z-squared and d x-squared-minus-y-squared lobes lie along the coordinate axes and point straight at the ligands, while d xy, d yz and d zx point between the axes.">
                         <rect x="0" y="0" width="420" height="260" fill="#f8fafc" rx="12"></rect>
-                        <!-- 축 -->
                         <line x1="110" y1="130" x2="310" y2="130" stroke="#94a3b8" stroke-width="2"></line>
                         <line x1="210" y1="30" x2="210" y2="230" stroke="#94a3b8" stroke-width="2"></line>
                         <text x="316" y="134" fill="#64748b" font-size="12" font-weight="bold">x</text>
                         <text x="204" y="24" fill="#64748b" font-size="12" font-weight="bold">z</text>
-                        <!-- 리간드 -->
                         <circle cx="120" cy="130" r="13" fill="#1d4ed8"></circle>
                         <circle cx="300" cy="130" r="13" fill="#1d4ed8"></circle>
                         <circle cx="210" cy="40" r="13" fill="#1d4ed8"></circle>
                         <circle cx="210" cy="220" r="13" fill="#1d4ed8"></circle>
                         <circle cx="210" cy="130" r="16" fill="#0f172a"></circle>
                         <text x="203" y="135" fill="#f8fafc" font-size="12" font-weight="bold">M</text>
-                        <!-- 축을 따라 뻗은 로브 (eg) -->
                         <ellipse cx="163" cy="130" rx="26" ry="13" fill="#b91c1c" opacity="0.35"></ellipse>
                         <ellipse cx="257" cy="130" rx="26" ry="13" fill="#b91c1c" opacity="0.35"></ellipse>
-                        <!-- 축 사이 로브 (t2g) -->
                         <ellipse cx="255" cy="86" rx="22" ry="12" fill="#166534" opacity="0.35" transform="rotate(-42 255 86)"></ellipse>
                         <ellipse cx="165" cy="174" rx="22" ry="12" fill="#166534" opacity="0.35" transform="rotate(-42 165 174)"></ellipse>
-                        <text x="24" y="42" fill="#b91c1c" font-size="13" font-weight="bold">축을 겨눔 → 반발 큼</text>
-                        <text x="24" y="240" fill="#166534" font-size="13" font-weight="bold">축 사이 → 반발 작음</text>
+                        <text x="20" y="42" fill="#b91c1c" font-size="13" font-weight="bold">along the axes → strong repulsion</text>
+                        <text x="20" y="240" fill="#166534" font-size="13" font-weight="bold">between the axes → weak repulsion</text>
                     </svg>
                 </div>
                 <div>
@@ -124,15 +120,15 @@
                     </div>
                     <div class="overflow-x-auto">
                     <table class="qtable">
-                        <thead><tr><th>집합</th><th>오비탈</th><th>방향</th><th>에너지</th></tr></thead>
+                        <thead><tr><th>Set</th><th>Orbitals</th><th>Orientation</th><th>Energy</th></tr></thead>
                         <tbody>
-                            <tr><td>$e_g$</td><td class="l">$d_{z^2},\ d_{x^2-y^2}$</td><td>축을 따라</td><td>$+0.6\,\Delta_o$</td></tr>
-                            <tr><td>$t_{2g}$</td><td class="l">$d_{xy},\ d_{yz},\ d_{zx}$</td><td>축 사이</td><td>$-0.4\,\Delta_o$</td></tr>
+                            <tr><td>$e_g$</td><td class="l">$d_{z^2},\ d_{x^2-y^2}$</td><td>along the axes</td><td>$+0.6\,\Delta_o$</td></tr>
+                            <tr><td>$t_{2g}$</td><td class="l">$d_{xy},\ d_{yz},\ d_{zx}$</td><td>between the axes</td><td>$-0.4\,\Delta_o$</td></tr>
                         </tbody>
                     </table>
                     </div>
                     <div class="warn mt-4">
-                        <b>$d_{z^2}$가 왜 $e_g$인가.</b> 그림만 보면 $d_{z^2}$는 $z$축 하나만 겨누는데 $d_{x^2-y^2}$는 네 방향을 겨눈다. 두 개가 같은 에너지인 것이 이상해 보인다. 답은 $d_{z^2}$가 실제로는 $d_{z^2-x^2}$와 $d_{z^2-y^2}$의 <b>합</b>이라는 것이다 &mdash; 여섯 개 중 다섯 개만 독립이다. 대칭성이 둘을 한 묶음으로 묶는다는 것은 Module 02의 지표표가 이미 말해 주었다.
+                        <b>Why is $d_{z^2}$ in $e_g$?</b> From the picture, $d_{z^2}$ aims along one axis while $d_{x^2-y^2}$ aims along four, so their being degenerate looks wrong. The resolution is that $d_{z^2}$ is really the <b>sum</b> of $d_{z^2-x^2}$ and $d_{z^2-y^2}$ &mdash; six such functions exist but only five are independent. That symmetry groups the two together is something the character tables of Module 02 already told us.
                     </div>
                 </div>
             </div>
@@ -143,26 +139,26 @@
     <section id="s4">
         <div class="slide-content text-left px-20">
             <h2>2. The Barycentre Rule</h2>
-            <p class="text-lg font-medium mb-6">왜 $+0.6$과 $-0.4$인가. 리간드장은 $d$ 집합 전체의 <b>평균</b> 에너지를 올릴 뿐이고, 그 평균을 기준으로 재분배는 <b>합이 0</b>이어야 한다.</p>
+            <p class="text-lg font-medium mb-6">Why $+0.6$ and $-0.4$? The ligand field raises the <b>average</b> energy of the whole $d$ set; relative to that average, the redistribution must <b>sum to zero</b>.</p>
             <div class="math-box text-center py-6">
                 $$ 2\,(+0.6\,\Delta_o) + 3\,(-0.4\,\Delta_o) = 1.2 - 1.2 = 0 $$
             </div>
             <div class="grid md:grid-cols-3 gap-6 mt-6">
                 <div class="step-box">
-                    <span class="logic-tag">정의</span>
-                    <p class="text-sm text-slate-700 mt-3">$\Delta_o \equiv E(e_g) - E(t_{2g})$. 분광학에서 $10\,Dq$로도 쓴다 &mdash; 같은 양의 다른 이름이다.</p>
+                    <span class="logic-tag">Definition</span>
+                    <p class="text-sm text-slate-700 mt-3">$\Delta_o \equiv E(e_g) - E(t_{2g})$. Spectroscopists also write it $10\,Dq$ &mdash; the same quantity under another name.</p>
                 </div>
                 <div class="step-box">
-                    <span class="logic-tag">주의</span>
-                    <p class="text-sm text-slate-700 mt-3">무게중심은 <b>구형 장</b> 기준이다. 자유 이온보다 이미 올라간 자리다. CFSE가 음수인 것은 자유 이온보다 안정하다는 뜻이 아니다.</p>
+                    <span class="logic-tag">Caution</span>
+                    <p class="text-sm text-slate-700 mt-3">The barycentre is the <b>spherical-field</b> reference, already raised above the free ion. A negative CFSE does <i>not</i> mean the complex is more stable than the free ion.</p>
                 </div>
                 <div class="step-box">
-                    <span class="logic-tag">크기</span>
-                    <p class="text-sm text-slate-700 mt-3">$\Delta_o$는 보통 $10\,000$&ndash;$30\,000\ \mathrm{cm^{-1}}$. 가시광 영역이다 &mdash; 그래서 착물에 <b>색</b>이 있다.</p>
+                    <span class="logic-tag">Magnitude</span>
+                    <p class="text-sm text-slate-700 mt-3">$\Delta_o$ is typically $10\,000$&ndash;$30\,000\ \mathrm{cm^{-1}}$ &mdash; the visible range. That is why these complexes are <b>coloured</b>.</p>
                 </div>
             </div>
             <div class="hist mt-6">
-                <b>Bethe, 1929.</b> 한스 베테는 결정 안의 이온이 받는 정전기장을 <b>군론으로</b> 다뤄 이 갈라짐을 유도했다 &mdash; 화학 결합을 논하지 않고 대칭성만으로. 화학자가 아니라 물리학자의 결과였고, 20년 가까이 무기화학에 거의 알려지지 않았다.
+                <b>Bethe, 1929.</b> Hans Bethe derived this splitting by treating the electrostatic field around an ion in a crystal <b>group-theoretically</b> &mdash; without discussing chemical bonding at all. It was a physicist's result, and inorganic chemistry took almost twenty years to notice it.
             </div>
         </div>
     </section>
@@ -173,25 +169,25 @@
             <h2>3. Other Geometries</h2>
             <div class="grid md:grid-cols-2 gap-6">
                 <div>
-                    <h3 class="mt-0">사면체 &mdash; 라벨이 뒤집힌다</h3>
+                    <h3 class="mt-0">Tetrahedral &mdash; the labels invert</h3>
                     <div class="math-box text-center" style="margin:0.75rem 0">
                         $$ \Delta_t \approx \tfrac{4}{9}\,\Delta_o $$
                     </div>
                     <ul class="text-sm space-y-2 font-medium text-slate-700 pl-6">
-                        <li>● $e$($d_{z^2}, d_{x^2-y^2}$)가 <b>아래</b>, $t_2$($d_{xy}, d_{yz}, d_{zx}$)가 위</li>
-                        <li>● 어느 $d$ 오비탈도 리간드를 정면으로 겨누지 않는다 &mdash; 축 사이를 겨누는 $t_2$가 그나마 가깝다</li>
-                        <li>● $g$ 아래첨자가 없다: $T_d$에는 반전 중심이 없다. Module 09의 Laporte 규칙에서 이것이 결정적이 된다</li>
+                        <li>● $e$ ($d_{z^2}, d_{x^2-y^2}$) now lies <b>below</b> $t_2$ ($d_{xy}, d_{yz}, d_{zx}$)</li>
+                        <li>● No $d$ orbital points straight at a ligand &mdash; $t_2$, aiming between the axes, comes closest</li>
+                        <li>● There is no $g$ subscript: $T_d$ has no centre of inversion. That becomes decisive for the Laporte rule in Module 09</li>
                     </ul>
                     <div class="warn mt-3">
-                        <b>$4/9$는 유도가 아니라 어림이다.</b> 리간드가 6개에서 4개로 줄어 $\tfrac{2}{3}$, 방향이 어긋나 다시 $\tfrac{2}{3}$ &mdash; 곱해서 $\tfrac{4}{9}$. 점전하 모형 안에서의 손어림이고, 실측값은 착물에 따라 흩어진다.
+                        <b>$4/9$ is an estimate, not a derivation.</b> Six ligands become four, giving $\tfrac{2}{3}$; the orientation is worse, giving another $\tfrac{2}{3}$; multiply for $\tfrac{4}{9}$. It is hand-waving inside a point-charge model, and measured values scatter about it.
                     </div>
                 </div>
                 <div>
-                    <h3 class="mt-0">평면사각 &mdash; $z$를 버린 극한</h3>
-                    <p class="text-sm text-slate-700 mt-2">팔면체에서 $z$축 두 리간드를 무한히 멀리 보낸다. $z$ 성분이 있는 오비탈($d_{z^2}, d_{xz}, d_{yz}$)은 내려가고, $xy$ 평면의 오비탈($d_{xy}, d_{x^2-y^2}$)은 올라간다.</p>
+                    <h3 class="mt-0">Square planar &mdash; the limit with $z$ removed</h3>
+                    <p class="text-sm text-slate-700 mt-2">Take the octahedron and move the two $z$-axis ligands to infinity. Orbitals with $z$ character ($d_{z^2}, d_{xz}, d_{yz}$) fall; those in the $xy$ plane ($d_{xy}, d_{x^2-y^2}$) rise.</p>
                     <div class="overflow-x-auto mt-3">
                     <table class="qtable">
-                        <thead><tr><th>오비탈</th><th>에너지 ($\Delta_o$)</th></tr></thead>
+                        <thead><tr><th>Orbital</th><th>Energy / $\Delta_o$</th></tr></thead>
                         <tbody>
                             <tr><td>$d_{x^2-y^2}$</td><td>$+1.228$</td></tr>
                             <tr><td>$d_{xy}$</td><td>$+0.228$</td></tr>
@@ -201,7 +197,7 @@
                     </table>
                     </div>
                     <div class="warn mt-3">
-                        <b>$d_{z^2}$와 $d_{xy}$의 순서는 보편적이지 않다.</b> 위 값은 점전하 모형의 표준 수치이고, 실제 착물에서는 리간드에 따라 두 준위가 뒤집힐 수 있다. 확실한 것은 $d_{x^2-y^2}$가 유난히 높다는 것 &mdash; 그것이 $d^8$ 평면사각의 반자성을 만든다.
+                        <b>The order of $d_{z^2}$ and $d_{xy}$ is not universal.</b> These are the standard point-charge values; in real complexes the two can swap depending on the ligand. What is robust is that $d_{x^2-y^2}$ sits far above everything else &mdash; and that is what makes square-planar $d^8$ diamagnetic.
                     </div>
                 </div>
             </div>
@@ -211,39 +207,39 @@
     <!-- Slide 6: APPLET -->
     <section id="s6">
         <div class="slide-content text-left px-16">
-            <h2>4. 조작해 보기 &mdash; 갈라짐과 CFSE</h2>
+            <h2>4. Try It &mdash; Splitting and CFSE</h2>
             <div class="flex flex-wrap gap-2 items-center mb-3">
-                <span class="text-sm font-black text-slate-500 uppercase tracking-widest">기하</span>
-                <button class="ctl" data-geom="Oh" aria-pressed="false">팔면체 O$_h$</button>
-                <button class="ctl" data-geom="Td" aria-pressed="false">사면체 T$_d$</button>
-                <button class="ctl" data-geom="D4h" aria-pressed="false">평면사각 D$_{4h}$</button>
-                <span class="text-sm font-black text-slate-500 uppercase tracking-widest" style="margin-left:1rem">스핀</span>
-                <button class="ctl" data-spin="high" aria-pressed="true">고스핀</button>
-                <button class="ctl" data-spin="low" aria-pressed="false">저스핀</button>
+                <span class="text-sm font-black text-slate-500 uppercase tracking-widest">Geometry</span>
+                <button class="ctl" data-geom="Oh" aria-pressed="false">Octahedral O$_h$</button>
+                <button class="ctl" data-geom="Td" aria-pressed="false">Tetrahedral T$_d$</button>
+                <button class="ctl" data-geom="D4h" aria-pressed="false">Square planar D$_{4h}$</button>
+                <span class="text-sm font-black text-slate-500 uppercase tracking-widest" style="margin-left:1rem">Spin</span>
+                <button class="ctl" data-spin="high" aria-pressed="true">High spin</button>
+                <button class="ctl" data-spin="low" aria-pressed="false">Low spin</button>
             </div>
             <div class="flex items-center gap-3 mb-3">
-                <label for="cf-n" class="text-sm font-black text-slate-500 uppercase tracking-widest" style="white-space:nowrap">d 전자수</label>
+                <label for="cf-n" class="text-sm font-black text-slate-500 uppercase tracking-widest" style="white-space:nowrap">$d$ electrons</label>
                 <input id="cf-n" type="range" min="0" max="10" step="1" value="5" class="flex-1">
                 <span class="readout-box" style="padding:0.35rem 0.7rem"><span class="v" id="cf-n-out">d5</span></span>
             </div>
             <div class="grid md:grid-cols-2 gap-6">
-                <svg id="cf-svg" viewBox="0 0 470 300" class="w-full" role="img" aria-label="결정장 갈라짐 도표"></svg>
+                <svg id="cf-svg" viewBox="0 0 470 300" class="w-full" role="img" aria-label="Crystal field splitting diagram"></svg>
                 <div>
                     <div class="grid grid-cols-2 gap-3">
-                        <div class="readout-box"><div class="k">배치</div><div class="v" id="cf-config">&mdash;</div></div>
+                        <div class="readout-box"><div class="k">Configuration</div><div class="v" id="cf-config">&mdash;</div></div>
                         <div class="readout-box"><div class="k">CFSE</div><div class="v" id="cf-cfse">&mdash;</div></div>
-                        <div class="readout-box"><div class="k">홀전자</div><div class="v" id="cf-unpaired">&mdash;</div></div>
+                        <div class="readout-box"><div class="k">Unpaired</div><div class="v" id="cf-unpaired">&mdash;</div></div>
                         <div class="readout-box"><div class="k">spin-only &mu;</div><div class="v" id="cf-mu">&mdash;</div></div>
                     </div>
                     <div class="info-card mt-4" style="margin-bottom:0">
-                        <p class="font-black uppercase text-xs mb-2">이 기하에서</p>
+                        <p class="font-black uppercase text-xs mb-2">In this geometry</p>
                         <p class="text-sm font-medium text-slate-700" id="cf-note">&mdash;</p>
                     </div>
                     <p class="text-sm text-slate-500 mt-3" id="cf-live" aria-live="polite"></p>
                 </div>
             </div>
             <div class="warn mt-3" style="font-size:0.88rem">
-                <b>확인해 볼 것.</b> ① $d^3$과 $d^8$에서 고스핀/저스핀 버튼이 꺼지는 이유. ② $d^5$ 고스핀의 CFSE가 정확히 0인데도 그 배치가 흔한 이유. ③ 사면체에서 스핀 선택이 아예 없는 이유. ④ 평면사각 $d^8$의 홀전자 수.
+                <b>Things to check.</b> (i) Why the spin buttons switch off at $d^3$ and $d^8$. (ii) Why the $d^5$ high-spin CFSE is exactly zero and yet that configuration is common. (iii) Why the tetrahedral case offers no spin choice at all. (iv) The number of unpaired electrons in square-planar $d^8$.
             </div>
         </div>
     </section>
@@ -255,42 +251,40 @@
             <div class="math-box text-center py-6">
                 $$ \mathrm{CFSE} = \left(-0.4\,n_{t_{2g}} + 0.6\,n_{e_g}\right)\Delta_o \;+\; m\,P $$
             </div>
-            <p class="text-lg font-medium">$m$은 <b>자유 이온보다 더 생긴 짝의 수</b>다. $d^{\,n}$에서 어쩔 수 없이 생기는 짝($n>5$일 때 $n-5$개)은 세지 않는다 &mdash; 그것은 리간드장 때문이 아니다.</p>
+            <p class="text-lg font-medium">$m$ is the number of pairs formed <b>beyond those the free ion already had</b>. The $n-5$ pairs that are unavoidable for $n>5$ are not counted &mdash; they are not the ligand field's doing.</p>
             <div class="overflow-x-auto mt-5">
             <table class="qtable">
-                <thead><tr><th>$d^{\,n}$</th><th>고스핀 배치</th><th>CFSE</th><th>홀전자</th><th>저스핀 배치</th><th>CFSE</th><th>홀전자</th></tr></thead>
+                <thead><tr><th>$d^{\,n}$</th><th>High spin</th><th>CFSE</th><th>Unpaired</th><th>Low spin</th><th>CFSE</th><th>Unpaired</th></tr></thead>
                 <tbody>
-                    <tr><td>$d^3$</td><td>$t_{2g}^3$</td><td>$-1.2\,\Delta_o$</td><td>3</td><td colspan="3">선택지 없음</td></tr>
+                    <tr><td>$d^3$</td><td>$t_{2g}^3$</td><td>$-1.2\,\Delta_o$</td><td>3</td><td colspan="3">no choice available</td></tr>
                     <tr><td>$d^4$</td><td>$t_{2g}^3 e_g^1$</td><td>$-0.6\,\Delta_o$</td><td>4</td><td>$t_{2g}^4$</td><td>$-1.6\,\Delta_o + P$</td><td>2</td></tr>
                     <tr><td>$d^5$</td><td>$t_{2g}^3 e_g^2$</td><td>$0$</td><td>5</td><td>$t_{2g}^5$</td><td>$-2.0\,\Delta_o + 2P$</td><td>1</td></tr>
                     <tr><td>$d^6$</td><td>$t_{2g}^4 e_g^2$</td><td>$-0.4\,\Delta_o$</td><td>4</td><td>$t_{2g}^6$</td><td>$-2.4\,\Delta_o + 2P$</td><td>0</td></tr>
                     <tr><td>$d^7$</td><td>$t_{2g}^5 e_g^2$</td><td>$-0.8\,\Delta_o$</td><td>3</td><td>$t_{2g}^6 e_g^1$</td><td>$-1.8\,\Delta_o + P$</td><td>1</td></tr>
-                    <tr><td>$d^8$</td><td>$t_{2g}^6 e_g^2$</td><td>$-1.2\,\Delta_o$</td><td>2</td><td colspan="3">선택지 없음</td></tr>
+                    <tr><td>$d^8$</td><td>$t_{2g}^6 e_g^2$</td><td>$-1.2\,\Delta_o$</td><td>2</td><td colspan="3">no choice available</td></tr>
                 </tbody>
             </table>
             </div>
             <div class="warn mt-4">
-                <b>$d^4$ 저스핀은 $t_{2g}^4$이고, 홀전자는 2개다.</b> 0개가 아니다. 저스핀은 "최대한 짝짓는다"가 아니라 "<b>낮은 준위에 몰린다</b>"는 뜻이며, 그 준위 <i>안에서는</i> 훈트 규칙이 그대로 작동한다. $t_{2g}^4 = \uparrow\downarrow\ \uparrow\ \uparrow$ 다. 위 애플릿의 초기 구현이 정확히 이 지점에서 틀렸다가 검증에서 잡혔다.
+                <b>Low-spin $d^4$ is $t_{2g}^4$ and has two unpaired electrons</b> &mdash; not zero. "Low spin" does not mean "pair up as much as possible"; it means <b>crowd into the lower level</b>, and <i>within</i> that level Hund's rule still operates: $t_{2g}^4 = \uparrow\downarrow\ \uparrow\ \uparrow$. The first implementation of the applet above got exactly this wrong, and the physics tests caught it.
             </div>
         </div>
     </section>
 
-    <!-- Slide 8: 실험적 증거 -->
+    <!-- Slide 8: experimental evidence -->
     <section id="s8">
         <div class="slide-content text-left px-20">
-            <h2>6. CFSE의 실험적 흔적</h2>
-            <p class="text-lg font-medium mb-6">CFSE는 전체 결합 에너지의 작은 몫이다. 절대값을 주지 않고 <b>추세</b>를 설명한다. 그 추세가 두 곳에서 눈에 보인다.</p>
+            <h2>6. Where CFSE Shows Up in Data</h2>
+            <p class="text-lg font-medium mb-6">CFSE is a small fraction of the total bonding energy. It does not give absolute values; it explains <b>trends</b>. Two of them are visible.</p>
             <div class="grid md:grid-cols-2 gap-6">
                 <div>
                     <svg viewBox="0 0 420 250" class="w-full" role="img"
-                         aria-label="칼슘 이가 이온에서 아연 이가 이온까지 수화 엔탈피 그래프. 전체적으로 증가하는 직선 위에 두 개의 봉우리가 얹혀, d3 부근과 d8 부근에서 직선보다 더 안정하다. d0, d5, d10에서는 직선 위에 놓인다.">
+                         aria-label="Hydration enthalpy from calcium two plus to zinc two plus. A rising straight line carries two humps on it, so that the d3 and d8 regions are more stable than the line. Only d0, d5 and d10 sit on the line.">
                         <rect x="0" y="0" width="420" height="250" fill="#f8fafc" rx="12"></rect>
                         <line x1="52" y1="210" x2="400" y2="210" stroke="#334155" stroke-width="2"></line>
                         <line x1="52" y1="24" x2="52" y2="210" stroke="#334155" stroke-width="2"></line>
                         <text x="8" y="118" fill="#475569" font-size="11" font-weight="bold">|ΔH|</text>
-                        <!-- 기준 직선 -->
                         <line x1="60" y1="186" x2="392" y2="66" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 5"></line>
-                        <!-- 이중 봉우리 -->
                         <path d="M 60 186 Q 96 150 130 140 Q 164 132 196 146 Q 226 158 226 158 Q 262 128 296 108 Q 330 92 358 100 Q 378 106 392 66"
                               fill="none" stroke="#1d4ed8" stroke-width="3"></path>
                         <g fill="#0f172a" font-size="10" font-weight="bold">
@@ -300,21 +294,21 @@
                         <circle cx="60" cy="186" r="4" fill="#b91c1c"></circle>
                         <circle cx="226" cy="158" r="4" fill="#b91c1c"></circle>
                         <circle cx="392" cy="66" r="4" fill="#b91c1c"></circle>
-                        <text x="242" y="196" fill="#b91c1c" font-size="11" font-weight="bold">CFSE = 0인 곳만 직선 위</text>
+                        <text x="234" y="196" fill="#b91c1c" font-size="11" font-weight="bold">on the line only where CFSE = 0</text>
                     </svg>
-                    <p class="text-sm text-slate-500 mt-2">$\mathrm{Ca^{2+}} \to \mathrm{Zn^{2+}}$ 수화 엔탈피. 개략도다.</p>
+                    <p class="text-sm text-slate-500 mt-2">Hydration enthalpies, $\mathrm{Ca^{2+}} \to \mathrm{Zn^{2+}}$. Schematic.</p>
                 </div>
                 <div>
                     <div class="info-card">
-                        <p class="font-black uppercase text-xs mb-2">왜 이중 봉우리인가</p>
-                        <p class="text-sm font-medium text-slate-700">직선은 $Z_{\text{eff}}$가 커지며 생기는 단조 증가다. 그 위에 CFSE가 얹힌다. 고스핀 $d^0, d^5, d^{10}$에서 CFSE가 <b>정확히 0</b>이므로 그 세 점만 직선에 놓이고, 사이 구간은 아래로 처진다(더 안정하다). 봉우리가 두 개인 것은 $d^5$에서 CFSE가 0으로 돌아오기 때문이다.</p>
+                        <p class="font-black uppercase text-xs mb-2">Why two humps</p>
+                        <p class="text-sm font-medium text-slate-700">The straight line is the monotonic rise from increasing $Z_{\text{eff}}$. CFSE is superimposed on it. For high-spin $d^0$, $d^5$ and $d^{10}$ the CFSE is <b>exactly zero</b>, so only those three points lie on the line and everything between sags below it (more stable). There are two humps because CFSE returns to zero at $d^5$.</p>
                     </div>
                     <div class="info-card">
-                        <p class="font-black uppercase text-xs mb-2">이온 반지름도 같은 모양</p>
-                        <p class="text-sm font-medium text-slate-700">$t_{2g}$를 채우는 구간에서는 전자가 리간드를 피해 있어 반지름이 예상보다 작고, $e_g$를 채우면 리간드를 밀어내 커진다. 주기를 따라 반지름이 매끄럽게 줄지 않는 이유다.</p>
+                        <p class="font-black uppercase text-xs mb-2">Ionic radii do the same thing</p>
+                        <p class="text-sm font-medium text-slate-700">While $t_{2g}$ is filling, the electrons avoid the ligands and the radius is smaller than expected; filling $e_g$ pushes the ligands away and enlarges it. That is why radii do not shrink smoothly across the period.</p>
                     </div>
                     <div class="warn">
-                        <b>순환 논증을 피할 것.</b> CFSE로 이 곡선을 설명하고, 이 곡선으로 CFSE를 증명하면 아무것도 보인 게 없다. 독립된 근거는 <b>분광학</b>이다 &mdash; 흡수 봉우리에서 $\Delta_o$를 직접 읽는다. 그것이 Module 09다.
+                        <b>Avoid the circular argument.</b> Explaining this curve by CFSE and then proving CFSE from this curve demonstrates nothing. The independent evidence is <b>spectroscopic</b> &mdash; reading $\Delta_o$ directly off an absorption band. That is Module 09.
                     </div>
                 </div>
             </div>
@@ -324,63 +318,63 @@
     <!-- Slide 9: high/low spin -->
     <section id="s9">
         <div class="slide-content text-left px-20">
-            <h2>7. 고스핀과 저스핀 &mdash; 두 에너지의 경쟁</h2>
+            <h2>7. High Spin and Low Spin &mdash; Two Energies Competing</h2>
             <div class="math-box text-center py-6">
                 $$ \Delta_o \;\gtrless\; P $$
             </div>
             <div class="grid md:grid-cols-2 gap-6 mt-4">
                 <div class="step-box">
-                    <p class="font-black text-lg">$\Delta_o &lt; P$ &rarr; 고스핀</p>
-                    <p class="text-sm text-slate-700 mt-2">올라가는 값이 짝짓는 값보다 싸다. 전자는 $e_g$로 올라가 홀로 남는다. <b>약한 장</b>.</p>
-                    <p class="text-sm text-slate-700 mt-2">$\mathrm{[Fe(H_2O)_6]^{2+}}$ &mdash; $d^6$ 고스핀, 홀전자 4개, 상자성.</p>
+                    <p class="font-black text-lg">$\Delta_o &lt; P$ &rarr; high spin</p>
+                    <p class="text-sm text-slate-700 mt-2">Promotion is cheaper than pairing. Electrons climb into $e_g$ and stay unpaired. A <b>weak field</b>.</p>
+                    <p class="text-sm text-slate-700 mt-2">$\mathrm{[Fe(H_2O)_6]^{2+}}$ &mdash; $d^6$ high spin, four unpaired electrons, paramagnetic.</p>
                 </div>
                 <div class="step-box">
-                    <p class="font-black text-lg">$\Delta_o &gt; P$ &rarr; 저스핀</p>
-                    <p class="text-sm text-slate-700 mt-2">올라가는 값이 비싸다. 전자는 $t_{2g}$에 몰려 짝을 짓는다. <b>강한 장</b>.</p>
-                    <p class="text-sm text-slate-700 mt-2">$\mathrm{[Fe(CN)_6]^{4-}}$ &mdash; 같은 $d^6$인데 저스핀, 홀전자 0개, 반자성.</p>
+                    <p class="font-black text-lg">$\Delta_o &gt; P$ &rarr; low spin</p>
+                    <p class="text-sm text-slate-700 mt-2">Promotion is expensive. Electrons crowd into $t_{2g}$ and pair up. A <b>strong field</b>.</p>
+                    <p class="text-sm text-slate-700 mt-2">$\mathrm{[Fe(CN)_6]^{4-}}$ &mdash; the same $d^6$, now low spin, no unpaired electrons, diamagnetic.</p>
                 </div>
             </div>
             <div class="info-card mt-5">
-                <p class="font-black uppercase text-xs mb-3">$P$ 안에 들어 있는 것</p>
-                <p class="text-sm font-medium text-slate-700">짝지음 에너지는 두 몫이다 &mdash; 같은 오비탈에 전자 둘을 넣는 <b>쿨롱 반발</b>, 그리고 평행 스핀을 잃어 사라지는 <b>교환 안정화</b>. 후자는 Module 04 &sect;9에서 훈트 규칙의 근거로 세운 그 항이다. 즉 고스핀/저스핀 경쟁은 리간드장과 <b>훈트 규칙</b>의 싸움이다.</p>
+                <p class="font-black uppercase text-xs mb-3">What is inside $P$</p>
+                <p class="text-sm font-medium text-slate-700">The pairing energy has two parts &mdash; the <b>Coulomb repulsion</b> of two electrons in one orbital, and the <b>exchange stabilisation</b> that is lost when parallel spins are given up. The second is the very term used in Module 04 &sect;9 to justify Hund's rule. So the high-spin/low-spin competition is a fight between the ligand field and <b>Hund's rule</b>.</p>
             </div>
             <div class="warn mt-4">
-                <b>$d^4$&ndash;$d^7$에서만 선택지가 생긴다.</b> $d^1$&ndash;$d^3$은 $t_{2g}$에 홀로 들어갈 자리가 남아 있어 짝지을 이유가 없고, $d^8$&ndash;$d^{10}$은 $t_{2g}$가 이미 찼으므로 $e_g$로 갈 수밖에 없다. 애플릿에서 이 구간 밖으로 나가면 스핀 버튼이 꺼지는 것이 그 때문이다.
+                <b>A choice exists only for $d^4$&ndash;$d^7$.</b> For $d^1$&ndash;$d^3$ there is still an empty $t_{2g}$ orbital, so nothing forces pairing; for $d^8$&ndash;$d^{10}$ the $t_{2g}$ set is already full and the electrons have nowhere to go but $e_g$. That is why the spin buttons in the applet switch off outside that window &mdash; in octahedral geometry.
             </div>
         </div>
     </section>
 
-    <!-- Slide 10: 무엇이 Δo를 키우나 -->
+    <!-- Slide 10: what makes Δo big -->
     <section id="s10">
         <div class="slide-content text-left px-20">
-            <h2>8. 무엇이 $\Delta_o$를 키우는가</h2>
+            <h2>8. What Makes $\Delta_o$ Large</h2>
             <div class="overflow-x-auto">
             <table class="qtable">
-                <thead><tr><th>바꾸는 것</th><th>방향</th><th>보기</th><th>까닭</th></tr></thead>
+                <thead><tr><th>Variable</th><th>Effect</th><th>Example</th><th>Reason</th></tr></thead>
                 <tbody>
-                    <tr><td class="l">금속의 산화수</td><td>$2+ \to 3+$ 이면 <b>증가</b></td><td class="l">$\mathrm{[Fe(H_2O)_6]^{2+}} &lt; \mathrm{[Fe(H_2O)_6]^{3+}}$</td><td class="l">전하가 커져 리간드를 더 끌어당긴다</td></tr>
-                    <tr><td class="l">주기 (3d &rarr; 4d &rarr; 5d)</td><td>아래로 갈수록 <b>증가</b></td><td class="l">$\mathrm{Co^{3+}} &lt; \mathrm{Rh^{3+}} &lt; \mathrm{Ir^{3+}}$</td><td class="l">$4d$&middot;$5d$가 더 넓게 뻗어 리간드와 더 겹친다</td></tr>
-                    <tr><td class="l">리간드의 종류</td><td>계열에 따라</td><td class="l">$\mathrm{I^-} &lt; \cdots &lt; \mathrm{CN^-}$</td><td class="l"><b>CFT로는 설명되지 않는다</b></td></tr>
-                    <tr><td class="l">배위 기하</td><td>$T_d$는 작다</td><td class="l">$\Delta_t \approx \tfrac{4}{9}\Delta_o$</td><td class="l">리간드가 적고 방향이 어긋난다</td></tr>
+                    <tr><td class="l">Oxidation state</td><td>$2+ \to 3+$ <b>increases</b></td><td class="l">$\mathrm{[Fe(H_2O)_6]^{2+}} &lt; \mathrm{[Fe(H_2O)_6]^{3+}}$</td><td class="l">a higher charge pulls the ligands in harder</td></tr>
+                    <tr><td class="l">Row (3d &rarr; 4d &rarr; 5d)</td><td><b>increases</b> down a group</td><td class="l">$\mathrm{Co^{3+}} &lt; \mathrm{Rh^{3+}} &lt; \mathrm{Ir^{3+}}$</td><td class="l">$4d$ and $5d$ extend further and overlap the ligands more</td></tr>
+                    <tr><td class="l">Identity of the ligand</td><td>follows the series</td><td class="l">$\mathrm{I^-} &lt; \cdots &lt; \mathrm{CN^-}$</td><td class="l"><b>not explained by CFT</b></td></tr>
+                    <tr><td class="l">Coordination geometry</td><td>$T_d$ is small</td><td class="l">$\Delta_t \approx \tfrac{4}{9}\Delta_o$</td><td class="l">fewer ligands, worse orientation</td></tr>
                 </tbody>
             </table>
             </div>
             <div class="grid md:grid-cols-2 gap-6 mt-5">
                 <div class="info-card">
-                    <p class="font-black uppercase text-xs mb-2">2행이 주는 실용적 결론</p>
-                    <p class="text-sm font-medium text-slate-700">$4d$&middot;$5d$ 금속은 $\Delta$가 크므로 <b>거의 항상 저스핀</b>이다. $\mathrm{Pd^{2+}}$&middot;$\mathrm{Pt^{2+}}$의 $d^8$ 평면사각 반자성이 그 결과이고, 이것이 Module 11&ndash;13 유기금속 화학이 $4d$&middot;$5d$ 금속을 주로 쓰는 이유 중 하나다.</p>
+                    <p class="font-black uppercase text-xs mb-2">The practical consequence of row two</p>
+                    <p class="text-sm font-medium text-slate-700">Because $\Delta$ is large for $4d$ and $5d$ metals, they are <b>almost always low spin</b>. The diamagnetic square-planar $d^8$ of $\mathrm{Pd^{2+}}$ and $\mathrm{Pt^{2+}}$ follows from this, and it is one reason the organometallic chemistry of Modules 11&ndash;13 leans so heavily on $4d$ and $5d$ metals.</p>
                 </div>
                 <div class="warn">
-                    <b>3행에서 이 모형이 끝난다.</b> 점전하 모형이라면 전하를 띤 $\mathrm{OH^-}$가 중성 $\mathrm{NH_3}$보다 세게 갈라야 한다. 실제로는 그 반대다. 리간드 순서는 정전기가 아니라 <b>궤도 겹침</b>이 정한다 &mdash; $\sigma$ 공여, $\pi$ 공여, $\pi$ 수용. Module 08에서 이 계열을 <b>암기 목록이 아니라 결론으로</b> 유도한다.
+                    <b>Row three is where this model ends.</b> On a point-charge picture, charged $\mathrm{OH^-}$ should split more strongly than neutral $\mathrm{NH_3}$. The observation is the opposite. Ligand order is set not by electrostatics but by <b>orbital overlap</b> &mdash; $\sigma$ donation, $\pi$ donation, $\pi$ acceptance. Module 08 derives the series as a <b>conclusion rather than a list to memorise</b>.
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 11: 자성 -->
+    <!-- Slide 11: magnetism -->
     <section id="s11">
         <div class="slide-content text-left px-20">
-            <h2>9. 자성 &mdash; 홀전자를 세는 실험</h2>
+            <h2>9. Magnetism &mdash; An Experiment That Counts Electrons</h2>
             <div class="math-box text-center py-6">
                 $$ \mu_{\text{s.o.}} = \sqrt{n(n+2)}\ \mu_B $$
             </div>
@@ -388,7 +382,7 @@
                 <div>
                     <div class="overflow-x-auto">
                     <table class="qtable">
-                        <thead><tr><th>홀전자 $n$</th><th>$\mu_{\text{s.o.}}$ / $\mu_B$</th><th>보기</th></tr></thead>
+                        <thead><tr><th>Unpaired $n$</th><th>$\mu_{\text{s.o.}}$ / $\mu_B$</th><th>Example</th></tr></thead>
                         <tbody>
                             <tr><td>0</td><td>0</td><td class="l">$\mathrm{[Fe(CN)_6]^{4-}}$</td></tr>
                             <tr><td>1</td><td>1.73</td><td class="l">$\mathrm{[Ti(H_2O)_6]^{3+}}$</td></tr>
@@ -402,11 +396,11 @@
                 </div>
                 <div>
                     <div class="info-card">
-                        <p class="font-black uppercase text-xs mb-2">이 식이 왜 유용한가</p>
-                        <p class="text-sm font-medium text-slate-700">자기 모멘트는 <b>측정된다</b>. 측정값을 이 식에 넣으면 홀전자 수가 나오고, 홀전자 수는 고스핀/저스핀을 가려 준다. 즉 자성 측정이 &sect;7의 경쟁을 <b>실험으로 판정</b>한다.</p>
+                        <p class="font-black uppercase text-xs mb-2">Why this is useful</p>
+                        <p class="text-sm font-medium text-slate-700">The magnetic moment is <b>measured</b>. Put the measurement into this expression and it returns the number of unpaired electrons, which settles whether the complex is high or low spin. Magnetic measurement therefore <b>adjudicates</b> the competition of &sect;7 experimentally.</p>
                     </div>
                     <div class="warn">
-                        <b>왜 "spin-only"인가.</b> 이 식은 궤도 각운동량의 기여를 <b>0으로</b> 두었다. 리간드장이 $L_z$를 좋은 양자수 자리에서 밀어내기 때문에($\text{quenching}$) 3$d$ 금속에서는 대체로 통한다. 그러나 $T$ 항 바닥 상태나 4$d$&middot;5$d$&middot;란타넘족에서는 편차가 크다. 언제 왜 깨지는지는 Module 10에서 다룬다.
+                        <b>Why "spin-only".</b> The formula sets the orbital contribution to <b>zero</b>. Because the ligand field displaces $L_z$ from being a good quantum number ($\text{quenching}$), that assumption largely holds for 3$d$ metals. It does not hold for $T$ ground terms, nor for 4$d$, 5$d$ and the lanthanides. When and why it fails is Module 10.
                     </div>
                 </div>
             </div>
@@ -416,17 +410,17 @@
     <!-- Slide 12: Jahn-Teller -->
     <section id="s12">
         <div class="slide-content text-left px-20">
-            <h2>10. Jahn&ndash;Teller 왜곡</h2>
+            <h2>10. Jahn&ndash;Teller Distortion</h2>
             <div class="info-card">
-                <p class="text-lg font-medium text-slate-800">축퇴된 바닥 상태를 가진 비선형 분자는 <b>반드시 왜곡되어</b> 그 축퇴를 없앤다.</p>
+                <p class="text-lg font-medium text-slate-800">A non-linear molecule in a degenerate electronic ground state <b>must</b> distort so as to remove that degeneracy.</p>
             </div>
             <div class="grid md:grid-cols-2 gap-6 mt-4">
                 <div>
                     <svg viewBox="0 0 400 210" class="w-full" role="img"
-                         aria-label="정팔면체에서 축 방향으로 늘어난 왜곡. 왜곡 전에는 e g 두 준위가 같은 높이이고, 늘어나면 d z제곱이 내려가고 d x제곱빼y제곱이 올라가 축퇴가 풀린다. 아래쪽 t 2 g도 약하게 갈라진다.">
+                         aria-label="Axial elongation of a regular octahedron. Before distortion the two e g levels are degenerate; on elongation d z-squared falls and d x-squared-minus-y-squared rises, lifting the degeneracy. The lower t 2 g set splits weakly as well.">
                         <rect x="0" y="0" width="400" height="210" fill="#f8fafc" rx="12"></rect>
-                        <text x="46" y="22" fill="#475569" font-size="11" font-weight="bold">정팔면체</text>
-                        <text x="256" y="22" fill="#475569" font-size="11" font-weight="bold">축 신장 후</text>
+                        <text x="34" y="22" fill="#475569" font-size="11" font-weight="bold">regular</text>
+                        <text x="248" y="22" fill="#475569" font-size="11" font-weight="bold">elongated</text>
                         <line x1="40" y1="70" x2="120" y2="70" stroke="#0f172a" stroke-width="3"></line>
                         <text x="14" y="74" fill="#0f172a" font-size="11" font-weight="bold">e</text>
                         <line x1="40" y1="150" x2="120" y2="150" stroke="#0f172a" stroke-width="3"></line>
@@ -441,59 +435,59 @@
                         <path d="M 122 70 L 248 98" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"></path>
                         <path d="M 122 150 L 248 140" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"></path>
                         <path d="M 122 150 L 248 162" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"></path>
-                        <text x="140" y="196" fill="#64748b" font-size="10">축퇴 → 왜곡 → 축퇴 해소</text>
+                        <text x="128" y="196" fill="#64748b" font-size="10">degenerate → distort → degeneracy lifted</text>
                     </svg>
                 </div>
                 <div>
                     <div class="overflow-x-auto">
                     <table class="qtable">
-                        <thead><tr><th>배치</th><th>축퇴 위치</th><th>왜곡</th></tr></thead>
+                        <thead><tr><th>Configuration</th><th>Degeneracy in</th><th>Distortion</th></tr></thead>
                         <tbody>
-                            <tr><td>$d^9$</td><td>$e_g^3$</td><td><b>큼</b></td></tr>
-                            <tr><td>$d^4$ 고스핀</td><td>$e_g^1$</td><td><b>큼</b></td></tr>
-                            <tr><td>$d^7$ 저스핀</td><td>$e_g^1$</td><td><b>큼</b></td></tr>
-                            <tr><td>$d^1, d^2$</td><td>$t_{2g}$</td><td>작음</td></tr>
-                            <tr><td>$d^3, d^6$ 저스핀</td><td>없음</td><td>없음</td></tr>
+                            <tr><td>$d^9$</td><td>$e_g^3$</td><td><b>large</b></td></tr>
+                            <tr><td>$d^4$ high spin</td><td>$e_g^1$</td><td><b>large</b></td></tr>
+                            <tr><td>$d^7$ low spin</td><td>$e_g^1$</td><td><b>large</b></td></tr>
+                            <tr><td>$d^1, d^2$</td><td>$t_{2g}$</td><td>small</td></tr>
+                            <tr><td>$d^3$, $d^6$ low spin</td><td>none</td><td>none</td></tr>
                         </tbody>
                     </table>
                     </div>
                     <div class="info-card mt-3">
-                        <p class="font-black uppercase text-xs mb-2">왜 $e_g$가 세고 $t_{2g}$는 약한가</p>
-                        <p class="text-sm font-medium text-slate-700">$e_g$는 리간드를 <b>정면으로</b> 겨눈다. 축을 조금만 늘려도 에너지가 크게 움직인다. $t_{2g}$는 리간드 사이를 향하므로 같은 왜곡에 덜 반응한다.</p>
+                        <p class="font-black uppercase text-xs mb-2">Why $e_g$ is strong and $t_{2g}$ weak</p>
+                        <p class="text-sm font-medium text-slate-700">$e_g$ points <b>straight at</b> the ligands, so a small change in bond length moves its energy a great deal. $t_{2g}$ points between them and responds far less to the same distortion.</p>
                     </div>
-                    <p class="text-sm text-slate-700 mt-3">$\mathrm{[Cu(H_2O)_6]^{2+}}$ &mdash; $d^9$. 적도 4개는 약 1.95 Å, 축 2개는 약 2.4 Å로 <b>눈에 띄게</b> 길다.</p>
+                    <p class="text-sm text-slate-700 mt-3">$\mathrm{[Cu(H_2O)_6]^{2+}}$ &mdash; a $d^9$ ion. The four equatorial bonds are about 1.95 Å; the two axial ones about 2.4 Å, <b>conspicuously</b> longer.</p>
                 </div>
             </div>
             <div class="hist mt-4">
-                <b>Jahn &amp; Teller, 1937.</b> 헤르만 얀과 에드워드 텔러는 이것을 화학 실험이 아니라 <b>군론</b>으로 증명했다 &mdash; 선형 분자를 제외한 모든 점군에서, 축퇴된 전자 상태를 없애는 비대칭 진동 모드가 반드시 존재한다는 정리다. 정리는 왜곡이 일어난다는 것만 말하고 <b>얼마나</b>인지는 말하지 않는다.
+                <b>Jahn &amp; Teller, 1937.</b> Hermann Jahn and Edward Teller proved this not by experiment but by <b>group theory</b> &mdash; showing that in every point group except the linear ones there exists an antisymmetric vibrational mode capable of removing an electronic degeneracy. The theorem says only that a distortion occurs; it says nothing about <b>how large</b>.
             </div>
         </div>
     </section>
 
-    <!-- Slide 13: 과학사와 한계 -->
+    <!-- Slide 13: history and limits -->
     <section id="s13">
         <div class="slide-content text-left px-20">
-            <h2>11. 이 모형의 수명</h2>
+            <h2>11. The Working Life of This Model</h2>
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="step-box">
                     <p class="font-black">Bethe, 1929</p>
-                    <p class="text-sm text-slate-700 mt-2">결정 안 이온의 준위 갈라짐을 군론으로 유도. 물리학의 결과였고 화학에 곧바로 전해지지 않았다.</p>
+                    <p class="text-sm text-slate-700 mt-2">Derived the level splitting of an ion in a crystal group-theoretically. A result from physics, and one that did not reach chemistry directly.</p>
                 </div>
                 <div class="step-box">
                     <p class="font-black">Van Vleck, 1932&ndash;35</p>
-                    <p class="text-sm text-slate-700 mt-2">자성 데이터에 적용해 CFT를 화학의 도구로 만들었다. 동시에 <b>순수 정전기 모형의 한계</b>를 스스로 지적하고 궤도 겹침을 섞은 기술을 제안했다 &mdash; 그것이 뒤에 리간드장 이론이 된다. 1977년 노벨 물리학상.</p>
+                    <p class="text-sm text-slate-700 mt-2">Applied it to magnetic data and made crystal field theory a chemical tool. He also pointed out the <b>limits of a purely electrostatic model</b> himself and proposed a treatment mixing in orbital overlap &mdash; which became ligand field theory. Nobel Prize in Physics, 1977.</p>
                 </div>
                 <div class="step-box">
-                    <p class="font-black">1950년대</p>
-                    <p class="text-sm text-slate-700 mt-2">Orgel&middot;Tanabe&middot;Sugano가 전자 스펙트럼을 CFT 틀로 해석해 냈다. 모형이 틀렸는데도 스펙트럼을 맞히는 이유는 <b>갈라짐의 패턴이 대칭성에서 오기</b> 때문이다.</p>
+                    <p class="font-black">The 1950s</p>
+                    <p class="text-sm text-slate-700 mt-2">Orgel, Tanabe and Sugano succeeded in interpreting electronic spectra within the crystal field framework. A wrong model gets the spectra right because <b>the pattern of the splitting comes from symmetry</b>.</p>
                 </div>
             </div>
             <div class="info-card mt-6">
-                <p class="font-black uppercase text-xs mb-3">이 모듈이 남기는 하나의 문장</p>
-                <p class="text-lg font-medium text-slate-800">갈라짐의 <b>패턴</b>은 대칭성이 정하고, 갈라짐의 <b>크기</b>는 결합이 정한다. CFT는 앞의 절반만 가진 모형이다.</p>
+                <p class="font-black uppercase text-xs mb-3">One sentence to carry out of this module</p>
+                <p class="text-lg font-medium text-slate-800">Symmetry fixes the <b>pattern</b> of the splitting; bonding fixes its <b>size</b>. Crystal field theory holds only the first half.</p>
             </div>
             <div class="warn mt-4">
-                그래서 다음 모듈은 새 주제가 아니라 <b>같은 그림의 나머지 절반</b>이다. Module 08은 $t_{2g}$&middot;$e_g$ 라벨을 그대로 쓰면서 그것을 점전하가 아닌 <b>분자 오비탈</b>로 다시 유도하고, 그 과정에서 $\Delta_o$의 크기가 왜 리간드에 따라 달라지는지를 설명한다.
+                So the next module is not a new topic but <b>the other half of the same picture</b>. Module 08 keeps the $t_{2g}$ and $e_g$ labels intact while re-deriving them from <b>molecular orbitals</b> rather than point charges &mdash; and in doing so explains why the size of $\Delta_o$ depends on the ligand.
             </div>
         </div>
     </section>
@@ -505,31 +499,31 @@
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="step-box">
                     <span class="logic-tag">Draw</span>
-                    <p class="text-sm text-slate-700 mt-3">$O_h$&middot;$T_d$&middot;$D_{4h}$의 갈라짐 도표를 그리고 무게중심 규칙으로 준위 값을 붙인다.</p>
+                    <p class="text-sm text-slate-700 mt-3">Sketch the splitting diagram for $O_h$, $T_d$ and $D_{4h}$ and label the levels using the barycentre rule.</p>
                 </div>
                 <div class="step-box">
                     <span class="logic-tag">Compute</span>
-                    <p class="text-sm text-slate-700 mt-3">임의의 $d^{\,n}$에 대해 고스핀&middot;저스핀 CFSE를 $\Delta_o$와 $P$로 쓴다.</p>
+                    <p class="text-sm text-slate-700 mt-3">Write the high- and low-spin CFSE of any $d^{\,n}$ configuration in terms of $\Delta_o$ and $P$.</p>
                 </div>
                 <div class="step-box">
                     <span class="logic-tag">Decide</span>
-                    <p class="text-sm text-slate-700 mt-3">$\Delta_o$ 대 $P$로 스핀 상태를 판정하고, $d^4$&ndash;$d^7$에서만 선택지가 생기는 이유를 말한다.</p>
+                    <p class="text-sm text-slate-700 mt-3">Assign a spin state from $\Delta_o$ against $P$, and say why a choice arises only for $d^4$&ndash;$d^7$.</p>
                 </div>
                 <div class="step-box">
                     <span class="logic-tag">Measure</span>
-                    <p class="text-sm text-slate-700 mt-3">측정된 $\mu$에서 홀전자 수를 역산하고, spin-only 식이 깨질 조건을 든다.</p>
+                    <p class="text-sm text-slate-700 mt-3">Work back from a measured $\mu$ to the number of unpaired electrons, and give a case where the spin-only formula breaks.</p>
                 </div>
                 <div class="step-box">
                     <span class="logic-tag">Predict</span>
-                    <p class="text-sm text-slate-700 mt-3">어느 배치가 Jahn&ndash;Teller 왜곡을 크게 겪는지 $e_g$ 축퇴로 설명한다.</p>
+                    <p class="text-sm text-slate-700 mt-3">Identify which configurations distort strongly, arguing from $e_g$ degeneracy.</p>
                 </div>
                 <div class="step-box">
                     <span class="logic-tag">Criticise</span>
-                    <p class="text-sm text-slate-700 mt-3">CFT가 설명하지 <b>못하는</b> 관측을 하나 들고, 왜 못하는지 모형의 가정으로 말한다.</p>
+                    <p class="text-sm text-slate-700 mt-3">Name one observation crystal field theory <b>cannot</b> explain, and trace the failure to an assumption of the model.</p>
                 </div>
             </div>
             <div class="warn mt-8">
-                <b>자기 점검.</b> 한 문장씩 답해 보라 &mdash; (i) $d^4$ 저스핀의 홀전자는 왜 0이 아닌가, (ii) 수화 엔탈피 곡선이 $d^0$&middot;$d^5$&middot;$d^{10}$에서만 직선에 놓이는 까닭, (iii) 전하를 띤 $\mathrm{OH^-}$가 중성 $\mathrm{NH_3}$보다 약한 장인 것이 왜 CFT의 <b>실패</b>인가. 막히면 &sect;7&middot;&sect;6&middot;&sect;8로 돌아간다.
+                <b>Self-test.</b> One sentence each &mdash; (i) why low-spin $d^4$ does not have zero unpaired electrons, (ii) why the hydration-enthalpy curve touches the straight line only at $d^0$, $d^5$ and $d^{10}$, (iii) why charged $\mathrm{OH^-}$ being a <b>weaker</b> field than neutral $\mathrm{NH_3}$ counts as a failure of CFT. If any of them sticks, return to &sect;7, &sect;6 and &sect;8.
             </div>
         </div>
     </section>

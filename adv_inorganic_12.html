@@ -29,7 +29,7 @@
         table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
         .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
         .warn b { color: #78350f; }
-        /* 뼈대 문서 표식 — 완성본과 혼동하지 않게 한다 */
+        /* Marks this file as an outline so it is never mistaken for finished content. */
         .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
         .todo { list-style: none; padding-left: 0; }
         .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
@@ -48,7 +48,7 @@
             <p class="text-xl text-slate-500 font-medium italic">"Every catalytic cycle is five of these steps in a circle."</p>
             <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
             <p class="text-base font-bold text-slate-800">Lecture 12: Tracking Oxidation State, Electron Count, and Coordination Number</p>
-            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; 본문 미작성</div>
+            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; prose not written</div>
         </div>
     </section>
 
@@ -58,19 +58,19 @@
             <h2>0. Scope</h2>
             <div class="info-card">
                 <p class="font-black uppercase text-xs mb-3">Central question</p>
-                <p class="text-lg font-medium text-slate-800">금속 착물은 어떤 elementary step으로 반응하는가?</p>
+                <p class="text-lg font-medium text-slate-800">What elementary steps are available to a metal complex?</p>
             </div>
             <div class="grid md:grid-cols-2 gap-6 mt-6">
                 <div class="step-box">
                     <span class="logic-tag">Requires</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 11 &mdash; 전자수 세기</p>
+                    <p class="text-sm text-slate-700 mt-3">Module 11 &mdash; electron counting</p>
                 </div>
                 <div class="step-box">
                     <span class="logic-tag">Feeds</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 13 &mdash; 촉매 회로는 이 단계들의 조합이다</p>
+                    <p class="text-sm text-slate-700 mt-3">Module 13 &mdash; catalytic cycles are combinations of these steps</p>
                 </div>
             </div>
-            <div class="warn mt-8"><b>분석 틀은 하나다.</b> 모든 반응에서 산화수 &middot; 전자수 &middot; 배위수 세 가지를 동시에 추적한다. 각 절의 표를 이 세 열로 통일한다.</div>
+            <div class="warn mt-8"><b>One analytical frame throughout.</b> Every reaction is tracked simultaneously in oxidation state, electron count and coordination number. Each section's table uses those same three columns.</div>
         </div>
     </section>
 
@@ -82,11 +82,11 @@
                 $$ \mathrm{ML}_n + \mathrm{L}' \longrightarrow \mathrm{ML}_{n-1}\mathrm{L}' + \mathrm{L} $$
             </div>
             <ul class="todo mt-4">
-                <li><b>해리(D)</b> &mdash; 18전자 착물의 주 경로. 속도가 들어오는 리간드에 무관</li>
-                <li><b>회합(A)</b> &mdash; 16전자 평면사각 $d^8$의 주 경로</li>
-                <li>교환(I<sub>a</sub>, I<sub>d</sub>) &mdash; 그 사이</li>
-                <li><b>trans 효과</b> &mdash; 백금(II) 화학의 합성 도구</li>
-                <li>산화수 불변, 전자수 불변, 배위수 불변</li>
+                <li><b>Dissociative</b> &mdash; the usual route for 18-electron complexes; rate independent of the incoming ligand</li>
+                <li><b>Associative</b> &mdash; the usual route for 16-electron square-planar $d^8$</li>
+                <li>Interchange ($\mathrm{I_a}$, $\mathrm{I_d}$) between the two extremes</li>
+                <li>The <b>trans effect</b> &mdash; a synthetic tool in platinum(II) chemistry</li>
+                <li>Oxidation state, electron count and coordination number all unchanged</li>
             </ul>
         </div>
     </section>
@@ -99,12 +99,12 @@
                 $$ \mathrm{M}^{n} + \mathrm{X}\text{--}\mathrm{Y} \longrightarrow \mathrm{X}\text{--}\mathrm{M}^{n+2}\text{--}\mathrm{Y} $$
             </div>
             <ul class="todo mt-4">
-                <li>산화수 <b>+2</b>, 전자수 <b>+2</b>, 배위수 <b>+2</b></li>
-                <li>요구 조건 &mdash; 전자가 풍부하고 16전자 이하, 빈 자리가 있을 것</li>
-                <li>협동(concerted) &mdash; cis 생성물. $\mathrm{H_2}$, C&ndash;H</li>
-                <li>$\mathrm{S_N2}$형 &mdash; trans 생성물. 알킬 할라이드</li>
-                <li>라디칼 경로</li>
-                <li>Vaska 착물 $\mathrm{IrCl(CO)(PPh_3)_2}$ &mdash; 표준 예</li>
+                <li>Oxidation state <b>+2</b>, electron count <b>+2</b>, coordination number <b>+2</b></li>
+                <li>Requirements &mdash; an electron-rich metal, 16 electrons or fewer, a vacant site</li>
+                <li>Concerted &mdash; cis products. $\mathrm{H_2}$, C&ndash;H bonds</li>
+                <li>$\mathrm{S_N2}$-like &mdash; trans products. Alkyl halides</li>
+                <li>Radical pathways</li>
+                <li>Vaska's complex $\mathrm{IrCl(CO)(PPh_3)_2}$ as the reference case</li>
             </ul>
         </div>
     </section>
@@ -114,10 +114,10 @@
         <div class="slide-content text-left px-20">
             <h2>3. Reductive Elimination</h2>
             <ul class="todo mt-4">
-                <li>산화적 첨가의 정확한 역반응 &mdash; 산화수 &minus;2, 전자수 &minus;2, 배위수 &minus;2</li>
-                <li><b>두 기가 cis여야 한다</b> &mdash; 이 제약이 촉매 설계를 지배한다</li>
-                <li>촉진 요인 &mdash; 부피 큰 리간드, 전자가 부족한 금속, 산화</li>
-                <li>C&ndash;C 결합이 만들어지는 자리 &mdash; 교차 결합의 마지막 단계</li>
+                <li>Exactly the reverse &mdash; oxidation state, electron count and coordination number each &minus;2</li>
+                <li><b>The two groups must be cis.</b> That single constraint governs catalyst design</li>
+                <li>Promoted by bulky ligands, an electron-poor metal, or oxidation</li>
+                <li>Where the C&ndash;C bond is made &mdash; the last step of every cross-coupling</li>
             </ul>
         </div>
     </section>
@@ -130,10 +130,10 @@
                 $$ \mathrm{M}\text{--}\mathrm{R} + \mathrm{CO} \longrightarrow \mathrm{M}\text{--}\mathrm{C(O)}\mathrm{R} $$
             </div>
             <ul class="todo mt-4">
-                <li>산화수 불변, 전자수 <b>&minus;2</b>, 배위수 <b>&minus;1</b> &rarr; 빈 자리가 생긴다</li>
-                <li><b>이동하는 것은 알킬기다</b> &mdash; CO가 삽입되는 것이 아니다(동위원소 표지로 확인)</li>
-                <li>알켄 삽입 &mdash; 중합과 hydroformylation의 사슬 성장 단계</li>
-                <li>역반응 &mdash; de-insertion(추출)</li>
+                <li>Oxidation state unchanged, electron count <b>&minus;2</b>, coordination number <b>&minus;1</b> &rarr; a site opens</li>
+                <li><b>It is the alkyl that migrates</b>, not the CO that inserts &mdash; established by isotopic labelling</li>
+                <li>Alkene insertion &mdash; the chain-growth step of polymerisation and hydroformylation</li>
+                <li>The reverse reaction &mdash; de-insertion (extrusion)</li>
             </ul>
         </div>
     </section>
@@ -146,24 +146,24 @@
                 $$ \mathrm{M}\text{--}\mathrm{CH_2CH_2R} \longrightarrow \mathrm{M(H)}(\eta^2\text{-}\mathrm{CH_2{=}CHR}) $$
             </div>
             <ul class="todo mt-4">
-                <li>산화수 불변, 전자수 <b>+2</b>, 배위수 <b>+1</b></li>
-                <li>필요 조건 &mdash; $\beta$ 수소, <b>빈 배위 자리</b>, 거의 동일 평면 M&ndash;C&ndash;C&ndash;H</li>
-                <li>대부분의 촉매에서 <b>원치 않는</b> 분해 경로</li>
-                <li>억제하는 법 &mdash; $\beta$-H 없는 기(메틸, 네오펜틸, 아릴), 포화 배위</li>
-                <li>이용하는 법 &mdash; 사슬 이동, 알켄 이성질화</li>
+                <li>Oxidation state unchanged, electron count <b>+2</b>, coordination number <b>+1</b></li>
+                <li>Requires a $\beta$ hydrogen, a <b>vacant site</b>, and a near-coplanar M&ndash;C&ndash;C&ndash;H unit</li>
+                <li>In most catalysts this is the <b>unwanted</b> decomposition path</li>
+                <li>Suppressing it &mdash; groups with no $\beta$-H (methyl, neopentyl, aryl), or saturating the coordination sphere</li>
+                <li>Exploiting it &mdash; chain transfer, alkene isomerisation</li>
             </ul>
         </div>
     </section>
 
-    <!-- Slide 8: Electron Transfer (검토 중) -->
+    <!-- Slide 8: Electron Transfer (under review) -->
     <section id="s8">
         <div class="slide-content text-left px-20">
-            <h2>6. Electron Transfer (검토 중)</h2>
+            <h2>6. Electron Transfer (under review)</h2>
             <ul class="todo mt-4">
-                <li><b>내부권</b> &mdash; 가교 리간드를 통한 전자 이동. Taube의 $\mathrm{Cl}$ 표지 실험(1953)</li>
-                <li><b>외부권</b> &mdash; 배위권 접촉 없이. Marcus 이론</li>
-                <li>재구성 에너지 $\lambda$와 역전 영역(inverted region)</li>
-                <li><b>이 절은 로드맵의 열린 결정 사항이다</b> &mdash; 이전 커리큘럼의 '배위 반응 메커니즘'에서 넘어온 주제로, 넣을지 확정되지 않았다</li>
+                <li><b>Inner sphere</b> &mdash; transfer through a bridging ligand. Taube's chloride-labelling experiment (1953)</li>
+                <li><b>Outer sphere</b> &mdash; no contact between coordination spheres. Marcus theory</li>
+                <li>Reorganisation energy $\lambda$ and the inverted region</li>
+                <li><b>This section is an open decision in the roadmap</b> &mdash; carried over from the older curriculum's coordination-mechanisms module, not yet confirmed for inclusion</li>
             </ul>
         </div>
     </section>
@@ -173,10 +173,10 @@
         <div class="slide-content text-left px-20">
             <h2>7. Key Competencies</h2>
             <ul class="todo mt-4">
-                <li>다섯 단계를 산화수·전자수·배위수 변화로 구별한다</li>
-                <li>주어진 착물이 어떤 단계를 겪을 수 있는지 전자수로 판정한다</li>
-                <li>$\beta$-H 제거가 일어날 조건을 말하고 억제책을 제시한다</li>
-                <li>임의의 단계에 대해 역반응의 조건을 말한다</li>
+                <li>Distinguish the five steps by their changes in oxidation state, electron count and coordination number</li>
+                <li>Judge from the electron count which steps a given complex can undergo</li>
+                <li>State the conditions for $\beta$-H elimination and how to suppress it</li>
+                <li>Give the conditions under which any of these steps runs in reverse</li>
             </ul>
         </div>
     </section>
@@ -185,11 +185,11 @@
     <section id="s40" class="end">
         <div class="slide-content text-center">
             <div class="outline-banner" style="display:inline-block">Outline only</div>
-            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 12 &mdash; 뼈대</h2>
+            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 12 &mdash; Outline</h2>
             <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
-                절 구성과 핵심 식만 세워 둔 상태입니다. 본문 서술·도표·사례는 제작 단계에서 채웁니다.
-                구성 근거는 <b>ADV_INORGANIC_ROADMAP.md</b>, 전체 지도는
-                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>에 있습니다.
+                Section structure and key equations are in place; prose, diagrams and worked cases are not.
+                The rationale for this ordering is in <b>ADV_INORGANIC_ROADMAP.md</b>; the whole map is in the
+                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>.
             </p>
             <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
             <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Homogeneous Catalysis<br>&amp; Catalytic Cycles</p>

@@ -29,7 +29,7 @@
         table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
         .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
         .warn b { color: #78350f; }
-        /* 뼈대 문서 표식 — 완성본과 혼동하지 않게 한다 */
+        /* Marks this file as an outline so it is never mistaken for finished content. */
         .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
         .todo { list-style: none; padding-left: 0; }
         .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
@@ -48,7 +48,7 @@
             <p class="text-xl text-slate-500 font-medium italic">"A crystal is one molecule with 10²³ atoms. The MO diagram just gets crowded."</p>
             <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
             <p class="text-base font-bold text-slate-800">Lecture 14: From Two Orbitals to a Band</p>
-            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; 본문 미작성</div>
+            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; prose not written</div>
         </div>
     </section>
 
@@ -58,19 +58,19 @@
             <h2>0. Scope</h2>
             <div class="info-card">
                 <p class="font-black uppercase text-xs mb-3">Central question</p>
-                <p class="text-lg font-medium text-slate-800">MO 개념이 고체의 band structure로 어떻게 확장되는가?</p>
+                <p class="text-lg font-medium text-slate-800">How does the MO picture extend to the band structure of a solid?</p>
             </div>
             <div class="grid md:grid-cols-2 gap-6 mt-6">
                 <div class="step-box">
                     <span class="logic-tag">Requires</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 05&ndash;06 &mdash; MO 이론 &middot; Module 01 &mdash; 대칭성</p>
+                    <p class="text-sm text-slate-700 mt-3">Modules 05&ndash;06 &mdash; MO theory &middot; Module 01 &mdash; symmetry</p>
                 </div>
                 <div class="step-box">
                     <span class="logic-tag">Feeds</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 15 &mdash; 모든 Case study가 band 언어를 쓴다</p>
+                    <p class="text-sm text-slate-700 mt-3">Module 15 &mdash; every case study speaks the language of bands</p>
                 </div>
             </div>
-            <div class="warn mt-8"><b>이 모듈의 한 줄.</b> $\text{AO} \to \text{MO} \to \text{many MOs} \to \text{bands}$. 새 물리가 아니라 같은 MO 이론을 $N \to \infty$로 보낸 것이다.</div>
+            <div class="warn mt-8"><b>This module in one line.</b> $\text{AO} \to \text{MO} \to \text{many MOs} \to \text{bands}$. No new physics &mdash; the same MO theory taken to $N \to \infty$.</div>
         </div>
     </section>
 
@@ -79,12 +79,12 @@
         <div class="slide-content text-left px-20">
             <h2>1. Crystal Structures</h2>
             <ul class="todo mt-4">
-                <li>단위 세포와 격자 &mdash; 격자점은 원자가 아니다</li>
-                <li>7개 결정계와 14개 Bravais 격자</li>
-                <li>충전율과 배위수 &mdash; simple cubic, BCC, FCC, HCP</li>
-                <li>빈틈(사면체·팔면체 자리)의 수와 크기</li>
-                <li>이온 결정 &mdash; NaCl, CsCl, zinc blende, fluorite, rutile</li>
-                <li>반지름 비 규칙과 그 한계</li>
+                <li>Unit cell and lattice &mdash; a lattice point is not an atom</li>
+                <li>The seven crystal systems and fourteen Bravais lattices</li>
+                <li>Packing fraction and coordination number &mdash; simple cubic, BCC, FCC, HCP</li>
+                <li>The number and size of tetrahedral and octahedral holes</li>
+                <li>Ionic structures &mdash; NaCl, CsCl, zinc blende, fluorite, rutile</li>
+                <li>The radius-ratio rules and where they fail</li>
             </ul>
         </div>
     </section>
@@ -97,10 +97,10 @@
                 $$ U \propto \frac{M\,z^+z^-}{r_0}\left(1 - \frac{1}{n}\right) $$
             </div>
             <ul class="todo mt-4">
-                <li>Madelung 상수 $M$ &mdash; 구조가 정하는 수</li>
-                <li>Born&ndash;Land&eacute; / Born&ndash;Mayer 식</li>
-                <li><b>Born&ndash;Haber 순환</b> &mdash; 실험적 격자 에너지</li>
-                <li>계산값과 실험값의 차이가 곧 공유성의 척도</li>
+                <li>The Madelung constant $M$ &mdash; a number fixed by the structure alone</li>
+                <li>The Born&ndash;Land&eacute; and Born&ndash;Mayer expressions</li>
+                <li><b>The Born&ndash;Haber cycle</b> &mdash; lattice energy from experiment</li>
+                <li>The gap between calculated and experimental values as a measure of covalency</li>
             </ul>
         </div>
     </section>
@@ -110,11 +110,11 @@
         <div class="slide-content text-left px-20">
             <h2>3. Reciprocal Space</h2>
             <ul class="todo mt-4">
-                <li>역격자 &mdash; 왜 필요한가</li>
-                <li>$\mathbf{k}$ 벡터의 의미 &mdash; 파장이 아니라 위상 관계</li>
-                <li>Brillouin zone과 그 경계</li>
-                <li>Bragg 조건을 역격자로 다시 쓰기</li>
-                <li><b>최소한만</b> &mdash; 밴드 도표를 읽을 수 있을 정도까지</li>
+                <li>The reciprocal lattice &mdash; why it is needed at all</li>
+                <li>What the $\mathbf{k}$ vector means &mdash; a phase relationship, not a wavelength</li>
+                <li>Brillouin zones and their boundaries</li>
+                <li>Restating the Bragg condition in reciprocal space</li>
+                <li><b>Only the minimum</b> &mdash; enough to read a band diagram</li>
             </ul>
         </div>
     </section>
@@ -127,11 +127,11 @@
                 $$ E = E(k) $$
             </div>
             <ul class="todo mt-4">
-                <li>$N$개 원자 사슬 &mdash; $N$개 MO가 띠를 이룬다</li>
-                <li>띠 나비는 <b>중첩의 크기</b>가 정한다 &mdash; $s$ 띠는 넓고 $d$ 띠는 좁다</li>
-                <li>결합성 바닥에서 반결합성 꼭대기까지</li>
-                <li>상태 밀도(DOS) &mdash; 띠 나비와 반비례</li>
-                <li>$\mathrm{Fermi}$ 준위</li>
+                <li>A chain of $N$ atoms &mdash; $N$ molecular orbitals forming a band</li>
+                <li>Band width is set by <b>overlap</b> &mdash; $s$ bands are wide, $d$ bands narrow</li>
+                <li>From the bonding bottom to the antibonding top</li>
+                <li>Density of states &mdash; inversely related to band width</li>
+                <li>The Fermi level</li>
             </ul>
         </div>
     </section>
@@ -141,11 +141,11 @@
         <div class="slide-content text-left px-20">
             <h2>5. Metals, Semiconductors, Insulators</h2>
             <ul class="todo mt-4">
-                <li>부분적으로 찬 띠 &rarr; 금속</li>
-                <li>가득 찬 띠 + 좁은 간격 &rarr; 반도체</li>
-                <li>가득 찬 띠 + 넓은 간격 &rarr; 절연체</li>
-                <li>직접 간격 대 간접 간격 &mdash; 왜 Si는 LED가 안 되고 GaAs는 되는가</li>
-                <li><b>Mott 절연체</b> &mdash; 띠 이론이 틀리는 경우. 전자 상관이 이긴다</li>
+                <li>A partly filled band &rarr; a metal</li>
+                <li>A filled band with a small gap &rarr; a semiconductor</li>
+                <li>A filled band with a large gap &rarr; an insulator</li>
+                <li>Direct against indirect gaps &mdash; why Si makes no LED and GaAs does</li>
+                <li><b>Mott insulators</b> &mdash; where band theory fails and electron correlation wins</li>
             </ul>
         </div>
     </section>
@@ -155,11 +155,11 @@
         <div class="slide-content text-left px-20">
             <h2>6. Doping</h2>
             <ul class="todo mt-4">
-                <li>진성 반도체의 캐리어 농도와 온도 의존성</li>
-                <li>n형 &mdash; donor 준위, 전도띠 바로 아래</li>
-                <li>p형 &mdash; acceptor 준위, 원자가띠 바로 위</li>
-                <li>p&ndash;n 접합 &mdash; 정류의 원리</li>
-                <li>축퇴 도핑과 투명 전도 산화물</li>
+                <li>Intrinsic carrier concentration and its temperature dependence</li>
+                <li>n-type &mdash; donor levels just below the conduction band</li>
+                <li>p-type &mdash; acceptor levels just above the valence band</li>
+                <li>The p&ndash;n junction and the origin of rectification</li>
+                <li>Degenerate doping and transparent conducting oxides</li>
             </ul>
         </div>
     </section>
@@ -169,10 +169,10 @@
         <div class="slide-content text-left px-20">
             <h2>7. Key Competencies</h2>
             <ul class="todo mt-4">
-                <li>주어진 구조의 단위 세포 내 화학식 단위 수와 배위수를 센다</li>
-                <li>Born&ndash;Haber 순환으로 격자 에너지를 구한다</li>
-                <li>MO 도표를 띠 도표로 이어서 설명한다</li>
-                <li>띠 구조로 금속·반도체·절연체를 분류한다</li>
+                <li>Count formula units and coordination numbers in a given unit cell</li>
+                <li>Obtain a lattice energy from a Born&ndash;Haber cycle</li>
+                <li>Carry an MO diagram continuously into a band diagram</li>
+                <li>Classify a solid as metal, semiconductor or insulator from its band structure</li>
             </ul>
         </div>
     </section>
@@ -181,11 +181,11 @@
     <section id="s40" class="end">
         <div class="slide-content text-center">
             <div class="outline-banner" style="display:inline-block">Outline only</div>
-            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 14 &mdash; 뼈대</h2>
+            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 14 &mdash; Outline</h2>
             <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
-                절 구성과 핵심 식만 세워 둔 상태입니다. 본문 서술·도표·사례는 제작 단계에서 채웁니다.
-                구성 근거는 <b>ADV_INORGANIC_ROADMAP.md</b>, 전체 지도는
-                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>에 있습니다.
+                Section structure and key equations are in place; prose, diagrams and worked cases are not.
+                The rationale for this ordering is in <b>ADV_INORGANIC_ROADMAP.md</b>; the whole map is in the
+                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>.
             </p>
             <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
             <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Modern Inorganic Materials<br>&amp; Case Studies</p>

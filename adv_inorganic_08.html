@@ -29,7 +29,7 @@
         table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
         .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
         .warn b { color: #78350f; }
-        /* 뼈대 문서 표식 — 완성본과 혼동하지 않게 한다 */
+        /* Marks this file as an outline so it is never mistaken for finished content. */
         .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
         .todo { list-style: none; padding-left: 0; }
         .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
@@ -48,7 +48,7 @@
             <p class="text-xl text-slate-500 font-medium italic">"The spectrochemical series is not a list to memorise. It is a consequence."</p>
             <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
             <p class="text-base font-bold text-slate-800">Lecture 08: $\sigma$ Frameworks, $\pi$ Donors and Acceptors</p>
-            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; 본문 미작성</div>
+            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; prose not written</div>
         </div>
     </section>
 
@@ -58,19 +58,19 @@
             <h2>0. Scope</h2>
             <div class="info-card">
                 <p class="font-black uppercase text-xs mb-3">Central question</p>
-                <p class="text-lg font-medium text-slate-800">metal&ndash;ligand bonding을 MO 관점에서 어떻게 설명하는가?</p>
+                <p class="text-lg font-medium text-slate-800">How does molecular orbital theory account for metal&ndash;ligand bonding?</p>
             </div>
             <div class="grid md:grid-cols-2 gap-6 mt-6">
                 <div class="step-box">
                     <span class="logic-tag">Requires</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 06 &mdash; ligand SALC와 $\Gamma_\sigma = A_{1g}+E_g+T_{1u}$ &middot; Module 07 &mdash; $t_{2g}/e_g$ 라벨</p>
+                    <p class="text-sm text-slate-700 mt-3">Module 06 &mdash; ligand SALCs and $\Gamma_\sigma = A_{1g}+E_g+T_{1u}$ &middot; Module 07 &mdash; the $t_{2g}/e_g$ labels</p>
                 </div>
                 <div class="step-box">
                     <span class="logic-tag">Feeds</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 09 &mdash; $\Delta_o$와 Racah $B$ &middot; Module 11 &mdash; CO의 back-bonding</p>
+                    <p class="text-sm text-slate-700 mt-3">Module 09 &mdash; $\Delta_o$ and the Racah parameter $B$ &middot; Module 11 &mdash; back-donation in carbonyls</p>
                 </div>
             </div>
-            <div class="warn mt-8"><b>이 모듈의 목적.</b> CFT가 맞힌 갈라짐을 MO로 다시 유도하되, CFT가 <b>틀린</b> 부분 &mdash; 분광화학적 계열의 순서 &mdash; 를 설명해 낸다.</div>
+            <div class="warn mt-8"><b>The point of this module.</b> Re-derive the splitting that crystal field theory got right, and then explain the one thing it got <b>wrong</b> &mdash; the order of the spectrochemical series.</div>
         </div>
     </section>
 
@@ -82,10 +82,10 @@
                 $$ \Gamma_\sigma = A_{1g} + E_g + T_{1u} $$
             </div>
             <ul class="todo mt-4">
-                <li>6개 리간드 lone pair 벡터를 기저로 &mdash; Module 06에서 이미 유도했다</li>
-                <li>금속 $s \to A_{1g}$, $p \to T_{1u}$, $d_{z^2}, d_{x^2-y^2} \to E_g$</li>
-                <li>$d_{xy}, d_{yz}, d_{zx} \to T_{2g}$ &mdash; <b>짝이 없다</b>. $\sigma$만 있으면 완전 비결합</li>
-                <li>$\Delta_o$의 정체 &mdash; 비결합 $t_{2g}$와 반결합 $e_g^*$ 사이의 간격</li>
+                <li>Six ligand lone-pair vectors as the basis &mdash; already reduced in Module 06</li>
+                <li>Metal $s \to A_{1g}$, $p \to T_{1u}$, and $d_{z^2}, d_{x^2-y^2} \to E_g$</li>
+                <li>$d_{xy}, d_{yz}, d_{zx} \to T_{2g}$ &mdash; <b>no partner exists</b>. With $\sigma$ alone they are strictly non-bonding</li>
+                <li>What $\Delta_o$ actually is &mdash; the gap between non-bonding $t_{2g}$ and antibonding $e_g^*$</li>
             </ul>
         </div>
     </section>
@@ -95,11 +95,11 @@
         <div class="slide-content text-left px-20">
             <h2>2. $\pi$ Donor Ligands</h2>
             <ul class="todo mt-4">
-                <li>채워진 리간드 $\pi$ 궤도가 $T_{2g}$ 대칭 조합을 만든다</li>
-                <li>금속 $t_{2g}$와 상호작용 &mdash; $t_{2g}$가 <b>반결합</b>이 되어 올라간다</li>
-                <li>$e_g^*$는 그대로 &rArr; <b>$\Delta_o$ 감소</b></li>
-                <li>예: $\mathrm{I^-} &lt; \mathrm{Br^-} &lt; \mathrm{Cl^-} &lt; \mathrm{F^-}$ &mdash; 약한 장 끝</li>
-                <li>할라이드 착물이 흔히 high spin인 이유</li>
+                <li>Filled ligand $\pi$ orbitals form a $T_{2g}$ symmetry combination</li>
+                <li>They interact with metal $t_{2g}$, which becomes <b>antibonding</b> and rises</li>
+                <li>$e_g^*$ is untouched, so <b>$\Delta_o$ decreases</b></li>
+                <li>Examples: $\mathrm{I^-} &lt; \mathrm{Br^-} &lt; \mathrm{Cl^-} &lt; \mathrm{F^-}$ &mdash; the weak-field end</li>
+                <li>Why halide complexes are so often high spin</li>
             </ul>
         </div>
     </section>
@@ -109,11 +109,11 @@
         <div class="slide-content text-left px-20">
             <h2>3. $\pi$ Acceptor Ligands</h2>
             <ul class="todo mt-4">
-                <li>빈 리간드 $\pi^*$가 $T_{2g}$ 대칭 조합을 만든다</li>
-                <li>금속 $d_\pi \to \pi^*$ back-donation &rArr; $t_{2g}$가 <b>결합성</b>이 되어 내려간다</li>
-                <li>&rArr; <b>$\Delta_o$ 증가</b></li>
-                <li>예: $\mathrm{CN^-}$, $\mathrm{CO}$ &mdash; 강한 장 끝</li>
-                <li>$\mathrm{CO}$ 신축 진동수 감소가 back-donation의 직접 증거</li>
+                <li>Empty ligand $\pi^*$ orbitals form a $T_{2g}$ symmetry combination</li>
+                <li>Metal $d_\pi \to \pi^*$ back-donation makes $t_{2g}$ <b>bonding</b>, so it falls</li>
+                <li>Therefore <b>$\Delta_o$ increases</b></li>
+                <li>Examples: $\mathrm{CN^-}$, $\mathrm{CO}$ &mdash; the strong-field end</li>
+                <li>The drop in the $\mathrm{CO}$ stretching frequency is direct evidence of back-donation</li>
             </ul>
         </div>
     </section>
@@ -126,11 +126,11 @@
                 $$ \mathrm{I^- < Br^- < Cl^- < F^- < H_2O < NH_3 < en < NO_2^- < CN^- < CO} $$
             </div>
             <ul class="todo mt-4">
-                <li><b>왼쪽 끝</b> &mdash; $\pi$ donor. $\Delta_o$를 깎는다</li>
-                <li><b>가운데</b> &mdash; $\sigma$ donor만. $\mathrm{NH_3}$에는 $\pi$ 궤도가 없다</li>
-                <li><b>오른쪽 끝</b> &mdash; $\pi$ acceptor. $\Delta_o$를 키운다</li>
-                <li>$\mathrm{H_2O}$가 $\mathrm{NH_3}$보다 약한 이유 &mdash; 산소의 lone pair가 $\pi$ donor로 작동한다</li>
-                <li><b>순서를 외우지 않는다.</b> 세 부류로 나누면 순서가 나온다</li>
+                <li><b>Left end</b> &mdash; $\pi$ donors. They cut $\Delta_o$ down</li>
+                <li><b>Middle</b> &mdash; $\sigma$ donors only. $\mathrm{NH_3}$ has no $\pi$ orbitals to offer</li>
+                <li><b>Right end</b> &mdash; $\pi$ acceptors. They push $\Delta_o$ up</li>
+                <li>Why $\mathrm{H_2O}$ is weaker than $\mathrm{NH_3}$ &mdash; the oxygen lone pairs act as $\pi$ donors</li>
+                <li><b>Do not memorise the order.</b> Sort the ligands into three classes and the order falls out</li>
             </ul>
         </div>
     </section>
@@ -140,10 +140,10 @@
         <div class="slide-content text-left px-20">
             <h2>5. Beyond the Series</h2>
             <ul class="todo mt-4">
-                <li>Nephelauxetic effect &mdash; 착물에서 전자 반발이 줄어든다(공유성의 척도)</li>
-                <li>Racah 파라미터 $B$의 감소 &mdash; Module 09에서 정량화한다</li>
-                <li>18전자 규칙의 뿌리 &mdash; $t_{2g}$ 6개 + 결합성 6쌍</li>
-                <li>$\mathrm{SF_6}$의 $\Gamma_\sigma$와 같은 식이라는 점(Module 06 &sect;9)</li>
+                <li>The nephelauxetic effect &mdash; electron repulsion is reduced in the complex, a measure of covalency</li>
+                <li>The Racah parameter $B$ decreases; Module 09 makes this quantitative</li>
+                <li>Where the 18-electron rule comes from &mdash; six bonding pairs plus a filled $t_{2g}$</li>
+                <li>The same $\Gamma_\sigma$ appeared for $\mathrm{SF_6}$ in Module 06 &sect;9</li>
             </ul>
         </div>
     </section>
@@ -153,10 +153,10 @@
         <div class="slide-content text-left px-20">
             <h2>6. Key Competencies</h2>
             <ul class="todo mt-4">
-                <li>$O_h$ MO 도표를 $\sigma$만, $\pi$ donor, $\pi$ acceptor 세 경우로 그린다</li>
-                <li>임의의 리간드를 세 부류 중 하나로 분류하고 $\Delta_o$ 영향을 예측한다</li>
-                <li>$\Delta_o$가 CFT에서와 LFT에서 각각 <b>무엇의 간격</b>인지 구별해 말한다</li>
-                <li>CFT가 설명 못 한 계열 순서를 LFT로 설명한다</li>
+                <li>Draw the $O_h$ MO diagram for the $\sigma$-only, $\pi$-donor and $\pi$-acceptor cases</li>
+                <li>Classify an unfamiliar ligand and predict its effect on $\Delta_o$</li>
+                <li>State what $\Delta_o$ is the gap <b>between</b>, separately in CFT and in LFT</li>
+                <li>Explain the series order that crystal field theory could not</li>
             </ul>
         </div>
     </section>
@@ -165,11 +165,11 @@
     <section id="s40" class="end">
         <div class="slide-content text-center">
             <div class="outline-banner" style="display:inline-block">Outline only</div>
-            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 8 &mdash; 뼈대</h2>
+            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 8 &mdash; Outline</h2>
             <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
-                절 구성과 핵심 식만 세워 둔 상태입니다. 본문 서술·도표·사례는 제작 단계에서 채웁니다.
-                구성 근거는 <b>ADV_INORGANIC_ROADMAP.md</b>, 전체 지도는
-                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>에 있습니다.
+                Section structure and key equations are in place; prose, diagrams and worked cases are not.
+                The rationale for this ordering is in <b>ADV_INORGANIC_ROADMAP.md</b>; the whole map is in the
+                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>.
             </p>
             <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
             <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Electronic Spectra<br>of Complexes</p>

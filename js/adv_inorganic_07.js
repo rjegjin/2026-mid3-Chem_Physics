@@ -1,61 +1,66 @@
-/* adv_inorganic_07.js — Module 07 결정장 갈라짐·CFSE 조작기
+/* adv_inorganic_07.js — Module 07 crystal field splitting / CFSE explorer
  *
- * 기하 × d 전자수 × 스핀 상태의 조합이 3 × 11 × 2 로 66가지라 정적 그림으로는
- * 가르칠 수 없다. 그래서 이 모듈만 애플릿을 만든다 (ADV_INORGANIC_ROADMAP 제작 기준).
- * js/chem_sim.js는 대칭 조작 데모(분자 회전·행렬 표시)여서 재사용하지 못했다.
+ * Geometry × d-electron count × spin state is 3 × 11 × 2, so a static figure
+ * cannot teach it. This is one of the three modules that gets an applet
+ * (see the production standards in ADV_INORGANIC_ROADMAP.md).
+ * js/chem_sim.js could not be reused: it animates symmetry operations on
+ * molecules and displays their matrices, which is a different job.
  *
- * 에너지는 모두 무게중심(barycentre)을 0으로 둔 모형값이다.
- *   Oh   t2g = -0.4,  eg = +0.6                       [Δo 단위]
- *   Td   e   = -0.6,  t2 = +0.4                       [Δt 단위, Δt ≈ (4/9)Δo]
- *   D4h  dxz,dyz = -0.514 · dz2 = -0.428 ·
- *        dxy = +0.228 · dx2-y2 = +1.228               [Δo 단위]
- * D4h 값은 교과서 표준 모형값이고, dz2와 dxy의 순서는 리간드에 따라 뒤집힐 수 있다.
- * 그 점은 본문 슬라이드에 적어 두었다.
+ * All energies are model values referred to a barycentre of zero.
+ *   Oh    t2g = -0.4,  eg = +0.6                     [units of Δo]
+ *   Td    e   = -0.6,  t2 = +0.4                     [units of Δt, Δt ≈ (4/9)Δo]
+ *   D4h   dxz,dyz = -0.514 · dz2 = -0.428 ·
+ *         dxy = +0.228 · dx2-y2 = +1.228             [units of Δo]
+ * The D4h numbers are the standard point-charge values; the order of dz2 and
+ * dxy can invert with the ligand. Slide 3 of the module says so explicitly.
  */
 (function () {
   'use strict';
 
-  function sub(base, s) {   // SVG용 아래첨자
+  function sub(base, s) {   // subscript for SVG text
     return base + '<tspan baseline-shift="sub" font-size="10">' + s + '</tspan>';
   }
 
   var GEOM = {
     Oh: {
-      label: '팔면체 (Oh)', unit: 'Δo',
+      label: 'Octahedral (Oh)', unit: 'Δo',
       levels: [
         { svg: sub('t', '2g'), plain: 't2g', e: -0.4, n: 3 },
         { svg: sub('e', 'g'), plain: 'eg', e: 0.6, n: 2 }
       ],
-      note: '리간드를 정면으로 겨누는 e<sub>g</sub> 두 개가 올라가고, 리간드 <b>사이</b>를 향하는 t<sub>2g</sub> 세 개가 내려간다.',
+      note: 'The two e<sub>g</sub> orbitals point straight at the ligands and rise; the three t<sub>2g</sub> orbitals point <b>between</b> them and fall.',
       spinChoice: true
     },
     Td: {
-      label: '사면체 (Td)', unit: 'Δt',
+      label: 'Tetrahedral (Td)', unit: 'Δt',
       levels: [
         { svg: 'e', plain: 'e', e: -0.6, n: 2 },
         { svg: sub('t', '2'), plain: 't2', e: 0.4, n: 3 }
       ],
-      note: '라벨이 <b>뒤집힌다</b>. 리간드가 4개뿐이고 어느 축도 정면으로 겨누지 않아 Δ<sub>t</sub> ≈ (4/9)Δ<sub>o</sub> 로 작다.',
+      note: 'The labels <b>invert</b>. With only four ligands and no axis aimed at directly, Δ<sub>t</sub> ≈ (4/9)Δ<sub>o</sub> — much smaller.',
       spinChoice: false
     },
     D4h: {
-      label: '평면사각 (D4h)', unit: 'Δo',
+      label: 'Square planar (D4h)', unit: 'Δo',
       levels: [
         { svg: sub('d', 'xz') + ', ' + sub('d', 'yz'), plain: 'dxz, dyz', e: -0.514, n: 2 },
         { svg: sub('d', 'z²'), plain: 'dz²', e: -0.428, n: 1 },
         { svg: sub('d', 'xy'), plain: 'dxy', e: 0.228, n: 1 },
         { svg: sub('d', 'x²−y²'), plain: 'dx²−y²', e: 1.228, n: 1 }
       ],
-      note: 'z축 리간드를 무한히 멀리 보낸 극한. d<sub>x²−y²</sub>만 유난히 높아 d<sup>8</sup>이 반자성 저스핀이 된다.',
+      note: 'The limit reached by pulling the two z-axis ligands away. Only d<sub>x²−y²</sub> is left far above the rest, which is what makes d<sup>8</sup> diamagnetic and low spin.',
       spinChoice: true
     }
   };
 
-  /* 전자를 채운다.
-     고스핀: d 집합 전체에 하나씩 먼저(Hund) → 그 뒤 짝짓기
-     저스핀: 낮은 준위를 다 채우고 올라간다. 단 **준위 안에서는 Hund를 지킨다** —
-             t2g⁴는 ↑↓ ↑ ↑ (홀전자 2)이고 ↑↓ ↑↓ (홀전자 0)이 아니다.
-             저스핀은 '최대한 짝짓기'가 아니라 '낮은 준위에 몰기'다. */
+  /* Filling rules.
+     High spin: one electron into every orbital of the whole d set first
+                (Hund), then start pairing.
+     Low spin:  fill the lowest level completely before climbing, but
+                **Hund's rule still applies inside a level** —
+                t2g^4 is up-down up up (two unpaired), not up-down up-down (zero).
+                Low spin means "crowd into the lower level", not "pair up as
+                much as possible". */
   function hundWithin(group, left) {
     for (var pass = 0; pass < 2 && left > 0; pass++) {
       for (var i = 0; i < group.length && left > 0; i++) {
@@ -92,22 +97,22 @@
       if (s.c === 1) unpaired++;
       if (s.c === 2) pairs++;
     });
-    if (Math.abs(cfse) < 1e-9) cfse = 0;      // -0.00 이 찍히지 않게 한다
+    if (Math.abs(cfse) < 1e-9) cfse = 0;      // keep "-0.00" off the readout
     return {
       slots: slots, cfse: cfse, unpaired: unpaired,
-      extraPairs: pairs - Math.max(0, n - 5),   // 자유 이온에서도 어쩔 수 없는 짝은 뺀다
+      // pairs the free ion already had are not the ligand field's doing
+      extraPairs: pairs - Math.max(0, n - 5),
       mu: Math.sqrt(unpaired * (unpaired + 2))
     };
   }
 
-  /* 고스핀과 저스핀이 실제로 다른 배치를 주는가.
-     'd4~d7'은 팔면체에서만 맞는 규칙이다 — 평면사각은 준위가 4단이라 d8에서
-     바로 갈리고, 그것이 반자성 d8 평면사각이라는 이 모듈의 핵심 사례다.
-     그래서 하드코딩하지 않고 두 배치를 실제로 비교한다. */
+  /* Do high spin and low spin actually give different configurations?
+     "d4 to d7" is an octahedral rule only. Square planar has four levels, so
+     the two differ at d8 — and diamagnetic square-planar d8 is a headline case
+     of this module. So compare the two fillings instead of hard-coding a range. */
   function spinChoiceMatters(geomKey, n) {
     if (!GEOM[geomKey].spinChoice) return false;
-    var a = analyse(geomKey, n, false), b = analyse(geomKey, n, true);
-    return a.unpaired !== b.unpaired;
+    return analyse(geomKey, n, false).unpaired !== analyse(geomKey, n, true).unpaired;
   }
 
   function fmt(e) {
@@ -139,12 +144,13 @@
 
       p.push('<line x1="74" y1="' + y(0) + '" x2="' + (W - 16) + '" y2="' + y(0) +
              '" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="6 5"></line>');
-      p.push('<text x="' + (W - 18) + '" y="' + (y(0) - 8) + '" fill="#94a3b8" font-size="11" text-anchor="end">무게중심 0</text>');
-      p.push('<text x="12" y="24" fill="#475569" font-size="12" font-weight="bold">에너지 (' + g.unit + ' 단위)</text>');
+      p.push('<text x="' + (W - 18) + '" y="' + (y(0) - 8) + '" fill="#94a3b8" font-size="11" text-anchor="end">barycentre 0</text>');
+      p.push('<text x="12" y="24" fill="#475569" font-size="12" font-weight="bold">Energy (units of ' + g.unit + ')</text>');
 
-      /* 준위가 가까우면 겹친다 — D4h의 dz²(-0.428)와 dxz,dyz(-0.514)는 0.086 Δo 차이라
-         같은 x에 그리면 선과 라벨이 포개진다. 에너지 높은 것부터 내려오며,
-         간격이 좁으면 라벨을 밀어 내리고 준위선을 옆 차선으로 옮긴다. */
+      /* Nearby levels collide: in D4h, dz2 (-0.428) and dxz,dyz (-0.514) are only
+         0.086 Δo apart, so drawn at the same x their lines and labels overlap.
+         Walk down from the highest level; when the gap is tight, push the label
+         down and move the level line into a second lane. */
       var order = g.levels.map(function (L, li) { return { L: L, li: li, yy: y(L.e) }; })
                           .sort(function (a, b) { return a.yy - b.yy; });
       var lastLabelY = -999, lastYY = -999;
@@ -156,7 +162,7 @@
         lastLabelY = labelY; lastYY = yy;
 
         p.push('<text x="' + (x0 - 8) + '" y="' + (labelY + 5) + '" fill="#0f172a" font-size="13" font-weight="bold" text-anchor="end">' + L.svg + '</text>');
-        if (Math.abs(labelY - yy) > 2) {   // 라벨을 밀었으면 어느 준위인지 이어 준다
+        if (Math.abs(labelY - yy) > 2) {   // leader line back to the level it names
           p.push('<line x1="' + (x0 - 6) + '" y1="' + labelY + '" x2="' + x0 + '" y2="' + yy +
                  '" stroke="#94a3b8" stroke-width="1"></line>');
         }
@@ -179,17 +185,18 @@
       var extra = a.extraPairs > 0 ? ' + ' + a.extraPairs + 'P' : '';
       var levelText = g.levels.map(function (L, li) {
         var c = a.slots.filter(function (s) { return s.li === li; }).reduce(function (t, s) { return t + s.c; }, 0);
-        return L.plain + '에 ' + c + '개';
+        return c + ' in ' + L.plain;
       }).join(', ');
 
       host.setAttribute('aria-label',
-        g.label + ' 결정장 갈라짐 도표. d' + n + ' ' + (lowSpin ? '저스핀' : '고스핀') + ' 배치로 ' + levelText +
-        '. 홀전자 ' + a.unpaired + '개, 결정장 안정화 에너지 ' + a.cfse.toFixed(2) + ' ' + g.unit + extra + '.');
+        g.label + ' crystal field splitting diagram. A d' + n + ' ' + (lowSpin ? 'low-spin' : 'high-spin') +
+        ' configuration with ' + levelText + '. ' + a.unpaired + ' unpaired electrons, CFSE ' +
+        a.cfse.toFixed(2) + ' ' + g.unit + extra + '.');
 
       out.cfse.textContent = a.cfse.toFixed(2) + ' ' + g.unit + extra;
-      out.unp.textContent = a.unpaired + '개';
+      out.unp.textContent = String(a.unpaired);
       out.mu.textContent = a.mu.toFixed(2) + ' μB';
-      out.cfg.textContent = 'd' + n + ' · ' + (lowSpin ? '저스핀' : '고스핀');
+      out.cfg.textContent = 'd' + n + ' · ' + (lowSpin ? 'low spin' : 'high spin');
       out.nOut.textContent = 'd' + n;
       out.note.innerHTML = g.note;
 
@@ -201,13 +208,13 @@
       });
 
       var why = !g.spinChoice
-        ? '사면체는 Δt가 작아 짝지음 에너지를 이기지 못한다 — 사실상 늘 고스핀이다.'
+        ? 'Delta t is too small to beat the pairing energy, so tetrahedral complexes are high spin in practice.'
         : !canChoose
-          ? 'd' + n + '에서는 고스핀과 저스핀이 같은 배치가 된다 — 선택지가 생기지 않는다.'
-          : 'Δ와 짝지음 에너지 P의 크기 비교가 이 배치를 정한다.';
-      out.live.textContent = g.label + ' d' + n + ' ' + (lowSpin ? '저스핀' : '고스핀') +
-        ' — ' + levelText + '. 홀전자 ' + a.unpaired + '개, CFSE ' + a.cfse.toFixed(2) + ' ' + g.unit + extra +
-        ', spin-only μ = ' + a.mu.toFixed(2) + ' μB. ' + why;
+          ? 'At d' + n + ' the high-spin and low-spin fillings coincide — there is no choice to make.'
+          : 'Which one occurs is decided by Delta against the pairing energy P.';
+      out.live.textContent = g.label + ' d' + n + ' ' + (lowSpin ? 'low spin' : 'high spin') +
+        ' — ' + levelText + '. ' + a.unpaired + ' unpaired, CFSE ' + a.cfse.toFixed(2) + ' ' + g.unit + extra +
+        ', spin-only mu = ' + a.mu.toFixed(2) + ' μB. ' + why;
     }
 
     document.querySelectorAll('[data-geom]').forEach(function (b) {

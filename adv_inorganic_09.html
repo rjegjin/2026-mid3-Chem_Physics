@@ -29,7 +29,7 @@
         table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
         .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
         .warn b { color: #78350f; }
-        /* 뼈대 문서 표식 — 완성본과 혼동하지 않게 한다 */
+        /* Marks this file as an outline so it is never mistaken for finished content. */
         .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
         .todo { list-style: none; padding-left: 0; }
         .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
@@ -48,7 +48,7 @@
             <p class="text-xl text-slate-500 font-medium italic">"Why is one copper salt blue and another green? The answer takes two lectures."</p>
             <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
             <p class="text-base font-bold text-slate-800">Lecture 09 (two sessions): Microstates, Term Symbols, and Tanabe&ndash;Sugano Analysis</p>
-            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; 본문 미작성</div>
+            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; prose not written</div>
         </div>
     </section>
 
@@ -58,19 +58,19 @@
             <h2>0. Scope</h2>
             <div class="info-card">
                 <p class="font-black uppercase text-xs mb-3">Central question</p>
-                <p class="text-lg font-medium text-slate-800">전이금속의 absorption spectrum은 어디에서 오는가?</p>
+                <p class="text-lg font-medium text-slate-800">Where does the absorption spectrum of a transition-metal complex come from?</p>
             </div>
             <div class="grid md:grid-cols-2 gap-6 mt-6">
                 <div class="step-box">
                     <span class="logic-tag">Requires</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 04 &mdash; Slater 행렬식과 각운동량 &middot; Module 07&ndash;08 &mdash; $\Delta_o$</p>
+                    <p class="text-sm text-slate-700 mt-3">Module 04 &mdash; Slater determinants and angular momentum &middot; Modules 07&ndash;08 &mdash; $\Delta_o$</p>
                 </div>
                 <div class="step-box">
                     <span class="logic-tag">Feeds</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 10 &mdash; spin&ndash;orbit coupling &middot; Module 15 Case 4 &mdash; 발광 착물</p>
+                    <p class="text-sm text-slate-700 mt-3">Module 10 &mdash; spin&ndash;orbit coupling &middot; Module 15 Case 4 &mdash; luminescent complexes</p>
                 </div>
             </div>
-            <div class="warn mt-8"><b>분량이 커서 두 회차를 배정한다.</b> spin&ndash;orbit coupling은 여기서 다루지 않는다 &mdash; Module 10으로 넘긴다. 이 모듈은 비상대론적 취급이다.</div>
+            <div class="warn mt-8"><b>Two sessions are allotted to this module.</b> Spin&ndash;orbit coupling is deliberately excluded and deferred to Module 10; everything here is non-relativistic.</div>
         </div>
     </section>
 
@@ -79,13 +79,13 @@
         <div class="slide-content text-left px-20">
             <h2>1. Microstates</h2>
             <div class="math-box text-center py-6">
-                $$ \text{number of microstates} = \binom{2(2\ell+1)}{n} \;\;\Rightarrow\;\; d^2:\ \binom{10}{2} = 45 $$
+                $$ \text{microstates} = \binom{2(2\ell+1)}{n} \;\;\Rightarrow\;\; d^2:\ \binom{10}{2} = 45 $$
             </div>
             <ul class="todo mt-4">
-                <li>$d^n$에서 가능한 $(m_\ell, m_s)$ 조합 세기</li>
-                <li>Module 04 회수 &mdash; microstate는 곧 Slater 행렬식이다</li>
-                <li>$d^2$의 45개를 $M_L$&ndash;$M_S$ 표로 배열한다</li>
-                <li>표에서 항(term)을 벗겨 내는 절차</li>
+                <li>Counting the allowed $(m_\ell, m_s)$ combinations of a $d^{\,n}$ configuration</li>
+                <li>Recovered from Module 04 &mdash; a microstate <i>is</i> a Slater determinant</li>
+                <li>Arranging the 45 microstates of $d^2$ in an $M_L$&ndash;$M_S$ table</li>
+                <li>The procedure for peeling terms off that table</li>
             </ul>
         </div>
     </section>
@@ -98,10 +98,10 @@
                 $$ \mathbf{L} = \sum_i \boldsymbol{\ell}_i, \qquad \mathbf{S} = \sum_i \mathbf{s}_i, \qquad \mathbf{J} = \mathbf{L} + \mathbf{S} $$
             </div>
             <ul class="todo mt-4">
-                <li>가벼운 원자의 근사 &mdash; 전자 반발 &gt; spin&ndash;orbit</li>
-                <li>항 기호 $^{2S+1}L_J$의 읽는 법</li>
+                <li>The light-atom approximation &mdash; electron repulsion dominates spin&ndash;orbit coupling</li>
+                <li>How to read the term symbol $^{2S+1}L_J$</li>
                 <li>$L = 0,1,2,3,4 \to S, P, D, F, G$</li>
-                <li>$d^2$의 항: $^3F, {}^3P, {}^1G, {}^1D, {}^1S$ &mdash; 축퇴 합이 45로 돌아온다</li>
+                <li>The terms of $d^2$: $^3F, {}^3P, {}^1G, {}^1D, {}^1S$ &mdash; degeneracies summing back to 45</li>
             </ul>
         </div>
     </section>
@@ -111,9 +111,9 @@
         <div class="slide-content text-left px-20">
             <h2>3. Hund's Rules for Terms</h2>
             <ul class="todo mt-4">
-                <li>최대 $S$ &rarr; 최대 $L$ &rarr; $J$ (반 이하는 최소, 반 이상은 최대)</li>
-                <li>$d^2$의 바닥 항이 $^3F_2$인 이유</li>
-                <li><b>주의</b> &mdash; 규칙은 바닥 항에만 신뢰할 수 있다. 들뜬 항의 순서를 정하는 데 쓰지 않는다</li>
+                <li>Maximum $S$, then maximum $L$, then $J$ (smallest for a less-than-half-filled shell)</li>
+                <li>Why the ground term of $d^2$ is $^3F_2$</li>
+                <li><b>Caution</b> &mdash; the rules are reliable only for the ground term. Do not use them to order excited terms</li>
             </ul>
         </div>
     </section>
@@ -126,10 +126,10 @@
                 $$ ^3F \;\longrightarrow\; {}^3T_{1g} + {}^3T_{2g} + {}^3A_{2g} $$
             </div>
             <ul class="todo mt-4">
-                <li>자유 이온 항이 팔면체 장에서 갈라진다</li>
-                <li>갈라짐은 $L$의 값이 정한다 &mdash; $S$항은 안 갈라지고 $F$항은 셋으로</li>
-                <li>약한 장 극한과 강한 장 극한의 상관도</li>
-                <li>정공-전자 등가성 &mdash; $d^n$과 $d^{10-n}$, 팔면체와 사면체</li>
+                <li>How free-ion terms split in an octahedral field</li>
+                <li>The splitting is governed by $L$ &mdash; an $S$ term does not split, an $F$ term splits into three</li>
+                <li>Correlation diagrams between the weak-field and strong-field limits</li>
+                <li>Hole&ndash;electron equivalence &mdash; $d^{\,n}$ against $d^{\,10-n}$, octahedral against tetrahedral</li>
             </ul>
         </div>
     </section>
@@ -142,12 +142,12 @@
                 $$ \Delta S = 0 \qquad\text{and}\qquad g \nleftrightarrow g $$
             </div>
             <ul class="todo mt-4">
-                <li><b>스핀 선택률</b> &mdash; 다중도가 바뀌는 전이는 금지</li>
-                <li><b>Laporte 규칙</b> &mdash; 중심대칭 착물에서 $d$&ndash;$d$는 금지</li>
-                <li>그런데도 색이 보이는 이유: 진동에 의한 대칭 파괴(vibronic coupling)</li>
-                <li>$T_d$에는 반전 중심이 없다 &rArr; 사면체 착물이 훨씬 진하다</li>
-                <li>흡광 계수 $\varepsilon$의 크기 비교 표 &mdash; 금지 정도의 정량적 흔적</li>
-                <li>전하 이동(CT) 전이는 두 규칙을 모두 피한다 &rArr; 매우 진한 색</li>
+                <li><b>Spin selection rule</b> &mdash; transitions changing multiplicity are forbidden</li>
+                <li><b>Laporte rule</b> &mdash; in a centrosymmetric complex $d$&ndash;$d$ transitions are forbidden</li>
+                <li>Why colour is seen anyway: vibronic coupling breaks the symmetry</li>
+                <li>$T_d$ has no centre of inversion, so tetrahedral complexes are far more intense</li>
+                <li>A table of molar absorptivities &mdash; the quantitative trace of how forbidden a transition is</li>
+                <li>Charge-transfer transitions evade both rules, hence their very deep colours</li>
             </ul>
         </div>
     </section>
@@ -157,9 +157,9 @@
         <div class="slide-content text-left px-20">
             <h2>6. Orgel Diagrams</h2>
             <ul class="todo mt-4">
-                <li>정성적 상관도 &mdash; 같은 다중도의 항만 다룬다</li>
-                <li>$d^1$/$d^6$ 대 $d^4$/$d^9$의 대칭적 관계</li>
-                <li>한계 &mdash; 스핀 변화 전이와 강한 장 영역을 다루지 못한다</li>
+                <li>A qualitative correlation diagram, restricted to terms of the same multiplicity</li>
+                <li>The symmetry between $d^1$/$d^6$ and $d^4$/$d^9$</li>
+                <li>Limitations &mdash; no spin-forbidden transitions, no strong-field regime</li>
             </ul>
         </div>
     </section>
@@ -172,12 +172,12 @@
                 $$ \frac{E}{B} \quad\text{vs}\quad \frac{\Delta_o}{B} $$
             </div>
             <ul class="todo mt-4">
-                <li>세로축·가로축을 Racah $B$로 규격화하는 이유</li>
-                <li>바닥 상태를 가로축에 눕힌 표현</li>
-                <li>$d^4$&ndash;$d^7$ 도표의 <b>수직선</b> &mdash; high/low spin 교차점</li>
-                <li>실측 흡수 봉우리 두세 개 → 비를 읽어 $\Delta_o$와 $B$를 동시에 결정</li>
-                <li>자유 이온 $B$와의 비($\beta$) &mdash; nephelauxetic 계열</li>
-                <li><b>워크스루</b> &mdash; $\mathrm{[Cr(H_2O)_6]^{3+}}$ 스펙트럼 해석</li>
+                <li>Why both axes are scaled by the Racah parameter $B$</li>
+                <li>The convention of laying the ground state along the horizontal axis</li>
+                <li>The <b>vertical discontinuity</b> in the $d^4$&ndash;$d^7$ diagrams &mdash; the high-spin/low-spin crossover</li>
+                <li>From two or three measured absorption bands to $\Delta_o$ and $B$ simultaneously</li>
+                <li>The ratio to the free-ion $B$ &mdash; the nephelauxetic series</li>
+                <li><b>Worked example</b> &mdash; interpreting the spectrum of $\mathrm{[Cr(H_2O)_6]^{3+}}$</li>
             </ul>
         </div>
     </section>
@@ -187,10 +187,10 @@
         <div class="slide-content text-left px-20">
             <h2>8. Key Competencies</h2>
             <ul class="todo mt-4">
-                <li>$d^n$의 microstate 수를 세고 항으로 분해한다</li>
-                <li>바닥 항의 항 기호를 쓴다</li>
-                <li>주어진 전이가 왜 약한지 또는 강한지 두 선택률로 설명한다</li>
-                <li>Tanabe&ndash;Sugano 도표에서 $\Delta_o$와 $B$를 읽어 낸다</li>
+                <li>Count the microstates of a $d^{\,n}$ configuration and resolve them into terms</li>
+                <li>Write the ground-term symbol</li>
+                <li>Explain why a given transition is weak or intense using both selection rules</li>
+                <li>Extract $\Delta_o$ and $B$ from a Tanabe&ndash;Sugano diagram</li>
             </ul>
         </div>
     </section>
@@ -199,11 +199,11 @@
     <section id="s40" class="end">
         <div class="slide-content text-center">
             <div class="outline-banner" style="display:inline-block">Outline only</div>
-            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 9 &mdash; 뼈대</h2>
+            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 9 &mdash; Outline</h2>
             <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
-                절 구성과 핵심 식만 세워 둔 상태입니다. 본문 서술·도표·사례는 제작 단계에서 채웁니다.
-                구성 근거는 <b>ADV_INORGANIC_ROADMAP.md</b>, 전체 지도는
-                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>에 있습니다.
+                Section structure and key equations are in place; prose, diagrams and worked cases are not.
+                The rationale for this ordering is in <b>ADV_INORGANIC_ROADMAP.md</b>; the whole map is in the
+                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>.
             </p>
             <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
             <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Spin&ndash;Orbit Coupling<br>&amp; Relativistic Effects</p>

@@ -202,7 +202,11 @@ def check_file(path: Path, remote_cache: dict[str, tuple[bool, str]], timeout: f
         "19_milky_way.html",
         "exp_self_generation.html",
     }
-    if path.name not in NO_MECHANICS_FORMULA:
+    # 고급 무기화학 계열은 역학 차시가 아니다. 모듈이 늘 때마다 이름을 더하지
+    # 않도록 접두사로 면제한다.
+    if path.name.startswith("adv_inorganic_"):
+        pass
+    elif path.name not in NO_MECHANICS_FORMULA:
         for token in FORMULA_TOKENS:
             if token in text:
                 break
