@@ -17,6 +17,19 @@
   --accent-tint:   #fff7ed;  /* 가장 옅은 배경 (orange-50) */
 }
 
+/* 카드·박스 안의 문단은 본문 문단이 아니다. presentation_mode.css의
+   p { margin-bottom: 1.2rem }가 카드마다 20px씩 죽은 공간을 만들고, 그만큼
+   fitSlides가 글씨를 줄여 갚는다. 마지막 문단의 아래 여백은 카드 패딩이 이미 준다. */
+.outline-card p,
+.standard-box p,
+.ask p,
+.pick p { margin-bottom: 0.45rem; }
+
+.outline-card p:last-child,
+.standard-box p:last-child,
+.ask p:last-child,
+.pick p:last-child { margin-bottom: 0; }
+
 /* ── 카드 / 박스 ─────────────────────────────────────────── */
 
 .outline-card {
@@ -99,7 +112,10 @@
 /* 문장 속 빈칸을 선택지로 채우는 패턴 */
 .rule-blank {
   display: inline-flex;
-  flex-direction: column;
+  /* 선택지를 세로로 쌓으면 표 안에서 한 칸이 두 줄이 되어 슬라이드가 넘친다.
+     가로로 두되 폭이 모자라면 알아서 접히게 한다 — 좁은 화면에서는 예전처럼 쌓인다. */
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 0.3rem;
   vertical-align: middle;
   margin-left: 0.3rem;

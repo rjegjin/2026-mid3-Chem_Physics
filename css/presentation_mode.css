@@ -58,8 +58,25 @@ body.presentation-mode section.active-slide {
 }
 
 /* Custom scrollbar for Webkit */
+/* 세로가 짧은 화면(노트북 창, 720p 프로젝터)에서는 여백이 곧 글씨 크기다.
+   패딩 144px는 581px 뷰포트의 25%였고, 그만큼 fitSlides가 글씨를 줄여
+   본문이 12px까지 내려갔다. 넉넉한 화면에서는 여백을 그대로 둔다. */
+@media (max-height: 820px) {
+    body.presentation-mode section { padding: 0.75rem; }
+    .slide-content { padding: 1.25rem 2.5rem; max-height: 96vh; }
+}
+
 .slide-content::-webkit-scrollbar { width: 6px; }
 .slide-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+/* 사진에는 높이 상한이 있었지만 svg·canvas에는 없었다. 그래서 도식이 칼럼 폭에
+   맞춰 세로로 부풀고, fitSlides는 넘침을 '글씨'로 갚아 본문을 12px까지 줄였다.
+   도식이 아니라 도식의 크기를 줄이는 것이 맞다. viewBox가 있으므로 비율은 유지된다. */
+.slide-content svg,
+.slide-content canvas {
+    max-height: 38vh;
+    max-width: 100%;
+}
 
 .slide-content img {
     max-height: 35vh; /* Further limit image height */
