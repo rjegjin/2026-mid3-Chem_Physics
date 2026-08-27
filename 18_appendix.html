@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>18차시 부록 — 거리 사다리와 별의 움직임</title>
+  <link href="css/tailwind.build.css" rel="stylesheet"/>
+  <link href="css/common.css" rel="stylesheet"/>
+  <link href="css/presentation_mode.css" rel="stylesheet"/>
+  <link href="css/chem_style.css" rel="stylesheet"/>
+  <link href="css/components.css" rel="stylesheet"/>
+  <style>
+   .key-line { font-size:1.35rem; font-weight:800; color:#312e81; }
+   .sky-box { background:#0b1120; border-radius:1.25rem; }
+   /* 본문 18차시와 같은 이유로 표·캡션을 키워 둔다 (기본값은 투사 화면에서 작다) */
+   .lab-table { font-size:1.55rem; }
+   .lab-table th, .lab-table td { padding:0.6rem 0.8rem; }
+   .slide-caption { font-size: calc(clamp(1.15rem, 2vh, 1.5rem) * var(--fit, 1)) !important; }
+   /* 부록임을 한눈에 알리는 표식 */
+   .adv-tag { display:inline-block; background:#312e81; color:#eef2ff; border-radius:0.5rem;
+              padding:0.25rem 0.7rem; font-size:0.95rem; font-weight:800; letter-spacing:0.04em; }
+   .ladder-step { background:#eef2ff; border:2px solid #c7d2fe; border-radius:0.8rem; padding:0.7rem 0.9rem; }
+  </style>
+ </head>
+ <body class="presentation-mode" style="--accent:#4f46e5; --accent-strong:#312e81; --accent-soft:#e0e7ff; --accent-tint:#eef2ff">
+  <main>
+
+   <!-- 1. 표지 -->
+   <section data-slide-index="0" data-slide-num="1" data-title="부록 표지" id="slide-1" data-section="intro">
+    <div class="slide-content">
+     <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">18차시 부록 &bull; 더 알아보기</p>
+     <h1 class="text-4xl md:text-6xl font-black mb-6 text-slate-900 leading-tight">연주 시차가 닿지 않는 곳</h1>
+     <div class="w-20 h-1 bg-indigo-600 mx-auto my-8"></div>
+     <p class="text-xl text-slate-500 font-bold mt-4">세페이드 변광성 &middot; Ia형 초신성 &middot; 식쌍성 &middot; 별의 운동</p>
+     <div class="ask max-w-3xl w-full mt-8"><p>연주 시차는 가까운 별에만 통합니다. 그렇다면 <b>은하 바깥</b>의 거리는 무엇으로 재는 걸까?</p></div>
+     <p class="slide-caption mt-6"><a href="18_stars.html" class="underline">&larr; 18차시 본문으로</a></p>
+    </div>
+   </section>
+
+   <!-- 2. 왜 부록이 필요한가 -->
+   <section data-slide-index="1" data-slide-num="2" data-title="본문이 남긴 빈칸" id="slide-2" data-section="intro">
+    <div class="slide-content">
+     <h2>본문이 남긴 빈칸</h2>
+     <p class="text-slate-600" style="font-size:1.35rem">본문에서 연주 시차의 한계를 보았습니다 &mdash; 데네브(0.002&Prime;)는 오차에 묻혀 잴 수 없었습니다. 그런데 천문학자들은 수백만 광년 밖 은하까지의 거리를 말합니다. 무엇으로 재는 걸까요?</p>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-5xl w-full mt-5">
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">본문에서 얻은 것</p>
+       <p class="text-slate-600 mt-1">별빛 하나에서 <b>거리</b>(연주 시차) &middot; <b>밝기</b>(등급) &middot; <b>온도</b>(색)</p>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">이 부록에서 더할 것</p>
+       <p class="text-slate-600 mt-1">① 시차보다 <b>멀리</b> 재는 방법 두 가지<br/>② 별의 <b>질량과 크기</b>를 재는 방법<br/>③ 별이 <b>움직인다</b>는 사실</p>
+      </div>
+     </div>
+     <div class="standard-box max-w-4xl w-full mt-5">
+      <p class="text-lg text-slate-700">핵심 아이디어는 하나다 &mdash; <b>실제 밝기를 아는 천체</b>를 찾으면, 겉보기 밝기와 견주어 거리를 얻는다. 본문 12번의 m과 M을 견주던 그 논리다.</p>
+     </div>
+     <p class="slide-caption mt-4">※ 이 부록은 교육과정 <b>범위 밖</b>이다. 평가 대상이 아니고, 본문의 논리가 어디까지 뻗는지 보여 주려고 붙였다.</p>
+    </div>
+   </section>
+
+   <!-- 3. 표준 촉광 -->
+   <section data-slide-index="2" data-slide-num="3" data-title="표준 촉광" id="slide-3" data-section="ladder">
+    <div class="slide-content">
+     <h2>1. 표준 촉광 &mdash; 밝기를 아는 등불</h2>
+     <p class="text-slate-600" style="font-size:1.35rem">밤길에 같은 규격의 가로등이 늘어서 있다면, <b>어둡게 보이는 것이 먼 것</b>이다. 밝기를 미리 아는 등불을 천문학에서는 <b>표준 촉광</b>이라 부른다.</p>
+     <svg viewBox="0 0 720 180" class="w-full mt-4" style="max-height:200px" role="img"
+          aria-label="같은 밝기의 가로등이 일렬로 늘어선 그림. 가까운 것은 크고 밝게, 먼 것은 작고 어둡게 보이므로 보이는 밝기만으로 거리를 알 수 있다.">
+      <rect x="0" y="0" width="720" height="180" fill="#0b1120" rx="14"></rect>
+      <line x1="20" y1="150" x2="700" y2="150" stroke="#334155" stroke-width="2"></line>
+      <g>
+       <circle cx="90" cy="104" r="22" fill="#fde68a"></circle><text x="70" y="172" fill="#94a3b8" font-size="13">가까움</text>
+       <circle cx="250" cy="112" r="15" fill="#fde68a" opacity="0.8"></circle>
+       <circle cx="400" cy="118" r="10" fill="#fde68a" opacity="0.6"></circle>
+       <circle cx="530" cy="122" r="6.5" fill="#fde68a" opacity="0.45"></circle>
+       <circle cx="640" cy="126" r="4" fill="#fde68a" opacity="0.32"></circle><text x="614" y="172" fill="#94a3b8" font-size="13">멀다</text>
+      </g>
+      <text x="24" y="34" fill="#e2e8f0" font-size="15" font-weight="bold">모두 같은 밝기의 등불이라면 &mdash; 보이는 밝기가 곧 거리다</text>
+     </svg>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl w-full mt-4">
+      <div class="ladder-step"><p class="font-bold text-slate-800">1단</p><p class="text-slate-600 mt-1">연주 시차<br/><b>~ 수천 광년</b></p></div>
+      <div class="ladder-step"><p class="font-bold text-slate-800">2단</p><p class="text-slate-600 mt-1">세페이드 변광성<br/><b>~ 1억 광년</b></p></div>
+      <div class="ladder-step"><p class="font-bold text-slate-800">3단</p><p class="text-slate-600 mt-1">Ia형 초신성<br/><b>~ 100억 광년</b></p></div>
+     </div>
+     <p class="slide-caption mt-3">※ 아래 단으로 위 단을 <b>교정</b>한다. 시차로 세페이드를 맞추고, 세페이드로 초신성을 맞춘다 &mdash; 그래서 <b>거리 사다리</b>라 부른다. 아래 단이 틀리면 위가 전부 틀린다.</p>
+    </div>
+   </section>
+
+   <!-- 4. 세페이드 변광성 -->
+   <section data-slide-index="3" data-slide-num="4" data-title="세페이드 변광성" id="slide-4" data-section="ladder">
+    <div class="slide-content">
+     <h2>2. 세페이드 변광성 &mdash; 주기가 밝기를 알려 준다</h2>
+     <div class="flex flex-col md:flex-row gap-5 items-center max-w-5xl w-full mt-3">
+      <div class="w-full md:w-1/2">
+       <svg viewBox="0 0 420 200" class="w-full" role="img"
+            aria-label="세페이드 변광성의 광도 곡선. 밝기가 규칙적으로 커지고 작아지며, 빠르게 밝아지고 천천히 어두워지는 톱니 모양이 반복된다.">
+        <rect x="0" y="0" width="420" height="200" fill="#f8fafc" rx="10"></rect>
+        <line x1="46" y1="160" x2="400" y2="160" stroke="#334155" stroke-width="2"></line>
+        <line x1="46" y1="20" x2="46" y2="160" stroke="#334155" stroke-width="2"></line>
+        <text x="8" y="90" fill="#475569" font-size="12" font-weight="bold">밝기</text>
+        <text x="330" y="182" fill="#475569" font-size="12" font-weight="bold">시간 &rarr;</text>
+        <path d="M 46 130 L 82 44 L 130 132 L 166 130 L 202 44 L 250 132 L 286 130 L 322 44 L 370 132 L 400 130"
+              fill="none" stroke="#4f46e5" stroke-width="3"></path>
+        <g stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4">
+         <line x1="82" y1="44" x2="82" y2="160"></line><line x1="202" y1="44" x2="202" y2="160"></line>
+        </g>
+        <text x="106" y="30" fill="#312e81" font-size="13" font-weight="bold">&larr; 주기 &rarr;</text>
+       </svg>
+       <p class="slide-caption mt-2">별이 부풀고 수축하기를 반복해 밝기가 규칙적으로 오르내린다.</p>
+      </div>
+      <div class="w-full md:w-1/2">
+       <div class="standard-box">
+        <p class="text-lg text-slate-700"><b>주기-광도 관계</b><br/>밝기가 오르내리는 <b>주기가 길수록</b> 그 별의 <b>실제 밝기가 크다.</b></p>
+       </div>
+       <div class="outline-card mt-3">
+        <p class="font-bold text-slate-800">그래서 거리를 얻는다</p>
+        <p class="text-slate-600 mt-1">① 밝기 변화를 관측해 <b>주기</b>를 잰다<br/>② 주기에서 <b>절대등급</b>을 읽는다<br/>③ 겉보기등급과 견주어 <b>거리</b>를 얻는다</p>
+       </div>
+       <p class="slide-caption mt-2">③은 본문 12번(m과 M을 견주기)과 완전히 같은 절차다.</p>
+      </div>
+     </div>
+     <div class="ask max-w-5xl w-full mt-4"><p><b>과학사</b> &mdash; 헨리에타 리비트(1912)는 하버드 천문대에서 소마젤란은하의 세페이드 25개를 조사해 이 관계를 찾아냈다. 본문의 &lsquo;하버드의 계산원들&rsquo; 가운데 한 사람이다. 12년 뒤 허블이 이 관계로 안드로메다가 우리은하 <b>바깥</b>임을 증명했다 &mdash; 19차시의 대논쟁을 끝낸 것이 이 방법이다.</p></div>
+    </div>
+   </section>
+
+   <!-- 5. Ia형 초신성 -->
+   <section data-slide-index="4" data-slide-num="5" data-title="Ia형 초신성" id="slide-5" data-section="ladder">
+    <div class="slide-content">
+     <h2>3. Ia형 초신성 &mdash; 언제나 같은 밝기로 터진다</h2>
+     <div class="flex flex-col md:flex-row gap-5 items-center max-w-5xl w-full mt-3">
+      <div class="w-full md:w-1/2">
+       <svg viewBox="0 0 420 210" class="w-full" role="img"
+            aria-label="백색왜성이 짝별에서 물질을 빨아들여 한계 질량에 이르는 그림. 한계에 닿는 순간 폭발하므로 폭발의 밝기가 언제나 비슷하다.">
+        <rect x="0" y="0" width="420" height="210" fill="#0b1120" rx="10"></rect>
+        <circle cx="300" cy="105" r="42" fill="#f97316" opacity="0.85"></circle>
+        <text x="272" y="170" fill="#fdba74" font-size="13" font-weight="bold">짝별(적색거성)</text>
+        <circle cx="110" cy="105" r="12" fill="#e0f2fe"></circle>
+        <text x="66" y="170" fill="#bae6fd" font-size="13" font-weight="bold">백색왜성</text>
+        <path d="M 258 105 Q 200 78 124 100" stroke="#fdba74" stroke-width="6" fill="none" opacity="0.6"></path>
+        <path d="M 258 118 Q 200 140 124 114" stroke="#fdba74" stroke-width="4" fill="none" opacity="0.35"></path>
+        <text x="150" y="46" fill="#e2e8f0" font-size="13" font-weight="bold">물질이 흘러든다 &rarr; 질량이 늘어난다</text>
+       </svg>
+      </div>
+      <div class="w-full md:w-1/2">
+       <div class="outline-card">
+        <p class="font-bold text-slate-800">왜 밝기가 일정한가</p>
+        <p class="text-slate-600 mt-1">백색왜성은 <b>정해진 한계 질량</b>(태양의 약 1.4배)에 닿는 순간 폭발한다. <b>같은 질량이 같은 방식으로</b> 터지므로 폭발의 최대 밝기가 늘 비슷하다.</p>
+       </div>
+       <div class="standard-box mt-3">
+        <p class="text-lg text-slate-700">밝기를 아는 폭발 &rarr; 겉보기 밝기로 <b>거리</b>를 얻는다. 은하 하나만큼 밝아서 아주 멀리까지 보인다.</p>
+       </div>
+       <p class="slide-caption mt-2">한계 질량은 1930년대에 찬드라세카르가 계산했다. 그가 이 결과를 발표했을 때 당대 최고 권위자였던 에딩턴은 공개적으로 반박했고, 인정받기까지 오래 걸렸다.</p>
+      </div>
+     </div>
+     <div class="ask max-w-5xl w-full mt-4"><p><b>과학사</b> &mdash; 1998년, 두 연구팀이 먼 Ia형 초신성들이 <b>예상보다 어둡다</b>는 것을 발견했다. 예상보다 멀리 있다는 뜻이고, 우주의 팽창이 <b>빨라지고 있다</b>는 뜻이었다. 2011년 노벨 물리학상. 20차시 &lsquo;팽창하는 우주&rsquo;로 이어지는 지점이다.</p></div>
+    </div>
+   </section>
+
+   <!-- 6. 식쌍성 -->
+   <section data-slide-index="5" data-slide-num="6" data-title="식쌍성" id="slide-6" data-section="binary">
+    <div class="slide-content">
+     <h2>4. 식쌍성 &mdash; 가려질 때 알 수 있는 것</h2>
+     <p class="text-slate-600" style="font-size:1.35rem">두 별이 서로를 돌면서 우리 시선 방향을 <b>가로지르면</b>, 한 별이 다른 별을 가려 밝기가 규칙적으로 떨어진다. 이 별을 <b>식쌍성</b>이라 한다.</p>
+     <svg viewBox="0 0 720 210" class="w-full mt-3" style="max-height:230px" role="img"
+          aria-label="식쌍성의 광도 곡선. 밝기가 대체로 일정하다가, 작은 별이 큰 별을 가릴 때 얕게 떨어지고 큰 별이 작은 별을 가릴 때 깊게 떨어진다. 두 번의 깊이가 다른 함몰이 주기적으로 반복된다.">
+      <rect x="0" y="0" width="720" height="210" fill="#f8fafc" rx="14"></rect>
+      <line x1="56" y1="170" x2="700" y2="170" stroke="#334155" stroke-width="2"></line>
+      <line x1="56" y1="24" x2="56" y2="170" stroke="#334155" stroke-width="2"></line>
+      <text x="10" y="96" fill="#475569" font-size="13" font-weight="bold">밝기</text>
+      <text x="626" y="192" fill="#475569" font-size="13" font-weight="bold">시간 &rarr;</text>
+      <path d="M 56 50 L 150 50 L 168 96 L 196 96 L 214 50 L 330 50 L 350 138 L 386 138 L 406 50 L 520 50 L 538 96 L 566 96 L 584 50 L 700 50"
+            fill="none" stroke="#4f46e5" stroke-width="3"></path>
+      <text x="132" y="122" fill="#166534" font-size="13" font-weight="bold">얕은 함몰</text>
+      <text x="318" y="164" fill="#b91c1c" font-size="13" font-weight="bold">깊은 함몰</text>
+      <text x="66" y="42" fill="#64748b" font-size="12">가려지지 않을 때</text>
+     </svg>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl w-full mt-4">
+      <div class="outline-card"><p class="font-bold text-slate-800">주기</p><p class="text-slate-600 mt-1">함몰이 반복되는 간격 &rarr; 두 별의 <b>공전 주기</b></p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">함몰의 폭</p><p class="text-slate-600 mt-1">가려지는 데 걸린 시간 &rarr; 두 별의 <b>크기</b></p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">함몰의 깊이</p><p class="text-slate-600 mt-1">두 번의 깊이가 다른 정도 &rarr; 두 별의 <b>표면 온도 차</b></p></div>
+     </div>
+     <div class="standard-box max-w-5xl w-full mt-4">
+      <p class="text-lg text-slate-700">여기에 공전 주기와 궤도 크기를 함께 쓰면 <b>질량</b>까지 나온다. 식쌍성은 별의 <b>질량과 반지름을 직접 재는 거의 유일한 통로</b>다 &mdash; 다른 별의 질량은 대부분 이렇게 측정된 값을 견주어 추정한다.</p>
+     </div>
+     <p class="slide-caption mt-3">※ 알골(&beta; Persei)이 대표적이다. 2.87일마다 어두워지는 것을 1783년 존 굿리크가 알아내고 가려짐 때문이라고 옳게 설명했다. 그는 청각장애가 있었고 21세에 세상을 떠났다.</p>
+    </div>
+   </section>
+
+   <!-- 7. 고유 운동과 시선 운동 -->
+   <section data-slide-index="6" data-slide-num="7" data-title="별의 운동" id="slide-7" data-section="motion">
+    <div class="slide-content">
+     <h2>5. 별은 움직인다 &mdash; 고유 운동과 시선 운동</h2>
+     <p class="text-slate-600" style="font-size:1.35rem">본문에서 연주 시차를 잴 때 배경 별을 &lsquo;고정된 것&rsquo;으로 두었습니다. 사실 <b>모든 별이 움직입니다.</b> 다만 너무 멀어 느리게 보일 뿐입니다.</p>
+     <div class="flex flex-col md:flex-row gap-5 items-center max-w-5xl w-full mt-3">
+      <div class="w-full md:w-1/2">
+       <svg viewBox="0 0 420 220" class="w-full" role="img"
+            aria-label="별의 실제 운동을 두 성분으로 나눈 그림. 시선에 수직인 성분은 하늘에서의 위치 변화로 보이는 고유 운동이고, 시선 방향 성분은 스펙트럼의 파장 변화로 나타나는 시선 운동이다.">
+        <rect x="0" y="0" width="420" height="220" fill="#f8fafc" rx="10"></rect>
+        <circle cx="70" cy="180" r="11" fill="#334155"></circle>
+        <text x="34" y="208" fill="#475569" font-size="12" font-weight="bold">관측자</text>
+        <circle cx="250" cy="80" r="13" fill="#f59e0b"></circle>
+        <text x="234" y="60" fill="#92400e" font-size="12" font-weight="bold">별</text>
+        <line x1="82" y1="172" x2="240" y2="88" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 4"></line>
+        <text x="112" y="146" fill="#94a3b8" font-size="11">시선 방향</text>
+        <path d="M 250 80 L 366 44" stroke="#312e81" stroke-width="4"></path>
+        <path d="M 366 44 l -13 -3 l 4 9 z" fill="#312e81"></path>
+        <text x="300" y="30" fill="#312e81" font-size="12" font-weight="bold">실제 운동</text>
+        <path d="M 250 80 L 318 108" stroke="#b91c1c" stroke-width="3"></path>
+        <path d="M 318 108 l -12 -1 l 3 8 z" fill="#b91c1c"></path>
+        <text x="290" y="130" fill="#b91c1c" font-size="11" font-weight="bold">시선 성분</text>
+        <path d="M 250 80 L 300 22" stroke="#166534" stroke-width="3"></path>
+        <path d="M 300 22 l -3 12 l 9 -4 z" fill="#166534"></path>
+        <text x="256" y="16" fill="#166534" font-size="11" font-weight="bold">수직 성분</text>
+       </svg>
+      </div>
+      <div class="w-full md:w-1/2 overflow-x-auto">
+       <table class="lab-table">
+        <thead><tr><th></th><th>고유 운동</th><th>시선 운동</th></tr></thead>
+        <tbody>
+         <tr><td>방향</td><td>시선에 <b>수직</b></td><td>시선 <b>방향</b></td></tr>
+         <tr><td>보이는 것</td><td>하늘에서 위치가 옮겨간다</td><td>위치는 그대로, <b>색</b>이 변한다</td></tr>
+         <tr><td>재는 방법</td><td>여러 해 뒤 사진과 비교</td><td>스펙트럼 선의 이동</td></tr>
+         <tr><td>단위</td><td>초/년 (&Prime;/yr)</td><td>km/s</td></tr>
+        </tbody>
+       </table>
+      </div>
+     </div>
+     <div class="standard-box max-w-5xl w-full mt-4">
+      <p class="text-lg text-slate-700">두 성분을 합치면 별의 <b>실제 운동</b>이 나온다. 단, 고유 운동을 km/s로 바꾸려면 <b>거리</b>를 알아야 한다 &mdash; 같은 속도라도 멀면 느리게 보이기 때문이다. 여기서 연주 시차가 다시 필요해진다.</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 8. 도플러 효과 -->
+   <section data-slide-index="7" data-slide-num="8" data-title="시선 운동과 색" id="slide-8" data-section="motion">
+    <div class="slide-content">
+     <h2>6. 다가오면 파랗고, 멀어지면 붉다</h2>
+     <p class="text-slate-600" style="font-size:1.35rem">시선 운동은 <b>파장의 변화</b>로 나타납니다. 별의 스펙트럼에 있는 검은 선의 위치가 원래 자리에서 밀려납니다.</p>
+     <svg viewBox="0 0 720 200" class="w-full mt-3" style="max-height:220px" role="img"
+          aria-label="스펙트럼 흡수선의 이동. 정지한 별에서는 선이 제자리에 있고, 다가오는 별에서는 선이 파란색 쪽으로, 멀어지는 별에서는 붉은색 쪽으로 밀려난다.">
+      <defs>
+       <linearGradient id="spec" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#4c1d95"></stop><stop offset="25%" stop-color="#2563eb"></stop>
+        <stop offset="50%" stop-color="#16a34a"></stop><stop offset="75%" stop-color="#facc15"></stop>
+        <stop offset="100%" stop-color="#b91c1c"></stop>
+       </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="720" height="200" fill="#f8fafc" rx="14"></rect>
+      <g>
+       <rect x="180" y="22" width="480" height="34" fill="url(#spec)" rx="4"></rect>
+       <rect x="408" y="22" width="7" height="34" fill="#0b1120"></rect>
+       <text x="24" y="45" fill="#334155" font-size="14" font-weight="bold">정지</text>
+       <rect x="180" y="80" width="480" height="34" fill="url(#spec)" rx="4"></rect>
+       <rect x="330" y="80" width="7" height="34" fill="#0b1120"></rect>
+       <text x="24" y="103" fill="#1d4ed8" font-size="14" font-weight="bold">다가옴</text>
+       <text x="352" y="103" fill="#f8fafc" font-size="12" font-weight="bold">&larr; 파란 쪽으로</text>
+       <rect x="180" y="138" width="480" height="34" fill="url(#spec)" rx="4"></rect>
+       <rect x="500" y="138" width="7" height="34" fill="#0b1120"></rect>
+       <text x="24" y="161" fill="#b91c1c" font-size="14" font-weight="bold">멀어짐</text>
+       <text x="400" y="161" fill="#f8fafc" font-size="12" font-weight="bold">붉은 쪽으로 &rarr;</text>
+      </g>
+     </svg>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-5xl w-full mt-4">
+      <div class="outline-card"><p class="font-bold text-slate-800">청색 이동</p><p class="text-slate-600 mt-1">다가오는 별 &mdash; 파장이 <b>짧아진다</b></p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">적색 이동</p><p class="text-slate-600 mt-1">멀어지는 별 &mdash; 파장이 <b>길어진다</b></p></div>
+     </div>
+     <div class="ask max-w-5xl w-full mt-4"><p>같은 원리를 은하에 쓰면 &mdash; 거의 모든 은하가 <b>적색 이동</b>을 보인다. 우주가 팽창한다는 증거이고, 그것이 <b>20차시</b>의 주제다.</p></div>
+     <p class="slide-caption mt-3">※ 본문 13·14번의 &lsquo;색&rsquo;은 <b>표면 온도</b>를 알려 주고, 여기서 말하는 &lsquo;색의 이동&rsquo;은 <b>운동</b>을 알려 준다. 같은 &lsquo;색&rsquo;이라는 말이 다른 것을 가리키므로 구별해야 한다.</p>
+    </div>
+   </section>
+
+   <!-- 9. 정리 -->
+   <section data-slide-index="8" data-slide-num="9" data-title="부록 정리" id="slide-9" data-section="summary">
+    <div class="slide-content">
+     <h2>부록 정리 &mdash; 별빛에서 더 꺼낸 것</h2>
+     <div class="max-w-5xl w-full mt-3 overflow-x-auto">
+      <table class="lab-table">
+       <thead><tr><th>방법</th><th>무엇을 관측하나</th><th>무엇을 얻나</th><th>닿는 범위</th></tr></thead>
+       <tbody>
+        <tr><td>연주 시차 <span class="text-slate-400">(본문)</span></td><td>반년 간격의 위치 변화</td><td>거리</td><td>수천 광년</td></tr>
+        <tr><td>세페이드 변광성</td><td>밝기 변화의 <b>주기</b></td><td>절대등급 &rarr; 거리</td><td>~ 1억 광년</td></tr>
+        <tr><td>Ia형 초신성</td><td>폭발의 겉보기 밝기</td><td>거리</td><td>~ 100억 광년</td></tr>
+        <tr><td>식쌍성</td><td>가려질 때의 광도 곡선</td><td><b>질량 &middot; 반지름</b> &middot; 온도비</td><td>&mdash;</td></tr>
+        <tr><td>고유 운동</td><td>여러 해에 걸친 위치 변화</td><td>시선에 수직인 속도</td><td>&mdash;</td></tr>
+        <tr><td>시선 운동</td><td>스펙트럼 선의 이동</td><td>시선 방향 속도</td><td>&mdash;</td></tr>
+       </tbody>
+      </table>
+     </div>
+     <div class="standard-box max-w-5xl w-full mt-4">
+      <p class="text-lg text-slate-700">본문의 문장이 그대로 늘어난 것이다 &mdash; <b>실제 밝기를 알면 겉보기 밝기가 거리를 알려 준다.</b> 세페이드는 주기에서, 초신성은 폭발 방식에서 그 &lsquo;실제 밝기&rsquo;를 얻는다.</p>
+     </div>
+     <div class="ask max-w-5xl w-full mt-4"><p>생각해 볼 것 &mdash; 거리 사다리의 <b>1단(연주 시차)</b>이 조금 틀렸다면, 은하까지의 거리는 어떻게 될까? 가이아 위성이 시차를 다시 재는 일이 왜 중요한지 여기에 답이 있다.</p></div>
+     <p class="slide-caption mt-4"><a href="18_stars.html" class="underline">&larr; 18차시 본문으로</a> &nbsp;&middot;&nbsp; <a href="19_milky_way.html" class="underline">19차시 우리은하 &rarr;</a></p>
+    </div>
+   </section>
+
+  </main>
+  <script src="js/slide_engine.js"></script>
+ </body>
+</html>

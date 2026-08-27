@@ -13,16 +13,16 @@
   <style>
    .key-line { font-size:1.3rem; font-weight:800; color:#312e81; }
    .sky-box { background:#0b1120; border-radius:1.25rem; }
-   /* 8쪽만 — 표(20.8px)와 캡션(15.2px)이 제목(39.6px)에 견줘 지나치게 작았다.
-      슬라이드 번호는 삽입 때마다 밀리므로 data-title로 건다. */
-   [data-title="연주 시차와 거리"] .lab-table { font-size:1.6rem; }
-   [data-title="연주 시차와 거리"] .lab-table th,
-   [data-title="연주 시차와 거리"] .lab-table td { padding:0.65rem 0.8rem; }
-   /* presentation_mode.css가 !important + var(--fit)로 잡고 있다.
-      엔진의 자동 축소를 살리려면 그 calc 구조를 그대로 두고 값만 키워야 한다. */
-   [data-title="연주 시차와 거리"] .slide-caption {
-     font-size: calc(clamp(1.15rem, 2vh, 1.5rem) * var(--fit, 1)) !important;
-   }
+   /* 이 차시 전체 — 표(20.8px)와 캡션(15.2px)이 제목(39.6px)에 견줘 지나치게
+      작아 투사 화면 뒷자리에서 읽히지 않았다. 8쪽·18쪽에서 같은 원인으로
+      지적됐으므로 슬라이드마다 덧대지 않고 파일 단위로 올린다.
+      다른 차시에는 영향을 주지 않는다 (전역 css를 건드리지 않았다). */
+   .lab-table { font-size:1.6rem; }
+   .lab-table th, .lab-table td { padding:0.65rem 0.8rem; }
+   /* presentation_mode.css가 !important + var(--fit)로 잡고 있다. 엔진의
+      자동 축소(fitSlides가 --fit을 조절한다)를 죽이지 않으려면 calc 구조를
+      그대로 두고 값만 키워야 한다. */
+   .slide-caption { font-size: calc(clamp(1.15rem, 2vh, 1.5rem) * var(--fit, 1)) !important; }
   </style>
  </head>
  <body class="presentation-mode" style="--accent:#4f46e5; --accent-strong:#312e81; --accent-soft:#e0e7ff; --accent-tint:#eef2ff">
@@ -361,6 +361,7 @@
       <p class="font-bold text-slate-800">참고 — 0.77&Prime;는 얼마나 작은 각일까?</p>
       <p class="text-slate-600 mt-1">약 3 km 밖에 세워 둔 1원짜리 동전을 보는 각도와 비슷하다. 별이 그만큼 멀다는 뜻이다.</p>
      </div>
+     <p class="slide-caption mt-4">그럼 더 먼 곳은 무엇으로 재는가 &mdash; <a href="18_appendix.html" class="underline">부록: 세페이드 변광성과 Ia형 초신성</a></p>
     </div>
    </section>
 
@@ -746,6 +747,7 @@
       <p class="text-lg text-slate-700">표지의 질문에 답하면 &mdash; <b>별빛 하나</b>를 세 가지 방식으로 읽어 거리&middot;밝기&middot;온도를 알아낸다. 별에 가 볼 필요가 없다.</p>
      </div>
      <p class="text-slate-600 mt-4" data-poll-recall="stars-parallax-poll" aria-live="polite">앞에서 고른 답과 지금 생각이 달라졌나요? 무엇 때문에 달라졌나요?</p>
+     <p class="slide-caption mt-3">더 알아보기: <a href="18_appendix.html" class="underline">부록 &mdash; 거리 사다리(세페이드·Ia형 초신성), 식쌍성, 별의 운동</a></p>
     </div>
    </section>
 
@@ -897,7 +899,9 @@
                    borderColor: '#94a3b8', borderWidth: 1 }]
      },
      options: Object.assign({}, opts, { scales: {
-      y: { beginAtZero: true, title: { display: true, text: '표면 온도(K)' } }
+      y: { beginAtZero: true, title: { display: true, text: '표면 온도(K)', font: { size: 18, weight: 'bold' } },
+           ticks: { font: { size: 16 } } },
+      x: { ticks: { font: { size: 16 } } }
      } })
     });
    });
