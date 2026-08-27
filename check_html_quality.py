@@ -27,6 +27,7 @@ DEFAULT_GLOB = [
     "review_motion_energy.html",
     "lecture_notes.html",
     "index.html",
+    "adv_inorganic/*.html",
 ]
 
 FORMULA_TOKENS = (
@@ -162,7 +163,9 @@ def check_file(path: Path, remote_cache: dict[str, tuple[bool, str]], timeout: f
     if text.count("<section") != text.count("</section>"):
         issues.append(Issue("ERROR", path, "mismatched <section> tags"))
 
-    is_slide_deck = path.name[0:2].rstrip("_").isdigit()
+    # 파일명 앞 두 자가 숫자면 차시 슬라이드로 본다. adv_inorganic/은 01.html처럼
+    # 이름이 겹치지만 data-slide-* 대신 <section id="sN">을 쓰는 다른 문서형이다.
+    is_slide_deck = path.parent.name != "adv_inorganic" and path.name[0:2].rstrip("_").isdigit()
     seen_slide_nums: set[str] = set()
     for slide_num, title, line in parsed.sections:
         if slide_num and slide_num in seen_slide_nums:
@@ -204,8 +207,8 @@ def check_file(path: Path, remote_cache: dict[str, tuple[bool, str]], timeout: f
         "18_appendix.html",
     }
     # 고급 무기화학 계열은 역학 차시가 아니다. 모듈이 늘 때마다 이름을 더하지
-    # 않도록 접두사로 면제한다.
-    if path.name.startswith("adv_inorganic_"):
+    # 않도록 폴더 단위로 면제한다.
+    if path.parent.name == "adv_inorganic":
         pass
     elif path.name not in NO_MECHANICS_FORMULA:
         for token in FORMULA_TOKENS:
