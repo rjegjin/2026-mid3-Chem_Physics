@@ -45,7 +45,7 @@ Molecular Symmetry → Group Theory → Representations → SALCs / Selection Ru
 | 02 | Representations & Character Tables | `adv_inorganic_02.html` | Complete |
 | 03 | Vibrational Spectroscopy & SALCs | `adv_inorganic_03.html` | Complete |
 | 04 | Atomic Orbitals & Angular Momentum | `adv_inorganic_04.html` | Complete (14 sections) |
-| 05 | MO Theory: Diatomics | `adv_inorganic_05.html` | Outline |
+| 05 | MO Theory: Diatomics | `adv_inorganic_05.html` | Complete (15 sections) |
 | 06 | MO Theory: Polyatomics | `adv_inorganic_06.html` | Complete (15 sections) |
 | 07 | Crystal Field Theory | `adv_inorganic_07.html` | Complete (14 sections + applet) |
 | 08 | Ligand Field Theory | `adv_inorganic_08.html` | Outline |
@@ -57,8 +57,8 @@ Molecular Symmetry → Group Theory → Representations → SALCs / Selection Ru
 | 14 | Solid-State & Band Theory | `adv_inorganic_14.html` | Outline |
 | 15 | Modern Inorganic Materials | `adv_inorganic_15.html` | Outline |
 
-Written in full: **7** (01, 02, 03, 04, 06, 07 + Bonus 01).
-Outlines: **12** (9 modules + 3 bonus).
+Written in full: **8** (01, 02, 03, 04, 05, 06, 07 + Bonus 01).
+Outlines: **11** (8 modules + 3 bonus).
 Every module has a page that opens, and all of them are surfaced in `index.html`.
 
 ### File Numbering Now Matches Module Numbering (resolved)
@@ -212,7 +212,8 @@ determinants belong here, or the term symbols of Module 09 arrive out of nowhere
 **Downstream dependency**: items 7, 9 and 11 are the premises of Module 09
 (term symbols) and Module 10 (LS coupling).
 
-## Module 05 — MO Theory: Diatomic Molecules  ◻ Outline
+## Module 05 — MO Theory: Diatomic Molecules  ✔ Complete
+**File**: `adv_inorganic_05.html` (15 sections)
 **Central question**: How do atomic orbitals combine into molecular orbitals?
 
 1. LCAO — `ψ = c_A φ_A + c_B φ_B`
@@ -478,7 +479,7 @@ Dependencies make the numerical order the cheapest, with two exceptions.
 Order (the first two are done):
 
 ```
-~~04~~ → ~~06 gaps~~ → ~~07~~ → 08 → 09 → 05 → 10 → 11 → 12 → 13 → 14 → 15
+~~04~~ → ~~06 gaps~~ → ~~07~~ → ~~05~~ → 08 → 09 → 10 → 11 → 12 → 13 → 14 → 15
 Split Bonus 02 and 03 out of Bonus 01 → Bonus 04
 ```
 
@@ -536,9 +537,9 @@ caught after one module rather than fourteen.
 ## Progress
 
 - [x] **07 Crystal Field Theory** — 14 sections + CFSE applet
+- [x] **05 MO Diatomics** — 15 sections
 - [ ] **08 Ligand Field Theory** ← next
 - [ ] 09 Electronic Spectra (two sessions, applet)
-- [ ] 05 MO Diatomics
 - [ ] 10 Spin–Orbit & Relativistic
 - [ ] 11 → 12 → 13 Organometallic
 - [ ] 14 Band Theory (applet) → 15 Materials
