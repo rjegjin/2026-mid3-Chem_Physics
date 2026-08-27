@@ -27,14 +27,16 @@
         table.qtable { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
         table.qtable th, table.qtable td { border: 1px solid #e2e8f0; padding: 0.5rem 0.7rem; text-align: center; }
         table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
+        table.qtable td.l { text-align: left; }
+        .hist { border-left: 6px solid #94a3b8; background: #f8fafc; padding: 1rem 1.25rem; font-size: 0.9rem; color: #475569; }
+        .hist b { color: #0f172a; }
         .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
         .warn b { color: #78350f; }
-        /* Marks this file as an outline so it is never mistaken for finished content. */
-        .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
-        .todo { list-style: none; padding-left: 0; }
-        .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
-        .todo li::before { content: "\25A1"; color: #94a3b8; font-weight: 900; margin-right: 0.6rem; }
-        .todo li b { color: #0f172a; }
+        /* Ligand class chips. Distinguished by wording as well as colour. */
+        .lig { display: inline-block; padding: 0.2rem 0.65rem; border-radius: 999px; font-weight: 800; font-size: 0.85rem; margin: 0.12rem; border: 2px solid; }
+        .lig.don { background: #eff6ff; color: #1e40af; border-color: #2563eb; }
+        .lig.sig { background: #f8fafc; color: #334155; border-color: #94a3b8; }
+        .lig.acc { background: #f0fdf4; color: #166534; border-color: #16a34a; }
     </style>
 </head>
 <body class="presentation-mode">
@@ -48,131 +50,539 @@
             <p class="text-xl text-slate-500 font-medium italic">"The spectrochemical series is not a list to memorise. It is a consequence."</p>
             <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
             <p class="text-base font-bold text-slate-800">Lecture 08: $\sigma$ Frameworks, $\pi$ Donors and Acceptors</p>
-            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; prose not written</div>
         </div>
     </section>
 
     <!-- Slide 2: Scope -->
     <section id="s2">
         <div class="slide-content text-left px-20">
-            <h2>0. Scope</h2>
-            <div class="info-card">
-                <p class="font-black uppercase text-xs mb-3">Central question</p>
-                <p class="text-lg font-medium text-slate-800">How does molecular orbital theory account for metal&ndash;ligand bonding?</p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-6 mt-6">
-                <div class="step-box">
-                    <span class="logic-tag">Requires</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 06 &mdash; ligand SALCs and $\Gamma_\sigma = A_{1g}+E_g+T_{1u}$ &middot; Module 07 &mdash; the $t_{2g}/e_g$ labels</p>
+            <h2>0. The Other Half of the Same Picture</h2>
+            <p class="text-lg font-medium mb-6">Module 07 ended on a failure. Crystal field theory predicts the <b>pattern</b> of the splitting correctly and cannot explain its <b>size</b> &mdash; charged $\mathrm{OH^-}$ turns out to be a weaker field than neutral $\mathrm{NH_3}$, which a point-charge model has no mechanism for.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">What stays</p>
+                    <ul class="text-sm space-y-2 font-medium text-slate-700">
+                        <li>● The labels $t_{2g}$ and $e_g$, unchanged. They come from symmetry (Modules 01&ndash;02), and symmetry does not care which bonding model we use.</li>
+                        <li>● $\Delta_o$ as the quantity that decides spin state, colour and magnetism.</li>
+                        <li>● Every CFSE result of Module 07 &sect;5.</li>
+                    </ul>
                 </div>
-                <div class="step-box">
-                    <span class="logic-tag">Feeds</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 09 &mdash; $\Delta_o$ and the Racah parameter $B$ &middot; Module 11 &mdash; back-donation in carbonyls</p>
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">What changes</p>
+                    <ul class="text-sm space-y-2 font-medium text-slate-700">
+                        <li>● Ligands stop being point charges and become <b>orbitals</b>.</li>
+                        <li>● $\Delta_o$ stops being an electrostatic repulsion and becomes an <b>antibonding gap</b>.</li>
+                        <li>● And then the series follows &mdash; not as a list, but as a conclusion.</li>
+                    </ul>
                 </div>
             </div>
-            <div class="warn mt-8"><b>The point of this module.</b> Re-derive the splitting that crystal field theory got right, and then explain the one thing it got <b>wrong</b> &mdash; the order of the spectrochemical series.</div>
+            <div class="warn mt-4">
+                <b>Nothing new is needed to do this.</b> The ligand SALCs were already derived in Module 06 &sect;7, and the same $\Gamma_\sigma$ appeared there for $\mathrm{SF_6}$. This module assembles Module 06's machinery on a metal centre &mdash; that is all.
+            </div>
         </div>
     </section>
 
-    <!-- Slide 3: The $\sigma$-Only Framework -->
+    <!-- Slide 3: the sigma framework -->
     <section id="s3">
         <div class="slide-content text-left px-20">
-            <h2>1. The $\sigma$-Only Framework</h2>
+            <h2>1. The $\sigma$ Framework</h2>
+            <p class="text-lg font-medium mb-6">Take the six ligand lone pairs as a basis and reduce. This was done in Module 06; the result is recovered, not re-derived.</p>
             <div class="math-box text-center py-6">
-                $$ \Gamma_\sigma = A_{1g} + E_g + T_{1u} $$
+                $$ \Gamma_\sigma \;=\; A_{1g} \;+\; E_g \;+\; T_{1u} $$
             </div>
-            <ul class="todo mt-4">
-                <li>Six ligand lone-pair vectors as the basis &mdash; already reduced in Module 06</li>
-                <li>Metal $s \to A_{1g}$, $p \to T_{1u}$, and $d_{z^2}, d_{x^2-y^2} \to E_g$</li>
-                <li>$d_{xy}, d_{yz}, d_{zx} \to T_{2g}$ &mdash; <b>no partner exists</b>. With $\sigma$ alone they are strictly non-bonding</li>
-                <li>What $\Delta_o$ actually is &mdash; the gap between non-bonding $t_{2g}$ and antibonding $e_g^*$</li>
-            </ul>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <svg viewBox="0 0 420 240" class="w-full" role="img"
+                         aria-label="An octahedral complex with six ligand lone pairs pointing at the metal along the plus and minus x, y and z directions. The six combinations of these lone pairs reduce to one totally symmetric combination, a doubly degenerate pair, and a triply degenerate set.">
+                        <rect x="0" y="0" width="420" height="240" fill="#f8fafc" rx="12"></rect>
+                        <line x1="90" y1="120" x2="330" y2="120" stroke="#cbd5e1" stroke-width="2"></line>
+                        <line x1="210" y1="24" x2="210" y2="216" stroke="#cbd5e1" stroke-width="2"></line>
+                        <line x1="130" y1="176" x2="290" y2="64" stroke="#cbd5e1" stroke-width="2"></line>
+                        <circle cx="210" cy="120" r="19" fill="#0f172a"></circle>
+                        <text x="203" y="126" fill="#f8fafc" font-size="13" font-weight="bold">M</text>
+                        <g fill="#2563eb">
+                         <circle cx="100" cy="120" r="13"></circle><circle cx="320" cy="120" r="13"></circle>
+                         <circle cx="210" cy="34" r="13"></circle><circle cx="210" cy="206" r="13"></circle>
+                         <circle cx="138" cy="170" r="11"></circle><circle cx="282" cy="70" r="11"></circle>
+                        </g>
+                        <g stroke="#2563eb" stroke-width="3">
+                         <line x1="114" y1="120" x2="186" y2="120"></line><line x1="306" y1="120" x2="234" y2="120"></line>
+                         <line x1="210" y1="48" x2="210" y2="98"></line><line x1="210" y1="192" x2="210" y2="142"></line>
+                        </g>
+                        <text x="24" y="34" fill="#475569" font-size="13" font-weight="bold">six lone pairs, all pointing inward</text>
+                        <text x="24" y="222" fill="#64748b" font-size="11">each contributes one electron pair</text>
+                    </svg>
+                </div>
+                <div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">Why only these three labels</p>
+                        <p class="text-sm font-medium text-slate-700">Six equivalent functions can only combine into six symmetry-adapted ones, and the reduction formula of Module 02 says how they group: one $A_{1g}$ (all in phase), one $E_g$ pair, one $T_{1u}$ set of three. $1 + 2 + 3 = 6$ &mdash; the count must close, and it does.</p>
+                    </div>
+                    <div class="warn">
+                        <b>Note what is absent.</b> There is no $T_{2g}$ in $\Gamma_\sigma$. Not "a little" &mdash; none at all. Six inward-pointing lone pairs cannot form a combination that transforms as $T_{2g}$.
+                        <br><br>That absence is the single most consequential fact in this module, and &sect;2 spends its whole time on it.
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Slide 4: $\pi$ Donor Ligands -->
+    <!-- Slide 4: matching metal orbitals -->
     <section id="s4">
         <div class="slide-content text-left px-20">
-            <h2>2. $\pi$ Donor Ligands</h2>
-            <ul class="todo mt-4">
-                <li>Filled ligand $\pi$ orbitals form a $T_{2g}$ symmetry combination</li>
-                <li>They interact with metal $t_{2g}$, which becomes <b>antibonding</b> and rises</li>
-                <li>$e_g^*$ is untouched, so <b>$\Delta_o$ decreases</b></li>
-                <li>Examples: $\mathrm{I^-} &lt; \mathrm{Br^-} &lt; \mathrm{Cl^-} &lt; \mathrm{F^-}$ &mdash; the weak-field end</li>
-                <li>Why halide complexes are so often high spin</li>
-            </ul>
+            <h2>2. Matching the Metal Orbitals &mdash; and the One That Cannot Match</h2>
+            <div class="overflow-x-auto">
+            <table class="qtable">
+                <thead><tr><th>Metal orbitals</th><th>Symmetry in $O_h$</th><th>Present in $\Gamma_\sigma$?</th><th>Outcome</th></tr></thead>
+                <tbody>
+                    <tr><td>$s$</td><td>$A_{1g}$</td><td>yes</td><td class="l">bonding + antibonding pair</td></tr>
+                    <tr><td>$p_x, p_y, p_z$</td><td>$T_{1u}$</td><td>yes</td><td class="l">bonding + antibonding, triply degenerate</td></tr>
+                    <tr><td>$d_{z^2}, d_{x^2-y^2}$</td><td>$E_g$</td><td>yes</td><td class="l">bonding + antibonding, doubly degenerate</td></tr>
+                    <tr><td>$d_{xy}, d_{yz}, d_{zx}$</td><td>$T_{2g}$</td><td><b>no</b></td><td class="l"><b>strictly non-bonding</b></td></tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-2">Same conclusion, two routes</p>
+                    <p class="text-sm font-medium text-slate-700">Module 07 said $t_{2g}$ points <b>between</b> the ligands and so is repelled least. Module 08 says $t_{2g}$ has <b>no symmetry partner</b> and so does not interact at all. These are the same geometric fact stated in two languages &mdash; and the second one is exact rather than approximate.</p>
+                </div>
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-2">The orbital count</p>
+                    <p class="text-sm font-medium text-slate-700">Nine metal valence orbitals ($s + 3p + 5d$) and six ligand SALCs give fifteen molecular orbitals: <b>six bonding</b>, <b>three non-bonding</b> ($t_{2g}$), <b>six antibonding</b>. Orbitals are conserved, exactly as in Module 05 &sect;1.</p>
+                </div>
+            </div>
+            <p class="text-sm text-slate-500 mt-2">The bonding orbitals lie low and are mostly ligand in character &mdash; they are the M&ndash;L bonds. The antibonding ones lie high and are mostly metal.</p>
         </div>
     </section>
 
-    <!-- Slide 5: $\pi$ Acceptor Ligands -->
+    <!-- Slide 5: the sigma-only MO diagram -->
     <section id="s5">
-        <div class="slide-content text-left px-20">
-            <h2>3. $\pi$ Acceptor Ligands</h2>
-            <ul class="todo mt-4">
-                <li>Empty ligand $\pi^*$ orbitals form a $T_{2g}$ symmetry combination</li>
-                <li>Metal $d_\pi \to \pi^*$ back-donation makes $t_{2g}$ <b>bonding</b>, so it falls</li>
-                <li>Therefore <b>$\Delta_o$ increases</b></li>
-                <li>Examples: $\mathrm{CN^-}$, $\mathrm{CO}$ &mdash; the strong-field end</li>
-                <li>The drop in the $\mathrm{CO}$ stretching frequency is direct evidence of back-donation</li>
-            </ul>
+        <div class="slide-content text-left px-16">
+            <h2>3. The $\sigma$-Only Diagram &mdash; Where $\Delta_o$ Actually Lives</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="overflow-x-auto">
+                    <svg viewBox="0 0 440 320" class="w-full" style="max-width:100%" role="img"
+                         aria-label="Sigma-only molecular orbital diagram for an octahedral complex. Metal s, p and d orbitals on the left, the six ligand sigma combinations on the right at lower energy. Six bonding orbitals form at the bottom, mostly ligand in character. The metal t2g set stays at its original energy as non-bonding. Above it lies the antibonding eg star level. The gap between non-bonding t2g and antibonding eg star is delta o.">
+                        <rect x="0" y="0" width="440" height="320" fill="#f8fafc" rx="12"></rect>
+                        <text x="14" y="20" fill="#475569" font-size="11" font-weight="bold">metal</text>
+                        <text x="196" y="20" fill="#475569" font-size="11" font-weight="bold">complex MOs</text>
+                        <text x="376" y="20" fill="#475569" font-size="11" font-weight="bold">6 ligand &sigma;</text>
+                        <!-- metal levels -->
+                        <line x1="24" y1="70" x2="76" y2="70" stroke="#334155" stroke-width="2.5"></line>
+                        <text x="24" y="62" fill="#334155" font-size="10">p (t1u)</text>
+                        <line x1="24" y1="104" x2="76" y2="104" stroke="#334155" stroke-width="2.5"></line>
+                        <text x="24" y="96" fill="#334155" font-size="10">s (a1g)</text>
+                        <line x1="24" y1="150" x2="76" y2="150" stroke="#334155" stroke-width="2.5"></line>
+                        <text x="24" y="168" fill="#334155" font-size="10">d (eg + t2g)</text>
+                        <!-- ligand levels -->
+                        <line x1="366" y1="240" x2="418" y2="240" stroke="#2563eb" stroke-width="2.5"></line>
+                        <line x1="366" y1="252" x2="418" y2="252" stroke="#2563eb" stroke-width="2.5"></line>
+                        <line x1="366" y1="264" x2="418" y2="264" stroke="#2563eb" stroke-width="2.5"></line>
+                        <!-- complex MOs -->
+                        <line x1="170" y1="46" x2="250" y2="46" stroke="#b91c1c" stroke-width="3"></line>
+                        <text x="256" y="50" fill="#b91c1c" font-size="10">t1u*</text>
+                        <line x1="170" y1="66" x2="250" y2="66" stroke="#b91c1c" stroke-width="3"></line>
+                        <text x="256" y="70" fill="#b91c1c" font-size="10">a1g*</text>
+                        <line x1="170" y1="112" x2="250" y2="112" stroke="#b91c1c" stroke-width="4"></line>
+                        <text x="256" y="116" fill="#b91c1c" font-size="11" font-weight="bold">eg*  (antibonding)</text>
+                        <line x1="170" y1="176" x2="250" y2="176" stroke="#166534" stroke-width="4"></line>
+                        <text x="256" y="180" fill="#166534" font-size="11" font-weight="bold">t2g  (non-bonding)</text>
+                        <g stroke="#334155" stroke-width="2.5">
+                         <line x1="170" y1="258" x2="250" y2="258"></line>
+                         <line x1="170" y1="274" x2="250" y2="274"></line>
+                         <line x1="170" y1="290" x2="250" y2="290"></line>
+                        </g>
+                        <text x="256" y="278" fill="#334155" font-size="10">6 bonding (mostly ligand)</text>
+                        <!-- delta o -->
+                        <line x1="150" y1="112" x2="150" y2="176" stroke="#b45309" stroke-width="2.5"></line>
+                        <line x1="144" y1="112" x2="156" y2="112" stroke="#b45309" stroke-width="2.5"></line>
+                        <line x1="144" y1="176" x2="156" y2="176" stroke="#b45309" stroke-width="2.5"></line>
+                        <text x="100" y="148" fill="#b45309" font-size="13" font-weight="bold">&#916;o</text>
+                        <g stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="3 3">
+                         <line x1="76" y1="70" x2="170" y2="46"></line><line x1="76" y1="104" x2="170" y2="66"></line>
+                         <line x1="76" y1="150" x2="170" y2="112"></line><line x1="76" y1="150" x2="170" y2="176"></line>
+                         <line x1="366" y1="252" x2="250" y2="274"></line><line x1="366" y1="252" x2="250" y2="112"></line>
+                        </g>
+                    </svg>
+                </div>
+                <div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">Read the two levels that matter</p>
+                        <p class="text-sm font-medium text-slate-700"><b>$t_{2g}$</b> sits exactly where the metal $d$ orbitals were &mdash; no partner, no shift. <b>$e_g^*$</b> has been pushed <b>up</b>, because it is the antibonding partner of the ligand $E_g$ combination.</p>
+                    </div>
+                    <div class="math-box text-center py-4">
+                        $$ \Delta_o \;=\; E(e_g^{*}) \;-\; E(t_{2g}) $$
+                    </div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">The immediate payoff</p>
+                        <p class="text-sm font-medium text-slate-700">A <b>stronger $\sigma$ donor</b> overlaps better with the metal $E_g$ orbitals, pushes $e_g^*$ higher, and therefore makes <b>$\Delta_o$ larger</b>. Crystal field theory had no such lever &mdash; a point charge has no overlap to be good or bad at.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Slide 6: Reading the Spectrochemical Series -->
+    <!-- Slide 6: what Delta o is -->
     <section id="s6">
         <div class="slide-content text-left px-20">
-            <h2>4. Reading the Spectrochemical Series</h2>
-            <div class="math-box text-center py-6">
-                $$ \mathrm{I^- < Br^- < Cl^- < F^- < H_2O < NH_3 < en < NO_2^- < CN^- < CO} $$
+            <h2>4. $\Delta_o$ Renamed</h2>
+            <p class="text-lg font-medium mb-6">The same symbol, the same measured number, a different physical object.</p>
+            <div class="overflow-x-auto">
+            <table class="qtable">
+                <thead><tr><th></th><th>Crystal field theory</th><th>Ligand field theory</th></tr></thead>
+                <tbody>
+                    <tr><td>Ligand is</td><td>a negative point charge</td><td>a set of orbitals</td></tr>
+                    <tr><td>$e_g$ is raised because</td><td>it points at the charges</td><td>it is <b>antibonding</b></td></tr>
+                    <tr><td>$t_{2g}$ is lowered because</td><td>it points between the charges</td><td>it is <b>non-bonding</b> &mdash; it never moved</td></tr>
+                    <tr><td>$\Delta_o$ is</td><td>an electrostatic splitting</td><td>a $\sigma$-antibonding gap</td></tr>
+                    <tr><td>Ligand order is</td><td class="l"><b>unexplained</b></td><td class="l">a consequence of overlap</td></tr>
+                </tbody>
+            </table>
             </div>
-            <ul class="todo mt-4">
-                <li><b>Left end</b> &mdash; $\pi$ donors. They cut $\Delta_o$ down</li>
-                <li><b>Middle</b> &mdash; $\sigma$ donors only. $\mathrm{NH_3}$ has no $\pi$ orbitals to offer</li>
-                <li><b>Right end</b> &mdash; $\pi$ acceptors. They push $\Delta_o$ up</li>
-                <li>Why $\mathrm{H_2O}$ is weaker than $\mathrm{NH_3}$ &mdash; the oxygen lone pairs act as $\pi$ donors</li>
-                <li><b>Do not memorise the order.</b> Sort the ligands into three classes and the order falls out</li>
-            </ul>
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="warn">
+                    <b>Note the third row carefully.</b> In the CFT picture both sets move &mdash; one up, one down, about a barycentre. In the $\sigma$-only LFT picture $t_{2g}$ does not move at all; the whole of $\Delta_o$ comes from raising $e_g^*$. The barycentre rule of Module 07 &sect;2 is an artefact of the electrostatic model, not a law.
+                </div>
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-2">Why Module 07 still works</p>
+                    <p class="text-sm font-medium text-slate-700">Every CFSE calculation used only the <b>relative</b> spacing of $t_{2g}$ and $e_g$, expressed in units of $\Delta_o$. Reinterpreting where $\Delta_o$ comes from leaves those numbers untouched. A wrong mechanism with the right symmetry gives the right pattern &mdash; which is what Module 07 &sect;11 concluded.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Slide 7: Beyond the Series -->
+    <!-- Slide 7: pi setup -->
     <section id="s7">
         <div class="slide-content text-left px-20">
-            <h2>5. Beyond the Series</h2>
-            <ul class="todo mt-4">
-                <li>The nephelauxetic effect &mdash; electron repulsion is reduced in the complex, a measure of covalency</li>
-                <li>The Racah parameter $B$ decreases; Module 09 makes this quantitative</li>
-                <li>Where the 18-electron rule comes from &mdash; six bonding pairs plus a filled $t_{2g}$</li>
-                <li>The same $\Gamma_\sigma$ appeared for $\mathrm{SF_6}$ in Module 06 &sect;9</li>
-            </ul>
+            <h2>5. Bringing In $\pi$ &mdash; and Who Is Waiting</h2>
+            <p class="text-lg font-medium mb-6">Each ligand has orbitals perpendicular to the M&ndash;L axis as well. Six ligands, two each, gives twelve $\pi$ functions. Reducing them:</p>
+            <div class="math-box text-center py-6">
+                $$ \Gamma_\pi \;=\; T_{1g} \;+\; T_{2g} \;+\; T_{1u} \;+\; T_{2u} $$
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="step-box">
+                    <p class="font-black">$T_{2g}$ &mdash; the one that matters</p>
+                    <p class="text-sm text-slate-700 mt-2">This matches the metal $t_{2g}$ set, which the $\sigma$ framework left <b>completely free</b>. An empty dance partner has finally arrived.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black">$T_{1u}$ &mdash; already spoken for</p>
+                    <p class="text-sm text-slate-700 mt-2">Matches metal $p$, but those are deeply committed to $\sigma$ bonding. Conventionally neglected; a full treatment includes it as a small correction.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black">$T_{1g}$, $T_{2u}$ &mdash; nobody home</p>
+                    <p class="text-sm text-slate-700 mt-2">No metal valence orbital carries these labels. They stay non-bonding, unchanged, and play no part.</p>
+                </div>
+            </div>
+            <div class="warn mt-6">
+                <b>The whole of $\pi$ chemistry now hinges on one question:</b> are the ligand $T_{2g}$ orbitals <b>filled and low</b>, or <b>empty and high</b>? Those two cases push $t_{2g}$ in opposite directions, and they are &sect;6 and &sect;7. There is no third case.
+            </div>
         </div>
     </section>
 
-    <!-- Slide 8: Key Competencies -->
+    <!-- Slide 8: pi donor -->
     <section id="s8">
         <div class="slide-content text-left px-20">
-            <h2>6. Key Competencies</h2>
-            <ul class="todo mt-4">
-                <li>Draw the $O_h$ MO diagram for the $\sigma$-only, $\pi$-donor and $\pi$-acceptor cases</li>
-                <li>Classify an unfamiliar ligand and predict its effect on $\Delta_o$</li>
-                <li>State what $\Delta_o$ is the gap <b>between</b>, separately in CFT and in LFT</li>
-                <li>Explain the series order that crystal field theory could not</li>
-            </ul>
+            <h2>6. $\pi$ Donors &mdash; $\Delta_o$ Shrinks</h2>
+            <p class="text-lg font-medium mb-6">A halide brings <b>filled</b> $p$ orbitals lying <b>below</b> the metal $d$ level. Filled meets non-bonding.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <svg viewBox="0 0 480 260" class="w-full" role="img"
+                         aria-label="Effect of a pi donor ligand. The filled ligand pi level lies below the metal t2g level. Their interaction produces a lower bonding combination that is mostly ligand and an upper antibonding combination that is mostly metal, so t2g is pushed up while eg star does not move. Delta o therefore becomes smaller.">
+                        <rect x="0" y="0" width="480" height="260" fill="#f8fafc" rx="12"></rect>
+                        <text x="16" y="20" fill="#475569" font-size="11" font-weight="bold">no &pi;</text>
+                        <text x="284" y="20" fill="#475569" font-size="11" font-weight="bold">with &pi; donor</text>
+                        <line x1="34" y1="70" x2="110" y2="70" stroke="#b91c1c" stroke-width="3.5"></line>
+                        <text x="34" y="62" fill="#b91c1c" font-size="10">eg*</text>
+                        <line x1="34" y1="160" x2="110" y2="160" stroke="#166534" stroke-width="3.5"></line>
+                        <text x="34" y="180" fill="#166534" font-size="10">t2g</text>
+                        <line x1="20" y1="70" x2="20" y2="160" stroke="#b45309" stroke-width="2.5"></line>
+                        <text x="0" y="120" fill="#b45309" font-size="12" font-weight="bold">&#916;o</text>
+                        <line x1="290" y1="70" x2="366" y2="70" stroke="#b91c1c" stroke-width="3.5"></line>
+                        <text x="372" y="74" fill="#b91c1c" font-size="10">eg*</text>
+                        <line x1="290" y1="126" x2="366" y2="126" stroke="#166534" stroke-width="3.5"></line>
+                        <text x="372" y="130" fill="#166534" font-size="10">t2g (raised)</text>
+                        <line x1="278" y1="70" x2="278" y2="126" stroke="#b45309" stroke-width="2.5"></line>
+                        <text x="242" y="102" fill="#b45309" font-size="12" font-weight="bold">smaller</text>
+                        <line x1="290" y1="216" x2="366" y2="216" stroke="#2563eb" stroke-width="3"></line>
+                        <text x="372" y="220" fill="#2563eb" font-size="10">bonding</text>
+                        <line x1="150" y1="196" x2="226" y2="196" stroke="#2563eb" stroke-width="3.5"></line>
+                        <text x="140" y="216" fill="#2563eb" font-size="10">ligand &pi; (filled)</text>
+                        <g stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3">
+                         <line x1="112" y1="160" x2="288" y2="126"></line>
+                         <line x1="228" y1="196" x2="288" y2="216"></line>
+                         <line x1="228" y1="196" x2="288" y2="126"></line>
+                         <line x1="112" y1="70" x2="288" y2="70"></line>
+                        </g>
+                        <text x="150" y="34" fill="#64748b" font-size="10">eg* untouched &mdash; wrong symmetry for &pi;</text>
+                    </svg>
+                </div>
+                <div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">The mechanism, step by step</p>
+                        <p class="text-sm font-medium text-slate-700">Filled ligand $\pi$ below, non-bonding metal $t_{2g}$ above. They mix into a lower <b>bonding</b> pair (mostly ligand) and an upper <b>antibonding</b> pair (mostly metal). The four electrons that were in the ligand orbitals fill the lower one; the metal $d$ electrons now sit in an <b>antibonding</b> $t_{2g}$.</p>
+                    </div>
+                    <div class="math-box text-center py-4">
+                        $$ t_{2g} \uparrow \;,\quad e_g^{*} \text{ fixed} \;\;\Longrightarrow\;\; \Delta_o \downarrow $$
+                    </div>
+                    <div class="warn">
+                        <b>Filled&ndash;filled interactions are destabilising.</b> Module 05 &sect;2 showed the antibonding level rises more than the bonding level falls. So $\pi$ donation from a halide does not merely shrink $\Delta_o$ &mdash; it costs the complex energy. This is why halide complexes are labile and why hard halides sit at the weak-field end.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: pi acceptor -->
+    <section id="s9">
+        <div class="slide-content text-left px-20">
+            <h2>7. $\pi$ Acceptors &mdash; $\Delta_o$ Grows</h2>
+            <p class="text-lg font-medium mb-6">$\mathrm{CO}$ and $\mathrm{CN^-}$ bring <b>empty</b> $\pi^*$ orbitals lying <b>above</b> the metal $d$ level. Empty meets occupied &mdash; the opposite arrangement.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <svg viewBox="0 0 480 260" class="w-full" role="img"
+                         aria-label="Effect of a pi acceptor ligand. The empty ligand pi star level lies above the metal t2g level. Their interaction pushes t2g down as a bonding combination while eg star does not move, so delta o becomes larger. The metal d electrons are stabilised.">
+                        <rect x="0" y="0" width="480" height="260" fill="#f8fafc" rx="12"></rect>
+                        <text x="16" y="20" fill="#475569" font-size="11" font-weight="bold">no &pi;</text>
+                        <text x="278" y="20" fill="#475569" font-size="11" font-weight="bold">with &pi; acceptor</text>
+                        <line x1="34" y1="96" x2="110" y2="96" stroke="#b91c1c" stroke-width="3.5"></line>
+                        <text x="34" y="88" fill="#b91c1c" font-size="10">eg*</text>
+                        <line x1="34" y1="160" x2="110" y2="160" stroke="#166534" stroke-width="3.5"></line>
+                        <text x="34" y="180" fill="#166534" font-size="10">t2g</text>
+                        <line x1="20" y1="96" x2="20" y2="160" stroke="#b45309" stroke-width="2.5"></line>
+                        <text x="0" y="132" fill="#b45309" font-size="12" font-weight="bold">&#916;o</text>
+                        <line x1="290" y1="96" x2="366" y2="96" stroke="#b91c1c" stroke-width="3.5"></line>
+                        <text x="372" y="100" fill="#b91c1c" font-size="10">eg*</text>
+                        <line x1="290" y1="198" x2="366" y2="198" stroke="#166534" stroke-width="3.5"></line>
+                        <text x="372" y="202" fill="#166534" font-size="10">t2g (lowered)</text>
+                        <line x1="278" y1="96" x2="278" y2="198" stroke="#b45309" stroke-width="2.5"></line>
+                        <text x="240" y="152" fill="#b45309" font-size="12" font-weight="bold">larger</text>
+                        <line x1="150" y1="48" x2="226" y2="48" stroke="#16a34a" stroke-width="3.5"></line>
+                        <text x="142" y="40" fill="#16a34a" font-size="10">ligand &pi;* (empty)</text>
+                        <line x1="290" y1="42" x2="366" y2="42" stroke="#16a34a" stroke-width="3"></line>
+                        <text x="372" y="46" fill="#16a34a" font-size="10">antibonding</text>
+                        <g stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3">
+                         <line x1="112" y1="160" x2="288" y2="198"></line>
+                         <line x1="228" y1="48" x2="288" y2="42"></line>
+                         <line x1="228" y1="48" x2="288" y2="198"></line>
+                         <line x1="112" y1="96" x2="288" y2="96"></line>
+                        </g>
+                        <text x="140" y="234" fill="#64748b" font-size="10">metal d electrons end up in a bonding orbital</text>
+                    </svg>
+                </div>
+                <div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">The mechanism</p>
+                        <p class="text-sm font-medium text-slate-700">Metal $t_{2g}$ below, empty ligand $\pi^*$ above. The lower combination is now <b>bonding</b> and it is the one the metal $d$ electrons occupy. They are stabilised, $t_{2g}$ drops, $e_g^*$ is untouched.</p>
+                    </div>
+                    <div class="math-box text-center py-4">
+                        $$ t_{2g} \downarrow \;,\quad e_g^{*} \text{ fixed} \;\;\Longrightarrow\;\; \Delta_o \uparrow $$
+                    </div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">Back-donation, and how it is measured</p>
+                        <p class="text-sm font-medium text-slate-700">Electron density flows metal $\to$ ligand $\pi^*$. Filling an antibonding orbital of $\mathrm{CO}$ weakens the C&ndash;O bond, so $\nu_{\mathrm{CO}}$ <b>falls</b> &mdash; 2143 cm$^{-1}$ free, 2057 in $\mathrm{Ni(CO)_4}$, 1790 in $\mathrm{[Fe(CO)_4]^{2-}}$. Module 05 &sect;11 derived those frontier orbitals; here they do work.</p>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-2">Unlike &sect;6, this is an <b>empty&ndash;filled</b> interaction: purely stabilising, with no antibonding penalty to pay.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: deriving the series -->
+    <section id="s10">
+        <div class="slide-content text-left px-20">
+            <h2>8. The Spectrochemical Series, Derived</h2>
+            <div class="math-box text-center py-5">
+                $$ \mathrm{I^-} &lt; \mathrm{Br^-} &lt; \mathrm{Cl^-} &lt; \mathrm{F^-} &lt; \mathrm{OH^-} &lt; \mathrm{H_2O} &lt; \mathrm{NH_3} &lt; \mathrm{en} &lt; \mathrm{NO_2^-} &lt; \mathrm{CN^-} \approx \mathrm{CO} $$
+            </div>
+            <p class="text-lg font-medium">Sort the ligands into the three classes of &sect;5&ndash;&sect;7 and the order is no longer a list to learn.</p>
+            <div class="grid md:grid-cols-3 gap-5 mt-5">
+                <div class="step-box">
+                    <span class="lig don">&#9660; &pi; donor</span>
+                    <p class="text-sm text-slate-700 mt-3">$\mathrm{I^-}$, $\mathrm{Br^-}$, $\mathrm{Cl^-}$, $\mathrm{F^-}$, $\mathrm{OH^-}$</p>
+                    <p class="text-sm text-slate-700 mt-2">Filled $\pi$ raises $t_{2g}$. <b>Weak field end.</b></p>
+                </div>
+                <div class="step-box">
+                    <span class="lig sig">&#9644; &sigma; only</span>
+                    <p class="text-sm text-slate-700 mt-3">$\mathrm{NH_3}$, $\mathrm{en}$, amines</p>
+                    <p class="text-sm text-slate-700 mt-2">Nothing of $\pi$ symmetry to offer. $t_{2g}$ stays put. <b>Middle.</b></p>
+                </div>
+                <div class="step-box">
+                    <span class="lig acc">&#9650; &pi; acceptor</span>
+                    <p class="text-sm text-slate-700 mt-3">$\mathrm{CN^-}$, $\mathrm{CO}$, $\mathrm{NO_2^-}$, phen</p>
+                    <p class="text-sm text-slate-700 mt-2">Empty $\pi^*$ lowers $t_{2g}$. <b>Strong field end.</b></p>
+                </div>
+            </div>
+            <div class="warn mt-5">
+                <b>The order within the halides needs the same reasoning.</b> $\mathrm{I^-}$ is the <b>weakest</b> field and $\mathrm{F^-}$ the strongest &mdash; the reverse of what charge density would suggest. Iodine's diffuse $5p$ orbitals sit close in energy to the metal $d$ level and overlap well, so iodide is the <b>best</b> $\pi$ donor and cuts $\Delta_o$ the most. Fluorine's $2p$ is far too low to donate effectively, so $\mathrm{F^-}$ acts as a nearly pure $\sigma$ donor.
+                <br><br>Stated as a rule: <b>a better $\pi$ donor makes a weaker field.</b>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: H2O vs NH3 -->
+    <section id="s11">
+        <div class="slide-content text-left px-20">
+            <h2>9. $\mathrm{H_2O}$ Against $\mathrm{NH_3}$ &mdash; the Deciding Case</h2>
+            <p class="text-lg font-medium mb-6">This is the pair Module 07 could not handle, and the cleanest test of everything above.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="step-box">
+                    <p class="font-black text-lg">$\mathrm{H_2O}$ &mdash; weaker field</p>
+                    <p class="text-sm text-slate-700 mt-2">Oxygen has <b>two</b> lone pairs. One forms the $\sigma$ bond to the metal; the other has $\pi$ symmetry with respect to the M&ndash;O axis and <b>donates</b>.</p>
+                    <p class="text-sm text-slate-700 mt-2">$\sigma$ donor <b>plus</b> $\pi$ donor &rArr; $t_{2g}$ raised &rArr; smaller $\Delta_o$.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black text-lg">$\mathrm{NH_3}$ &mdash; stronger field</p>
+                    <p class="text-sm text-slate-700 mt-2">Nitrogen has <b>one</b> lone pair, and it goes into the $\sigma$ bond. The other three valence orbitals are committed to N&ndash;H bonds. Nothing of $\pi$ symmetry is left.</p>
+                    <p class="text-sm text-slate-700 mt-2">$\sigma$ donor <b>only</b> &rArr; $t_{2g}$ untouched &rArr; larger $\Delta_o$.</p>
+                </div>
+            </div>
+            <div class="info-card mt-5">
+                <p class="font-black uppercase text-xs mb-2">Why this settles the argument against CFT</p>
+                <p class="text-sm font-medium text-slate-700">On charge alone, $\mathrm{OH^-}$ (anionic) should outrank $\mathrm{H_2O}$ (neutral), and both should outrank $\mathrm{NH_3}$. Observed order: $\mathrm{OH^-} &lt; \mathrm{H_2O} &lt; \mathrm{NH_3}$ &mdash; exactly <b>inverted</b>. And it follows immediately from $\pi$ donation, because $\mathrm{OH^-}$ is the better $\pi$ donor of the two oxygen ligands.</p>
+            </div>
+            <div class="warn mt-4">
+                <b>Do not over-read the series.</b> It is an <b>empirical average</b> across many metals, not a physical constant. Orders can invert with the metal, its oxidation state and the geometry &mdash; and a genuine treatment of a non-octahedral complex needs the angular overlap model rather than a single $\Delta$. What is robust is the <b>reasoning</b>: classify by $\sigma$/$\pi$ behaviour, then predict.
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 12: nephelauxetic -->
+    <section id="s12">
+        <div class="slide-content text-left px-20">
+            <h2>10. Covalency, Measured &mdash; the Nephelauxetic Effect</h2>
+            <p class="text-lg font-medium mb-6">If ligand orbitals really mix with metal $d$ orbitals, the $d$ electrons are no longer confined to the metal. They spread out, and spread-out electrons repel each other less.</p>
+            <div class="math-box text-center py-5">
+                $$ \beta \;=\; \frac{B(\text{complex})}{B(\text{free ion})} \;&lt;\; 1 $$
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-2">What $B$ is and where it comes from</p>
+                    <p class="text-sm font-medium text-slate-700">$B$ is a <b>Racah parameter</b> &mdash; a measure of electron&ndash;electron repulsion within the $d$ shell, read out of an absorption spectrum. Module 09 extracts it from a Tanabe&ndash;Sugano diagram alongside $\Delta_o$. The name "nephelauxetic" is Greek for <b>cloud-expanding</b>.</p>
+                </div>
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-2">Nephelauxetic series</p>
+                    <p class="text-sm font-medium text-slate-700">$\mathrm{F^-}$ &lt; $\mathrm{H_2O}$ &lt; $\mathrm{NH_3}$ &lt; $\mathrm{Cl^-}$ &lt; $\mathrm{CN^-}$ &lt; $\mathrm{Br^-}$ &lt; $\mathrm{I^-}$</p>
+                        <p class="text-sm font-medium text-slate-700 mt-2">Reading left to right, covalency <b>increases</b> and $\beta$ falls.</p>
+                </div>
+            </div>
+            <div class="warn mt-5">
+                <b>The two series are not the same order &mdash; and that is the point.</b> Iodide is at the <b>weak-field</b> end of the spectrochemical series and at the <b>most covalent</b> end of the nephelauxetic series. There is no contradiction: $\Delta_o$ measures how far $e_g^*$ and $t_{2g}$ are pushed apart, while $\beta$ measures how far the $d$ electrons have leaked onto the ligands. Different quantities, different physics.
+                <br><br>A ligand can therefore be a poor field and a strongly covalent partner at once. Treating the spectrochemical series as a general "strength" ranking is the mistake this slide exists to prevent.
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 13: 18-electron rule -->
+    <section id="s13">
+        <div class="slide-content text-left px-20">
+            <h2>11. Where the 18-Electron Rule Comes From</h2>
+            <p class="text-lg font-medium mb-6">The diagram of &sect;3 already contains it. Count the orbitals a complex can fill without paying an antibonding penalty.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <div class="overflow-x-auto">
+                    <table class="qtable">
+                        <thead><tr><th>Level</th><th>Orbitals</th><th>Electrons</th><th>Character</th></tr></thead>
+                        <tbody>
+                            <tr><td>$a_{1g}$</td><td>1</td><td>2</td><td>bonding</td></tr>
+                            <tr><td>$t_{1u}$</td><td>3</td><td>6</td><td>bonding</td></tr>
+                            <tr><td>$e_g$</td><td>2</td><td>4</td><td>bonding</td></tr>
+                            <tr><td>$t_{2g}$</td><td>3</td><td>6</td><td>non-bonding</td></tr>
+                            <tr><td><b>total</b></td><td><b>9</b></td><td><b>18</b></td><td>&mdash;</td></tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-3">The next available orbital is $e_g^*$, which is antibonding. Filling it costs energy, so 18 is a natural stopping point.</p>
+                </div>
+                <div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">Why $\pi$ acceptors enforce it hardest</p>
+                        <p class="text-sm font-medium text-slate-700">A $\pi$ acceptor pushes $t_{2g}$ <b>down</b> (&sect;7), widening the gap to $e_g^*$. The 18-electron configuration becomes a deep well. That is why carbonyls obey the rule so faithfully &mdash; $\mathrm{Ni(CO)_4}$, $\mathrm{Fe(CO)_5}$, $\mathrm{Cr(CO)_6}$ are all exactly 18.</p>
+                    </div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">And why $\pi$ donors let it slide</p>
+                        <p class="text-sm font-medium text-slate-700">A $\pi$ donor raises $t_{2g}$, shrinking the gap. Electron counts stray freely, which is exactly what the high-spin halide and aqua complexes of Module 07 do &mdash; $\mathrm{[Fe(H_2O)_6]^{2+}}$ has 20 valence electrons by this counting and is perfectly stable.</p>
+                    </div>
+                    <p class="text-sm text-slate-700">Module 11 takes this up as a counting tool. Its exceptions are not arbitrary: they track the $\pi$ character of the ligands.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 14: history and limits -->
+    <section id="s14">
+        <div class="slide-content text-left px-20">
+            <h2>12. How This Theory Arrived, and Where It Stops</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="step-box">
+                    <p class="font-black">Van Vleck, 1935</p>
+                    <p class="text-sm text-slate-700 mt-2">Having made crystal field theory useful (Module 07), he pointed out its limits himself and proposed mixing in orbital overlap. The idea existed for two decades before chemists took it up.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black">Orgel, Griffith, 1957</p>
+                    <p class="text-sm text-slate-700 mt-2">Their review named and consolidated "ligand field theory". The $\sigma$/$\pi$ classification of this module dates from that period, and it is what finally explained the series.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black">Since</p>
+                    <p class="text-sm text-slate-700 mt-2">The angular overlap model generalised it to arbitrary geometries; density functional methods now compute $\Delta_o$ rather than parameterise it. LFT survives because it <b>explains</b> cheaply what calculation only reproduces expensively.</p>
+                </div>
+            </div>
+            <div class="warn mt-6">
+                <b>What LFT still does not do.</b> It does not predict the magnitude of $\Delta_o$ from first principles &mdash; $\Delta_o$ remains a quantity fitted to a spectrum. It is a one-electron model, so it handles electron&ndash;electron repulsion only through parameters like the Racah $B$ of &sect;10. And a single $\Delta$ is meaningful only in high symmetry.
+                <br><br>The honest summary: <b>Module 07 explained the pattern, Module 08 explains the order, and neither computes the number.</b> Getting the number is Module 09's job &mdash; and it gets it from experiment, not from theory.
+            </div>
+            <div class="info-card mt-4">
+                <p class="font-black uppercase text-xs mb-2">The one sentence to carry forward</p>
+                <p class="text-lg font-medium text-slate-800">$\Delta_o$ is set by <b>overlap</b>, not by charge: $\sigma$ donation raises $e_g^{*}$, $\pi$ donation raises $t_{2g}$, $\pi$ acceptance lowers it.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 15: competencies -->
+    <section id="s15">
+        <div class="slide-content text-left px-20">
+            <h2>13. Module 8 Key Competencies</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="step-box">
+                    <span class="logic-tag">Construct</span>
+                    <p class="text-sm text-slate-700 mt-3">Build the $\sigma$-only $O_h$ diagram from $\Gamma_\sigma = A_{1g}+E_g+T_{1u}$ and say why $t_{2g}$ is left out.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Reframe</span>
+                    <p class="text-sm text-slate-700 mt-3">State what $\Delta_o$ is the gap between, separately in CFT and in LFT, and why the CFSE results survive the change.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Classify</span>
+                    <p class="text-sm text-slate-700 mt-3">Given an unfamiliar ligand, decide whether it is a $\pi$ donor, $\sigma$-only or $\pi$ acceptor, and predict its effect on $\Delta_o$.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Derive</span>
+                    <p class="text-sm text-slate-700 mt-3">Reproduce the spectrochemical order from the three classes, including why $\mathrm{I^-} &lt; \mathrm{F^-}$.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Distinguish</span>
+                    <p class="text-sm text-slate-700 mt-3">Explain why iodide sits at opposite ends of the spectrochemical and nephelauxetic series without contradiction.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Count</span>
+                    <p class="text-sm text-slate-700 mt-3">Get 18 out of the $\sigma$-only diagram, and say why $\pi$ acceptors make the rule bind and $\pi$ donors let it slip.</p>
+                </div>
+            </div>
+            <div class="warn mt-8">
+                <b>Self-test.</b> One sentence each &mdash; (i) why the $\sigma$ framework leaves $t_{2g}$ strictly non-bonding, (ii) why a <b>better</b> $\pi$ donor gives a <b>weaker</b> field, (iii) why $\mathrm{NH_3}$ outranks $\mathrm{H_2O}$ although it carries no charge. If any of them sticks, return to &sect;1, &sect;6 and &sect;9.
+            </div>
         </div>
     </section>
 
     <!-- Slide 40: End -->
     <section id="s40" class="end">
         <div class="slide-content text-center">
-            <div class="outline-banner" style="display:inline-block">Outline only</div>
-            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 8 &mdash; Outline</h2>
-            <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
-                Section structure and key equations are in place; prose, diagrams and worked cases are not.
-                The rationale for this ordering is in <b>ADV_INORGANIC_ROADMAP.md</b>; the whole map is in the
-                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>.
-            </p>
-            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
+            <h2 class="border-none text-5xl font-black mb-10 tracking-tighter">Module 8 Complete</h2>
+            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest">Next Phase:</p>
             <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Electronic Spectra<br>of Complexes</p>
+            <div class="mt-20 p-8 border-t-2 border-slate-100 italic font-serif text-slate-400">
+                "Module 07 explained the pattern. This one explains the order. Neither computes the number."
+            </div>
         </div>
     </section>
 </main>
