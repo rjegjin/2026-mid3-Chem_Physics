@@ -141,6 +141,14 @@
                 // SVG 자식은 clientWidth가 늘 0이라 항상 넘침으로 잡힌다. viewBox가
                 // 알아서 스케일하므로 넘침 판정 대상이 아니다 — 바깥의 <svg>만 본다.
                 if (el.ownerSVGElement) return false;
+                // 스스로 가로 스크롤을 갖는 상자는 넘치는 게 설계다(넓은 표, 코드
+                // 블록, 줄바꿈 안 되는 MathJax 수식). 레이아웃을 깨는 넘침만 본다.
+                const ox = win.getComputedStyle(el).overflowX;
+                if (ox === 'auto' || ox === 'scroll') return false;
+                // MathJax 내부(mjx-math·mjx-mi·mjx-c·mjx-assistive-mml)는 글리프를
+                // 음수 마진으로 배치하므로 scrollWidth가 레이아웃을 뜻하지 않는다.
+                // 수식이 상자를 밀어내는 문제는 mjx-container 쪽에서 이미 잡는다.
+                if (el.closest && el.closest('mjx-container')) return false;
                 return el.scrollWidth > el.clientWidth + 4;
               })
               .slice(0, 50)
