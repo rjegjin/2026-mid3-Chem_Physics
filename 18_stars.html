@@ -23,6 +23,22 @@
       자동 축소(fitSlides가 --fit을 조절한다)를 죽이지 않으려면 calc 구조를
       그대로 두고 값만 키워야 한다. */
    .slide-caption { font-size: calc(clamp(1.15rem, 2vh, 1.5rem) * var(--fit, 1)) !important; }
+
+   /* 별 이름은 누를 수 있다는 것이 보여야 한다. 표 안이므로 버튼처럼 크게 만들지 않고
+      밑줄만 준다 — 셀 높이를 늘리면 표가 다시 넘친다. */
+   .star-pick { border-bottom: 2px dotted #6366f1; color: #3730a3; font-weight: 700; cursor: pointer; }
+   .star-pick:hover, .star-pick:focus-visible { background: #eef2ff; outline: none; }
+   .star-pick[aria-pressed="true"] { background: #e0e7ff; border-bottom-style: solid; }
+   /* hidden 속성은 SVGElement에 IDL 프로퍼티가 없다(HTMLElement에만 있다).
+      el.hidden = false가 속성을 지우지 못하므로 클래스로 보인다/숨는다를 정한다. */
+   svg.sky { width: 300px; max-width: 100%; flex-shrink: 0; display: none; }
+   svg.sky.on { display: block; }
+   #sky-panel { min-height: 226px; }
+   /* 표가 flex-1로 남은 폭을 다 먹으면 이 칼럼이 0으로 접힌다. 폭을 못 박는다. */
+   @media (min-width: 768px) {
+    #sky-panel { flex: 0 0 300px; }
+    #star-table-col { flex: 1 1 auto; min-width: 0; }   /* md:flex-1이 빌드에 없어 직접 쓴다 */
+   }
   </style>
  </head>
  <body class="presentation-mode" style="--accent:#4f46e5; --accent-strong:#312e81; --accent-soft:#e0e7ff; --accent-tint:#eef2ff">
@@ -148,12 +164,8 @@
        <p class="font-bold text-slate-800">해결</p>
        <p class="text-slate-600 mt-1">지구는 태양 주위를 <b>공전</b>한다. 6개월 뒤 지구는 궤도의 반대편에 있다.<br/>→ 인류가 쓸 수 있는 가장 긴 기선: <b>지구 궤도의 지름(약 3억 km)</b></p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-       <div class="outline-card"><p class="font-bold text-slate-800">1월의 지구</p><p class="text-slate-600 mt-1">별을 A 방향에서 관측</p></div>
-       <div class="outline-card"><p class="font-bold text-slate-800">7월의 지구</p><p class="text-slate-600 mt-1">반대편에서 B 방향으로 관측</p></div>
-       <div class="outline-card"><p class="font-bold text-slate-800">결과</p><p class="text-slate-600 mt-1">가까운 별이 먼 별들 사이에서 조금 움직여 보인다</p></div>
-      </div>
      </div>
+     <p class="slide-caption mt-4">※ 1월과 7월에 같은 별을 보면, 가까운 별이 먼 별들 사이에서 조금 움직여 보인다. 다음 장에서 그림으로 확인한다.</p>
     </div>
    </section>
 
@@ -208,12 +220,9 @@
         <p class="font-bold text-indigo-700">연주 시차 = p</p>
         <p class="text-slate-600 mt-1">그 각의 <b>절반</b>. 기선을 지구-태양 거리(1 AU)로 잡은 값이다.</p>
        </div>
-       <div class="outline-card">
-        <p class="font-bold text-slate-800">단위</p>
-        <p class="text-slate-600 mt-1">각도의 아주 작은 단위 <b>초("</b>)<br/>1&deg; = 60&prime; = 3600&Prime;</p>
-       </div>
       </div>
      </div>
+     <p class="slide-caption mt-3">※ 각도의 아주 작은 단위 <b>초(&Prime;)</b>를 쓴다 &mdash; 1&deg; = 60&prime; = 3600&Prime;. 가장 가까운 별의 연주 시차도 1&Prime;보다 작다.</p>
     </div>
    </section>
 
@@ -237,10 +246,8 @@
          <tr><td>1&Prime;</td><td>1 pc</td><td>약 3.26</td></tr>
          <tr><td>0.5&Prime;</td><td>2 pc</td><td>약 6.5</td></tr>
          <tr><td>0.1&Prime;</td><td>10 pc</td><td>약 32.6</td></tr>
-         <tr><td>0.01&Prime;</td><td>100 pc</td><td>약 326</td></tr>
         </tbody>
        </table>
-       <div class="outline-card text-center"><p class="key-line">연주 시차가 클수록 가까운 별</p></div>
       </div>
      </div>
     </div>
@@ -250,12 +257,12 @@
    <section data-slide-index="8" data-slide-num="9" data-title="시뮬레이션으로 확인하기" id="slide-9" data-section="parallax">
     <div class="slide-content">
      <h2>시뮬레이션으로 확인하기</h2>
-     <p class="text-slate-600" id="sim-lead" style="font-size:1.3rem">지금까지 그림과 식으로 본 것을 <b>직접 조작해</b> 확인합니다. 카드의 &lsquo;여기에 열기&rsquo;를 누르면 아래에 열리고, &lsquo;새 창&rsquo;은 화면 전체로 볼 때 씁니다.</p>
+     <p class="text-slate-600" id="sim-lead" style="font-size:1.2rem">그림과 식으로 본 것을 <b>직접 조작해</b> 확인합니다. &lsquo;여기에 열기&rsquo;는 아래에, &lsquo;새 창&rsquo;은 화면 전체로 엽니다.</p>
      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl w-full mt-4" id="sim-cards">
       <div class="outline-card">
        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">슬라이드 1·2와 짝</p>
        <p class="font-bold text-slate-800 mt-1">거리와 시차의 관계</p>
-       <p class="text-slate-600 mt-1 text-sm">관측 위치 (가)·(나)에서 시차를 재어 표에 기록한다. 물체까지의 거리를 바꿔 가며 <b>거리가 멀수록 시차가 작아지는 것</b>을 직접 측정한다.</p>
+       <p class="text-slate-600 mt-1 text-sm">관측 위치를 바꿔 시차를 재고, <b>거리가 멀수록 시차가 작아지는 것</b>을 직접 측정한다.</p>
        <div class="flex flex-wrap gap-2 mt-3">
         <button class="quiz-btn" data-sim="https://sciencej1.cafe24.com/sci2/parallax.html" data-sim-name="거리와 시차의 관계" style="max-width:130px">여기에 열기</button>
         <a class="quiz-btn" href="https://sciencej1.cafe24.com/sci2/parallax.html" target="_blank" rel="noopener noreferrer"
@@ -265,7 +272,7 @@
       <div class="outline-card">
        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">슬라이드 4와 짝</p>
        <p class="font-bold text-slate-800 mt-1">연주 시차로 거리 비교하기</p>
-       <p class="text-slate-600 mt-1 text-sm">여러 별의 연주 시차를 나란히 놓고 <b>어느 별이 더 가까운지</b> 판단한다. 시차와 거리의 반비례를 눈으로 확인하는 단계.</p>
+       <p class="text-slate-600 mt-1 text-sm">여러 별의 연주 시차를 나란히 놓고 <b>어느 별이 더 가까운지</b> 판단한다.</p>
        <div class="flex flex-wrap gap-2 mt-3">
         <button class="quiz-btn" data-sim="https://sciencej1.cafe24.com/sci2/stellarparallax.html" data-sim-name="연주 시차로 거리 비교하기" style="max-width:130px">여기에 열기</button>
         <a class="quiz-btn" href="https://sciencej1.cafe24.com/sci2/stellarparallax.html" target="_blank" rel="noopener noreferrer"
@@ -331,7 +338,7 @@
          <td>관측 간격을 <b>3개월</b>로 줄이면</td><td>같은 별</td>
          <td>측정되는 시차각은
           <span class="rule-blank" data-rule="rule3">
-           <button class="pick" data-correct="true">작아져 재기 어렵다</button>
+           <button class="pick" data-correct="true">작아진다</button>
            <button class="pick" data-correct="false">그대로다</button>
           </span>
          </td>
@@ -369,28 +376,163 @@
    <section data-slide-index="11" data-slide-num="12" data-title="실제 별로 해 보기" id="slide-12" data-section="parallax">
     <div class="slide-content">
      <h2>6. 실제 별의 시차로 거리를 구해 보자</h2>
-     <div class="max-w-5xl w-full mt-4">
+     <div class="flex flex-col md:flex-row gap-5 items-center max-w-6xl w-full mt-4">
+      <div class="w-full" id="star-table-col">
       <table class="lab-table">
-       <thead><tr><th>별</th><th>연주 시차</th><th>거리(pc) = 1/p</th><th>연주 시차로 잴 수 있나?</th></tr></thead>
+       <thead><tr><th>별</th><th>연주 시차</th><th>거리(pc)</th><th>잴 수 있나?</th></tr></thead>
        <tbody>
-        <tr><td>프록시마 켄타우리</td><td class="readout">0.77&Prime;</td><td class="readout">약 1.3 pc</td><td>가능 &mdash; 가장 가깝다</td></tr>
-        <tr><td>시리우스</td><td class="readout">0.38&Prime;</td><td class="readout">약 2.6 pc</td><td>가능</td></tr>
-        <tr><td>베가(직녀성)</td><td class="readout">0.13&Prime;</td><td class="readout">약 7.7 pc</td><td>가능</td></tr>
-        <tr><td>북극성</td><td class="readout">0.008&Prime;</td><td class="readout">약 130 pc</td><td>지상 망원경으로는 어렵다</td></tr>
-        <tr><td>데네브</td><td class="readout">0.002&Prime;</td><td class="readout">약 500 pc</td><td>불가능 &mdash; 오차에 묻힌다</td></tr>
+        <tr><td><button type="button" class="star-pick" data-star="proxima">프록시마 켄타우리</button></td><td class="readout">0.77&Prime;</td><td class="readout">약 1.3 pc</td><td>가능 &mdash; 가장 가깝다</td></tr>
+        <tr><td><button type="button" class="star-pick" data-star="sirius">시리우스</button></td><td class="readout">0.38&Prime;</td><td class="readout">약 2.6 pc</td><td>가능</td></tr>
+        <tr><td><button type="button" class="star-pick" data-star="vega">베가(직녀성)</button></td><td class="readout">0.13&Prime;</td><td class="readout">약 7.7 pc</td><td>가능</td></tr>
+        <tr><td><button type="button" class="star-pick" data-star="polaris">북극성</button></td><td class="readout">0.008&Prime;</td><td class="readout">약 130 pc</td><td>지상 망원경으로는 어렵다</td></tr>
+        <tr><td><button type="button" class="star-pick" data-star="deneb">데네브</button></td><td class="readout">0.002&Prime;</td><td class="readout">약 500 pc</td><td>불가능 &mdash; 오차에 묻힌다</td></tr>
        </tbody>
       </table>
+      </div>
+      <div id="sky-panel" class="flex flex-col items-center justify-center">
+      <svg class="sky" data-sky="proxima" viewBox="0 0 300 236" role="img"
+           aria-label="켄타우루스자리 별자리 그림. 표시된 별 프록시마 켄타우리은 켄타우루스자리에 속한다. 맨눈으로는 안 보인다 (11등급) · 남쪽 하늘 아주 낮게">
+       <rect x="0" y="0" width="300" height="236" fill="#0b1120" rx="14"></rect>
+       <g fill="#334155">
+        <circle cx="40" cy="28" r="1.2"></circle><circle cx="264" cy="40" r="1.2"></circle>
+        <circle cx="58" cy="180" r="1.2"></circle><circle cx="278" cy="146" r="1.2"></circle>
+       </g>
+       <text x="286" y="26" fill="#64748b" font-size="12" font-weight="bold" text-anchor="end">켄타우루스자리</text>
+   <g stroke="#475569" stroke-width="1.4" fill="none">
+    <path d="M 96 142 L 150 118 L 206 96 L 246 132"></path>
+    <path d="M 150 118 L 138 62"></path>
+   </g>
+   <g fill="#e2e8f0">
+    <circle cx="150" cy="118" r="4.6"></circle><circle cx="206" cy="96" r="3.4"></circle>
+    <circle cx="246" cy="132" r="2.8"></circle><circle cx="138" cy="62" r="3"></circle>
+   </g>
+   <text x="158" y="114" fill="#cbd5e1" font-size="11">리길 켄타우루스</text>
+   <text x="198" y="88" fill="#94a3b8" font-size="11">하다르</text>
+   <line x1="96" y1="142" x2="60" y2="176" stroke="#f87171" stroke-width="1" stroke-dasharray="2 3"></line>
+       <circle cx="96" cy="142" r="12" fill="#fca5a5" opacity="0.28"></circle>
+       <circle cx="96" cy="142" r="5.4" fill="#f87171"></circle>
+       <rect x="0" y="188" width="300" height="48" fill="#020617" rx="0"></rect>
+       <text x="14" y="210" fill="#f87171" font-size="16" font-weight="bold">프록시마 켄타우리</text>
+       <text x="14" y="228" fill="#94a3b8" font-size="10.5">맨눈으로는 안 보인다 (11등급) · 남쪽 하늘 아주 낮게</text>
+      </svg>
+      <svg class="sky" data-sky="sirius" viewBox="0 0 300 236" role="img"
+           aria-label="큰개자리 별자리 그림. 표시된 별 시리우스은 큰개자리에 속한다. 밤하늘에서 가장 밝은 별 (겉보기등급 &minus;1.5) · 겨울철 남쪽">
+       <rect x="0" y="0" width="300" height="236" fill="#0b1120" rx="14"></rect>
+       <g fill="#334155">
+        <circle cx="40" cy="28" r="1.2"></circle><circle cx="264" cy="40" r="1.2"></circle>
+        <circle cx="58" cy="180" r="1.2"></circle><circle cx="278" cy="146" r="1.2"></circle>
+       </g>
+       <text x="286" y="26" fill="#64748b" font-size="12" font-weight="bold" text-anchor="end">큰개자리</text>
+   <g stroke="#475569" stroke-width="1.4" fill="none">
+    <path d="M 132 56 L 108 100 L 150 146 L 196 172 L 232 136"></path>
+    <path d="M 132 56 L 178 80 L 196 172"></path>
+   </g>
+   <g fill="#e2e8f0">
+    <circle cx="108" cy="100" r="3"></circle><circle cx="150" cy="146" r="3.6"></circle>
+    <circle cx="196" cy="172" r="3.2"></circle><circle cx="232" cy="136" r="2.6"></circle>
+    <circle cx="178" cy="80" r="2.6"></circle>
+   </g>
+   <text x="112" y="162" fill="#94a3b8" font-size="11">웨젠</text>
+   <text x="204" y="166" fill="#94a3b8" font-size="11">아다라</text>
+       <circle cx="132" cy="56" r="12" fill="#bfdbfe" opacity="0.28"></circle>
+       <circle cx="132" cy="56" r="5.4" fill="#dbeafe"></circle>
+       <rect x="0" y="188" width="300" height="48" fill="#020617" rx="0"></rect>
+       <text x="14" y="210" fill="#dbeafe" font-size="16" font-weight="bold">시리우스</text>
+       <text x="14" y="228" fill="#94a3b8" font-size="10.5">밤하늘에서 가장 밝은 별 (겉보기등급 &minus;1.5) · 겨울철 남쪽</text>
+      </svg>
+      <svg class="sky" data-sky="vega" viewBox="0 0 300 236" role="img"
+           aria-label="거문고자리 별자리 그림. 표시된 별 베가 (직녀성)은 거문고자리에 속한다. 여름철 머리 위 · 견우와 직녀의 그 직녀성">
+       <rect x="0" y="0" width="300" height="236" fill="#0b1120" rx="14"></rect>
+       <g fill="#334155">
+        <circle cx="40" cy="28" r="1.2"></circle><circle cx="264" cy="40" r="1.2"></circle>
+        <circle cx="58" cy="180" r="1.2"></circle><circle cx="278" cy="146" r="1.2"></circle>
+       </g>
+       <text x="286" y="26" fill="#64748b" font-size="12" font-weight="bold" text-anchor="end">거문고자리</text>
+   <g stroke="#475569" stroke-width="1.4" fill="none">
+    <path d="M 118 54 L 156 92 L 148 144 L 196 156 L 204 104 L 156 92"></path>
+   </g>
+   <g fill="#e2e8f0">
+    <circle cx="156" cy="92" r="2.8"></circle><circle cx="148" cy="144" r="3.2"></circle>
+    <circle cx="196" cy="156" r="3"></circle><circle cx="204" cy="104" r="2.8"></circle>
+   </g>
+   <text x="100" y="158" fill="#94a3b8" font-size="11">셰리아크</text>
+   <text x="206" y="170" fill="#94a3b8" font-size="11">술라파트</text>
+       <circle cx="118" cy="54" r="12" fill="#e0e7ff" opacity="0.28"></circle>
+       <circle cx="118" cy="54" r="5.4" fill="#eef2ff"></circle>
+       <rect x="0" y="188" width="300" height="48" fill="#020617" rx="0"></rect>
+       <text x="14" y="210" fill="#eef2ff" font-size="16" font-weight="bold">베가 (직녀성)</text>
+       <text x="14" y="228" fill="#94a3b8" font-size="10.5">여름철 머리 위 · 견우와 직녀의 그 직녀성</text>
+      </svg>
+      <svg class="sky" data-sky="polaris" viewBox="0 0 300 236" role="img"
+           aria-label="작은곰자리 별자리 그림. 표시된 별 북극성은 작은곰자리에 속한다. 천구의 북극 바로 옆 · 1년 내내 거의 같은 자리">
+       <rect x="0" y="0" width="300" height="236" fill="#0b1120" rx="14"></rect>
+       <g fill="#334155">
+        <circle cx="40" cy="28" r="1.2"></circle><circle cx="264" cy="40" r="1.2"></circle>
+        <circle cx="58" cy="180" r="1.2"></circle><circle cx="278" cy="146" r="1.2"></circle>
+       </g>
+       <text x="286" y="26" fill="#64748b" font-size="12" font-weight="bold" text-anchor="end">작은곰자리</text>
+   <g stroke="#475569" stroke-width="1.4" fill="none">
+    <path d="M 74 58 L 122 84 L 168 104 L 214 124 L 232 164 L 186 172 L 168 132 L 214 124"></path>
+   </g>
+   <g fill="#e2e8f0">
+    <circle cx="122" cy="84" r="2.6"></circle><circle cx="168" cy="104" r="2.6"></circle>
+    <circle cx="214" cy="124" r="3"></circle><circle cx="232" cy="164" r="2.8"></circle>
+    <circle cx="186" cy="172" r="2.6"></circle><circle cx="168" cy="132" r="2.6"></circle>
+   </g>
+   <text x="176" y="150" fill="#94a3b8" font-size="11">작은 국자</text>
+       <circle cx="74" cy="58" r="12" fill="#fef3c7" opacity="0.28"></circle>
+       <circle cx="74" cy="58" r="5.4" fill="#fffbeb"></circle>
+       <rect x="0" y="188" width="300" height="48" fill="#020617" rx="0"></rect>
+       <text x="14" y="210" fill="#fffbeb" font-size="16" font-weight="bold">북극성</text>
+       <text x="14" y="228" fill="#94a3b8" font-size="10.5">천구의 북극 바로 옆 · 1년 내내 거의 같은 자리</text>
+      </svg>
+      <svg class="sky" data-sky="deneb" viewBox="0 0 300 236" role="img"
+           aria-label="백조자리 별자리 그림. 표시된 별 데네브은 백조자리에 속한다. 약 500 pc — 아주 멀지만 아주 밝다 · 여름철 은하수 위">
+       <rect x="0" y="0" width="300" height="236" fill="#0b1120" rx="14"></rect>
+       <g fill="#334155">
+        <circle cx="40" cy="28" r="1.2"></circle><circle cx="264" cy="40" r="1.2"></circle>
+        <circle cx="58" cy="180" r="1.2"></circle><circle cx="278" cy="146" r="1.2"></circle>
+       </g>
+       <text x="286" y="26" fill="#64748b" font-size="12" font-weight="bold" text-anchor="end">백조자리</text>
+   <g stroke="#475569" stroke-width="1.4" fill="none">
+    <path d="M 150 50 L 152 108 L 156 170"></path>
+    <path d="M 84 118 L 152 108 L 222 100"></path>
+   </g>
+   <g fill="#e2e8f0">
+    <circle cx="152" cy="108" r="3.4"></circle><circle cx="156" cy="170" r="3"></circle>
+    <circle cx="84" cy="118" r="2.8"></circle><circle cx="222" cy="100" r="2.8"></circle>
+   </g>
+   <text x="162" y="112" fill="#94a3b8" font-size="11">사드르</text>
+   <text x="108" y="166" fill="#94a3b8" font-size="11">알비레오(부리)</text>
+       <circle cx="150" cy="50" r="12" fill="#e0f2fe" opacity="0.28"></circle>
+       <circle cx="150" cy="50" r="5.4" fill="#f0f9ff"></circle>
+       <rect x="0" y="188" width="300" height="48" fill="#020617" rx="0"></rect>
+       <text x="14" y="210" fill="#f0f9ff" font-size="16" font-weight="bold">데네브</text>
+       <text x="14" y="228" fill="#94a3b8" font-size="10.5">약 500 pc — 아주 멀지만 아주 밝다 · 여름철 은하수 위</text>
+      </svg>
+      <p id="sky-hint" class="text-slate-500" style="max-width:300px">표의 <b>별 이름</b>에 마우스를 올리거나 눌러 보자 &mdash; 그 별이 어느 별자리의 별인지 보여준다.</p>
+      </div>
      </div>
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-4">
-      <div class="outline-card"><p class="font-bold text-slate-800">읽는 순서</p><p class="text-slate-600 mt-1">&#9312; 시차를 읽는다 &rarr; &#9313; 1을 나눈다 &rarr; &#9314; pc를 얻는다. 광년으로 바꾸려면 &times;3.26.</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">밝기와 헷갈리지 말 것</p><p class="text-slate-600 mt-1">데네브는 시리우스보다 훨씬 밝게 보이지 않지만 <b>200배 가까이 멀다</b>. 밝아 보인다고 가까운 별이 아니다.</p></div>
+     <p class="slide-caption mt-3">※ 값은 히파르코스&middot;가이아 위성 관측 기준 근삿값이다. 별자리 그림은 밝은 별의 상대적 배치만 나타낸 것이다.</p>
+    </div>
+   </section>
+
+   <!-- A7b 읽는 순서 — 계산 절차와 오개념은 표와 분리한다 -->
+   <section data-slide-index="12" data-slide-num="13" data-title="거리 읽는 순서" id="slide-13" data-section="parallax">
+    <div class="slide-content">
+     <h2>7. 표를 읽는 순서</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">읽는 순서</p><p class="text-slate-600">&#9312; 시차를 읽는다 &rarr; &#9313; 1을 나눈다 &rarr; &#9314; pc를 얻는다. 광년으로 바꾸려면 &times;3.26.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">밝기와 헷갈리지 말 것</p><p class="text-slate-600">데네브는 시리우스보다 훨씬 밝게 보이지 않지만 <b>200배 가까이 멀다</b>. 밝아 보인다고 가까운 별이 아니다.</p></div>
      </div>
-     <p class="slide-caption mt-3">※ 값은 히파르코스&middot;가이아 위성 관측 기준 근삿값이다. 가이아 위성은 0.00002&Prime;까지 재어 이 한계를 크게 넓혔다.</p>
+     <div class="standard-box max-w-4xl w-full mt-5">
+      <p class="text-lg text-slate-700">가이아 위성은 0.00002&Prime;까지 재어 이 한계를 크게 넓혔다. 그래도 <b>연주 시차로 잴 수 있는 것은 우리 은하의 일부뿐</b>이다.</p>
+     </div>
     </div>
    </section>
 
    <!-- 과학사 1 -->
-   <section data-slide-index="12" data-slide-num="13" data-title="과학사 — 200년 묵은 반론" id="slide-13" data-section="parallax">
+   <section data-slide-index="13" data-slide-num="14" data-title="과학사 — 200년 묵은 반론" id="slide-14" data-section="parallax">
     <div class="slide-content">
      <h2>과학사 — 지동설을 200년간 괴롭힌 반론</h2>
      <div class="max-w-5xl w-full mt-4 space-y-4">
@@ -403,18 +545,15 @@
        <div class="outline-card"><p class="font-bold text-slate-800">1838년, 베셀</p><p class="text-slate-600 mt-1">백조자리 61번 별에서 연주 시차 <b>약 0.3&Prime;</b>를 측정했다. 정답은 ②였다. 지동설의 마지막 증거가 300년 만에 채워졌다.</p></div>
        <div class="outline-card"><p class="font-bold text-slate-800">왜 그렇게 오래 걸렸나</p><p class="text-slate-600 mt-1">0.3&Prime;는 망원경과 정밀 측정 기술이 발달하기 전에는 잴 수 없는 각이었다.</p></div>
       </div>
-      <div class="outline-card">
-       <p class="font-bold text-slate-800">지금은</p>
-       <p class="text-slate-600 mt-1">유럽우주국의 <b>가이아(Gaia)</b> 위성이 십억 개가 넘는 별의 연주 시차를 재고 있다. 베셀이 별 하나에 몇 달을 쏟던 측정이다.</p>
-      </div>
      </div>
+     <p class="slide-caption mt-4">※ 지금은 유럽우주국의 <b>가이아</b> 위성이 십억 개가 넘는 별의 연주 시차를 재고 있다. 베셀이 별 하나에 몇 달을 쏟던 측정이다.</p>
     </div>
    </section>
 
    <!-- ===== Part 2. 별의 밝기와 거리 ===== -->
 
    <!-- B1 predict -->
-   <section data-slide-index="13" data-slide-num="14" data-title="왜 밝기가 다르게 보일까" id="slide-14" data-section="brightness">
+   <section data-slide-index="14" data-slide-num="15" data-title="왜 밝기가 다르게 보일까" id="slide-15" data-section="brightness">
     <div class="slide-content">
      <h2>별은 왜 밝기가 다르게 보일까</h2>
      <svg viewBox="0 0 720 170" class="w-full" style="max-height:210px" role="img"
@@ -445,7 +584,7 @@
    </section>
 
    <!-- B2 거리와 밝기 -->
-   <section data-slide-index="14" data-slide-num="15" data-title="거리와 밝기의 관계" id="slide-15" data-section="brightness">
+   <section data-slide-index="15" data-slide-num="16" data-title="거리와 밝기의 관계" id="slide-16" data-section="brightness">
     <div class="slide-content">
      <h2>7. 거리와 밝기의 관계</h2>
      <svg viewBox="0 0 720 230" class="w-full" style="max-height:265px" role="img"
@@ -469,7 +608,7 @@
    </section>
 
    <!-- B3 보이는 밝기 ≠ 실제 밝기 -->
-   <section data-slide-index="15" data-slide-num="16" data-title="밝게 보인다 ≠ 밝다" id="slide-16" data-section="brightness">
+   <section data-slide-index="16" data-slide-num="17" data-title="밝게 보인다 ≠ 밝다" id="slide-17" data-section="brightness">
     <div class="slide-content">
      <h2>8. 밝게 보인다고 실제로 밝은 것은 아니다</h2>
      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-4">
@@ -494,7 +633,7 @@
    </section>
 
    <!-- B4 겉보기등급 -->
-   <section data-slide-index="16" data-slide-num="17" data-title="겉보기등급" id="slide-17" data-section="brightness">
+   <section data-slide-index="17" data-slide-num="18" data-title="겉보기등급" id="slide-18" data-section="brightness">
     <div class="slide-content">
      <h2>9. 겉보기등급 &mdash; 지구에서 얼마나 밝게 보이는가</h2>
      <div class="standard-box max-w-4xl w-full mt-4">
@@ -508,14 +647,13 @@
          <tr><td>&minus;1</td><td>매우 밝음</td><td>시리우스</td></tr>
          <tr><td>0</td><td>밝음</td><td>베가</td></tr>
          <tr><td>1</td><td>&darr;</td><td>1등성</td></tr>
-         <tr><td>3</td><td>&darr;</td><td>도시에서 겨우</td></tr>
          <tr><td>6</td><td>맨눈 한계</td><td>어두운 시골에서</td></tr>
         </tbody>
        </table>
       </div>
       <div class="w-full md:w-1/2">
        <div class="outline-card text-center"><p class="key-line">등급 숫자가 <b>작을수록</b> 밝다</p></div>
-       <div class="ask mt-3"><p><b>헷갈리기 쉬운 곳</b> &mdash; 숫자가 크면 밝다고 읽지 않는다. <b>1등급 별이 5등급 별보다 밝다.</b> 등급은 순위를 붙인 번호라서, 1등이 가장 앞인 것과 같다.</p></div>
+       <div class="ask mt-3"><p><b>헷갈리기 쉬운 곳</b> &mdash; <b>1등급 별이 5등급 별보다 밝다.</b> 등수처럼 1등이 가장 앞이다.</p></div>
       </div>
      </div>
      <p class="slide-caption mt-3">※ 히파르코스가 기원전 2세기에 맨눈으로 보이는 별을 1등성부터 6등성까지 나눈 것이 이 체계의 출발이다. 숫자가 거꾸로인 것은 그 순위 매김이 남은 흔적이다.</p>
@@ -523,7 +661,7 @@
    </section>
 
    <!-- B5 절대등급 -->
-   <section data-slide-index="17" data-slide-num="18" data-title="절대등급" id="slide-18" data-section="brightness">
+   <section data-slide-index="18" data-slide-num="19" data-title="절대등급" id="slide-19" data-section="brightness">
     <div class="slide-content">
      <h2>10. 절대등급 &mdash; 공정하게 비교하려면</h2>
      <div class="ask max-w-4xl w-full mt-4"><p>거리가 서로 다른 별들의 <b>실제 밝기</b>를 공정하게 비교하려면 어떻게 해야 할까요?</p></div>
@@ -543,24 +681,15 @@
        <p class="text-slate-600 mt-1">별을 <b>10 pc 거리에 놓았다고 가정</b>했을 때의 밝기 등급</p>
       </div>
      </div>
-     <div class="reveal-item max-w-4xl w-full mt-4" style="opacity: 0">
-      <table class="lab-table">
-       <thead><tr><th>겉보기등급</th><th>절대등급</th></tr></thead>
-       <tbody>
-        <tr><td>지구에서 <b>보이는</b> 밝기</td><td>별 <b>자체</b>의 밝기를 비교</td></tr>
-        <tr><td>거리에 따라 달라진다</td><td>거리를 지웠으므로 달라지지 않는다</td></tr>
-       </tbody>
-      </table>
-     </div>
      <p class="slide-caption mt-3">※ 10 pc은 자연이 정한 값이 아니라 <b>천문학자들이 약속한 값</b>이다. 기준만 같으면 되므로 무엇이든 될 수 있었다.</p>
     </div>
    </section>
 
    <!-- B6 두 등급 비교 -->
-   <section data-slide-index="18" data-slide-num="19" data-title="두 등급 비교" id="slide-19" data-section="brightness">
+   <section data-slide-index="19" data-slide-num="20" data-title="두 등급 비교" id="slide-20" data-section="brightness">
     <div class="slide-content">
      <h2>11. 겉보기등급과 절대등급</h2>
-     <div class="max-w-4xl w-full mt-2 overflow-x-auto">
+     <div class="max-w-5xl w-full mt-4">
       <table class="lab-table">
        <thead><tr><th>구분</th><th>겉보기등급</th><th>절대등급</th></tr></thead>
        <tbody>
@@ -570,26 +699,38 @@
        </tbody>
       </table>
      </div>
-     <div class="max-w-4xl w-full mt-4 overflow-x-auto">
-      <table class="lab-table">
-       <thead><tr><th>별</th><th>겉보기등급</th><th>절대등급</th></tr></thead>
-       <tbody>
-        <tr><td>A</td><td>1</td><td>5</td></tr>
-        <tr><td>B</td><td>3</td><td>&minus;2</td></tr>
-       </tbody>
-      </table>
-     </div>
-     <div class="ask max-w-4xl w-full mt-4"><p>지구에서 더 밝게 <b>보이는</b> 별은? 그리고 실제로 더 <b>밝은</b> 별은?</p></div>
-     <div class="reveal-item max-w-4xl w-full mt-3" style="opacity: 0">
-      <div class="standard-box">
-       <p class="text-lg text-slate-700">보이는 것은 <b>A</b>(겉보기 1 &lt; 3). 실제로 밝은 것은 <b>B</b>(절대 &minus;2 &lt; 5).<br/>A는 덜 밝은 별이 가까이 있는 경우, B는 밝은 별이 멀리 있는 경우다.</p>
-      </div>
+     <div class="standard-box max-w-4xl w-full mt-5">
+      <p class="text-lg text-slate-700">두 등급이 <b>다르다</b>는 것은 그 별이 10 pc보다 가깝거나 멀다는 뜻이다. 두 값이 <b>같다면</b> 그 별은 마침 10 pc 거리에 있다.</p>
      </div>
     </div>
    </section>
 
+   <!-- B6b 두 별로 확인 — 앞 장이 읽는 장이라면 이 장은 푸는 장이다 -->
+   <section data-slide-index="20" data-slide-num="21" data-title="두 별로 확인" id="slide-21" data-section="brightness">
+    <div class="slide-content">
+     <h2>12. 두 별을 비교해 보자</h2>
+     <div class="max-w-3xl w-full mt-4">
+      <table class="lab-table">
+       <thead><tr><th>별</th><th>겉보기등급</th><th>절대등급</th></tr></thead>
+       <tbody>
+        <tr><td>A</td><td class="readout">1</td><td class="readout">5</td></tr>
+        <tr><td>B</td><td class="readout">3</td><td class="readout">&minus;2</td></tr>
+       </tbody>
+      </table>
+     </div>
+     <div class="ask max-w-4xl w-full mt-4"><p>지구에서 더 밝게 <b>보이는</b> 별은? 그리고 실제로 더 <b>밝은</b> 별은?</p></div>
+     <div class="reveal-item max-w-4xl w-full mt-4" style="opacity: 0">
+      <div class="standard-box">
+       <p class="text-lg text-slate-700">보이는 것은 <b>A</b>(겉보기 1 &lt; 3). 실제로 밝은 것은 <b>B</b>(절대 &minus;2 &lt; 5).</p>
+       <p class="text-lg text-slate-700">A는 덜 밝은 별이 <b>가까이</b> 있는 경우, B는 밝은 별이 <b>멀리</b> 있는 경우다.</p>
+      </div>
+     </div>
+     <p class="slide-caption mt-3">※ 등급 차이 5가 밝기 100배 차이다. 숫자 1의 차이가 작지 않다.</p>
+    </div>
+   </section>
+
    <!-- B7 등급으로 거리 추론 + 형성평가 -->
-   <section data-slide-index="19" data-slide-num="20" data-title="등급으로 거리 추론" id="slide-20" data-section="brightness">
+   <section data-slide-index="21" data-slide-num="22" data-title="등급으로 거리 추론" id="slide-22" data-section="brightness">
     <div class="slide-content">
      <h2>12. 두 등급을 견주면 거리가 나온다</h2>
      <p class="text-slate-600" style="font-size:1.3rem">겉보기등급을 <b>m</b>, 절대등급을 <b>M</b>이라 하자. 절대등급은 10 pc에 놓았을 때의 밝기이므로, 둘을 견주면 그 별이 10 pc보다 가까운지 먼지가 나온다.</p>
@@ -622,7 +763,7 @@
    </section>
 
    <!-- B8 Part 2 정리 -->
-   <section data-slide-index="20" data-slide-num="21" data-title="밝기 정리" id="slide-21" data-section="brightness">
+   <section data-slide-index="22" data-slide-num="23" data-title="밝기 정리" id="slide-23" data-section="brightness">
     <div class="slide-content">
      <h2>여기까지 &mdash; 밝기에서 얻은 것</h2>
      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-6">
@@ -636,7 +777,7 @@
    </section>
 
    <!-- Slide 8: 별의 색 -->
-   <section data-slide-index="21" data-slide-num="22" data-title="별의 색" id="slide-22" data-section="color">
+   <section data-slide-index="23" data-slide-num="24" data-title="별의 색" id="slide-24" data-section="color">
     <div class="slide-content">
      <h2>13. 별의 색 — 오리온자리에서 확인하기</h2>
      <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-4">
@@ -670,7 +811,7 @@
    </section>
 
    <!-- Slide 9: 색과 표면 온도 -->
-   <section data-slide-index="22" data-slide-num="23" data-title="색과 표면 온도" id="slide-23" data-section="color">
+   <section data-slide-index="24" data-slide-num="25" data-title="색과 표면 온도" id="slide-25" data-section="color">
     <div class="slide-content">
      <h2>14. 별의 색과 표면 온도</h2>
      <div class="w-full max-w-5xl mt-4">
@@ -687,7 +828,7 @@
    </section>
 
    <!-- 과학사 2 -->
-   <section data-slide-index="23" data-slide-num="24" data-title="과학사 — 하버드 컴퓨터스" id="slide-24" data-section="color">
+   <section data-slide-index="25" data-slide-num="26" data-title="과학사 — 하버드 컴퓨터스" id="slide-26" data-section="color">
     <div class="slide-content">
      <h2>과학사 — 별을 분류한 '하버드의 계산원들'</h2>
      <div class="max-w-5xl w-full mt-4 space-y-4">
@@ -700,16 +841,13 @@
        <div class="outline-card"><p class="font-bold text-slate-800">세실리아 페인(1925)</p><p class="text-slate-600 mt-1">별의 스펙트럼을 읽어 별이 주로 <b>수소</b>로 되어 있음을 밝혔다. 당시 지도교수조차 믿지 않았지만, 훗날 옳았음이 확인됐다.</p></div>
        <div class="outline-card"><p class="font-bold text-slate-800">색이 온도인 이유</p><p class="text-slate-600 mt-1">뜨거운 물체일수록 파장이 짧은 빛(파란빛)을 강하게 낸다. 쇠를 달구면 붉은색 → 주황색 → 흰색으로 변하는 것과 같은 원리다.</p></div>
       </div>
-      <div class="outline-card">
-       <p class="font-bold text-slate-800">교실에서 확인하기</p>
-       <p class="text-slate-600 mt-1">가스레인지 불꽃, 촛불 심지 부근, 전구 필라멘트의 색을 떠올려 보자. 색은 그 물체가 얼마나 뜨거운지를 알려 준다.</p>
-      </div>
      </div>
+     <p class="slide-caption mt-4">※ 교실에서 확인하기 &mdash; 가스레인지 불꽃, 촛불 심지 부근, 전구 필라멘트의 색을 떠올려 보자. 색은 그 물체가 얼마나 뜨거운지를 알려 준다.</p>
     </div>
    </section>
 
    <!-- Slide 10: 정리 -->
-   <section data-slide-index="24" data-slide-num="25" data-title="정리" id="slide-25" data-section="summary">
+   <section data-slide-index="26" data-slide-num="27" data-title="정리" id="slide-27" data-section="summary">
     <div class="slide-content">
      <h2>오늘의 정리</h2>
      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-6">
@@ -718,6 +856,16 @@
       <div class="outline-card"><p class="font-bold text-slate-800">온도</p><p class="text-slate-600 mt-1">색이 곧 표면 온도의 신호<br/>청색 뜨겁고, 적색 차갑다</p></div>
       <div class="outline-card"><p class="font-bold text-slate-800">헷갈리지 말 것</p><p class="text-slate-600 mt-1">색은 <b>온도</b>를 알려주지, <b>거리</b>를 알려주지 않는다</p></div>
      </div>
+     <div class="standard-box max-w-4xl w-full mt-5">
+      <p class="text-lg text-slate-700">표지의 질문에 답하면 &mdash; <b>별빛 하나</b>를 세 가지 방식으로 읽어 거리&middot;밝기&middot;온도를 알아낸다. 별에 가 볼 필요가 없다.</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 정리 2 — 세 갈래가 한 별빛에서 나온다는 그림 -->
+   <section data-slide-index="27" data-slide-num="28" data-title="한 별빛에서 세 가지" id="slide-28" data-section="summary">
+    <div class="slide-content">
+     <h2>별빛 하나에서 세 가지를 읽는다</h2>
      <svg viewBox="0 0 720 200" class="w-full mt-5" style="max-height:220px" role="img"
           aria-label="별빛 하나에서 세 가지를 얻는 도식. 별의 위치 변화를 관측하면 연주 시차를 거쳐 거리를 얻고, 빛의 세기를 관측하면 겉보기등급과 절대등급을 거쳐 실제 밝기를 얻고, 빛의 색을 관측하면 표면 온도를 얻는다.">
       <rect x="0" y="0" width="720" height="200" fill="#f8fafc" rx="16"></rect>
@@ -743,16 +891,13 @@
        <text x="530" y="157" fill="#312e81">표면 온도</text>
       </g>
      </svg>
-     <div class="standard-box max-w-4xl w-full mt-4">
-      <p class="text-lg text-slate-700">표지의 질문에 답하면 &mdash; <b>별빛 하나</b>를 세 가지 방식으로 읽어 거리&middot;밝기&middot;온도를 알아낸다. 별에 가 볼 필요가 없다.</p>
-     </div>
-     <p class="text-slate-600 mt-4" data-poll-recall="stars-parallax-poll" aria-live="polite">앞에서 고른 답과 지금 생각이 달라졌나요? 무엇 때문에 달라졌나요?</p>
+     <p class="text-slate-600 mt-5" data-poll-recall="stars-parallax-poll" aria-live="polite">앞에서 고른 답과 지금 생각이 달라졌나요? 무엇 때문에 달라졌나요?</p>
      <p class="slide-caption mt-3">더 알아보기: <a href="18_appendix.html" class="underline">부록 &mdash; 거리 사다리(세페이드·Ia형 초신성), 식쌍성, 별의 운동</a></p>
     </div>
    </section>
 
    <!-- Slide 11: 형성평가 1 -->
-   <section data-slide-index="25" data-slide-num="26" data-title="형성평가 1" id="slide-26" data-section="summary">
+   <section data-slide-index="28" data-slide-num="29" data-title="형성평가 1" id="slide-29" data-section="summary">
     <div class="slide-content">
      <h2 class="text-slate-800">형성평가 1 — 연주 시차</h2>
      <div class="quiz-container max-w-3xl mt-8 w-full">
@@ -774,7 +919,7 @@
    </section>
 
    <!-- Slide 12: 형성평가 2 -->
-   <section data-slide-index="26" data-slide-num="27" data-title="형성평가 2" id="slide-27" data-section="summary">
+   <section data-slide-index="29" data-slide-num="30" data-title="형성평가 2" id="slide-30" data-section="summary">
     <div class="slide-content">
      <h2 class="text-slate-800">형성평가 2 — 별의 색</h2>
      <div class="quiz-container max-w-3xl mt-8 w-full">
@@ -796,7 +941,7 @@
    </section>
 
    <!-- misconception -->
-   <section data-slide-index="27" data-slide-num="28" data-title="오개념 확인" id="slide-28" data-section="summary">
+   <section data-slide-index="30" data-slide-num="31" data-title="오개념 확인" id="slide-31" data-section="summary">
     <div class="slide-content">
      <h2>오개념 확인</h2>
      <div class="quiz-container max-w-3xl mt-4 w-full">
@@ -833,6 +978,33 @@
       jul.style.opacity = (season === 'jan') ? 0.15 : 1;
       btn.textContent = season === 'jan' ? '지금: 1월 관측 →' :
                         season === 'jul' ? '지금: 7월 관측 →' : '지금: 두 시점 함께 →';
+     });
+    }
+
+
+    /* 별자리 그림 — 표의 별 이름에 올리거나 누르면 그 별이 속한 별자리를 띄운다.
+       hover만으로는 터치 기기와 키보드에서 쓸 수 없으므로 셋 다 같은 함수로 보낸다. */
+    var skyPanel = document.getElementById('sky-panel');
+    if (skyPanel) {
+     var skyHint = document.getElementById('sky-hint');
+     var picks = document.querySelectorAll('.star-pick');
+     var pinned = null;                       // 눌러서 고정한 별
+     function showSky(key) {
+      skyPanel.querySelectorAll('svg.sky').forEach(function (s) {
+       s.classList.toggle('on', s.getAttribute('data-sky') === key);
+      });
+      if (skyHint) skyHint.style.display = key ? 'none' : '';
+      picks.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.star === key)); });
+     }
+     picks.forEach(function (b) {
+      b.setAttribute('aria-pressed', 'false');
+      b.addEventListener('mouseenter', function () { showSky(b.dataset.star); });
+      b.addEventListener('focus', function () { showSky(b.dataset.star); });
+      b.addEventListener('mouseleave', function () { showSky(pinned); });
+      b.addEventListener('click', function () {
+       pinned = pinned === b.dataset.star ? null : b.dataset.star;
+       showSky(pinned || b.dataset.star);
+      });
      });
     }
 
