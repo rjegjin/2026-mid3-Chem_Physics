@@ -19,7 +19,7 @@ here.
 - Language: the whole `adv_inorganic/` family is **English**, including code
   comments in `../js/adv_inorganic_*.js`. Modules 01, 02, 03 and Bonus 01 were
   English from the start; everything else was converted on 2026-08-26.
-- Updated: 2026-08-27 (split into `adv_inorganic/`)
+- Updated: 2026-08-27 (split into `adv_inorganic/`; electron transfer restored to Module 12, bioinorganic confirmed out of scope)
 
 ## The Axis of This Course
 
@@ -85,24 +85,25 @@ link in `index.html`, and the internal `Lecture 04` / `Module 4` strings.
 
 ---
 
-## Dropped From the Earlier Roadmap — Decision Needed
+## Dropped From the Earlier Roadmap — Decided 2026-08-27
 
 Two topics present in the previous 15-lecture plan have lost their place.
 
 | Topic | Status | Assessment |
 |---|---|---|
-| Reaction mechanisms of coordination compounds (substitution, inner/outer-sphere electron transfer) | Partly absorbed | Substitution is taken up by ligand substitution in Module 12. **Electron transfer (Marcus theory, inner/outer sphere) appears nowhere.** |
-| Bioinorganic chemistry (haemoglobin, metalloenzymes, drug delivery) | Dropped entirely | Falls outside this course's axis (symmetry → electronic structure → properties). Looks deliberate, but needs confirming. |
+| Reaction mechanisms of coordination compounds (substitution, inner/outer-sphere electron transfer) | **Restored** | Substitution is taken up by ligand substitution in Module 12. Electron transfer is now **section 6 of Module 12** (Marcus theory, inner versus outer sphere). |
+| Bioinorganic chemistry (haemoglobin, metalloenzymes, drug delivery) | **Stays out** | Falls outside this course's axis (symmetry → electronic structure → properties). Confirmed deliberate. |
 
-If restored, these are the cheapest homes:
+Outcome:
 
-- Electron transfer → **one section added to Module 12**. It is also a natural
-  bridge between coordination chemistry (Part III) and organometallic
-  reactivity (Part VI). A placeholder section already sits in the Module 12
-  outline, marked *under review*.
-- Bioinorganic chemistry → **Case 6 of Module 15**. Making it a standalone
-  module would push the course to sixteen and past one semester. A placeholder
-  case already sits in the Module 15 outline, marked *under review*.
+- Electron transfer → **section 6 of Module 12**, written when Module 12 is
+  written. It is a natural bridge between coordination chemistry (Part III) and
+  organometallic reactivity (Part VI), and it closes a real gap: Marcus theory
+  appeared nowhere in the fifteen modules.
+- Bioinorganic chemistry → **out of scope**, deliberately. The course axis runs
+  symmetry → electronic structure → properties, and a metalloenzyme survey does
+  not sit on it. Making it a module would also push the course past one
+  semester. The Module 15 placeholder is removed.
 
 ---
 
@@ -390,6 +391,13 @@ Each elementary step must be understood separately before any catalytic cycle.
 3. Reductive elimination — the reverse of item 2
 4. Migratory insertion — `M–R + CO → M–C(O)R`, and alkene insertion
 5. β-Hydride elimination — `M–CH₂CH₂R → M–H + CH₂=CHR`
+6. Electron transfer — outer sphere (no bond broken, Marcus theory) versus inner
+   sphere (a bridging ligand, the Taube Cr(II)/Co(III) experiment). The
+   reorganisation energy λ, and why self-exchange rates span twelve orders of
+   magnitude. This is also the bridge from coordination chemistry (Part III) to
+   organometallic reactivity: substitution moves ligands, electron transfer
+   moves the d count, and Module 07's high-spin/low-spin distinction decides
+   which is fast.
 
 **Analytical frame (common to every section)**:
 
@@ -399,8 +407,8 @@ oxidation state + electron count + coordination number
 
 All three are tracked at once. That frame is the premise of Module 13.
 
-**Under review**: whether inner/outer-sphere electron transfer gets a section
-here (see "Dropped From the Earlier Roadmap" above).
+**Restored 2026-08-27**: inner/outer-sphere electron transfer is section 6.
+It was missing from the whole course; this is its cheapest home.
 
 ## Module 13 — Homogeneous Catalysis & Catalytic Cycles  ◻ Outline
 **Central question**: How do elementary reactions assemble into a catalytic cycle?
@@ -468,10 +476,6 @@ ligand-centred.
 ### Case 5 — Inorganic energy materials
 Photocatalysts, electrocatalysts, battery materials, fuel-cell catalysts.
 The link between electronic structure and measured performance.
-
-### Case 6 — (under review) Bioinorganic chemistry
-The metal centres of haemoglobin and myoglobin; metalloenzymes. Goes here if
-restored.
 
 ---
 
