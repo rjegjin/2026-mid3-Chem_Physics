@@ -27,14 +27,14 @@
         table.qtable { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
         table.qtable th, table.qtable td { border: 1px solid #e2e8f0; padding: 0.5rem 0.7rem; text-align: center; }
         table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
+        table.qtable td.l { text-align: left; }
+        .hist { border-left: 6px solid #94a3b8; background: #f8fafc; padding: 1rem 1.25rem; font-size: 0.9rem; color: #475569; }
+        .hist b { color: #0f172a; }
         .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
         .warn b { color: #78350f; }
-        /* Marks this file as an outline so it is never mistaken for finished content. */
-        .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
-        .todo { list-style: none; padding-left: 0; }
-        .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
-        .todo li::before { content: "\25A1"; color: #94a3b8; font-weight: 900; margin-right: 0.6rem; }
-        .todo li b { color: #0f172a; }
+        /* Occupancy arrows in the MO diagrams below. Blue up, red down, as in Module 07. */
+        .up { color: #1d4ed8; font-weight: 900; }
+        .dn { color: #b91c1c; font-weight: 900; }
     </style>
 </head>
 <body class="presentation-mode">
@@ -48,142 +48,587 @@
             <p class="text-xl text-slate-500 font-medium italic">"Two atoms is the smallest laboratory in which a bond can be taken apart."</p>
             <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
             <p class="text-base font-bold text-slate-800">Lecture 05: LCAO, Bond Order, and the $s$&ndash;$p$ Mixing Problem</p>
-            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; prose not written</div>
         </div>
     </section>
 
     <!-- Slide 2: Scope -->
     <section id="s2">
         <div class="slide-content text-left px-20">
-            <h2>0. Scope</h2>
-            <div class="info-card">
-                <p class="font-black uppercase text-xs mb-3">Central question</p>
-                <p class="text-lg font-medium text-slate-800">How do atomic orbitals combine into molecular orbitals?</p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-6 mt-6">
-                <div class="step-box">
-                    <span class="logic-tag">Requires</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 04 &mdash; atomic orbitals, angular momentum, electron configurations</p>
+            <h2>0. Why Diatomics Are Worth a Whole Lecture</h2>
+            <p class="text-lg font-medium mb-6">A diatomic has one bond and two centres. Everything that will later be buried inside a $[\mathrm{ML_6}]$ complex is here, exposed and countable.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">What this module settles</p>
+                    <ul class="text-sm space-y-2 font-medium text-slate-700">
+                        <li>● The two conditions under which atomic orbitals combine at all &mdash; used unchanged in Modules 06 and 08.</li>
+                        <li>● Bond order, and what it does and does not predict.</li>
+                        <li>● Why the level ordering <b>changes</b> partway across the second row.</li>
+                        <li>● The $\mathrm{CO}$ frontier orbitals &mdash; the single most reused result in Modules 11 to 13.</li>
+                    </ul>
                 </div>
-                <div class="step-box">
-                    <span class="logic-tag">Feeds</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 06 &mdash; polyatomic MOs. Module 08 &mdash; metal&ndash;ligand $\sigma$ bonding</p>
+                <div class="warn">
+                    <b>One observation decides the whole argument.</b> $\mathrm{O_2}$ is paramagnetic. Every Lewis structure of $\mathrm{O_2}$ pairs all twelve valence electrons and therefore predicts a diamagnetic molecule. The measurement says otherwise.
+                    <br><br>This is not a subtlety to note in passing. It is the reason molecular orbital theory replaced the localised picture for these molecules, and &sect;8 is built around it.
                 </div>
             </div>
-            <div class="warn mt-8"><b>Scope.</b> Diatomics only. Symmetry labels use $D_{\infty h}$ / $C_{\infty v}$, but the point-group formalism itself is recovered from Modules 01&ndash;02.</div>
+            <div class="info-card mt-4">
+                <p class="font-black uppercase text-xs mb-3">Scope</p>
+                <p class="text-sm font-medium text-slate-700">Second-row diatomics, homonuclear and heteronuclear. Symmetry labels are $D_{\infty h}$ and $C_{\infty v}$, but the point-group machinery itself is recovered from Modules 01&ndash;02 rather than rebuilt. Quantitative coefficients are not computed; we go as far as ordering, occupancy and bond order.</p>
+            </div>
         </div>
     </section>
 
-    <!-- Slide 3: LCAO and the Two Conditions -->
+    <!-- Slide 3: LCAO -->
     <section id="s3">
         <div class="slide-content text-left px-20">
-            <h2>1. LCAO and the Two Conditions</h2>
+            <h2>1. LCAO and Its Two Conditions</h2>
             <div class="math-box text-center py-6">
-                $$ \psi_{\mathrm{MO}} = c_A\phi_A + c_B\phi_B $$
+                $$ \psi_{\pm} = c_A \phi_A \pm c_B \phi_B $$
             </div>
-            <ul class="todo mt-4">
-                <li>Energy proximity &mdash; the two AOs must lie at comparable energies</li>
-                <li>Symmetry match &mdash; the overlap integral vanishes unless both belong to the same irrep</li>
-                <li>The <b>overlap integral</b> $S_{AB} = \langle \phi_A | \phi_B \rangle$: its sign and magnitude</li>
-                <li>Bonding vs antibonding &mdash; the antibonding destabilisation exceeds the bonding stabilisation</li>
-            </ul>
+            <p class="text-lg font-medium">Two atomic orbitals give two molecular orbitals &mdash; never one, never three. Orbitals are conserved in the combination.</p>
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="step-box">
+                    <span class="logic-tag">Condition 1</span>
+                    <p class="font-black mt-3">Comparable energies</p>
+                    <p class="text-sm text-slate-700 mt-2">If $\phi_A$ and $\phi_B$ lie far apart in energy, the mixing is negligible and both orbitals stay essentially atomic. This is why $\mathrm{H}$ $1s$ interacts with $\mathrm{F}$ $2p$ and not with $\mathrm{F}$ $1s$.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Condition 2</span>
+                    <p class="font-black mt-3">Matching symmetry</p>
+                    <p class="text-sm text-slate-700 mt-2">$\langle \phi_A | \hat{H} | \phi_B \rangle$ vanishes identically unless the two belong to the <b>same irreducible representation</b>. Not "small" &mdash; exactly zero, by the theorem of Bonus 04.</p>
+                </div>
+            </div>
+            <div class="info-card mt-6">
+                <p class="font-black uppercase text-xs mb-3">Why condition 2 is the powerful one</p>
+                <p class="text-sm font-medium text-slate-700">Condition 1 is a matter of degree; condition 2 is absolute. A $\sigma$ orbital and a $\pi$ orbital on the same two atoms, at identical energies, do not interact at all &mdash; their overlap integral is zero by symmetry because the positive and negative regions cancel exactly. That single fact is what makes MO diagrams tractable, and it is the whole content of the SALC method in Module 06.</p>
+            </div>
         </div>
     </section>
 
-    <!-- Slide 4: Bond Order -->
+    <!-- Slide 4: overlap integral -->
     <section id="s4">
         <div class="slide-content text-left px-20">
-            <h2>2. Bond Order</h2>
-            <div class="math-box text-center py-6">
-                $$ BO = \tfrac{1}{2}\left(N_b - N_a\right) $$
+            <h2>2. The Overlap Integral, and Why Antibonding Is Worse</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <svg viewBox="0 0 420 250" class="w-full" role="img"
+                         aria-label="Three overlap cases. Two s orbitals of the same sign give positive overlap and a bonding combination. Opposite signs give negative overlap and an antibonding combination with a node between the nuclei. An s orbital against a perpendicular p orbital gives exactly zero overlap because the two halves cancel.">
+                        <rect x="0" y="0" width="420" height="250" fill="#f8fafc" rx="12"></rect>
+                        <circle cx="110" cy="48" r="22" fill="#1d4ed8" opacity="0.35"></circle>
+                        <circle cx="160" cy="48" r="22" fill="#1d4ed8" opacity="0.35"></circle>
+                        <text x="212" y="44" fill="#166534" font-size="13" font-weight="bold">S &gt; 0 &mdash; bonding</text>
+                        <text x="212" y="62" fill="#64748b" font-size="11">density piles up between the nuclei</text>
+                        <circle cx="110" cy="124" r="22" fill="#1d4ed8" opacity="0.35"></circle>
+                        <circle cx="160" cy="124" r="22" fill="#b91c1c" opacity="0.35"></circle>
+                        <line x1="135" y1="96" x2="135" y2="152" stroke="#0f172a" stroke-width="2" stroke-dasharray="4 3"></line>
+                        <text x="212" y="120" fill="#b91c1c" font-size="13" font-weight="bold">S &lt; 0 &mdash; antibonding</text>
+                        <text x="212" y="138" fill="#64748b" font-size="11">a node sits between the nuclei</text>
+                        <circle cx="110" cy="200" r="22" fill="#1d4ed8" opacity="0.35"></circle>
+                        <ellipse cx="160" cy="180" rx="14" ry="20" fill="#1d4ed8" opacity="0.35"></ellipse>
+                        <ellipse cx="160" cy="220" rx="14" ry="20" fill="#b91c1c" opacity="0.35"></ellipse>
+                        <text x="212" y="196" fill="#334155" font-size="13" font-weight="bold">S = 0 &mdash; no interaction</text>
+                        <text x="212" y="214" fill="#64748b" font-size="11">the two halves cancel exactly</text>
+                    </svg>
+                </div>
+                <div>
+                    <div class="math-box text-center py-4">
+                        $$ E_{\pm} = \frac{H_{AA} \pm H_{AB}}{1 \pm S} $$
+                    </div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">The asymmetry, in one line</p>
+                        <p class="text-sm font-medium text-slate-700">The denominator is $1+S$ for the bonding combination and $1-S$ for the antibonding one. With $S &gt; 0$, the antibonding level is pushed <b>up further</b> than the bonding level is pushed down.</p>
+                    </div>
+                    <div class="warn">
+                        <b>This is why $\mathrm{He_2}$ does not exist.</b> Filling $\sigma$ and $\sigma^*$ equally does not cancel out to zero &mdash; it comes out net <b>repulsive</b>. Bond order zero is the bookkeeping; the unequal splitting is the reason.
+                        <br><br>The same asymmetry explains why a filled&ndash;filled interaction between a ligand lone pair and a filled metal orbital is destabilising &mdash; a point Module 08 needs for $\pi$ donors.
+                    </div>
+                </div>
             </div>
-            <ul class="todo mt-4">
-                <li>Bond order against bond length and bond energy</li>
-                <li>Fractional bond orders &mdash; $\mathrm{O_2^+}$, $\mathrm{O_2^-}$, $\mathrm{NO}$</li>
-                <li>Bond order zero means no molecule &mdash; $\mathrm{He_2}$</li>
-            </ul>
         </div>
     </section>
 
-    <!-- Slide 5: The Homonuclear Series -->
+    <!-- Slide 5: bond order -->
     <section id="s5">
         <div class="slide-content text-left px-20">
-            <h2>3. The Homonuclear Series</h2>
-            <ul class="todo mt-4">
-                <li>$\mathrm{H_2}$ and $\mathrm{He_2}$ &mdash; the two simplest cases</li>
-                <li>$\mathrm{Li_2}$, $\mathrm{Be_2}$ &mdash; $2s$ only</li>
-                <li>$\mathrm{B_2}$, $\mathrm{C_2}$, $\mathrm{N_2}$ &mdash; the regime where $s$&ndash;$p$ mixing dominates</li>
-                <li>$\mathrm{O_2}$, $\mathrm{F_2}$ &mdash; the regime where mixing has switched off</li>
-                <li><b>Summary table</b> &mdash; bond order, bond length, magnetism</li>
-            </ul>
+            <h2>3. Bond Order</h2>
+            <div class="math-box text-center py-6">
+                $$ \mathrm{BO} = \tfrac{1}{2}\left(N_b - N_a\right) $$
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-4">
+                <div>
+                    <div class="overflow-x-auto">
+                    <table class="qtable">
+                        <thead><tr><th>Species</th><th>Valence $e^-$</th><th>BO</th><th>Bond length / pm</th><th>$D_0$ / kJ mol$^{-1}$</th></tr></thead>
+                        <tbody>
+                            <tr><td>$\mathrm{N_2}$</td><td>10</td><td>3</td><td>110</td><td>945</td></tr>
+                            <tr><td>$\mathrm{O_2}$</td><td>12</td><td>2</td><td>121</td><td>498</td></tr>
+                            <tr><td>$\mathrm{F_2}$</td><td>14</td><td>1</td><td>142</td><td>159</td></tr>
+                            <tr><td>$\mathrm{Ne_2}$</td><td>16</td><td>0</td><td>&mdash;</td><td>&mdash;</td></tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-3">Bond order rises &rArr; shorter and stronger. The correlation is monotonic and it is why bond order earns its keep.</p>
+                </div>
+                <div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">Fractional bond orders are real</p>
+                        <p class="text-sm font-medium text-slate-700">Removing an electron from an antibonding orbital <b>strengthens</b> the bond &mdash; a statement no Lewis structure can make.</p>
+                    </div>
+                    <div class="overflow-x-auto">
+                    <table class="qtable">
+                        <thead><tr><th>Species</th><th>BO</th><th>Bond length / pm</th></tr></thead>
+                        <tbody>
+                            <tr><td>$\mathrm{O_2^{+}}$</td><td>2.5</td><td>112</td></tr>
+                            <tr><td>$\mathrm{O_2}$</td><td>2</td><td>121</td></tr>
+                            <tr><td>$\mathrm{O_2^{-}}$ superoxide</td><td>1.5</td><td>133</td></tr>
+                            <tr><td>$\mathrm{O_2^{2-}}$ peroxide</td><td>1</td><td>149</td></tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="warn mt-3">
+                        <b>What bond order does not give.</b> It is an integer-or-half-integer count, not an energy. $\mathrm{F_2}$ and $\mathrm{H_2}$ both have BO 1, yet $D_0$ differs by a factor of three. Bond order orders a series; it does not predict a number.
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Slide 6: $s$&ndash;$p$ Mixing -->
+    <!-- Slide 6: symmetry labels -->
     <section id="s6">
         <div class="slide-content text-left px-20">
-            <h2>4. $s$&ndash;$p$ Mixing</h2>
-            <ul class="todo mt-4">
-                <li>$2s$ and $2p_z$ share $\sigma_g$ symmetry, so they mix</li>
-                <li>$\mathrm{Li_2} \to \mathrm{N_2}$: $\sigma_{2p}$ is pushed <b>above</b> $\pi_{2p}$</li>
-                <li>$\mathrm{O_2}$, $\mathrm{F_2}$: the $2s$&ndash;$2p$ gap widens and mixing weakens</li>
-                <li>The level inversion is confirmed by photoelectron spectra, not assumed</li>
-            </ul>
+            <h2>4. Labels: $\sigma$, $\pi$, $g$, $u$</h2>
+            <p class="text-lg font-medium mb-6">A homonuclear diatomic belongs to $D_{\infty h}$. Two labels carry all the information we need.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">$\sigma$ or $\pi$ &mdash; behaviour about the bond axis</p>
+                    <ul class="text-sm space-y-2 font-medium text-slate-700">
+                        <li>● <b>$\sigma$</b>: cylindrically symmetric about the axis. Built from $s$, $p_z$, $d_{z^2}$.</li>
+                        <li>● <b>$\pi$</b>: one nodal plane containing the axis. Built from $p_x, p_y$. Always <b>doubly degenerate</b> &mdash; and that degeneracy is what makes $\mathrm{O_2}$ a triplet.</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">$g$ or $u$ &mdash; behaviour under inversion</p>
+                    <ul class="text-sm space-y-2 font-medium text-slate-700">
+                        <li>● <b>$g$</b> (gerade): unchanged on inverting through the centre.</li>
+                        <li>● <b>$u$</b> (ungerade): changes sign.</li>
+                        <li>● Bonding $\sigma$ is $\sigma_g$; antibonding $\sigma$ is $\sigma_u^*$. For $\pi$ it is the <b>other way round</b>: bonding $\pi$ is $\pi_u$, antibonding is $\pi_g^*$.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="warn mt-6">
+                <b>The $\pi$ reversal catches everyone once.</b> It is not a convention to memorise &mdash; work it out. A bonding $\pi$ orbital already has a nodal plane through the axis, so inverting through the centre swaps the two lobes and flips the sign: ungerade. Adding the antibonding node restores the symmetry: gerade.
+                <br><br>Why bother? Because $g/u$ is exactly what the Laporte rule reads in Module 09, and heteronuclear diatomics have <b>no</b> $g/u$ label at all &mdash; $C_{\infty v}$ has no centre of inversion.
+            </div>
         </div>
     </section>
 
-    <!-- Slide 7: $\mathrm{O_2}$ and Paramagnetism -->
+    <!-- Slide 7: H2 to Be2 -->
     <section id="s7">
         <div class="slide-content text-left px-20">
-            <h2>5. $\mathrm{O_2}$ and Paramagnetism</h2>
-            <ul class="todo mt-4">
-                <li>Two unpaired electrons in $\pi^*$ &mdash; a triplet ground state</li>
-                <li>An observation no Lewis structure accounts for &mdash; the decisive argument for MO theory</li>
-                <li>Liquid oxygen sticking to a magnet</li>
-                <li><b>History</b> &mdash; Lennard-Jones 1929; Mulliken's MO nomenclature</li>
-            </ul>
+            <h2>5. The $2s$-Only Regime</h2>
+            <p class="text-lg font-medium mb-6">$\mathrm{H_2}$, $\mathrm{He_2}$, $\mathrm{Li_2}$, $\mathrm{Be_2}$ &mdash; the $2p$ orbitals are empty and stay out of it.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <svg viewBox="0 0 400 240" class="w-full" role="img"
+                         aria-label="Molecular orbital diagram for hydrogen. Two 1s atomic orbitals on the left and right combine into a lower bonding sigma g orbital holding both electrons and an empty higher antibonding sigma u orbital, with the antibonding level further above than the bonding level is below.">
+                        <rect x="0" y="0" width="400" height="240" fill="#f8fafc" rx="12"></rect>
+                        <line x1="40" y1="120" x2="100" y2="120" stroke="#0f172a" stroke-width="3"></line>
+                        <text x="16" y="112" fill="#475569" font-size="12" font-weight="bold">1s</text>
+                        <text x="50" y="112" class="up" font-size="16">&#8593;</text>
+                        <line x1="300" y1="120" x2="360" y2="120" stroke="#0f172a" stroke-width="3"></line>
+                        <text x="366" y="112" fill="#475569" font-size="12" font-weight="bold">1s</text>
+                        <text x="322" y="112" class="up" font-size="16">&#8593;</text>
+                        <line x1="170" y1="56" x2="230" y2="56" stroke="#b91c1c" stroke-width="3"></line>
+                        <text x="238" y="60" fill="#b91c1c" font-size="12" font-weight="bold">&sigma;*u</text>
+                        <line x1="170" y1="180" x2="230" y2="180" stroke="#166534" stroke-width="3"></line>
+                        <text x="238" y="184" fill="#166534" font-size="12" font-weight="bold">&sigma;g</text>
+                        <text x="178" y="174" class="up" font-size="16">&#8593;</text>
+                        <text x="200" y="196" class="dn" font-size="16">&#8595;</text>
+                        <g stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 3">
+                         <line x1="100" y1="120" x2="170" y2="56"></line><line x1="100" y1="120" x2="170" y2="180"></line>
+                         <line x1="300" y1="120" x2="230" y2="56"></line><line x1="300" y1="120" x2="230" y2="180"></line>
+                        </g>
+                        <path d="M 148 120 L 148 62" stroke="#b91c1c" stroke-width="1.5"></path>
+                        <path d="M 148 120 L 148 174" stroke="#166534" stroke-width="1.5"></path>
+                        <text x="106" y="86" fill="#b91c1c" font-size="10">larger</text>
+                        <text x="110" y="156" fill="#166534" font-size="10">smaller</text>
+                    </svg>
+                    <p class="text-sm text-slate-500 mt-2">$\mathrm{H_2}$: BO 1, diamagnetic, $D_0 = 436$ kJ mol$^{-1}$.</p>
+                </div>
+                <div>
+                    <div class="overflow-x-auto">
+                    <table class="qtable">
+                        <thead><tr><th>Molecule</th><th>Configuration</th><th>BO</th><th>Exists?</th></tr></thead>
+                        <tbody>
+                            <tr><td>$\mathrm{H_2}$</td><td class="l">$\sigma_g^2$</td><td>1</td><td>yes</td></tr>
+                            <tr><td>$\mathrm{He_2}$</td><td class="l">$\sigma_g^2 \sigma_u^{*2}$</td><td>0</td><td><b>no</b></td></tr>
+                            <tr><td>$\mathrm{Li_2}$</td><td class="l">$\sigma_g(2s)^2$</td><td>1</td><td>yes, in vapour</td></tr>
+                            <tr><td>$\mathrm{Be_2}$</td><td class="l">$\sigma_g^2 \sigma_u^{*2}$</td><td>0</td><td>barely bound</td></tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="warn mt-4">
+                        <b>$\mathrm{Be_2}$ is a useful embarrassment.</b> Simple bond-order counting says it does not exist, yet a weakly bound $\mathrm{Be_2}$ is observed with $D_0 \approx 10$ kJ mol$^{-1}$. The binding comes from mixing in the empty $2p$ orbitals, which the naive diagram leaves out. Bond order zero means "no ordinary covalent bond", not "no interaction whatsoever".
+                    </div>
+                    <p class="text-sm text-slate-700 mt-3">$\mathrm{Li_2}$ and $\mathrm{Be_2}$ have $\mathrm{He}$-like cores; the $1s$ pairs are so contracted that they neither overlap nor matter. From here on only valence electrons are counted.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Slide 8: Heteronuclear Diatomics -->
+    <!-- Slide 8: s-p mixing -->
     <section id="s8">
         <div class="slide-content text-left px-20">
-            <h2>6. Heteronuclear Diatomics</h2>
-            <ul class="todo mt-4">
-                <li>Asymmetric coefficients &mdash; $|c_A| \ne |c_B|$, weighted toward the more electronegative atom</li>
-                <li>$\mathrm{HF}$ &mdash; non-bonding orbitals and polarity</li>
-                <li>$\mathrm{CO}$ &mdash; a HOMO that is $\sigma$ and weighted on <b>carbon</b></li>
-                <li>That HOMO/LUMO pair is what Module 11 needs for back-donation</li>
-                <li>$\mathrm{NO}$ &mdash; one unpaired electron, a preview of non-innocent ligands</li>
-            </ul>
+            <h2>6. $s$&ndash;$p$ Mixing Changes the Order</h2>
+            <p class="text-lg font-medium mb-6">$2s$ and $2p_z$ on the same atom are both $\sigma$ with respect to the bond axis. They share a symmetry label, so by &sect;1 they <b>must</b> mix.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <svg viewBox="0 0 420 250" class="w-full" role="img"
+                         aria-label="Effect of s-p mixing on the level order. Without mixing the sigma from 2p lies below the pi orbitals. With mixing the sigma is pushed above the pi pair, which is the observed order for boron, carbon and nitrogen.">
+                        <rect x="0" y="0" width="420" height="250" fill="#f8fafc" rx="12"></rect>
+                        <text x="30" y="26" fill="#475569" font-size="12" font-weight="bold">no mixing</text>
+                        <text x="262" y="26" fill="#475569" font-size="12" font-weight="bold">with mixing</text>
+                        <line x1="40" y1="96" x2="120" y2="96" stroke="#166534" stroke-width="3"></line>
+                        <text x="126" y="100" fill="#166534" font-size="11" font-weight="bold">&sigma;g(2p)</text>
+                        <line x1="40" y1="140" x2="120" y2="140" stroke="#1d4ed8" stroke-width="3"></line>
+                        <line x1="40" y1="152" x2="120" y2="152" stroke="#1d4ed8" stroke-width="3"></line>
+                        <text x="126" y="152" fill="#1d4ed8" font-size="11" font-weight="bold">&pi;u(2p)</text>
+                        <line x1="270" y1="72" x2="350" y2="72" stroke="#166534" stroke-width="3"></line>
+                        <text x="356" y="76" fill="#166534" font-size="11" font-weight="bold">&sigma;g</text>
+                        <line x1="270" y1="140" x2="350" y2="140" stroke="#1d4ed8" stroke-width="3"></line>
+                        <line x1="270" y1="152" x2="350" y2="152" stroke="#1d4ed8" stroke-width="3"></line>
+                        <text x="356" y="152" fill="#1d4ed8" font-size="11" font-weight="bold">&pi;u</text>
+                        <path d="M 180 96 Q 224 60 264 74" stroke="#b45309" stroke-width="2.5" fill="none"></path>
+                        <path d="M 264 74 l -11 -3 l 3 9 z" fill="#b45309"></path>
+                        <text x="176" y="52" fill="#b45309" font-size="11" font-weight="bold">&sigma; pushed up</text>
+                        <path d="M 180 146 L 262 146" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 3"></path>
+                        <text x="180" y="176" fill="#64748b" font-size="11">&pi; cannot mix &mdash; wrong symmetry</text>
+                        <line x1="40" y1="210" x2="120" y2="210" stroke="#334155" stroke-width="3"></line>
+                        <text x="126" y="214" fill="#334155" font-size="11">&sigma;g(2s)</text>
+                        <line x1="270" y1="222" x2="350" y2="222" stroke="#334155" stroke-width="3"></line>
+                        <text x="356" y="226" fill="#334155" font-size="11">&sigma;g</text>
+                        <text x="180" y="240" fill="#64748b" font-size="10">2s pushed further down</text>
+                    </svg>
+                </div>
+                <div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">The mechanism</p>
+                        <p class="text-sm font-medium text-slate-700">Mixing pushes the lower $\sigma$ (mostly $2s$) further down and the upper $\sigma$ (mostly $2p_z$) further up. The $\pi$ orbitals cannot participate &mdash; wrong symmetry &mdash; so they stay put. When the push is large enough, $\sigma_g(2p)$ rises <b>above</b> $\pi_u(2p)$.</p>
+                    </div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">When it is strong</p>
+                        <p class="text-sm font-medium text-slate-700">Mixing scales with how close $2s$ and $2p$ lie. That gap <b>widens</b> across the row as $Z_{\mathrm{eff}}$ grows, so mixing weakens from B to F. The observed crossover falls between $\mathrm{N_2}$ and $\mathrm{O_2}$.</p>
+                    </div>
+                    <div class="overflow-x-auto">
+                    <table class="qtable">
+                        <thead><tr><th>Molecule</th><th>Order</th></tr></thead>
+                        <tbody>
+                            <tr><td>$\mathrm{B_2}$, $\mathrm{C_2}$, $\mathrm{N_2}$</td><td>$\pi_u$ <b>below</b> $\sigma_g$</td></tr>
+                            <tr><td>$\mathrm{O_2}$, $\mathrm{F_2}$</td><td>$\sigma_g$ <b>below</b> $\pi_u$</td></tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-3">The ordering is not a postulate. It is read off photoelectron spectra, which give the occupied orbital energies directly.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Slide 9: Key Competencies -->
+    <!-- Slide 9: B2 C2 N2 -->
     <section id="s9">
         <div class="slide-content text-left px-20">
-            <h2>7. Key Competencies</h2>
-            <ul class="todo mt-4">
-                <li>Draw the MO diagram of any second-row diatomic and give its bond order</li>
-                <li>Identify where $s$&ndash;$p$ mixing switches on and off</li>
-                <li>Explain the paramagnetism of $\mathrm{O_2}$ in MO terms</li>
-                <li>Say why the $\mathrm{CO}$ HOMO is carbon-weighted</li>
-            </ul>
+            <h2>7. The Mixed Regime: $\mathrm{B_2}$, $\mathrm{C_2}$, $\mathrm{N_2}$</h2>
+            <div class="overflow-x-auto">
+            <table class="qtable">
+                <thead><tr><th>Molecule</th><th>Valence $e^-$</th><th>Valence configuration</th><th>BO</th><th>Unpaired</th><th>Magnetism</th></tr></thead>
+                <tbody>
+                    <tr><td>$\mathrm{B_2}$</td><td>6</td><td class="l">$\sigma_g^2 \sigma_u^{*2} \pi_u^2$</td><td>1</td><td><b>2</b></td><td><b>paramagnetic</b></td></tr>
+                    <tr><td>$\mathrm{C_2}$</td><td>8</td><td class="l">$\sigma_g^2 \sigma_u^{*2} \pi_u^4$</td><td>2</td><td>0</td><td>diamagnetic</td></tr>
+                    <tr><td>$\mathrm{N_2}$</td><td>10</td><td class="l">$\sigma_g^2 \sigma_u^{*2} \pi_u^4 \sigma_g^2$</td><td><b>3</b></td><td>0</td><td>diamagnetic</td></tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 mt-6">
+                <div class="step-box">
+                    <p class="font-black">$\mathrm{B_2}$ is paramagnetic</p>
+                    <p class="text-sm text-slate-700 mt-2">Two electrons enter the <b>degenerate</b> $\pi_u$ pair and, by Hund's rule, stay unpaired. Observed. It also confirms $\pi_u$ lies below $\sigma_g$ &mdash; on the other order the two electrons would pair in $\sigma_g$ and $\mathrm{B_2}$ would be diamagnetic.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black">$\mathrm{C_2}$ has a $\pi$-only double bond</p>
+                    <p class="text-sm text-slate-700 mt-2">Its BO of 2 comes from <b>two $\pi$ bonds and no net $\sigma$</b> &mdash; unlike any double bond in organic chemistry. A curiosity, and a reminder that BO counts electrons, not bond types.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black">$\mathrm{N_2}$ and its HOMO</p>
+                    <p class="text-sm text-slate-700 mt-2">BO 3 and $D_0 = 945$ kJ mol$^{-1}$ &mdash; among the strongest bonds known, which is why nitrogen fixation is hard (Module 15). Its HOMO is $\sigma_g$, weakly antibonding and pointing along the axis.</p>
+                </div>
+            </div>
+            <div class="hist mt-6">
+                <b>Hund and Mulliken, 1927&ndash;1932.</b> Molecular orbital theory grew alongside Pauling's valence-bond theory, and for two decades the two competed. Robert Mulliken coined the word "orbital" and received the 1966 Nobel Prize in Chemistry for the MO approach. The diatomic series was its proving ground, because these are the molecules where the two theories disagree about something measurable.
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: O2 -->
+    <section id="s10">
+        <div class="slide-content text-left px-20">
+            <h2>8. $\mathrm{O_2}$ &mdash; The Case That Settled It</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="overflow-x-auto">
+                    <svg viewBox="0 0 400 280" class="w-full" style="max-width:100%" role="img"
+                         aria-label="Valence molecular orbital diagram of dioxygen. Below the pi antibonding level everything is filled. The two remaining electrons occupy the two degenerate pi antibonding orbitals singly and with parallel spins, giving two unpaired electrons.">
+                        <rect x="0" y="0" width="400" height="280" fill="#f8fafc" rx="12"></rect>
+                        <g stroke="#334155" stroke-width="3">
+                         <line x1="140" y1="256" x2="200" y2="256"></line>
+                         <line x1="140" y1="220" x2="200" y2="220"></line>
+                         <line x1="140" y1="186" x2="200" y2="186"></line>
+                        </g>
+                        <text x="206" y="260" fill="#334155" font-size="11">&sigma;g(2s)</text>
+                        <text x="206" y="224" fill="#334155" font-size="11">&sigma;*u(2s)</text>
+                        <text x="206" y="190" fill="#166534" font-size="11">&sigma;g(2p)</text>
+                        <g stroke="#1d4ed8" stroke-width="3">
+                         <line x1="110" y1="146" x2="164" y2="146"></line>
+                         <line x1="180" y1="146" x2="234" y2="146"></line>
+                        </g>
+                        <text x="242" y="150" fill="#1d4ed8" font-size="11">&pi;u(2p)</text>
+                        <g stroke="#b91c1c" stroke-width="3">
+                         <line x1="110" y1="86" x2="164" y2="86"></line>
+                         <line x1="180" y1="86" x2="234" y2="86"></line>
+                        </g>
+                        <text x="242" y="90" fill="#b91c1c" font-size="11" font-weight="bold">&pi;*g(2p)</text>
+                        <line x1="140" y1="40" x2="200" y2="40" stroke="#b91c1c" stroke-width="3"></line>
+                        <text x="206" y="44" fill="#b91c1c" font-size="11">&sigma;*u(2p)</text>
+                        <g font-size="15">
+                         <text x="152" y="250" class="up">&#8593;</text><text x="170" y="266" class="dn">&#8595;</text>
+                         <text x="152" y="214" class="up">&#8593;</text><text x="170" y="230" class="dn">&#8595;</text>
+                         <text x="152" y="180" class="up">&#8593;</text><text x="170" y="196" class="dn">&#8595;</text>
+                         <text x="122" y="140" class="up">&#8593;</text><text x="140" y="156" class="dn">&#8595;</text>
+                         <text x="192" y="140" class="up">&#8593;</text><text x="210" y="156" class="dn">&#8595;</text>
+                        </g>
+                        <g font-size="17">
+                         <text x="130" y="80" class="up">&#8593;</text>
+                         <text x="200" y="80" class="up">&#8593;</text>
+                        </g>
+                        <rect x="96" y="62" width="152" height="34" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="5 4" rx="6"></rect>
+                        <text x="98" y="24" fill="#b45309" font-size="12" font-weight="bold">two unpaired electrons, parallel spins</text>
+                    </svg>
+                </div>
+                <div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">Why it comes out this way</p>
+                        <p class="text-sm font-medium text-slate-700">Twelve valence electrons.</p>
+                        <p class="text-sm font-medium text-slate-700 mt-2">Ten of them fill everything up to the bonding $\pi$ level. The last two enter the <b>doubly degenerate</b> antibonding $\pi$ pair, and Hund's rule puts them in separate orbitals with parallel spins.</p>
+                        <p class="text-sm font-medium text-slate-700 mt-2">Two unpaired electrons: a <b>triplet</b> ground state, with bond order 2.</p>
+                    </div>
+                    <div class="warn">
+                        <b>What the Lewis structure gets wrong.</b> $\mathrm{O{=}O}$ with two lone pairs on each atom accounts for all twelve electrons in pairs, so it predicts diamagnetism. Liquid oxygen sticks to the poles of a magnet. The structure is not merely incomplete here &mdash; it is wrong about an observable.
+                    </div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">Module 07 recovered</p>
+                        <p class="text-sm font-medium text-slate-700">The spin-only formula $\mu = \sqrt{n(n+2)}\,\mu_B$ gives $2.83\,\mu_B$ for $n = 2$ &mdash; the same expression, applied to a molecule rather than a metal ion. Degeneracy plus Hund's rule gives unpaired electrons in both settings.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hist mt-4">
+                <b>A correction worth making.</b> The paramagnetism of oxygen was measured long before MO theory &mdash; Faraday examined it in the 1840s. MO theory did not predict it; it <b>explained</b> it, in Lennard-Jones's 1929 treatment, while the localised picture could not. That is a weaker claim than "prediction" and it is the accurate one.
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: F2, series summary -->
+    <section id="s11">
+        <div class="slide-content text-left px-20">
+            <h2>9. The Whole Second Row</h2>
+            <div class="overflow-x-auto">
+            <table class="qtable">
+                <thead><tr><th>Molecule</th><th>Valence $e^-$</th><th>BO</th><th>Unpaired</th><th>Bond length / pm</th><th>$D_0$ / kJ mol$^{-1}$</th><th>Order</th></tr></thead>
+                <tbody>
+                    <tr><td>$\mathrm{Li_2}$</td><td>2</td><td>1</td><td>0</td><td>267</td><td>110</td><td>$2s$ only</td></tr>
+                    <tr><td>$\mathrm{Be_2}$</td><td>4</td><td>0</td><td>0</td><td>245</td><td>&asymp; 10</td><td>$2s$ only</td></tr>
+                    <tr><td>$\mathrm{B_2}$</td><td>6</td><td>1</td><td><b>2</b></td><td>159</td><td>290</td><td>$\pi &lt; \sigma$</td></tr>
+                    <tr><td>$\mathrm{C_2}$</td><td>8</td><td>2</td><td>0</td><td>124</td><td>600</td><td>$\pi &lt; \sigma$</td></tr>
+                    <tr><td>$\mathrm{N_2}$</td><td>10</td><td><b>3</b></td><td>0</td><td>110</td><td><b>945</b></td><td>$\pi &lt; \sigma$</td></tr>
+                    <tr><td>$\mathrm{O_2}$</td><td>12</td><td>2</td><td><b>2</b></td><td>121</td><td>498</td><td>$\sigma &lt; \pi$</td></tr>
+                    <tr><td>$\mathrm{F_2}$</td><td>14</td><td>1</td><td>0</td><td>142</td><td>159</td><td>$\sigma &lt; \pi$</td></tr>
+                    <tr><td>$\mathrm{Ne_2}$</td><td>16</td><td>0</td><td>0</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 mt-5">
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-2">Read the table twice</p>
+                    <p class="text-sm font-medium text-slate-700">Down the BO column: bond length falls and $D_0$ rises with bond order, monotonically, peaking at $\mathrm{N_2}$. Down the "unpaired" column: only $\mathrm{B_2}$ and $\mathrm{O_2}$ are paramagnetic &mdash; exactly the two molecules with a partly filled <b>degenerate</b> $\pi$ set.</p>
+                </div>
+                <div class="warn">
+                    <b>Why $\mathrm{F_2}$ is so weak.</b> BO 1, yet $D_0$ is only 159 kJ mol$^{-1}$ against 436 for $\mathrm{H_2}$. Bond order cannot see this: fluorine's filled $\pi_u$ and $\pi_g^*$ shells put a great deal of electron density in a small volume, and lone-pair repulsion eats most of the bond energy. This is the clearest single case of what &sect;3 warned about.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 12: heteronuclear -->
+    <section id="s12">
+        <div class="slide-content text-left px-20">
+            <h2>10. Heteronuclear Diatomics: the Coefficients Go Unequal</h2>
+            <p class="text-lg font-medium mb-6">Once the two atoms differ, $|c_A| \ne |c_B|$. Every molecular orbital leans toward one atom, and which way it leans is the whole content of polarity in MO language.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <svg viewBox="0 0 400 240" class="w-full" role="img"
+                         aria-label="Molecular orbital diagram for hydrogen fluoride. The fluorine 2p level lies well below hydrogen 1s, so the bonding orbital is much closer in energy to fluorine and is mostly fluorine in character, while the antibonding orbital is mostly hydrogen. Two fluorine 2p orbitals remain non-bonding.">
+                        <rect x="0" y="0" width="400" height="240" fill="#f8fafc" rx="12"></rect>
+                        <line x1="30" y1="66" x2="96" y2="66" stroke="#0f172a" stroke-width="3"></line>
+                        <text x="34" y="56" fill="#475569" font-size="11" font-weight="bold">H 1s</text>
+                        <text x="56" y="60" class="up" font-size="15">&#8593;</text>
+                        <g stroke="#0f172a" stroke-width="3">
+                         <line x1="304" y1="168" x2="370" y2="168"></line>
+                         <line x1="304" y1="180" x2="370" y2="180"></line>
+                         <line x1="304" y1="192" x2="370" y2="192"></line>
+                        </g>
+                        <text x="330" y="212" fill="#475569" font-size="11" font-weight="bold">F 2p</text>
+                        <line x1="168" y1="42" x2="234" y2="42" stroke="#b91c1c" stroke-width="3"></line>
+                        <text x="240" y="46" fill="#b91c1c" font-size="11" font-weight="bold">&sigma;* (mostly H)</text>
+                        <line x1="168" y1="204" x2="234" y2="204" stroke="#166534" stroke-width="3"></line>
+                        <text x="120" y="228" fill="#166534" font-size="11" font-weight="bold">&sigma; (mostly F)</text>
+                        <text x="180" y="198" class="up" font-size="15">&#8593;</text>
+                        <text x="200" y="220" class="dn" font-size="15">&#8595;</text>
+                        <g stroke="#334155" stroke-width="3">
+                         <line x1="168" y1="152" x2="234" y2="152"></line>
+                         <line x1="168" y1="140" x2="234" y2="140"></line>
+                        </g>
+                        <text x="240" y="150" fill="#334155" font-size="11">non-bonding 2p</text>
+                        <g font-size="14">
+                         <text x="178" y="136" class="up">&#8593;</text><text x="196" y="150" class="dn">&#8595;</text>
+                         <text x="212" y="136" class="up">&#8593;</text><text x="224" y="150" class="dn">&#8595;</text>
+                        </g>
+                        <g stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 3">
+                         <line x1="96" y1="66" x2="168" y2="42"></line><line x1="96" y1="66" x2="168" y2="204"></line>
+                         <line x1="304" y1="180" x2="234" y2="204"></line><line x1="304" y1="180" x2="234" y2="42"></line>
+                        </g>
+                    </svg>
+                </div>
+                <div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">The rule</p>
+                        <p class="text-sm font-medium text-slate-700">A molecular orbital resembles <b>whichever atomic orbital it lies closer to in energy</b>. The bonding orbital sits near fluorine and is mostly fluorine; the antibonding orbital sits near hydrogen and is mostly hydrogen. Hence the bonding pair is on fluorine &mdash; the polarity, without ever invoking electronegativity as a separate idea.</p>
+                    </div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">Non-bonding orbitals appear</p>
+                        <p class="text-sm font-medium text-slate-700">$\mathrm{F}$ $2p_x$ and $2p_y$ have $\pi$ symmetry, and hydrogen offers nothing of $\pi$ symmetry to pair with. They stay exactly where they were &mdash; genuinely non-bonding, not weakly bonding.</p>
+                    </div>
+                    <div class="warn">
+                        <b>No $g$ or $u$ here.</b> $\mathrm{HF}$ belongs to $C_{\infty v}$, which has no inversion centre, so the labels do not exist. In Module 09 this matters: without a centre of inversion the Laporte rule has nothing to forbid.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 13: CO -->
+    <section id="s13">
+        <div class="slide-content text-left px-20">
+            <h2>11. $\mathrm{CO}$ &mdash; the Most Reused Diagram in This Course</h2>
+            <p class="text-lg font-medium mb-6">$\mathrm{CO}$ is isoelectronic with $\mathrm{N_2}$: ten valence electrons, BO 3, diamagnetic. And yet its chemistry is entirely different, because its orbitals are lopsided.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">HOMO &mdash; a $\sigma$ orbital weighted on <b>carbon</b></p>
+                    <p class="text-sm font-medium text-slate-700">Oxygen is more electronegative, so one expects everything to lean toward oxygen. For the HOMO it does not. $s$&ndash;$p$ mixing (&sect;6) pushes this $\sigma$ level up and concentrates it on the carbon end, where it projects outward as a lone pair.</p>
+                    <p class="text-sm font-medium text-slate-700 mt-2">Consequence: <b>$\mathrm{CO}$ binds metals through carbon.</b> Every metal carbonyl in Modules 11 to 13 is $\mathrm{M{-}C{\equiv}O}$, never $\mathrm{M{-}O{\equiv}C}$.</p>
+                </div>
+                <div class="info-card">
+                    <p class="font-black uppercase text-xs mb-3">LUMO &mdash; $\pi^*$, also weighted on carbon</p>
+                    <p class="text-sm font-medium text-slate-700">The empty $\pi^*$ pair has its larger lobes on carbon too. A metal $d_\pi$ orbital can therefore donate <b>into</b> it from the same side the $\sigma$ donation came from.</p>
+                    <p class="text-sm font-medium text-slate-700 mt-2">That is $\pi$ back-donation, and it is why $\mathrm{CO}$ sits at the strong-field end of the spectrochemical series in Module 08.</p>
+                </div>
+            </div>
+            <div class="math-box text-center py-4 mt-4">
+                $$ \mathrm{CO\ free}:\ \nu_{\mathrm{CO}} = 2143\ \mathrm{cm^{-1}}
+                \qquad \mathrm{Ni(CO)_4}:\ 2057 \qquad \mathrm{[Fe(CO)_4]^{2-}}:\ 1790 $$
+            </div>
+            <div class="warn">
+                <b>Read that row carefully &mdash; it is a measurement, not an illustration.</b> Filling the $\pi^*$ orbital weakens the C&ndash;O bond, so the stretching frequency <b>falls</b>. The more electron-rich the metal, the further it falls. $\nu_{\mathrm{CO}}$ is therefore a direct experimental readout of electron density at a metal centre, and Module 11 uses it exactly that way.
+            </div>
+            <div class="hist mt-4">
+                <b>Zeise's salt, 1827.</b> William Zeise prepared $\mathrm{K[PtCl_3(C_2H_4)]}$ &mdash; the first organometallic compound with a $\pi$-bound ligand &mdash; and could not say what held it together. The bonding was only explained in 1953 by the Dewar&ndash;Chatt&ndash;Duncanson model, using the same donation-plus-back-donation logic as above. It took 126 years.
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 14: NO -->
+    <section id="s14">
+        <div class="slide-content text-left px-20">
+            <h2>12. $\mathrm{NO}$ &mdash; an Odd Electron and What It Costs</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <div class="overflow-x-auto">
+                    <table class="qtable">
+                        <thead><tr><th>Species</th><th>Valence $e^-$</th><th>BO</th><th>Unpaired</th><th>Bond length / pm</th></tr></thead>
+                        <tbody>
+                            <tr><td>$\mathrm{NO^{+}}$</td><td>10</td><td>3</td><td>0</td><td>106</td></tr>
+                            <tr><td>$\mathrm{NO}$</td><td>11</td><td><b>2.5</b></td><td><b>1</b></td><td>115</td></tr>
+                            <tr><td>$\mathrm{NO^{-}}$</td><td>12</td><td>2</td><td>2</td><td>126</td></tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-3">Removing the odd electron from $\pi^*$ shortens the bond by 9 pm and takes $\mathrm{NO^+}$ to the same configuration as $\mathrm{CO}$ and $\mathrm{N_2}$.</p>
+                </div>
+                <div>
+                    <div class="info-card">
+                        <p class="font-black uppercase text-xs mb-2">Where the electron sits</p>
+                        <p class="text-sm font-medium text-slate-700">Eleven valence electrons cannot pair up. The last one occupies a $\pi^*$ orbital, giving BO 2.5 and one unpaired electron. $\mathrm{NO}$ is a stable radical &mdash; unusual, and the reason it works as a signalling molecule in biology.</p>
+                    </div>
+                    <div class="warn">
+                        <b>Preview: a ligand whose oxidation state is ambiguous.</b> Bound to a metal, that $\pi^*$ electron can sit largely on the ligand or largely on the metal, so $\mathrm{NO}$ can be counted as $\mathrm{NO^+}$ (linear M&ndash;N&ndash;O) or $\mathrm{NO^-}$ (bent). The electron-counting methods of Module 11 give different oxidation states depending on the choice &mdash; the standard example of a <b>non-innocent ligand</b>.
+                    </div>
+                    <p class="text-sm text-slate-700 mt-3">The M&ndash;N&ndash;O angle is measurable, so the ambiguity is resolved case by case in the structure rather than by convention.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 15: competencies -->
+    <section id="s15">
+        <div class="slide-content text-left px-20">
+            <h2>13. Module 5 Key Competencies</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="step-box">
+                    <span class="logic-tag">Construct</span>
+                    <p class="text-sm text-slate-700 mt-3">Draw the valence MO diagram of any second-row diatomic, with the correct level order, and label the orbitals $\sigma/\pi$ and $g/u$.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Compute</span>
+                    <p class="text-sm text-slate-700 mt-3">Give bond order and number of unpaired electrons, including for ions, and rank a set by bond length.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Explain</span>
+                    <p class="text-sm text-slate-700 mt-3">Say why the level order changes between $\mathrm{N_2}$ and $\mathrm{O_2}$, in terms of the $2s$&ndash;$2p$ gap.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Argue</span>
+                    <p class="text-sm text-slate-700 mt-3">State what the Lewis structure of $\mathrm{O_2}$ gets wrong and what measurement decides it.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Predict</span>
+                    <p class="text-sm text-slate-700 mt-3">Given two different atoms, say which end each molecular orbital leans toward, and identify any non-bonding orbitals.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Apply</span>
+                    <p class="text-sm text-slate-700 mt-3">Explain from the $\mathrm{CO}$ frontier orbitals why it binds through carbon and why $\nu_{\mathrm{CO}}$ falls on coordination.</p>
+                </div>
+            </div>
+            <div class="warn mt-8">
+                <b>Self-test.</b> One sentence each &mdash; (i) why the antibonding level is destabilised more than the bonding level is stabilised, (ii) why $\mathrm{B_2}$ being paramagnetic tells us the order of $\pi_u$ and $\sigma_g$, (iii) why the $\mathrm{CO}$ HOMO is on carbon although oxygen is the more electronegative atom. If any of them sticks, return to &sect;2, &sect;7 and &sect;11.
+            </div>
         </div>
     </section>
 
     <!-- Slide 40: End -->
     <section id="s40" class="end">
         <div class="slide-content text-center">
-            <div class="outline-banner" style="display:inline-block">Outline only</div>
-            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 5 &mdash; Outline</h2>
-            <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
-                Section structure and key equations are in place; prose, diagrams and worked cases are not.
-                The rationale for this ordering is in <b>ADV_INORGANIC_ROADMAP.md</b>; the whole map is in the
-                <a href="syllabus.html" style="text-decoration:underline">syllabus</a>.
-            </p>
-            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
-            <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">MO Theory<br>&amp; Polyatomic Molecules</p>
+            <h2 class="border-none text-5xl font-black mb-10 tracking-tighter">Module 5 Complete</h2>
+            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest">Next Phase:</p>
+            <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Ligand Field Theory</p>
+            <div class="mt-20 p-8 border-t-2 border-slate-100 italic font-serif text-slate-400">
+                "Two atoms were enough to decide between two theories. Everything after this is bookkeeping on a larger scale."
+            </div>
         </div>
     </section>
 </main>
