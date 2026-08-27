@@ -12,6 +12,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent
+# 검사 대상: 루트 + 서브 코스 폴더 (apps/·worksheets/는 대상 아님)
+HTMLS = sorted([*ROOT.glob("*.html"), *ROOT.glob("adv_inorganic/*.html")])
 ENGINE = ROOT / "js" / "slide_engine.js"
 
 failures = []
@@ -23,7 +25,7 @@ def check(condition, message):
 
 
 # --- 1. 퀴즈 채점은 공용 엔진만 담당한다 ---------------------------------
-for html in sorted(ROOT.glob("*.html")):
+for html in sorted(HTMLS):
     text = html.read_text(encoding="utf-8")
     check(
         'onclick="checkAnswer' not in text,
@@ -51,7 +53,7 @@ CONTAINER = re.compile(
 )
 total = 0
 warnings = []
-for html in sorted(ROOT.glob("*.html")):
+for html in sorted(HTMLS):
     text = html.read_text(encoding="utf-8")
     if "quiz-container" not in text:
         continue

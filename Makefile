@@ -1,7 +1,7 @@
 PYTHON ?= python3
 HOOKS_DIR := .githooks
 
-.PHONY: check check-phys check-quiz css render-check interaction-check install-hooks
+.PHONY: check check-adv check-phys check-quiz css render-check interaction-check install-hooks
 
 # 결정론적 검사를 먼저 — check_html_quality.py는 원격 이미지를 때려 429로 흔들린다
 check:
@@ -9,6 +9,10 @@ check:
 	$(PYTHON) test_css_classes.py
 	$(PYTHON) test_lesson16.py
 	$(PYTHON) check_html_quality.py
+
+# 무기화학 과정만 — adv_inorganic/은 자기 폴더가 소유하되 검사는 여기서 돈다
+check-adv:
+	$(PYTHON) check_html_quality.py 'adv_inorganic/*.html'
 
 check-quiz:
 	$(PYTHON) test_quiz_integrity.py

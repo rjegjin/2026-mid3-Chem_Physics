@@ -19,6 +19,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent
+# 검사 대상: 루트 + 서브 코스 폴더 (apps/·worksheets/는 대상 아님)
+HTMLS = sorted([*ROOT.glob("*.html"), *ROOT.glob("adv_inorganic/*.html")])
 BUILT = ROOT / "css" / "tailwind.build.css"
 
 # Tailwind 유틸리티로 보이는 토큰만 검사한다. 프로젝트 고유 클래스
@@ -48,7 +50,7 @@ def main():
         if path.name != BUILT.name:
             css += "\n" + path.read_text(encoding="utf-8")
 
-    htmls = {p: p.read_text(encoding="utf-8") for p in ROOT.glob("*.html")}
+    htmls = {p: p.read_text(encoding="utf-8") for p in HTMLS}
     for text in htmls.values():  # 파일 내부 <style> 블록도 정의로 인정
         css += "\n" + "\n".join(re.findall(r"<style>(.*?)</style>", text, re.S))
 

@@ -716,7 +716,7 @@ eq 0 \]
 </html>
 """
 
-with open('/home/rjegj/projects/2026-mid3-Chem_Physics/adv_inorganic_02.html', 'w', encoding='utf-8') as f:
+with open('/home/rjegj/projects/2026-mid3-Chem_Physics/adv_inorganic/02.html', 'w', encoding='utf-8') as f:
     f.write(html_content)
 
 print("Advanced Inorganic Module 02 generated.")

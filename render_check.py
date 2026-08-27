@@ -100,7 +100,9 @@ def main() -> int:
 
     out_dir = ROOT / args.out_dir
     out_dir.mkdir(parents=True, exist_ok=True)
-    stem = target.stem
+    # 경로를 눌러 이름을 만든다 — adv_inorganic/index.html이 루트 index.html의
+    # 감사 결과를 덮어써 멀쩡한 페이지를 멀쩡하다고 두 번 말하는 사고를 막는다
+    stem = "_".join(target.with_suffix("").parts)
 
     port = find_free_port()
     server, thread = start_server(ROOT, port)

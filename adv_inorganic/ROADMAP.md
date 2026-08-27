@@ -7,11 +7,19 @@ This document is the **skeleton**. It carries each module's section map and
 production status, not its prose. Writing a module starts from the section map
 here.
 
-- Presentation syllabus: [`syllabus.html`](syllabus.html)
-- Language: the whole `adv_inorganic_*` family is **English**, including code
-  comments in `js/adv_inorganic_*.js`. Modules 01, 02, 03 and Bonus 01 were
+- Presentation syllabus: [`index.html`](index.html) — this folder's landing page
+- **Layout**: this folder owns the course. The rendering platform is *not* here:
+  stylesheets are `../css/`, the slide engine is `../js/slide_engine.js`, and the
+  Module 07 applet lives at `../js/adv_inorganic_07.js`. Do not copy those in —
+  they are shared with the middle-school lessons on purpose, so a fix to the
+  engine reaches both. Pages are `NN.html` / `bonus_NN.html`; reference PDFs are
+  in `refs/`.
+- QA runs from the repository root: `make check` covers `adv_inorganic/*.html`,
+  and `python3 render_check.py adv_inorganic/NN.html` renders one page.
+- Language: the whole `adv_inorganic/` family is **English**, including code
+  comments in `../js/adv_inorganic_*.js`. Modules 01, 02, 03 and Bonus 01 were
   English from the start; everything else was converted on 2026-08-26.
-- Updated: 2026-08-26
+- Updated: 2026-08-27 (split into `adv_inorganic/`)
 
 ## The Axis of This Course
 
@@ -37,25 +45,25 @@ Molecular Symmetry → Group Theory → Representations → SALCs / Selection Ru
 
 | # | Module | File | Status |
 |---|---|---|---|
-| B01 | Linear Algebra for Quantum Chemistry | `adv_inorganic_bonus_01.html` | Complete |
-| B02 | Hilbert Spaces & Symmetry Operators | `adv_inorganic_bonus_02.html` | Outline |
-| B03 | Representation Theory (proof of the GOT) | `adv_inorganic_bonus_03.html` | Outline |
-| B04 | Quantum Hamiltonian Symmetry | `adv_inorganic_bonus_04.html` | Outline |
-| 01 | Molecular Symmetry & Point Groups | `adv_inorganic_01.html` | Complete (28 sections) |
-| 02 | Representations & Character Tables | `adv_inorganic_02.html` | Complete |
-| 03 | Vibrational Spectroscopy & SALCs | `adv_inorganic_03.html` | Complete |
-| 04 | Atomic Orbitals & Angular Momentum | `adv_inorganic_04.html` | Complete (14 sections) |
-| 05 | MO Theory: Diatomics | `adv_inorganic_05.html` | Complete (15 sections) |
-| 06 | MO Theory: Polyatomics | `adv_inorganic_06.html` | Complete (15 sections) |
-| 07 | Crystal Field Theory | `adv_inorganic_07.html` | Complete (14 sections + applet) |
-| 08 | Ligand Field Theory | `adv_inorganic_08.html` | Complete (15 sections) |
-| 09 | Electronic Spectra | `adv_inorganic_09.html` | Outline (two sessions) |
-| 10 | Spin–Orbit & Relativistic Effects | `adv_inorganic_10.html` | Outline |
-| 11 | Organometallic Bonding | `adv_inorganic_11.html` | Outline |
-| 12 | Organometallic Reactions | `adv_inorganic_12.html` | Outline |
-| 13 | Homogeneous Catalysis | `adv_inorganic_13.html` | Outline |
-| 14 | Solid-State & Band Theory | `adv_inorganic_14.html` | Outline |
-| 15 | Modern Inorganic Materials | `adv_inorganic_15.html` | Outline |
+| B01 | Linear Algebra for Quantum Chemistry | `bonus_01.html` | Complete |
+| B02 | Hilbert Spaces & Symmetry Operators | `bonus_02.html` | Outline |
+| B03 | Representation Theory (proof of the GOT) | `bonus_03.html` | Outline |
+| B04 | Quantum Hamiltonian Symmetry | `bonus_04.html` | Outline |
+| 01 | Molecular Symmetry & Point Groups | `01.html` | Complete (28 sections) |
+| 02 | Representations & Character Tables | `02.html` | Complete |
+| 03 | Vibrational Spectroscopy & SALCs | `03.html` | Complete |
+| 04 | Atomic Orbitals & Angular Momentum | `04.html` | Complete (14 sections) |
+| 05 | MO Theory: Diatomics | `05.html` | Complete (15 sections) |
+| 06 | MO Theory: Polyatomics | `06.html` | Complete (15 sections) |
+| 07 | Crystal Field Theory | `07.html` | Complete (14 sections + applet) |
+| 08 | Ligand Field Theory | `08.html` | Complete (15 sections) |
+| 09 | Electronic Spectra | `09.html` | Outline (two sessions) |
+| 10 | Spin–Orbit & Relativistic Effects | `10.html` | Outline |
+| 11 | Organometallic Bonding | `11.html` | Outline |
+| 12 | Organometallic Reactions | `12.html` | Outline |
+| 13 | Homogeneous Catalysis | `13.html` | Outline |
+| 14 | Solid-State & Band Theory | `14.html` | Outline |
+| 15 | Modern Inorganic Materials | `15.html` | Outline |
 
 Written in full: **9** (01, 02, 03, 04, 05, 06, 07, 08 + Bonus 01).
 Outlines: **10** (7 modules + 3 bonus).
@@ -63,17 +71,17 @@ Every module has a page that opens, and all of them are surfaced in `index.html`
 
 ### File Numbering Now Matches Module Numbering (resolved)
 
-`adv_inorganic_04.html` used to hold MO theory and SALCs, which put it out of
+`04.html` used to hold MO theory and SALCs, which put it out of
 step with the curriculum numbering. Resolved by option (A): the file number
 *is* the module number.
 
 ```
-adv_inorganic_04.html (MO · SALCs) → adv_inorganic_06.html   [git mv]
-adv_inorganic_04.html                                        [new · atomic orbitals]
+04.html (MO · SALCs) → 06.html   [git mv]
+04.html                                        [new · atomic orbitals]
 ```
 
 Also updated at the same time: two links and a card label in `index.html`, one
-link in `syllabus.html`, and the internal `Lecture 04` / `Module 4` strings.
+link in `index.html`, and the internal `Lecture 04` / `Module 4` strings.
 
 ---
 
@@ -104,7 +112,7 @@ Not optional. It is **a prerequisite for Module 02.** Accept the Great
 Orthogonality Theorem without its proof and every selection rule from Module 03
 onward stays a rule to be memorised.
 
-`adv_inorganic_bonus_01.html` already contains the algebraic structure of
+`bonus_01.html` already contains the algebraic structure of
 groups (subgroups, cosets, Lagrange's theorem, conjugacy classes, normal
 subgroups, quotient groups, isomorphisms), Hilbert space, linear, adjoint,
 unitary and Hermitian operators, change of basis, invariance of the trace,
@@ -191,7 +199,7 @@ connect molecular symmetry to the abstract group.
 # Part II. Electronic Structure & Bonding
 
 ## Module 04 — Atomic Orbitals, Electron Configurations & Angular Momentum  ✔ Complete
-**File**: `adv_inorganic_04.html` (14 sections)
+**File**: `04.html` (14 sections)
 **Central question**: What determines the electronic state of an atom?
 
 Scope was **widened** relative to the earlier plan. Angular momentum and Slater
@@ -213,7 +221,7 @@ determinants belong here, or the term symbols of Module 09 arrive out of nowhere
 (term symbols) and Module 10 (LS coupling).
 
 ## Module 05 — MO Theory: Diatomic Molecules  ✔ Complete
-**File**: `adv_inorganic_05.html` (15 sections)
+**File**: `05.html` (15 sections)
 **Central question**: How do atomic orbitals combine into molecular orbitals?
 
 1. LCAO — `ψ = c_A φ_A + c_B φ_B`
@@ -228,7 +236,7 @@ determinants belong here, or the term symbols of Module 09 arrive out of nowhere
 
 ## Module 06 — MO Theory: Polyatomic Molecules  ✔ Complete
 **Central question**: How does symmetry build up a complicated MO scheme?
-**File**: `adv_inorganic_06.html` (15 sections)
+**File**: `06.html` (15 sections)
 
 This is where group theory and MO theory properly meet.
 
@@ -264,7 +272,7 @@ Ligand orbitals → SALCs → central-atom orbitals → molecular orbitals
 # Part III. Coordination Chemistry
 
 ## Module 07 — Crystal Field Theory  ✔ Complete
-**File**: `adv_inorganic_07.html` (14 sections) · applet `js/adv_inorganic_07.js`
+**File**: `07.html` (14 sections) · applet `../js/adv_inorganic_07.js`
 **Central question**: How does a ligand change the energy of the d orbitals?
 
 1. What this model is and is not — the point-charge assumption and its price
@@ -287,7 +295,7 @@ Ligand orbitals → SALCs → central-atom orbitals → molecular orbitals
 which is what motivates Module 08.
 
 ## Module 08 — Ligand Field Theory  ✔ Complete
-**File**: `adv_inorganic_08.html` (15 sections)
+**File**: `08.html` (15 sections)
 **Central question**: How does molecular orbital theory account for metal–ligand bonding?
 
 The hinge from CFT into MO theory. The SALCs of Module 06 are recovered here.
@@ -526,7 +534,7 @@ different job.
 Applet conventions follow the `explore` section of `docs/SLIDE_ARCHETYPES.md` —
 controls are `.pick`-style buttons or `<input type="range">`, 44 px touch
 targets, any change announced in words through `aria-live`, and the script split
-into `js/adv_inorganic_{NN}.js`.
+into `../js/adv_inorganic_{NN}.js`.
 
 ## 3. Process — one module per pull request
 
@@ -550,11 +558,11 @@ caught after one module rather than fourteen.
 
 # Production Rules
 
-- Visual family follows the existing `adv_inorganic_*.html`: white ground,
+- Visual family follows the existing `adv_inorganic/*.html`: white ground,
   achromatic academic type, `math-box` / `info-card` / `step-box`, MathJax 3.
   Do not mix in the colour scheme of the school-lesson pages.
 - **Language is English** throughout the family, including code comments in
-  `js/adv_inorganic_*.js`. Modules 01, 02, 03 and Bonus 01 set that precedent.
+  `../js/adv_inorganic_*.js`. Modules 01, 02, 03 and Bonus 01 set that precedent.
 - Slide skeleton is `main > section` plus `js/slide_engine.js`. This family uses
   `id="sN"` rather than `data-slide-index`; keep to that convention.
 - The last section is `<section id="s40" class="end">`.

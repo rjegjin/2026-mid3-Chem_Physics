@@ -2,7 +2,7 @@
  *
  * Geometry × d-electron count × spin state is 3 × 11 × 2, so a static figure
  * cannot teach it. This is one of the three modules that gets an applet
- * (see the production standards in ADV_INORGANIC_ROADMAP.md).
+ * (see the production standards in ROADMAP.md).
  * js/chem_sim.js could not be reused: it animates symmetry operations on
  * molecules and displays their matrices, which is a different job.
  *
