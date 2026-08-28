@@ -547,6 +547,21 @@ by phase. This is what prevents discovering a drifted standard thirteen
 instalments later — and it is how the Korean-language mistake in this family was
 caught after one module rather than fourteen.
 
+## 4. Scrollbars
+
+A scrollbar belongs only to a box the author made on purpose. One the browser
+invents is a bug, not a feature — and it hides the fact that a slide holds too
+much.
+
+- **Allowed**: wide tables, code blocks and wide diagrams, each wrapped in
+  `<div class="overflow-x-auto">`; and *display* math.
+- **Never**: inline math, paragraphs, cards, and above all `.slide-content`
+  itself. Inline math as a scroll box clips a single `σ` by a few pixels,
+  because MathJax's box is slightly wider than the glyph. Module 08 once had
+  221 scroll containers on one page for this reason.
+- If `.slide-content` scrolls sideways, a table or diagram has broken out of
+  the page. Wrap that one element; never widen the slide.
+
 ## Progress
 
 - [x] **07 Crystal Field Theory** — 14 sections + CFSE applet

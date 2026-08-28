@@ -17,8 +17,8 @@
     <style>
         :root { --primary-teal: #0f766e; --bg-main: #ffffff; --text-dark: #0f172a; }
         body { line-height: 1.6; color: var(--text-dark); font-family: 'Pretendard', sans-serif; background: var(--bg-main); }
-        .slide-content h2 { font-size: 3.5rem; font-weight: 900; color: #0f172a; border-bottom: 4px solid #0d9488; display: inline-block; padding-bottom: 0.5rem; margin-bottom: 2rem; }
-        .equation-display { background: #f8fafc; padding: 2.5rem; border-radius: 2rem; font-family: 'Fira Code', monospace; font-size: 3.5rem; color: #1e293b; border: 3px solid #e2e8f0; margin: 2rem 0; display: flex; justify-content: center; align-items: center; gap: 1rem; text-shadow: 0 0 10px rgba(13, 148, 136, 0.1); }
+        .slide-content h2 { font-size: clamp(1.4rem, 6vw, 3.5rem); font-weight: 900; color: #0f172a; border-bottom: 4px solid #0d9488; display: inline-block; padding-bottom: 0.5rem; margin-bottom: 2rem; }
+        .equation-display { overflow-x: auto; background: #f8fafc; padding: 2.5rem; border-radius: 2rem; font-family: 'Fira Code', monospace; font-size: clamp(1.4rem, 6vw, 3.5rem); color: #1e293b; border: 3px solid #e2e8f0; margin: 2rem 0; display: flex; justify-content: center; align-items: center; gap: 1rem; text-shadow: 0 0 10px rgba(13, 148, 136, 0.1); }
         .think-card { background: #ffffff; border-radius: 2.5rem; padding: 3rem; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; }
         .trap-box { background: #fff1f2; border: 4px solid #fb7185; padding: 2.5rem; border-radius: 2rem; position: relative; margin-top: 3rem; }
         .trap-badge { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); background: #e11d48; color: white; padding: 0.5rem 1.5rem; border-radius: 9999px; font-weight: 900; font-size: 1rem; box-shadow: 0 4px 10px rgba(225, 29, 72, 0.3); }

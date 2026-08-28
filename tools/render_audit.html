@@ -23,7 +23,7 @@
       word-break: break-word;
     }
     iframe {
-      width: 1280px;
+      width: 1280px;   /* ?width= 로 덮어쓴다 (아래 스크립트) */
       height: 720px;
       border: 0;
       position: absolute;
@@ -41,6 +41,9 @@
     const params = new URLSearchParams(window.location.search);
     const target = params.get('target');
     const delayMs = Number(params.get('delay_ms') || 1800);
+    // 감사 폭. 이 값이 고정 1280이던 동안 '모바일 감사'는 모바일을 본 적이 없다.
+    const frameW = Number(params.get('width') || 1280);
+    const frameH = Number(params.get('height') || 720);
     const statusEl = document.getElementById('status');
     const resultEl = document.getElementById('result');
     const frame = document.getElementById('audit-frame');
@@ -99,7 +102,9 @@
         return;
       }
 
-      statusEl.textContent = `loading ${target}`;
+      frame.style.width = frameW + 'px';
+      frame.style.height = frameH + 'px';
+      statusEl.textContent = `loading ${target} @ ${frameW}x${frameH}`;
       frame.src = target;
 
       frame.addEventListener('load', () => {
@@ -144,7 +149,12 @@
                 // 스스로 가로 스크롤을 갖는 상자는 넘치는 게 설계다(넓은 표, 코드
                 // 블록, 줄바꿈 안 되는 MathJax 수식). 레이아웃을 깨는 넘침만 본다.
                 const ox = win.getComputedStyle(el).overflowX;
-                if (ox === 'auto' || ox === 'scroll') return false;
+                // 예외의 예외: 슬라이드 본문은 스크롤 상자로 만들어져 있지만
+                // 가로로 스크롤되면 그건 설계가 아니라 사고다. 이걸 면제하면
+                // '표가 화면을 뚫었다'는 사실이 감사에서 통째로 사라진다.
+                const isSlide = el.classList && el.classList.contains('slide-content');
+                if (!isSlide && (ox === 'auto' || ox === 'scroll')) return false;
+                if (isSlide && el.scrollWidth <= el.clientWidth + 4) return false;
                 // MathJax 내부(mjx-math·mjx-mi·mjx-c·mjx-assistive-mml)는 글리프를
                 // 음수 마진으로 배치하므로 scrollWidth가 레이아웃을 뜻하지 않는다.
                 // 수식이 상자를 밀어내는 문제는 mjx-container 쪽에서 이미 잡는다.
