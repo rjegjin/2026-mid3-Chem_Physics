@@ -39,8 +39,10 @@ body.presentation-mode section.active-slide {
     box-shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* safe: 내용이 넘칠 때 가운데 정렬이 위쪽을 화면 밖으로 밀어내 제목이 잘리고
+       스크롤로도 닿지 못한다. safe를 붙이면 넘칠 때만 위 정렬로 물러난다. */
+    justify-content: safe center;
+    align-items: safe center;
     text-align: center;
     overflow: auto !important; /* 가로/세로 스크롤 모두 허용 */
     -webkit-overflow-scrolling: touch; /* 모바일 터치 스크롤 부드럽게 */
@@ -64,6 +66,11 @@ body.presentation-mode section.active-slide {
 @media (max-height: 820px) {
     body.presentation-mode section { padding: 0.75rem; }
     .slide-content { padding: 1.25rem 2.5rem; max-height: 96vh; }
+    /* 페이지마다 svg·canvas에 인라인 max-height(190~330px)가 박혀 있어 위의 38vh
+       상한이 무력화된다. 세로가 짧은 화면에서는 그 값이 곧 글씨 크기이므로,
+       화면이 정한 상한이 저자가 적은 픽셀값을 이긴다. 넉넉한 화면은 그대로 둔다. */
+    .slide-content svg,
+    .slide-content canvas { max-height: 34vh !important; }
 }
 
 .slide-content::-webkit-scrollbar { width: 6px; }
@@ -120,6 +127,18 @@ body.presentation-mode li {
     margin-bottom: 1.2rem;
     letter-spacing: -0.02em;
 }
+
+/* 상자 안 마지막 문단의 아래 여백은 상자의 패딩이 이미 준다. 문단마다 1.2rem을
+   더하면 카드 한 장에 20px씩 죽은 공간이 생기고, fitSlides가 그만큼 글씨를
+   줄여 갚는다. 그리고 mt-*를 직접 준 문단은 저자가 리듬을 정한 것이므로
+   아래 여백을 겹쳐 주지 않는다. */
+body.presentation-mode p:last-child { margin-bottom: 0; }
+
+/* 마지막 자식의 아래 마진은 flex 컨테이너의 자동 높이에는 안 들어가면서
+   scrollHeight에는 들어간다. 그래서 내용이 다 들어가는 슬라이드도 '넘쳤다'고
+   판정되어 fitSlides가 글씨를 줄인다 — 유령 넘침이다. 마진을 없앤다. */
+.slide-content > *:last-child { margin-bottom: 0; }
+body.presentation-mode p[class*="mt-"] { margin-bottom: 0; }
 
 .molecule-container {
     display: flex;
@@ -298,6 +317,7 @@ thead.bg-slate-900 th { color: #ffffff !important; }
 /* --- Slide Controls --- */
 #slide-controls {
     position: fixed; bottom: 20px; right: 20px;
+    transition: opacity .35s ease;
     background: white; padding: 10px 20px;
     border-radius: 30px; border: 1px solid #e2e8f0;
     display: flex; gap: 15px; z-index: 100;
@@ -550,3 +570,10 @@ body.view-all-mode .progress-bar-container {
    폰트를 줄이지 않는 이유: 수업 중 뒷줄에서 안 보이게 만드는 대가가 더 크다 */
 mjx-container { display: inline-block; max-width: 100%; overflow-x: auto; overflow-y: hidden; vertical-align: middle; }
 mjx-container[display="true"] { display: block; }
+
+/* 조작 바는 슬라이드 위에 떠 있어 아래쪽 줄을 덮는다. 모든 장에서 바 높이만큼
+   자리를 비우면 그만큼 글씨가 작아지므로, 대신 쓰지 않을 때 물러나게 한다.
+   완전히 없애지 않는 이유는 있는 줄 몰라 못 찾는 일을 막기 위해서다.
+   마우스를 움직이거나 키를 누르면 즉시 돌아온다. */
+#slide-controls.idle { opacity: 0.12; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { #slide-controls { transition: none; } }

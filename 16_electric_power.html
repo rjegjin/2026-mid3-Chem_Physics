@@ -259,7 +259,7 @@
    <section data-slide-index="11" data-slide-num="12" data-title="전력-시간 미터" id="slide-12">
     <div class="slide-content">
      <h2>전력과 시간을 바꾸어 보자</h2>
-     <div class="flex flex-col md:flex-row gap-5 max-w-5xl w-full mt-2">
+     <div class="flex flex-col md:flex-row gap-5 max-w-5xl w-full mt-1">
       <div class="w-full md:w-3/5">
        <svg id="meter-svg" viewBox="0 0 480 300" class="w-full" style="max-height:300px" role="img"
             aria-label="소비 전력을 세로 높이로, 사용 시간을 가로 너비로 나타낸 직사각형. 직사각형의 넓이가 사용한 전기 에너지를 나타낸다.">
@@ -282,11 +282,11 @@
        <label class="font-bold text-slate-800 mt-2 block" for="ap2-time">사용 시간</label>
        <input type="range" id="ap2-time" min="0" max="480" step="10" value="180"/>
        <p class="readout text-xl" id="ap2-time-out">3시간 0분</p>
-       <div class="standard-box mt-3">
+       <div class="standard-box mt-2">
         <p class="text-lg text-slate-700">사용한 전기 에너지</p>
         <p class="readout text-2xl" id="ap2-energy">3000 Wh (3.000 kWh)</p>
        </div>
-       <div class="flex gap-2 mt-3" id="ap2-presets"></div>
+       <div class="flex gap-2 mt-2" id="ap2-presets"></div>
       </div>
      </div>
      <p class="text-slate-600 max-w-5xl mt-2" id="ap2-live" aria-live="polite">소비 전력 1000 W로 3시간 0분 사용하면 전기 에너지 3000 Wh를 사용한다.</p>
