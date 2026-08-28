@@ -37,6 +37,7 @@
    /* 표가 flex-1로 남은 폭을 다 먹으면 이 칼럼이 0으로 접힌다. 폭을 못 박는다. */
    @media (min-width: 768px) {
     #sky-panel { flex: 0 0 300px; }
+    #star-table-col { overflow-x: visible; }   /* 넓은 화면에서는 스크롤이 필요 없다 */
     #star-table-col { flex: 1 1 auto; min-width: 0; }   /* md:flex-1이 빌드에 없어 직접 쓴다 */
    }
   </style>
@@ -374,7 +375,7 @@
     <div class="slide-content">
      <h2>6. 실제 별의 시차로 거리를 구해 보자</h2>
      <div class="flex flex-col md:flex-row gap-5 items-center max-w-6xl w-full mt-4">
-      <div class="w-full" id="star-table-col">
+      <div class="w-full overflow-x-auto" id="star-table-col">
       <table class="lab-table">
        <thead><tr><th>별</th><th>연주 시차</th><th>거리(pc)</th><th>잴 수 있나?</th></tr></thead>
        <tbody>

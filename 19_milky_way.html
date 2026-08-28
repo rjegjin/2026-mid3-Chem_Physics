@@ -9,6 +9,34 @@
   <link href="css/presentation_mode.css" rel="stylesheet"/>
   <link href="css/chem_style.css" rel="stylesheet"/>
   <link href="css/components.css" rel="stylesheet"/>
+ <style>
+   /* 사진 한 장이 곧 슬라이드인 장. 카드(패딩·테두리·그림자)를 걷어내고 화면을
+      가득 채운다. .slide-content img의 공용 상한 35vh를 여기서만 푸는 이유는,
+      이 사진이 칼럼 안의 삽화가 아니라 슬라이드 자체이기 때문이다 —
+      부모가 100vh로 묶여 있어 8·9강에서 문제였던 '무한정 늘어남'은 없다. */
+   .photo-slide { padding: 0 !important; }
+   .photo-slide .slide-content {
+    padding: 0; width: 100%; max-width: none; max-height: 100vh;
+    background: #000; border: none; border-radius: 0; box-shadow: none;
+    overflow: hidden; position: relative;
+   }
+   .photo-slide .sky-photo {
+    width: 100%; height: 100vh; max-height: 100vh; object-fit: cover;
+    margin: 0; border-radius: 0; display: block;
+   }
+   /* 사진 위에 얹는 글. 아래쪽 어둠에만 올려 별을 가리지 않는다. */
+   .photo-slide .photo-cap {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 2.5rem 3rem 1.6rem;
+    background: linear-gradient(to top, rgba(2,6,23,0.92) 35%, rgba(2,6,23,0));
+    text-align: left;
+   }
+   .photo-slide .photo-cap h2 {
+    color: #f8fafc !important; border: none !important; padding: 0 !important;
+    margin: 0 0 0.4rem !important; display: block !important; text-align: left;
+   }
+   .photo-slide .photo-cap p { color: #cbd5e1; margin: 0; }
+   .photo-slide .photo-credit { color: #64748b !important; font-size: 0.95rem !important; margin-top: 0.5rem !important; }
+ </style>
  </head>
  <body class="presentation-mode" style="--accent:#7c3aed; --accent-strong:#5b21b6; --accent-soft:#ede9fe; --accent-tint:#f5f3ff">
   <main>
@@ -24,8 +52,21 @@
     </div>
    </section>
 
+   <!-- 1b. 실물 사진 — 도식을 보기 전에 진짜 하늘을 본다 -->
+   <section data-slide-index="1" data-slide-num="2" data-title="여름밤의 은하수" id="slide-2" class="photo-slide">
+    <div class="slide-content">
+     <img class="sky-photo" src="img/milky_way_band.jpg"
+          alt="밤하늘을 가로지르는 은하수. 수많은 별이 흩어진 하늘 가운데로 뿌옇고 폭이 넓은 띠가 세로로 지나가고, 띠 안쪽에는 검은 먼지 구름이 얼룩처럼 보인다. 지평선 부근은 초록빛 대기광으로 밝고, 아래쪽에는 나무의 검은 윤곽이 있다."/>
+     <div class="photo-cap">
+      <h2>이것이 은하수다</h2>
+      <p>맨눈으로 이렇게 보인다. 별이 하늘에 <b>고르게</b> 흩어져 있다면 이런 띠는 생기지 않는다.</p>
+      <p class="photo-credit">사진 &copy; Chad Powell &middot; 영국 와이트섬에서 촬영</p>
+     </div>
+    </div>
+   </section>
+
    <!-- 2. hook -->
-   <section data-slide-index="1" data-slide-num="2" data-title="여름밤의 뿌연 띠" id="slide-2">
+   <section data-slide-index="2" data-slide-num="3" data-title="여름밤의 뿌연 띠" id="slide-3">
     <div class="slide-content">
      <h2>여름밤 하늘을 가로지르는 뿌연 띠</h2>
      <svg viewBox="0 0 720 210" class="w-full" style="max-height:250px" role="img"
@@ -56,7 +97,7 @@
    </section>
 
    <!-- 3. predict -->
-   <section data-slide-index="2" data-slide-num="3" data-title="먼저 예상하기" id="slide-3">
+   <section data-slide-index="3" data-slide-num="4" data-title="먼저 예상하기" id="slide-4">
     <div class="slide-content">
      <h2>먼저 예상해 봅시다</h2>
      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-6">
@@ -75,7 +116,7 @@
    </section>
 
    <!-- 4. objectives -->
-   <section data-slide-index="3" data-slide-num="4" data-title="학습 목표" id="slide-4">
+   <section data-slide-index="4" data-slide-num="5" data-title="학습 목표" id="slide-5">
     <div class="slide-content">
      <h2>이 차시의 목표</h2>
      <div class="max-w-3xl w-full mt-5 standard-box">
@@ -92,7 +133,7 @@
    </section>
 
    <!-- 5. concept — 은하란 -->
-   <section data-slide-index="4" data-slide-num="5" data-title="은하의 의미" id="slide-5">
+   <section data-slide-index="5" data-slide-num="6" data-title="은하의 의미" id="slide-6">
     <div class="slide-content">
      <h2>1. 은하란 무엇인가</h2>
      <div class="standard-box max-w-4xl w-full mt-5">
@@ -108,7 +149,7 @@
    </section>
 
    <!-- 6. concept — 모양과 크기 -->
-   <section data-slide-index="5" data-slide-num="6" data-title="모양과 크기" id="slide-6">
+   <section data-slide-index="6" data-slide-num="7" data-title="모양과 크기" id="slide-7">
     <div class="slide-content">
      <h2>2. 우리은하의 모양과 크기</h2>
      <svg viewBox="0 0 720 250" class="w-full" style="max-height:280px" role="img"
@@ -144,7 +185,7 @@
    </section>
 
    <!-- 7. concept — 태양계의 위치 -->
-   <section data-slide-index="6" data-slide-num="7" data-title="태양계의 위치" id="slide-7">
+   <section data-slide-index="7" data-slide-num="8" data-title="태양계의 위치" id="slide-8">
     <div class="slide-content">
      <h2>3. 우리은하에서 태양계의 위치</h2>
      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-5">
@@ -160,7 +201,7 @@
    </section>
 
    <!-- 8. concept — 은하수가 띠로 보이는 까닭 -->
-   <section data-slide-index="7" data-slide-num="8" data-title="은하수가 띠인 까닭" id="slide-8">
+   <section data-slide-index="8" data-slide-num="9" data-title="은하수가 띠인 까닭" id="slide-9">
     <div class="slide-content">
      <h2>4. 은하수는 왜 '띠'로 보일까</h2>
      <svg viewBox="0 0 720 200" class="w-full" style="max-height:230px" role="img"
@@ -196,7 +237,7 @@
    </section>
 
    <!-- 9. compare — 성단 -->
-   <section data-slide-index="8" data-slide-num="9" data-title="성단 비교" id="slide-9">
+   <section data-slide-index="9" data-slide-num="10" data-title="성단 비교" id="slide-10">
     <div class="slide-content">
      <h2>5. 구성 천체 (1) &mdash; 성단</h2>
      <div class="standard-box max-w-4xl w-full mt-4">
@@ -220,7 +261,7 @@
    </section>
 
    <!-- 10. concept — 성운과 성간 물질 -->
-   <section data-slide-index="9" data-slide-num="10" data-title="성운과 성간 물질" id="slide-10">
+   <section data-slide-index="10" data-slide-num="11" data-title="성운과 성간 물질" id="slide-11">
     <div class="slide-content">
      <h2>6. 구성 천체 (2) &mdash; 성운과 성간 물질</h2>
      <div class="standard-box max-w-4xl w-full mt-4">
@@ -248,7 +289,7 @@
    </section>
 
    <!-- 11. rule -->
-   <section data-slide-index="10" data-slide-num="11" data-title="규칙 완성" id="slide-11">
+   <section data-slide-index="11" data-slide-num="12" data-title="규칙 완성" id="slide-12">
     <div class="slide-content">
      <h2>관찰에서 규칙으로</h2>
      <div class="max-w-5xl w-full mt-4">
@@ -295,7 +336,7 @@
    </section>
 
    <!-- 12. 과학사 -->
-   <section data-slide-index="11" data-slide-num="12" data-title="과학사 — 은하의 지도" id="slide-12">
+   <section data-slide-index="12" data-slide-num="13" data-title="과학사 — 은하의 지도" id="slide-13">
     <div class="slide-content">
      <h2>과학사 &mdash; 은하의 지도를 그린 사람들</h2>
      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-5xl w-full mt-5">
@@ -321,7 +362,7 @@
    </section>
 
    <!-- 13. summary -->
-   <section data-slide-index="12" data-slide-num="13" data-title="정리" id="slide-13">
+   <section data-slide-index="13" data-slide-num="14" data-title="정리" id="slide-14">
     <div class="slide-content">
      <h2>오늘의 정리</h2>
      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-5xl w-full mt-5">
@@ -338,7 +379,7 @@
    </section>
 
    <!-- 14. quiz -->
-   <section data-slide-index="13" data-slide-num="14" data-title="형성평가" id="slide-14">
+   <section data-slide-index="14" data-slide-num="15" data-title="형성평가" id="slide-15">
     <div class="slide-content">
      <h2>형성평가</h2>
      <div class="quiz-container max-w-3xl mt-6 w-full">
@@ -360,7 +401,7 @@
    </section>
 
    <!-- 15. misconception -->
-   <section data-slide-index="14" data-slide-num="15" data-title="오개념 확인" id="slide-15">
+   <section data-slide-index="15" data-slide-num="16" data-title="오개념 확인" id="slide-16">
     <div class="slide-content">
      <h2>오개념 확인</h2>
      <div class="quiz-container max-w-3xl mt-4 w-full">

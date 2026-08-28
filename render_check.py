@@ -116,9 +116,13 @@ def main() -> int:
             f"http://127.0.0.1:{port}/tools/render_audit.html"
             f"?target={quote(target_value, safe='/')}&delay_ms={args.delay_ms}"
         )
+        # 모바일 감사는 실제로 모바일 폭에서 재야 한다. 이 값이 없던 동안
+        # mobile_ok는 '1280px에서 전체 보기'를 뜻했고, 좁은 화면에서 표와 도식이
+        # 슬라이드를 가로로 뚫는 문제가 감사에 한 번도 잡히지 않았다.
         audit_mobile_url = (
             f"http://127.0.0.1:{port}/tools/render_audit.html"
             f"?target={quote(target_all_value, safe='/')}&delay_ms={args.delay_ms}"
+            f"&width=430&height=900"
         )
 
         desktop_png = out_dir / f"{stem}_desktop.png"
