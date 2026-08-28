@@ -276,12 +276,18 @@
        </svg>
       </div>
       <div class="w-full md:w-2/5">
-       <label class="font-bold text-slate-800" for="ap2-power">소비 전력</label>
-       <input type="range" id="ap2-power" min="0" max="2000" step="10" value="1000"/>
-       <p class="readout text-xl" id="ap2-power-out">1000 W</p>
-       <label class="font-bold text-slate-800 mt-2 block" for="ap2-time">사용 시간</label>
-       <input type="range" id="ap2-time" min="0" max="480" step="10" value="180"/>
-       <p class="readout text-xl" id="ap2-time-out">3시간 0분</p>
+       <div class="grid grid-cols-2 gap-3">
+        <div>
+         <label class="font-bold text-slate-800" for="ap2-power">소비 전력</label>
+         <input type="range" id="ap2-power" min="0" max="2000" step="10" value="1000"/>
+         <p class="readout text-xl" id="ap2-power-out">1000 W</p>
+        </div>
+        <div>
+         <label class="font-bold text-slate-800" for="ap2-time">사용 시간</label>
+         <input type="range" id="ap2-time" min="0" max="480" step="10" value="180"/>
+         <p class="readout text-xl" id="ap2-time-out">3시간 0분</p>
+        </div>
+       </div>
        <div class="standard-box mt-2">
         <p class="text-lg text-slate-700">사용한 전기 에너지</p>
         <p class="readout text-2xl" id="ap2-energy">3000 Wh (3.000 kWh)</p>
@@ -301,27 +307,27 @@
    <section data-slide-index="12" data-slide-num="13" data-title="규칙 찾기" id="slide-13">
     <div class="slide-content">
      <h2>관찰 결과에서 규칙 찾기</h2>
-     <table class="lab-table max-w-5xl mt-4">
-      <thead><tr><th>바꾼 조건</th><th>그대로 둔 조건</th><th>관찰되는 결과</th><th>완성할 규칙</th></tr></thead>
+     <table class="lab-table max-w-5xl mt-1">
+      <thead><tr><th style="padding-top:0.3rem;padding-bottom:0.3rem">바꾼 조건</th><th style="padding-top:0.3rem;padding-bottom:0.3rem">그대로 둔 조건</th><th style="padding-top:0.3rem;padding-bottom:0.3rem">관찰되는 결과</th><th style="padding-top:0.3rem;padding-bottom:0.3rem">완성할 규칙</th></tr></thead>
       <tbody>
-       <tr><td>소비 전력 증가</td><td>사용 시간 같음</td><td>전력량 증가</td>
-        <td>같은 시간에는 소비 전력이 클수록 <span class="rule-blank" data-rule="rule1">
+       <tr><td style="padding-top:0.3rem;padding-bottom:0.3rem">소비 전력 증가</td><td style="padding-top:0.3rem;padding-bottom:0.3rem">사용 시간 같음</td><td style="padding-top:0.3rem;padding-bottom:0.3rem">전력량 증가</td>
+        <td style="padding-top:0.3rem;padding-bottom:0.3rem">같은 시간에는 소비 전력이 클수록 <span class="rule-blank" data-rule="rule1">
          <button class="pick" data-correct="true">전력량이 커진다</button>
          <button class="pick" data-correct="false">전력량이 같다</button>
         </span></td></tr>
-       <tr><td>사용 시간 증가</td><td>소비 전력 같음</td><td>전력량 증가</td>
-        <td>같은 제품도 오래 사용할수록 <span class="rule-blank" data-rule="rule2">
+       <tr><td style="padding-top:0.3rem;padding-bottom:0.3rem">사용 시간 증가</td><td style="padding-top:0.3rem;padding-bottom:0.3rem">소비 전력 같음</td><td style="padding-top:0.3rem;padding-bottom:0.3rem">전력량 증가</td>
+        <td style="padding-top:0.3rem;padding-bottom:0.3rem">같은 제품도 오래 사용할수록 <span class="rule-blank" data-rule="rule2">
          <button class="pick" data-correct="true">전력량이 커진다</button>
          <button class="pick" data-correct="false">소비 전력이 커진다</button>
         </span></td></tr>
-       <tr><td>전력 증가 &amp; 시간 감소</td><td>없음</td><td>경우에 따라 다름</td>
-        <td>이때는 <span class="rule-blank" data-rule="rule3">
+       <tr><td style="padding-top:0.3rem;padding-bottom:0.3rem">전력 증가 &amp; 시간 감소</td><td style="padding-top:0.3rem;padding-bottom:0.3rem">없음</td><td style="padding-top:0.3rem;padding-bottom:0.3rem">경우에 따라 다름</td>
+        <td style="padding-top:0.3rem;padding-bottom:0.3rem">이때는 <span class="rule-blank" data-rule="rule3">
          <button class="pick" data-correct="true">전력과 시간을 함께 봐야 한다</button>
          <button class="pick" data-correct="false">전력만 보면 된다</button>
         </span></td></tr>
       </tbody>
      </table>
-     <p class="text-slate-600 mt-2" id="rule-feedback" aria-live="polite">칸마다 알맞은 말을 골라 규칙을 완성하세요.</p>
+     <p class="text-slate-600 mt-2" id="rule-feedback" style="margin-top:0.3rem" aria-live="polite">칸마다 알맞은 말을 골라 규칙을 완성하세요.</p>
      <div class="standard-box max-w-4xl w-full mt-4">
       <p class="text-lg text-slate-700"><b>소비 전력만으로는 일정 기간 사용한 전기 에너지의 양을 판단할 수 없다. 사용 시간도 함께 알아야 한다.</b></p>
      </div>

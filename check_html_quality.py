@@ -163,6 +163,46 @@ def check_file(path: Path, remote_cache: dict[str, tuple[bool, str]], timeout: f
     if text.count("<section") != text.count("</section>"):
         issues.append(Issue("ERROR", path, "mismatched <section> tags"))
 
+    # 개수는 맞아도 중첩은 틀릴 수 있다. 슬라이드 엔진은 main > section만 슬라이드로
+    # 보므로, 섹션 안에 섞여 들어간 섹션은 '있지만 보이지 않는 슬라이드'가 된다.
+    # 4강에서 두 장(PhET·정리)이 이렇게 사라져 있었다.
+    depth = 0
+    for m in re.finditer(r"<section\b[^>]*>|</section>", text):
+        if m.group(0).startswith("<section"):
+            depth += 1
+            if depth > 1:
+                line = text.count("\n", 0, m.start()) + 1
+                num = re.search(r'data-slide-num="([^"]*)"', m.group(0))
+                who = f" (data-slide-num {num.group(1)})" if num else ""
+                issues.append(Issue("ERROR", path, f"<section> nested inside <section> at line {line}{who} — 슬라이드로 인식되지 않는다"))
+        else:
+            depth -= 1
+
+    # 슬라이드 본문(.slide-content) 밖에 남은 내용도 화면에 제대로 놓이지 않는다.
+    # 6강에서 자동 주입된 요약 패널이 </div> 하나 때문에 본문 밖에 붙어 있었다.
+    for m in re.finditer(r'<section\b[^>]*>(.*?)</section>', text, re.S):
+        body = m.group(1)
+        sc = body.find('class="slide-content')
+        if sc < 0:
+            continue
+        open_tag = body.rfind("<div", 0, sc)
+        if open_tag < 0:
+            continue
+        # .slide-content의 짝 </div>를 깊이를 세어 찾는다
+        depth = 0
+        close_end = None
+        for d in re.finditer(r"<div\b[^>]*>|</div>", body[open_tag:]):
+            depth += 1 if d.group(0).startswith("<div") else -1
+            if depth == 0:
+                close_end = open_tag + d.end()
+                break
+        if close_end is None:
+            continue
+        after = body[close_end:]
+        if re.search(r'<(div|p|table|svg|img|ul|ol|h[1-6])\b', after):
+            line = text.count("\n", 0, m.start()) + 1
+            issues.append(Issue("ERROR", path, f".slide-content가 닫힌 뒤에도 내용이 남아 있다 (line {line}) — 화면에 제대로 놓이지 않는다"))
+
     # 파일명 앞 두 자가 숫자면 차시 슬라이드로 본다. adv_inorganic/은 01.html처럼
     # 이름이 겹치지만 data-slide-* 대신 <section id="sN">을 쓰는 다른 문서형이다.
     is_slide_deck = path.parent.name != "adv_inorganic" and path.name[0:2].rstrip("_").isdigit()
