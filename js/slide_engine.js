@@ -92,6 +92,22 @@ window.SlideEngine = {
         }
     },
 
+    // 조작 바를 쓰지 않을 때 물러나게 한다. 자리를 비워 두면 모든 슬라이드가
+    // 그만큼 좁아지고 fitSlides가 글씨로 갚는다 — 자리 대신 시간을 쓴다.
+    idleControls: function() {
+        const bar = document.getElementById('slide-controls');
+        if (!bar) return;
+        let timer;
+        const poke = () => {
+            bar.classList.remove('idle');
+            clearTimeout(timer);
+            timer = setTimeout(() => bar.classList.add('idle'), 2500);
+        };
+        ['mousemove', 'keydown', 'touchstart', 'click'].forEach(e =>
+            document.addEventListener(e, poke, { passive: true }));
+        poke();
+    },
+
     bindEvents: function() {
         document.getElementById('fullscreen-btn').addEventListener('click', () => this.toggleFullscreen());
         document.getElementById('view-all-btn').addEventListener('click', () => this.toggleViewAll());
@@ -251,6 +267,7 @@ window.SlideEngine = {
 
         // 이미지와 차트가 자리를 잡기 전에 재면 높이를 작게 본다. 로드 후 다시 맞춘다.
         this.fitSlides();
+        this.idleControls();
         window.addEventListener('load', () => { this.fitSlides(); setTimeout(() => this.fitSlides(), 600); });
         window.addEventListener('resize', () => this.fitSlides());
     },
@@ -261,7 +278,10 @@ window.SlideEngine = {
      * 생기는 것을 막는다. 넘치지 않는 슬라이드는 건드리지 않는다.
      */
     fitSlides: function() {
-        const MIN = 0.62;                       // 이 아래로는 읽기 어렵다
+        // 이 아래로는 교실 뒷자리에서 읽히지 않는다. 0.62였을 때는 아래의 transform이
+        // 곱해져 실효 배율이 0.34까지 내려가고 본문이 12px이 되었다 — 하한이 하한이
+        // 아니었다. 지금은 이 값이 실제 하한이고, 그래도 넘치면 스크롤로 남긴다.
+        const MIN = 0.80;
         this.sections.forEach(sec => {
             const content = sec.querySelector('.slide-content');
             if (!content) return;
@@ -276,12 +296,10 @@ window.SlideEngine = {
                 scale -= 0.05;
                 content.style.setProperty('--fit', scale.toFixed(2));
             }
-            // 글자만으로 부족하면(사진·캔버스가 자리를 차지하는 경우) 통째로 축소한다.
-            if (content.scrollHeight > content.clientHeight + 4) {
-                const k = Math.max(0.55, content.clientHeight / content.scrollHeight);
-                content.style.transformOrigin = 'center top';
-                content.style.transform = 'scale(' + k.toFixed(3) + ')';
-            }
+            // 여기서 통째로 scale()을 걸면 위의 하한이 무의미해진다. 사진·svg·canvas는
+            // presentation_mode.css가 max-height로 잡으므로 이 보정의 이유도 사라졌다.
+            // 그래도 넘치는 슬라이드는 글씨를 더 줄이지 않고 스크롤로 남긴다 — 읽히지
+            // 않는 화면보다 낫고, 무엇보다 '내용이 너무 많다'는 사실이 드러난다.
             if (wasHidden) { sec.style.display = ''; sec.style.removeProperty('visibility'); }
         });
     }
