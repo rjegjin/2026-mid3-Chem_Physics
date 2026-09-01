@@ -25,6 +25,10 @@ $RECYCLE.BIN/
 *.pdf
 *.mp4
 
+# 단원 요약본 PDF는 배부용 산출물이라 저장소에 둔다. HTML을 고치면
+# `sh summaries/make_pdf.sh`로 다시 뽑아 함께 커밋할 것 — 안 그러면 낡은 PDF가 남는다.
+!summaries/pdf/*.pdf
+
 # Backup files
 *.bak
 tmp_checks/
