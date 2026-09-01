@@ -28,6 +28,7 @@ DEFAULT_GLOB = [
     "lecture_notes.html",
     "index.html",
     "adv_inorganic/*.html",
+    "summaries/*.html",
 ]
 
 FORMULA_TOKENS = (
@@ -246,9 +247,9 @@ def check_file(path: Path, remote_cache: dict[str, tuple[bool, str]], timeout: f
         "exp_self_generation.html",
         "18_appendix.html",
     }
-    # 고급 무기화학 계열은 역학 차시가 아니다. 모듈이 늘 때마다 이름을 더하지
-    # 않도록 폴더 단위로 면제한다.
-    if path.parent.name == "adv_inorganic":
+    # 고급 무기화학과 요약본은 역학 차시가 아니다. 파일이 늘 때마다 이름을
+    # 더하지 않도록 폴더 단위로 면제한다.
+    if path.parent.name in ("adv_inorganic", "summaries"):
         pass
     elif path.name not in NO_MECHANICS_FORMULA:
         for token in FORMULA_TOKENS:

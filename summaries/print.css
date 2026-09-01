@@ -1,0 +1,168 @@
+/* print.css — 요약본 인쇄용 공용 스타일
+ *
+ * 화면용 슬라이드(presentation_mode.css)와 완전히 다른 물건이다. 슬라이드는 한
+ * 장에 한 생각을 크게 보여 주고, 요약본은 한 쪽에 최대한 많이 담되 눈이 길을
+ * 잃지 않게 한다. 그래서 공용 CSS를 가져다 쓰지 않고 여기서 새로 정한다.
+ *
+ * PDF는 `make_pdf.sh`가 chromium --print-to-pdf로 뽑는다. 화면에서 그대로 열어
+ * 봐도 같은 레이아웃이 나오도록 @page 밖에서도 A4 폭을 유지한다.
+ */
+
+@page {
+  size: A4;
+  margin: 14mm 12mm 16mm;
+}
+
+:root {
+  --ink: #0f172a;
+  --muted: #475569;
+  --line: #cbd5e1;
+  --accent: #1d4ed8;
+  --tint: #eff6ff;
+  --warn: #b45309;
+  --warn-tint: #fffbeb;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0 auto;
+  max-width: 186mm;              /* A4 210mm - 좌우 여백 */
+  padding: 8mm 4mm;
+  font-family: 'Pretendard', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+  font-size: 9.6pt;
+  line-height: 1.5;
+  color: var(--ink);
+  background: #fff;
+}
+
+/* ── 문서 머리 ───────────────────────────────────────────── */
+
+.doc-head {
+  border-bottom: 2.5pt solid var(--ink);
+  padding-bottom: 3mm;
+  margin-bottom: 5mm;
+}
+.doc-kicker {
+  font-size: 8pt; font-weight: 700; letter-spacing: 0.08em;
+  color: var(--muted); text-transform: uppercase;
+}
+.doc-title { font-size: 17pt; font-weight: 800; margin: 1mm 0 0; }
+.doc-sub { font-size: 9pt; color: var(--muted); margin: 1.5mm 0 0; }
+.doc-meta { font-size: 8pt; color: var(--muted); margin-top: 2mm; }
+
+/* ── 차시 블록 ───────────────────────────────────────────── */
+
+.lesson {
+  break-inside: avoid;           /* 한 차시가 쪽을 넘어 갈라지지 않게 */
+  margin-bottom: 5mm;
+  padding-bottom: 3mm;
+  border-bottom: 0.6pt solid var(--line);
+}
+.lesson:last-of-type { border-bottom: 0; }
+
+.lesson-head {
+  display: flex; align-items: baseline; gap: 2.5mm;
+  margin-bottom: 2mm;
+}
+.lesson-no {
+  flex: 0 0 auto;
+  background: var(--ink); color: #fff;
+  font-size: 8pt; font-weight: 800;
+  padding: 0.8mm 2mm; border-radius: 1mm;
+}
+.lesson-title { font-size: 11pt; font-weight: 800; margin: 0; }
+.std {
+  margin-left: auto; flex: 0 0 auto;
+  font-size: 7.5pt; font-weight: 700; color: var(--accent);
+  background: var(--tint); padding: 0.6mm 1.6mm; border-radius: 1mm;
+  white-space: nowrap;
+}
+
+/* ── 본문 요소 ───────────────────────────────────────────── */
+
+.core {
+  background: var(--tint);
+  border-left: 2pt solid var(--accent);
+  padding: 2mm 3mm; margin: 2mm 0;
+  break-inside: avoid;
+}
+.core b, .core strong { color: #1e3a8a; }
+
+.formula {
+  font-family: 'Fira Code', 'D2Coding', monospace;
+  font-size: 10.5pt; font-weight: 700;
+  text-align: center; letter-spacing: 0.01em;
+  background: #f8fafc; border: 0.6pt solid var(--line);
+  padding: 2mm; margin: 2mm 0; border-radius: 1mm;
+  break-inside: avoid;
+}
+
+.two-col { column-count: 2; column-gap: 6mm; }
+.two-col > * { break-inside: avoid; }
+
+ul.tight { margin: 1.5mm 0; padding-left: 4.5mm; }
+ul.tight li { margin-bottom: 0.8mm; }
+
+table {
+  width: 100%; border-collapse: collapse;
+  margin: 2mm 0; font-size: 8.8pt;
+  break-inside: avoid;
+}
+th, td { border: 0.5pt solid var(--line); padding: 1.2mm 1.8mm; text-align: left; vertical-align: top; }
+th { background: #f1f5f9; font-weight: 700; }
+td.k { background: #f8fafc; font-weight: 700; width: 22%; }
+
+.warn {
+  background: var(--warn-tint);
+  border-left: 2pt solid #f59e0b;
+  padding: 1.8mm 3mm; margin: 2mm 0;
+  font-size: 9pt;
+  break-inside: avoid;
+}
+.warn b { color: var(--warn); }
+
+.history {
+  font-size: 8.6pt; color: var(--muted);
+  border-left: 1.5pt solid var(--line);
+  padding-left: 2.5mm; margin: 2mm 0;
+  break-inside: avoid;
+}
+
+/* 교사용 여백 노트 — 학생용에는 이 클래스가 아예 없다 */
+.tnote {
+  background: #f0fdf4;
+  border: 0.5pt dashed #16a34a;
+  padding: 1.8mm 3mm; margin: 2mm 0;
+  font-size: 8.6pt;
+  break-inside: avoid;
+}
+.tnote b { color: #15803d; }
+
+/* 빈칸 — 학생이 직접 채우는 자리 */
+.blank {
+  display: inline-block; min-width: 16mm;
+  border-bottom: 0.8pt solid var(--ink);
+}
+
+.tag {
+  display: inline-block; font-size: 7.5pt; font-weight: 700;
+  padding: 0.4mm 1.4mm; border-radius: 1mm; margin-right: 1mm;
+  background: #e2e8f0; color: #334155;
+}
+.tag.exam { background: #fee2e2; color: #b91c1c; }
+.tag.misc { background: #fef3c7; color: #92400e; }
+
+.page-break { break-before: page; }
+
+.doc-foot {
+  margin-top: 6mm; padding-top: 2.5mm;
+  border-top: 0.6pt solid var(--line);
+  font-size: 8pt; color: var(--muted);
+  display: flex; justify-content: space-between;
+}
+
+/* 화면으로 볼 때만 — 인쇄에는 나오지 않는다 */
+@media screen {
+  body { box-shadow: 0 0 0 1px #e2e8f0; margin-top: 6mm; margin-bottom: 6mm; }
+}
