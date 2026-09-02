@@ -316,7 +316,8 @@ The hinge from CFT into MO theory. The SALCs of Module 06 are recovered here.
 
 # Part IV. Electronic States & Spectroscopy
 
-## Module 09 — Electronic Spectra of Transition-Metal Complexes  ◻ Outline (two sessions)
+## Module 09 — Electronic Spectra of Transition-Metal Complexes  ✔ Complete (two sessions)
+**File**: `09.html` (20 sections) · applet `../js/adv_inorganic_09.js` · check `../tests/adv09_check.js`
 **Central question**: Where does the absorption spectrum of a transition metal come from?
 
 Large enough for two sessions. Spin–orbit coupling is excluded here and deferred
@@ -562,13 +563,20 @@ much.
 - If `.slide-content` scrolls sideways, a table or diagram has broken out of
   the page. Wrap that one element; never widen the slide.
 
+Wrapping is not by itself enough. `.slide-content` is a flex column, so a child's
+min-width defaults to its own content width and a wide equation or table simply
+refuses to shrink — the overflow then lands on `.slide-content` anyway. Module 09
+carries `.math-box, .overflow-x-auto { max-width: 100%; min-width: 0 }` for this
+reason. **Modules 05, 07 and 08 still have the latent defect** (4 to 5 slides each
+at 430 px); sweep them when one of them is next opened, not in a batch.
+
 ## Progress
 
 - [x] **07 Crystal Field Theory** — 14 sections + CFSE applet
 - [x] **05 MO Diatomics** — 15 sections
 - [x] **08 Ligand Field Theory** — 15 sections
-- [ ] **09 Electronic Spectra** ← next (two sessions, applet)
-- [ ] 10 Spin–Orbit & Relativistic
+- [x] **09 Electronic Spectra** — 20 sections + Tanabe–Sugano applet (352-assertion physics check)
+- [ ] **10 Spin–Orbit & Relativistic** ← next
 - [ ] 11 → 12 → 13 Organometallic
 - [ ] 14 Band Theory (applet) → 15 Materials
 - [ ] Split Bonus 02 and 03 → Bonus 04

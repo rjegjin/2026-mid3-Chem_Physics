@@ -18,7 +18,17 @@
     <style>
         body { background-color: #ffffff; color: #0f172a; font-family: 'Inter', system-ui, sans-serif; }
         .slide-content { background: #ffffff; border: 1px solid #e2e8f0; color: #0f172a; box-shadow: none; }
-        .math-box { background: #f8fafc; color: #0f172a; padding: 1.5rem; border: 2px solid #0f172a; border-radius: 0.5rem; margin: 1rem 0; }
+        /* Display math is one of the few boxes allowed a scrollbar (Production
+           Standards §4) — but it has to own it. Without this the wide Racah and
+           T1g expressions push .slide-content sideways instead, which is the bug
+           that standard forbids. */
+        .math-box { background: #f8fafc; color: #0f172a; padding: 1.5rem; border: 2px solid #0f172a; border-radius: 0.5rem; margin: 1rem 0; overflow-x: auto; }
+        /* .slide-content is a flex column, so a child's min-width defaults to its
+           content width and a wide equation or table simply refuses to shrink —
+           the overflow then lands on .slide-content, which §4 forbids. Capping
+           the child hands the scrollbar back to the box that should own it.
+           Modules 05, 07 and 08 have the same latent defect; noted in ROADMAP. */
+        .math-box, .overflow-x-auto { max-width: 100%; min-width: 0; }
         .info-card { border-left: 6px solid #0f172a; padding: 1.25rem; background: #f1f5f9; margin-bottom: 1.5rem; }
         .logic-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 900; font-size: 0.7rem; text-transform: uppercase; border: 1px solid #0f172a; }
         h2 { color: #0f172a; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; border-bottom: 3px solid #0f172a; padding-bottom: 0.5rem; margin-bottom: 2rem; }
@@ -27,14 +37,34 @@
         table.qtable { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
         table.qtable th, table.qtable td { border: 1px solid #e2e8f0; padding: 0.5rem 0.7rem; text-align: center; }
         table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
+        .hist { border-left: 6px solid #94a3b8; background: #f8fafc; padding: 1rem 1.25rem; font-size: 0.9rem; color: #475569; }
+        .hist b { color: #0f172a; }
         .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
         .warn b { color: #78350f; }
-        /* Marks this file as an outline so it is never mistaken for finished content. */
-        .outline-banner { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.7rem 1.1rem; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
-        .todo { list-style: none; padding-left: 0; }
-        .todo li { border-bottom: 1px solid #e2e8f0; padding: 0.55rem 0.2rem; font-size: 0.95rem; color: #334155; }
-        .todo li::before { content: "\25A1"; color: #94a3b8; font-weight: 900; margin-right: 0.6rem; }
-        .todo li b { color: #0f172a; }
+        /* Session divider. Two sessions are allotted, and the break has to be visible
+           in the document itself or it gets taken in the wrong place. */
+        .session { background: #0f172a; color: #f8fafc; border-radius: 0.5rem; padding: 0.55rem 1rem;
+                   font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; display: inline-block; }
+        /* Applet controls. The 44 px touch target is an accessibility floor — do not shrink it. */
+        .ctl { min-height: 44px; padding: 0.45rem 0.9rem; border: 2px solid #cbd5e1; border-radius: 0.6rem;
+               background: #ffffff; font-weight: 700; color: #334155; font-size: 1rem; cursor: pointer; }
+        .ctl:hover:not([disabled]) { border-color: #0f172a; }
+        .ctl[aria-pressed="true"] { background: #0f172a; border-color: #0f172a; color: #f8fafc; }
+        .ctl[disabled] { cursor: not-allowed; opacity: 0.45; }
+        .ctl:focus-visible { outline: 3px solid #0891b2; outline-offset: 2px; }
+        .readout-box { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 0.75rem; padding: 0.7rem 0.9rem; text-align: center; }
+        .readout-box .k { font-size: 0.72rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+        .readout-box .v { font-family: 'Courier New', monospace; font-weight: 700; font-size: 1.25rem; color: #0f172a; margin-top: 0.15rem; }
+        input[type="range"] { accent-color: #0f172a; min-height: 44px; }
+        input[type="number"] { border: 2px solid #cbd5e1; border-radius: 0.6rem; min-height: 44px; padding: 0.3rem 0.6rem;
+                               font-family: 'Courier New', monospace; font-weight: 700; width: 7.5rem; }
+        /* The microstate table of section 2 is 11 columns wide by design; it is one of
+           the boxes allowed a scrollbar (see Production Standards §4). */
+        table.ms { border-collapse: collapse; font-size: 0.82rem; margin: 0 auto; }
+        table.ms th, table.ms td { border: 1px solid #cbd5e1; padding: 0.3rem 0.45rem; text-align: center; min-width: 2.1rem; }
+        table.ms th { background: #f1f5f9; font-weight: 800; }
+        table.ms td.z { color: #cbd5e1; }
+        table.ms td.pk { background: #0f172a; color: #f8fafc; font-weight: 800; }
     </style>
 </head>
 <body class="presentation-mode">
@@ -44,11 +74,10 @@
     <section id="s1">
         <div class="slide-content text-center">
             <p class="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-4">Advanced Inorganic Chemistry Series</p>
-            <h1 class="text-6xl font-black text-slate-900 mb-6 tracking-tighter leading-tight">Electronic Spectra<br>of Complexes</h1>
-            <p class="text-xl text-slate-500 font-medium italic">"Why is one copper salt blue and another green? The answer takes two lectures."</p>
+            <h1 class="text-5xl md:text-6xl font-black text-slate-900 mb-6 tracking-tighter leading-tight">Electronic Spectra<br>of Complexes</h1>
+            <p class="text-xl text-slate-500 font-medium italic">"A d&ndash;d band is forbidden twice over. The colour of the ruby is what leaks through anyway."</p>
             <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
             <p class="text-base font-bold text-slate-800">Lecture 09 (two sessions): Microstates, Term Symbols, and Tanabe&ndash;Sugano Analysis</p>
-            <div class="outline-banner mt-10" style="display:inline-block">Outline only &mdash; prose not written</div>
         </div>
     </section>
 
@@ -60,157 +89,550 @@
                 <p class="font-black uppercase text-xs mb-3">Central question</p>
                 <p class="text-lg font-medium text-slate-800">Where does the absorption spectrum of a transition-metal complex come from?</p>
             </div>
+            <p class="text-lg font-medium mb-6">Modules 07 and 08 produced one number, $\Delta_o$, and treated the $d$ electrons as if they only ever sat in orbitals. A spectrum is not a property of orbitals. It is a set of differences between <b>states of the whole $d^{\,n}$ system</b>, and those states are built from electron&ndash;electron repulsion as much as from the ligand field. That is why this module needs its own vocabulary before it can read a single band.</p>
             <div class="grid md:grid-cols-2 gap-6 mt-6">
                 <div class="step-box">
                     <span class="logic-tag">Requires</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 04 &mdash; Slater determinants and angular momentum &middot; Modules 07&ndash;08 &mdash; $\Delta_o$</p>
+                    <p class="text-sm text-slate-700 mt-3">Module 04 &mdash; Slater determinants and angular momentum &middot; Modules 07&ndash;08 &mdash; $\Delta_o$ and its ligand dependence</p>
                 </div>
                 <div class="step-box">
                     <span class="logic-tag">Feeds</span>
-                    <p class="text-sm text-slate-700 mt-3">Module 10 &mdash; spin&ndash;orbit coupling &middot; Module 15 Case 4 &mdash; luminescent complexes</p>
+                    <p class="text-sm text-slate-700 mt-3">Module 10 &mdash; spin&ndash;orbit coupling and magnetism &middot; Module 15 Case 4 &mdash; luminescent complexes</p>
                 </div>
             </div>
-            <div class="warn mt-8"><b>Two sessions are allotted to this module.</b> Spin&ndash;orbit coupling is deliberately excluded and deferred to Module 10; everything here is non-relativistic.</div>
+            <div class="warn mt-8"><b>Two sessions are allotted to this module.</b> Spin&ndash;orbit coupling is deliberately excluded and deferred to Module 10; everything here is non-relativistic, and every state carries a good $S$. The break falls after &sect;7 &mdash; the first session builds the states, the second reads the spectrum.</div>
         </div>
     </section>
 
-    <!-- Slide 3: Microstates -->
+    <!-- Slide 3: what the observable is -->
     <section id="s3">
         <div class="slide-content text-left px-20">
-            <h2>1. Microstates</h2>
-            <div class="math-box text-center py-6">
-                $$ \text{microstates} = \binom{2(2\ell+1)}{n} \;\;\Rightarrow\;\; d^2:\ \binom{10}{2} = 45 $$
+            <h2>1. What Is Actually Measured</h2>
+            <p class="text-lg font-medium mb-5">Before any theory: a UV&ndash;visible spectrum is a plot of molar absorptivity $\varepsilon$ against wavenumber, and it carries exactly three pieces of information per band.</p>
+            <div class="grid md:grid-cols-3 gap-5">
+                <div class="step-box">
+                    <span class="logic-tag">Position</span>
+                    <p class="text-sm text-slate-700 mt-3">$\tilde\nu$ in $\mathrm{cm^{-1}}$ &mdash; an <b>energy difference</b> between two states of the complex. This is what the theory has to predict.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Intensity</span>
+                    <p class="text-sm text-slate-700 mt-3">$\varepsilon_{\max}$ in $\mathrm{M^{-1}cm^{-1}}$ &mdash; how <b>allowed</b> the transition is. Spans six orders of magnitude across this module.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Width</span>
+                    <p class="text-sm text-slate-700 mt-3">Bands are hundreds of $\mathrm{cm^{-1}}$ wide because the excited state has a different equilibrium geometry. Sharp lines are the exception, and they are diagnostic.</p>
+                </div>
             </div>
-            <ul class="todo mt-4">
-                <li>Counting the allowed $(m_\ell, m_s)$ combinations of a $d^{\,n}$ configuration</li>
-                <li>Recovered from Module 04 &mdash; a microstate <i>is</i> a Slater determinant</li>
-                <li>Arranging the 45 microstates of $d^2$ in an $M_L$&ndash;$M_S$ table</li>
-                <li>The procedure for peeling terms off that table</li>
-            </ul>
+            <div class="math-box text-center py-5">
+                $$ A = \varepsilon\,c\,l, \qquad \tilde\nu\,[\mathrm{cm^{-1}}] = \frac{10^{7}}{\lambda\,[\mathrm{nm}]} $$
+            </div>
+            <p class="text-lg font-medium">Wavenumber, not wavelength, is the working unit throughout, for one reason: it is <b>linear in energy</b>. Two bands 8000 $\mathrm{cm^{-1}}$ apart are separated by the same energy wherever they sit, whereas a 50 nm gap means something different in the blue than in the red. Every diagram in this module has a $\mathrm{cm^{-1}}$ axis.</p>
+            <div class="warn mt-6"><b>Colour is the complement of the absorption, not the absorption.</b> $[\mathrm{Ti(H_2O)_6}]^{3+}$ absorbs at $20{,}300\ \mathrm{cm^{-1}}$ (about 493 nm, blue&ndash;green) and looks <b>purple</b>. Reasoning backwards from "it is purple, so it absorbs purple" inverts every assignment that follows.</div>
         </div>
     </section>
 
-    <!-- Slide 4: Russell&ndash;Saunders Coupling -->
+    <!-- Slide 4: microstates -->
     <section id="s4">
-        <div class="slide-content text-left px-20">
-            <h2>2. Russell&ndash;Saunders Coupling</h2>
+        <div class="slide-content text-left px-16">
+            <h2>2. Microstates &mdash; the Honest Starting Point</h2>
+            <p class="text-lg font-medium mb-5">A configuration is not a state. Writing $d^2$ fixes how many electrons occupy the five $d$ orbitals but says nothing about <b>which</b> $(m_\ell, m_s)$ each one takes. Every distinct allowed choice is a <b>microstate</b> &mdash; and, from Module 04, a microstate <i>is</i> a Slater determinant. Counting them is a combinatorial problem, and the Pauli principle does the whole job:</p>
             <div class="math-box text-center py-6">
-                $$ \mathbf{L} = \sum_i \boldsymbol{\ell}_i, \qquad \mathbf{S} = \sum_i \mathbf{s}_i, \qquad \mathbf{J} = \mathbf{L} + \mathbf{S} $$
+                $$ N_{\text{microstates}} = \binom{2(2\ell+1)}{n} = \binom{10}{n} \;\;\Longrightarrow\;\; d^2:\ \binom{10}{2} = 45 $$
             </div>
-            <ul class="todo mt-4">
-                <li>The light-atom approximation &mdash; electron repulsion dominates spin&ndash;orbit coupling</li>
-                <li>How to read the term symbol $^{2S+1}L_J$</li>
-                <li>$L = 0,1,2,3,4 \to S, P, D, F, G$</li>
-                <li>The terms of $d^2$: $^3F, {}^3P, {}^1G, {}^1D, {}^1S$ &mdash; degeneracies summing back to 45</li>
-            </ul>
+            <div class="overflow-x-auto">
+            <table class="qtable">
+                <thead><tr><th>$d^{\,n}$</th><th>$d^1$</th><th>$d^2$</th><th>$d^3$</th><th>$d^4$</th><th>$d^5$</th><th>$d^6$</th><th>$d^7$</th><th>$d^8$</th><th>$d^9$</th></tr></thead>
+                <tbody>
+                    <tr><td>Microstates</td><td>10</td><td>45</td><td>120</td><td>210</td><td><b>252</b></td><td>210</td><td>120</td><td>45</td><td>10</td></tr>
+                </tbody>
+            </table>
+            </div>
+            <p class="text-lg font-medium mt-5">The symmetry of that row is not a coincidence &mdash; it is the first appearance of hole&ndash;electron equivalence (&sect;6). The 252 microstates of $d^5$ are also the reason $\mathrm{Mn^{2+}}$ and $\mathrm{Fe^{3+}}$ have the most complicated spectra in the block.</p>
+            <div class="warn mt-6"><b>Do not confuse a microstate with a state.</b> The 45 microstates of $d^2$ are not 45 energy levels. Electron repulsion groups them into a handful of degenerate sets &mdash; the <b>terms</b> &mdash; and only those have energies. Sorting 45 determinants into terms is the whole content of &sect;3.</div>
         </div>
     </section>
 
-    <!-- Slide 5: Hund's Rules for Terms -->
+    <!-- Slide 5: peeling terms -->
     <section id="s5">
-        <div class="slide-content text-left px-20">
-            <h2>3. Hund's Rules for Terms</h2>
-            <ul class="todo mt-4">
-                <li>Maximum $S$, then maximum $L$, then $J$ (smallest for a less-than-half-filled shell)</li>
-                <li>Why the ground term of $d^2$ is $^3F_2$</li>
-                <li><b>Caution</b> &mdash; the rules are reliable only for the ground term. Do not use them to order excited terms</li>
-            </ul>
+        <div class="slide-content text-left px-16">
+            <h2>3. Peeling Terms Off the Table</h2>
+            <p class="text-base font-medium mb-4">Tabulate the 45 microstates of $d^2$ by their totals $M_L = \sum m_\ell$ and $M_S = \sum m_s$. Both are conserved, so a term of given $L$ and $S$ must occupy a full rectangular block of the table: every $M_L$ from $-L$ to $+L$, every $M_S$ from $-S$ to $+S$.</p>
+            <div class="overflow-x-auto">
+            <table class="ms">
+                <thead><tr><th>$M_L \backslash M_S$</th><th>$-1$</th><th>$0$</th><th>$+1$</th><th>Row total</th></tr></thead>
+                <tbody>
+                    <tr><th>$\pm4$</th><td class="z">0</td><td class="pk">1</td><td class="z">0</td><td>1 each</td></tr>
+                    <tr><th>$\pm3$</th><td>1</td><td>2</td><td>1</td><td>4 each</td></tr>
+                    <tr><th>$\pm2$</th><td>1</td><td>3</td><td>1</td><td>5 each</td></tr>
+                    <tr><th>$\pm1$</th><td>2</td><td>4</td><td>2</td><td>8 each</td></tr>
+                    <tr><th>$0$</th><td>2</td><td>5</td><td>2</td><td>9</td></tr>
+                </tbody>
+            </table>
+            </div>
+            <p class="text-base font-medium mt-4">The algorithm is subtraction, repeated. The largest $M_L$ present is 4 and it appears only at $M_S = 0$, so there is a term with $L = 4$, $S = 0$: $^1G$, taking up $9 \times 1 = 9$ microstates &mdash; one from each row $M_L = -4 \dots +4$ at $M_S = 0$. Strike them out and repeat on what remains.</p>
+            <div class="grid md:grid-cols-2 gap-5 mt-4">
+                <div class="step-box">
+                    <p class="text-sm text-slate-700"><b>Peel order for $d^2$</b><br>
+                    $^1G$ (9) &rarr; $^3F$ (21) &rarr; $^1D$ (5) &rarr; $^3P$ (9) &rarr; $^1S$ (1)</p>
+                </div>
+                <div class="step-box">
+                    <p class="text-sm text-slate-700"><b>The check that must close</b><br>
+                    $9 + 21 + 5 + 9 + 1 = 45$. Degeneracy of a term is $(2L+1)(2S+1)$. If the sum misses, the table is wrong &mdash; not the theory.</p>
+                </div>
+            </div>
+            <div class="warn mt-5"><b>Terms of $d^2$ are not the terms of two independent $d$ electrons.</b> Naive coupling of $\ell_1 = \ell_2 = 2$ would allow $L = 0 \dots 4$ with $S = 0$ and $1$ freely &mdash; ten terms. The Pauli principle kills half of them, leaving five. Which five survive is decided by the table, not by a rule worth memorising.</div>
         </div>
     </section>
 
-    <!-- Slide 6: Free Ion to Ligand Field -->
+    <!-- Slide 6: RS coupling -->
     <section id="s6">
         <div class="slide-content text-left px-20">
-            <h2>4. Free Ion to Ligand Field</h2>
+            <h2>4. Russell&ndash;Saunders Coupling</h2>
             <div class="math-box text-center py-6">
-                $$ ^3F \;\longrightarrow\; {}^3T_{1g} + {}^3T_{2g} + {}^3A_{2g} $$
+                $$ \mathbf{L} = \sum_i \boldsymbol{\ell}_i, \qquad \mathbf{S} = \sum_i \mathbf{s}_i, \qquad \mathbf{J} = \mathbf{L} + \mathbf{S}, \qquad \text{term} = {}^{2S+1}L_J $$
             </div>
-            <ul class="todo mt-4">
-                <li>How free-ion terms split in an octahedral field</li>
-                <li>The splitting is governed by $L$ &mdash; an $S$ term does not split, an $F$ term splits into three</li>
-                <li>Correlation diagrams between the weak-field and strong-field limits</li>
-                <li>Hole&ndash;electron equivalence &mdash; $d^{\,n}$ against $d^{\,10-n}$, octahedral against tetrahedral</li>
-            </ul>
+            <p class="text-lg font-medium mb-5">Coupling the orbital momenta to each other first, and the spins to each other first, is an <b>approximation with a stated condition</b>: that electron repulsion is much larger than the spin&ndash;orbit interaction. For the $3d$ series that holds &mdash; repulsion runs at $10^4\ \mathrm{cm^{-1}}$, spin&ndash;orbit coupling at a few hundred. For $5d$ metals and the actinides it fails, and Module 10 replaces this scheme with $jj$ coupling. The name of the approximation is worth as much as the formula.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <table class="qtable">
+                        <thead><tr><th>$L$</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+                        <tbody><tr><td>Symbol</td><td>$S$</td><td>$P$</td><td>$D$</td><td>$F$</td><td>$G$</td><td>$H$</td></tr></tbody>
+                    </table>
+                    <p class="text-sm text-slate-500 mt-3">Upper case for the many-electron term; the lower-case $s, p, d, f$ of Module 04 belong to one electron. The clash of $S$ for both a term and the spin is historical and permanent &mdash; read it from position.</p>
+                </div>
+                <div class="info-card" style="margin-bottom:0">
+                    <p class="font-black uppercase text-xs mb-2">Reading $^3F_2$</p>
+                    <p class="text-sm font-medium text-slate-700">$2S+1 = 3 \Rightarrow S = 1$ (two unpaired electrons) &middot; $F \Rightarrow L = 3$ &middot; $J = 2$. Degeneracy $(2L+1)(2S+1) = 21$, split by $J$ into $J = 2, 3, 4$ only once spin&ndash;orbit coupling is switched on. In this module $J$ is carried along but never used.</p>
+                </div>
+            </div>
+            <div class="hist mt-6"><b>1925.</b> Henry Norris Russell was an astronomer and Frederick Saunders a spectroscopist; the scheme came out of the pressure to classify stellar absorption lines, three years before Dirac's equation and long before anyone cared about coordination complexes. Chemistry inherited a working vocabulary from astronomy, which is why the notation looks unlike anything else in inorganic chemistry.</div>
         </div>
     </section>
 
-    <!-- Slide 7: Selection Rules -->
+    <!-- Slide 7: Hund for terms -->
     <section id="s7">
         <div class="slide-content text-left px-20">
-            <h2>5. Selection Rules</h2>
-            <div class="math-box text-center py-6">
-                $$ \Delta S = 0 \qquad\text{and}\qquad g \nleftrightarrow g $$
+            <h2>5. Hund's Rules &mdash; and Their Range</h2>
+            <div class="grid md:grid-cols-3 gap-5 mb-6">
+                <div class="step-box"><span class="logic-tag">First</span><p class="text-sm text-slate-700 mt-3">Maximum $S$. Parallel spins keep electrons apart, and the <b>exchange stabilisation</b> of Module 04 is the reason &mdash; not any magnetic force between spins.</p></div>
+                <div class="step-box"><span class="logic-tag">Second</span><p class="text-sm text-slate-700 mt-3">Then maximum $L$. Electrons orbiting the same way meet less often, so repulsion is lower.</p></div>
+                <div class="step-box"><span class="logic-tag">Third</span><p class="text-sm text-slate-700 mt-3">Then $J$: smallest for a less-than-half-filled shell, largest beyond. This one is spin&ndash;orbit in origin, hence irrelevant until Module 10.</p></div>
             </div>
-            <ul class="todo mt-4">
-                <li><b>Spin selection rule</b> &mdash; transitions changing multiplicity are forbidden</li>
-                <li><b>Laporte rule</b> &mdash; in a centrosymmetric complex $d$&ndash;$d$ transitions are forbidden</li>
-                <li>Why colour is seen anyway: vibronic coupling breaks the symmetry</li>
-                <li>$T_d$ has no centre of inversion, so tetrahedral complexes are far more intense</li>
-                <li>A table of molar absorptivities &mdash; the quantitative trace of how forbidden a transition is</li>
-                <li>Charge-transfer transitions evade both rules, hence their very deep colours</li>
-            </ul>
+            <p class="text-lg font-medium mb-4">For $d^2$: the highest multiplicity available is a triplet, and of $^3F$ and $^3P$ the larger $L$ wins. Ground term $^3F$, and with $J$ minimal, $^3F_2$. The same procedure across the row gives the free-ion ground terms that every later diagram starts from.</p>
+            <div class="overflow-x-auto">
+            <table class="qtable">
+                <thead><tr><th>$d^{\,n}$</th><th>$d^1$</th><th>$d^2$</th><th>$d^3$</th><th>$d^4$</th><th>$d^5$</th><th>$d^6$</th><th>$d^7$</th><th>$d^8$</th><th>$d^9$</th></tr></thead>
+                <tbody>
+                    <tr><td>Ground term</td><td>$^2D$</td><td>$^3F$</td><td>$^4F$</td><td>$^5D$</td><td>$^6S$</td><td>$^5D$</td><td>$^4F$</td><td>$^3F$</td><td>$^2D$</td></tr>
+                    <tr><td>Example ion</td><td>$\mathrm{Ti^{3+}}$</td><td>$\mathrm{V^{3+}}$</td><td>$\mathrm{Cr^{3+}}$</td><td>$\mathrm{Mn^{3+}}$</td><td>$\mathrm{Mn^{2+}}$</td><td>$\mathrm{Fe^{2+}}$</td><td>$\mathrm{Co^{2+}}$</td><td>$\mathrm{Ni^{2+}}$</td><td>$\mathrm{Cu^{2+}}$</td></tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="warn mt-6"><b>Hund's rules order the ground term only.</b> They are silent about excited terms, and used on them they give wrong answers &mdash; in $d^2$ they would place $^3P$ second, whereas the true free-ion order is $^3F < {}^1D < {}^3P < {}^1G < {}^1S$. A singlet sits below a triplet there. Excited-term energies come from the Racah parameters of &sect;6, never from Hund.</div>
         </div>
     </section>
 
-    <!-- Slide 8: Orgel Diagrams -->
+    <!-- Slide 8: Racah -->
     <section id="s8">
         <div class="slide-content text-left px-20">
-            <h2>6. Orgel Diagrams</h2>
-            <ul class="todo mt-4">
-                <li>A qualitative correlation diagram, restricted to terms of the same multiplicity</li>
-                <li>The symmetry between $d^1$/$d^6$ and $d^4$/$d^9$</li>
-                <li>Limitations &mdash; no spin-forbidden transitions, no strong-field regime</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Slide 9: Tanabe&ndash;Sugano Diagrams -->
-    <section id="s9">
-        <div class="slide-content text-left px-20">
-            <h2>7. Tanabe&ndash;Sugano Diagrams</h2>
-            <div class="math-box text-center py-6">
-                $$ \frac{E}{B} \quad\text{vs}\quad \frac{\Delta_o}{B} $$
+            <h2>6. Racah Parameters &mdash; Where $15B$ Comes From</h2>
+            <p class="text-lg font-medium mb-5">Term energies are differences in electron&ndash;electron repulsion, so they are integrals over the $d$ radial function. Rather than carry those integrals, Racah repackaged them into three parameters with the property that <b>term separations depend only on $B$ and $C$</b>, never on $A$:</p>
+            <div class="math-box text-center py-5">
+                $$ E(^3F) = A - 8B, \qquad E(^3P) = A + 7B, \qquad E(^1D) = A - 3B + 2C, \qquad E(^1G) = A + 4B + 2C $$
+                $$ \Rightarrow\quad E(^3P) - E(^3F) = 15B $$
             </div>
-            <ul class="todo mt-4">
-                <li>Why both axes are scaled by the Racah parameter $B$</li>
-                <li>The convention of laying the ground state along the horizontal axis</li>
-                <li>The <b>vertical discontinuity</b> in the $d^4$&ndash;$d^7$ diagrams &mdash; the high-spin/low-spin crossover</li>
-                <li>From two or three measured absorption bands to $\Delta_o$ and $B$ simultaneously</li>
-                <li>The ratio to the free-ion $B$ &mdash; the nephelauxetic series</li>
-                <li><b>Worked example</b> &mdash; interpreting the spectrum of $\mathrm{[Cr(H_2O)_6]^{3+}}$</li>
-            </ul>
+            <div class="grid md:grid-cols-3 gap-5">
+                <div class="step-box"><span class="logic-tag">$A$</span><p class="text-sm text-slate-700 mt-3">The total repulsion of the configuration. Identical for every term of a given $d^{\,n}$, so it cancels in every observable and is never quoted.</p></div>
+                <div class="step-box"><span class="logic-tag">$B$</span><p class="text-sm text-slate-700 mt-3">Separates terms of the <b>same</b> multiplicity. Free-ion values $700\text{--}1100\ \mathrm{cm^{-1}}$. This is the parameter a spectrum can deliver.</p></div>
+                <div class="step-box"><span class="logic-tag">$C$</span><p class="text-sm text-slate-700 mt-3">Needed only when multiplicity changes. Roughly $C \approx 4B$, and that estimate is why spin-forbidden states are drawn but rarely fitted.</p></div>
+            </div>
+            <div class="overflow-x-auto mt-6">
+            <table class="qtable">
+                <thead><tr><th>Free ion</th><th>$\mathrm{V^{3+}}\ (d^2)$</th><th>$\mathrm{Cr^{3+}}\ (d^3)$</th><th>$\mathrm{Mn^{2+}}\ (d^5)$</th><th>$\mathrm{Co^{2+}}\ (d^7)$</th><th>$\mathrm{Ni^{2+}}\ (d^8)$</th></tr></thead>
+                <tbody><tr><td>$B\ /\ \mathrm{cm^{-1}}$</td><td>861</td><td>918</td><td>860</td><td>971</td><td>1041</td></tr></tbody>
+            </table>
+            </div>
+            <p class="text-sm text-slate-500 mt-3">Representative free-ion values; sources differ by a few tens of $\mathrm{cm^{-1}}$ depending on which terms were fitted. Use them as anchors for $\beta$ (&sect;16), not as constants of nature.</p>
+            <div class="hist mt-6"><b>Giulio Racah, 1942&ndash;1949.</b> The four papers titled simply <i>Theory of Complex Spectra</i> were written in Jerusalem during the war and aimed at atomic spectroscopy. Racah never worked on coordination compounds. That $B$ and $C$ turned out to be the natural axes for reading the colour of a chromium salt is the second inheritance in this module from a field outside chemistry.</div>
         </div>
     </section>
 
-    <!-- Slide 10: Key Competencies -->
+    <!-- Slide 9: free ion to ligand field -->
+    <section id="s9">
+        <div class="slide-content text-left px-16">
+            <h2>7. Free Ion into the Ligand Field</h2>
+            <p class="text-lg font-medium mb-4">Switch on an octahedral field. A free-ion term is $(2L+1)$-fold degenerate in its orbital part, and $O_h$ has no irreducible representation of dimension greater than three &mdash; so any term with $L \ge 2$ <b>must</b> split. Which pieces appear is fixed by group theory alone, exactly as in Module 02: reduce the representation the $(2L+1)$ functions carry.</p>
+            <div class="overflow-x-auto">
+            <table class="qtable">
+                <thead><tr><th>Free-ion term</th><th>Orbital degeneracy</th><th>In $O_h$</th></tr></thead>
+                <tbody>
+                    <tr><td>$S$</td><td>1</td><td>$A_{1g}$</td></tr>
+                    <tr><td>$P$</td><td>3</td><td>$T_{1g}$</td></tr>
+                    <tr><td>$D$</td><td>5</td><td>$E_g + T_{2g}$</td></tr>
+                    <tr><td>$F$</td><td>7</td><td>$A_{2g} + T_{1g} + T_{2g}$</td></tr>
+                    <tr><td>$G$</td><td>9</td><td>$A_{1g} + E_g + T_{1g} + T_{2g}$</td></tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="math-box text-center py-5">
+                $$ ^3F \;\longrightarrow\; {}^3T_{1g} + {}^3T_{2g} + {}^3A_{2g} \qquad (3 + 3 + 1 = 7\ \checkmark) $$
+            </div>
+            <p class="text-lg font-medium">Two things survive the splitting untouched. <b>Multiplicity</b>: the field is electrostatic and does not act on spin, so a triplet stays a triplet &mdash; the superscript is carried straight through. <b>Barycentre</b>: the degeneracy-weighted mean of the pieces returns the parent term energy, which is the same rule that fixed $-0.4/{+0.6}\,\Delta_o$ in Module 07.</p>
+            <div class="warn mt-5"><b>A $P$ term never splits, and that is not a small remark.</b> $T_{1g}$ is three-dimensional, so $^3P \to {}^3T_{1g}$ intact. In the $d^2$ and $d^3$ diagrams the $P$-derived $T_{1g}$ is therefore free to run into the $F$-derived $T_{1g}$ of the same symmetry &mdash; and two states of identical symmetry <b>mix</b>. The curvature of every Tanabe&ndash;Sugano diagram comes from that one off-diagonal element (&sect;12).</div>
+            <p class="mt-6"><span class="session">End of session 1 &mdash; the states exist. Session 2 asks which transitions between them are visible.</span></p>
+        </div>
+    </section>
+
+    <!-- Slide 10: hole-electron -->
     <section id="s10">
         <div class="slide-content text-left px-20">
-            <h2>8. Key Competencies</h2>
-            <ul class="todo mt-4">
-                <li>Count the microstates of a $d^{\,n}$ configuration and resolve them into terms</li>
-                <li>Write the ground-term symbol</li>
-                <li>Explain why a given transition is weak or intense using both selection rules</li>
-                <li>Extract $\Delta_o$ and $B$ from a Tanabe&ndash;Sugano diagram</li>
-            </ul>
+            <h2>8. Hole&ndash;Electron Equivalence</h2>
+            <p class="text-lg font-medium mb-5">The 45 microstates of $d^2$ and of $d^8$ in &sect;2 were the same number because two electrons in an empty $d$ shell and two <b>holes</b> in a full one are the same combinatorial object. The energies follow too, with one sign change: a hole has the opposite charge, so the ligand field acts on it in reverse.</p>
+            <div class="math-box text-center py-5">
+                $$ d^{\,n}\ \text{in}\ O_h \;\;\equiv\;\; d^{\,10-n}\ \text{in}\ O_h\ \text{with}\ \Delta_o \to -\Delta_o \;\;\equiv\;\; d^{\,10-n}\ \text{in}\ T_d $$
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="step-box">
+                    <span class="logic-tag">Consequence 1</span>
+                    <p class="text-sm text-slate-700 mt-3">$d^2$ and $d^7$ share one set of curves; $d^3$ and $d^8$ share another. Four of the classic three-band spectra reduce to <b>two</b> pieces of algebra &mdash; which is exactly what the applet in &sect;14 exploits.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Consequence 2</span>
+                    <p class="text-sm text-slate-700 mt-3">The Orgel diagram of &sect;11 can put $d^1/d^6$ on one side of a single origin and $d^4/d^9$ on the other, because the second pair is the first read backwards.</p>
+                </div>
+            </div>
+            <p class="text-lg font-medium mt-6">So $\mathrm{Ni^{2+}}$ ($d^8$, ground $^3A_{2g}$) has the term structure of $\mathrm{Cr^{3+}}$ ($d^3$, ground $^4A_{2g}$) with the multiplicities relabelled, and $\mathrm{Co^{2+}}$ ($d^7$, ground $^4T_{1g}$) mirrors $\mathrm{V^{3+}}$ ($d^2$, ground $^3T_{1g}$).</p>
+            <div class="warn mt-5"><b>The equivalence is between $O_h$ and $T_d$, not within $O_h$.</b> "$d^8$ octahedral is just $d^2$ octahedral" is false &mdash; the field sign flips, which is why $\mathrm{Ni^{2+}}$ has an $A_{2g}$ ground state and $\mathrm{V^{3+}}$ a $T_{1g}$ one. Getting this backwards makes the first band of a nickel spectrum come out as $\Delta_o$ when it is not, or the reverse.</div>
+        </div>
+    </section>
+
+    <!-- Slide 11: spin selection rule -->
+    <section id="s11">
+        <div class="slide-content text-left px-20">
+            <h2>9. Selection Rule I &mdash; Spin</h2>
+            <div class="math-box text-center py-6">
+                $$ \Delta S = 0 $$
+            </div>
+            <p class="text-lg font-medium mb-5">The electric dipole operator $\hat{\boldsymbol\mu} = -e\sum_i \mathbf{r}_i$ contains no spin coordinate. It therefore cannot connect states of different $S$: the spin overlap factorises out and vanishes. This is not a rule of thumb; within the non-relativistic Hamiltonian of this module it is exact.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="info-card" style="margin-bottom:0">
+                    <p class="font-black uppercase text-xs mb-2">Why $\mathrm{Mn^{2+}}$ salts are almost white</p>
+                    <p class="text-sm font-medium text-slate-700">High-spin $d^5$ has ground term $^6A_{1g}$, and <b>no other sextet exists</b> in the $d^5$ manifold. Every $d$&ndash;$d$ transition is spin-forbidden, giving $\varepsilon \approx 0.01\text{--}0.1$. The pale pink of $\mathrm{[Mn(H_2O)_6]^{2+}}$ is the leak, not the signal.</p>
+                </div>
+                <div class="info-card" style="margin-bottom:0">
+                    <p class="font-black uppercase text-xs mb-2">Where the rule bends</p>
+                    <p class="text-sm font-medium text-slate-700">Spin&ndash;orbit coupling mixes a little of one multiplicity into another, so "forbidden" means weak, not absent. The mixing scales steeply with $Z$ &mdash; a fact this module cannot explain and Module 10 must.</p>
+                </div>
+            </div>
+            <p class="text-lg font-medium mt-6">Spin-forbidden bands are recognisable on sight: they are <b>sharp</b>. A transition that does not change the orbital occupancy hardly changes the equilibrium bond lengths, so there is little vibrational broadening. The ruby $R$-lines at $14{,}400\ \mathrm{cm^{-1}}$ ($^4A_{2g} \to {}^2E_g$, $\Delta S \ne 0$) are a few $\mathrm{cm^{-1}}$ wide, next to spin-allowed bands 2000 $\mathrm{cm^{-1}}$ across. Sharpness in a $d$&ndash;$d$ spectrum is a diagnosis.</p>
+        </div>
+    </section>
+
+    <!-- Slide 12: Laporte -->
+    <section id="s12">
+        <div class="slide-content text-left px-16">
+            <h2>10. Selection Rule II &mdash; Laporte, and How Colour Escapes It</h2>
+            <div class="math-box text-center py-5">
+                $$ \langle \psi_f | \hat{\boldsymbol\mu} | \psi_i \rangle \ne 0 \;\;\text{requires}\;\; g \leftrightarrow u \qquad \Rightarrow \qquad g \nleftrightarrow g $$
+            </div>
+            <p class="text-base font-medium mb-4">Every $d$ orbital is even and $\hat{\boldsymbol\mu}$ is odd, so in a centrosymmetric complex the $d$&ndash;$d$ integrand is odd overall and vanishes: formally <b>octahedral complexes should be colourless</b>. They are not, and the escape routes are this section.</p>
+            <div class="grid md:grid-cols-3 gap-5">
+                <div class="step-box"><span class="logic-tag">Vibronic</span><p class="text-sm text-slate-700 mt-3">An odd vibration momentarily destroys the inversion centre. The transition borrows intensity from that instant. This is why octahedral $d$&ndash;$d$ bands exist at all, and why they <b>gain</b> intensity as temperature rises.</p></div>
+                <div class="step-box"><span class="logic-tag">No centre</span><p class="text-sm text-slate-700 mt-3">$T_d$ has no $i$, so the rule never applies. Tetrahedral $\mathrm{[CoCl_4]^{2-}}$ runs about 100&times; the intensity of octahedral $\mathrm{[Co(H_2O)_6]^{2+}}$ &mdash; the deep blue against the pale pink.</p></div>
+                <div class="step-box"><span class="logic-tag">$p$&ndash;$d$ mixing</span><p class="text-sm text-slate-700 mt-3">Where symmetry permits odd character to mix into the $d$ set, the transition acquires allowed parentage. Formally the same escape as vibronic coupling, made permanent by geometry.</p></div>
+            </div>
+            <div class="overflow-x-auto mt-5">
+            <table class="qtable">
+                <thead><tr><th>Transition type</th><th>Spin</th><th>Laporte</th><th>$\varepsilon_{\max}\ /\ \mathrm{M^{-1}cm^{-1}}$</th><th>Example</th></tr></thead>
+                <tbody>
+                    <tr><td>$d$&ndash;$d$, spin-forbidden, $O_h$</td><td>forbidden</td><td>forbidden</td><td>$0.01 - 1$</td><td>$\mathrm{[Mn(H_2O)_6]^{2+}}$</td></tr>
+                    <tr><td>$d$&ndash;$d$, spin-allowed, $O_h$</td><td>allowed</td><td>forbidden</td><td>$1 - 50$</td><td>$\mathrm{[Ni(H_2O)_6]^{2+}}$</td></tr>
+                    <tr><td>$d$&ndash;$d$, spin-allowed, $T_d$</td><td>allowed</td><td>&mdash;</td><td>$100 - 1000$</td><td>$\mathrm{[CoCl_4]^{2-}}$</td></tr>
+                    <tr><td>Charge transfer (LMCT / MLCT)</td><td>allowed</td><td>allowed</td><td>$10^3 - 10^5$</td><td>$\mathrm{MnO_4^-}$</td></tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="warn mt-4"><b>The colour of $\mathrm{MnO_4^-}$ is not a $d$&ndash;$d$ transition.</b> $\mathrm{Mn(VII)}$ is $d^0$ &mdash; there is no $d$ electron to excite. The purple is charge transfer, breaking neither rule. An $\varepsilon$ above $\sim\!10^3$ is by itself grounds to reject a $d$&ndash;$d$ assignment.</div>
+        </div>
+    </section>
+
+    <!-- Slide 13: Orgel -->
+    <section id="s13">
+        <div class="slide-content text-left px-16">
+            <h2>11. Orgel Diagrams &mdash; the Qualitative Picture</h2>
+            <p class="text-base font-medium mb-4">An Orgel diagram plots term energies against field strength, keeping <b>only terms of the ground-state multiplicity</b>. That restriction is what makes it readable by hand: no $C$, no spin-forbidden states, no crossings. The $D$-term case fits on one axis running both ways, because hole&ndash;electron equivalence (&sect;8) makes the left half the right half reversed.</p>
+            <div class="overflow-x-auto">
+            <svg viewBox="0 0 860 300" class="w-full" role="img"
+                 aria-label="Two-sided Orgel diagram for a D ground term. From a single origin at the centre, the E and T2 levels diverge linearly in both directions. To the right, labelled d1 and d6 octahedral, T2g falls and Eg rises; to the left, labelled d4 and d9 octahedral, the order is reversed. The single arrow on each side is the one allowed transition.">
+                <rect x="0" y="0" width="860" height="300" fill="#f8fafc" rx="12"></rect>
+                <line x1="430" y1="30" x2="430" y2="262" stroke="#334155" stroke-width="2"></line>
+                <line x1="40" y1="146" x2="820" y2="146" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="5 5"></line>
+                <text x="430" y="20" fill="#0f172a" font-size="12" font-weight="bold" text-anchor="middle">free ion ²D</text>
+                <!-- right branch -->
+                <line x1="430" y1="146" x2="800" y2="60" stroke="#1d4ed8" stroke-width="3"></line>
+                <line x1="430" y1="146" x2="800" y2="230" stroke="#1d4ed8" stroke-width="3"></line>
+                <text x="806" y="58" fill="#1d4ed8" font-size="13" font-weight="bold">E</text>
+                <text x="806" y="234" fill="#1d4ed8" font-size="13" font-weight="bold">T₂</text>
+                <!-- left branch -->
+                <line x1="430" y1="146" x2="60" y2="230" stroke="#b91c1c" stroke-width="3"></line>
+                <line x1="430" y1="146" x2="60" y2="60" stroke="#b91c1c" stroke-width="3"></line>
+                <text x="44" y="58" fill="#b91c1c" font-size="13" font-weight="bold">T₂</text>
+                <text x="44" y="234" fill="#b91c1c" font-size="13" font-weight="bold">E</text>
+                <!-- transitions -->
+                <line x1="700" y1="209" x2="700" y2="83" stroke="#0f172a" stroke-width="2" marker-end="url(#ar09)"></line>
+                <line x1="160" y1="209" x2="160" y2="83" stroke="#0f172a" stroke-width="2" marker-end="url(#ar09)"></line>
+                <defs><marker id="ar09" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f172a"></path></marker></defs>
+                <text x="710" y="150" fill="#0f172a" font-size="12" font-weight="bold">Δ</text>
+                <text x="170" y="150" fill="#0f172a" font-size="12" font-weight="bold">Δ</text>
+                <g font-size="12" font-weight="bold" fill="#334155">
+                    <text x="620" y="284" text-anchor="middle">field strength →</text>
+                    <text x="240" y="284" text-anchor="middle">← field strength</text>
+                    <text x="620" y="266" text-anchor="middle" fill="#1d4ed8">d¹, d⁶ octahedral · d⁴, d⁹ tetrahedral</text>
+                    <text x="240" y="266" text-anchor="middle" fill="#b91c1c">d⁴, d⁹ octahedral · d¹, d⁶ tetrahedral</text>
+                </g>
+            </svg>
+            </div>
+            <p class="text-base font-medium mt-4">One term, one splitting, <b>one band</b> &mdash; and its position is $\Delta$ directly. This is the entire spectrum of $\mathrm{[Ti(H_2O)_6]^{3+}}$: a single absorption at $20{,}300\ \mathrm{cm^{-1}}$, from which $\Delta_o$ is read off with no analysis at all. The $d^1$ case is the only one this easy.</p>
+            <div class="warn mt-4"><b>What an Orgel diagram cannot do.</b> It has no spin-forbidden states, so the ruby lines are invisible on it; it has no vertical scale, so nothing can be fitted; and it stops before the strong-field regime, so it cannot show a spin crossover. For $d^4$&ndash;$d^7$ those omissions are fatal &mdash; hence &sect;12.</div>
+        </div>
+    </section>
+
+    <!-- Slide 14: Tanabe-Sugano -->
+    <section id="s14">
+        <div class="slide-content text-left px-16">
+            <h2>12. Tanabe&ndash;Sugano Diagrams</h2>
+            <p class="text-base font-medium mb-3">Tanabe and Sugano made the diagram quantitative with two decisions. First, divide both axes by $B$ &mdash; then one diagram per $d^{\,n}$ serves every ion and every ligand, because $\Delta_o/B$ and $E/B$ are dimensionless. Second, put the <b>ground state along the horizontal axis</b>, so every curve reads directly as a transition energy.</p>
+            <div class="grid md:grid-cols-3 gap-5 mb-3">
+                <div class="step-box"><span class="logic-tag">Axes</span><p class="text-sm text-slate-700 mt-3">$x = \Delta_o/B$, $y = E/B$. A measured band at $\tilde\nu$ contributes the ratio $\tilde\nu/B$ &mdash; which is why $\Delta_o$ and $B$ come out <b>together</b> or not at all.</p></div>
+                <div class="step-box"><span class="logic-tag">Curvature</span><p class="text-sm text-slate-700 mt-3">Straight where a state is alone in its symmetry; bent where two states of the same symmetry mix. The two $^4T_{1g}$ curves below bend away from each other for exactly the reason given in &sect;7.</p></div>
+                <div class="step-box"><span class="logic-tag">Sharp lines</span><p class="text-sm text-slate-700 mt-3">A nearly horizontal curve means a transition energy almost independent of the ligand &mdash; and, being nearly parallel to the ground state, one with almost no geometry change. Those are the sharp bands of &sect;9.</p></div>
+            </div>
+            <div class="overflow-x-auto">
+            <svg viewBox="0 0 860 300" class="w-full" role="img"
+                 aria-label="Tanabe-Sugano diagram for d3. The horizontal axis is delta over B from zero to forty, the vertical axis energy over B from zero to ninety. The quartet A2g ground state runs along the bottom axis. The T2g curve rises as a straight line of slope one. The lower T1g from F rises slightly less steeply and curves; the upper T1g from P starts at fifteen and rises steeply, bending away from the lower one. A dashed nearly horizontal line at about fifteen marks the spin-forbidden doublet E state responsible for the sharp ruby lines.">
+                <rect x="0" y="0" width="860" height="300" fill="#f8fafc" rx="12"></rect>
+                <line x1="70" y1="250" x2="820" y2="250" stroke="#334155" stroke-width="2"></line>
+                <line x1="70" y1="250" x2="70" y2="26" stroke="#334155" stroke-width="2"></line>
+                <text x="445" y="284" fill="#334155" font-size="13" font-weight="bold" text-anchor="middle">Δo / B</text>
+                <text x="20" y="140" fill="#334155" font-size="13" font-weight="bold">E / B</text>
+                <g font-size="11" fill="#64748b">
+                    <text x="70" y="268" text-anchor="middle">0</text>
+                    <text x="253" y="268" text-anchor="middle">10</text>
+                    <text x="435" y="268" text-anchor="middle">20</text>
+                    <text x="618" y="268" text-anchor="middle">30</text>
+                    <text x="800" y="268" text-anchor="middle">40</text>
+                    <text x="60" y="254" text-anchor="end">0</text>
+                    <text x="60" y="217" text-anchor="end">15</text>
+                    <text x="60" y="130" text-anchor="end">50</text>
+                    <text x="60" y="30" text-anchor="end">90</text>
+                </g>
+                <polyline fill="none" stroke="#0f172a" stroke-width="3" points="70,250 800,250"></polyline>
+                <polyline fill="none" stroke="#1d4ed8" stroke-width="3" points="70,250 143,240 216,230 289,220 362,210 435,200 508,190 581,180 654,170 727,160 800,150"></polyline>
+                <polyline fill="none" stroke="#059669" stroke-width="3" points="70,250 106,241 143,233 180,224 216,216 252,209 289,202 326,195 362,189 398,183 435,177 472,171 508,166 544,160 581,155 618,149 654,144 690,139 727,134 764,129 800,123"></polyline>
+                <polyline fill="none" stroke="#b45309" stroke-width="3" points="70,213 106,207 143,200 180,194 216,186 252,179 289,171 326,163 362,154 398,145 435,136 472,127 508,118 544,108 581,99 618,89 654,80 690,70 727,60 764,50 800,41"></polyline>
+                <polyline fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-dasharray="7 5" points="70,213 200,212 400,211 600,210 800,209"></polyline>
+                <g font-size="12" font-weight="bold">
+                    <text x="806" y="254" fill="#0f172a">⁴A₂g</text>
+                    <text x="806" y="152" fill="#1d4ed8">⁴T₂g</text>
+                    <text x="806" y="120" fill="#059669">⁴T₁g(F)</text>
+                    <text x="806" y="40" fill="#b45309">⁴T₁g(P)</text>
+                    <text x="620" y="204" fill="#7c3aed">²Eg (spin-forbidden)</text>
+                </g>
+                <line x1="618" y1="250" x2="618" y2="89" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 4"></line>
+                <circle cx="618" cy="149" r="4" fill="#059669"></circle>
+                <circle cx="618" cy="175" r="4" fill="#1d4ed8"></circle>
+                <circle cx="618" cy="89" r="4" fill="#b45309"></circle>
+            </svg>
+            </div>
+            <p class="text-sm text-slate-500 mt-2">$d^3$ quartets, computed from the $^4T_{1g}$ mixing matrix used by the applet in &sect;14. The $^2E_g$ line is schematic &mdash; drawing it properly requires $C$, which no two-band spectrum can supply.</p>
+        </div>
+    </section>
+
+    <!-- Slide 15: the discontinuity -->
+    <section id="s15">
+        <div class="slide-content text-left px-20">
+            <h2>13. The Vertical Line in the $d^4$&ndash;$d^7$ Diagrams</h2>
+            <p class="text-lg font-medium mb-4">The $d^4$ to $d^7$ diagrams carry a vertical discontinuity partway along the $x$ axis. It is neither a drawing artefact nor an avoided crossing: it is where the <b>ground state itself changes</b>, a low-spin term having fallen below the high-spin one.</p>
+            <div class="math-box text-center py-5">
+                $$ \Delta_o \lessgtr P \quad\Longleftrightarrow\quad \text{high spin} \;\big/\; \text{low spin} $$
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="info-card" style="margin-bottom:0">
+                    <p class="font-black uppercase text-xs mb-2">Why the axis has to break</p>
+                    <p class="text-sm font-medium text-slate-700">The convention is that the ground state lies on the horizontal axis. When the ground state swaps, the reference swaps with it, and every curve is re-zeroed. Two different diagrams are being shown side by side on one pair of axes.</p>
+                </div>
+                <div class="info-card" style="margin-bottom:0">
+                    <p class="font-black uppercase text-xs mb-2">Which $d^{\,n}$ break</p>
+                    <p class="text-sm font-medium text-slate-700">Exactly $d^4$ to $d^7$ &mdash; the same four that had a spin choice in Module 07, for the same reason. $d^1$&ndash;$d^3$ and $d^8$&ndash;$d^9$ have no alternative configuration, so their diagrams are continuous.</p>
+                </div>
+            </div>
+            <p class="text-lg font-medium mt-5">The crossover condition is still Module 07's, $\Delta_o$ against the pairing energy $P$. What the diagram adds is that it reorganises the whole <b>spectrum</b> and not just the magnetic moment: band count and band positions change discontinuously at that line. $\mathrm{[Fe(H_2O)_6]^{2+}}$ and $\mathrm{[Fe(CN)_6]^{4-}}$ sit on opposite sides of it.</p>
+            <div class="warn mt-4"><b>The applet in &sect;14 covers only $d^2$, $d^3$, $d^7$ and $d^8$.</b> Those four have no crossover, so one continuous set of curves is honest for them. Fitting $d^4$&ndash;$d^6$ needs to know in advance which side of the line the complex is on &mdash; a decision, not a calculation.</div>
+        </div>
+    </section>
+
+    <!-- Slide 16: APPLET -->
+    <section id="s16">
+        <div class="slide-content text-left px-16">
+            <h2>14. Try It &mdash; Reading a Tanabe&ndash;Sugano Diagram</h2>
+            <div class="flex flex-wrap gap-2 items-center mb-3">
+                <span class="text-sm font-black text-slate-500 uppercase tracking-widest">Ion</span>
+                <button class="ctl" data-dn="2" aria-pressed="false">d² V³⁺</button>
+                <button class="ctl" data-dn="3" aria-pressed="true">d³ Cr³⁺</button>
+                <button class="ctl" data-dn="7" aria-pressed="false">d⁷ Co²⁺</button>
+                <button class="ctl" data-dn="8" aria-pressed="false">d⁸ Ni²⁺</button>
+                <span class="text-sm font-black text-slate-500 uppercase tracking-widest" style="margin-left:1rem">Direction</span>
+                <button class="ctl" data-mode="fwd" aria-pressed="true">Predict bands</button>
+                <button class="ctl" data-mode="inv" aria-pressed="false">Fit Δo and B</button>
+            </div>
+            <div id="ts-fwd">
+                <div class="flex items-center gap-3 mb-2">
+                    <label for="ts-do" class="text-sm font-black text-slate-500 uppercase tracking-widest" style="white-space:nowrap;min-width:5.5rem">Δo</label>
+                    <input id="ts-do" type="range" min="4000" max="36000" step="100" value="17400" class="flex-1">
+                    <span class="readout-box" style="padding:0.35rem 0.7rem"><span class="v" id="ts-do-out">17400</span></span>
+                </div>
+                <div class="flex items-center gap-3 mb-3">
+                    <label for="ts-b" class="text-sm font-black text-slate-500 uppercase tracking-widest" style="white-space:nowrap;min-width:5.5rem">B</label>
+                    <input id="ts-b" type="range" min="300" max="1100" step="5" value="725" class="flex-1">
+                    <span class="readout-box" style="padding:0.35rem 0.7rem"><span class="v" id="ts-b-out">725</span></span>
+                </div>
+            </div>
+            <div id="ts-inv" hidden>
+                <div class="flex flex-wrap items-center gap-3 mb-3">
+                    <label for="ts-n1" class="text-sm font-black text-slate-500 uppercase tracking-widest">Band 1</label>
+                    <input id="ts-n1" type="number" min="1000" max="45000" step="100" value="17400">
+                    <label for="ts-n2" class="text-sm font-black text-slate-500 uppercase tracking-widest">Band 2</label>
+                    <input id="ts-n2" type="number" min="1000" max="45000" step="100" value="24600">
+                    <span class="text-sm text-slate-500">cm⁻¹ &mdash; the two lowest spin-allowed bands</span>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <svg id="ts-svg" viewBox="0 0 470 250" class="w-full" role="img" aria-label="Tanabe-Sugano diagram with a marker at the current field strength"></svg>
+                <div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                        <div class="readout-box"><div class="k">Δo / cm⁻¹</div><div class="v" id="ts-do-v">&mdash;</div></div>
+                        <div class="readout-box"><div class="k">B / cm⁻¹</div><div class="v" id="ts-b-v">&mdash;</div></div>
+                        <div class="readout-box"><div class="k">Δo / B</div><div class="v" id="ts-ratio">&mdash;</div></div>
+                        <div class="readout-box"><div class="k">β = B / B<sub>free</sub></div><div class="v" id="ts-beta">&mdash;</div></div>
+                    </div>
+                    <div class="overflow-x-auto mt-3">
+                        <table class="qtable"><thead><tr><th>Transition</th><th>ṽ / cm⁻¹</th></tr></thead>
+                        <tbody id="ts-bands"></tbody></table>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-3" id="ts-live" aria-live="polite"></p>
+                </div>
+            </div>
+            <div class="warn mt-3" style="font-size:0.86rem">
+                <b>Things to check.</b> (i) Band 1 equals $\Delta_o$ for $d^3$ and $d^8$ but not for $d^2$ and $d^7$ &mdash; the reason is in the ground state. (ii) Lower $B$ and watch the two $T_{1g}$ curves separate. (iii) Fit $17{,}400$ and $24{,}600\ \mathrm{cm^{-1}}$ as $d^3$, then predict band 3 and compare with $37{,}800$. (iv) Why is there no $d^5$ button?
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 17: worked example -->
+    <section id="s17">
+        <div class="slide-content text-left px-20">
+            <h2>15. Worked Example &mdash; $\mathrm{[Cr(H_2O)_6]^{3+}}$</h2>
+            <p class="text-lg font-medium mb-4">$\mathrm{Cr^{3+}}$ is $d^3$: ground term $^4F$, ground state $^4A_{2g}$, no spin crossover, three spin-allowed quartet transitions. The measured spectrum shows bands at $17{,}400$ and $24{,}600\ \mathrm{cm^{-1}}$, with a third near $37{,}800\ \mathrm{cm^{-1}}$ partly buried under charge transfer.</p>
+            <div class="overflow-x-auto">
+            <table class="qtable">
+                <thead><tr><th>Step</th><th>Operation</th><th>Result</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td>Assign the lowest band: $^4A_{2g} \to {}^4T_{2g}$</td><td>$\tilde\nu_1 = \Delta_o$</td></tr>
+                    <tr><td>2</td><td>Read $\Delta_o$ off directly</td><td>$\Delta_o = 17{,}400\ \mathrm{cm^{-1}}$</td></tr>
+                    <tr><td>3</td><td>Assign the second band: $^4A_{2g} \to {}^4T_{1g}(F)$</td><td>$\tilde\nu_2 = 24{,}600\ \mathrm{cm^{-1}}$</td></tr>
+                    <tr><td>4</td><td>Solve the $^4T_{1g}$ mixing matrix for $B$</td><td>$B \approx 725\ \mathrm{cm^{-1}}$</td></tr>
+                    <tr><td>5</td><td>Predict the third band and compare</td><td>$\tilde\nu_3 \approx 38{,}500$ vs $37{,}800$ measured</td></tr>
+                    <tr><td>6</td><td>Nephelauxetic ratio against free $\mathrm{Cr^{3+}}$, $B_0 = 918$</td><td>$\beta \approx 0.79$</td></tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="math-box text-center py-5">
+                $$ E(^4T_{1g}) = \frac{6Dq + 15B}{2} \mp \sqrt{\left(\frac{6Dq - 15B}{2}\right)^{2} + 16\,Dq^{2}}, \qquad Dq = \tfrac{1}{10}\Delta_o $$
+            </div>
+            <p class="text-lg font-medium">Step 4 is the whole procedure in one line: one measured band fixes $\Delta_o$, the second then determines $B$ through the off-diagonal element, and the third is a <b>prediction that can fail</b>. Here it comes out 2% high &mdash; close enough to accept the assignment, and far enough off to show where the model is thin (the $^4T_{1g}(P)$ energy is the one most sensitive to the neglected $C$).</p>
+            <div class="warn mt-5"><b>Two bands are the minimum, and the assignment must come first.</b> With only $\tilde\nu_1$ you have $\Delta_o$ and nothing else. With two <b>unassigned</b> bands you have two equations and no way to know which curve each belongs to &mdash; and swapping them yields a $B$ that is nonsense (negative, or larger than the free-ion value). A $\beta > 1$ is the signal that the assignment, not the arithmetic, is wrong.</div>
+        </div>
+    </section>
+
+    <!-- Slide 18: nephelauxetic -->
+    <section id="s18">
+        <div class="slide-content text-left px-20">
+            <h2>16. The Nephelauxetic Effect &mdash; $B$ as a Measure of Covalency</h2>
+            <div class="math-box text-center py-5">
+                $$ \beta = \frac{B_{\text{complex}}}{B_{\text{free ion}}} \;<\; 1 \quad \text{always} $$
+            </div>
+            <p class="text-lg font-medium mb-5">$B$ measures electron&ndash;electron repulsion within the $d$ shell, so it falls when the $d$ electrons have more room. Covalent delocalisation onto the ligands gives exactly that: the cloud expands, repulsion drops, $B$ drops. <i>Nephelauxetic</i> is Jørgensen's coinage from the Greek for "cloud-expanding", and the effect is the only routine <b>experimental</b> measure of covalency in a complex.</p>
+            <div class="overflow-x-auto">
+            <table class="qtable">
+                <thead><tr><th colspan="2">Nephelauxetic series &mdash; increasing cloud expansion &rarr;</th></tr></thead>
+                <tbody>
+                    <tr><td colspan="2">$\mathrm{F^-} < \mathrm{H_2O} < \mathrm{NH_3} < \mathrm{ox^{2-}} < \mathrm{NCS^-} < \mathrm{Cl^-} < \mathrm{CN^-} < \mathrm{Br^-} < \mathrm{I^-}$</td></tr>
+                    <tr><td>$\beta$ typical</td><td>$\approx 0.9$ &nbsp;&nbsp;&rarr;&nbsp;&nbsp; $\approx 0.4$</td></tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="warn mt-5"><b>This is not the spectrochemical series, and the difference is the point.</b> The spectrochemical series of Module 08 orders ligands by $\Delta_o$ &mdash; how hard they split the $d$ set. The nephelauxetic series orders them by $\beta$ &mdash; how far the $d$ electrons spread onto them. The orders <b>disagree</b>: $\mathrm{I^-}$ is a weak-field ligand near the bottom of the spectrochemical series and the strongest cloud-expander of all. One number is about the field, the other about covalency, and a complex reports both from the same spectrum.</div>
+            <p class="text-lg font-medium mt-5">This closes the argument opened in Module 08 &sect;10. There, covalency was inferred from where $\Delta_o$ failed to follow charge; here it is <b>measured</b>, in $\mathrm{cm^{-1}}$, from a band position. The purely ionic crystal field model of Module 07 predicts $\beta = 1$ for every complex ever made. No complex obeys it.</p>
+        </div>
+    </section>
+
+    <!-- Slide 19: history and limits -->
+    <section id="s19">
+        <div class="slide-content text-left px-20">
+            <h2>17. How This Theory Arrived, and Where It Stops</h2>
+            <div class="hist mb-4"><b>1954, Tokyo.</b> Tanabe and Sugano published the diagrams in the <i>Journal of the Physical Society of Japan</i>, computed by hand from Racah's matrices. Their target was the absorption spectra of the ruby and of $\mathrm{MnF_2}$ &mdash; solid-state physics, not coordination chemistry; Orgel's qualitative diagrams appeared in the same years for the same reason, that the field had spectra it could not read. Within a decade they were in every inorganic textbook, and the ruby became the first laser.</div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="step-box">
+                    <span class="logic-tag">What it delivers</span>
+                    <p class="text-sm text-slate-700 mt-3">Band <b>positions</b>, to a few percent, from two parameters with physical meaning. Assignments that can be tested against a third band. And $\beta$, a measurable index of covalency.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">What it does not</span>
+                    <p class="text-sm text-slate-700 mt-3">Band <b>intensities</b> &mdash; those need the vibronic mechanism of &sect;10, which the diagram knows nothing about. Band <b>widths</b>. And any state where $S$ has stopped being a good quantum number.</p>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-5 mt-5">
+                <div class="step-box"><span class="logic-tag">Heavy metals</span><p class="text-sm text-slate-700 mt-3">For $4d$ and $5d$ ions spin&ndash;orbit coupling is not negligible, and terms stop being labelled by $S$ and $L$. <b>Module 10.</b></p></div>
+                <div class="step-box"><span class="logic-tag">Low symmetry</span><p class="text-sm text-slate-700 mt-3">Every diagram assumes strict $O_h$ or $T_d$. A distorted or mixed-ligand complex splits bands further, and there is no axis for it.</p></div>
+                <div class="step-box"><span class="logic-tag">$C$ ignored</span><p class="text-sm text-slate-700 mt-3">$C$ cannot be extracted from spin-allowed bands, so the ruby $R$-lines are outside what this module computes.</p></div>
+            </div>
+            <div class="warn mt-5"><b>The model is a fit, not a derivation.</b> $\Delta_o$ and $B$ are read out of the spectrum they then explain. The circularity is productive &mdash; two numbers reproducing three bands is a real constraint &mdash; but it is not a first-principles calculation.</div>
+        </div>
+    </section>
+
+    <!-- Slide 20: competencies -->
+    <section id="s20">
+        <div class="slide-content text-left px-20">
+            <h2>18. Module 9 Key Competencies</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="step-box"><span class="logic-tag">Count</span><p class="text-sm text-slate-700 mt-3">Count the microstates of any $d^{\,n}$ and resolve $d^2$ into its five terms, closing the degeneracy sum.</p></div>
+                <div class="step-box"><span class="logic-tag">Write</span><p class="text-sm text-slate-700 mt-3">Give the free-ion ground term of any $d^{\,n}$, and the condition for Russell&ndash;Saunders coupling to hold.</p></div>
+                <div class="step-box"><span class="logic-tag">Split</span><p class="text-sm text-slate-700 mt-3">Reduce a free-ion term in $O_h$ and say why multiplicity and barycentre survive the field.</p></div>
+                <div class="step-box"><span class="logic-tag">Explain</span><p class="text-sm text-slate-700 mt-3">Account for an $\varepsilon$ from 0.01 to 10⁵ with both rules and one escape route, and reject an assignment on intensity grounds.</p></div>
+                <div class="step-box"><span class="logic-tag">Extract</span><p class="text-sm text-slate-700 mt-3">Get $\Delta_o$ and $B$ from two assigned bands of a $d^3$ or $d^8$ complex, predict the third, compute $\beta$.</p></div>
+                <div class="step-box"><span class="logic-tag">Criticise</span><p class="text-sm text-slate-700 mt-3">Explain the vertical discontinuity in the $d^4$&ndash;$d^7$ diagrams, and name one thing this module cannot address.</p></div>
+            </div>
+            <div class="warn mt-6">
+                <b>Self-test.</b> One sentence each &mdash; (i) why $\mathrm{[Mn(H_2O)_6]^{2+}}$ is nearly colourless while $\mathrm{MnO_4^-}$ is intensely purple; (ii) why the second band of a $d^3$ spectrum fixes $B$ but the first cannot; (iii) why $\mathrm{I^-}$ is low in the spectrochemical series and top of the nephelauxetic one. If any sticks, return to &sect;10, &sect;15, &sect;16.
+            </div>
         </div>
     </section>
 
     <!-- Slide 40: End -->
     <section id="s40" class="end">
         <div class="slide-content text-center">
-            <div class="outline-banner" style="display:inline-block">Outline only</div>
-            <h2 class="border-none text-5xl font-black mb-10 mt-8 tracking-tighter">Module 9 &mdash; Outline</h2>
-            <p class="text-lg text-slate-600 leading-relaxed" style="max-width:46rem;margin:0 auto">
-                Section structure and key equations are in place; prose, diagrams and worked cases are not.
-                The rationale for this ordering is in <b>ROADMAP.md</b>; the whole map is in the
-                <a href="index.html" style="text-decoration:underline">syllabus</a>.
-            </p>
-            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest mt-16">Next Phase:</p>
-            <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Spin&ndash;Orbit Coupling<br>&amp; Relativistic Effects</p>
+            <h2 class="border-none text-5xl font-black mb-10 tracking-tighter">Module 9 Complete</h2>
+            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest">Next Phase:</p>
+            <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Spin&ndash;Orbit Coupling,<br>Relativistic Effects &amp; Magnetism</p>
+            <div class="mt-20 p-8 border-t-2 border-slate-100 italic font-serif text-slate-400">
+                "Every state in this module carried a good spin. The next one takes that away, and the colour of gold is what falls out."
+            </div>
         </div>
     </section>
 </main>
 
 <script src="../js/slide_engine.js"></script>
+<script src="../js/adv_inorganic_09.js"></script>
 </body>
 </html>
