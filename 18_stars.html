@@ -825,8 +825,102 @@
     </div>
    </section>
 
+   <!-- 색-온도 보충 1: 가시광선 스펙트럼 -->
+   <section data-slide-index="25" data-slide-num="26" data-title="가시광선 스펙트럼" id="slide-26" data-section="color">
+    <div class="slide-content">
+     <h2>보충 &mdash; 빛의 색은 곧 파장이다</h2>
+     <div class="w-full max-w-5xl mt-3">
+      <svg viewBox="0 0 860 250" class="w-full" role="img"
+           aria-label="가시광선 스펙트럼 띠. 왼쪽 끝 380나노미터의 보라색에서 오른쪽 끝 750나노미터의 빨간색까지 색이 연속으로 변한다. 380나노미터보다 짧은 쪽은 자외선, 750나노미터보다 긴 쪽은 적외선이다.">
+       <defs>
+        <linearGradient id="vis-spec" x1="0" y1="0" x2="1" y2="0">
+         <stop offset="0%" stop-color="#6600aa"/>
+         <stop offset="10%" stop-color="#4400ff"/>
+         <stop offset="20%" stop-color="#0066ff"/>
+         <stop offset="27.5%" stop-color="#00ccff"/>
+         <stop offset="32.5%" stop-color="#00cc44"/>
+         <stop offset="42.5%" stop-color="#88dd00"/>
+         <stop offset="50%" stop-color="#ffee00"/>
+         <stop offset="55%" stop-color="#ffaa00"/>
+         <stop offset="66.25%" stop-color="#ff3300"/>
+         <stop offset="80%" stop-color="#cc0000"/>
+         <stop offset="100%" stop-color="#660000"/>
+        </linearGradient>
+       </defs>
+       <rect x="50" y="20" width="760" height="86" rx="8" fill="url(#vis-spec)"/>
+       <text x="46" y="76" text-anchor="end" font-size="17" fill="#475569" font-weight="bold">자외선</text>
+       <text x="816" y="76" font-size="17" fill="#475569" font-weight="bold">적외선</text>
+       <g stroke="#475569" stroke-width="2">
+        <line x1="50"  y1="106" x2="50"  y2="120"/>
+        <line x1="183" y1="106" x2="183" y2="120"/>
+        <line x1="278" y1="106" x2="278" y2="120"/>
+        <line x1="411" y1="106" x2="411" y2="120"/>
+        <line x1="449" y1="106" x2="449" y2="120"/>
+        <line x1="506" y1="106" x2="506" y2="120"/>
+        <line x1="753" y1="106" x2="753" y2="120"/>
+       </g>
+       <g font-size="17" fill="#334155" text-anchor="middle">
+        <text x="50"  y="142">380</text>
+        <text x="183" y="142">450</text>
+        <text x="278" y="142">495</text>
+        <text x="411" y="142">570</text>
+        <text x="449" y="142">590</text>
+        <text x="506" y="142">620</text>
+        <text x="753" y="142">750</text>
+       </g>
+       <text x="430" y="172" text-anchor="middle" font-size="19" fill="#1e293b" font-weight="bold">파장 (nm, 나노미터)</text>
+       <g font-size="18" fill="#1e293b" text-anchor="middle" font-weight="bold">
+        <text x="116" y="212">보라</text>
+        <text x="230" y="212">파랑</text>
+        <text x="344" y="212">초록</text>
+        <text x="430" y="212">노랑</text>
+        <text x="477" y="212">주황</text>
+        <text x="630" y="212">빨강</text>
+       </g>
+       <g font-size="15" fill="#64748b" text-anchor="middle">
+        <text x="116" y="236">380~450</text>
+        <text x="230" y="236">450~495</text>
+        <text x="344" y="236">495~570</text>
+        <!-- 노랑(570~590)은 띠에서 38px밖에 안 되어 아래 범위 글자가 주황과 겹친다.
+             글자만 좌우로 벌리고 이름 위치는 실제 구간에 맞춰 둔다. -->
+        <text x="418" y="236">570~590</text>
+        <text x="492" y="236">590~620</text>
+        <text x="630" y="236">620~750</text>
+       </g>
+      </svg>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl w-full mt-4">
+      <div class="outline-card"><p class="font-bold text-indigo-700">짧은 파장 쪽</p><p class="text-slate-600 mt-1">보라 &middot; 파랑. 1 nm는 10억분의 1 m다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">눈에 보이는 범위</p><p class="text-slate-600 mt-1">약 <b>380~750 nm</b>. 이 바깥은 눈으로 볼 수 없다.</p></div>
+      <div class="outline-card"><p class="font-bold text-red-600">긴 파장 쪽</p><p class="text-slate-600 mt-1">주황 &middot; 빨강. 더 길어지면 적외선(열로 느낌).</p></div>
+     </div>
+     <p class="slide-caption mt-3">※ 경계값은 사람과 자료에 따라 조금씩 다르게 잡는다. 색은 칸이 아니라 <b>연속으로</b> 이어진다.</p>
+    </div>
+   </section>
+
+   <!-- 색-온도 보충 2: 흑체복사 -->
+   <section data-slide-index="26" data-slide-num="27" data-title="온도와 빛의 파장" id="slide-27" data-section="color">
+    <div class="slide-content">
+     <h2>보충 &mdash; 뜨거울수록 짧은 파장 쪽이 강해진다</h2>
+     <div class="flex flex-col md:flex-row gap-5 items-center max-w-5xl w-full mt-3">
+      <div class="w-full md:w-3/5">
+       <div style="height:360px; position:relative">
+        <canvas id="chart-blackbody" role="img"
+                aria-label="표면 온도가 다른 세 별이 파장별로 내는 빛의 세기 그래프. 3000켈빈 곡선은 최대 세기가 약 970나노미터인 적외선 쪽에, 5800켈빈 곡선은 약 500나노미터인 초록빛 부근에, 12000켈빈 곡선은 약 240나노미터인 자외선 쪽에 있다. 온도가 높을수록 가장 강한 빛의 파장이 짧아진다."></canvas>
+       </div>
+      </div>
+      <div class="w-full md:w-2/5 space-y-3">
+       <div class="outline-card"><p class="font-bold text-slate-800">뜨거운 물체는 스스로 빛을 낸다</p><p class="text-slate-600 mt-1">쇠를 달구면 붉은색 &rarr; 주황색 &rarr; 흰색으로 변한다. 이때 나오는 빛의 색은 <b>온도만으로</b> 정해진다. 이런 빛내기를 <b>흑체 복사</b>라고 한다.</p></div>
+       <div class="outline-card"><p class="font-bold text-indigo-700">온도가 올라가면</p><p class="text-slate-600 mt-1">① 가장 강한 빛의 파장이 <b>짧아지고</b>(붉은 쪽 &rarr; 푸른 쪽)<br/>② 전체적으로 <b>더 강한</b> 빛을 낸다.</p></div>
+       <div class="outline-card"><p class="font-bold text-slate-800">그래서 별의 색 = 표면 온도</p><p class="text-slate-600 mt-1">별도 같은 규칙을 따른다. 붉게 보이면 표면이 차갑고, 푸르게 보이면 표면이 뜨겁다.</p></div>
+      </div>
+     </div>
+     <p class="slide-caption mt-3">※ 세 곡선은 <b>각각의 최댓값을 1로 맞춰</b> 파장 분포만 비교한 것이다. 실제로는 뜨거운 별이 훨씬 더 많은 빛을 낸다.</p>
+    </div>
+   </section>
+
    <!-- 과학사 2 -->
-   <section data-slide-index="25" data-slide-num="26" data-title="과학사 — 하버드 컴퓨터스" id="slide-26" data-section="color">
+   <section data-slide-index="27" data-slide-num="28" data-title="과학사 — 하버드 컴퓨터스" id="slide-28" data-section="color">
     <div class="slide-content">
      <h2>과학사 — 별을 분류한 '하버드의 계산원들'</h2>
      <div class="max-w-5xl w-full mt-4 space-y-4">
@@ -845,7 +939,7 @@
    </section>
 
    <!-- Slide 10: 정리 -->
-   <section data-slide-index="26" data-slide-num="27" data-title="정리" id="slide-27" data-section="summary">
+   <section data-slide-index="28" data-slide-num="29" data-title="정리" id="slide-29" data-section="summary">
     <div class="slide-content">
      <h2>오늘의 정리</h2>
      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-6">
@@ -861,7 +955,7 @@
    </section>
 
    <!-- 정리 2 — 세 갈래가 한 별빛에서 나온다는 그림 -->
-   <section data-slide-index="27" data-slide-num="28" data-title="한 별빛에서 세 가지" id="slide-28" data-section="summary">
+   <section data-slide-index="29" data-slide-num="30" data-title="한 별빛에서 세 가지" id="slide-30" data-section="summary">
     <div class="slide-content">
      <h2>별빛 하나에서 세 가지를 읽는다</h2>
      <svg viewBox="0 0 720 200" class="w-full mt-5" style="max-height:220px" role="img"
@@ -895,7 +989,7 @@
    </section>
 
    <!-- Slide 11: 형성평가 1 -->
-   <section data-slide-index="28" data-slide-num="29" data-title="형성평가 1" id="slide-29" data-section="summary">
+   <section data-slide-index="30" data-slide-num="31" data-title="형성평가 1" id="slide-31" data-section="summary">
     <div class="slide-content">
      <h2 class="text-slate-800">형성평가 1 — 연주 시차</h2>
      <div class="quiz-container max-w-3xl mt-8 w-full">
@@ -917,7 +1011,7 @@
    </section>
 
    <!-- Slide 12: 형성평가 2 -->
-   <section data-slide-index="29" data-slide-num="30" data-title="형성평가 2" id="slide-30" data-section="summary">
+   <section data-slide-index="31" data-slide-num="32" data-title="형성평가 2" id="slide-32" data-section="summary">
     <div class="slide-content">
      <h2 class="text-slate-800">형성평가 2 — 별의 색</h2>
      <div class="quiz-container max-w-3xl mt-8 w-full">
@@ -939,7 +1033,7 @@
    </section>
 
    <!-- misconception -->
-   <section data-slide-index="30" data-slide-num="31" data-title="오개념 확인" id="slide-31" data-section="summary">
+   <section data-slide-index="32" data-slide-num="33" data-title="오개념 확인" id="slide-33" data-section="summary">
     <div class="slide-content">
      <h2>오개념 확인</h2>
      <div class="quiz-container max-w-3xl mt-4 w-full">
@@ -1058,6 +1152,62 @@
            ticks: { font: { size: 18 } } }
      } })
     });
+
+    // 흑체 복사 곡선. 플랑크 식 B ∝ (1/λ^5) / (exp(hc/λkT) - 1), λ는 nm.
+    // hc/k = 1.4388e7 nm·K. 세 곡선의 세기 차이가 1000배를 넘어 한 화면에
+    // 같이 그릴 수 없으므로 각 곡선을 자기 최댓값으로 나눠 파장 분포만 비교한다.
+    var bctx = document.getElementById('chart-blackbody');
+    if (bctx) {
+     var lams = [], i;
+     for (i = 100; i <= 2000; i += 20) lams.push(i);
+     function planckNorm(T) {
+      var raw = lams.map(function (L) {
+       return 1 / (Math.pow(L, 5) * (Math.exp(1.4388e7 / (L * T)) - 1));
+      });
+      var mx = Math.max.apply(null, raw);
+      return raw.map(function (v) { return v / mx; });
+     }
+     // 가시광선(380~750 nm) 구간에 옅은 띠를 깔아 어디가 눈에 보이는 빛인지 표시한다.
+     var visibleBand = {
+      id: 'visibleBand',
+      beforeDatasetsDraw: function (c) {
+       var xs = c.scales.x, ys = c.scales.y, g = c.ctx;
+       var x1 = xs.getPixelForValue(380), x2 = xs.getPixelForValue(750);
+       g.save();
+       g.fillStyle = 'rgba(148,163,184,0.18)';
+       g.fillRect(x1, ys.top, x2 - x1, ys.bottom - ys.top);
+       g.fillStyle = '#475569';
+       g.font = 'bold 15px sans-serif';
+       g.textAlign = 'center';
+       g.fillText('가시광선', (x1 + x2) / 2, ys.top + 18);
+       g.restore();
+      }
+     };
+     new Chart(bctx.getContext('2d'), {
+      type: 'line',
+      data: {
+       labels: lams,
+       datasets: [
+        { label: '12000 K (청백색)', data: planckNorm(12000), borderColor: '#2563eb', borderWidth: 3, pointRadius: 0, tension: 0.3 },
+        { label: '5800 K (황색, 태양)', data: planckNorm(5800), borderColor: '#f59e0b', borderWidth: 3, pointRadius: 0, tension: 0.3 },
+        { label: '3000 K (적색)', data: planckNorm(3000), borderColor: '#ef4444', borderWidth: 3, pointRadius: 0, tension: 0.3 }
+       ]
+      },
+      options: {
+       responsive: true, maintainAspectRatio: false,
+       plugins: { legend: { display: true, labels: { font: { size: 16 } } } },
+       scales: {
+        x: { type: 'linear', min: 100, max: 2000,
+             title: { display: true, text: '파장(nm)', font: { size: 18, weight: 'bold' } },
+             ticks: { font: { size: 15 }, stepSize: 400 } },
+        y: { beginAtZero: true, max: 1.1,
+             title: { display: true, text: '상대적인 빛의 세기', font: { size: 18, weight: 'bold' } },
+             ticks: { display: false } }
+       }
+      },
+      plugins: [visibleBand]
+     });
+    }
 
     var tctx = document.getElementById('chart-temp');
     if (tctx) new Chart(tctx.getContext('2d'), {
