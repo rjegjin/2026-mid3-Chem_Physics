@@ -1,0 +1,42 @@
+[
+ {
+  "file": "img/exp_deepfield.jpg",
+  "commons": "File:Hubble ultra deep field.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Hubble_ultra_deep_field.jpg",
+  "license": "Public domain",
+  "artist": "NASA and the European Space Agency.",
+  "width": 1400
+ },
+ {
+  "file": "img/exp_andromeda.jpg",
+  "commons": "File:Andromeda Galaxy (with h-alpha).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Andromeda_Galaxy_(with_h-alpha).jpg",
+  "license": "CC BY 2.0",
+  "artist": "Adam Evans",
+  "width": 1400
+ },
+ {
+  "file": "img/exp_leavitt.jpg",
+  "commons": "File:Henrietta Swan Leavitt.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Henrietta_Swan_Leavitt.jpg",
+  "license": "Public domain",
+  "artist": "Unknown author Unknown author",
+  "width": 700
+ },
+ {
+  "file": "img/exp_lemaitre.jpg",
+  "commons": "File:Lemaitre.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Lemaitre.jpg",
+  "license": "Public domain",
+  "artist": "unknown photographer, probably a CalTech employee. Cropped by Artistosteles",
+  "width": 700
+ },
+ {
+  "file": "img/exp_hubble1929.png",
+  "commons": "File:Edwin Hubble velocity-distance relation 1929.png",
+  "page": "https://commons.wikimedia.org/wiki/File:Edwin_Hubble_velocity-distance_relation_1929.png",
+  "license": "Public domain",
+  "artist": "Edwin Hubble",
+  "width": 1100
+ }
+]

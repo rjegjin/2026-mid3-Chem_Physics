@@ -8,101 +8,447 @@
   <link href="css/common.css" rel="stylesheet"/>
   <link href="css/presentation_mode.css" rel="stylesheet"/>
   <link href="css/chem_style.css" rel="stylesheet"/>
+  <link href="css/components.css" rel="stylesheet"/>
   <style>
-   .outline-card { background:white; border:1px solid #e2e8f0; border-radius:1.25rem; padding:1.5rem; box-shadow:0 4px 14px rgba(0,0,0,0.05); }
-   .standard-box { background:#fdf2f8; border-left:6px solid #db2777; padding:1.25rem 1.5rem; border-radius:0.75rem; }
+   /* 전면 사진 슬라이드 규격은 css/components.css 에 있다. */
    .key-line { font-size:1.35rem; font-weight:800; color:#9d174d; }
+   /* 고무줄 우주 애플릿에서 관측자로 고른 은하를 표에서도 알아보게 한다.
+      색만으로 알리지 않도록 굵기와 기호(◀)를 함께 쓴다. */
+   .lab-table tr.me td { background:#fdf2f8; font-weight:700; }
   </style>
  </head>
- <body class="presentation-mode">
+ <body class="presentation-mode" style="--accent:#db2777; --accent-strong:#9d174d; --accent-soft:#fce7f3; --accent-tint:#fdf2f8">
   <main>
 
-   <!-- Slide 1: Cover -->
+   <!-- 1. cover -->
    <section data-slide-index="0" data-slide-num="1" data-title="Cover" id="slide-1">
     <div class="slide-content">
      <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">2026학년도 중학교 3학년 과학 &bull; 지구과학 VII-3</p>
      <h1 class="text-4xl md:text-6xl font-black mb-6 text-slate-900 leading-tight">우주에는 중심이 없다</h1>
      <div class="w-20 h-1 bg-pink-600 mx-auto my-8"></div>
      <p class="text-2xl text-slate-600 font-medium">제 20강: 팽창하는 우주</p>
-     <p class="text-xl text-slate-500 font-bold mt-4">외부 은하 &middot; 은하의 후퇴 &middot; 우주 팽창 모형</p>
+     <div class="ask max-w-3xl w-full mt-8"><p>거의 모든 은하가 <b>우리에게서</b> 멀어지고 있습니다. 그렇다면 우리은하가 우주의 중심일까요?</p></div>
     </div>
    </section>
 
-   <!-- Slide 2: 성취기준 -->
-   <section data-slide-index="1" data-slide-num="2" data-title="성취기준" id="slide-2">
+   <!-- 2. hook — 허블 딥 필드 -->
+   <section data-slide-index="1" data-slide-num="2" data-title="이 좁은 하늘 조각에" id="slide-2" class="photo-slide">
     <div class="slide-content">
-     <h2>이 차시의 목표</h2>
-     <div class="max-w-3xl w-full mt-8 standard-box">
-      <p class="font-bold text-pink-800 mb-2">[9과23-03]</p>
-      <p class="text-lg text-slate-700">우주가 팽창하고 있음을 모형으로 설명할 수 있다.</p>
+     <img class="sky-photo" src="img/exp_deepfield.jpg"
+          alt="허블 울트라 딥 필드. 검은 하늘을 배경으로 크고 작은 은하 수천 개가 흩어져 있다. 나선 모양, 타원 모양, 찌그러진 모양이 뒤섞여 있고 색도 흰색부터 붉은색까지 다양하다. 별처럼 뾰족한 점은 몇 개뿐이고 대부분이 은하다."/>
+     <div class="photo-cap">
+      <h2>여기 보이는 점은 거의 다 '은하'다</h2>
+      <p>허블 망원경이 <b>아무것도 없어 보이는</b> 하늘 한 조각(보름달의 100분의 1 넓이)을 11일 동안 노출해 찍었다. 그 안에 은하가 <b>약 1만 개</b> 있었다. 19강의 우리은하는 그중 하나일 뿐이다.</p>
+      <p class="photo-credit">NASA, ESA &middot; Hubble Ultra Deep Field &middot; 퍼블릭 도메인</p>
      </div>
-     <p class="slide-caption mt-4">※ 허블 법칙의 정량 계산, 빅뱅의 세부 증거, 우주배경복사는 중3 범위 밖.</p>
     </div>
    </section>
 
-   <!-- Slide 3: 외부 은하 -->
+   <!-- 3. concept — 외부 은하 -->
    <section data-slide-index="2" data-slide-num="3" data-title="외부 은하" id="slide-3">
     <div class="slide-content">
-     <h2>1. 외부 은하</h2>
-     <div class="max-w-3xl w-full mt-6 space-y-4">
-      <div class="outline-card"><p class="font-bold text-slate-800">우리은하 밖에도 은하가 있다</p><p class="text-slate-600 mt-1">수천억 개의 외부 은하</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">우주의 기본 구성 요소</p><p class="text-slate-600 mt-1">은하가 모여 우주의 큰 구조를 이룬다</p></div>
+     <h2>1. 외부 은하 &mdash; 우리은하 바깥의 은하</h2>
+     <div class="flex flex-col md:flex-row gap-5 items-center max-w-5xl w-full mt-3">
+      <div class="w-full md:w-1/2">
+       <img src="img/exp_andromeda.jpg" class="photo" style="max-height:280px"
+            alt="안드로메다 은하. 비스듬히 기울어진 나선 원반이 화면을 가로지르고, 가운데는 노랗게 밝으며 바깥으로 갈수록 푸른 나선팔과 검은 먼지 띠가 감겨 있다."/>
+       <p class="credit">안드로메다 은하(M31) &middot; Adam Evans, CC BY 2.0</p>
+      </div>
+      <div class="w-full md:w-1/2 space-y-3">
+       <div class="standard-box">
+        <p class="text-lg text-slate-700"><b>외부 은하</b>: 우리은하 <b>바깥</b>에 있는 은하. 관측 가능한 우주에 <b>수천억 개</b>가 있다.</p>
+       </div>
+       <div class="outline-card"><p class="font-bold text-slate-800">한때는 '성운'이었다</p><p class="text-slate-600 mt-1">망원경으로는 뿌옇게만 보여 우리은하 안의 성운(19강)으로 여겨졌다. <b>1924년</b> 허블이 안드로메다까지의 거리를 재고서야 '바깥'임이 확정됐다.</p></div>
+       <div class="outline-card"><p class="font-bold text-slate-800">거리는 어떻게 쟀나</p><p class="text-slate-600 mt-1">18강의 연주 시차는 수백 pc까지가 한계다. 은하까지는 <b>수십만 pc</b> &mdash; 다른 자가 필요했다(13쪽).</p></div>
+      </div>
      </div>
     </div>
    </section>
 
-   <!-- Slide 4: 은하의 후퇴 -->
-   <section data-slide-index="3" data-slide-num="4" data-title="은하의 후퇴" id="slide-4">
+   <!-- 4. predict -->
+   <section data-slide-index="3" data-slide-num="4" data-title="먼저 예상하기" id="slide-4">
     <div class="slide-content">
-     <h2>2. 은하의 거리와 후퇴</h2>
-     <div class="max-w-3xl w-full mt-6 space-y-4">
-      <div class="outline-card"><p class="font-bold text-slate-800">대부분 멀어진다</p><p class="text-slate-600 mt-1">거의 모든 외부 은하가 우리에게서 멀어지고 있다</p></div>
-      <div class="outline-card text-center"><p class="key-line">멀리 있는 은하일수록 더 빠르게 멀어진다</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">여기서 알 수 있는 것</p><p class="text-slate-600 mt-1">우주 공간 자체가 커지고 있다</p></div>
+     <h2>먼저 예상해 봅시다</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 1</p><p class="text-slate-600 mt-1">거의 모든 은하가 우리에게서 멀어진다면, 우리은하는 우주의 <b>중심</b>일까요?</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 2</p><p class="text-slate-600 mt-1">우주가 커진다면 <b>커지는 것</b>은 은하일까요, 은하 <b>사이</b>일까요?</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 3</p><p class="text-slate-600 mt-1">커지고 있다면 우주에는 <b>바깥</b>이 있어야 할까요?</p></div>
      </div>
-     <!-- TODO: 거리-후퇴속도 산점도 (Chart.js) -->
+     <div class="mt-5 flex flex-wrap gap-3 items-center justify-center" id="center-poll" data-poll="lesson20-center">
+      <span class="text-slate-500 font-bold">예상 1에 답해 보기 &rarr;</span>
+      <button class="pick" aria-pressed="false">중심이다</button>
+      <button class="pick" aria-pressed="false">중심이 아니다</button>
+      <button class="pick" aria-pressed="false">아직 판단할 수 없다</button>
+     </div>
+     <p class="slide-caption mt-1" id="center-poll-echo" aria-live="polite"></p>
+     <div class="ask max-w-4xl w-full mt-4"><p>정답을 맞히는 단계가 아닙니다. 지금 생각과 그 <b>까닭</b>을 한 문장으로 적으세요.</p></div>
     </div>
    </section>
 
-   <!-- Slide 5: 팽창 모형 -->
-   <section data-slide-index="4" data-slide-num="5" data-title="우주 팽창 모형" id="slide-5">
+   <!-- 5. objectives -->
+   <section data-slide-index="4" data-slide-num="5" data-title="성취기준" id="slide-5">
     <div class="slide-content">
-     <h2>3. 우주 팽창 모형</h2>
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-6">
-      <div class="outline-card"><p class="font-bold text-slate-800">풍선 모형</p><p class="text-slate-600 mt-1">표면에 점을 찍고 불면 점 사이 거리가 모두 멀어진다</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">고무판 모형</p><p class="text-slate-600 mt-1">잡아당기면 멀리 있는 점일수록 빨리 멀어진다</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">중심은 없다</p><p class="text-slate-600 mt-1">어느 점에서 보아도 다른 점들이 멀어진다</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">모형의 한계</p><p class="text-slate-600 mt-1">점(은하) 자체는 커지지 않는다</p></div>
+     <h2>이 차시의 목표</h2>
+     <div class="max-w-3xl w-full mt-5 standard-box">
+      <p class="font-bold text-pink-800 mb-2">[9과23-03]</p>
+      <p class="text-lg text-slate-700">우주가 팽창하고 있음을 <b>모형으로</b> 설명할 수 있다.</p>
      </div>
-     <!-- TODO: 풍선 팽창 인터랙티브 (슬라이더로 팽창) -->
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">관측하기</p><p class="text-slate-600 mt-1">은하들이 멀어지고 있다는 <b>증거</b>를 말하기</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">모형 다루기</p><p class="text-slate-600 mt-1">고무줄&middot;풍선 모형으로 팽창을 <b>재현</b>하기</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">해석하기</p><p class="text-slate-600 mt-1">중심이 없다는 것과 <b>공간</b>이 커진다는 것을 설명하기</p></div>
+     </div>
+     <p class="slide-caption mt-4">※ 허블 법칙의 <b>정량 계산</b>, 빅뱅의 세부 증거, 우주 배경 복사는 중3 범위 밖이다. 여기서는 <b>멀수록 빠르다</b>는 관계와 <b>모형</b>까지만 다룬다.</p>
     </div>
    </section>
 
-   <!-- Slide 6: 팽창의 의미 -->
-   <section data-slide-index="5" data-slide-num="6" data-title="우주 팽창의 의미" id="slide-6">
+   <!-- 6. concept — 멀어짐을 어떻게 아는가 -->
+   <section data-slide-index="5" data-slide-num="6" data-title="멀어짐을 아는 법" id="slide-6">
     <div class="slide-content">
-     <h2>4. 우주 팽창의 의미</h2>
-     <div class="max-w-3xl w-full mt-6 space-y-4">
-      <div class="outline-card"><p class="font-bold text-slate-800">커지는 것은 은하 사이의 공간</p><p class="text-slate-600 mt-1">은하 자체가 부풀지 않는다</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">관측자 위치와 무관</p><p class="text-slate-600 mt-1">어디서 보든 먼 은하가 더 빨리 멀어져 보인다</p></div>
+     <h2>2. 멀어지는 것을 어떻게 알까 &mdash; 빛의 색이 말해 준다</h2>
+     <div class="w-full max-w-5xl mt-2">
+      <svg viewBox="0 0 860 230" class="w-full" style="max-height:250px" role="img"
+           aria-label="정지한 은하와 멀어지는 은하의 스펙트럼 비교. 위쪽 띠에서는 검은 흡수선 두 줄이 가운데 근처에 있고, 아래쪽 멀어지는 은하의 띠에서는 같은 두 줄이 나란히 붉은색 쪽인 오른쪽으로 밀려 있다.">
+       <defs>
+        <linearGradient id="spec20" x1="0" y1="0" x2="1" y2="0">
+         <stop offset="0%" stop-color="#6600aa"/><stop offset="10%" stop-color="#4400ff"/>
+         <stop offset="20%" stop-color="#0066ff"/><stop offset="27.5%" stop-color="#00ccff"/>
+         <stop offset="32.5%" stop-color="#00cc44"/><stop offset="42.5%" stop-color="#88dd00"/>
+         <stop offset="50%" stop-color="#ffee00"/><stop offset="55%" stop-color="#ffaa00"/>
+         <stop offset="66.25%" stop-color="#ff3300"/><stop offset="80%" stop-color="#cc0000"/>
+         <stop offset="100%" stop-color="#660000"/>
+        </linearGradient>
+       </defs>
+       <text x="18" y="34" fill="#334155" font-size="17" font-weight="bold">정지한 광원</text>
+       <rect x="180" y="16" width="640" height="60" rx="6" fill="url(#spec20)"/>
+       <rect x="370" y="16" width="7" height="60" fill="#0f172a"/>
+       <rect x="410" y="16" width="7" height="60" fill="#0f172a"/>
+       <text x="18" y="140" fill="#9d174d" font-size="17" font-weight="bold">멀어지는 은하</text>
+       <rect x="180" y="122" width="640" height="60" rx="6" fill="url(#spec20)"/>
+       <rect x="530" y="122" width="7" height="60" fill="#0f172a"/>
+       <rect x="570" y="122" width="7" height="60" fill="#0f172a"/>
+       <g stroke="#9d174d" stroke-width="2.5">
+        <line x1="373" y1="86" x2="527" y2="112" marker-end="url(#a20)"/>
+        <line x1="413" y1="86" x2="567" y2="112" marker-end="url(#a20)"/>
+       </g>
+       <defs><marker id="a20" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#9d174d"/></marker></defs>
+       <text x="596" y="108" fill="#9d174d" font-size="16" font-weight="bold">같은 선이 붉은 쪽으로 밀린다</text>
+       <text x="186" y="206" fill="#64748b" font-size="15">짧은 파장 (보라)</text>
+       <text x="742" y="206" fill="#64748b" font-size="15">긴 파장 (빨강)</text>
+      </svg>
+     </div>
+     <div class="standard-box max-w-4xl w-full mt-3">
+      <p class="text-lg text-slate-700"><b>적색 편이</b>: 멀어지는 천체의 빛은 파장이 길어져(18강 보충 &mdash; 붉은 쪽이 긴 파장) 스펙트럼의 선이 <b>붉은 쪽으로 밀린다</b>. 밀린 정도가 클수록 빨리 멀어진다.</p>
+     </div>
+     <p class="slide-caption mt-3">※ 구급차가 멀어질 때 사이렌이 낮게 들리는 것과 같은 원리다. 소리는 낮은 음(긴 파장), 빛은 붉은색(긴 파장)이 된다.</p>
+    </div>
+   </section>
+
+   <!-- 7. conflict -->
+   <section data-slide-index="6" data-slide-num="7" data-title="그럼 우리가 중심인가" id="slide-7">
+    <div class="slide-content">
+     <h2>3. 관측된 사실 &mdash; 그리고 곧바로 생기는 문제</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-5xl w-full mt-4">
+      <div class="outline-card"><p class="font-bold text-slate-800">사실 &#9312;</p><p class="text-slate-600 mt-1">가까운 몇 개를 빼면 <b>거의 모든</b> 외부 은하의 빛이 적색 편이를 보인다 &mdash; 우리에게서 <b>멀어지고</b> 있다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">사실 &#9313;</p><p class="text-slate-600 mt-1">멀리 있는 은하일수록 적색 편이가 크다 &mdash; <b>멀수록 더 빠르게</b> 멀어진다.</p></div>
+     </div>
+     <div class="ask max-w-4xl w-full mt-5"><p>모든 은하가 <b>우리에게서</b> 달아난다면, 우리은하는 우주의 중심이거나 아주 특별한 곳이어야 하지 않을까요?</p></div>
+     <div class="outline-card text-center max-w-4xl w-full mt-4">
+      <p class="key-line">이 질문에 답하려면 모형이 필요하다. 다음 쪽에서 직접 만들어 본다.</p>
      </div>
     </div>
    </section>
 
-   <!-- Slide 7: 과학사 에피소드 -->
-   <section data-slide-index="6" data-slide-num="7" data-title="과학사 에피소드" id="slide-7">
+   <!-- 8. explore — 고무줄 우주 애플릿 -->
+   <section data-slide-index="7" data-slide-num="8" data-title="고무줄 우주" id="slide-8">
     <div class="slide-content">
-     <h2>과학사 — 우주가 커진다는 말이 나오기까지</h2>
-     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-6">
-      <div class="outline-card"><p class="font-bold text-slate-800">리빗의 자(1912)</p><p class="text-slate-600 mt-1">헨리에타 스완 리빗은 세페이드 변광성의 주기-광도 관계를 찾아 '먼 거리를 재는 자'를 만들었다. 이 자 없이는 허블도 없었다.</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">르메트르와 허블(1927·1929)</p><p class="text-slate-600 mt-1">신부이자 물리학자 르메트르가 먼저 팽창을 계산했고, 허블이 관측으로 확인했다.</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">아인슈타인의 후회</p><p class="text-slate-600 mt-1">정적인 우주를 고집하며 넣은 우주 상수를, 팽창을 알고 나서 '내 인생 최대의 실수'라 불렀다고 전해진다.</p></div>
+     <h2>4. 탐구 &mdash; 고무줄 우주를 늘여 보자</h2>
+     <div class="flex flex-wrap gap-2 items-center justify-center mb-2" id="obs-picks">
+      <span class="text-slate-500 font-bold">내가 사는 은하 &rarr;</span>
+      <button class="pick" data-obs="0" aria-pressed="true">A (우리은하)</button>
+      <button class="pick" data-obs="1" aria-pressed="false">B</button>
+      <button class="pick" data-obs="2" aria-pressed="false">C</button>
+      <button class="pick" data-obs="3" aria-pressed="false">D</button>
      </div>
-     <!-- TODO: 리빗-허블-르메트르 타임라인, 원본 그래프 재현 -->
+     <div class="flex items-center gap-3 max-w-4xl w-full mb-2">
+      <label for="exp-a" class="text-slate-500 font-bold" style="white-space:nowrap">고무줄 늘이기</label>
+      <input id="exp-a" type="range" min="100" max="300" step="5" value="100" class="flex-1"/>
+      <span class="readout" id="exp-a-out">&times;1.0</span>
+     </div>
+     <svg id="exp-svg" viewBox="0 0 860 150" class="w-full" style="max-height:170px" role="img"
+          aria-label="고무줄 위에 은하 네 개가 일정한 간격으로 붙어 있는 그림. 고무줄을 늘이면 은하 사이의 간격이 모두 함께 벌어지고, 멀리 있는 은하일수록 더 많이 움직인다."></svg>
+     <div class="max-w-4xl w-full mt-2">
+      <table class="lab-table">
+       <thead><tr><th>은하</th><th>처음 거리</th><th>지금 거리</th><th>늘어난 거리</th><th>멀어지는 빠르기</th></tr></thead>
+       <tbody id="exp-rows"></tbody>
+      </table>
+     </div>
+     <p class="slide-caption mt-2" id="exp-live" aria-live="polite"></p>
+     <p class="slide-caption mt-1">※ 거리는 고무줄에 그은 <b>눈금 칸</b>으로 센다. 관측자를 A에서 D로 바꿔 보고, 표의 마지막 열이 어떻게 달라지는지 보자.</p>
+    </div>
+   </section>
+
+   <!-- 9. observe -->
+   <section data-slide-index="8" data-slide-num="9" data-title="관찰 결과" id="slide-9">
+    <div class="slide-content">
+     <h2>관찰 결과를 정리하면</h2>
+     <div class="max-w-5xl w-full mt-4">
+      <table class="lab-table">
+       <thead><tr><th>내가 사는 은하</th><th>가까운 은하</th><th>먼 은하</th><th>내가 본 하늘</th></tr></thead>
+       <tbody>
+        <tr><td><b>A</b>에서 보면</td><td>조금 멀어진다</td><td>많이 멀어진다</td><td>모두 <b>A에서</b> 달아난다</td></tr>
+        <tr><td><b>B</b>에서 보면</td><td>조금 멀어진다</td><td>많이 멀어진다</td><td>모두 <b>B에서</b> 달아난다</td></tr>
+        <tr><td><b>D</b>에서 보면</td><td>조금 멀어진다</td><td>많이 멀어진다</td><td>모두 <b>D에서</b> 달아난다</td></tr>
+       </tbody>
+      </table>
+     </div>
+     <div class="ask max-w-4xl w-full mt-5"><p>A도, B도, D도 모두 "내가 가만히 있고 남들이 달아난다"고 말합니다. 그렇다면 <b>누가</b> 중심일까요?</p></div>
+     <div class="outline-card text-center max-w-4xl w-full mt-4 reveal-item" style="opacity: 0">
+      <p class="key-line">아무도 아니다. 고무줄에는 중심이 없다.</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 10. rule -->
+   <section data-slide-index="9" data-slide-num="10" data-title="규칙 완성" id="slide-10">
+    <div class="slide-content">
+     <h2>관찰에서 규칙으로</h2>
+     <div class="max-w-5xl w-full mt-3">
+      <table class="lab-table">
+       <thead><tr><th>관찰한 사실</th><th>완성할 규칙</th></tr></thead>
+       <tbody>
+        <tr>
+         <td>먼 은하일수록 더 많이 멀어졌다</td>
+         <td>멀리 있는 은하일수록
+          <span class="rule-blank" data-rule="r1">
+           <button class="pick" data-correct="true">더 빠르게 멀어진다</button>
+           <button class="pick" data-correct="false">더 느리게 멀어진다</button>
+          </span></td>
+        </tr>
+        <tr>
+         <td>어느 은하에서 보아도 결과가 같았다</td>
+         <td>우주에는
+          <span class="rule-blank" data-rule="r2">
+           <button class="pick" data-correct="false">특별한 중심이 있다</button>
+           <button class="pick" data-correct="true">특별한 중심이 없다</button>
+          </span></td>
+        </tr>
+        <tr>
+         <td>은하는 고무줄에 <b>붙어</b> 있었다</td>
+         <td>은하가 공간 속을 날아간 것이 아니라
+          <span class="rule-blank" data-rule="r3">
+           <button class="pick" data-correct="true">공간 자체가 늘어났다</button>
+           <button class="pick" data-correct="false">은하가 스스로 커졌다</button>
+          </span></td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <p class="text-slate-600 mt-2" id="rule-feedback" aria-live="polite">칸마다 알맞은 말을 골라 규칙을 완성하세요.</p>
+     <div class="standard-box max-w-4xl w-full mt-3">
+      <p class="text-lg text-slate-700"><b>우주 팽창</b>: 은하 <b>사이의 공간</b>이 사방으로 늘어나는 현상. 그래서 어느 은하에서 보든 <b>멀수록 빠르게</b> 멀어지고, <b>중심은 없다</b>.</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 11. concept — 커지는 것은 공간 -->
+   <section data-slide-index="10" data-slide-num="11" data-title="커지는 것은 공간" id="slide-11">
+    <div class="slide-content">
+     <h2>5. 커지는 것은 은하가 아니라 은하 <b>사이</b>다</h2>
+     <div class="w-full max-w-5xl mt-2">
+      <svg viewBox="0 0 800 190" class="w-full" style="max-height:210px" role="img"
+           aria-label="빵 반죽이 부풀며 건포도 사이가 벌어지는 그림. 왼쪽 반죽에서는 건포도들이 가까이 붙어 있고, 오른쪽 부푼 빵에서는 건포도 사이가 모두 벌어졌지만 건포도 자체의 크기는 그대로다.">
+       <rect x="0" y="0" width="800" height="190" fill="#fdf2f8" rx="14"/>
+       <text x="112" y="30" fill="#9d174d" font-size="16" font-weight="bold" text-anchor="middle">굽기 전</text>
+       <ellipse cx="112" cy="105" rx="78" ry="52" fill="#fbcfe8"/>
+       <g fill="#7c2d12">
+        <circle cx="82" cy="88" r="9"/><circle cx="140" cy="96" r="9"/>
+        <circle cx="100" cy="126" r="9"/><circle cx="146" cy="132" r="9"/>
+       </g>
+       <text x="560" y="30" fill="#9d174d" font-size="16" font-weight="bold" text-anchor="middle">구운 뒤</text>
+       <ellipse cx="560" cy="105" rx="160" ry="72" fill="#fbcfe8"/>
+       <g fill="#7c2d12">
+        <circle cx="479" cy="72" r="9"/><circle cx="639" cy="94" r="9"/>
+        <circle cx="522" cy="145" r="9"/><circle cx="650" cy="152" r="9"/>
+       </g>
+       <path d="M 210 105 L 370 105" stroke="#db2777" stroke-width="3" marker-end="url(#b20)"/>
+       <defs><marker id="b20" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#db2777"/></marker></defs>
+       <text x="290" y="92" fill="#9d174d" font-size="15" font-weight="bold" text-anchor="middle">반죽이 부푼다</text>
+       <text x="290" y="130" fill="#64748b" font-size="14" text-anchor="middle">= 공간이 늘어난다</text>
+       <text x="560" y="182" fill="#64748b" font-size="15" text-anchor="middle">건포도 사이는 모두 벌어졌지만, 건포도는 그대로다</text>
+      </svg>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl w-full mt-3">
+      <div class="outline-card"><p class="font-bold text-slate-800">늘어나는 것</p><p class="text-slate-600 mt-1">은하와 은하 <b>사이의 공간</b></p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">늘어나지 않는 것</p><p class="text-slate-600 mt-1">은하 자체, 태양계, 지구, 우리 몸 &mdash; <b>중력과 전기력으로 묶인 것</b>은 팽창을 이긴다</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">그래서</p><p class="text-slate-600 mt-1">안드로메다는 오히려 <b>가까워지고</b> 있다. 우리은하와 중력으로 묶여 있기 때문이다</p></div>
+     </div>
+    </div>
+   </section>
+
+   <!-- 12. compare — 모형의 한계 -->
+   <section data-slide-index="11" data-slide-num="12" data-title="모형의 한계" id="slide-12">
+    <div class="slide-content">
+     <h2>6. 모형이 <b>맞게</b> 말하는 것과 <b>틀리게</b> 말하는 것</h2>
+     <div class="max-w-5xl w-full mt-4">
+      <table class="lab-table">
+       <thead><tr><th>모형</th><th>잘 보여 주는 것</th><th>오해를 부르는 것</th></tr></thead>
+       <tbody>
+        <tr><td><b>고무줄</b> (1차원)</td><td>멀수록 빠르다 &middot; 관측자를 바꿔도 같다</td><td>고무줄에는 <b>양 끝</b>이 있다. 우주에는 끝이 없다</td></tr>
+        <tr><td><b>풍선 표면</b> (2차원)</td><td>중심도 가장자리도 없다 &middot; 사방이 똑같다</td><td>풍선 <b>속</b>과 <b>바깥</b>이 있어 보인다. 은하는 <b>표면에만</b> 있다고 약속해야 한다</td></tr>
+        <tr><td><b>건포도 빵</b></td><td>사이만 벌어지고 건포도는 그대로다</td><td>빵에는 <b>가장자리</b>와 중심이 있다</td></tr>
+       </tbody>
+      </table>
+     </div>
+     <div class="standard-box max-w-4xl w-full mt-4">
+      <p class="text-lg text-slate-700">모형은 <b>일부만</b> 닮는다. 세 모형 모두 "바깥"이 있어 보이는 것이 공통된 약점이다. 우주가 커진다는 말은 <b>바깥으로 번져 나간다</b>는 뜻이 아니라, <b>안쪽 거리가 모두 늘어난다</b>는 뜻이다.</p>
+     </div>
+     <p class="slide-caption mt-3">※ 모형을 쓸 때는 <b>어디까지 닮았는지</b>를 함께 말하는 습관을 들이자. 이것이 과학에서 모형을 다루는 방식이다.</p>
+    </div>
+   </section>
+
+   <!-- 13. 과학사 1 — 리빗 -->
+   <section data-slide-index="12" data-slide-num="13" data-title="과학사 — 리빗의 자" id="slide-13">
+    <div class="slide-content">
+     <h2>과학사 &mdash; 우주를 잴 자를 만든 사람</h2>
+     <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-3">
+      <div class="w-full md:w-1/4">
+       <img src="img/exp_leavitt.jpg" class="photo" style="max-height:250px"
+            alt="헨리에타 스완 리빗의 사진. 책상 앞에 앉아 펜을 들고 기록하고 있다."/>
+       <p class="credit">헨리에타 스완 리빗(1868&ndash;1921) &middot; 퍼블릭 도메인</p>
+      </div>
+      <div class="w-full md:w-3/4 space-y-3">
+       <div class="outline-card">
+        <p class="font-bold text-pink-800">1912년, 하버드 &mdash; 시급 30센트의 계산원</p>
+        <p class="text-slate-600 mt-1">18강의 '하버드 컴퓨터스' 중 한 사람이던 리빗은 마젤란은하의 <b>변광성 1777개</b>를 조사하다 규칙 하나를 찾아냈다. <b>밝기가 변하는 주기가 길수록 실제로 더 밝다</b>는 것이다.</p>
+       </div>
+       <div class="outline-card">
+        <p class="font-bold text-pink-800">왜 이것이 '자'가 되는가</p>
+        <p class="text-slate-600 mt-1">18강에서 배웠듯 <b>실제 밝기</b>와 <b>보이는 밝기</b>를 함께 알면 거리를 알 수 있다. 주기만 재면 실제 밝기를 알 수 있으니, 이제 <b>연주 시차가 닿지 않는 곳</b>까지 거리를 잴 수 있게 됐다.</p>
+       </div>
+       <div class="ask"><p>허블이 안드로메다까지의 거리를 잰 것도 이 자였습니다. 리빗이 없었다면 오늘 수업의 어느 부분이 불가능했을까요?</p></div>
+      </div>
+     </div>
+     <p class="slide-caption mt-3">※ 리빗은 이 발견으로 상을 받지 못했다. 1925년 노벨상 후보로 추천하려던 학자가 있었으나, 그는 이미 4년 전에 세상을 떠난 뒤였다.</p>
+    </div>
+   </section>
+
+   <!-- 14. 과학사 2 — 르메트르와 허블 -->
+   <section data-slide-index="13" data-slide-num="14" data-title="과학사 — 르메트르와 허블" id="slide-14">
+    <div class="slide-content">
+     <h2>과학사 &mdash; 계산이 먼저였고, 관측이 뒤따랐다</h2>
+     <div class="flex flex-col md:flex-row gap-5 items-start max-w-5xl w-full mt-3">
+      <div class="w-full md:w-1/3">
+       <img src="img/exp_lemaitre.jpg" class="photo" style="max-height:180px"
+            alt="조르주 르메트르의 사진. 성직자 복장을 하고 정면을 보고 있다."/>
+       <p class="credit">조르주 르메트르(1894&ndash;1966) &middot; 퍼블릭 도메인</p>
+       <div class="outline-card mt-2">
+        <p class="font-bold text-pink-800">1927 &mdash; 르메트르</p>
+        <p class="text-slate-600 mt-1">신부이자 물리학자였던 그는 아인슈타인의 방정식에서 <b>우주가 팽창해야 한다</b>는 답을 얻었다. 프랑스어 학술지에 실려 거의 읽히지 않았다.</p>
+       </div>
+      </div>
+      <div class="w-full md:w-2/3">
+       <img src="img/exp_hubble1929.png" style="width:100%;background:#fff;border:1px solid #e2e8f0;border-radius:1rem;padding:0.5rem"
+            alt="허블이 1929년에 발표한 그래프. 가로축은 은하까지의 거리, 세로축은 멀어지는 속도이며, 점들이 흩어져 있지만 전체적으로 오른쪽 위로 올라가는 직선 추세를 보인다."/>
+       <p class="credit">허블의 1929년 원본 그래프 &middot; 퍼블릭 도메인</p>
+       <div class="outline-card mt-2">
+        <p class="font-bold text-pink-800">1929 &mdash; 허블</p>
+        <p class="text-slate-600 mt-1">가로축이 <b>거리</b>, 세로축이 <b>멀어지는 속도</b>다. 가로축 눈금이 <b>PARSECS</b> &mdash; 18&middot;19강에서 쓴 그 pc다. 점이 몇 개 안 되고 많이 흩어져 있는데도 <b>오른쪽 위로 오르는 추세</b>가 보인다. 오늘 고무줄에서 얻은 그 규칙이다.</p>
+       </div>
+      </div>
+     </div>
+     <p class="slide-caption mt-3">※ 아인슈타인은 정적인 우주를 지키려고 방정식에 상수를 하나 넣었다가, 팽창을 알고 나서 그것을 후회했다고 전해진다. 2018년 국제천문연맹은 이 법칙의 이름을 <b>허블&ndash;르메트르 법칙</b>으로 바꾸기로 결의했다.</p>
+    </div>
+   </section>
+
+   <!-- 15. apply -->
+   <section data-slide-index="14" data-slide-num="15" data-title="중심도 끝도 없다" id="slide-15">
+    <div class="slide-content">
+     <h2>7. "중심이 없다"는 말의 뜻</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-5xl w-full mt-4">
+      <div class="outline-card">
+       <p class="font-bold text-slate-800">&#10007; 이런 뜻이 아니다</p>
+       <p class="text-slate-600 mt-1">한 점에서 폭발해 파편이 <b>바깥으로</b> 날아가고 있다. 그 폭발 지점이 우주의 중심이다.</p>
+      </div>
+      <div class="outline-card" style="border-color:#db2777">
+       <p class="font-bold text-pink-800">&#10003; 이런 뜻이다</p>
+       <p class="text-slate-600 mt-1">모든 곳에서 <b>동시에</b> 거리가 늘어나고 있다. 그래서 어느 은하에서 보아도 자기가 가만히 있는 것처럼 보인다.</p>
+      </div>
+     </div>
+     <div class="standard-box max-w-4xl w-full mt-5">
+      <p class="text-lg text-slate-700">지구는 태양계의 중심이 아니었고(<b>16세기</b>), 태양계는 우리은하의 중심이 아니었으며(<b>19강, 1918년</b>), 우리은하는 우주의 중심이 아니다(<b>오늘</b>). 관측이 정밀해질 때마다 인류는 중심에서 한 걸음씩 밀려났다.</p>
+     </div>
+     <div class="ask max-w-4xl w-full mt-4"><p>그렇다면 "우주의 바깥에는 무엇이 있나요?"라는 질문은 왜 답하기 어려울까요? (힌트: 12쪽의 모형 한계)</p></div>
+    </div>
+   </section>
+
+   <!-- 16. summary -->
+   <section data-slide-index="15" data-slide-num="16" data-title="정리" id="slide-16">
+    <div class="slide-content">
+     <h2>오늘의 정리</h2>
+     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">외부 은하</p><p class="text-slate-600 mt-1">우리은하 바깥의 은하. 수천억 개</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">적색 편이</p><p class="text-slate-600 mt-1">멀어지는 은하의 빛은 붉은 쪽으로 밀린다</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">멀수록 빠르다</p><p class="text-slate-600 mt-1">먼 은하일수록 더 빠르게 멀어진다</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">중심이 없다</p><p class="text-slate-600 mt-1">늘어나는 것은 은하 사이의 공간이다</p></div>
+     </div>
+     <div class="standard-box max-w-4xl w-full mt-5">
+      <p class="text-slate-600 mb-2" data-poll-recall="lesson20-center"></p>
+      <p class="text-lg text-slate-700">표지의 질문에 답하면 &mdash; 모든 은하가 우리에게서 멀어지는 것은 우리가 <b>중심이기 때문이 아니라</b>, 어느 은하에서 보아도 그렇게 보이기 때문이다. <b>우주에는 중심이 없다.</b></p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 17. quiz -->
+   <section data-slide-index="16" data-slide-num="17" data-title="형성평가" id="slide-17">
+    <div class="slide-content">
+     <h2>형성평가</h2>
+     <div class="quiz-container max-w-3xl mt-5 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">고무줄에 은하 A&middot;B&middot;C&middot;D를 같은 간격으로 붙이고 <b>양쪽으로 늘였다.</b> 은하 B에 사는 관측자가 보게 될 것은?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false">&#9312; B는 고무줄 중심이 아니므로 A와 C가 B로 다가온다</button>
+       <button class="quiz-btn" data-correct="true">&#9313; A도 C도 D도 B에서 멀어지고, D가 가장 빠르게 멀어진다</button>
+       <button class="quiz-btn" data-correct="false">&#9314; 모든 은하가 같은 빠르기로 B에서 멀어진다</button>
+       <button class="quiz-btn" data-correct="false">&#9315; B에서는 아무 은하도 움직이지 않는 것으로 보인다</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">&#9989; 정답! &#9313;</p>
+       <p class="text-slate-600 mt-1">고무줄이 늘어나면 <b>모든</b> 간격이 함께 벌어지므로, B에서 보면 나머지가 전부 멀어진다. 그리고 B에서 가장 먼 D의 간격이 가장 많이 늘어나므로 D가 가장 빠르다. &#9314;가 틀린 이유가 이 차시의 핵심이다 &mdash; <b>거리에 따라</b> 빠르기가 다르다.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- 18. misconception -->
+   <section data-slide-index="17" data-slide-num="18" data-title="오개념 확인" id="slide-18">
+    <div class="slide-content">
+     <h2>오개념 확인</h2>
+     <div class="quiz-container max-w-3xl mt-4 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">"우주가 팽창하니 <b>모든 것</b>이 함께 커진다"에 대한 가장 좋은 반례는?</p>
+      </div>
+      <div class="quiz-options mt-6">
+       <button class="quiz-btn" data-correct="false">&#9312; 먼 은하일수록 적색 편이가 크다</button>
+       <button class="quiz-btn" data-correct="true">&#9313; 안드로메다 은하는 멀어지지 않고 오히려 우리은하에 가까워지고 있다</button>
+       <button class="quiz-btn" data-correct="false">&#9314; 우주에는 은하가 수천억 개 있다</button>
+       <button class="quiz-btn" data-correct="false">&#9315; 어느 은하에서 보아도 다른 은하가 멀어져 보인다</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">&#9989; 정답! &#9313; 안드로메다</p>
+       <p class="text-slate-600 mt-1">중력으로 <b>묶인</b> 것은 팽창에 끌려가지 않는다. 은하 안의 별, 태양계, 지구, 우리 몸, 자도 마찬가지다 &mdash; 그래서 자가 늘어나 버려 팽창을 못 재는 일은 생기지 않는다. &#9312;&#9314;&#9315;는 모두 사실이지만 <b>'모든 것이 커진다'의 반례</b>는 아니다.</p>
+      </div>
+     </div>
+     <div class="ask max-w-4xl w-full mt-4"><p>출구 질문 &mdash; 오늘 쓴 세 모형(고무줄&middot;풍선&middot;건포도 빵) 중 하나를 고르고, 그 모형이 <b>잘못 말하는 것 한 가지</b>를 한 문장으로 쓰세요.</p></div>
     </div>
    </section>
 
   </main>
   <script src="js/slide_engine.js"></script>
+  <script src="js/lesson_patterns.js"></script>
+  <script src="js/20_expansion.js"></script>
  </body>
 </html>
