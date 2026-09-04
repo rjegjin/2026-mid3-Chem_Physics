@@ -1,0 +1,65 @@
+[
+ {
+  "file": "img/gal_open_cluster.jpg",
+  "commons": "File:Pleiades large.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Pleiades_large.jpg",
+  "license": "Public domain",
+  "artist": "NASA, ESA, AURA/Caltech, Palomar Observatory The science team consists of: D. Soderblom and E. Nelan (STScI), F. Benedict and B. Arthur (U. Texas), and B. Jones (Lick Obs.)",
+  "credit": "https://hubblesite.org/contents/media/images/2004/20/1562-Image.html?Topic=104-stars-and-nebulas&keyword=pleiades ( TIF ",
+  "width": 1400
+ },
+ {
+  "file": "img/gal_globular.jpg",
+  "commons": "File:Globular Cluster Messier 13 (M13).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Globular_Cluster_Messier_13_(M13).jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Thedarksideobservatory",
+  "credit": "Own work",
+  "width": 1200
+ },
+ {
+  "file": "img/gal_emission.jpg",
+  "commons": "File:Orion Nebula - Hubble 2006 mosaic 18000.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Orion_Nebula_-_Hubble_2006_mosaic_18000.jpg",
+  "license": "Public domain",
+  "artist": "NASA, ESA, M. Robberto (Space Telescope Science Institute/ESA) and the Hubble Space Telescope Orion Treasury Project Team",
+  "credit": "http://hubblesite.org/newscenter/newsdesk/archive/releases/2006/01/ https://www.spacetelescope.org/news/heic0601/",
+  "width": 1400
+ },
+ {
+  "file": "img/gal_dark.jpg",
+  "commons": "File:Ic434 Horsehead Nebula B33 Flame Nebula Ngc2024.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Ic434_Horsehead_Nebula_B33_Flame_Nebula_Ngc2024.jpg",
+  "license": "CC0",
+  "artist": "Gianni.lacroce",
+  "credit": "Own work",
+  "width": 1200
+ },
+ {
+  "file": "img/gal_mw_map.jpg",
+  "commons": "File:236084main MilkyWay-full-annotated.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:236084main_MilkyWay-full-annotated.jpg",
+  "license": "Public domain",
+  "artist": "NASA/JPL-Caltech/R. Hurt",
+  "credit": "http://www.spitzer.caltech.edu/images/1925-ssc2008-10b-A-Roadmap-to-the-Milky-Way-Annotated-",
+  "width": 1400
+ },
+ {
+  "file": "img/gal_herschel.jpg",
+  "commons": "File:Sir William Herschel, his life and works (1881), portrait.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Sir_William_Herschel,_his_life_and_works_(1881),_portrait.jpg",
+  "license": "Public domain",
+  "artist": "Edward Singleton Holden, 1846-1914",
+  "credit": "https://archive.org/details/sirwilliamhersch00holduoft",
+  "width": 700
+ },
+ {
+  "file": "img/gal_herschel_map.png",
+  "commons": "File:Herschel-Galaxy.png",
+  "page": "https://commons.wikimedia.org/wiki/File:Herschel-Galaxy.png",
+  "license": "Public domain",
+  "artist": "Caroline Herschel",
+  "credit": "\"Section of our sidereal system.\" Herschel, William (1785). \" On the Construction of the Heavens. By William Herschel, E",
+  "width": 1100
+ }
+]

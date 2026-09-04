@@ -77,6 +77,15 @@
   color: var(--accent-strong);
 }
 
+/* 본문 삽화. 15강이 인라인으로 갖고 있던 규격을 19강이 같이 쓰게 되면서
+   공용으로 올린다. 전면 사진(.sky-photo)은 차시별 규격이므로 별개다. */
+.photo {
+  width: 100%;
+  border-radius: 1rem;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+  object-fit: cover;
+}
+
 /* 이미지·자료 출처 */
 .credit {
   font-size: 1rem !important;
