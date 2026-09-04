@@ -8,108 +8,512 @@
   <link href="css/common.css" rel="stylesheet"/>
   <link href="css/presentation_mode.css" rel="stylesheet"/>
   <link href="css/chem_style.css" rel="stylesheet"/>
+  <link href="css/components.css" rel="stylesheet"/>
   <style>
-   .outline-card { background:white; border:1px solid #e2e8f0; border-radius:1.25rem; padding:1.5rem; box-shadow:0 4px 14px rgba(0,0,0,0.05); }
-   .standard-box { background:#ecfdf5; border-left:6px solid #059669; padding:1.25rem 1.5rem; border-radius:0.75rem; }
+   /* 전면 사진 슬라이드 규격은 css/components.css 에 있다. */
+   .key-line { font-size:1.3rem; font-weight:800; color:#065f46; }
+   /* 연표 애플릿 — 고른 사건을 색 말고 글자로도 알 수 있어야 한다.
+      aria-pressed는 components.css의 .pick 규칙이 이미 잡아 준다. */
+   .era { font-size:0.95rem; font-weight:800; color:#047857; letter-spacing:0.04em; }
+   .first-badge { display:inline-block; background:#065f46; color:#ecfdf5; border-radius:0.5rem;
+                  padding:0.15rem 0.6rem; font-size:0.9rem; font-weight:800; }
   </style>
  </head>
- <body class="presentation-mode">
+ <body class="presentation-mode" style="--accent:#059669; --accent-strong:#065f46; --accent-soft:#d1fae5; --accent-tint:#ecfdf5">
   <main>
 
-   <!-- Slide 1: Cover -->
+   <!-- 1. cover -->
    <section data-slide-index="0" data-slide-num="1" data-title="Cover" id="slide-1">
     <div class="slide-content">
      <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">2026학년도 중학교 3학년 과학 &bull; 지구과학 VII-4</p>
      <h1 class="text-4xl md:text-6xl font-black mb-6 text-slate-900 leading-tight">왜 그 먼 곳까지 가는가</h1>
      <div class="w-20 h-1 bg-emerald-600 mx-auto my-8"></div>
      <p class="text-2xl text-slate-600 font-medium">제 21강: 우주 탐사</p>
-     <p class="text-xl text-slate-500 font-bold mt-4">방법 &middot; 목적 &middot; 의의 &middot; 쟁점</p>
+     <div class="ask max-w-3xl w-full mt-8"><p>지구에도 풀지 못한 문제가 많은데, 왜 수조 원을 들여 우주로 갈까요? 오늘 그 답을 <b>직접 조사해서</b> 말해 봅니다.</p></div>
     </div>
    </section>
 
-   <!-- Slide 2: 성취기준 -->
-   <section data-slide-index="1" data-slide-num="2" data-title="성취기준" id="slide-2">
+   <!-- 2. hook — 아르테미스 II -->
+   <section data-slide-index="1" data-slide-num="2" data-title="다섯 달 전, 달" id="slide-2" class="photo-slide">
+    <div class="slide-content">
+     <img class="sky-photo" src="img/spx_artemis2_launch.jpg"
+          alt="아르테미스 2호 SLS 로켓이 발사되는 순간. 주황색 본체의 거대한 로켓이 눈부신 화염을 뿜으며 솟아오르고, 발사대 주변으로 흰 연기가 넓게 퍼지고 있다. 배경은 푸른 새벽 하늘이다."/>
+     <div class="photo-cap">
+      <h2>다섯 달 전, 사람이 다시 달에 갔다</h2>
+      <p><b>2026년 4월 1일</b> 아르테미스 2호가 우주인 네 명을 태우고 달을 돌아 열흘 만에 돌아왔다. 사람이 달 근처까지 간 것은 <b>1972년 이후 53년 만</b>이다. 여러분이 태어나기 훨씬 전에 멈췄던 일이 올해 다시 시작됐다.</p>
+      <p class="photo-credit">NASA HQ Photo &middot; 퍼블릭 도메인 &middot; 확인 2026-09-04</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 3. hook — 로만 -->
+   <section data-slide-index="2" data-slide-num="3" data-title="닷새 전, 망원경" id="slide-3" class="photo-slide">
+    <div class="slide-content">
+     <img class="sky-photo" src="img/spx_roman_launch.jpg"
+          alt="로만 우주망원경을 실은 팰컨 헤비 로켓이 새벽에 발사되는 장면. 로켓이 길고 밝은 불꽃 기둥을 남기며 어두운 하늘로 올라가고 있다."/>
+     <div class="photo-cap">
+      <h2>그리고 닷새 전, 또 하나가 올라갔다</h2>
+      <p><b>2026년 8월 30일</b> 낸시 그레이스 로만 우주망원경이 발사됐다. 지금 이 순간 <b>3개월짜리 항해</b> 중이고, 첫 사진은 2027년 초에 온다. 우주 탐사는 교과서 속 옛날 이야기가 아니라 <b>이번 주에도 일어나는 일</b>이다.</p>
+      <p class="photo-credit">NASA/Joel Kowsky &middot; 퍼블릭 도메인 &middot; 확인 2026-09-04</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 4. predict -->
+   <section data-slide-index="3" data-slide-num="4" data-title="먼저 예상하기" id="slide-4">
+    <div class="slide-content">
+     <h2>먼저 예상해 봅시다</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 1</p><p class="text-slate-600 mt-1">우주 탐사에 쓴 돈은 <b>우주에서</b> 다 쓰이고 사라질까요, 지구로 돌아올까요?</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 2</p><p class="text-slate-600 mt-1">망원경을 굳이 <b>우주까지</b> 올리는 이유는 무엇일까요? 산꼭대기로는 안 될까요?</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">예상 3</p><p class="text-slate-600 mt-1">가장 가까운 별까지 지금 기술로 가면 얼마나 걸릴까요? 몇 년? 몇백 년?</p></div>
+     </div>
+     <div class="mt-5 flex flex-wrap gap-3 items-center justify-center" id="worth-poll" data-poll="lesson21-worth">
+      <span class="text-slate-500 font-bold">예상 1에 답해 보기 &rarr;</span>
+      <button class="pick" aria-pressed="false">우주에서 사라진다</button>
+      <button class="pick" aria-pressed="false">지구로 돌아온다</button>
+      <button class="pick" aria-pressed="false">아직 판단할 수 없다</button>
+     </div>
+     <p class="slide-caption mt-1" id="worth-poll-echo" aria-live="polite"></p>
+     <div class="ask max-w-4xl w-full mt-4"><p>정답을 맞히는 단계가 아닙니다. 지금 생각과 그 <b>까닭</b>을 한 문장으로 적으세요.</p></div>
+    </div>
+   </section>
+
+   <!-- 5. objectives -->
+   <section data-slide-index="4" data-slide-num="5" data-title="성취기준" id="slide-5">
     <div class="slide-content">
      <h2>이 차시의 목표</h2>
-     <div class="max-w-3xl w-full mt-8 standard-box">
+     <div class="max-w-3xl w-full mt-5 standard-box">
       <p class="font-bold text-emerald-800 mb-2">[9과23-04]</p>
-      <p class="text-lg text-slate-700">우주 탐사의 의의와 인류에게 미치는 영향을 조사하여 발표할 수 있다.</p>
+      <p class="text-lg text-slate-700">우주 탐사의 의의와 인류에게 미치는 영향을 <b>조사하여 발표</b>할 수 있다.</p>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">조사하기</p><p class="text-slate-600 mt-1">탐사의 <b>방법</b>과 <b>역사</b>, 그리고 지금 진행 중인 계획을 찾기</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">연결하기</p><p class="text-slate-600 mt-1">탐사 기술이 <b>생활</b>에 어떻게 돌아왔는지 예를 들기</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">판단하기</p><p class="text-slate-600 mt-1">비용&middot;안전&middot;우주 쓰레기 <b>쟁점</b>에 근거를 들어 의견 말하기</p></div>
+     </div>
+     <p class="slide-caption mt-4">※ 이 차시는 외울 공식이 없다. 대신 <b>근거를 들어 말하기</b>가 평가 대상이다. 오늘 나온 사건과 숫자는 발표의 재료다.</p>
+    </div>
+   </section>
+
+   <!-- 6. concept — 탐사 방법 -->
+   <section data-slide-index="5" data-slide-num="6" data-title="탐사의 방법" id="slide-6">
+    <div class="slide-content">
+     <h2>1. 우주를 조사하는 여섯 가지 방법</h2>
+     <div class="grid grid-cols-2 md:grid-cols-3 gap-3 max-w-5xl w-full mt-3">
+      <div class="outline-card" style="padding:0.7rem">
+       <img src="img/spx_rubin.jpg" class="photo" style="max-height:104px" alt="지상 망원경이 찍은 삼렬 성운과 석호 성운. 분홍빛과 푸른빛 가스 구름이 별들 사이에 넓게 퍼져 있다."/>
+       <p class="font-bold text-slate-800 mt-2">지상 망원경</p>
+       <p class="text-slate-600">가장 싸고 가장 크게 만들 수 있다</p>
+       <p class="credit">베라 루빈 천문대(2025) &middot; CC BY 4.0</p>
+      </div>
+      <div class="outline-card" style="padding:0.7rem">
+       <img src="img/spx_webb_mirror.jpg" class="photo" style="max-height:104px" alt="제임스 웹 우주망원경의 금빛 육각형 거울들이 벌집처럼 이어 붙어 있는 모습."/>
+       <p class="font-bold text-slate-800 mt-2">우주 망원경</p>
+       <p class="text-slate-600">대기 밖에서 본다 &mdash; 10쪽에서 이유를</p>
+       <p class="credit">NASA/MSFC &middot; PD</p>
+      </div>
+      <div class="outline-card" style="padding:0.7rem">
+       <img src="img/spx_danuri.png" class="photo" style="max-height:104px" alt="달 궤도를 도는 다누리 탐사선의 상상도. 태양 전지판을 펼친 사각형 본체가 달 위를 지나고 있다."/>
+       <p class="font-bold text-slate-800 mt-2">인공위성&middot;궤도선</p>
+       <p class="text-slate-600">천체 둘레를 돌며 오래 관측한다</p>
+       <p class="credit">과학기술정보통신부 &middot; 공공누리 제1유형</p>
+      </div>
+      <div class="outline-card" style="padding:0.7rem">
+       <img src="img/spx_parker.jpg" class="photo" style="max-height:104px" alt="파커 태양 탐사선의 상상도. 커다란 흰색 열 차폐막을 앞세운 탐사선이 태양의 붉은 빛을 향해 날아가고 있다."/>
+       <p class="font-bold text-slate-800 mt-2">탐사선</p>
+       <p class="text-slate-600">스쳐 지나거나 곁을 따라간다</p>
+       <p class="credit">NASA/JHU APL &middot; PD</p>
+      </div>
+      <div class="outline-card" style="padding:0.7rem">
+       <img src="img/spx_perseverance.jpg" class="photo" style="max-height:104px" alt="화성 표면의 퍼서비어런스 탐사차 셀피. 바퀴 여섯 개의 로버가 붉은 모래 위에 서 있다."/>
+       <p class="font-bold text-slate-800 mt-2">착륙선&middot;탐사차</p>
+       <p class="text-slate-600">직접 내려앉아 만지고 캔다</p>
+       <p class="credit">NASA/JPL-Caltech/MSSS &middot; PD</p>
+      </div>
+      <div class="outline-card" style="padding:0.7rem">
+       <img src="img/spx_aldrin.jpg" class="photo" style="max-height:104px" alt="달 표면에 선 우주복 차림의 아폴로 11호 우주인. 헬멧 면갑에 착륙선과 촬영자가 비친다."/>
+       <p class="font-bold text-slate-800 mt-2">유인 탐사</p>
+       <p class="text-slate-600">가장 비싸고 가장 위험하다</p>
+       <p class="credit">NASA / N. Armstrong &middot; PD</p>
+      </div>
+     </div>
+     <p class="slide-caption mt-2">※ 뒤로 갈수록 비용과 위험이 커진다. <b>목적에 맞는 방법을 고르는 것</b>이 탐사 계획의 첫 단계다.</p>
+    </div>
+   </section>
+
+   <!-- 7. explore — 연표 애플릿 -->
+   <section data-slide-index="6" data-slide-num="7" data-title="70년 연표" id="slide-7">
+    <div class="slide-content">
+     <h2>2. 탐구 &mdash; 지구 밖으로 나간 70년</h2>
+     <svg id="tl-svg" viewBox="0 0 880 96" class="w-full" style="max-height:110px" role="img"
+          aria-label="1957년부터 2026년까지의 우주 탐사 연표. 가로선 위에 주요 사건이 점으로 찍혀 있고, 오른쪽으로 갈수록 최근이다."></svg>
+     <div class="flex flex-wrap gap-2 justify-center mt-1" id="tl-picks"></div>
+     <div class="flex flex-col md:flex-row gap-5 items-center max-w-5xl w-full mt-3">
+      <div class="w-full md:w-2/5">
+       <img id="tl-img" class="photo" style="max-height:230px" src="img/spx_sputnik.jpg" alt=""/>
+       <p class="credit" id="tl-credit"></p>
+      </div>
+      <div class="w-full md:w-3/5">
+       <p class="era" id="tl-year"></p>
+       <p class="text-2xl font-black text-slate-900 mt-1" id="tl-name"></p>
+       <p class="text-slate-600 mt-2" id="tl-desc"></p>
+       <p class="mt-3"><span class="first-badge" id="tl-first"></span></p>
+      </div>
+     </div>
+     <p class="slide-caption mt-2" id="tl-live" aria-live="polite"></p>
+    </div>
+   </section>
+
+   <!-- 8. 사진 — 시작의 두 장면 -->
+   <section data-slide-index="7" data-slide-num="8" data-title="시작의 두 장면" id="slide-8">
+    <div class="slide-content">
+     <h2>3. 모든 것이 시작된 두 장면</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl w-full mt-3">
+      <div>
+       <img src="img/spx_sputnik.jpg" class="photo" style="max-height:250px" alt="스푸트니크 1호. 반짝이는 금속 공에 가느다란 안테나 네 개가 뒤로 뻗어 있다."/>
+       <p class="credit">스푸트니크 1호 &middot; U.S. Air Force &middot; PD</p>
+       <div class="outline-card mt-2">
+        <p class="font-bold text-emerald-800">1957 &mdash; 삐- 소리 하나로</p>
+        <p class="text-slate-600 mt-1">지름 58 cm, 무게 84 kg. 하는 일이라곤 <b>삐- 소리</b>를 보내는 것뿐이었다. 그런데 그 소리를 아마추어 무선사들이 받아 적는 순간 세계가 뒤집혔다 &mdash; 우리 머리 위를 남의 나라 기계가 지나간다는 뜻이었기 때문이다. 이듬해 NASA가 만들어졌다.</p>
+       </div>
+      </div>
+      <div>
+       <img src="img/spx_apollo_boot.jpg" class="photo" style="max-height:250px" alt="달 표면의 흙에 찍힌 우주화 발자국. 격자무늬 밑창 자국이 또렷하게 남아 있다."/>
+       <p class="credit">아폴로 11호 발자국 &middot; NASA / B. Aldrin &middot; PD</p>
+       <div class="outline-card mt-2">
+        <p class="font-bold text-emerald-800">1969 &mdash; 12년 만에 달</p>
+        <p class="text-slate-600 mt-1">착륙선의 컴퓨터는 메모리가 <b>지금 스마트폰의 10만분의 1</b>이었다. 착륙 직전 그 컴퓨터가 경보를 울렸지만, 사람이 직접 조종간을 잡아 연료가 <b>20초</b> 남았을 때 내려앉았다. 이 발자국은 바람이 없어 지금도 그대로 있다.</p>
+       </div>
+      </div>
      </div>
     </div>
    </section>
 
-   <!-- Slide 3: 탐사 방법 -->
-   <section data-slide-index="2" data-slide-num="3" data-title="우주 탐사의 방법" id="slide-3">
+   <!-- 9. photo-slide — 창백한 푸른 점 -->
+   <section data-slide-index="8" data-slide-num="9" data-title="창백한 푸른 점" id="slide-9" class="photo-slide">
     <div class="slide-content">
-     <h2>1. 우주 탐사의 방법</h2>
-     <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl w-full mt-6">
-      <div class="outline-card"><p class="font-bold text-slate-800">지상 망원경</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">우주 망원경</p><p class="text-slate-600 mt-1">허블, 제임스 웹</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">인공위성</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">우주 탐사선</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">착륙선&middot;탐사 로봇</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">유인 우주 탐사</p></div>
+     <img class="sky-photo contain" src="img/spx_pale_blue_dot.png"
+          alt="보이저 1호가 60억 킬로미터 밖에서 찍은 사진. 거의 검은 화면에 태양빛이 만든 옅은 띠가 비스듬히 지나가고, 그 띠 안에 지구가 아주 작은 밝은 점 하나로 찍혀 있다."/>
+     <div class="photo-cap">
+      <h2>여기 이 점이 지구다</h2>
+      <p>1990년, 보이저 1호가 태양계를 떠나기 직전 카메라를 <b>뒤로 돌려</b> 찍었다. 60억 km 밖에서 지구는 <b>0.12화소</b>였다. 칼 세이건은 이렇게 썼다 &mdash; "우리가 사랑하는 모든 사람, 아는 모든 사람, 들어 본 모든 사람이 저 점 위에서 살았다."</p>
+      <p class="photo-credit">NASA/JPL-Caltech &middot; 퍼블릭 도메인</p>
      </div>
     </div>
    </section>
 
-   <!-- Slide 4: 목적과 의의 -->
-   <section data-slide-index="3" data-slide-num="4" data-title="목적과 의의" id="slide-4">
+   <!-- 10. concept — 왜 우주로 -->
+   <section data-slide-index="9" data-slide-num="10" data-title="왜 우주로 올리나" id="slide-10">
     <div class="slide-content">
-     <h2>2. 우주 탐사의 목적과 의의</h2>
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-6">
-      <div class="outline-card"><p class="font-bold text-slate-800">목적</p><p class="text-slate-600 mt-1">태양계 천체 조사 &middot; 우주의 기원 연구 &middot; 생명체 탐색 &middot; 지구 환경 관측</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">의의</p><p class="text-slate-600 mt-1">과학 지식 확장 &middot; 관측/통신 기술 발달 &middot; 새로운 물질과 기술 개발</p></div>
+     <h2>4. 망원경을 왜 <b>우주까지</b> 올릴까</h2>
+     <div class="w-full max-w-5xl mt-2">
+      <img src="img/spx_hubble_webb.png" style="width:100%;max-height:260px;object-fit:contain;border-radius:1rem"
+           alt="같은 남쪽 고리 성운을 두 방식으로 찍어 나란히 놓은 사진. 왼쪽은 가운데 별 하나가 밝게 보이고 고리 모양 가스가 푸르게 퍼져 있으며, 오른쪽 적외선 사진에서는 붉은 가스 속에 별이 두 개로 갈라져 보인다."/>
+      <p class="credit">남쪽 고리 성운 &mdash; 같은 천체, 다른 파장(제임스 웹) &middot; NASA/ESA/CSA/STScI &middot; PD</p>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl w-full mt-3">
+      <div class="outline-card"><p class="font-bold text-slate-800">대기가 가린다</p><p class="text-slate-600 mt-1">적외선과 자외선은 <b>공기가 먹어 버린다</b>(18강 보충의 파장 이야기). 지상에서는 아예 안 보이는 빛이 있다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">대기가 흔든다</p><p class="text-slate-600 mt-1">별이 반짝이는 것은 별 탓이 아니라 <b>공기가 일렁이는</b> 탓이다. 그만큼 상이 흐려진다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">그래도 비싸다</p><p class="text-slate-600 mt-1">그래서 지상 망원경을 <b>버리지 않는다</b>. 크게 만들고 고칠 수 있는 것은 여전히 지상 쪽이다.</p></div>
+     </div>
+     <p class="slide-caption mt-2">※ 왼쪽 사진에서 별이 하나로 보이던 자리에 오른쪽에서는 <b>별이 둘</b>이다. 파장을 바꾸면 없던 것이 보인다.</p>
+    </div>
+   </section>
+
+   <!-- 11. photo-slide — 웹의 첫 딥 필드 -->
+   <section data-slide-index="10" data-slide-num="11" data-title="웹의 첫 사진" id="slide-11" class="photo-slide">
+    <div class="slide-content">
+     <img class="sky-photo" src="img/spx_webb_deepfield.jpg"
+          alt="제임스 웹 우주망원경의 첫 딥 필드. 검은 하늘에 주황빛과 흰빛의 은하 수천 개가 흩어져 있고, 가운데 은하단의 중력 때문에 뒤쪽 은하들이 활처럼 휘어져 늘어나 보인다."/>
+     <div class="photo-cap">
+      <h2>2022년, 인류가 본 가장 깊은 사진</h2>
+      <p>웹 망원경이 처음 공개한 사진이다. 이 넓이는 <b>팔을 뻗어 든 모래 한 알</b>만 하다. 휘어진 은하들이 보이는가 &mdash; 앞쪽 은하단의 중력이 뒤쪽 은하의 빛을 <b>렌즈처럼 휘게</b> 한 것이다. 20강의 딥 필드보다 더 멀리, 더 옛날을 본다.</p>
+      <p class="photo-credit">NASA, ESA, CSA, STScI &middot; 퍼블릭 도메인</p>
      </div>
     </div>
    </section>
 
-   <!-- Slide 5: 인류에게 미치는 영향 -->
-   <section data-slide-index="4" data-slide-num="5" data-title="인류에게 미치는 영향" id="slide-5">
+   <!-- 12. concept — 2020년대 망원경 -->
+   <section data-slide-index="11" data-slide-num="12" data-title="2020년대 망원경" id="slide-12">
     <div class="slide-content">
-     <h2>3. 우주 탐사가 인류에게 미치는 영향</h2>
-     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl w-full mt-6">
-      <div class="outline-card"><p class="font-bold text-slate-800">위성 통신</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">기상 관측</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">위치 정보(GPS)</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">재난 감시</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">원격 탐사</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">첨단 소재</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">의료 기술</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">국제 협력</p></div>
+     <h2>5. 지금 하늘을 보고 있는 새 눈들</h2>
+     <div class="max-w-5xl w-full mt-3">
+      <table class="lab-table">
+       <thead><tr><th>이름</th><th>언제</th><th>무엇을 보는가</th><th>기억할 한 가지</th></tr></thead>
+       <tbody>
+        <tr><td><b>제임스 웹</b></td><td>2021 발사</td><td>적외선 &mdash; 가장 먼 옛 은하, 외계 행성의 대기</td><td>거울이 접혀서 올라가 우주에서 펼쳐졌다</td></tr>
+        <tr><td><b>유클리드</b></td><td>2023 발사</td><td>하늘의 3분의 1을 넓게 &mdash; 암흑 물질 지도</td><td>깊이보다 <b>넓이</b>를 택한 망원경</td></tr>
+        <tr><td><b>베라 루빈</b></td><td>2025 관측 시작</td><td>같은 하늘을 <b>반복해서</b> &mdash; 변하는 것 찾기</td><td>지상에 있다. 3일마다 하늘 전체를 다시 찍는다</td></tr>
+        <tr><td><b>로만</b></td><td><b>2026-08-30 발사</b></td><td>허블만 한 눈에 <b>100배 넓은</b> 시야</td><td>지금 항해 중 &mdash; 첫 사진은 2027년 초</td></tr>
+       </tbody>
+      </table>
      </div>
-     <!-- TODO: 생활 속 우주기술 사례 카드 확장 -->
+     <div class="standard-box max-w-4xl w-full mt-3">
+      <p class="text-lg text-slate-700">넷은 경쟁하지 않는다. <b>웹은 깊게</b>, <b>유클리드와 로만은 넓게</b>, <b>루빈은 자주</b> 본다. 넓게 훑어 이상한 것을 찾아내면 깊게 보는 망원경이 그곳을 겨눈다.</p>
+     </div>
+     <p class="slide-caption mt-2">※ 확인 2026-09-04. 로만의 관측 결과는 아직 없다 &mdash; 여러분이 고등학생일 때 첫 성과가 나온다.</p>
     </div>
    </section>
 
-   <!-- Slide 6: 쟁점 -->
-   <section data-slide-index="5" data-slide-num="6" data-title="사회적·윤리적 쟁점" id="slide-6">
+   <!-- 13. concept — 탐사선 -->
+   <section data-slide-index="12" data-slide-num="13" data-title="태양계 탐사선" id="slide-13">
     <div class="slide-content">
-     <h2>4. 우주 탐사의 사회적&middot;윤리적 쟁점</h2>
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl w-full mt-6">
-      <div class="outline-card"><p class="font-bold text-slate-800">막대한 비용</p><p class="text-slate-600 mt-1">지구의 다른 문제와 우선순위 논쟁</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">우주인의 안전</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">우주 쓰레기</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">행성 환경 오염 &middot; 자원 갈등</p></div>
+     <h2>6. 2010~2020년대, 태양계로 나간 기계들</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl w-full mt-3">
+      <div class="outline-card">
+       <p class="font-bold text-emerald-800">파커 태양 탐사선 (2018~)</p>
+       <p class="text-slate-600 mt-1">태양의 대기 <b>안까지</b> 들어갔다. 앞면은 1,400 ℃인데 뒤쪽 장비는 30 ℃다 &mdash; 열 차폐막 하나로 버틴다. 인류가 만든 <b>가장 빠른 물체</b>이기도 하다(초속 190 km).</p>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-emerald-800">하야부사2(2020)&middot;오시리스-렉스(2023)</p>
+       <p class="text-slate-600 mt-1">소행성에 <b>내려앉아 흙을 퍼서</b> 지구로 가져왔다. 46억 년 전 태양계가 만들어질 때의 재료가 그대로 들어 있다.</p>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-emerald-800">DART (2022)</p>
+       <p class="text-slate-600 mt-1">소행성에 우주선을 <b>일부러 충돌</b>시켜 궤도를 바꿨다. 성공이었다. 인류가 <b>천체의 궤도를 바꿔 본</b> 첫 사례다.</p>
+      </div>
+      <div class="outline-card">
+       <p class="font-bold text-emerald-800">주스(2023)&middot;유로파 클리퍼(2024)</p>
+       <p class="text-slate-600 mt-1">둘 다 목성의 <b>얼음 위성</b>으로 간다. 얼음 껍질 밑에 바다가 있다면 &mdash; 그 안을 확인하러 가는 길이다. 도착은 2030년대다.</p>
+      </div>
      </div>
-     <!-- TODO: 찬반 토론 활동지 연결 -->
+     <div class="flex gap-4 justify-center mt-3">
+      <div><img src="img/spx_dart.jpg" class="photo" style="max-height:120px" alt="DART 우주선이 충돌 3초 전에 찍은 소행성 디모르포스. 잿빛 바위가 화면을 가득 채운다."/><p class="credit">DART, 충돌 3초 전 &middot; NASA/JHU APL &middot; PD</p></div>
+      <div><img src="img/spx_parker.jpg" class="photo" style="max-height:120px" alt="파커 태양 탐사선이 태양을 향해 날아가는 상상도."/><p class="credit">파커 태양 탐사선 &middot; NASA/JHU APL &middot; PD</p></div>
+     </div>
     </div>
    </section>
 
-   <!-- Slide 7: 과학사 에피소드 -->
-   <section data-slide-index="6" data-slide-num="7" data-title="과학사 에피소드" id="slide-7">
+   <!-- 14. 사진 — 화성 -->
+   <section data-slide-index="13" data-slide-num="14" data-title="화성의 두 기계" id="slide-14">
     <div class="slide-content">
-     <h2>과학사 — 인류가 지구 밖으로 나간 70년</h2>
-     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl w-full mt-6">
-      <div class="outline-card"><p class="font-bold text-slate-800">스푸트니크 충격(1957)</p><p class="text-slate-600 mt-1">농구공만 한 위성의 삐- 소리에 미국이 발칵 뒤집혔고, NASA와 우주 경쟁이 시작됐다.</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">아폴로 11호(1969)</p><p class="text-slate-600 mt-1">달 착륙선의 컴퓨터는 오늘날 스마트폰보다 훨씬 느렸다. 착륙 직전 경보가 울렸지만 사람이 직접 조종해 내렸다.</p></div>
-      <div class="outline-card"><p class="font-bold text-slate-800">창백한 푸른 점(1990)</p><p class="text-slate-600 mt-1">보이저 1호가 60억 km 밖에서 찍은 지구는 한 점이었다. 칼 세이건은 여기에 '우리가 아는 모든 것'이 있다고 썼다.</p></div>
+     <h2>7. 화성 &mdash; 지금 저기서 일하는 기계들</h2>
+     <div class="flex flex-col md:flex-row gap-5 items-center max-w-5xl w-full mt-3">
+      <div class="w-full md:w-1/2">
+       <img src="img/spx_perseverance.jpg" class="photo" style="max-height:270px"
+            alt="화성 표면에서 퍼서비어런스 탐사차가 찍은 셀피. 바퀴 여섯 개 달린 로버가 붉은 자갈밭 위에 서 있고, 로봇 팔 끝의 카메라를 들여다보고 있다."/>
+       <p class="credit">퍼서비어런스 셀피 &middot; NASA/JPL-Caltech/MSSS &middot; PD</p>
+      </div>
+      <div class="w-full md:w-1/2 space-y-3">
+       <div class="outline-card">
+        <p class="font-bold text-emerald-800">퍼서비어런스 (2021~, 예제로 분화구)</p>
+        <p class="text-slate-600 mt-1">옛날에 <b>강이 흘러 들어간 삼각주</b>를 골라 내려앉았다. 물이 있었다면 생명의 흔적도 거기 남는다. 지금까지 시료를 <b>33개</b> 뚫어 담았다.</p>
+       </div>
+       <div class="outline-card">
+        <p class="font-bold text-emerald-800">인저뉴어티 &mdash; 다른 행성에서의 첫 비행</b></p>
+        <p class="text-slate-600 mt-1">화성 공기는 지구의 <b>1%</b>뿐이라 날개가 붙잡을 것이 거의 없다. 그래서 날개를 <b>분당 2,500번</b> 돌렸다. 5번 날 계획이었는데 <b>72번</b> 날고 은퇴했다.</p>
+       </div>
+      </div>
      </div>
-     <!-- TODO: 챌린저·컬럼비아 사고와 안전 쟁점 슬라이드 -->
+    </div>
+   </section>
+
+   <!-- 15. concept — 화성 시료 -->
+   <section data-slide-index="14" data-slide-num="15" data-title="화성 시료의 운명" id="slide-15">
+    <div class="slide-content">
+     <h2>8. 그런데 그 시료 33개는 아직 화성에 있다</h2>
+     <div class="standard-box max-w-4xl w-full mt-4">
+      <p class="text-lg text-slate-700">시료를 <b>가져오는</b> 임무(화성 샘플 귀환)는 <b>2026년 1월 예산이 사실상 끊겼다.</b> 뚫어 놓은 시료는 화성 땅 위에 그대로 놓여 있고, 언제 누가 가지러 갈지 정해지지 않았다.</p>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl w-full mt-4">
+      <div class="outline-card"><p class="font-bold text-slate-800">왜 어려운가</p><p class="text-slate-600 mt-1">화성에서 <b>이륙</b>해야 한다. 다른 행성에서 로켓을 쏘아 올린 적은 아직 한 번도 없다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">왜 멈췄나</p><p class="text-slate-600 mt-1">비용이 계획보다 크게 불어났다. <b>같은 돈으로 다른 임무 여러 개</b>를 할 수 있다는 판단이 이겼다.</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">무엇이 남았나</p><p class="text-slate-600 mt-1">착륙 기술 연구비 일부는 남겼다. 시료는 화성에서 <b>상하지 않는다</b> &mdash; 기다릴 수는 있다.</p></div>
+     </div>
+     <div class="ask max-w-4xl w-full mt-4"><p>20쪽에서 다룰 쟁점이 여기 미리 나왔습니다. "돈이 많이 드니 그만두자"와 "여기서 멈추면 지금까지 쓴 돈이 헛되다" &mdash; 어느 쪽이 더 타당할까요?</p></div>
+     <p class="slide-caption mt-2">※ 확인 2026-09-04. 이 항목은 정책에 따라 바뀔 수 있다. 수업 전에 최신 소식을 한 번 확인하자.</p>
+    </div>
+   </section>
+
+   <!-- 16. concept — 아르테미스 -->
+   <section data-slide-index="15" data-slide-num="16" data-title="아르테미스" id="slide-16">
+    <div class="slide-content">
+     <h2>9. 아르테미스 &mdash; 왜 <b>다시</b> 달인가</h2>
+     <div class="flex flex-col md:flex-row gap-5 items-start max-w-5xl w-full mt-3">
+      <div class="w-full md:w-2/5">
+       <img src="img/spx_artemis2_eclipse.jpg" class="photo" style="max-height:200px"
+            alt="아르테미스 2호에서 찍은 일식 장면. 달의 검은 원반이 태양을 가려 둘레만 밝게 빛나고 있다."/>
+       <p class="credit">아르테미스 II에서 본 일식(2026-04) &middot; NASA &middot; PD</p>
+      </div>
+      <div class="w-full md:w-3/5">
+       <table class="lab-table">
+        <thead><tr><th>단계</th><th>때</th><th>한 일 / 할 일</th></tr></thead>
+        <tbody>
+         <tr><td>아르테미스 I</td><td>2022</td><td>사람 없이 달을 돌고 옴 &mdash; 로켓과 우주선 시험</td></tr>
+         <tr><td><b>아르테미스 II</b></td><td><b>2026-04</b></td><td>우주인 4명이 달을 <b>돌아서</b> 옴 (착륙 아님)</td></tr>
+         <tr><td>아르테미스 III</td><td>예정</td><td>달 <b>남극</b>에 착륙 &mdash; 아폴로 이후 첫 착륙</td></tr>
+        </tbody>
+       </table>
+      </div>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl w-full mt-3">
+      <div class="outline-card"><p class="font-bold text-emerald-800">왜 하필 남극인가</p><p class="text-slate-600 mt-1">햇빛이 <b>영영 닿지 않는 구덩이</b>가 있고, 그 안에 <b>물 얼음</b>이 있다. 물은 마실 물이자 <b>로켓 연료</b>(수소+산소)다. 현지에서 연료를 만들 수 있으면 더 멀리 갈 수 있다.</p></div>
+      <div class="outline-card"><p class="font-bold text-emerald-800">아폴로와 다른 점</p><p class="text-slate-600 mt-1">아폴로는 <b>다녀오는 것</b>이 목적이었고, 아르테미스는 <b>머무는 것</b>이 목적이다. 달 궤도에 정거장(게이트웨이)을 두고, 화성으로 가는 연습장으로 쓴다.</p></div>
+     </div>
+    </div>
+   </section>
+
+   <!-- 17. concept — 우리나라 -->
+   <section data-slide-index="16" data-slide-num="17" data-title="우리나라의 우주" id="slide-17">
+    <div class="slide-content">
+     <h2>10. 우리나라는 어디까지 왔나</h2>
+     <div class="flex flex-col md:flex-row gap-5 items-center max-w-5xl w-full mt-3">
+      <div class="w-full md:w-1/3">
+       <img src="img/spx_nuri.jpg" class="photo" style="max-height:230px"
+            alt="누리호가 발사되는 장면. 흰색과 주황색 로켓이 화염을 뿜으며 발사대를 떠나고 있다."/>
+       <p class="credit">누리호 &middot; 한국항공우주연구원 &middot; 공공누리 제1유형</p>
+      </div>
+      <div class="w-full md:w-2/3 space-y-3">
+       <div class="outline-card"><p class="font-bold text-emerald-800">누리호 &mdash; 우리 손으로 만든 발사체</p><p class="text-slate-600 mt-1">2025년 11월 27일 <b>4차 발사 성공</b>. 이번에는 항우연이 아니라 <b>민간 기업</b>이 제작과 조립을 총괄했고, 우주항공청이 문을 연 뒤 <b>첫 발사</b>였다. 위성 13기를 올렸다.</p></div>
+       <div class="outline-card"><p class="font-bold text-emerald-800">다누리 &mdash; 우리 달 궤도선</p><p class="text-slate-600 mt-1">2022년 발사되어 지금도 달을 돌고 있다. 연료를 아끼려고 곧장 가지 않고 <b>태양 쪽으로 크게 돌아가는</b> 길을 택했다 &mdash; 4개월 반이 걸렸다.</p></div>
+       <div class="outline-card"><p class="font-bold text-emerald-800">발사체를 가진 나라</p><p class="text-slate-600 mt-1">스스로 위성을 쏘아 올릴 수 있는 나라는 <b>열 곳이 채 안 된다.</b> 남의 로켓을 빌리면 언제 무엇을 올릴지 남이 정한다.</p></div>
+      </div>
+     </div>
+     <p class="slide-caption mt-2">※ 확인 2026-09-04. 누리호 5차 발사가 2026년에 예정돼 있다.</p>
+    </div>
+   </section>
+
+   <!-- 18. concept — 항성 간 -->
+   <section data-slide-index="17" data-slide-num="18" data-title="항성 간 이동" id="slide-18">
+    <div class="slide-content">
+     <h2>11. 별까지 갈 수 있을까</h2>
+     <div class="flex flex-col md:flex-row gap-5 items-center max-w-5xl w-full mt-2">
+      <div class="w-full md:w-1/3">
+       <img src="img/spx_voyager.png" class="photo" style="max-height:190px"
+            alt="보이저 탐사선의 모형. 커다란 접시 안테나 아래로 여러 관측 장비와 긴 안테나 두 개가 뻗어 있다."/>
+       <p class="credit">보이저 &middot; NASA &middot; PD</p>
+      </div>
+      <div class="w-full md:w-2/3">
+       <div class="standard-box">
+        <p class="text-lg text-slate-700"><b>2026년 11월 18일</b>, 보이저 1호는 지구에서 <b>1광일</b> 떨어진다 &mdash; 빛으로도 <b>하루</b> 걸리는 거리. 사람이 만든 물건이 이 거리에 닿는 것은 처음이다. 1977년에 떠나 49년째 날고 있다.</p>
+       </div>
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+        <div class="outline-card"><p class="font-bold text-slate-800">그런데 별은 훨씬 멀다</p><p class="text-slate-600 mt-1">가장 가까운 별(프록시마 켄타우리)은 <b>4.2광년</b> = 약 <b>1.3 pc</b>. 1광일의 <b>1,500배</b>가 넘는다. 보이저 속도로 가면 <b>약 7만 년</b>이다.</p></div>
+        <div class="outline-card"><p class="font-bold text-slate-800">그래서 나온 생각 &mdash; 광돛</p><p class="text-slate-600 mt-1">우주선을 <b>우표만 하게</b> 만들고 지상에서 <b>강한 레이저</b>를 쏘아 밀면 광속의 20%까지 낼 수 있다는 계획(브레이크스루 스타샷). 그러면 20년 만에 도착한다.</p></div>
+       </div>
+      </div>
+     </div>
+     <div class="ask max-w-4xl w-full mt-3"><p>그 계획은 2016년에 시작해 10년 동안 <b>아무것도 발사하지 못했고</b> 지금은 사실상 멈춰 있습니다. 그래도 이런 계획을 세우는 일에 의미가 있을까요?</p></div>
+     <p class="slide-caption mt-2">※ 확인 2026-09-04. 항성 간 이동은 <b>아직 계획 단계</b>다. 오늘 배운 것 중 유일하게 "아직 못 한 일"이다.</p>
+    </div>
+   </section>
+
+   <!-- 19. apply — 생활 기술 -->
+   <section data-slide-index="18" data-slide-num="19" data-title="생활로 돌아온 기술" id="slide-19">
+    <div class="slide-content">
+     <h2>12. 4쪽의 질문에 답하기 &mdash; 그 돈은 어디로 갔나</h2>
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl w-full mt-4">
+      <div class="outline-card"><p class="font-bold text-slate-800">위치 정보(GPS)</p><p class="text-slate-600 mt-1">지도 앱, 배달, 자동차 내비게이션</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">기상&middot;재난</p><p class="text-slate-600 mt-1">태풍 진로 예보, 산불&middot;홍수 감시</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">카메라 센서</p><p class="text-slate-600 mt-1">우주용으로 개발된 소형 센서가 <b>휴대폰 카메라</b>의 조상이다</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">의료 영상</p><p class="text-slate-600 mt-1">천체 사진을 또렷하게 만드는 기술이 <b>CT&middot;MRI</b> 영상 처리로</p></div>
+     </div>
+     <div class="standard-box max-w-4xl w-full mt-5">
+      <p class="text-lg text-slate-700">우주 탐사 예산은 <b>우주에서 쓰이지 않는다.</b> 로켓과 장비를 만드는 <b>지구의 공장과 연구실</b>에서 쓰인다. 그 과정에서 나온 기술이 생활로 돌아온다 &mdash; 이것이 4쪽 예상 1의 답이다.</p>
+     </div>
+     <p class="text-slate-600 mt-3" data-poll-recall="lesson21-worth"></p>
+     <div class="ask max-w-4xl w-full mt-3"><p>다만 "그래서 무조건 이득"이라고 말하면 지나칩니다. 다음 쪽에서 <b>반대쪽 근거</b>도 봅니다.</p></div>
+    </div>
+   </section>
+
+   <!-- 20. compare — 쟁점 -->
+   <section data-slide-index="19" data-slide-num="20" data-title="쟁점" id="slide-20">
+    <div class="slide-content">
+     <h2>13. 쟁점 &mdash; 근거를 들어 말하기</h2>
+     <div class="flex flex-col md:flex-row gap-5 items-center max-w-5xl w-full mt-2">
+      <div class="w-full md:w-1/3">
+       <img src="img/spx_debris.jpg" class="photo" style="max-height:190px"
+            alt="지구 저궤도의 인공위성과 우주 쓰레기 분포도. 파란 지구 둘레를 흰 점 수만 개가 껍질처럼 촘촘히 둘러싸고 있다."/>
+       <p class="credit">지구 저궤도의 물체 분포 &middot; NASA &middot; PD</p>
+      </div>
+      <div class="w-full md:w-2/3">
+       <table class="lab-table">
+        <thead><tr><th>쟁점</th><th>한쪽 주장</th><th>다른 쪽 주장</th></tr></thead>
+        <tbody>
+         <tr><td><b>비용</b></td><td>지구의 굶주림&middot;기후에 먼저 써야 한다</td><td>기후 감시 위성이 바로 그 예산에서 나온다</td></tr>
+         <tr><td><b>우주 쓰레기</b></td><td>10 cm 넘는 조각만 3만 개 &mdash; 충돌하면 위성이 죽는다</td><td>추적&middot;회수 기술로 관리할 수 있다</td></tr>
+         <tr><td><b>행성 오염</b></td><td>우리 미생물이 화성 생명 흔적을 망친다</td><td>멸균 규정이 이미 국제적으로 있다</td></tr>
+        </tbody>
+       </table>
+      </div>
+     </div>
+     <div class="mt-3 flex flex-wrap gap-3 items-center justify-center" id="debate-poll" data-poll="lesson21-debate">
+      <span class="text-slate-500 font-bold">지금 내 의견 &rarr;</span>
+      <button class="pick" aria-pressed="false">더 적극적으로 탐사해야</button>
+      <button class="pick" aria-pressed="false">속도를 늦추고 규칙부터</button>
+      <button class="pick" aria-pressed="false">쟁점마다 다르다</button>
+     </div>
+     <p class="slide-caption mt-1" id="debate-poll-echo" aria-live="polite"></p>
+     <p class="slide-caption mt-2">※ 발표 과제 &mdash; 세 쟁점 중 하나를 골라 <b>자기 의견 + 근거 두 개</b>를 30초로 말한다. 근거는 오늘 나온 사건이나 숫자여야 한다.</p>
+    </div>
+   </section>
+
+   <!-- 21. summary -->
+   <section data-slide-index="20" data-slide-num="21" data-title="정리" id="slide-21">
+    <div class="slide-content">
+     <h2>오늘의 정리</h2>
+     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-5xl w-full mt-5">
+      <div class="outline-card"><p class="font-bold text-slate-800">방법</p><p class="text-slate-600 mt-1">지상 망원경 &rarr; 우주 망원경 &rarr; 궤도선 &rarr; 탐사선 &rarr; 착륙선 &rarr; 유인. 뒤로 갈수록 비싸고 위험하다</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">역사</p><p class="text-slate-600 mt-1">1957 스푸트니크 &rarr; 1969 달 &rarr; 1990 창백한 푸른 점 &rarr; 2022 웹 &rarr; <b>2026 아르테미스 II&middot;로만</b></p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">영향</p><p class="text-slate-600 mt-1">예산은 지구에서 쓰이고, GPS&middot;기상&middot;카메라&middot;의료 영상으로 돌아온다</p></div>
+      <div class="outline-card"><p class="font-bold text-slate-800">쟁점</p><p class="text-slate-600 mt-1">비용&middot;우주 쓰레기&middot;행성 오염. 한쪽만 옳다고 말하기 어렵다</p></div>
+     </div>
+     <div class="standard-box max-w-4xl w-full mt-5">
+      <p class="text-lg text-slate-700">표지의 질문에 답하면 &mdash; 우주 탐사는 <b>먼 곳을 보러 가는 일</b>인 동시에 <b>지구를 보는 방법</b>을 늘리는 일이다. 창백한 푸른 점을 찍은 것도 60억 km 밖으로 나간 탐사선이었다.</p>
+     </div>
+     <p class="slide-caption mt-3">※ 45분 배분 &mdash; 도입·예상 6분 / 방법·연표 10분 / 망원경·탐사선 10분 / 아르테미스·우리나라·항성 간 9분 / 영향·쟁점 발표 8분 / 정리·평가 4분(사진 슬라이드는 30초씩)</p>
+    </div>
+   </section>
+
+   <!-- 22. quiz -->
+   <section data-slide-index="21" data-slide-num="22" data-title="형성평가" id="slide-22">
+    <div class="slide-content">
+     <h2>형성평가</h2>
+     <div class="quiz-container max-w-3xl mt-4 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">망원경을 우주로 올리는 가장 큰 이유로 옳은 것은?</p>
+      </div>
+      <div class="quiz-options mt-5">
+       <button class="quiz-btn" data-correct="false">&#9312; 우주에서는 천체까지의 거리가 가까워지기 때문</button>
+       <button class="quiz-btn" data-correct="true">&#9313; 대기가 일부 파장의 빛을 흡수하고 상을 흔들기 때문</button>
+       <button class="quiz-btn" data-correct="false">&#9314; 우주에서는 망원경을 더 크게 만들 수 있기 때문</button>
+       <button class="quiz-btn" data-correct="false">&#9315; 우주에는 중력이 없어 빛이 휘지 않기 때문</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">&#9989; 정답! &#9313;</p>
+       <p class="text-slate-600 mt-1">&#9312;는 틀렸다 &mdash; 400 km 올라가도 4.2광년은 그대로다. &#9314;는 오히려 반대다(로켓에 실을 수 있는 크기가 한계라 웹은 거울을 접어서 올렸다). &#9315;도 틀렸다. 그래서 <b>지상 망원경을 버리지 않는다</b> &mdash; 크게 만들고 고칠 수 있는 것은 지상 쪽이다.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- 23. misconception -->
+   <section data-slide-index="22" data-slide-num="23" data-title="오개념 확인" id="slide-23">
+    <div class="slide-content">
+     <h2>오개념 확인</h2>
+     <div class="quiz-container max-w-3xl mt-4 w-full">
+      <div class="quiz-question">
+       <p class="text-xl font-bold text-slate-800">"우주 탐사에 쓴 돈은 <b>전부</b> 우주에서 사라진다"에 대한 가장 좋은 반례는?</p>
+      </div>
+      <div class="quiz-options mt-5">
+       <button class="quiz-btn" data-correct="false">&#9312; 아르테미스 II가 2026년에 달을 돌고 왔다</button>
+       <button class="quiz-btn" data-correct="true">&#9313; 우주용으로 개발한 소형 영상 센서가 지금 휴대폰 카메라에 들어 있다</button>
+       <button class="quiz-btn" data-correct="false">&#9314; 보이저 1호는 지금도 신호를 보내온다</button>
+       <button class="quiz-btn" data-correct="false">&#9315; 화성 시료 33개가 아직 화성에 있다</button>
+      </div>
+      <div class="quiz-feedback mt-4" style="display:none">
+       <p class="text-green-700 font-bold">&#9989; 정답! &#9313;</p>
+       <p class="text-slate-600 mt-1">예산은 로켓과 장비를 만드는 <b>지구의 공장과 연구실</b>에서 쓰이고, 그 기술이 생활로 돌아온다. &#9312;&#9314;는 사실이지만 '돈의 행방'과는 관계가 없고, &#9315;는 오히려 <b>돈이 모자라 멈춘</b> 사례라 반례가 되지 못한다.</p>
+      </div>
+     </div>
+     <div class="ask max-w-4xl w-full mt-4"><p>출구 질문 &mdash; 오늘 나온 탐사 중 <b>가장 먼저 다시 해야 할 것</b> 하나를 고르고, 그 까닭을 한 문장으로 쓰세요.</p></div>
     </div>
    </section>
 
   </main>
   <script src="js/slide_engine.js"></script>
+  <script src="js/lesson_patterns.js"></script>
+  <script src="js/21_timeline.js"></script>
  </body>
 </html>
