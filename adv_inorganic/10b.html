@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Inorganic Chemistry 10B: Relativistic Effects in Chemical Bonding</title>
+    <link href="../css/tailwind.build.css" rel="stylesheet"/>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/presentation_mode.css">
+    <link rel="stylesheet" href="../css/chem_style.css">
+    <style>
+        body { background-color: #ffffff; color: #0f172a; font-family: 'Inter', system-ui, sans-serif; }
+        .slide-content { background: #ffffff; border: 1px solid #e2e8f0; color: #0f172a; box-shadow: none; }
+        .math-box { background: #f8fafc; color: #0f172a; padding: 1.5rem; border: 2px solid #0f172a; border-radius: 0.5rem; margin: 1rem 0; overflow-x: auto; }
+        /* .slide-content is a flex column, so a child's min-width defaults to its
+           content width and a wide equation or table refuses to shrink — the
+           overflow then lands on .slide-content, which Production Standards §4
+           forbids. Capping the child hands the scrollbar back to the box that
+           should own it. Same fix as Module 09. */
+        .math-box, .overflow-x-auto { max-width: 100%; min-width: 0; }
+        .info-card { border-left: 6px solid #0f172a; padding: 1.25rem; background: #f1f5f9; margin-bottom: 1.5rem; }
+        .logic-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 900; font-size: 0.7rem; text-transform: uppercase; border: 1px solid #0f172a; }
+        h2 { color: #0f172a; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; border-bottom: 3px solid #0f172a; padding-bottom: 0.5rem; margin-bottom: 2rem; }
+        h3 { color: #334155; font-weight: 800; margin-top: 1.5rem; }
+        .step-box { background: #ffffff; border: 2px solid #e2e8f0; padding: 1rem; border-radius: 1rem; }
+        table.qtable { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        table.qtable th, table.qtable td { border: 1px solid #e2e8f0; padding: 0.5rem 0.7rem; text-align: center; }
+        table.qtable th { background: #f1f5f9; font-weight: 800; color: #0f172a; }
+        .hist { border-left: 6px solid #94a3b8; background: #f8fafc; padding: 1rem 1.25rem; font-size: 0.9rem; color: #475569; }
+        .hist b { color: #0f172a; }
+        .warn { border-left: 6px solid #b45309; background: #fffbeb; padding: 1rem 1.25rem; font-size: 0.95rem; color: #78350f; }
+        .warn b { color: #78350f; }
+        .ctl { min-height: 44px; padding: 0.45rem 0.9rem; border: 2px solid #cbd5e1; border-radius: 0.6rem;
+               background: #ffffff; font-weight: 700; color: #334155; font-size: 1rem; cursor: pointer; }
+        .readout-box { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 0.75rem; padding: 0.7rem 0.9rem; text-align: center; }
+        .readout-box .k { font-size: 0.72rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+        .readout-box .v { font-family: 'Courier New', monospace; font-weight: 700; font-size: 1.25rem; color: #0f172a; margin-top: 0.15rem; }
+        input[type="range"] { accent-color: #0f172a; min-height: 44px; }
+        /* An inline MathJax box is an unbreakable atom, so at 430 px a line that
+           ends in one overruns the flex column by a few pixels and the overflow
+           lands on .slide-content. Let the surrounding text break anywhere and
+           cap the box itself. */
+        .slide-content p, .slide-content h2, .slide-content td, .slide-content th { overflow-wrap: anywhere; }
+        mjx-container { max-width: 100%; }
+    </style>
+</head>
+<body class="presentation-mode">
+
+<main>
+    <!-- Slide 1: Title -->
+    <section id="s1">
+        <div class="slide-content text-center">
+            <p class="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-4">Advanced Inorganic Chemistry Series</p>
+            <h1 class="text-5xl md:text-6xl font-black text-slate-900 mb-6 tracking-tighter leading-tight">Relativistic Effects<br>in Chemical Bonding</h1>
+            <p class="text-xl text-slate-500 font-medium italic">"Gold is yellow and mercury is a liquid for the same reason, and the reason is Einstein."</p>
+            <div class="w-20 h-1.5 bg-slate-900 mx-auto my-10"></div>
+            <p class="text-base font-bold text-slate-800">Lecture 10B: The Sixth Row Is Not an Extrapolation of the Fifth</p>
+        </div>
+    </section>
+
+    <!-- Slide 2: Scope -->
+    <section id="s2">
+        <div class="slide-content text-left px-20">
+            <h2>0. Scope</h2>
+            <div class="info-card">
+                <p class="font-black uppercase text-xs mb-3">Central question</p>
+                <p class="text-lg font-medium text-slate-800">Every bonding model so far has been non-relativistic. Where does that assumption break, and what does it cost?</p>
+            </div>
+            <p class="text-lg font-medium mb-6">Modules 05 to 09 built molecular orbitals, ligand fields and electronic states on the Schr&ouml;dinger equation, and applied them to $3d$, $4d$ and $5d$ metals with the same rules. That assumes the $5d$ row is the $3d$ row with bigger orbitals. It is not: somewhere between silver and gold, core electrons move fast enough that their <b>mass</b> is no longer the rest mass, and the valence shell they screen is rearranged as a result.</p>
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="step-box">
+                    <span class="logic-tag">Requires</span>
+                    <p class="text-sm text-slate-700 mt-3">Module 04 &mdash; hydrogenic orbitals and screening &middot; Modules 07&ndash;08 &mdash; $\Delta_o$ and the spectrochemical series &middot; Module 10 &mdash; spin&ndash;orbit coupling, which is itself one of the three effects catalogued here</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Feeds</span>
+                    <p class="text-sm text-slate-700 mt-3">Module 11 &mdash; why $5d$ organometallics behave unlike their $4d$ analogues &middot; Module 13 &mdash; gold and platinum catalysis &middot; Module 15 &mdash; heavy-element materials</p>
+                </div>
+            </div>
+            <div class="warn mt-8"><b>This module is about bonding, not about atoms.</b> The atomic side &mdash; $LS$ versus $jj$ coupling, magnetic moments, the Zeeman effect &mdash; belongs to Module 10 and is assumed. What is new is that a correction to an <i>orbital</i> propagates into a bond length, a bond energy, a $\Delta_o$, and finally a catalytic cycle.</div>
+        </div>
+    </section>
+
+    <!-- Slide 3: the one number -->
+    <section id="s3">
+        <div class="slide-content text-left px-20">
+            <h2>1. One Dimensionless Number</h2>
+            <p class="text-lg font-medium mb-5">There is no need for a heavy formalism to see that something must go wrong. Take the Bohr model of a hydrogenic $1s$ electron and ask how fast it moves.</p>
+            <div class="math-box text-center py-5">
+                $$ \frac{v_{1s}}{c} = Z\alpha, \qquad \alpha = \frac{e^{2}}{4\pi\varepsilon_{0}\hbar c} \approx \frac{1}{137.036} $$
+            </div>
+            <p class="text-lg font-medium mb-4">That is the entire input. For hydrogen $v/c = 0.7\%$ and nothing happens. For gold, $Z = 79$, it is <b>58 per cent of the speed of light</b>, and the electron's mass is</p>
+            <div class="math-box text-center py-4">
+                $$ m_{\mathrm{rel}} = \gamma\, m_{e}, \qquad \gamma = \frac{1}{\sqrt{1 - (Z\alpha)^{2}}} = 1.22 \ \ (\mathrm{Au}) $$
+            </div>
+            <p class="text-lg font-medium">The Bohr radius carries $1/m$. A mass twenty-two per cent larger is an orbital <b>eighteen per cent smaller</b>, from arithmetic alone. Nothing in this slide is an approximation to a hard calculation; it is a two-line estimate that happens to land within a few per cent of the Dirac&ndash;Fock answer, which is why it has survived in textbooks since Pyykk&ouml;'s 1988 review.</p>
+            <div class="warn mt-6"><b>Where the argument is crude.</b> It is the $1s$ shell that moves at $0.58c$, not the $6s$ valence shell that does the chemistry. The connection between the two is &sect;3 and &sect;4, and it is the only genuinely non-obvious step in this module.</div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Dirac and the three effects -->
+    <section id="s4">
+        <div class="slide-content text-left px-20">
+            <h2>2. Three Effects, One Equation</h2>
+            <p class="text-lg font-medium mb-5">Doing it properly means replacing the Schr&ouml;dinger Hamiltonian with Dirac's, whose solutions are four-component spinors. Expanding the positive-energy branch in powers of $(v/c)^2$ gives the Pauli Hamiltonian, and the leading corrections separate into exactly three terms that chemists name separately.</p>
+            <div class="math-box text-center py-4">
+                $$ \hat H \approx \hat H_{\mathrm{Schr}} \;\underbrace{-\;\frac{\hat p^{4}}{8m^{3}c^{2}}}_{\text{mass–velocity}} \;+\;\underbrace{\frac{\hbar^{2}}{8m^{2}c^{2}}\nabla^{2}V}_{\text{Darwin}} \;+\;\underbrace{\frac{1}{2m^{2}c^{2}}\frac{1}{r}\frac{dV}{dr}\,\hat{\mathbf L}\!\cdot\!\hat{\mathbf S}}_{\text{spin–orbit}} $$
+            </div>
+            <div class="grid md:grid-cols-3 gap-5 mt-6">
+                <div class="step-box">
+                    <span class="logic-tag">Direct &middot; scalar</span>
+                    <p class="text-sm text-slate-700 mt-3">Mass&ndash;velocity and Darwin together <b>contract and stabilise</b> shells with density at the nucleus &mdash; $s$, and $p_{1/2}$. &sect;3.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Indirect &middot; scalar</span>
+                    <p class="text-sm text-slate-700 mt-3">The contracted $s$ shells screen better, so $d$ and $f$ feel a smaller effective charge and <b>expand and destabilise</b>. &sect;4.</p>
+                </div>
+                <div class="step-box">
+                    <span class="logic-tag">Spin&ndash;orbit</span>
+                    <p class="text-sm text-slate-700 mt-3">Splits every $l > 0$ shell into $j = l \pm \tfrac12$. Not a correction to a number but a <b>change of quantum labels</b>. &sect;5.</p>
+                </div>
+            </div>
+            <p class="text-lg font-medium mt-6">The first two are called <b>scalar relativistic</b> effects and can be folded into an ordinary one-component calculation. The third cannot, and it is the reason heavy-element quantum chemistry is qualitatively harder than light-element quantum chemistry.</p>
+            <div class="hist mt-5"><b>1929.</b> Dirac wrote that the relativistic corrections were "of no importance in the consideration of atomic and molecular structure and ordinary chemical reactions". He was wrong, and it took until the 1970s &mdash; Desclaux's numerical Dirac&ndash;Fock atoms, Pitzer's and Pyykk&ouml;'s analyses of gold &mdash; for the field to say so out loud.</div>
+        </div>
+    </section>
+
+    <!-- Slide 5: direct effect -->
+    <section id="s5">
+        <div class="slide-content text-left px-20">
+            <h2>3. The Direct Effect &mdash; Contraction</h2>
+            <p class="text-lg font-medium mb-5">Mass&ndash;velocity and Darwin both scale with the electron density <b>at the nucleus</b>, $|\psi(0)|^{2}$, which is non-zero only for $s$ orbitals and, once spin&ndash;orbit is included, for $p_{1/2}$. Those shells contract; every other shell is untouched at this stage.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="step-box">
+                    <p class="font-black text-sm uppercase mb-2">Why the valence $6s$ and not just the $1s$</p>
+                    <p class="text-sm text-slate-700">All $ns$ orbitals of the same atom must stay mutually orthogonal. When the $1s$ shrinks, every higher $s$ shell has to reshape its inner lobes to remain orthogonal to it, and it contracts too &mdash; by a comparable <b>fraction</b>, not a comparable distance. This is the step that carries a core effect out to the valence shell where chemistry happens.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black text-sm uppercase mb-2">What contracts, in order</p>
+                    <table class="qtable mt-2">
+                        <tr><th>Shell</th><th>Density at $r=0$</th><th>Effect</th></tr>
+                        <tr><td>$s$</td><td>large</td><td>strong contraction</td></tr>
+                        <tr><td>$p_{1/2}$</td><td>small but finite</td><td>moderate contraction</td></tr>
+                        <tr><td>$p_{3/2}$</td><td>zero</td><td>slight expansion</td></tr>
+                        <tr><td>$d$, $f$</td><td>zero</td><td>expansion (&sect;4)</td></tr>
+                    </table>
+                </div>
+            </div>
+            <p class="text-lg font-medium mt-6">Contraction and stabilisation are two names for one thing: a smaller orbital sits deeper in the nuclear potential, so the $6s$ ionisation energy rises. Gold's first ionisation energy is <b>9.23 eV</b> against silver's <b>7.58 eV</b>, and gold's electron affinity is <b>2.31 eV</b> &mdash; close to iodine's 3.06 eV, and the reason the $\mathrm{Au^-}$ ion is a real chemical species in $\mathrm{CsAu}$.</p>
+            <div class="warn mt-5"><b>CsAu is not a metal.</b> It is a transparent yellow-green <b>semiconductor</b> with the CsCl structure, an ionic caesium auride. An alloy of two metals has no business being a semiconductor; a stabilised $6s$ that can hold an extra electron does.</div>
+        </div>
+    </section>
+
+    <!-- Slide 6: indirect effect -->
+    <section id="s6">
+        <div class="slide-content text-left px-20">
+            <h2>4. The Indirect Effect &mdash; $d$ and $f$ Expand</h2>
+            <p class="text-lg font-medium mb-5">The $d$ and $f$ shells have a node at the nucleus, so the direct terms do not touch them. They still move, for a reason that is pure electrostatics rather than relativity: the shells screening them have changed.</p>
+            <div class="math-box text-center py-4">
+                $$ s\ \text{contracts} \;\Longrightarrow\; \text{screening of }d,f\ \text{improves} \;\Longrightarrow\; Z_{\mathrm{eff}}(d,f)\ \text{falls} \;\Longrightarrow\; \langle r\rangle_{d,f}\ \text{grows} $$
+            </div>
+            <p class="text-lg font-medium mb-4">So the same relativistic correction pushes the two valence shells of a heavy transition metal in <b>opposite directions</b>. The $6s$ comes down and in; the $5d$ goes up and out. The gap between them narrows from both ends at once, and that single sentence is the engine of &sect;8 through &sect;14.</p>
+            <div class="grid md:grid-cols-3 gap-5">
+                <div class="step-box"><span class="logic-tag">Consequence 1</span><p class="text-sm text-slate-700 mt-3">The $5d \to 6s$ excitation energy collapses. In gold it lands in the <b>visible</b>. &sect;8.</p></div>
+                <div class="step-box"><span class="logic-tag">Consequence 2</span><p class="text-sm text-slate-700 mt-3">An expanded, destabilised $5d$ is a <b>better donor</b> and overlaps ligands further out. Bigger $\Delta_o$. &sect;12.</p></div>
+                <div class="step-box"><span class="logic-tag">Consequence 3</span><p class="text-sm text-slate-700 mt-3">A contracted $6s$ is <b>harder to ionise and harder to hybridise</b>. Mercury and the inert pair. &sect;9, &sect;10.</p></div>
+            </div>
+            <div class="hist mt-6"><b>A useful check on the story.</b> If the $d$ expansion were a direct relativistic effect, it would grow smoothly with $Z$ like $\gamma$ does. It does not: it tracks the $s$ contraction of the <i>same</i> atom, which is why the whole pattern peaks at gold rather than at radon. &sect;6.</div>
+        </div>
+    </section>
+
+    <!-- Slide 7: spin-orbit as the third effect -->
+    <section id="s7">
+        <div class="slide-content text-left px-20">
+            <h2>5. Spin&ndash;Orbit Coupling as a Bonding Effect</h2>
+            <p class="text-lg font-medium mb-5">Module 10 treated $\hat H_{SO} = \lambda\,\hat{\mathbf L}\!\cdot\!\hat{\mathbf S}$ as a perturbation on atomic states. Here the question is different: when is it large enough to change a <b>bond</b>? The one-electron constant scales steeply,</p>
+            <div class="math-box text-center py-4">
+                $$ \zeta_{nl} \;\propto\; \frac{Z_{\mathrm{eff}}^{4}}{n^{3}\,l\,(l+\tfrac12)(l+1)} $$
+            </div>
+            <p class="text-lg font-medium mb-4">so a fourth-power dependence turns a footnote in the first transition series into a leading term in the sixth row.</p>
+            <div class="overflow-x-auto">
+                <table class="qtable">
+                    <tr><th>Shell</th><th>$\zeta$ / $\mathrm{cm^{-1}}$</th><th>Compare with</th><th>Verdict</th></tr>
+                    <tr><td>$\mathrm{Ti}\ 3d$</td><td>$\sim 150$</td><td>$\Delta_o \approx 20{,}000$</td><td>a perturbation on the ligand field</td></tr>
+                    <tr><td>$\mathrm{Ru}\ 4d$</td><td>$\sim 1{,}000$</td><td>$\Delta_o \approx 30{,}000$</td><td>visible in spectra</td></tr>
+                    <tr><td>$\mathrm{Ir}\ 5d$</td><td>$\sim 3{,}900$</td><td>$\Delta_o \approx 35{,}000$</td><td>mixes singlets and triplets</td></tr>
+                    <tr><td>$\mathrm{Pb}\ 6p$</td><td>$\sim 7{,}000$</td><td>bond energies $\sim 20{,}000$</td><td>a bonding term in its own right</td></tr>
+                </table>
+            </div>
+            <p class="text-lg font-medium mt-6">Two consequences that later modules cash in. First, in the $5d$ row <b>spin is no longer a good quantum number</b>, so the spin selection rule of Module 09 fails: iridium(III) complexes phosphoresce efficiently from formally triplet states, which is exactly why they are the emitters in OLED displays. Second, in the heavy $p$ block the $6p_{1/2}$&ndash;$6p_{3/2}$ splitting is comparable to the promotion energies that hybridisation needs, so the notion of an $sp^3$ hybrid quietly stops meaning anything.</p>
+            <div class="warn mt-5"><b>Where this module and Module 10 divide.</b> There, spin&ndash;orbit coupling splits states of a free ion. Here, it decides whether a molecule has a bond. $\mathrm{Tl_2}$ and $\mathrm{Pb_2}$ are bound almost entirely by $p_{3/2}$ character, and a non-relativistic calculation gets their bond orders wrong.</div>
+        </div>
+    </section>
+
+    <!-- Slide 8: the gold maximum + applet -->
+    <section id="s8">
+        <div class="slide-content text-left px-16">
+            <h2>6. The Gold Maximum</h2>
+            <p class="text-base font-medium mb-3">Drag $Z$ to see the hydrogenic estimate of &sect;1. The bars below are the honest answer for the <b>valence</b> $6s$ shell: the ratio $\langle r\rangle_{\mathrm{rel}}/\langle r\rangle_{\mathrm{non\text{-}rel}}$ from Dirac&ndash;Fock atoms. It does not rise monotonically with $Z$ &mdash; it peaks at gold.</p>
+            <div class="flex flex-wrap items-center gap-4 mb-3">
+                <label for="rel-z" class="font-bold text-sm">Atomic number $Z$</label>
+                <input id="rel-z" type="range" min="1" max="118" value="79" step="1" class="flex-1" aria-label="Atomic number">
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                <div class="readout-box"><div class="k">Z</div><div class="v" id="rel-z-v">79</div></div>
+                <div class="readout-box"><div class="k">1s speed</div><div class="v" id="rel-v-v">57.6% c</div></div>
+                <div class="readout-box"><div class="k">mass factor &gamma;</div><div class="v" id="rel-g-v">1.2238</div></div>
+                <div class="readout-box"><div class="k">1s contraction</div><div class="v" id="rel-c-v">18.3%</div></div>
+            </div>
+            <p class="sr-only" id="rel-live" aria-live="polite"></p>
+            <div class="overflow-x-auto">
+                <svg viewBox="0 0 790 300" class="w-full" role="img" aria-label="Relativistic contraction of the valence 6s shell across the sixth row, peaking at gold">
+                    <line x1="55" y1="50" x2="770" y2="50" stroke="#0f172a" stroke-width="2"/>
+                    <text x="55" y="42" font-size="12" font-weight="700" fill="#0f172a">no contraction (ratio = 1.00)</text>
+                    <rect id="rel-marker" x="70" y="44" width="18" height="200" fill="#0891b2" opacity="0.18" visibility="visible"/>
+       <rect x="81" y="50" width="18" height="16" fill="#94a3b8"/>
+       <text x="90" y="81" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">Cs</text>
+       <rect x="102" y="50" width="18" height="24" fill="#94a3b8"/>
+       <text x="111" y="89" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">Ba</text>
+       <rect x="123" y="50" width="18" height="32" fill="#94a3b8"/>
+       <text x="132" y="97" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">La</text>
+       <rect x="438" y="50" width="18" height="112" fill="#94a3b8"/>
+       <text x="447" y="177" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">Hf</text>
+       <rect x="459" y="50" width="18" height="120" fill="#94a3b8"/>
+       <text x="468" y="185" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">Ta</text>
+       <rect x="480" y="50" width="18" height="128" fill="#94a3b8"/>
+       <text x="489" y="193" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">W</text>
+       <rect x="501" y="50" width="18" height="136" fill="#94a3b8"/>
+       <text x="510" y="201" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">Re</text>
+       <rect x="522" y="50" width="18" height="136" fill="#94a3b8"/>
+       <text x="531" y="201" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">Os</text>
+       <rect x="543" y="50" width="18" height="144" fill="#94a3b8"/>
+       <text x="552" y="209" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">Ir</text>
+       <rect x="564" y="50" width="18" height="152" fill="#94a3b8"/>
+       <text x="573" y="217" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">Pt</text>
+       <rect x="585" y="50" width="18" height="160" fill="#0f172a"/>
+       <text x="594" y="225" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">Au</text>
+       <rect x="606" y="50" width="18" height="144" fill="#94a3b8"/>
+       <text x="615" y="209" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">Hg</text>
+       <rect x="627" y="50" width="18" height="136" fill="#94a3b8"/>
+       <text x="636" y="201" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">Tl</text>
+       <rect x="648" y="50" width="18" height="128" fill="#94a3b8"/>
+       <text x="657" y="193" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">Pb</text>
+       <rect x="669" y="50" width="18" height="120" fill="#94a3b8"/>
+       <text x="678" y="185" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">Bi</text>
+       <rect x="732" y="50" width="18" height="104" fill="#94a3b8"/>
+       <text x="741" y="169" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">Rn</text>
+                    <text x="400" y="285" text-anchor="middle" font-size="13" font-weight="700" fill="#64748b">bar length = per cent contraction of the 6s shell &middot; gap = the 4f elements</text>
+                </svg>
+            </div>
+            <p class="text-sm text-slate-500 mt-2">Ratios after Desclaux's Dirac&ndash;Fock atomic calculations (1973), as reproduced in Pyykk&ouml;, <i>Chem. Rev.</i> <b>88</b> (1988) 563. Read off the published curve to two decimals &mdash; enough to locate the maximum, not to quote as data.</p>
+            <div class="warn mt-3"><b>Why gold and not radon.</b> Two things fight. $\gamma$ grows with $Z$, but the $6s$ shell is also being progressively pulled into the core as the $5d$ fills. At gold the $5d$ shell is complete and the $6s$ holds a single electron with nothing shielding it; one step further, mercury's $6s^2$ closes and the ratio rebounds. The maximum is where the $6s^1$ configuration and the largest $\gamma$ of the row coincide.</div>
+        </div>
+    </section>
+
+    <!-- Slide 9: separating from the lanthanide contraction -->
+    <section id="s9">
+        <div class="slide-content text-left px-20">
+            <h2>7. Not the Lanthanide Contraction</h2>
+            <p class="text-lg font-medium mb-5">The sixth row has a second, entirely non-relativistic reason to be small: fourteen $4f$ electrons screen badly, so $Z_{\mathrm{eff}}$ jumps across the lanthanides and every element after them is contracted. Zirconium and hafnium have almost identical radii for that reason, and their separation is notoriously difficult. The question is how much of the sixth row's anomaly is <b>that</b>, and how much is relativity.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="step-box">
+                    <p class="font-black text-sm uppercase mb-2">How the two are separated</p>
+                    <p class="text-sm text-slate-700">By running the same calculation twice: once with the Dirac Hamiltonian and once with $c \to \infty$. The difference is relativity by construction. Nobody can do that experiment in a laboratory, which is why this particular question was settled by computation and not by measurement.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black text-sm uppercase mb-2">The answer</p>
+                    <p class="text-sm text-slate-700">For the Zr/Hf pair, roughly <b>15&ndash;20 per cent</b> of the contraction is relativistic and the rest is $4f$ screening. For gold's $6s$, essentially <b>all</b> of the anomaly is relativistic: the non-relativistic gold atom would have a $6s$ shell close in size to silver's, and would be silver-coloured.</p>
+                </div>
+            </div>
+            <div class="math-box text-center py-4">
+                $$ \text{observed anomaly} \;=\; \underbrace{4f\ \text{screening}}_{\text{scales with the number of }f\text{ electrons}} \;+\; \underbrace{\text{relativity}}_{\text{scales as }(Z\alpha)^{2}} $$
+            </div>
+            <p class="text-lg font-medium">The two happen to switch on at the same place in the periodic table, which is why they were conflated for fifty years. They can still be told apart by a signature: the $4f$ contraction affects all shells alike, whereas relativity <b>contracts $s$ and expands $d$</b>. Any property that depends on the $6s$&ndash;$5d$ <i>gap</i> rather than on overall size is therefore diagnostic of relativity alone &mdash; and the colour of gold is exactly such a property.</p>
+        </div>
+    </section>
+
+    <!-- Slide 10: colour of gold -->
+    <section id="s10">
+        <div class="slide-content text-left px-20">
+            <h2>8. Case &mdash; Why Gold Is Yellow</h2>
+            <p class="text-lg font-medium mb-5">A metal's colour is set by its interband absorption edge: the lowest energy at which a filled band can be excited into the conduction band. In the coinage metals that is a $(n-1)d \to ns$ transition.</p>
+            <div class="overflow-x-auto">
+                <table class="qtable">
+                    <tr><th>Metal</th><th>Transition</th><th>Edge</th><th>Absorbs</th><th>Reflects</th></tr>
+                    <tr><td>Ag</td><td>$4d \to 5s$</td><td>$\approx 3.7\ \mathrm{eV}$</td><td>ultraviolet</td><td>the whole visible range &mdash; <b>white</b></td></tr>
+                    <tr><td>Au</td><td>$5d \to 6s$</td><td>$\approx 2.4\ \mathrm{eV}$</td><td>blue, from about 520 nm down</td><td>green through red &mdash; <b>yellow</b></td></tr>
+                </table>
+            </div>
+            <p class="text-lg font-medium mt-6">The gap in gold is smaller by 1.3 eV, and &sect;3 and &sect;4 already said why: the $6s$ has been stabilised and the $5d$ destabilised, so the two ends of the transition have moved toward each other. Remove relativity from the calculation and gold's edge climbs back into the ultraviolet, where it would look like silver.</p>
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="step-box">
+                    <p class="font-black text-sm uppercase mb-2">The same argument, one element over</p>
+                    <p class="text-sm text-slate-700">Caesium is the other visibly golden metal, and for a completely different reason &mdash; a low plasma frequency, not a $d \to s$ edge. Two yellow metals, two mechanisms. Naming the mechanism is the whole skill here.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black text-sm uppercase mb-2">And why copper is not the answer either</p>
+                    <p class="text-sm text-slate-700">Copper is reddish with a $\approx 2.1\ \mathrm{eV}$ edge, and relativity is negligible for $Z = 29$. Its small $3d \to 4s$ gap comes from the poor radial extension of $3d$, not from $\gamma$. Same colour mechanism, non-relativistic cause.</p>
+                </div>
+            </div>
+            <div class="hist mt-5"><b>1976.</b> Christensen and Seraphin's band-structure calculation reproduced the yellow of gold only when the relativistic terms were kept, and Pitzer and Pyykk&ouml; made the general case for chemistry over the following decade. The observation is prehistoric; the explanation is younger than the pocket calculator.</div>
+        </div>
+    </section>
+
+    <!-- Slide 11: mercury -->
+    <section id="s11">
+        <div class="slide-content text-left px-20">
+            <h2>9. Case &mdash; Why Mercury Is a Liquid</h2>
+            <p class="text-lg font-medium mb-5">Mercury melts at $-38.8\ ^\circ$C. Cadmium, directly above it, melts at $321\ ^\circ$C, and gold, directly beside it, at $1064\ ^\circ$C. Nothing about size or mass explains a drop of that scale.</p>
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="step-box">
+                    <p class="font-black text-sm uppercase mb-2">The argument</p>
+                    <p class="text-sm text-slate-700">Mercury is $[\mathrm{Xe}]4f^{14}5d^{10}6s^{2}$. The relativistically contracted, stabilised $6s^{2}$ pair is held tightly and is reluctant to delocalise into a metallic band. Metallic bonding in mercury is therefore weak and closer to van der Waals than to the $s$&ndash;$d$ bonding that holds gold together &mdash; and a weakly bound solid melts near room temperature.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black text-sm uppercase mb-2">The evidence beyond hand-waving</p>
+                    <p class="text-sm text-slate-700">A 2013 <i>Angewandte Chemie</i> study by Calvo, Pahl, Wormit and Schwerdtfeger ran molecular dynamics on mercury with and without relativistic terms. The relativistic melting point came out near the experimental value; switching relativity off raised it by roughly <b>105 K</b>. That is a computed number attached to a specific claim, which is what separates this from a story.</p>
+                </div>
+            </div>
+            <p class="text-lg font-medium">The same closed, contracted $6s^{2}$ explains the rest of mercury's oddities as a set rather than one at a time: the highest first ionisation energy of any metal (10.44 eV), a boiling point 300 degrees below cadmium's, the existence of $\mathrm{Hg_2^{2+}}$ with a genuine Hg&ndash;Hg bond where zinc and cadmium analogues barely survive, and mercury's willingness to behave as a pseudo-noble gas in the gas phase.</p>
+            <div class="warn mt-5"><b>The honest caveat.</b> $\mathrm{HgF_4}$ was reported in a matrix in 2007, which would make mercury a transition metal after all by using its $5d$. It has not been reproduced in bulk. Treat "mercury is a post-transition metal" as a strong generalisation with one contested exception, not as a law.</div>
+        </div>
+    </section>
+
+    <!-- Slide 12: inert pair -->
+    <section id="s12">
+        <div class="slide-content text-left px-20">
+            <h2>10. Case &mdash; The Inert-Pair Effect, Properly Stated</h2>
+            <p class="text-lg font-medium mb-5">Down groups 13 to 15 the oxidation state two below the group maximum becomes the stable one: $\mathrm{Tl^{+}}$ over $\mathrm{Tl^{3+}}$, $\mathrm{Pb^{2+}}$ over $\mathrm{Pb^{4+}}$, $\mathrm{Bi^{3+}}$ over $\mathrm{Bi^{5+}}$. The traditional name says the $6s^{2}$ pair is "inert". That is a label, not a mechanism, and taken literally it is wrong.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="step-box">
+                    <p class="font-black text-sm uppercase mb-2">Half the answer &mdash; relativistic</p>
+                    <p class="text-sm text-slate-700">The $6s$ is contracted and stabilised, so <b>promoting</b> it to a bonding hybrid costs more than it does in the fifth row. Spin&ndash;orbit splitting of the $6p$ adds to the cost, because the $6p_{1/2}$ that would take part is itself pulled down and away from $6p_{3/2}$.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black text-sm uppercase mb-2">The other half &mdash; not relativistic</p>
+                    <p class="text-sm text-slate-700">Bond energies fall down the group anyway, because the valence orbitals are diffuse and overlap poorly. Two extra bonds must repay the promotion energy, and heavy-element bonds are too weak to do it. Both terms are needed; either alone gets the trend but not the magnitudes.</p>
+                </div>
+            </div>
+            <div class="math-box text-center py-4">
+                $$ \mathrm{E^{n+}} \to \mathrm{E^{(n+2)+}}: \quad \Delta E = \underbrace{E_{\mathrm{promotion}}(6s^{2} \to 6s^{1}6p^{1})}_{\text{raised by relativity}} \;-\; \underbrace{2\,D(\mathrm{E\!-\!X})}_{\text{falls down the group}} $$
+            </div>
+            <p class="text-lg font-medium">Stated this way the effect predicts instead of restating. With a <b>strongly bonding</b> partner the pair is not inert at all: $\mathrm{PbF_4}$ and $\mathrm{BiF_5}$ exist, because fluorine repays the promotion. $\mathrm{PbI_4}$ does not.</p>
+            <div class="warn mt-5"><b>A second consequence.</b> A literally inert pair would be spherical and structurally invisible. Instead $\mathrm{Pb^{2+}}$ and $\mathrm{Bi^{3+}}$ show <b>stereochemically active lone pairs</b> that distort their polyhedra. The pair is reluctant to bond, not absent.</div>
+        </div>
+    </section>
+
+    <!-- Slide 13: bond lengths and energies -->
+    <section id="s13">
+        <div class="slide-content text-left px-20">
+            <h2>11. Bond Lengths and Bond Energies</h2>
+            <p class="text-lg font-medium mb-5">A contracted valence $s$ shell contracts the bonds it forms. The effect is largest for bonds with the most $6s$ character, so hydrides and simple diatomics are the clean test cases.</p>
+            <div class="overflow-x-auto">
+                <table class="qtable">
+                    <tr><th>Bond</th><th>Non-relativistic</th><th>Relativistic</th><th>Change</th><th>Reading</th></tr>
+                    <tr><td>Ag&ndash;H</td><td>1.72 &#8491;</td><td>1.62 &#8491;</td><td>$-0.10$ &#8491;</td><td>fifth row: real but modest</td></tr>
+                    <tr><td>Au&ndash;H</td><td>1.83 &#8491;</td><td>1.52 &#8491;</td><td>$-0.31$ &#8491;</td><td>gold's bond is <b>shorter</b> than silver's</td></tr>
+                    <tr><td>Au&ndash;Au ($\mathrm{Au_2}$)</td><td>2.90 &#8491;</td><td>2.47 &#8491;</td><td>$-0.43$ &#8491;</td><td>and stronger: $D_e$ rises by $\approx 100\%$</td></tr>
+                </table>
+            </div>
+            <p class="text-sm text-slate-500 mt-2">Values are the standard comparison of Dirac&ndash;Fock and non-relativistic Hartree&ndash;Fock diatomics quoted throughout Pyykk&ouml;'s reviews; treat them as illustrative magnitudes, not as reference data.</p>
+            <p class="text-lg font-medium mt-6">The row inversion in the middle line is the point worth carrying away. Ordinarily a sixth-row bond is <b>longer</b> than its fifth-row analogue because the atom is bigger. Au&ndash;H breaks that rule, and every rule of thumb built on "size increases down a group" has to be checked before it is applied to gold, mercury or thallium.</p>
+            <div class="grid md:grid-cols-2 gap-6 mt-5">
+                <div class="step-box"><span class="logic-tag">Bond contraction maximum</span><p class="text-sm text-slate-700 mt-3">Plotted across the sixth row, the relativistic bond contraction peaks at gold for the same reason &sect;6 gave &mdash; it follows the $6s$ curve.</p></div>
+                <div class="step-box"><span class="logic-tag">Where it vanishes</span><p class="text-sm text-slate-700 mt-3">Bonds made from $5d$ rather than $6s$ character move the other way: the expanded $5d$ lengthens them slightly. Direction depends on which shell does the bonding.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 14: ligand field -->
+    <section id="s14">
+        <div class="slide-content text-left px-20">
+            <h2>12. Relativity Inside the Ligand Field</h2>
+            <p class="text-lg font-medium mb-5">Modules 07 and 08 recorded, without explaining, that $\Delta_o$ grows by $30$&ndash;$50$ per cent from $3d$ to $4d$ and again from $4d$ to $5d$. Part of that is simply radial extension. In the sixth row a second term is added: the relativistically expanded $5d$ reaches further toward the ligands, so the antibonding $e_g^{*}$ combination is pushed higher.</p>
+            <div class="overflow-x-auto">
+                <table class="qtable">
+                    <tr><th>Complex</th><th>$\Delta_o$ / $\mathrm{cm^{-1}}$</th><th>Spin state</th><th>Consequence</th></tr>
+                    <tr><td>$[\mathrm{Co(NH_3)_6}]^{3+}$ ($3d$)</td><td>$\approx 22{,}900$</td><td>low spin, but $\mathrm{Co(II)}$ analogues are high spin</td><td>spin state is a real choice</td></tr>
+                    <tr><td>$[\mathrm{Rh(NH_3)_6}]^{3+}$ ($4d$)</td><td>$\approx 34{,}100$</td><td>low spin</td><td>the choice is nearly gone</td></tr>
+                    <tr><td>$[\mathrm{Ir(NH_3)_6}]^{3+}$ ($5d$)</td><td>$\approx 41{,}000$</td><td>low spin, always</td><td>no high-spin $5d$ complex is known</td></tr>
+                </table>
+            </div>
+            <p class="text-lg font-medium mt-6">Three results follow that were asserted in earlier modules and can now be derived.</p>
+            <div class="grid md:grid-cols-3 gap-5 mt-4">
+                <div class="step-box"><span class="logic-tag">Low spin, always</span><p class="text-sm text-slate-700 mt-3">$\Delta_o$ exceeds the pairing energy for every $4d$ and $5d$ complex. The Tanabe&ndash;Sugano discontinuity of Module 09 is a $3d$ phenomenon and nothing else.</p></div>
+                <div class="step-box"><span class="logic-tag">Square planar $\mathrm{Pt(II)}$</span><p class="text-sm text-slate-700 mt-3">For $d^{8}$, a large enough $\Delta_o$ makes the tetragonal distortion to square planar unconditional. $\mathrm{Ni(II)}$ hesitates; $\mathrm{Pd(II)}$ and $\mathrm{Pt(II)}$ do not. Cisplatin's geometry is not an accident of its ligands.</p></div>
+                <div class="step-box"><span class="logic-tag">Bigger nephelauxetic effect</span><p class="text-sm text-slate-700 mt-3">The expanded $5d$ reduces interelectronic repulsion, so Racah $B$ falls further below its free-ion value than in the $3d$ row &mdash; the $\beta$ of Module 09 &sect;18, given a cause.</p></div>
+            </div>
+            <div class="warn mt-5"><b>Do not over-claim.</b> Radial extension alone would raise $\Delta_o$ down a group even in a non-relativistic world. Relativity <b>adds to</b> a trend that already exists; the honest statement is that it accounts for a substantial minority of the $4d \to 5d$ step, not for the whole $3d \to 5d$ rise.</div>
+        </div>
+    </section>
+
+    <!-- Slide 15: aurophilicity -->
+    <section id="s15">
+        <div class="slide-content text-left px-20">
+            <h2>13. Aurophilicity</h2>
+            <p class="text-lg font-medium mb-5">Two closed-shell $\mathrm{Au(I)}$ centres, $5d^{10}$ each, should repel. Instead they approach to <b>2.8&ndash;3.5 &#8491;</b> &mdash; shorter than the sum of the van der Waals radii, comparable to the Au&ndash;Au distance in the metal &mdash; with an attraction of <b>5&ndash;15 kcal mol$^{-1}$</b>, the strength of a hydrogen bond. Pyykk&ouml; named it <i>aurophilicity</i> in 1988.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="step-box">
+                    <p class="font-black text-sm uppercase mb-2">What it is</p>
+                    <p class="text-sm text-slate-700">Dispersion &mdash; correlation between the two $5d^{10}$ shells &mdash; amplified by relativity twice over. The expanded, destabilised $5d$ is more polarisable, and the contracted, low-lying $6s$/$6p$ are close enough in energy to mix in, so the interaction gains partial covalent character. It disappears from any calculation that omits electron correlation, and weakens sharply from any that omits relativity.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black text-sm uppercase mb-2">What it does</p>
+                    <p class="text-sm text-slate-700">It organises solids and solutions: gold(I) thiolate drugs oligomerise through it, $\mathrm{[Au(CN)_2]^-}$ salts change colour when the chains are compressed, and many gold(I) complexes are <b>luminescent only when aggregated</b>. Grinding a colourless powder into a glowing one is a lecture demonstration of an interaction that has no non-relativistic explanation.</p>
+                </div>
+            </div>
+            <p class="text-lg font-medium mt-6">The effect is a family, not a curiosity. Analogous <b>metallophilic</b> contacts run down the closed-shell heavy metals &mdash; $\mathrm{Ag(I)\cdots Ag(I)}$ weaker, $\mathrm{Hg(II)}$, $\mathrm{Tl(I)}$, $\mathrm{Pt(II)\cdots Pt(II)}$ stacking in the one-dimensional platinum chain compounds &mdash; and the strength tracks the relativistic curve of &sect;6, peaking at gold.</p>
+            <div class="hist mt-5"><b>A test that could have failed.</b> Aurophilicity was predicted to survive in the gas phase and in solution, not merely to be a crystal-packing artefact. Variable-temperature NMR later found gold(I) aggregates persisting in solution, which is the observation that ruled packing out.</div>
+        </div>
+    </section>
+
+    <!-- Slide 16: catalysis -->
+    <section id="s16">
+        <div class="slide-content text-left px-20">
+            <h2>14. Gold and Platinum Catalysis</h2>
+            <p class="text-lg font-medium mb-5">Gold was regarded as catalytically dead until the 1980s. It is now the standard catalyst for adding nucleophiles across alkynes, and the reason is the orbital picture of &sect;3 and &sect;4 rather than anything about gold's nobility.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="step-box">
+                    <p class="font-black text-sm uppercase mb-2">$\mathrm{Au(I)}$ as a carbophilic $\pi$ acid</p>
+                    <p class="text-sm text-slate-700">The relativistically stabilised $6s$ drags the LUMO of a linear $\mathrm{[LAu]^{+}}$ fragment down, making it a strong $\sigma$ acceptor from an alkyne $\pi$ bond. The contracted $6s$ is a poor back-donor at the same time, so the alkyne is activated and not merely bound. In Module 11's Dewar&ndash;Chatt&ndash;Duncanson language: strong donation, weak back-donation &mdash; exactly the imbalance that makes a bound alkyne electrophilic.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black text-sm uppercase mb-2">Why gold rarely does redox</p>
+                    <p class="text-sm text-slate-700">Oxidative addition needs $\mathrm{Au(I)} \to \mathrm{Au(III)}$, which costs the stabilised $6s$ pair. Palladium pays that price routinely; gold usually will not, so gold catalysis is dominated by $\pi$ activation rather than by cross-coupling cycles. This is the inert-pair logic of &sect;10 reappearing as a mechanistic preference.</p>
+                </div>
+            </div>
+            <p class="text-lg font-medium mt-6">Platinum illustrates the opposite branch. Its expanded $5d$ makes $\mathrm{Pt(0)}$ an excellent back-donor and $\mathrm{Pt(II)}$ a robust square-planar centre, which is why platinum runs hydrosilylation and hydrogenation where palladium runs coupling. A single relativistic shift &mdash; $6s$ down, $5d$ up &mdash; sorts three neighbouring metals into three different catalytic trades.</p>
+            <div class="warn mt-5"><b>Forward reference.</b> Module 12 treats oxidative addition and reductive elimination as elementary steps and Module 13 assembles them into cycles. Both will assume the argument of this slide: whether a metal will change oxidation state by two is a question about its valence $s$ shell, and in the sixth row that shell is relativistic.</div>
+        </div>
+    </section>
+
+    <!-- Slide 17: f elements -->
+    <section id="s17">
+        <div class="slide-content text-left px-20">
+            <h2>15. $4f$ Against $5f$</h2>
+            <p class="text-lg font-medium mb-5">Lanthanide chemistry is famously ionic and famously uniform: the $4f$ orbitals are buried inside the filled $5s$ and $5p$ shells, take almost no part in bonding, and give sharp, ligand-insensitive $f\!-\!f$ spectra. The actinides start out looking similar and then diverge, and the divergence is relativistic.</p>
+            <div class="overflow-x-auto">
+                <table class="qtable">
+                    <tr><th></th><th>$4f$ &mdash; lanthanides</th><th>$5f$ &mdash; early actinides</th></tr>
+                    <tr><td>Radial extent</td><td>core-like</td><td>expanded &mdash; the indirect effect of &sect;4</td></tr>
+                    <tr><td>Covalency</td><td>negligible</td><td>appreciable; $\mathrm{UO_2^{2+}}$ has real U&ndash;O $\pi$ bonds</td></tr>
+                    <tr><td>Oxidation states</td><td>almost always $+3$</td><td>$+3$ through $+7$ for U, Np, Pu</td></tr>
+                    <tr><td>Spin&ndash;orbit</td><td>large, $LS$ still workable</td><td>$\zeta$ comparable to electron repulsion &mdash; <b>intermediate coupling</b></td></tr>
+                </table>
+            </div>
+            <p class="text-lg font-medium mt-6">Two practical consequences. First, the linear uranyl ion $\mathrm{UO_2^{2+}}$ has no lanthanide analogue, and its linearity comes from $5f$ and $6d$ participation that a purely ionic model cannot produce. Second, and industrially: separating the trivalent actinides from the trivalent lanthanides in spent nuclear fuel exploits exactly this residual $5f$ covalency, using <b>soft</b> N- and S-donor extractants that bind $\mathrm{Am^{3+}}$ measurably better than $\mathrm{Eu^{3+}}$ despite near-identical radii.</p>
+            <div class="warn mt-5"><b>The trend reverses along the row.</b> By curium the $5f$ shell has contracted enough to behave much like $4f$, and the late actinides are lanthanide-like again. "Actinides are covalent" is true of the early actinides only.</div>
+        </div>
+    </section>
+
+    <!-- Slide 18: superheavy -->
+    <section id="s18">
+        <div class="slide-content text-left px-20">
+            <h2>16. Where the Periodic Table Stops Predicting</h2>
+            <p class="text-lg font-medium mb-5">At the bottom of the table $(Z\alpha)^{2}$ is no longer a small parameter, and periodic-table reasoning &mdash; "it is under X, so it behaves like X" &mdash; starts to fail outright. These elements exist a few atoms at a time, for seconds, so almost everything here is computed and only some of it is tested.</p>
+            <div class="grid md:grid-cols-3 gap-5">
+                <div class="step-box">
+                    <p class="font-black text-sm uppercase mb-2">Copernicium, $Z=112$</p>
+                    <p class="text-sm text-slate-700">Under mercury. The $7s^{2}$ is contracted so hard that Cn is predicted to be volatile and nearly noble &mdash; a gas or a very weakly bound liquid at room temperature. Gas-phase adsorption experiments on gold surfaces are consistent with weak, mercury-like or weaker binding.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black text-sm uppercase mb-2">Flerovium, $Z=114$</p>
+                    <p class="text-sm text-slate-700">Under lead, so it should be a soft metal. The $7p_{1/2}$ shell is split so far below $7p_{3/2}$ that $7s^{2}7p_{1/2}^{2}$ is effectively a closed shell. Experiments have disagreed about how noble it is; the honest position is that it is far less metallic than lead.</p>
+                </div>
+                <div class="step-box">
+                    <p class="font-black text-sm uppercase mb-2">Oganesson, $Z=118$</p>
+                    <p class="text-sm text-slate-700">Under radon. Calculations predict that spin&ndash;orbit splitting smears the electron shells into a nearly uniform, Thomas&ndash;Fermi-like distribution, and that Og is a solid with substantial electron affinity. A noble gas that is neither gaseous nor noble.</p>
+                </div>
+            </div>
+            <p class="text-lg font-medium mt-6">The lesson is not the trivia but that <b>the periodic table is an approximation whose accuracy degrades with $Z$</b>. Column analogies are strong in row 4, strained in row 6, broken in row 7.</p>
+            <div class="hist mt-5"><b>A live question.</b> Relativistic calculations put the end of the table near $Z \approx 172$, where the $1s$ level would dive into the negative-energy continuum &mdash; model-dependent, untestable, and quoted here as the boundary of an extrapolation rather than a prediction.</div>
+        </div>
+    </section>
+
+    <!-- Slide 19: how calculations do it -->
+    <section id="s19">
+        <div class="slide-content text-left px-20">
+            <h2>17. How a Calculation Handles This</h2>
+            <p class="text-lg font-medium mb-5">Solving the four-component Dirac equation for a molecule is possible and expensive. Almost all practical heavy-element chemistry uses one of three approximations, and knowing which was used is part of reading a paper critically.</p>
+            <div class="overflow-x-auto">
+                <table class="qtable">
+                    <tr><th>Method</th><th>What it does</th><th>Cost</th><th>Watch for</th></tr>
+                    <tr><td>Relativistic ECP / pseudopotential</td><td>Replaces the core by a potential fitted to atomic Dirac results; the valence calculation stays non-relativistic</td><td>lowest</td><td>core properties are unavailable by construction; results depend on the ECP's fitting set</td></tr>
+                    <tr><td>ZORA / DKH</td><td>Two-component: transforms the Dirac Hamiltonian to a scalar part plus an explicit spin&ndash;orbit operator, all electrons kept</td><td>moderate</td><td>ZORA's gauge dependence; whether spin&ndash;orbit was actually switched on or only the scalar part</td></tr>
+                    <tr><td>Four-component Dirac&ndash;Coulomb</td><td>The full thing, plus correlation on top</td><td>highest</td><td>reserved for benchmarks and small molecules</td></tr>
+                </table>
+            </div>
+            <p class="text-lg font-medium mt-6">Two habits follow. First, <b>"relativistic" without qualification usually means scalar relativistic</b>, with spin&ndash;orbit omitted &mdash; adequate for gold's bond lengths, inadequate for thallium's or for anything phosphorescent. Second, relativity and electron correlation are <b>not additive</b>: aurophilicity is the standard counter-example, since it needs both simultaneously and vanishes if either is dropped.</p>
+            <div class="warn mt-5"><b>What this module cannot do.</b> It gives no quantitative predictions. Every number quoted has come from a calculation or an experiment, and the arguments here explain trends and signs rather than generate values. Anyone needing a bond length for a $5d$ complex should run a calculation with a relativistic ECP, not extrapolate from &sect;11.</div>
+        </div>
+    </section>
+
+    <!-- Slide 20: competencies -->
+    <section id="s20">
+        <div class="slide-content text-left px-20">
+            <h2>18. Competencies</h2>
+            <p class="text-lg font-medium mb-6">By the end of this module the following should be possible without notes.</p>
+            <div class="grid md:grid-cols-2 gap-5">
+                <div class="step-box"><span class="logic-tag">Estimate</span><p class="text-sm text-slate-700 mt-3">Compute $v/c = Z\alpha$ and $\gamma$ for any element and state the resulting $1s$ contraction, then say why that number is not the valence contraction.</p></div>
+                <div class="step-box"><span class="logic-tag">Distinguish</span><p class="text-sm text-slate-700 mt-3">Separate the direct effect (<i>s</i>, <i>p</i><sub>1/2</sub> contract), the indirect effect (<i>d</i>, <i>f</i> expand) and spin&ndash;orbit splitting, and assign an observation to the right one.</p></div>
+                <div class="step-box"><span class="logic-tag">Explain</span><p class="text-sm text-slate-700 mt-3">Account for the colour of gold, the liquidity of mercury, the inert-pair effect and aurophilicity from the $6s$/$5d$ shift, in one causal chain each.</p></div>
+                <div class="step-box"><span class="logic-tag">Criticise</span><p class="text-sm text-slate-700 mt-3">Say what fraction of the sixth-row anomaly is relativistic rather than the $4f$ contraction, and name the computational experiment that separates them.</p></div>
+            </div>
+            <div class="warn mt-6">
+                <b>Self-test.</b> One sentence each &mdash; (i) why the $6s$ contraction peaks at gold rather than growing to radon; (ii) why $\mathrm{PbF_4}$ exists but $\mathrm{PbI_4}$ does not; (iii) why no high-spin $5d$ complex is known; (iv) why aurophilicity disappears from a Hartree&ndash;Fock calculation even when relativity is included. If any sticks, return to &sect;6, &sect;10, &sect;12, &sect;13.
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 21: End -->
+    <section id="s21" class="end">
+        <div class="slide-content text-center">
+            <h2 class="border-none text-5xl font-black mb-10 tracking-tighter">Module 10B Complete</h2>
+            <p class="text-xl font-bold text-slate-500 uppercase tracking-widest">Next Phase:</p>
+            <p class="text-3xl font-black text-slate-900 mt-4 leading-relaxed">Metal&ndash;Ligand Bonding<br>&amp; Electron Counting</p>
+            <div class="mt-20 p-8 border-t-2 border-slate-100 italic font-serif text-slate-400">
+                "The 18-electron rule counts electrons as though every metal were the same. The next module will use it anyway &mdash; now knowing where it is a fiction."
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="../js/slide_engine.js"></script>
+<script src="../js/adv_inorganic_10b.js"></script>
+</body>
+</html>
