@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>19차시 부록: 우리은하 사진 자료집</title>
+  <link href="css/tailwind.build.css" rel="stylesheet"/>
+  <link href="css/common.css" rel="stylesheet"/>
+  <link href="css/presentation_mode.css" rel="stylesheet"/>
+  <link href="css/chem_style.css" rel="stylesheet"/>
+  <link href="css/components.css" rel="stylesheet"/>
+  <style>
+   /* 19강의 사진 슬라이드 규격을 그대로 쓴다. 사진이 삽화가 아니라 슬라이드
+      자체이므로 카드(패딩·테두리·그림자)를 걷고 화면을 채운다. */
+   .photo-slide { padding: 0 !important; }
+   .photo-slide .slide-content {
+    padding: 0; width: 100%; max-width: none; max-height: 100vh;
+    background: #000; border: none; border-radius: 0; box-shadow: none;
+    overflow: hidden; position: relative;
+   }
+   .photo-slide .sky-photo {
+    width: 100%; height: 100vh; max-height: 100vh; object-fit: cover;
+    margin: 0; border-radius: 0; display: block;
+   }
+   /* object-position을 바꿔야 하는 사진이 있다. 별은 화면 가운데가 아니라
+      원본의 특정 위치에 있고, cover가 잘라내는 쪽을 사진마다 정해 준다. */
+   .photo-slide .sky-photo.pos-top { object-position: center 22%; }
+   .photo-slide .sky-photo.contain { object-fit: contain; background: #000; }
+   .photo-slide .photo-cap {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 2.5rem 3rem 1.6rem;
+    background: linear-gradient(to top, rgba(2,6,23,0.94) 38%, rgba(2,6,23,0));
+    text-align: left;
+   }
+   .photo-slide .photo-cap h2 {
+    color: #f8fafc !important; border: none !important; padding: 0 !important;
+    margin: 0 0 0.4rem !important; display: block !important; text-align: left;
+   }
+   .photo-slide .photo-cap p { color: #cbd5e1; margin: 0; }
+   .photo-slide .photo-credit { color: #64748b !important; font-size: 0.95rem !important; margin-top: 0.5rem !important; }
+   .src-table { width: 100%; border-collapse: collapse; background: white; border-radius: 0.75rem; overflow: hidden; font-size: 1rem; }
+   .src-table th, .src-table td { border: 1px solid #e2e8f0; padding: 0.35rem 0.6rem; text-align: left; vertical-align: top; }
+   .src-table th { background: #f5f3ff; color: #5b21b6; font-weight: 700; }
+   .src-table a { color: #6d28d9; text-decoration: underline; word-break: break-all; }
+  </style>
+ </head>
+ <body class="presentation-mode" style="--accent:#7c3aed; --accent-strong:#5b21b6; --accent-soft:#ede9fe; --accent-tint:#f5f3ff">
+  <main>
+
+   <!-- 1. 표지 -->
+   <section data-slide-index="0" data-slide-num="1" data-title="Cover" id="slide-1">
+    <div class="slide-content">
+     <p class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">2026학년도 중학교 3학년 과학 &bull; 지구과학 VII-1 부록</p>
+     <h1 class="text-4xl md:text-6xl font-black mb-6 text-slate-900 leading-tight">우리은하 사진 자료집</h1>
+     <div class="w-20 h-1 bg-violet-600 mx-auto my-8"></div>
+     <p class="text-2xl text-slate-600 font-medium">19강 부록 &mdash; 그림으로 보는 은하</p>
+     <p class="text-xl text-slate-500 font-bold mt-4">성단 &middot; 성운 &middot; 우리은하의 구조 &middot; 최초의 은하 지도</p>
+     <p class="slide-caption mt-6">모든 사진은 퍼블릭 도메인 또는 크리에이티브 커먼즈 라이선스 자료다. 사진마다 저작자와 라이선스를 함께 적었고, 마지막 장에 원본 주소를 모았다.</p>
+    </div>
+   </section>
+
+   <!-- 2. 우리은하 지도 -->
+   <section data-slide-index="1" data-slide-num="2" data-title="우리은하 상상도" id="slide-2" class="photo-slide">
+    <div class="slide-content">
+     <img class="sky-photo contain" src="img/gal_mw_map.jpg"
+          alt="우리은하를 위에서 내려다본 상상도. 가운데에 노란 막대 구조가 있고 그 둘레로 푸른 나선팔이 여러 겹 감겨 있다. 중심에서 아래쪽으로 떨어진 나선팔 곁에 태양의 위치가 작은 원으로 표시되어 있으며, 중심에서 1만 5천 광년, 3만 광년, 4만 5천 광년 간격의 동심원이 그려져 있다."/>
+     <div class="photo-cap">
+      <h2>우리은하를 밖에서 본다면</h2>
+      <p>우리는 은하 <b>안</b>에 있어 이 그림을 직접 찍을 수 없다. 전파와 적외선 관측을 모아 그린 상상도다. 아래쪽 가운데 <b>Sun</b> 표시가 태양계 &mdash; 중심에서 한참 바깥, 나선팔 곁이다.</p>
+      <p class="photo-credit">NASA/JPL-Caltech/R. Hurt (SSC-Caltech) &middot; 퍼블릭 도메인</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 3. 산개 성단 -->
+   <section data-slide-index="2" data-slide-num="3" data-title="산개 성단" id="slide-3" class="photo-slide">
+    <div class="slide-content">
+     <img class="sky-photo" src="img/gal_open_cluster.jpg"
+          alt="플레이아데스 성단. 파란빛을 내는 밝은 별 예닐곱 개가 느슨하게 모여 있고, 별 둘레에는 푸른 안개 같은 빛무리가 퍼져 있다. 배경에는 어두운 별들이 흩어져 있다."/>
+     <div class="photo-cap">
+      <h2>산개 성단 &mdash; 플레이아데스(M45)</h2>
+      <p>별이 <b>엉성하게</b> 흩어져 있고, 하나하나가 <b>파랗다</b>. 파란색은 표면 온도가 높다는 뜻이고(18강), 그런 별은 오래 살지 못한다 &mdash; 곧 <b>젊은 성단</b>이다. 나선팔에서 발견된다.</p>
+      <p class="photo-credit">NASA, ESA, AURA/Caltech, Palomar Observatory &middot; 퍼블릭 도메인</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 4. 반사 성운 (같은 사진, 다른 천체) -->
+   <section data-slide-index="3" data-slide-num="4" data-title="반사 성운" id="slide-4" class="photo-slide">
+    <div class="slide-content">
+     <img class="sky-photo pos-top" src="img/gal_open_cluster.jpg"
+          alt="플레이아데스 성단의 별 둘레에 퍼진 푸른 안개. 별에서 나온 빛이 주변 티끌에 부딪혀 흩어지며 결처럼 뻗은 무늬를 만들고 있다."/>
+     <div class="photo-cap">
+      <h2>반사 성운 &mdash; 같은 사진, 다른 천체</h2>
+      <p>앞 장과 <b>같은 사진</b>이다. 이번에는 별이 아니라 별 둘레의 <b>푸른 안개</b>를 보자. 성단이 지나가던 성간 티끌이 별빛을 <b>반사</b>해 보이는 것이다. 스스로 내는 빛이 아니므로 별이 사라지면 안개도 사라진다.</p>
+      <p class="photo-credit">NASA, ESA, AURA/Caltech, Palomar Observatory &middot; 퍼블릭 도메인</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 5. 구상 성단 -->
+   <section data-slide-index="4" data-slide-num="5" data-title="구상 성단" id="slide-5" class="photo-slide">
+    <div class="slide-content">
+     <img class="sky-photo" src="img/gal_globular.jpg"
+          alt="헤르쿨레스자리 구상 성단 M13. 수많은 별이 공 모양으로 빽빽하게 모여 가운데로 갈수록 밝아지고, 가장자리로 갈수록 별이 성기게 흩어진다. 별의 색은 대체로 누렇거나 붉다."/>
+     <div class="photo-cap">
+      <h2>구상 성단 &mdash; M13 (헤르쿨레스자리)</h2>
+      <p>수십만 개의 별이 <b>공 모양으로</b> 빽빽하다. 가운데는 너무 촘촘해 낱낱이 갈라지지도 않는다. 색은 대체로 <b>누렇거나 붉다</b> &mdash; 온도가 낮은 <b>늙은 별</b>이라는 뜻이다. 원반이 아니라 은하 중심부와 그 바깥에 분포한다.</p>
+      <p class="photo-credit">사진: Thedarksideobservatory (Wikimedia Commons) &middot; CC BY-SA 4.0</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 6. 방출 성운 -->
+   <section data-slide-index="5" data-slide-num="6" data-title="방출 성운" id="slide-6" class="photo-slide">
+    <div class="slide-content">
+     <img class="sky-photo" src="img/gal_emission.jpg"
+          alt="오리온 대성운. 붉고 주황빛이 도는 거대한 가스 구름이 화면을 가득 채우고, 가운데에 밝고 푸른 별 무리가 있으며 그 둘레로 가스가 날개처럼 펼쳐져 있다."/>
+     <div class="photo-cap">
+      <h2>방출 성운 &mdash; 오리온 대성운(M42)</h2>
+      <p>가운데의 <b>뜨거운 별</b>들이 주변 가스에 에너지를 주고, 가스가 <b>스스로</b> 붉은빛을 낸다. 반사 성운과 달리 자기 빛이다. 여기서 지금도 새 별이 태어나고 있다 &mdash; 성운은 별의 <b>재료</b>다.</p>
+      <p class="photo-credit">NASA, ESA, M. Robberto (STScI/ESA) &amp; the Hubble Space Telescope Orion Treasury Project Team &middot; 퍼블릭 도메인</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 7. 암흑 성운 -->
+   <section data-slide-index="6" data-slide-num="7" data-title="암흑 성운" id="slide-7" class="photo-slide">
+    <div class="slide-content">
+     <img class="sky-photo" src="img/gal_dark.jpg"
+          alt="말머리 성운과 불꽃 성운. 붉게 빛나는 넓은 가스 구름을 배경으로, 말의 머리를 닮은 검은 덩어리가 실루엣처럼 솟아 있다. 왼쪽 아래에는 검은 띠가 갈라놓은 주황색 불꽃 모양의 성운이 있다."/>
+     <div class="photo-cap">
+      <h2>암흑 성운 &mdash; 말머리 성운(B33)</h2>
+      <p>말머리 자리에 <b>아무것도 없는 것이 아니다</b>. 짙은 티끌 구름이 뒤쪽의 붉은 빛을 <b>가려</b> 검게 보일 뿐이다. 없어서 검은 것과 가려서 검은 것을 어떻게 구별할까 &mdash; 답은 그 뒤에서 오는 빛이 <b>붉게 새어 나오는지</b>를 보는 것이다.</p>
+      <p class="photo-credit">사진: Gianni Lacroce (Wikimedia Commons) &middot; CC0 1.0</p>
+     </div>
+    </div>
+   </section>
+
+   <!-- 8. 허셜의 지도 -->
+   <section data-slide-index="7" data-slide-num="8" data-title="허셜의 은하 지도" id="slide-8">
+    <div class="slide-content">
+     <h2>1785년 &mdash; 사람이 처음 그린 은하 지도</h2>
+     <div class="flex flex-col md:flex-row gap-6 items-center max-w-5xl w-full mt-3">
+      <div class="w-full md:w-1/4">
+       <img src="img/gal_herschel.jpg" style="width:100%;border-radius:1rem;box-shadow:0 8px 22px rgba(0,0,0,0.16)"
+            alt="윌리엄 허셜의 초상화. 18세기 복장을 한 남성이 정면을 바라보고 있다."/>
+       <p class="slide-caption mt-2">윌리엄 허셜(1738&ndash;1822)</p>
+      </div>
+      <div class="w-full md:w-3/4">
+       <img src="img/gal_herschel_map.png" style="width:100%;background:#fff;border:1px solid #e2e8f0;border-radius:1rem;padding:0.6rem"
+            alt="허셜이 1785년에 그린 우리은하의 단면도. 수많은 작은 별표가 납작하고 길쭉한 렌즈 모양으로 모여 있고, 오른쪽은 두 갈래로 갈라져 있다. 한가운데에 조금 큰 별표가 하나 있어 태양의 위치를 나타낸다."/>
+       <p class="slide-caption mt-2">허셜 남매가 하늘을 683개 구역으로 나눠 별을 <b>일일이 세어</b> 그린 우리은하의 단면. 가운데 조금 큰 별이 태양이다.</p>
+      </div>
+     </div>
+     <div class="ask max-w-4xl w-full mt-4"><p>허셜의 지도에서 태양은 한가운데에 있다. 무엇을 몰랐기 때문에 이런 그림이 나왔을까? (힌트: 이 자료집 7쪽의 검은 구름)</p></div>
+     <p class="photo-credit slide-caption mt-2">초상: E. S. Holden, <i>Sir William Herschel: His Life and Works</i>(1881) &middot; 지도: Herschel, 1785 &mdash; 둘 다 퍼블릭 도메인</p>
+    </div>
+   </section>
+
+   <!-- 9. 출처 -->
+   <section data-slide-index="8" data-slide-num="9" data-title="사진 출처" id="slide-9">
+    <div class="slide-content">
+     <h2>사진 출처와 라이선스</h2>
+     <div class="max-w-5xl w-full mt-3">
+      <table class="src-table">
+       <thead><tr><th>쪽</th><th>사진</th><th>저작자</th><th>라이선스</th></tr></thead>
+       <tbody>
+        <tr><td>2</td><td>우리은하 상상도</td><td>NASA/JPL-Caltech/R. Hurt</td><td>Public domain</td></tr>
+        <tr><td>3&middot;4</td><td>플레이아데스 성단(M45)</td><td>NASA, ESA, AURA/Caltech, Palomar Observatory</td><td>Public domain</td></tr>
+        <tr><td>5</td><td>구상 성단 M13</td><td>Thedarksideobservatory</td><td>CC BY-SA 4.0</td></tr>
+        <tr><td>6</td><td>오리온 대성운(M42)</td><td>NASA, ESA, M. Robberto (STScI/ESA), HST Orion Treasury Project Team</td><td>Public domain</td></tr>
+        <tr><td>7</td><td>말머리 성운(B33)&middot;불꽃 성운</td><td>Gianni Lacroce</td><td>CC0 1.0</td></tr>
+        <tr><td>8</td><td>윌리엄 허셜 초상</td><td>E. S. Holden(1881)</td><td>Public domain</td></tr>
+        <tr><td>8</td><td>허셜의 은하 단면도(1785)</td><td>W. &amp; C. Herschel</td><td>Public domain</td></tr>
+        <tr><td>19강 2쪽</td><td>은하수 실경</td><td>Chad Powell</td><td>별도 이용 허락</td></tr>
+       </tbody>
+      </table>
+     </div>
+     <p class="slide-caption mt-3">원본은 모두 Wikimedia Commons에 있고, 파일명과 원본 주소는 <code>img/CREDITS_galaxy.json</code>에 있다. CC BY-SA 자료를 다시 쓸 때는 <b>같은 라이선스로</b> 공유해야 한다. &middot; <a href="19_milky_way.html" class="underline">19강 본문으로 돌아가기</a></p>
+    </div>
+   </section>
+
+  </main>
+  <script src="js/slide_engine.js"></script>
+  <script src="js/lesson_patterns.js"></script>
+ </body>
+</html>
