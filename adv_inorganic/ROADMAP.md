@@ -57,16 +57,17 @@ Molecular Symmetry → Group Theory → Representations → SALCs / Selection Ru
 | 06 | MO Theory: Polyatomics | `06.html` | Complete (15 sections) |
 | 07 | Crystal Field Theory | `07.html` | Complete (14 sections + applet) |
 | 08 | Ligand Field Theory | `08.html` | Complete (15 sections) |
-| 09 | Electronic Spectra | `09.html` | Outline (two sessions) |
-| 10 | Spin–Orbit & Relativistic Effects | `10.html` | Outline |
+| 09 | Electronic Spectra | `09.html` | Complete (20 sections + applet) |
+| 10 | Spin–Orbit Coupling & Magnetism | `10.html` | Outline |
+| 10B | Relativistic Effects in Chemical Bonding | `10b.html` | Complete (21 sections + applet) |
 | 11 | Organometallic Bonding | `11.html` | Outline |
 | 12 | Organometallic Reactions | `12.html` | Outline |
 | 13 | Homogeneous Catalysis | `13.html` | Outline |
 | 14 | Solid-State & Band Theory | `14.html` | Outline |
 | 15 | Modern Inorganic Materials | `15.html` | Outline |
 
-Written in full: **9** (01, 02, 03, 04, 05, 06, 07, 08 + Bonus 01).
-Outlines: **10** (7 modules + 3 bonus).
+Written in full: **11** (01–09, 10B + Bonus 01).
+Outlines: **8** (5 modules + 3 bonus).
 Every module has a page that opens, and all of them are surfaced in `index.html`.
 
 ### File Numbering Now Matches Module Numbering (resolved)
@@ -357,9 +358,48 @@ The difference between Russell–Saunders and `jj` coupling gets its proper plac
 7. Quenching of orbital angular momentum
 8. The effective magnetic moment
 9. The Zeeman effect
-10. Relativistic chemistry — contraction of `s`, `p_{1/2}`; expansion of `d`, `f`
-11. Cases — the colour of gold · the melting point of mercury · the inert-pair
-    effect in lead
+10. Where relativity enters — **moved to Module 10B**, which takes items 1–5 of
+    this module as its input. Item 2 (`H_SO`) is itself one of the three
+    relativistic effects catalogued there, so 10 must be read before 10B.
+
+**Why 10B is a separate module and not two more sections here.** Module 10's axis
+is the *atom*: coupling schemes, moments, the Zeeman effect. Relativity in
+*bonding* — bond lengths, `Δo` down a group, aurophilicity, catalysis — is a
+different axis and needs the whole of Modules 05–08 as input, not just this one.
+Squeezed in as §10–11 it was two bullet points; the course was applying `3d`
+rules to `5d` metals with nothing anywhere to say why that is wrong.
+
+## Module 10B — Relativistic Effects in Chemical Bonding  ✔ Complete
+**File**: `10b.html` (21 sections) · applet `../js/adv_inorganic_10b.js` · check `../tests/adv10b_check.js`
+**Central question**: Every bonding model so far has been non-relativistic. Where does that break, and what does it cost?
+
+Numbered `10b` rather than `11` on purpose: inserting it as a new Module 11 would
+renumber 11–15, their files, their `index.html` links and every cross-reference in
+this document. It is Module 10's partner, not a course of its own.
+
+1. One dimensionless number — `v/c = Zα`, `γ`, the 18 % contraction of Au `1s`
+2. Three effects from one equation — mass–velocity, Darwin, spin–orbit
+3. The direct effect — `s`, `p_{1/2}` contract; orthogonality carries it to `6s`; CsAu
+4. The indirect effect — `d`, `f` expand; the `6s`–`5d` gap closes from both ends
+5. Spin–orbit as a *bonding* term — `ζ ∝ Z_eff⁴`; Ir phosphorescence, Tl₂/Pb₂
+6. **Applet** — the relativistic dial and the gold maximum (Desclaux `6s` ratios)
+7. Not the lanthanide contraction — Zr/Hf; how the two are separated (`c → ∞`)
+8. Case — the colour of gold (`5d→6s` edge 2.4 eV vs Ag 3.7 eV)
+9. Case — liquid mercury (Calvo *et al.* 2013: relativity is worth ~105 K)
+10. Case — the inert-pair effect, stated as promotion energy vs bond energy
+11. Bond lengths and energies — Au–H shorter than Ag–H
+12. Relativity inside the ligand field — `Δo` down a group, low-spin `4d`/`5d`,
+    square-planar Pt(II), the nephelauxetic `β` of Module 09 §18 given a cause
+13. Aurophilicity — dispersion plus relativity; luminescent only when aggregated
+14. Gold and platinum catalysis — π acid, and why Au avoids oxidative addition
+15. `4f` against `5f` — uranyl, and the An/Ln separation problem
+16. Superheavy elements — Cn, Fl, Og; where column analogies break
+17. How a calculation handles it — ECP · ZORA/DKH · four-component; the
+    non-additivity of relativity and correlation
+18. Competencies
+
+**Downstream**: Module 11 (why `5d` organometallics differ from `4d`), Module 13
+(gold and platinum catalysis), Module 15 (heavy-element materials).
 
 ---
 
